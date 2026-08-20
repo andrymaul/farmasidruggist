@@ -1,0 +1,6 @@
+{
+  "name": "FARMASIDRUGGIST",
+  "description": "Aplikasi Informasi Obat & Cek Interaksi Obat (DDInter Database) untuk Farmasis, Klinik, dan Tenaga Kesehatan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
