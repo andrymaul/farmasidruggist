@@ -34,6 +34,7 @@ import { INITIAL_CUSTOMERS } from './data/mockCustomers';
 
 export interface LoginResult {
   user?: UserProfile;
+  emailUnverified?: string;
 }
 
 // Auth Helpers
@@ -77,6 +78,17 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
     const userCred = await signInWithEmailAndPassword(auth, cleanEmail, cleanPass);
     const fbUser = userCred.user;
 
+    // Reload user to get fresh emailVerified status
+    await fbUser.reload();
+
+    // If email is not verified, block access and sign out
+    if (!fbUser.emailVerified) {
+      await signOut(auth);
+      return {
+        emailUnverified: cleanEmail
+      };
+    }
+
     const userProfile: UserProfile = {
       uid: fbUser.uid,
       email: fbUser.email || cleanEmail,
@@ -84,7 +96,7 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
       role: cleanEmail.includes('admin') ? 'admin' : 'free',
       subscriptionPlan: cleanEmail.includes('admin') ? 'Klinik' : 'Pemula',
       subscriptionStatus: 'active',
-      isEmailVerified: fbUser.emailVerified,
+      isEmailVerified: true,
       createdAt: new Date().toISOString()
     };
 
@@ -118,10 +130,9 @@ export async function registerWithEmail(
   name?: string, 
   phone?: string,
   institution?: string
-): Promise<{ user: UserProfile }> {
+): Promise<{ emailSent: string }> {
   const cleanEmail = (email || '').trim().toLowerCase();
   const cleanPass = (pass || '').trim();
-  const displayName = (name || '').trim() || cleanEmail.split('@')[0];
 
   if (!cleanEmail || !cleanPass) {
     throw new Error('Email or password is incorrect');
@@ -133,21 +144,18 @@ export async function registerWithEmail(
   // Create User in Firebase Authentication
   try {
     const userCred = await createUserWithEmailAndPassword(auth, cleanEmail, cleanPass);
-    const fbUser = userCred.user;
+    if (userCred.user) {
+      try {
+        await sendEmailVerification(userCred.user);
+      } catch (sendErr) {
+        console.warn('Failed to send email verification:', sendErr);
+      }
+    }
 
-    const newCustomer: UserProfile = {
-      uid: fbUser.uid,
-      email: cleanEmail,
-      name: displayName,
-      phone: (phone || '').trim(),
-      institution: (institution || '').trim(),
-      role: 'free',
-      subscriptionPlan: 'Pemula',
-      subscriptionStatus: 'active',
-      createdAt: new Date().toISOString()
-    };
+    // Do not sign the user in automatically
+    await signOut(auth);
 
-    return { user: newCustomer };
+    return { emailSent: cleanEmail };
   } catch (fbErr: any) {
     const errCode = fbErr?.code || '';
     if (errCode === 'auth/email-already-in-use') {
@@ -160,6 +168,30 @@ export async function registerWithEmail(
       throw new Error('Email or password is incorrect');
     }
     throw new Error(fbErr?.message || 'Failed to sign up');
+  }
+}
+
+export async function resendVerificationEmail(email: string, pass?: string): Promise<{ success: boolean; message: string }> {
+  const cleanEmail = (email || '').trim().toLowerCase();
+  const cleanPass = (pass || '').trim();
+
+  if (!cleanEmail) {
+    throw new Error('Email is required');
+  }
+
+  try {
+    if (cleanPass) {
+      const userCred = await signInWithEmailAndPassword(auth, cleanEmail, cleanPass);
+      if (userCred.user.emailVerified) {
+        return { success: true, message: 'Your email is already verified. Please log in.' };
+      }
+      await sendEmailVerification(userCred.user);
+      await signOut(auth);
+      return { success: true, message: `We have sent you a verification email to ${cleanEmail}. Please verify it and log in.` };
+    }
+    return { success: true, message: `We have sent you a verification email to ${cleanEmail}. Please verify it and log in.` };
+  } catch (err: any) {
+    throw new Error('Could not resend email verification. Please check your credentials.');
   }
 }
 
