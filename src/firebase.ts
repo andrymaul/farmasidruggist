@@ -174,35 +174,6 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
       user: verifiedProfile
     };
   } catch (firebaseErr: any) {
-    const errCode = firebaseErr?.code || '';
-
-    // If Firebase user-not-found, check seeded mock customers (e.g. demo accounts)
-    if (errCode === 'auth/user-not-found' || errCode === 'auth/invalid-credential') {
-      let customerUsers: UserProfile[] = [];
-      try {
-        const savedCusts = localStorage.getItem('farmasi_customer_subscriptions');
-        if (savedCusts !== null) {
-          const parsed = JSON.parse(savedCusts);
-          if (Array.isArray(parsed)) customerUsers = parsed;
-        } else {
-          customerUsers = INITIAL_CUSTOMERS;
-        }
-      } catch (e) {}
-
-      const matchedMock = customerUsers.find(c => c.email && c.email.trim().toLowerCase() === cleanEmail);
-      if (matchedMock) {
-        const expectedPass = (matchedMock.password || 'CustPass#' + matchedMock.uid.slice(-4)).trim();
-        if (cleanPass === expectedPass || cleanPass === 'admin123' || cleanPass === '123456') {
-          return {
-            user: {
-              ...matchedMock,
-              isEmailVerified: true
-            }
-          };
-        }
-      }
-    }
-
     throw new Error(mapFirebaseAuthError(firebaseErr));
   }
 }
