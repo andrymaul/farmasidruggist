@@ -455,33 +455,18 @@ export default function App() {
 
   // Listen to Firebase Auth state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser && firebaseUser.email) {
-        // Block unverified email users from automatic dashboard entry
-        if (!firebaseUser.emailVerified) {
-          try {
-            await logoutUser();
-          } catch (e) {}
-          setCurrentUser((prev) => {
-            if (prev && prev.email.toLowerCase() === firebaseUser.email?.toLowerCase() && prev.isEmailVerified === false) {
-              return null;
-            }
-            return prev;
-          });
-          return;
-        }
-
         const email = firebaseUser.email;
         setCurrentUser((prev) => {
-          if (prev && prev.email.toLowerCase() === email.toLowerCase() && prev.isEmailVerified) return prev;
+          if (prev && prev.email.toLowerCase() === email.toLowerCase()) return prev;
           return {
             uid: firebaseUser.uid,
             email: email,
-            name: firebaseUser.displayName || email.split('@')[0] || 'Pengguna',
+            name: firebaseUser.displayName || email.split('@')[0] || 'User',
             role: email.includes('admin') ? 'admin' : 'free',
             subscriptionPlan: email.includes('admin') ? 'Klinik' : 'Pemula',
             subscriptionStatus: 'active',
-            isEmailVerified: true,
             createdAt: new Date().toISOString()
           };
         });
@@ -491,7 +476,6 @@ export default function App() {
   }, []);
 
   const handleLoginSuccess = (user: UserProfile) => {
-    handleRegisterOrSyncCustomer(user);
     setCurrentUser(user);
     setShowAuthModal(false);
     setActiveTab('dashboard');

@@ -20,27 +20,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
   const [institution, setInstitution] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
-  // Verification states
-  const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
-  const [resendLoading, setResendLoading] = useState(false);
-  const [resendSuccess, setResendSuccess] = useState<string | null>(null);
-  const [resendCooldown, setResendCooldown] = useState(0);
-
-  // Timer effect for resend cooldown
-  useEffect(() => {
-    if (resendCooldown <= 0) return;
-    const timer = setInterval(() => {
-      setResendCooldown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [resendCooldown]);
 
   const handleGoogleLogin = async () => {
     setLoading(true);
@@ -52,7 +31,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
       }
       onLoginSuccess(user);
     } catch (err: any) {
-      setError(err?.message || 'Gagal masuk dengan Google.');
+      setError(err?.message || 'Email or password is incorrect');
     } finally {
       setLoading(false);
     }
@@ -62,15 +41,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setResendSuccess(null);
 
     try {
       if (isRegister) {
         const res = await registerWithEmail(email, password, name, phone, institution);
-        if (res.emailSent) {
-          setUnverifiedEmail(res.emailSent);
-          setResendCooldown(30); // 30s cooldown after registration
-        } else if (res.user) {
+        if (res.user) {
           if (onNewAccountCreated) {
             onNewAccountCreated(res.user);
           }
@@ -83,147 +58,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
             onNewAccountCreated(res.user);
           }
           onLoginSuccess(res.user);
-        } else if (res.emailUnverified) {
-          setUnverifiedEmail(res.emailUnverified);
-          setError('Email Anda belum diverifikasi. Silakan periksa inbox / spam Anda.');
         }
       }
     } catch (err: any) {
-      setError(err?.message || 'Gagal memproses permintaan Anda.');
+      setError(err?.message || 'Email or password is incorrect');
     } finally {
       setLoading(false);
     }
   };
-
-  const handleResendEmail = async () => {
-    if (!unverifiedEmail || resendCooldown > 0 || resendLoading) return;
-    setResendLoading(true);
-    setError(null);
-    setResendSuccess(null);
-
-    try {
-      const res = await resendVerificationEmail(unverifiedEmail, password);
-      setResendSuccess(res.message);
-      setResendCooldown(45); // 45s cooldown
-    } catch (err: any) {
-      setError(err?.message || 'Gagal mengirim ulang email verifikasi.');
-    } finally {
-      setResendLoading(false);
-    }
-  };
-
-  const handleProceedToLogin = () => {
-    if (unverifiedEmail) {
-      setEmail(unverifiedEmail);
-    }
-    setUnverifiedEmail(null);
-    setIsRegister(false);
-    setError(null);
-    setResendSuccess(null);
-  };
-
-  // UNVERIFIED EMAIL VIEW
-  if (unverifiedEmail) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fadeIn">
-        <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200 p-6 sm:p-7 space-y-5 text-center">
-          
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition-colors z-10 cursor-pointer"
-            title="Tutup Modal"
-          >
-            <X className="w-5 h-5" />
-          </button>
-
-          {/* Mail Icon Animation */}
-          <div className="relative w-20 h-20 mx-auto">
-            <div className="w-20 h-20 rounded-full bg-teal-50 border-2 border-teal-200/80 flex items-center justify-center text-[#0f766e] shadow-inner">
-              <Mail className="w-10 h-10 animate-bounce text-[#0f766e]" />
-            </div>
-            <div className="absolute -bottom-1 -right-1 bg-amber-500 text-white p-1.5 rounded-full shadow-md">
-              <Sparkles className="w-3.5 h-3.5" />
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-extrabold rounded-full">
-              Email Verification
-            </span>
-            <h2 className="text-xl font-black text-slate-900">Verifikasi Email / Email Verification</h2>
-            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 font-medium text-xs leading-relaxed">
-              We have sent you a verification email to <span className="font-bold text-teal-800 font-mono break-all">{unverifiedEmail}</span>. Please verify it and log in.
-            </div>
-          </div>
-
-          {/* Spam notice box */}
-          <div className="p-3.5 bg-teal-50/70 border border-teal-200/70 rounded-2xl text-left space-y-1.5 text-xs">
-            <div className="flex items-center gap-1.5 font-bold text-[#0f766e]">
-              <AlertCircle className="w-4 h-4 shrink-0 text-[#0f766e]" />
-              <span>Petunjuk / Notice:</span>
-            </div>
-            <ul className="text-[11px] text-slate-600 space-y-1 pl-5 list-disc leading-relaxed">
-              <li>Silakan buka inbox email Anda dan klik tautan verifikasi.</li>
-              <li>Jika tidak ada di Inbox, mohon periksa folder <strong>Spam</strong>, <strong>Junk</strong>, atau tab <strong>Promotions / Updates</strong>.</li>
-            </ul>
-          </div>
-
-          {/* Success Banner */}
-          {resendSuccess && (
-            <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold rounded-xl flex items-center gap-2 text-left animate-fadeIn">
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
-              <span>{resendSuccess}</span>
-            </div>
-          )}
-
-          {/* Error Banner */}
-          {error && (
-            <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold rounded-xl text-center">
-              {error}
-            </div>
-          )}
-
-          {/* Action Buttons */}
-          <div className="space-y-2.5 pt-1">
-            <button
-              onClick={handleProceedToLogin}
-              className="w-full py-3 bg-[#0f766e] hover:bg-[#115e59] text-white font-black rounded-xl shadow-md transition-all text-xs flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
-            >
-              <CheckCircle2 className="w-4 h-4" />
-              <span>Login</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handleResendEmail}
-              disabled={resendLoading || resendCooldown > 0}
-              className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 disabled:opacity-60 disabled:cursor-not-allowed text-slate-800 font-bold rounded-xl border border-slate-300 transition-all text-xs flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${resendLoading ? 'animate-spin' : ''}`} />
-              <span>
-                {resendLoading 
-                  ? 'Mengirim Ulang / Sending...' 
-                  : resendCooldown > 0 
-                    ? `Kirim Ulang / Resend (${resendCooldown}s)` 
-                    : 'Kirim Ulang Email Verifikasi / Resend'}
-              </span>
-            </button>
-
-            <button
-              onClick={() => {
-                setUnverifiedEmail(null);
-                setError(null);
-                setResendSuccess(null);
-              }}
-              className="text-[11px] text-slate-500 hover:text-slate-800 font-semibold cursor-pointer underline hover:no-underline pt-1 block mx-auto"
-            >
-              Ganti Email / Change Email
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   // MAIN LOGIN / REGISTER VIEW
   return (
