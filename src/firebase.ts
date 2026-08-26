@@ -81,8 +81,13 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
     // Reload user to get fresh emailVerified status
     await fbUser.reload();
 
-    // If email is not verified, block access and sign out
+    // If email is not verified, automatically trigger a new verification email, block access, and sign out
     if (!fbUser.emailVerified) {
+      try {
+        await sendEmailVerification(fbUser);
+      } catch (sendErr) {
+        console.warn('Could not trigger verification email:', sendErr);
+      }
       await signOut(auth);
       return {
         emailUnverified: cleanEmail
