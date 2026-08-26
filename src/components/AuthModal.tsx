@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { UserProfile } from '../types';
 import { Logo } from './Logo';
-import { X, Mail, Phone, Lock, Eye, EyeOff } from 'lucide-react';
+import { X, Mail, Phone, Lock, Eye, EyeOff, Building2 } from 'lucide-react';
 import { loginWithEmail, registerWithEmail, loginWithGoogle } from '../firebase';
 
 interface AuthModalProps {
@@ -16,6 +16,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
   const [isRegister, setIsRegister] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [institution, setInstitution] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
@@ -42,7 +43,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
     setError(null);
     try {
       if (isRegister) {
-        const res = await registerWithEmail(email, password, name, phone);
+        const res = await registerWithEmail(email, password, name, phone, institution);
         if (res.user) {
           if (onNewAccountCreated) {
             onNewAccountCreated(res.user);
@@ -192,6 +193,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
                   placeholder="apt. Budi Santoso, S.Farm"
                   className="w-full p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-slate-900 font-bold focus:outline-none focus:border-teal-600 focus:bg-white transition-colors"
                 />
+              </div>
+
+              <div>
+                <label className="font-extrabold text-slate-700 block mb-1">Instansi / Klinik / RS / Apotek</label>
+                <div className="relative flex items-center">
+                  <Building2 className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                  <input
+                    type="text"
+                    required
+                    value={institution}
+                    onChange={(e) => setInstitution(e.target.value)}
+                    placeholder="Contoh: RS Medika Sejahtera / Apotek K-24 / Mandiri"
+                    className="w-full pl-9 pr-3 py-2.5 bg-slate-50 rounded-xl border border-slate-200 text-slate-900 font-bold focus:outline-none focus:border-teal-600 focus:bg-white transition-colors"
+                  />
+                </div>
               </div>
 
               <div>

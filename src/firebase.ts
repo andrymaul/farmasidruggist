@@ -162,12 +162,14 @@ export async function registerWithEmail(
   email: string, 
   pass: string, 
   name?: string, 
-  phone?: string
+  phone?: string,
+  institution?: string
 ): Promise<{ user: UserProfile; emailSent?: string }> {
   const cleanEmail = (email || '').trim().toLowerCase();
   const cleanPass = (pass || '').trim();
   const displayName = (name || '').trim() || cleanEmail.split('@')[0];
   const userPhone = (phone || '').trim();
+  const userInst = (institution || '').trim();
 
   if (!cleanEmail || !cleanPass) {
     throw new Error('Email dan kata sandi wajib diisi.');
@@ -180,6 +182,7 @@ export async function registerWithEmail(
     name: displayName,
     password: cleanPass,
     phone: userPhone,
+    institution: userInst,
     role: 'free',
     subscriptionPlan: 'Pemula',
     subscriptionStatus: 'active',
