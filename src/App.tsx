@@ -48,7 +48,14 @@ export default function App() {
     try {
       const savedUser = localStorage.getItem('farmasi_current_user');
       if (savedUser === 'null_session') return null;
-      if (savedUser) return JSON.parse(savedUser);
+      if (savedUser) {
+        const parsed = JSON.parse(savedUser);
+        if (parsed && parsed.isEmailVerified === false) {
+          localStorage.setItem('farmasi_current_user', 'null_session');
+          return null;
+        }
+        return parsed;
+      }
     } catch (e) {
       console.error('Failed to parse saved user session:', e);
     }
@@ -448,18 +455,33 @@ export default function App() {
 
   // Listen to Firebase Auth state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser && firebaseUser.email) {
+        // Block unverified email users from automatic dashboard entry
+        if (!firebaseUser.emailVerified) {
+          try {
+            await logoutUser();
+          } catch (e) {}
+          setCurrentUser((prev) => {
+            if (prev && prev.email.toLowerCase() === firebaseUser.email?.toLowerCase() && prev.isEmailVerified === false) {
+              return null;
+            }
+            return prev;
+          });
+          return;
+        }
+
         const email = firebaseUser.email;
         setCurrentUser((prev) => {
-          if (prev && prev.email.toLowerCase() === email.toLowerCase()) return prev;
+          if (prev && prev.email.toLowerCase() === email.toLowerCase() && prev.isEmailVerified) return prev;
           return {
             uid: firebaseUser.uid,
             email: email,
             name: firebaseUser.displayName || email.split('@')[0] || 'Pengguna',
-            role: email.includes('admin') ? 'admin' : 'customer',
-            subscriptionPlan: email.includes('admin') ? 'Klinik' : 'Pro',
+            role: email.includes('admin') ? 'admin' : 'free',
+            subscriptionPlan: email.includes('admin') ? 'Klinik' : 'Pemula',
             subscriptionStatus: 'active',
+            isEmailVerified: true,
             createdAt: new Date().toISOString()
           };
         });
