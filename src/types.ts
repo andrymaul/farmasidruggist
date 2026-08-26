@@ -133,6 +133,7 @@ export interface UserProfile {
   canAccessRenal?: boolean;
   canAccessPolypharmacy?: boolean;
   expiresAt?: string;
+  isEmailVerified?: boolean;
   createdAt?: string;
 }
 

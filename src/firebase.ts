@@ -37,16 +37,40 @@ export interface LoginResult {
   emailUnverified?: string;
 }
 
+// Helper to map Firebase Auth error codes to user-friendly Indonesian messages
+export function mapFirebaseAuthError(err: any): string {
+  const code = err?.code || '';
+  switch (code) {
+    case 'auth/email-already-in-use':
+      return 'Email ini sudah terdaftar. Jika Anda belum memverifikasi email, silakan kirim ulang tautan verifikasi.';
+    case 'auth/invalid-email':
+      return 'Format alamat email tidak valid. Periksa kembali penulisan email Anda.';
+    case 'auth/weak-password':
+      return 'Kata sandi terlalu pendek. Gunakan minimal 6 karakter kombinasi huruf dan angka.';
+    case 'auth/user-not-found':
+      return 'Akun dengan alamat email ini belum terdaftar. Silakan daftar akun baru terlebih dahulu.';
+    case 'auth/wrong-password':
+    case 'auth/invalid-credential':
+      return 'Email atau kata sandi yang Anda masukkan salah. Silakan periksa kembali.';
+    case 'auth/too-many-requests':
+      return 'Terlalu banyak percobaan gagal. Silakan tunggu beberapa saat sebelum mencoba kembali.';
+    case 'auth/network-request-failed':
+      return 'Gagal terhubung ke server autentikasi. Pastikan koneksi internet Anda aktif.';
+    default:
+      return err?.message || 'Terjadi kesalahan pada proses autentikasi. Silakan coba beberapa saat lagi.';
+  }
+}
+
 // Auth Helpers
 export async function loginWithEmail(email: string, pass: string): Promise<LoginResult> {
   const cleanEmail = (email || '').trim().toLowerCase();
   const cleanPass = (pass || '').trim();
 
   if (!cleanEmail || !cleanPass) {
-    throw new Error('Silakan masukkan alamat email dan password Anda.');
+    throw new Error('Silakan masukkan alamat email dan kata sandi Anda.');
   }
 
-  // 1. Check Admin User database
+  // 1. Check Admin User database (Admins can login directly)
   let adminUsers: AdminUser[] = INITIAL_ADMIN_USERS;
   try {
     const savedAdmins = localStorage.getItem('farmasi_admin_users');
@@ -66,30 +90,51 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
           role: 'admin',
           subscriptionPlan: 'Klinik',
           subscriptionStatus: 'active',
+          isEmailVerified: true,
           createdAt: matchedAdmin.createdAt || new Date().toISOString()
         }
       };
     } else {
-      throw new Error('Password untuk akun Admin ini salah. Silakan periksa kembali kata sandi Anda.');
+      throw new Error('Kata sandi untuk akun Admin ini salah. Silakan periksa kembali kata sandi Anda.');
     }
   }
 
-  // 2. Check Customer Subscriptions database
-  let customerUsers: UserProfile[] = [];
+  // 2. Firebase Cloud Authentication & Strict Email Verification Check
   try {
-    const savedCusts = localStorage.getItem('farmasi_customer_subscriptions');
-    if (savedCusts !== null) {
-      const parsed = JSON.parse(savedCusts);
-      if (Array.isArray(parsed)) customerUsers = parsed;
-    } else {
-      customerUsers = INITIAL_CUSTOMERS;
-    }
-  } catch (e) {}
+    const userCred = await signInWithEmailAndPassword(auth, cleanEmail, cleanPass);
+    const fbUser = userCred.user;
 
-  const matchedCustomer = customerUsers.find(c => c.email && c.email.trim().toLowerCase() === cleanEmail);
-  if (matchedCustomer) {
-    const expectedPass = (matchedCustomer.password || 'CustPass#' + matchedCustomer.uid.slice(-4)).trim();
-    if (cleanPass === expectedPass || cleanPass === 'admin123' || cleanPass === '123456') {
+    // Reload Firebase user to fetch freshest emailVerified flag
+    await fbUser.reload();
+
+    if (!fbUser.emailVerified) {
+      // User hasn't verified their email yet!
+      await signOut(auth);
+      return {
+        emailUnverified: cleanEmail
+      };
+    }
+
+    // Email IS verified! Check/sync with customer subscriptions database
+    let customerUsers: UserProfile[] = [];
+    try {
+      const savedCusts = localStorage.getItem('farmasi_customer_subscriptions');
+      if (savedCusts !== null) {
+        const parsed = JSON.parse(savedCusts);
+        if (Array.isArray(parsed)) customerUsers = parsed;
+      } else {
+        customerUsers = INITIAL_CUSTOMERS;
+      }
+    } catch (e) {}
+
+    const matchedCustomer = customerUsers.find(c => c.email && c.email.trim().toLowerCase() === cleanEmail);
+    if (matchedCustomer) {
+      // Mark verified in local storage
+      matchedCustomer.isEmailVerified = true;
+      try {
+        localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(customerUsers));
+      } catch (e) {}
+
       return {
         user: {
           uid: matchedCustomer.uid,
@@ -107,39 +152,58 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
           canAccessRenal: matchedCustomer.canAccessRenal,
           canAccessPolypharmacy: matchedCustomer.canAccessPolypharmacy,
           expiresAt: matchedCustomer.expiresAt,
+          isEmailVerified: true,
           createdAt: matchedCustomer.createdAt || new Date().toISOString()
         }
       };
-    } else {
-      throw new Error('Password untuk akun ini salah. Silakan periksa kembali kata sandi Anda.');
     }
-  }
 
-  // 3. Fallback to Firebase Cloud Authentication
-  try {
-    const userCred = await signInWithEmailAndPassword(auth, cleanEmail, cleanPass);
-    const user = userCred.user;
+    // Default authenticated customer profile
+    const verifiedProfile: UserProfile = {
+      uid: fbUser.uid,
+      email: fbUser.email || cleanEmail,
+      name: fbUser.displayName || cleanEmail.split('@')[0],
+      role: 'free',
+      subscriptionPlan: 'Pemula',
+      subscriptionStatus: 'active',
+      isEmailVerified: true,
+      createdAt: new Date().toISOString()
+    };
 
     return {
-      user: {
-        uid: user.uid,
-        email: user.email || cleanEmail,
-        name: user.displayName || cleanEmail.split('@')[0],
-        role: cleanEmail.includes('admin') ? 'admin' : 'free',
-        subscriptionPlan: cleanEmail.includes('admin') ? 'Pro' : 'Pemula',
-        subscriptionStatus: 'active',
-        createdAt: new Date().toISOString()
-      }
+      user: verifiedProfile
     };
   } catch (firebaseErr: any) {
     const errCode = firebaseErr?.code || '';
-    if (errCode === 'auth/wrong-password' || errCode === 'auth/invalid-credential') {
-      throw new Error('Password yang Anda masukkan salah. Silakan periksa kembali.');
-    } else if (errCode === 'auth/user-not-found') {
-      throw new Error('Akun dengan email ini belum terdaftar. Silakan buat akun baru terlebih dahulu.');
-    } else {
-      throw new Error('Email atau password tidak sesuai. Pastikan akun sudah terdaftar di sistem.');
+
+    // If Firebase user-not-found, check seeded mock customers (e.g. demo accounts)
+    if (errCode === 'auth/user-not-found' || errCode === 'auth/invalid-credential') {
+      let customerUsers: UserProfile[] = [];
+      try {
+        const savedCusts = localStorage.getItem('farmasi_customer_subscriptions');
+        if (savedCusts !== null) {
+          const parsed = JSON.parse(savedCusts);
+          if (Array.isArray(parsed)) customerUsers = parsed;
+        } else {
+          customerUsers = INITIAL_CUSTOMERS;
+        }
+      } catch (e) {}
+
+      const matchedMock = customerUsers.find(c => c.email && c.email.trim().toLowerCase() === cleanEmail);
+      if (matchedMock) {
+        const expectedPass = (matchedMock.password || 'CustPass#' + matchedMock.uid.slice(-4)).trim();
+        if (cleanPass === expectedPass || cleanPass === 'admin123' || cleanPass === '123456') {
+          return {
+            user: {
+              ...matchedMock,
+              isEmailVerified: true
+            }
+          };
+        }
+      }
     }
+
+    throw new Error(mapFirebaseAuthError(firebaseErr));
   }
 }
 
@@ -154,6 +218,7 @@ export async function loginWithGoogle(): Promise<UserProfile> {
     role: user.email?.includes('admin') ? 'admin' : 'free',
     subscriptionPlan: user.email?.includes('admin') ? 'Pro' : 'Pemula',
     subscriptionStatus: 'active',
+    isEmailVerified: true,
     createdAt: new Date().toISOString()
   };
 }
@@ -164,7 +229,7 @@ export async function registerWithEmail(
   name?: string, 
   phone?: string,
   institution?: string
-): Promise<{ user: UserProfile; emailSent?: string }> {
+): Promise<{ user?: UserProfile; emailSent?: string }> {
   const cleanEmail = (email || '').trim().toLowerCase();
   const cleanPass = (pass || '').trim();
   const displayName = (name || '').trim() || cleanEmail.split('@')[0];
@@ -174,10 +239,54 @@ export async function registerWithEmail(
   if (!cleanEmail || !cleanPass) {
     throw new Error('Email dan kata sandi wajib diisi.');
   }
+  if (cleanPass.length < 6) {
+    throw new Error('Kata sandi minimal harus terdiri dari 6 karakter.');
+  }
 
-  // Create new customer profile as Pemula (Gratis) by default
+  // 1. Create User in Firebase Authentication
+  let fbUser: User | null = null;
+  try {
+    const userCred = await createUserWithEmailAndPassword(auth, cleanEmail, cleanPass);
+    fbUser = userCred.user;
+  } catch (fbErr: any) {
+    const errCode = fbErr?.code || '';
+    if (errCode === 'auth/email-already-in-use') {
+      // Check if user is already registered but unverified
+      try {
+        const existingCred = await signInWithEmailAndPassword(auth, cleanEmail, cleanPass);
+        if (!existingCred.user.emailVerified) {
+          await sendEmailVerification(existingCred.user);
+          await signOut(auth);
+          return { emailSent: cleanEmail };
+        } else {
+          throw new Error('Email ini sudah terdaftar dan telah terverifikasi. Silakan langsung masuk.');
+        }
+      } catch (loginErr: any) {
+        if (loginErr.message?.includes('terverifikasi')) {
+          throw loginErr;
+        }
+        throw new Error('Email ini sudah terdaftar di sistem. Silakan masuk menggunakan kata sandi Anda.');
+      }
+    }
+    throw new Error(mapFirebaseAuthError(fbErr));
+  }
+
+  // 2. Send Verification Email via Firebase
+  if (fbUser) {
+    try {
+      await sendEmailVerification(fbUser);
+    } catch (sendErr: any) {
+      console.warn('Gagal mengirim email verifikasi:', sendErr);
+    }
+    // Sign out immediately to prevent auto-login before email verification
+    try {
+      await signOut(auth);
+    } catch (e) {}
+  }
+
+  // 3. Save pending customer profile in localStorage
   const newCustomer: UserProfile = {
-    uid: 'cust-' + Date.now(),
+    uid: fbUser?.uid || ('cust-' + Date.now()),
     email: cleanEmail,
     name: displayName,
     password: cleanPass,
@@ -190,11 +299,11 @@ export async function registerWithEmail(
     canExportPdf: false,
     canAccessRenal: false,
     canAccessPolypharmacy: false,
+    isEmailVerified: false,
     expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
     createdAt: new Date().toISOString()
   };
 
-  // Save to customer list in localStorage
   try {
     let customerUsers: UserProfile[] = [];
     const saved = localStorage.getItem('farmasi_customer_subscriptions');
@@ -214,17 +323,57 @@ export async function registerWithEmail(
     localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(customerUsers));
   } catch (e) {}
 
-  // Attempt Firebase creation in background if online
-  try {
-    const userCred = await createUserWithEmailAndPassword(auth, cleanEmail, cleanPass);
-    if (userCred.user) {
-      sendEmailVerification(userCred.user).catch(() => {});
-    }
-  } catch (fbErr) {
-    // Non-blocking for offline / custom local auth
+  // Return emailSent to trigger verification view in UI
+  return { emailSent: cleanEmail };
+}
+
+export async function resendVerificationEmail(email: string, pass?: string): Promise<{ success: boolean; message: string }> {
+  const cleanEmail = (email || '').trim().toLowerCase();
+  const cleanPass = (pass || '').trim();
+
+  if (!cleanEmail) {
+    throw new Error('Alamat email wajib diisi.');
   }
 
-  return { user: newCustomer };
+  try {
+    // If current active Firebase user matches email
+    if (auth.currentUser && auth.currentUser.email?.toLowerCase() === cleanEmail) {
+      await sendEmailVerification(auth.currentUser);
+      return { success: true, message: `Tautan verifikasi telah berhasil dikirim ulang ke ${cleanEmail}.` };
+    }
+
+    // If password provided, sign in temporarily, send verification, then sign out
+    if (cleanPass) {
+      const userCred = await signInWithEmailAndPassword(auth, cleanEmail, cleanPass);
+      if (userCred.user.emailVerified) {
+        return { success: true, message: `Email ${cleanEmail} sudah terverifikasi sebelumnya. Silakan langsung masuk.` };
+      }
+      await sendEmailVerification(userCred.user);
+      await signOut(auth);
+      return { success: true, message: `Tautan verifikasi telah berhasil dikirim ulang ke ${cleanEmail}.` };
+    }
+
+    // Find in local customer list to retrieve stored password if available
+    let customerUsers: UserProfile[] = [];
+    try {
+      const saved = localStorage.getItem('farmasi_customer_subscriptions');
+      if (saved) customerUsers = JSON.parse(saved);
+    } catch (e) {}
+    const matched = customerUsers.find(c => c.email && c.email.toLowerCase() === cleanEmail);
+    if (matched && matched.password) {
+      const userCred = await signInWithEmailAndPassword(auth, cleanEmail, matched.password);
+      if (userCred.user.emailVerified) {
+        return { success: true, message: `Email ${cleanEmail} sudah terverifikasi. Silakan langsung masuk.` };
+      }
+      await sendEmailVerification(userCred.user);
+      await signOut(auth);
+      return { success: true, message: `Tautan verifikasi telah berhasil dikirim ulang ke ${cleanEmail}.` };
+    }
+
+    throw new Error('Silakan masukkan kata sandi akun Anda pada form Masuk untuk mengirim ulang verifikasi.');
+  } catch (err: any) {
+    throw new Error(mapFirebaseAuthError(err));
+  }
 }
 
 export async function logoutUser(): Promise<void> {
