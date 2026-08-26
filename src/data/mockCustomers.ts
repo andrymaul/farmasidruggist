@@ -1,6 +1,10 @@
 import { UserProfile } from '../types';
 
-export const INITIAL_CUSTOMERS: UserProfile[] = [
+// Default customer list is empty by default so deleted data never reappears
+export const INITIAL_CUSTOMERS: UserProfile[] = [];
+
+// Optional sample demo customers if user explicitly wants to load sample test data
+export const SAMPLE_DEMO_CUSTOMERS: UserProfile[] = [
   {
     uid: 'cust-001',
     email: 'farmasis.klinik@gmail.com',

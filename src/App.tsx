@@ -220,13 +220,14 @@ export default function App() {
         }
       }
     } catch (e) {}
-    try {
-      localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(INITIAL_CUSTOMERS));
-    } catch (e) {}
-    return INITIAL_CUSTOMERS;
+    return [];
   });
 
   const handleRegisterOrSyncCustomer = (newUser: UserProfile) => {
+    // Exclude admin accounts from being inserted into customer subscriptions
+    if (newUser.role === 'admin' || (newUser.email && newUser.email.toLowerCase().includes('admin@farmasidruggist.com'))) {
+      return;
+    }
     setCustomerList((prev) => {
       const existingIdx = prev.findIndex(c => 
         (c.email && newUser.email && c.email.toLowerCase() === newUser.email.toLowerCase()) || 
