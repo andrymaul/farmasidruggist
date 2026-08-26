@@ -1,6 +1,7 @@
 import { DrugInteraction } from '../types';
+import { DRUGSCOM_ADDITIONAL_INTERACTIONS } from './drugsComData';
 
-export const EXTENDED_INTERACTIONS_DATABASE: DrugInteraction[] = [
+const BASE_EXTENDED_INTERACTIONS: DrugInteraction[] = [
   {
     "id": "ddi-pair-0001",
     "drugAId": "drug-warfarin",
@@ -1744,3 +1745,9 @@ export const EXTENDED_INTERACTIONS_DATABASE: DrugInteraction[] = [
     "ddinterPairId": "DDInter-PAIR-000136"
   }
 ];
+
+export const EXTENDED_INTERACTIONS_DATABASE: DrugInteraction[] = [
+  ...BASE_EXTENDED_INTERACTIONS,
+  ...DRUGSCOM_ADDITIONAL_INTERACTIONS
+];
+

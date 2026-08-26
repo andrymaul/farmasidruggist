@@ -13,7 +13,9 @@ import { PharmacySopManager } from './components/PharmacySopManager';
 import { PharmacyRegulationsManager } from './components/PharmacyRegulationsManager';
 import { RenalDoseAdjuster } from './components/RenalDoseAdjuster';
 import { ClinicalPolypharmacyEvaluator } from './components/ClinicalPolypharmacyEvaluator';
+import { ClinicalTherapyGuidelines } from './components/ClinicalTherapyGuidelines';
 import { CustomerSubscriptionManager } from './components/CustomerSubscriptionManager';
+import { ProFeatureGate } from './components/ProFeatureGate';
 import { AuthModal } from './components/AuthModal';
 import { PricingModal } from './components/PricingModal';
 import { DrugDetailModal } from './components/DrugDetailModal';
@@ -251,9 +253,13 @@ export default function App() {
           email: newUser.email,
           name: newUser.name || newUser.email.split('@')[0],
           phone: newUser.phone || '',
-          role: newUser.role || 'customer',
-          subscriptionPlan: newUser.subscriptionPlan || 'Pro',
+          role: newUser.role || 'free',
+          subscriptionPlan: newUser.subscriptionPlan || 'Pemula',
           subscriptionStatus: newUser.subscriptionStatus || 'active',
+          maxDrugsOverride: 99,
+          canExportPdf: false,
+          canAccessRenal: false,
+          canAccessPolypharmacy: false,
           expiresAt: newUser.expiresAt || expiryDate.toISOString(),
           createdAt: newUser.createdAt || new Date().toISOString()
         };
@@ -282,11 +288,17 @@ export default function App() {
   const [showAntigravityUpdateModal, setShowAntigravityUpdateModal] = useState<boolean>(false);
   const [selectedDrugForDetail, setSelectedDrugForDetail] = useState<Drug | null>(null);
   const [preselectedDrugName, setPreselectedDrugName] = useState<string>('');
+  const [preselectedDrugNames, setPreselectedDrugNames] = useState<string[]>([]);
   const [searchQueryForDirectory, setSearchQueryForDirectory] = useState<string>('');
   const [reportModalData, setReportModalData] = useState<{
     selectedDrugs: Drug[];
     interactions: DrugInteraction[];
   } | null>(null);
+
+  const isProUser = Boolean(
+    currentUser?.role === 'admin' ||
+    ((currentUser?.subscriptionPlan === 'Pro' || currentUser?.subscriptionPlan === 'Elite' || currentUser?.subscriptionPlan === 'Klinik') && currentUser?.subscriptionStatus === 'active')
+  );
 
   // Sync currentUser & activeTab to localStorage
   useEffect(() => {
@@ -477,7 +489,7 @@ export default function App() {
     localStorage.setItem('farmasi_active_tab', 'landing');
   };
 
-  const handleSubscribeSuccess = (planName: 'Pro' | 'Klinik') => {
+  const handleSubscribeSuccess = (planName: 'Pro' | 'Elite' | 'Klinik') => {
     if (currentUser) {
       const updatedUser: UserProfile = {
         ...currentUser,
@@ -718,14 +730,47 @@ export default function App() {
                 />
               )}
 
+              {activeTab === 'guidelines' && (
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Database Panduan Terapi PNPK & Konsensus RI"
+                    featureDescription="Akses lengkap 23+ pedoman nasional pelayanan kedokteran Kemenkes RI, algoritma terapi lini pertama & kedua, Formularium Nasional (FORNAS), dan pencegahan risiko interaksi."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <ClinicalTherapyGuidelines
+                    allDrugs={drugs}
+                    onSelectDrugForDetail={(drug) => setSelectedDrugForDetail(drug)}
+                    onCheckInteractionsWithRegimen={(drugNames) => {
+                      setPreselectedDrugNames(drugNames);
+                      setPreselectedDrugName(drugNames[0] || '');
+                      handleSelectTab('interactions');
+                    }}
+                    clinicBranding={clinicBranding}
+                  />
+                )
+              )}
+
               {activeTab === 'polypharmacy' && (
-                <ClinicalPolypharmacyEvaluator
-                  allDrugs={drugs}
-                  allInteractions={interactions}
-                  clinicBranding={clinicBranding}
-                  onOpenBrandingModal={() => handleSelectTab('admin-branding')}
-                  onSelectTab={handleSelectTab}
-                />
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Evaluasi Skrining Resep & Polifarmasi Klinis"
+                    featureDescription="Analisis otomatis interaksi kompleks multi-obat, skrining potensi duplikasi terapi farmakologis, serta pencegahan efek samping polifarmasi pasien."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <ClinicalPolypharmacyEvaluator
+                    allDrugs={drugs}
+                    allInteractions={interactions}
+                    clinicBranding={clinicBranding}
+                    onOpenBrandingModal={() => handleSelectTab('admin-branding')}
+                    onSelectTab={handleSelectTab}
+                  />
+                )
               )}
 
               {activeTab === 'interactions' && (
@@ -741,6 +786,7 @@ export default function App() {
                     setReportModalData({ selectedDrugs, interactions: matchedInteractions })
                   }
                   preselectedDrugName={preselectedDrugName}
+                  preselectedDrugNames={preselectedDrugNames}
                 />
               )}
 
@@ -753,25 +799,55 @@ export default function App() {
               )}
 
               {activeTab === 'sop' && (
-                <PharmacySopManager
-                  clinicBranding={clinicBranding}
-                  onOpenBrandingModal={() => handleSelectTab('admin-branding')}
-                />
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Modul Standar Operasional Prosedur (SOP) Farmasi Klinis"
+                    featureDescription="Koleksi SOP resmi pelayanan kefarmasian di apotek dan klinik: penapisan resep, penyerahan obat (dispensing), konseling PIO, dan pelaporan MESO."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <PharmacySopManager
+                    clinicBranding={clinicBranding}
+                    onOpenBrandingModal={() => handleSelectTab('admin-branding')}
+                  />
+                )
               )}
 
               {activeTab === 'regulations' && (
-                <PharmacyRegulationsManager
-                  clinicBranding={clinicBranding}
-                  onOpenBrandingModal={() => handleSelectTab('admin-branding')}
-                />
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Database Regulasi & Standar Hukum Kefarmasian RI"
+                    featureDescription="Kompilasi undang-undang, Permenkes, dan standar akreditasi fasilitas pelayanan kefarmasian terkini di Indonesia."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <PharmacyRegulationsManager
+                    clinicBranding={clinicBranding}
+                    onOpenBrandingModal={() => handleSelectTab('admin-branding')}
+                  />
+                )
               )}
 
               {activeTab === 'renal-adjuster' && (
-                <RenalDoseAdjuster
-                  drugs={drugs}
-                  currentUser={currentUser}
-                  onOpenPricingModal={() => setShowPricingModal(true)}
-                />
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Kalkulator Penyesuaian Dosis Ginjal & Pediatri"
+                    featureDescription="Kalkulator komprehensif klirens kreatinin (Cockcroft-Gault & eGFR CKD-EPI) dengan rekomendasi penyesuaian dosis obat otomatis berbasis literatur klinis."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <RenalDoseAdjuster
+                    drugs={drugs}
+                    currentUser={currentUser}
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                  />
+                )
               )}
 
               {activeTab === 'history' && (

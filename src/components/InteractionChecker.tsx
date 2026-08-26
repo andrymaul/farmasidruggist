@@ -31,6 +31,7 @@ interface InteractionCheckerProps {
   onOpenAuthModal: () => void;
   onOpenReportModal: (selectedDrugs: Drug[], matchedInteractions: DrugInteraction[]) => void;
   preselectedDrugName?: string;
+  preselectedDrugNames?: string[];
 }
 
 export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
@@ -42,7 +43,8 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   onOpenPricingModal,
   onOpenAuthModal,
   onOpenReportModal,
-  preselectedDrugName = ''
+  preselectedDrugName = '',
+  preselectedDrugNames = []
 }) => {
   const [selectedDrugs, setSelectedDrugs] = useState<Drug[]>([]);
   const [searchInput, setSearchInput] = useState('');
@@ -50,18 +52,52 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   const [showDatasetDetails, setShowDatasetDetails] = useState(false);
   const [limitWarning, setLimitWarning] = useState<string | null>(null);
 
-  // Compute permissions for current active plan from admin pricing settings
-  const userPlanObj = pricingPlans?.find(p => p.name === currentUser?.subscriptionPlan || (p.id === 'free' && (!currentUser || currentUser.subscriptionPlan === 'Gratis')) || (p.id === 'pro' && currentUser?.subscriptionPlan === 'Pro') || (p.id === 'klinik' && currentUser?.subscriptionPlan === 'Klinik'));
+  // Auto-select when navigating with preselected drug(s)
+  useEffect(() => {
+    if (preselectedDrugNames && preselectedDrugNames.length > 0) {
+      const list: Drug[] = [];
+      const seen = new Set<string>();
+      preselectedDrugNames.forEach((name) => {
+        const resolved = resolveDrugFromDDInter(name, drugs);
+        if (resolved && !seen.has(resolved.id)) {
+          seen.add(resolved.id);
+          list.push(resolved);
+        }
+      });
+      if (list.length > 0) {
+        setSelectedDrugs(list);
+        setIsSaved(false);
+      }
+    } else if (preselectedDrugName) {
+      const found = resolveDrugFromDDInter(preselectedDrugName, drugs);
+      if (found) {
+        setSelectedDrugs((prev) => {
+          if (!prev.some((d) => d.id === found.id || d.name.toLowerCase() === found.name.toLowerCase())) {
+            return [...prev, found];
+          }
+          return prev;
+        });
+      }
+    }
+  }, [preselectedDrugName, preselectedDrugNames, drugs]);
+  const isFreePlan = !currentUser || currentUser.subscriptionPlan === 'Gratis' || currentUser.subscriptionPlan === 'Pemula';
+  const isProPlan = Boolean(currentUser && (currentUser.subscriptionPlan === 'Pro' || currentUser.subscriptionPlan === 'Elite' || currentUser.subscriptionPlan === 'Klinik' || currentUser.role === 'admin'));
+
+  const userPlanObj = pricingPlans?.find(p => 
+    p.name.toLowerCase() === currentUser?.subscriptionPlan?.toLowerCase() || 
+    (p.id === 'free' && isFreePlan) || 
+    (p.id === 'pro' && isProPlan)
+  );
 
   const activePermissions = userPlanObj?.permissions || {
-    maxDrugsPerCheck: (!currentUser || currentUser.subscriptionPlan === 'Gratis') ? 2 : 99,
-    canPrintPdfReport: currentUser?.subscriptionPlan !== 'Gratis',
-    canAccessFoodInteractions: currentUser?.subscriptionPlan !== 'Gratis',
-    canAccessTherapeuticDuplications: currentUser?.subscriptionPlan !== 'Gratis',
-    canSaveCloudHistory: true,
-    maxHistoryRecords: (!currentUser || currentUser.subscriptionPlan === 'Gratis') ? 3 : 999,
-    canAccessClinicBranding: currentUser?.subscriptionPlan === 'Klinik',
-    canExportExcelCsv: currentUser?.subscriptionPlan !== 'Gratis'
+    maxDrugsPerCheck: 99, // Pemula gratis bisa cek interaksi multi-obat tanpa batas
+    canPrintPdfReport: isProPlan,
+    canAccessFoodInteractions: isProPlan,
+    canAccessTherapeuticDuplications: isProPlan,
+    canSaveCloudHistory: isProPlan,
+    maxHistoryRecords: isProPlan ? 999 : 0,
+    canAccessClinicBranding: isProPlan,
+    canExportExcelCsv: isProPlan
   };
 
   // Preselect initial drugs if passed
@@ -175,9 +211,19 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
 
   const presets = [
     {
+      title: 'Paxlovid & Statin (CYP3A4)',
+      desc: 'Paxlovid + Simvastatin',
+      drugNames: ['Paxlovid', 'Simvastatin']
+    },
+    {
       title: 'Antikoagulan & Antiplatelet',
       desc: 'Warfarin + Aspirin',
       drugNames: ['Warfarin', 'Aspirin']
+    },
+    {
+      title: 'Sindrom Serotonin Akut',
+      desc: 'Linezolid + Sertraline',
+      drugNames: ['Linezolid', 'Sertraline']
     },
     {
       title: 'Statin & Azole',
@@ -185,19 +231,19 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       drugNames: ['Simvastatin', 'Ketoconazole']
     },
     {
-      title: 'SKA & PPI',
-      desc: 'Clopidogrel + Omeprazole',
-      drugNames: ['Clopidogrel', 'Omeprazole']
+      title: 'Gout & Makrolida',
+      desc: 'Colchicine + Clarithromycin',
+      drugNames: ['Colchicine', 'Clarithromycin']
     },
     {
-      title: 'Hipertensi & NSAID',
-      desc: 'Lisinopril + Ibuprofen',
-      drugNames: ['Lisinopril', 'Ibuprofen']
+      title: 'Washout ARNI & ACEi',
+      desc: 'Sacubitril / Valsartan + Captopril',
+      drugNames: ['Sacubitril / Valsartan', 'Captopril']
     },
     {
-      title: 'Transplantasi & Antijamur',
-      desc: 'Tacrolimus + Fluconazole',
-      drugNames: ['Tacrolimus', 'Fluconazole']
+      title: 'PDE-5 & Nitrat (Hipotensi Fatal)',
+      desc: 'Sildenafil + Isosorbide Dinitrate',
+      drugNames: ['Sildenafil', 'Isosorbide Dinitrate']
     }
   ];
 
@@ -304,6 +350,11 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               >
                 <span>{drug.name}</span>
                 <span className="text-[10px] text-teal-200 font-normal">({drug.atcCode || 'Obat'})</span>
+                {drug.blackBoxWarning && (
+                  <span className="bg-rose-900/90 text-rose-200 text-[9px] px-1.5 py-0.5 rounded font-black border border-rose-400/40" title="Obat memiliki FDA Boxed Warning (Peringatan Khusus)">
+                    ⚠️ Boxed
+                  </span>
+                )}
                 <button
                   onClick={() => handleRemoveDrug(drug.id)}
                   className="hover:bg-white/20 p-0.5 rounded transition-colors cursor-pointer"
@@ -457,43 +508,66 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             </div>
           </div>
 
-          {/* Therapeutic Duplications Section */}
+          {/* Therapeutic Duplications Section - Cute Berry/Pink Styling */}
           {matchedDuplications.length > 0 && (
-            <div className="bg-rose-50 border border-rose-200 rounded-2xl p-5 space-y-3 shadow-xs">
-              <div className="flex items-center gap-2 text-rose-950 font-black text-sm">
-                <CopyX className="w-5 h-5 text-rose-700" />
+            <div className="bg-gradient-to-r from-pink-50/90 via-rose-50/90 to-pink-50/90 dark:from-pink-950/30 dark:via-rose-950/30 dark:to-pink-950/30 border border-pink-300 dark:border-pink-800/80 rounded-2xl p-5 space-y-3 shadow-xs">
+              <div className="flex items-center gap-2 text-pink-950 dark:text-pink-200 font-black text-sm">
+                <span className="p-1 rounded-lg bg-pink-100 dark:bg-pink-900/60 text-pink-700 dark:text-pink-300">
+                  <CopyX className="w-4 h-4" />
+                </span>
                 <span>Peringatan Duplikasi Terapetik (Therapeutic Duplications)</span>
+                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-pink-200 dark:bg-pink-900 text-pink-900 dark:text-pink-200">
+                  {matchedDuplications.length} Duplikasi
+                </span>
               </div>
               <div className="space-y-2">
                 {matchedDuplications.map((dup) => (
-                  <div key={dup.id} className="bg-white p-4 rounded-xl border border-rose-200 text-xs space-y-1 shadow-2xs">
-                    <p className="font-black text-slate-900">{dup.drugAName} & {dup.drugBName} <span className="text-rose-700 font-bold">({dup.therapeuticClass})</span></p>
-                    <p className="text-slate-600 font-medium">{dup.riskDescription}</p>
-                    <p className="text-rose-900 font-bold mt-1">💡 Saran: {dup.recommendation}</p>
+                  <div key={dup.id} className="bg-white dark:bg-[#071c21] p-4 rounded-xl border border-pink-200 dark:border-pink-800/60 text-xs space-y-1.5 shadow-2xs hover:border-pink-400 transition-all">
+                    <p className="font-black text-slate-900 dark:text-white flex items-center gap-1.5 flex-wrap">
+                      <span>💊 {dup.drugAName} & {dup.drugBName}</span>
+                      <span className="bg-pink-100 dark:bg-pink-900/60 text-pink-800 dark:text-pink-300 text-[10px] font-extrabold px-2 py-0.5 rounded-md border border-pink-300 dark:border-pink-700">
+                        {dup.therapeuticClass}
+                      </span>
+                    </p>
+                    <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{dup.riskDescription}</p>
+                    <p className="text-pink-900 dark:text-pink-300 font-bold mt-1 bg-pink-50 dark:bg-pink-950/40 p-2 rounded-lg border border-pink-200/60 dark:border-pink-900/50">
+                      💡 Saran Apoteker: {dup.recommendation}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Drug-Food Interactions (DFI) Section */}
+          {/* Drug-Food Interactions (DFI) Section - Sweet Lavender Styling */}
           {matchedFoodInteractions.length > 0 && (
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 space-y-3 shadow-xs">
-              <div className="flex items-center gap-2 text-amber-950 font-black text-sm">
-                <Utensils className="w-5 h-5 text-amber-700" />
+            <div className="bg-gradient-to-r from-purple-50/90 via-fuchsia-50/90 to-purple-50/90 dark:from-purple-950/30 dark:via-fuchsia-950/30 dark:to-purple-950/30 border border-purple-300 dark:border-purple-800/80 rounded-2xl p-5 space-y-3 shadow-xs">
+              <div className="flex items-center gap-2 text-purple-950 dark:text-purple-200 font-black text-sm">
+                <span className="p-1 rounded-lg bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300">
+                  <Utensils className="w-4 h-4" />
+                </span>
                 <span>Interaksi Makanan & Minuman (Drug-Food Interactions / DFI)</span>
+                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-200 dark:bg-purple-900 text-purple-900 dark:text-purple-200">
+                  {matchedFoodInteractions.length} Interaksi
+                </span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {matchedFoodInteractions.map((dfi) => (
-                  <div key={dfi.id} className="bg-white p-4 rounded-xl border border-amber-200 text-xs space-y-1 shadow-2xs">
-                    <div className="flex items-center justify-between">
-                      <span className="font-black text-slate-900">{dfi.drugName} ⚡ {dfi.foodName}</span>
-                      <span className="bg-amber-100 text-amber-900 text-[10px] font-black px-2 py-0.5 rounded">
+                  <div key={dfi.id} className="bg-white dark:bg-[#071c21] p-4 rounded-xl border border-purple-200 dark:border-purple-800/60 text-xs space-y-1.5 shadow-2xs hover:border-purple-400 transition-all">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className="font-black text-slate-900 dark:text-white flex items-center gap-1">
+                        <span>💊 {dfi.drugName}</span>
+                        <span className="text-purple-600 dark:text-purple-400">⚡</span>
+                        <span>🥗 {dfi.foodName}</span>
+                      </span>
+                      <span className="bg-purple-100 dark:bg-purple-900/80 text-purple-800 dark:text-purple-200 text-[10px] font-black px-2 py-0.5 rounded-md border border-purple-300 dark:border-purple-700 shadow-2xs">
                         {dfi.foodCategory}
                       </span>
                     </div>
-                    <p className="text-slate-600 font-medium">{dfi.clinicalOutcome}</p>
-                    <p className="text-amber-950 font-bold">📌 Petunjuk: {dfi.recommendation}</p>
+                    <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{dfi.clinicalOutcome}</p>
+                    <p className="text-purple-950 dark:text-purple-200 font-bold bg-purple-50 dark:bg-purple-950/40 p-2 rounded-lg border border-purple-200/60 dark:border-purple-900/50">
+                      📌 Petunjuk Konsumsi: {dfi.recommendation}
+                    </p>
                   </div>
                 ))}
               </div>

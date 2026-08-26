@@ -53,6 +53,8 @@ export interface ClinicBrandingSettings {
   customFooterText: string;
   pharmacistName: string;
   pharmacistSipa: string;
+  doctorName?: string;
+  sipNumber?: string;
 }
 
 export interface Drug {
@@ -79,6 +81,23 @@ export interface Drug {
   pregnancyCategory?: string;
   ddinterId?: string;
   updatedAt?: string;
+  // Drugs.com & Clinical Standards Extension
+  blackBoxWarning?: string;
+  lactationWarning?: string;
+  cypPathway?: string;
+  monitoringParameters?: string;
+  patientTips?: string;
+  drugsComUrl?: string;
+  commonSideEffects?: string[];
+  seriousSideEffects?: string[];
+  // Drugs.com Detailed Dosage & Administration Breakdown
+  adultDosage?: string;
+  pediatricDosage?: string;
+  geriatricDosage?: string;
+  renalDoseAdjustment?: string;
+  hepaticDoseAdjustment?: string;
+  maxDoseLimit?: string;
+  administrationGuideline?: string;
 }
 
 export interface DrugInteraction {
@@ -91,7 +110,7 @@ export interface DrugInteraction {
   mechanism: string;
   clinicalOutcome: string;
   management: string;
-  evidenceLevel: 'High' | 'Moderate' | 'Low';
+  evidenceLevel: 'High' | 'Moderate' | 'Low' | string;
   ddinterPairId: string;
 }
 
@@ -107,7 +126,7 @@ export interface UserProfile {
   licenseNumber?: string;
   notes?: string;
   role: UserRole;
-  subscriptionPlan: 'Gratis' | 'Pro' | 'Klinik';
+  subscriptionPlan: 'Pemula' | 'Pro' | 'Elite' | 'Gratis' | 'Klinik';
   subscriptionStatus: 'active' | 'expired' | 'trial';
   maxDrugsOverride?: number;
   canExportPdf?: boolean;
@@ -138,13 +157,18 @@ export interface CustomerPlanPermissions {
   maxHistoryRecords: number;
   canAccessClinicBranding: boolean;
   canExportExcelCsv: boolean;
+  canAccessClinicalGuidelines?: boolean;
+  canAccessRenalCalculator?: boolean;
+  canAccessSop?: boolean;
 }
 
 export interface PricingPlan {
-  id: 'free' | 'pro' | 'klinik';
+  id: 'free' | 'pro' | 'elite' | 'klinik' | string;
   name: string;
   badge?: string;
   priceFormatted: string;
+  originalPriceFormatted?: string;
+  discountBadge?: string;
   priceValue: number;
   period: string;
   description: string;
@@ -158,7 +182,7 @@ export interface DrugFoodInteraction {
   id: string;
   drugName: string;
   foodName: string;
-  foodCategory: 'Buah / Juice' | 'Susu / Kalsium' | 'Alkohol' | 'Makanan Tinggi Vitamin K' | 'Kafein / Kopi' | 'Makanan Tinggi Lemak' | 'Lainnya';
+  foodCategory: 'Buah / Juice' | 'Susu / Kalsium' | 'Alkohol' | 'Makanan Tinggi Vitamin K' | 'Kafein / Kopi' | 'Makanan Tinggi Lemak' | 'Suplemen / Mineral' | 'Lainnya';
   severity: SeverityLevel;
   mechanism: string;
   clinicalOutcome: string;
@@ -246,3 +270,74 @@ export interface PaymentMethodSettings {
   bank: BankTransferSettings;
   ewallet: EWalletSettings;
 }
+
+// === PANDUAN TERAPI PENYAKIT (CLINICAL PRACTICE GUIDELINES) ===
+export type GuidelineCategory =
+  | 'Semua Kategori'
+  | 'Kardiovaskular'
+  | 'Endokrin & Metabolik'
+  | 'Respirasi & Alergi'
+  | 'Gastrointestinal'
+  | 'Anti-Infeksi'
+  | 'Reumatologi & Ginjal'
+  | 'Sistem Saraf & Psikiatri'
+  | 'Pediatri (Kesehatan Anak)'
+  | 'Obstetri & Ginekologi';
+
+export type GuidelineOrganization =
+  | 'Semua Sumber'
+  | 'PNPK Kemenkes RI'
+  | 'PERKI'
+  | 'PERKENI'
+  | 'PAPDI'
+  | 'PDPI'
+  | 'IDAI'
+  | 'POGI'
+  | 'PERDOSSI'
+  | 'IRA'
+  | 'PGI-PEGI'
+  | 'PERNEFRI';
+
+export interface GuidelineDrugRegimen {
+  drugName: string;
+  dosage: string;
+  role: 'First-Line' | 'Alternative' | 'Combination / Add-On' | 'Acute Rescue' | 'Maintenance' | 'Lini Pertama' | 'Lini Kedua' | 'Kombinasi / Add-On' | 'Kombinasi' | string;
+  notes?: string;
+  fornasTier?: 'Faskes 1' | 'Faskes 2/3' | 'Semua Faskes' | string;
+}
+
+export interface GuidelineSpecialPopulation {
+  condition: string; // e.g. "Ibu Hamil & Menyusui", "Gangguan Ginjal Kronis (CKD)", "Geriatri / Lansia"
+  recommendation: string;
+  contraindicatedDrugs?: string[];
+}
+
+export interface ClinicalGuideline {
+  id: string;
+  diseaseName: string;
+  category: 
+    | 'Kardiovaskular' 
+    | 'Endokrin & Metabolik' 
+    | 'Respirasi & Alergi' 
+    | 'Gastrointestinal' 
+    | 'Anti-Infeksi' 
+    | 'Reumatologi & Ginjal' 
+    | 'Sistem Saraf & Psikiatri'
+    | 'Pediatri (Kesehatan Anak)'
+    | 'Obstetri & Ginekologi';
+  organization?: GuidelineOrganization | string;
+  fornasTier?: 'Faskes 1 (Puskesmas/Klinik Pratama)' | 'Faskes 2/3 (RS Rujukan)' | 'Semua Tingkat Faskes' | string;
+  icd10?: string;
+  summary: string;
+  targetGoals: string[];
+  firstLineTherapy: GuidelineDrugRegimen[];
+  secondLineTherapy: GuidelineDrugRegimen[];
+  nonPharmacological: string[];
+  specialPopulations?: GuidelineSpecialPopulation[];
+  monitoringParameters: string[];
+  sourceGuidelines: string;
+  updatedYear?: string;
+  keyClinicalAlert?: string;
+  indonesianKeywords?: string[];
+}
+

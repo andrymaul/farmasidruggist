@@ -11,6 +11,7 @@ import {
   LogIn, 
   ShieldCheck, 
   Stethoscope, 
+  HeartPulse,
   Sun, 
   Moon 
 } from 'lucide-react';
@@ -108,6 +109,13 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <Stethoscope className="w-3.5 h-3.5 text-teal-400" />
                 <span>Evaluasi Polifarmasi</span>
+              </button>
+              <button
+                onClick={() => setActiveTab('guidelines')}
+                className="text-slate-300 hover:text-teal-300 px-3.5 py-1.5 rounded-full hover:bg-slate-800/60 transition-all flex items-center gap-1.5 cursor-pointer"
+              >
+                <HeartPulse className="w-3.5 h-3.5 text-teal-400" />
+                <span>Panduan Terapi</span>
               </button>
               <button
                 onClick={onOpenPricingModal}
@@ -345,7 +353,7 @@ export const Header: React.FC<HeaderProps> = ({
           )}
 
           {/* Quick Pricing Badge */}
-          {currentUser && currentUser.subscriptionPlan === 'Gratis' && (
+          {currentUser && (currentUser.subscriptionPlan === 'Gratis' || currentUser.subscriptionPlan === 'Pemula') && (
             <button
               onClick={onOpenPricingModal}
               className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 transition-all shadow-[0_2px_10px_rgba(245,158,11,0.3)] cursor-pointer font-outfit"

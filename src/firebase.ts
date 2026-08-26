@@ -10,7 +10,7 @@ import {
   signInWithPopup,
   User 
 } from 'firebase/auth';
-import { Drug, DrugInteraction, UserProfile, InteractionCheckRecord } from './types';
+import { Drug, DrugInteraction, UserProfile, InteractionCheckRecord, AdminUser } from './types';
 import { INITIAL_DRUGS, INITIAL_INTERACTIONS } from './data/ddinterData';
 
 // Your web app's Firebase configuration
@@ -120,8 +120,8 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
         uid: user.uid,
         email: user.email || cleanEmail,
         name: user.displayName || cleanEmail.split('@')[0],
-        role: cleanEmail.includes('admin') ? 'admin' : 'customer',
-        subscriptionPlan: cleanEmail.includes('admin') ? 'Klinik' : 'Pro',
+        role: cleanEmail.includes('admin') ? 'admin' : 'free',
+        subscriptionPlan: cleanEmail.includes('admin') ? 'Pro' : 'Pemula',
         subscriptionStatus: 'active',
         createdAt: new Date().toISOString()
       }
@@ -146,8 +146,8 @@ export async function loginWithGoogle(): Promise<UserProfile> {
     uid: user.uid,
     email: user.email || 'user@gmail.com',
     name: user.displayName || user.email?.split('@')[0] || 'User',
-    role: user.email?.includes('admin') ? 'admin' : 'customer',
-    subscriptionPlan: user.email?.includes('admin') ? 'Klinik' : 'Pro',
+    role: user.email?.includes('admin') ? 'admin' : 'free',
+    subscriptionPlan: user.email?.includes('admin') ? 'Pro' : 'Pemula',
     subscriptionStatus: 'active',
     createdAt: new Date().toISOString()
   };
@@ -168,16 +168,20 @@ export async function registerWithEmail(
     throw new Error('Email dan kata sandi wajib diisi.');
   }
 
-  // Create new customer profile
+  // Create new customer profile as Pemula (Gratis) by default
   const newCustomer: UserProfile = {
     uid: 'cust-' + Date.now(),
     email: cleanEmail,
     name: displayName,
     password: cleanPass,
     phone: userPhone,
-    role: 'customer',
-    subscriptionPlan: 'Pro',
+    role: 'free',
+    subscriptionPlan: 'Pemula',
     subscriptionStatus: 'active',
+    maxDrugsOverride: 99,
+    canExportPdf: false,
+    canAccessRenal: false,
+    canAccessPolypharmacy: false,
     expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
     createdAt: new Date().toISOString()
   };

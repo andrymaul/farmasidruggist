@@ -93,7 +93,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
           <div className="flex items-center justify-between pt-2 border-t border-[#14424e]">
             <span className="text-xs text-slate-300 font-bold">Paket Langganan:</span>
-            <span className="text-sm font-black text-teal-300">{currentUser?.subscriptionPlan || 'Gratis'}</span>
+            <span className="text-sm font-black text-teal-300">{currentUser?.subscriptionPlan || 'Pemula'}</span>
           </div>
 
           <button

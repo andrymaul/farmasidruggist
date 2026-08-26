@@ -1,6 +1,6 @@
 import React from 'react';
 import { InteractionCheckRecord, UserProfile } from '../types';
-import { History, Calendar, Lock } from 'lucide-react';
+import { History, Calendar, Lock, Clock } from 'lucide-react';
 
 interface HistoryListProps {
   historyRecords: InteractionCheckRecord[];
@@ -55,7 +55,7 @@ export const HistoryList: React.FC<HistoryListProps> = ({
 
       {historyRecords.length > 0 ? (
         <div className="space-y-3">
-          {((!currentUser || currentUser.subscriptionPlan === 'Gratis') ? historyRecords.slice(0, 3) : historyRecords).map((record) => {
+          {((!currentUser || currentUser.subscriptionPlan === 'Gratis' || currentUser.subscriptionPlan === 'Pemula') ? historyRecords.slice(0, 3) : historyRecords).map((record) => {
             const badgeColor =
               record.highestSeverity === 'Major'
                 ? 'bg-red-100 text-red-800 border-red-200'
@@ -69,56 +69,54 @@ export const HistoryList: React.FC<HistoryListProps> = ({
                 className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-2.5 hover:border-teal-300 transition-colors"
               >
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
-                  <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
-                    <Calendar className="w-3.5 h-3.5 text-teal-600" />
-                    <span>
-                      {new Date(record.timestamp).toLocaleString('id-ID', {
-                        dateStyle: 'medium',
-                        timeStyle: 'short'
-                      })}
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-slate-800">
+                      {record.patientName || 'Pasien Tanpa Nama'}
+                    </span>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${badgeColor}`}>
+                      {record.highestSeverity === 'None' ? 'Tidak Ada Interaksi' : `Risiko ${record.highestSeverity}`}
                     </span>
                   </div>
-
-                  <span className={`text-xs font-bold px-2.5 py-0.5 rounded border ${badgeColor}`}>
-                    Status: {record.highestSeverity} ({record.interactionCount} Interaksi)
-                  </span>
+                  <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>{new Date(record.timestamp).toLocaleDateString('id-ID', { dateStyle: 'medium' })}</span>
+                    <Clock className="w-3.5 h-3.5 ml-2" />
+                    <span>{new Date(record.timestamp).toLocaleTimeString('id-ID', { timeStyle: 'short' })}</span>
+                  </div>
                 </div>
 
-                <div className="space-y-1">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Obat Diperiksa:</p>
+                <div>
+                  <p className="text-xs font-semibold text-slate-500 mb-1">Daftar Obat Resep ({record.drugs.length}):</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {record.drugs.map((drugName, idx) => (
-                      <span
-                        key={idx}
-                        className="bg-teal-50 text-teal-800 text-xs font-semibold px-2.5 py-0.5 rounded border border-teal-100"
-                      >
-                        {drugName}
+                    {record.drugs.map((drug, i) => (
+                      <span key={i} className="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200">
+                        {drug}
                       </span>
                     ))}
                   </div>
                 </div>
 
                 {record.notes && (
-                  <p className="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                    <strong>Catatan:</strong> {record.notes}
+                  <p className="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-100 italic">
+                    "{record.notes}"
                   </p>
                 )}
               </div>
             );
           })}
 
-          {(!currentUser || currentUser.subscriptionPlan === 'Gratis') && historyRecords.length > 3 && (
+          {(!currentUser || currentUser.subscriptionPlan === 'Gratis' || currentUser.subscriptionPlan === 'Pemula') && historyRecords.length > 3 && (
             <div className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <Lock className="w-6 h-6 text-amber-600 shrink-0" />
                 <div>
                   <h4 className="text-sm font-bold text-amber-900">Arsip Riwayat Dibatasi ({historyRecords.length - 3} Catatan Lain Terkunci)</h4>
-                  <p className="text-xs text-amber-800">Paket Gratis hanya menampilkan 3 catatan pemeriksaan terakhir. Tingkatkan ke Pro atau Klinik untuk akses arsip tak terbatas.</p>
+                  <p className="text-xs text-amber-800">Paket Pemula hanya menampilkan 3 catatan pemeriksaan terakhir. Tingkatkan ke Pro atau Elite untuk akses arsip tak terbatas.</p>
                 </div>
               </div>
               <button
                 onClick={onOpenPricingModal}
-                className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors shrink-0"
+                className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors shrink-0 cursor-pointer"
               >
                 Upgrade ke Pro
               </button>

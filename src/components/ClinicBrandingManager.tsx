@@ -29,10 +29,12 @@ interface ClinicBrandingManagerProps {
 const COLOR_PRESETS = [
   { name: 'Teal (Default)', value: '#0d9488', bgClass: 'bg-teal-600' },
   { name: 'Emerald', value: '#059669', bgClass: 'bg-emerald-600' },
+  { name: 'Sakura Pink 🌸', value: '#ec4899', bgClass: 'bg-pink-500' },
+  { name: 'Sweet Lavender 💜', value: '#a855f7', bgClass: 'bg-purple-500' },
+  { name: 'Berry Rose 🍓', value: '#e11d48', bgClass: 'bg-rose-600' },
+  { name: 'Sweet Peach 🍑', value: '#f97316', bgClass: 'bg-orange-500' },
   { name: 'Royal Blue', value: '#2563eb', bgClass: 'bg-blue-600' },
   { name: 'Indigo', value: '#4f46e5', bgClass: 'bg-indigo-600' },
-  { name: 'Purple', value: '#7c3aed', bgClass: 'bg-purple-600' },
-  { name: 'Rose Red', value: '#e11d48', bgClass: 'bg-rose-600' },
   { name: 'Dark Slate', value: '#0f172a', bgClass: 'bg-slate-900' },
 ];
 

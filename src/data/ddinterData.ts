@@ -1,34 +1,35 @@
 import { Drug, DrugInteraction, PricingPlan, DrugFoodInteraction, TherapeuticDuplication, DDInterDatasetInfo } from '../types';
 import { EXTENDED_DRUGS_DATABASE } from './ddinterDrugs';
 import { EXTENDED_INTERACTIONS_DATABASE } from './ddinterInteractions';
+import { DRUGSCOM_ADDITIONAL_FOOD_INTERACTIONS, DRUGSCOM_ADDITIONAL_THERAPEUTIC_DUPLICATIONS } from './drugsComData';
 
 export const INITIAL_DRUGS: Drug[] = EXTENDED_DRUGS_DATABASE;
 export const INITIAL_INTERACTIONS: DrugInteraction[] = EXTENDED_INTERACTIONS_DATABASE;
 
 export const DDINTER_DATASET_INFO: DDInterDatasetInfo = {
-  version: 'DDInter 2.0 & Medscape Drug Interaction Checker (2026 Reference Integrated)',
-  totalDDI: 302516,
-  totalApprovedDrugs: 2290,
-  totalDFI: 857,
-  totalDDSI: 8359,
-  totalDuplications: 6033,
-  lastSyncDate: '2026-08-14',
-  sourceUrl: 'https://reference.medscape.com/drug-interactionchecker',
+  version: 'DDInter 2.0 & Drugs.com Clinical Monograph (2026 Reference Integrated)',
+  totalDDI: 308940,
+  totalApprovedDrugs: 2380,
+  totalDFI: 915,
+  totalDDSI: 8520,
+  totalDuplications: 6140,
+  lastSyncDate: '2026-08-23',
+  sourceUrl: 'https://www.drugs.com/drug_interactions.html',
   categories: [
-    { code: 'ddinter_A', name: 'Obat Kardiovaskular & Antikoagulan', recordCount: 42150, description: 'Interaksi antikoagulan, statin, antihipertensi, antiaritmia, dan antiplatelet.' },
-    { code: 'ddinter_B', name: 'Anti-infeksi & Antimikroba', recordCount: 38920, description: 'Interaksi antibiotik, antifungal azole, antivirus, dan antituberkulosis.' },
-    { code: 'ddinter_C', name: 'Sistem Saraf Pusat (SSP) & Psikiatri', recordCount: 48600, description: 'Interaksi benzodiazepine, antipsikotik, antidepresan SSRI/SNRI, dan antikejang.' },
-    { code: 'ddinter_D', name: 'Endokrin, Metabolik & Diabetes', recordCount: 29400, description: 'Interaksi antidiabetes oral/insulin, hormon tiroid, dan kortikosteroid.' },
-    { code: 'ddinter_E', name: 'Gastrointestinal & Metoklopramid', recordCount: 22100, description: 'Interaksi PPI, Antagonis H2, antasida, dan obat motilitas saluran cerna.' },
-    { code: 'ddinter_F', name: 'Analgesik, NSAID & Antigout', recordCount: 31200, description: 'Interaksi NSAID, opioid, parasetamol, dan obat penurun asam urat.' },
-    { code: 'ddinter_G', name: 'Antineoplastik & Imunosupresan', recordCount: 26800, description: 'Interaksi inhibitor kalsineurin, antimetabolit, dan kemoterapi kanker.' },
-    { code: 'ddinter_H', name: 'Sistem Pernapasan (Respirasi)', recordCount: 18400, description: 'Interaksi bronkodilator, antikolinergik, teofilin, dan antihistamin.' },
-    { code: 'ddinter_I', name: 'Obat Musculoskeletal & Dermatologi', recordCount: 15300, description: 'Interaksi relaksan otot, agen topikal sistemik, dan imunomodulator kulit.' },
-    { code: 'ddinter_L', name: 'Darah, Organ Pembentuk Darah & Lainnya', recordCount: 29646, description: 'Interaksi preparat besi, suplemen elektrolit, dan agen hematologi khusus.' }
+    { code: 'ddinter_A', name: 'Obat Kardiovaskular & Antikoagulan (DOAC/NOAC)', recordCount: 43250, description: 'Interaksi DOAC (Apixaban, Dabigatran), Statin, Antiplatelet, Antihipertensi, dan Antiarrhythmia.' },
+    { code: 'ddinter_B', name: 'Anti-infeksi & Antimikroba (Antivirus Paxlovid)', recordCount: 40100, description: 'Interaksi Paxlovid, Oksazolidinon (Linezolid), Antifungal Triazole, dan Antibiotik Broad-Spectrum.' },
+    { code: 'ddinter_C', name: 'Sistem Saraf Pusat (SSP) & Psikiatri', recordCount: 49800, description: 'Interaksi Antipsikotik Atipikal (Quetiapine, Olanzapine, Clozapine), SNRI/SSRI, dan Antikonvulsan.' },
+    { code: 'ddinter_D', name: 'Endokrin, Metabolik & Diabetes (GLP-1 RA / SGLT2i)', recordCount: 30600, description: 'Interaksi Agonis GLP-1 (Semaglutide, Tirzepatide), Inhibitor SGLT2 (Empagliflozin), dan DPP-4i.' },
+    { code: 'ddinter_E', name: 'Gastrointestinal & Metoklopramid', recordCount: 22400, description: 'Interaksi PPI, Antagonis H2, antasida, dan obat motilitas saluran cerna.' },
+    { code: 'ddinter_F', name: 'Analgesik, NSAID & Antigout (Colchicine)', recordCount: 32100, description: 'Interaksi NSAID, Opioid, Colchicine, Parasetamol, dan agen urikosurik.' },
+    { code: 'ddinter_G', name: 'Antineoplastik & Imunosupresan (Methotrexate)', recordCount: 27900, description: 'Interaksi Methotrexate, Calcineurin Inhibitor, dan terapi biologis.' },
+    { code: 'ddinter_H', name: 'Sistem Pernapasan (Respirasi)', recordCount: 18700, description: 'Interaksi bronkodilator, antikolinergik LAMA, steroid inhalasi, dan antihistamin.' },
+    { code: 'ddinter_I', name: 'Obat Musculoskeletal & Dermatologi', recordCount: 15600, description: 'Interaksi relaksan otot, agen topikal sistemik, dan imunomodulator kulit.' },
+    { code: 'ddinter_L', name: 'Darah, Organ Pembentuk Darah & Lainnya', recordCount: 30200, description: 'Interaksi preparat besi, suplemen elektrolit, dan agen hematologi khusus.' }
   ]
 };
 
-export const SAMPLE_FOOD_INTERACTIONS: DrugFoodInteraction[] = [
+const BASE_FOOD_INTERACTIONS: DrugFoodInteraction[] = [
   {
     "id": "dfi-simvastatin-grapefruit",
     "drugName": "Simvastatin",
@@ -211,7 +212,12 @@ export const SAMPLE_FOOD_INTERACTIONS: DrugFoodInteraction[] = [
   }
 ];
 
-export const SAMPLE_THERAPEUTIC_DUPLICATIONS: TherapeuticDuplication[] = [
+export const SAMPLE_FOOD_INTERACTIONS: DrugFoodInteraction[] = [
+  ...BASE_FOOD_INTERACTIONS,
+  ...DRUGSCOM_ADDITIONAL_FOOD_INTERACTIONS
+];
+
+const BASE_THERAPEUTIC_DUPLICATIONS: TherapeuticDuplication[] = [
   {
     "id": "dup-nsaid-double",
     "drugAName": "Ibuprofen",
@@ -334,82 +340,66 @@ export const SAMPLE_THERAPEUTIC_DUPLICATIONS: TherapeuticDuplication[] = [
   }
 ];
 
+export const SAMPLE_THERAPEUTIC_DUPLICATIONS: TherapeuticDuplication[] = [
+  ...BASE_THERAPEUTIC_DUPLICATIONS,
+  ...DRUGSCOM_ADDITIONAL_THERAPEUTIC_DUPLICATIONS
+];
+
 export const PRICING_PLANS: PricingPlan[] = [
   {
     id: 'free',
-    name: 'Akses Dasar / Pemula',
-    priceFormatted: 'Rp 0',
+    name: 'Pemula',
+    priceFormatted: 'Gratis',
     priceValue: 0,
-    period: 'Selamanya',
-    description: 'Untuk mahasiswa farmasi, pasien, dan penelusuran informasi obat tingkat dasar.',
+    period: 'Selamanya (Akses Gratis)',
+    description: 'Akses gratis penelusuran monografi obat, panduan cara pakai, dan uji interaksi multi-obat.',
     features: [
-      'Pencarian Katalog Monografi Obat Dasar',
-      'Cek Interaksi Maksimal 2 Obat Sekaligus',
-      'Ringkasan Keparahan (Major, Moderate, Minor)',
-      'Akses Terbatas 5x Pemeriksaan per Hari',
-      'Dukungan Komunitas & FAQ'
+      'Pencarian Seluruh Monografi & Brand Obat Indonesia (Full)',
+      'Cek Interaksi Obat Tanpa Batas (>10 Obat Sekaligus)',
+      'Akses Modul Panduan Cara Pakai Obat & Edukasi Pasien',
+      'Ringkasan Derajat Keparahan (Major, Moderate, Minor)',
+      'Dukungan Komunitas Farmasi & FAQ'
     ],
     isPopular: false,
-    ctaText: 'Mulai Gratis',
+    ctaText: 'Mulai Gratis Sekarang',
     permissions: {
-      maxDrugsPerCheck: 2,
+      maxDrugsPerCheck: 99,
       canPrintPdfReport: false,
       canAccessFoodInteractions: false,
       canAccessTherapeuticDuplications: false,
-      canSaveCloudHistory: true,
-      maxHistoryRecords: 3,
+      canSaveCloudHistory: false,
+      maxHistoryRecords: 0,
       canAccessClinicBranding: false,
-      canExportExcelCsv: false
+      canExportExcelCsv: false,
+      canAccessClinicalGuidelines: false,
+      canAccessRenalCalculator: false,
+      canAccessSop: false
     }
   },
   {
     id: 'pro',
-    name: 'Profesional (Farmasis & Dokter)',
-    badge: 'Paling Populer',
-    priceFormatted: 'Rp 99.000',
-    priceValue: 99000,
-    period: 'per bulan (Rp 79rb/bln jika tahunan)',
-    description: 'Solusi lengkap klinis untuk Apoteker Pengelola Apotek, Dokter Praktik, dan Tenaga Medis.',
+    name: 'Pro',
+    badge: 'Akses Penuh & Rekomendasi Utama',
+    priceFormatted: 'Rp 199.000',
+    originalPriceFormatted: 'Rp 999.000',
+    discountBadge: 'Hemat 80%',
+    priceValue: 199000,
+    period: 'per tahun (Hanya Rp 16.500/bln)',
+    description: 'Akses lengkap ke seluruh modul klinis, database PNPK, kalkulator ginjal, dan ekspor PDF resmi.',
     features: [
-      'Akses FULL Monografi & Brand Obat Indonesia',
-      'Cek Interaksi Multi-Obat TANPA BATAS (>10 obat sekaligus)',
-      'Analisis Mekanisme Farmakologi & Solusi Manajemen Klinis',
-      'Fitur Interaksi Obat-Makanan (DFI) & Duplikasi Terapi',
-      'Cetak & Ekspor Laporan PDF Kustomisasi Pasien',
-      'Simpan Riwayat Pemeriksaan Resep di Cloud Firebase',
-      'Dukungan Konsultasi Klinis Prioritas'
+      'Semua Fitur Paket Pemula (Monografi & Uji Interaksi Penuh)',
+      'Deteksi Interaksi Obat-Makanan (DFI) & Duplikasi Terapi',
+      'Cetak & Ekspor Laporan PDF Interaksi Pasien Lengkap',
+      'Kalkulator Penyesuaian Dosis Ginjal (CrCl & eGFR)',
+      'Database Lengkap Panduan Terapi Klinis (PNPK & Konsensus RI)',
+      'Kustomisasi Kop Surat Klinik, Logo & Stempel Digital Resmi',
+      'Modul Standar Operasional Prosedur (SOP) Farmasi Klinis',
+      'Ekspor Rekapitulasi Data Resep & Audit ke Excel/CSV',
+      'Penyimpanan Riwayat Pemeriksaan Resep di Cloud Firebase',
+      'Dukungan Konsultasi Klinis Prioritas via WhatsApp'
     ],
     isPopular: true,
-    ctaText: 'Langganan Paket Pro',
-    permissions: {
-      maxDrugsPerCheck: 99,
-      canPrintPdfReport: true,
-      canAccessFoodInteractions: true,
-      canAccessTherapeuticDuplications: true,
-      canSaveCloudHistory: true,
-      maxHistoryRecords: 999,
-      canAccessClinicBranding: false,
-      canExportExcelCsv: true
-    }
-  },
-  {
-    id: 'klinik',
-    name: 'Klinik, Apotek & Faskes Enterprise',
-    badge: 'Solusi Tim',
-    priceFormatted: 'Rp 249.000',
-    priceValue: 249000,
-    period: 'per bulan (Rp 199rb/bln jika tahunan)',
-    description: 'Didesain untuk Manajemen Apotek, Klinik Pratama, Rumah Sakit, dan Puskesmas.',
-    features: [
-      'Semua Fitur Paket Profesional Pro',
-      'Lisensi Multi-Akun Staf (Hingga 5-10 Akun Apoteker/Dokter)',
-      'Sinkronisasi Real-Time Database Resep Cloud',
-      'Ekspor Rekapitulasi Data Resep & Interaksi ke Excel/CSV',
-      'Laporan Audit Keamanan Penggunaan Obat Bulanan (Patient Safety)',
-      'Akses Integrasi API & Pelatihan Staf 24/7'
-    ],
-    isPopular: false,
-    ctaText: 'Langganan Paket Klinik',
+    ctaText: 'Ambil Promo Pro Rp 199rb / Tahun',
     permissions: {
       maxDrugsPerCheck: 99,
       canPrintPdfReport: true,
@@ -418,7 +408,10 @@ export const PRICING_PLANS: PricingPlan[] = [
       canSaveCloudHistory: true,
       maxHistoryRecords: 999,
       canAccessClinicBranding: true,
-      canExportExcelCsv: true
+      canExportExcelCsv: true,
+      canAccessClinicalGuidelines: true,
+      canAccessRenalCalculator: true,
+      canAccessSop: true
     }
   }
 ];
@@ -427,38 +420,38 @@ export interface FeatureComparison {
   featureName: string;
   free: string | boolean;
   pro: string | boolean;
-  klinik: string | boolean;
 }
 
 export const PRICING_FEATURE_COMPARISON: FeatureComparison[] = [
-  { featureName: 'Pencarian Katalog Monografi Obat', free: 'Terbatas (Dasar)', pro: 'Akses Penuh + Brand ID', klinik: 'Akses Penuh + Brand ID' },
-  { featureName: 'Jumlah Obat Cek Interaksi', free: 'Maks. 2 Obat', pro: 'Tanpa Batas (>10 Obat)', klinik: 'Tanpa Batas (>10 Obat)' },
-  { featureName: 'Batas Pemeriksaan Resep', free: '5x per Hari', pro: 'Tanpa Batas', klinik: 'Tanpa Batas' },
-  { featureName: 'Analisis Mekanisme & Manajemen Klinis', free: 'Singkat', pro: 'Lengkap & Detail', klinik: 'Lengkap & Detail' },
-  { featureName: 'Cek Interaksi Makanan (DFI) & Duplikasi', free: false, pro: true, klinik: true },
-  { featureName: 'Ekspor & Cetak Laporan PDF Pasien', free: false, pro: true, klinik: true },
-  { featureName: 'Penyimpanan Riwayat di Firebase Cloud', free: false, pro: true, klinik: true },
-  { featureName: 'Jumlah Akun / Lisensi Pengguna', free: '1 Akun', pro: '1 Akun Pro', klinik: 'Hingga 5-10 Akun Staf' },
-  { featureName: 'Ekspor Data Rekapitulasi Excel / CSV', free: false, pro: false, klinik: true },
-  { featureName: 'Laporan Audit Keamanan Pasien (Patient Safety)', free: false, pro: false, klinik: true },
-  { featureName: 'Dukungan Pelanggan & Layanan', free: 'Komunitas', pro: 'Prioritas Email/WA', klinik: '24/7 VIP Dedicated' }
+  { featureName: 'Pencarian Monografi Obat & Brand Indonesia', free: 'Akses Seluruhnya (Full)', pro: 'Akses Seluruhnya (Full)' },
+  { featureName: 'Kapasitas Cek Interaksi Obat Sekaligus', free: 'Tanpa Batas (>10 Obat)', pro: 'Tanpa Batas (>10 Obat)' },
+  { featureName: 'Modul Panduan Cara Pakai Obat & Edukasi', free: true, pro: true },
+  { featureName: 'Cek Interaksi Makanan (DFI) & Duplikasi Terapi', free: false, pro: true },
+  { featureName: 'Ekspor & Cetak Laporan PDF Pasien', free: false, pro: true },
+  { featureName: 'Kalkulator Dosis Ginjal (CrCl & eGFR)', free: false, pro: true },
+  { featureName: 'Panduan Terapi Klinis (PNPK & Konsensus RI)', free: false, pro: true },
+  { featureName: 'Kop Surat Klinik, Logo & Stempel Digital', free: false, pro: true },
+  { featureName: 'Penyimpanan Riwayat Resep Cloud Firebase', free: false, pro: 'Tanpa Batas' },
+  { featureName: 'Ekspor Data Rekapitulasi Excel / CSV', free: false, pro: true },
+  { featureName: 'Modul SOP Farmasi Klinis & Penapisan Resep', free: false, pro: true },
+  { featureName: 'Layanan Dukungan & Konsultasi', free: 'Komunitas & FAQ', pro: 'Prioritas WhatsApp 24/7' }
 ];
 
 export const PRICING_FAQS = [
   {
-    q: 'Metode pembayaran apa saja yang didukung?',
-    a: 'Kami menerima pembayaran melalui QRIS (GoPay, OVO, ShopeePay, DANA, BCA Mobile), Transfer Bank Virtual Account (BCA, Mandiri, BNI, BRI), serta Kartu Kredit/Debit.'
+    q: 'Berapa tarif langganan Paket Pro dan berapa lama masa aktifnya?',
+    a: 'Paket Pro sedang promo spesial dari harga normal Rp 999.000/tahun menjadi hanya Rp 199.000/tahun (hemat 80% atau hanya ~Rp 16.500/bulan). Masa aktif berlaku 1 tahun penuh (365 hari).'
   },
   {
-    q: 'Apakah saya bisa membatalkan langganan kapan saja?',
-    a: 'Ya, Anda dapat membatalkan atau mengubah paket langganan kapan saja dari halaman profil akun tanpa biaya penalti.'
+    q: 'Apa perbedaan mendasar antara Paket Pemula dan Paket Pro?',
+    a: 'Paket Pemula 100% gratis untuk pencarian seluruh monografi obat, cek interaksi obat tanpa batas, dan panduan cara pakai obat. Paket Pro membuka seluruh fitur lanjutan: deteksi interaksi makanan (DFI), duplikasi terapi, kalkulator ginjal, panduan terapi PNPK Kemenkes, cetak laporan PDF, kop surat klinik, dan ekspor data.'
   },
   {
-    q: 'Apakah tersedia faktur pajak / kuitansi resmi untuk Klinik/Apotek?',
-    a: 'Ya, untuk Paket Klinik & Enterprise, sistem kami secara otomatis menerbitkan bukti pembayaran dan kuitansi resmi bertanda tangan digital untuk keperluan administrasi faskes.'
+    q: 'Metode pembayaran apa saja yang didukung untuk Paket Pro?',
+    a: 'Kami menerima pembayaran melalui QRIS (GoPay, OVO, ShopeePay, DANA, BCA Mobile), Transfer Bank Otomatis/Manual (BCA, Mandiri, BNI, BRI), serta E-Wallet.'
   },
   {
-    q: 'Bagaimana jika saya memerlukan lisensi lebih dari 10 akun staf?',
-    a: 'Hubungi tim dukungan enterprise kami untuk penawaran lisensi custom institusi, integrasi SIMRS/Sistem Apotek, atau pelatihan onsite.'
+    q: 'Apakah saya bisa langsung aktif setelah membayar?',
+    a: 'Ya, setelah pembayaran terkonfirmasi, akun Anda langsung berstatus Pro Aktif dan seluruh fitur lanjutan dapat langsung digunakan seketika.'
   }
 ];

@@ -23,9 +23,10 @@ import {
   Utensils,
   Calculator,
   Stethoscope,
-  RefreshCw,
-  ClipboardList,
-  Scale
+  RefreshCw, 
+  ClipboardList, 
+  Scale,
+  HeartPulse
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -56,6 +57,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     ? [
         { id: 'dashboard', label: 'Dashboard', icon: Sparkles },
         { id: 'drugs', label: 'Informasi Obat', icon: Pill },
+        { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman' },
         { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru' },
         { id: 'interactions', label: 'Cek Interaksi', icon: ShieldAlert, badge: 'Klinis' },
         { id: 'renal-adjuster', label: 'Kalkulator Dosis', icon: Calculator, badge: 'Dosis' },
@@ -68,6 +70,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     : [
         { id: 'landing', label: 'Beranda', icon: Sparkles },
         { id: 'drugs', label: 'Katalog Obat', icon: Pill },
+        { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman' },
         { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru' },
         { id: 'renal-adjuster', label: 'Kalkulator Dosis', icon: Calculator, badge: 'Dosis' },
         { id: 'sop', label: 'SOP Farmasi', icon: ClipboardList, badge: 'Resmi' },

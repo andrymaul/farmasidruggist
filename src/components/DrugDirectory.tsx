@@ -81,6 +81,9 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
         (drug.ddinterId && drug.ddinterId.toLowerCase().includes(query)) ||
         (drug.indication && drug.indication.toLowerCase().includes(query)) ||
         (drug.offLabelIndication && drug.offLabelIndication.toLowerCase().includes(query)) ||
+        (drug.blackBoxWarning && drug.blackBoxWarning.toLowerCase().includes(query)) ||
+        (drug.cypPathway && drug.cypPathway.toLowerCase().includes(query)) ||
+        (drug.monitoringParameters && drug.monitoringParameters.toLowerCase().includes(query)) ||
         (drug.brandNames && Array.isArray(drug.brandNames) && drug.brandNames.some((b) => b && b.toLowerCase().includes(query)));
 
       const matchesCategory = matchesCategoryFilter(drug, selectedCategory);
@@ -449,6 +452,11 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                       {drug.offLabelIndication && (
                         <span className="bg-purple-100 text-purple-900 text-[10px] font-extrabold px-2 py-0.5 rounded border border-purple-200" title="Memiliki data indikasi & dosis klinis off-label">
                           Off-Label
+                        </span>
+                      )}
+                      {drug.blackBoxWarning && (
+                        <span className="bg-rose-100 text-rose-900 text-[10px] font-extrabold px-2 py-0.5 rounded border border-rose-300 flex items-center gap-0.5" title="FDA Boxed Warning (Peringatan Khusus Drugs.com)">
+                          <span>⚠️ Boxed Warning</span>
                         </span>
                       )}
                     </div>

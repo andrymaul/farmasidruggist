@@ -1,6 +1,7 @@
 import { Drug } from '../types';
+import { DRUGSCOM_ADDITIONAL_DRUGS } from './drugsComData';
 
-export const EXTENDED_DRUGS_DATABASE: Drug[] = [
+const BASE_EXTENDED_DRUGS: Drug[] = [
   {
     "id": "drug-warfarin",
     "name": "Warfarin",
@@ -19,7 +20,13 @@ export const EXTENDED_DRUGS_DATABASE: Drug[] = [
     "pharmacology": "Inhibitor antagonis vitamin K reduktase (Faktor II, VII, IX, X).",
     "foodInteraction": "Hindari fluktuasi asupan makanan tinggi Vitamin K (bayam, kale).",
     "pregnancyCategory": "X",
-    "ddinterId": "DDInter-D00001"
+    "ddinterId": "DDInter-D00001",
+    "blackBoxWarning": "RISIKO PERDARAHAN MAYOR / FATAL. Perlu pemantauan rutin nilai INR. Hindari obat & makanan yang mempengaruhi hemostasis.",
+    "cypPathway": "Metabolisme hepatik via CYP2C9 (S-warfarin), CYP1A2, CYP3A4 (R-warfarin). Substrat CYP2C9 sensitif.",
+    "monitoringParameters": "Nilai INR target (2.0 - 3.0), Hemoglobin/Hematokrit serial, tanda-tanda perdarahan occult (melena, hematuria, memar luas).",
+    "patientTips": "Konsumsi pada jam yang sama setiap hari (biasanya malam). Jaga konsistensi pola makan sayuran hijau bervitamin K. Hindari alkohol & jangan konsumsi NSAID/Aspirin bebas tanpa resep.",
+    "lactationWarning": "Kompatibel / Diekskresikan dalam jumlah minimal ke ASI; tetap pantau tanda memar pada bayi.",
+    "drugsComUrl": "https://www.drugs.com/monograph/warfarin.html"
   },
   {
     "id": "drug-aspirin",
@@ -2357,18 +2364,47 @@ export const EXTENDED_DRUGS_DATABASE: Drug[] = [
       "Ryvel",
       "Cerini",
       "Ozen",
-      "Tiriz"
+      "Tiriz",
+      "Cetinal",
+      "Estin",
+      "Histrine",
+      "Lerzin",
+      "Ritez",
+      "Zenriz"
     ],
     "atcCode": "R06AE07",
     "category": "Antihistamin Generasi 2 (Non-Sedatif)",
-    "indication": "Rinitis alergi musiman & perenial, urtikaria idiopatik kronis.",
-    "contraindications": "Gangguan ginjal stadium akhir (CrCl < 10 mL/min).",
-    "sideEffects": "Kantuk ringan, mulut kering, kelelahan, sakit kepala.",
-    "dosage": "10 mg sekali sehari pada malam hari.",
-    "pharmacology": "Antagonis selektif reseptor H1 histamin perifer dengan penetrasi SSP rendah.",
-    "foodInteraction": "Dapat diminum dengan atau tanpa makanan.",
+    "bpomClassification": "Obat Bebas Terbatas",
+    "drugClassification": "🔵 Obat Bebas Terbatas (P.No. 1 / Resep Dokter)",
+    "description": "Antihistamin generasi kedua metabolit aktif dari hidroksizin yang bekerja sebagai antagonis selektif reseptor histamin H1 perifer dengan efek sedasi minimal.",
+    "indication": "Rinitis alergi musiman (hay fever) & perenial, urtikaria idiopatik kronis, pruritus alergi.",
+    "contraindications": "Hipersensitivitas terhadap cetirizine atau hidroksizin; gangguan ginjal stadium akhir (CrCl < 10 mL/min) atau pasien yang menjalani hemodialisis.",
+    "sideEffects": "Kantuk ringan (somnolen ~14%), mulut kering (xerostomia), kelelahan/letargi, sakit kepala, faringitis.",
+    "dosage": "Dewasa & anak >=12 th: 10 mg sekali sehari malam hari. Anak 6-11 th: 5-10 mg/hari. Anak 2-5 th: 2.5-5 mg/hari. Anak 6-23 bln: 2.5 mg/hari.",
+    "pharmacology": "Antagonis kompetitif dan selektif reseptor H1 histamin perifer; menghambat pelepasan mediator inflamasi histamin dari sel mast basofil dengan penetrasi sawar darah otak yang sangat rendah.",
+    "foodInteraction": "Dapat diminum dengan atau tanpa makanan. Hindari konsumsi bersama alkohol karena meningkatkan efek sedasi/depresi SSP.",
     "pregnancyCategory": "B",
-    "ddinterId": "DDInter-D00114"
+    "halfLife": "~8.3 jam (dewasa); ~5-6 jam (anak); ~12 jam (geriatri)",
+    "clearance": "Ekskresi renal utama (~70% diekskresikan dalam bentuk utuh di urin, 10% di feses).",
+    "ddinterId": "DDInter-D00114",
+    "lactationWarning": "Diekskresikan ke dalam ASI dalam konsentrasi rendah (risiko sedasi ringan pada bayi); gunakan dengan kehati-hatian atas arahan dokter/apoteker.",
+    "cypPathway": "Metabolisme hepatik minimal (<10%); tidak dipengaruhi secara signifikan oleh jalur enzim CYP450.",
+    "monitoringParameters": "Evaluasi peredaan gejala alergi (bersin, rinorea berair, gatal biduran), fungsi ginjal (eGFR/CrCl) pada lansia, serta derajat efek sedasi/kantuk.",
+    "patientTips": "Disarankan diminum 1 kali sehari pada malam hari sebelum tidur untuk meminimalkan dampak mengantuk di siang hari. Dapat diminum sebelum atau sesudah makan. Hindari mengemudi atau mengonsumsi alkohol.",
+    "drugsComUrl": "https://www.drugs.com/cetirizine.html",
+    "commonSideEffects": [
+      "Somnolen / Rasa kantuk ringan (14%)",
+      "Mulut kering (Xerostomia)",
+      "Kelelahan / Letargi",
+      "Sakit kepala",
+      "Faringitis / Rasa tidak nyaman di tenggorokan"
+    ],
+    "seriousSideEffects": [
+      "Reaksi anafilaksis / Angioedema saluran napas",
+      "Bronkospasme berat",
+      "Hipotensi mendadak",
+      "Retensi urin akut (terutama pada pria dengan BPH)"
+    ]
   },
   {
     "id": "drug-loratadine",
@@ -4697,3 +4733,9 @@ export const EXTENDED_DRUGS_DATABASE: Drug[] = [
     "ddinterId": "DDInter-D00223"
   }
 ];
+
+export const EXTENDED_DRUGS_DATABASE: Drug[] = [
+  ...BASE_EXTENDED_DRUGS,
+  ...DRUGSCOM_ADDITIONAL_DRUGS
+];
+

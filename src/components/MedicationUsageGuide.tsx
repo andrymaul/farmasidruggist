@@ -269,7 +269,15 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
                   <div className="p-3 rounded-2xl bg-teal-50 text-teal-600 border border-teal-100 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-200 shadow-2xs">
                     {renderIcon(guide.iconName, 'w-6 h-6')}
                   </div>
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 group-hover:bg-teal-50 group-hover:text-teal-700 transition-colors">
+                  <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border shadow-2xs ${
+                    guide.category === 'Injeksi'
+                      ? 'bg-pink-50 text-pink-700 border-pink-300'
+                      : guide.category === 'Inhalasi & Respirasi'
+                      ? 'bg-purple-50 text-purple-700 border-purple-300'
+                      : guide.category === 'Suppositoria & Vaginal'
+                      ? 'bg-rose-50 text-rose-700 border-rose-300'
+                      : 'bg-sky-50 text-sky-700 border-sky-300'
+                  }`}>
                     {guide.category}
                   </span>
                 </div>

@@ -92,7 +92,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
     phone: '',
     institution: '',
     licenseNumber: '',
-    subscriptionPlan: 'Pro' as 'Gratis' | 'Pro' | 'Klinik',
+    subscriptionPlan: 'Pro' as 'Pemula' | 'Pro' | 'Elite' | 'Gratis' | 'Klinik',
     subscriptionStatus: 'active' as 'active' | 'expired' | 'trial',
     expiresAtDate: '',
     maxDrugsOverride: 20,
@@ -135,15 +135,14 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
   // Calculate Statistics
   const stats = useMemo(() => {
     const total = customers.length;
-    const proCount = customers.filter(c => c.subscriptionPlan === 'Pro' && c.subscriptionStatus === 'active').length;
-    const klinikCount = customers.filter(c => c.subscriptionPlan === 'Klinik' && c.subscriptionStatus === 'active').length;
+    const proCount = customers.filter(c => (c.subscriptionPlan === 'Pro' || c.subscriptionPlan === 'Elite' || c.subscriptionPlan === 'Klinik') && c.subscriptionStatus === 'active').length;
+    const freeCount = customers.filter(c => (c.subscriptionPlan === 'Pemula' || c.subscriptionPlan === 'Gratis') || c.subscriptionStatus === 'trial').length;
     const activeCount = customers.filter(c => c.subscriptionStatus === 'active').length;
-    const freeCount = customers.filter(c => c.subscriptionPlan === 'Gratis' || c.subscriptionStatus === 'trial').length;
     
-    // Revenue estimation (Pro: Rp 149rb/bln, Klinik: Rp 399rb/bln)
-    const monthlyRevenue = (proCount * 149000) + (klinikCount * 399000);
+    // Revenue estimation (Pro: Rp 199.000 / tahun)
+    const annualRevenue = proCount * 199000;
 
-    return { total, proCount, klinikCount, activeCount, freeCount, monthlyRevenue };
+    return { total, proCount, activeCount, freeCount, annualRevenue };
   }, [customers]);
 
   // Filtered customers list
@@ -157,7 +156,11 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
         (cust.phone && cust.phone.includes(q)) ||
         (cust.licenseNumber && cust.licenseNumber.toLowerCase().includes(q));
       
-      const matchesPlan = selectedPlanFilter === 'Semua' || cust.subscriptionPlan === selectedPlanFilter;
+      const matchesPlan = selectedPlanFilter === 'Semua' || 
+        cust.subscriptionPlan === selectedPlanFilter ||
+        (selectedPlanFilter === 'Pemula' && cust.subscriptionPlan === 'Gratis') ||
+        (selectedPlanFilter === 'Pro' && (cust.subscriptionPlan === 'Elite' || cust.subscriptionPlan === 'Klinik'));
+      
       const matchesStatus = selectedStatusFilter === 'Semua' || cust.subscriptionStatus === selectedStatusFilter;
 
       return matchesSearch && matchesPlan && matchesStatus;
@@ -179,7 +182,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       subscriptionPlan: 'Pro',
       subscriptionStatus: 'active',
       expiresAtDate: expiryDate.toISOString().split('T')[0],
-      maxDrugsOverride: 20,
+      maxDrugsOverride: 30,
       canExportPdf: true,
       canAccessRenal: true,
       canAccessPolypharmacy: true,
@@ -208,10 +211,10 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       subscriptionPlan: cust.subscriptionPlan,
       subscriptionStatus: cust.subscriptionStatus,
       expiresAtDate: expiryFormatted,
-      maxDrugsOverride: cust.maxDrugsOverride || (cust.subscriptionPlan === 'Klinik' ? 30 : cust.subscriptionPlan === 'Pro' ? 20 : 5),
-      canExportPdf: cust.canExportPdf ?? (cust.subscriptionPlan !== 'Gratis'),
-      canAccessRenal: cust.canAccessRenal ?? (cust.subscriptionPlan !== 'Gratis'),
-      canAccessPolypharmacy: cust.canAccessPolypharmacy ?? (cust.subscriptionPlan !== 'Gratis'),
+      maxDrugsOverride: cust.maxDrugsOverride || 30,
+      canExportPdf: cust.canExportPdf ?? (cust.subscriptionPlan !== 'Gratis' && cust.subscriptionPlan !== 'Pemula'),
+      canAccessRenal: cust.canAccessRenal ?? (cust.subscriptionPlan !== 'Gratis' && cust.subscriptionPlan !== 'Pemula'),
+      canAccessPolypharmacy: cust.canAccessPolypharmacy ?? (cust.subscriptionPlan !== 'Gratis' && cust.subscriptionPlan !== 'Pemula'),
       notes: cust.notes || '',
       durationMonths: 12
     });
@@ -234,7 +237,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       institution: formState.institution,
       licenseNumber: formState.licenseNumber,
       notes: formState.notes,
-      role: formState.subscriptionPlan === 'Gratis' ? 'free' : 'customer',
+      role: (formState.subscriptionPlan === 'Gratis' || formState.subscriptionPlan === 'Pemula') ? 'free' : 'customer',
       subscriptionPlan: formState.subscriptionPlan,
       subscriptionStatus: formState.subscriptionStatus,
       maxDrugsOverride: Number(formState.maxDrugsOverride),
@@ -318,6 +321,27 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
     }));
   };
 
+  const handleUpgradeToPro = (uid: string) => {
+    const expiryDate = new Date();
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+
+    setCustomers(customers.map(c => {
+      if (c.uid === uid) {
+        return {
+          ...c,
+          role: 'customer',
+          subscriptionPlan: 'Pro',
+          subscriptionStatus: 'active',
+          canExportPdf: true,
+          canAccessRenal: true,
+          canAccessPolypharmacy: true,
+          expiresAt: expiryDate.toISOString()
+        };
+      }
+      return c;
+    }));
+  };
+
   const handleToggleStatus = (uid: string) => {
     setCustomers(customers.map(c => {
       if (c.uid === uid) {
@@ -382,27 +406,27 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
             <Zap className="w-4 h-4 text-[#2fa89b]" />
           </div>
           <p className="text-2xl font-black text-[#2fa89b] font-outfit">{stats.proCount}</p>
-          <p className="text-[11px] text-slate-500">Praktisi & Apoteker</p>
+          <p className="text-[11px] text-slate-500">Rp 199rb / tahun</p>
         </div>
 
         <div className="clean-card p-5 space-y-1">
           <div className="flex items-center justify-between text-slate-500">
-            <span className="text-xs font-bold font-outfit">Paket Klinik Aktif</span>
-            <Building2 className="w-4 h-4 text-purple-600" />
+            <span className="text-xs font-bold font-outfit">Paket Pemula Gratis</span>
+            <Building2 className="w-4 h-4 text-slate-500" />
           </div>
-          <p className="text-2xl font-black text-purple-600 dark:text-purple-400 font-outfit">{stats.klinikCount}</p>
-          <p className="text-[11px] text-slate-500">Klinik / RS / Apotek</p>
+          <p className="text-2xl font-black text-slate-700 dark:text-slate-300 font-outfit">{stats.freeCount}</p>
+          <p className="text-[11px] text-slate-500">Akses Dasar</p>
         </div>
 
         <div className="clean-card p-5 space-y-1">
           <div className="flex items-center justify-between text-slate-500">
-            <span className="text-xs font-bold font-outfit">Estimasi MRR</span>
+            <span className="text-xs font-bold font-outfit">Estimasi Pendapatan (ARR)</span>
             <TrendingUp className="w-4 h-4 text-emerald-600" />
           </div>
           <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-outfit">
-            Rp {(stats.monthlyRevenue / 1000).toLocaleString('id-ID')}rb
+            Rp {(stats.annualRevenue / 1000).toLocaleString('id-ID')}rb
           </p>
-          <p className="text-[11px] text-slate-500">Pendapatan bulanan</p>
+          <p className="text-[11px] text-slate-500">Pendapatan tahunan</p>
         </div>
       </div>
 
@@ -432,9 +456,8 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
                 className="bg-slate-50 dark:bg-[#06191c] border border-slate-200 dark:border-[#184c53] rounded-xl text-xs px-3 py-2 font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#3dbfd1]"
               >
                 <option value="Semua">Semua Paket</option>
-                <option value="Gratis">Gratis</option>
-                <option value="Pro">Pro</option>
-                <option value="Klinik">Klinik</option>
+                <option value="Pemula">Pemula (Gratis)</option>
+                <option value="Pro">Pro (199rb/thn)</option>
               </select>
             </div>
 
@@ -534,10 +557,10 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
 
                       {/* Subscription Plan Badge */}
                       <td className="py-4 px-4">
-                        {cust.subscriptionPlan === 'Klinik' && (
+                        {(cust.subscriptionPlan === 'Elite' || cust.subscriptionPlan === 'Klinik') && (
                           <span className="inline-flex items-center gap-1 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800 px-2.5 py-1 rounded-full text-xs font-extrabold font-outfit">
                             <Building2 className="w-3.5 h-3.5" />
-                            Klinik
+                            Elite
                           </span>
                         )}
                         {cust.subscriptionPlan === 'Pro' && (
@@ -546,9 +569,9 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
                             Pro
                           </span>
                         )}
-                        {cust.subscriptionPlan === 'Gratis' && (
+                        {(cust.subscriptionPlan === 'Pemula' || cust.subscriptionPlan === 'Gratis') && (
                           <span className="inline-flex items-center gap-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-2.5 py-1 rounded-full text-xs font-semibold font-outfit">
-                            Gratis
+                            Pemula
                           </span>
                         )}
                       </td>
@@ -591,6 +614,17 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
 
                       {/* Actions */}
                       <td className="py-4 px-4 text-right space-x-1.5">
+                        {(cust.subscriptionPlan === 'Pemula' || cust.subscriptionPlan === 'Gratis') && (
+                          <button
+                            onClick={() => handleUpgradeToPro(cust.uid)}
+                            title="Aktifkan Akun Menjadi Paket Pro (+1 Tahun)"
+                            className="px-2.5 py-1 text-[11px] font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-lg shadow-xs transition-all cursor-pointer font-outfit inline-flex items-center gap-1"
+                          >
+                            <Zap className="w-3 h-3 fill-slate-950" />
+                            <span>Aktifkan Pro</span>
+                          </button>
+                        )}
+
                         <button
                           onClick={() => handleExtendSubscription(cust.uid, 12)}
                           title="Perpanjang Masa Aktif +1 Tahun"
@@ -736,9 +770,8 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
                     onChange={(e) => setFormState({ ...formState, subscriptionPlan: e.target.value as any })}
                     className="w-full px-3.5 py-2 bg-slate-50 dark:bg-[#06191c] border border-slate-200 dark:border-[#184c53] rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-[#3dbfd1] focus:outline-none"
                   >
-                    <option value="Gratis">Gratis</option>
-                    <option value="Pro">Pro (Individual)</option>
-                    <option value="Klinik">Klinik (Multi-User)</option>
+                    <option value="Pemula">Pemula (Gratis)</option>
+                    <option value="Pro">Pro (Rp 199.000 / tahun)</option>
                   </select>
                 </div>
 
@@ -979,9 +1012,8 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
                         onChange={(e) => setFormState({ ...formState, subscriptionPlan: e.target.value as any })}
                         className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#06191c] border border-slate-200 dark:border-[#184c53] rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-[#3dbfd1] focus:outline-none"
                       >
-                        <option value="Gratis">Gratis</option>
-                        <option value="Pro">Pro (Praktisi Individual)</option>
-                        <option value="Klinik">Klinik (Multi-User Faskes)</option>
+                        <option value="Pemula">Pemula (Gratis)</option>
+                        <option value="Pro">Pro (Rp 199.000 / tahun)</option>
                       </select>
                     </div>
 

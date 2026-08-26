@@ -1,4 +1,18 @@
 import { Drug, DrugInteraction, SeverityLevel, TherapeuticDuplication, DrugFoodInteraction } from '../types';
+import { DRUGSCOM_DOSAGE_MAP } from '../data/drugsComDosageDatabase';
+
+function findDosageMonograph(drug: Drug) {
+  const normName = (drug.name || '').toLowerCase().trim();
+  const normGeneric = (drug.genericName || '').toLowerCase().trim();
+  const normId = (drug.id || '').replace(/^drug-/, '').toLowerCase().trim();
+
+  return (
+    DRUGSCOM_DOSAGE_MAP[normName] ||
+    DRUGSCOM_DOSAGE_MAP[normGeneric] ||
+    DRUGSCOM_DOSAGE_MAP[normId] ||
+    Object.entries(DRUGSCOM_DOSAGE_MAP).find(([key]) => normName.includes(key) || normGeneric.includes(key))?.[1]
+  );
+}
 
 /**
  * DDInter Engine - Dynamic DDInter Drug & Interaction Generator & Resolver
@@ -42,6 +56,16 @@ export function deduplicateDrugs(drugs: Drug[]): Drug[] {
 
     if (!existing) {
       const copy = { ...drug };
+      const dosageInfo = findDosageMonograph(copy);
+      if (dosageInfo) {
+        if (!copy.adultDosage && dosageInfo.adultDosage) copy.adultDosage = dosageInfo.adultDosage;
+        if (!copy.pediatricDosage && dosageInfo.pediatricDosage) copy.pediatricDosage = dosageInfo.pediatricDosage;
+        if (!copy.geriatricDosage && dosageInfo.geriatricDosage) copy.geriatricDosage = dosageInfo.geriatricDosage;
+        if (!copy.renalDoseAdjustment && dosageInfo.renalDoseAdjustment) copy.renalDoseAdjustment = dosageInfo.renalDoseAdjustment;
+        if (!copy.hepaticDoseAdjustment && dosageInfo.hepaticDoseAdjustment) copy.hepaticDoseAdjustment = dosageInfo.hepaticDoseAdjustment;
+        if (!copy.maxDoseLimit && dosageInfo.maxDoseLimit) copy.maxDoseLimit = dosageInfo.maxDoseLimit;
+        if (!copy.administrationGuideline && dosageInfo.administrationGuideline) copy.administrationGuideline = dosageInfo.administrationGuideline;
+      }
       if (normId) mapById.set(normId, copy);
       if (normAtc) mapByAtc.set(normAtc, copy);
       if (normName) mapByName.set(normName, copy);
@@ -50,8 +74,53 @@ export function deduplicateDrugs(drugs: Drug[]): Drug[] {
     } else {
       const mergedBrands = Array.from(new Set([...(existing.brandNames || []), ...(drug.brandNames || [])]));
       existing.brandNames = mergedBrands;
-      if (drug.pregnancyCategory && drug.pregnancyCategory !== existing.pregnancyCategory) {
+      if (drug.pregnancyCategory && !existing.pregnancyCategory) {
         existing.pregnancyCategory = drug.pregnancyCategory;
+      }
+      if (drug.blackBoxWarning && !existing.blackBoxWarning) {
+        existing.blackBoxWarning = drug.blackBoxWarning;
+      }
+      if (drug.cypPathway && !existing.cypPathway) {
+        existing.cypPathway = drug.cypPathway;
+      }
+      if (drug.monitoringParameters && !existing.monitoringParameters) {
+        existing.monitoringParameters = drug.monitoringParameters;
+      }
+      if (drug.patientTips && !existing.patientTips) {
+        existing.patientTips = drug.patientTips;
+      }
+      if (drug.lactationWarning && !existing.lactationWarning) {
+        existing.lactationWarning = drug.lactationWarning;
+      }
+      if (drug.drugsComUrl && !existing.drugsComUrl) {
+        existing.drugsComUrl = drug.drugsComUrl;
+      }
+      if (drug.offLabelIndication && !existing.offLabelIndication) {
+        existing.offLabelIndication = drug.offLabelIndication;
+      }
+      if (drug.commonSideEffects && !existing.commonSideEffects) {
+        existing.commonSideEffects = drug.commonSideEffects;
+      }
+      if (drug.seriousSideEffects && !existing.seriousSideEffects) {
+        existing.seriousSideEffects = drug.seriousSideEffects;
+      }
+      if (drug.adultDosage && !existing.adultDosage) existing.adultDosage = drug.adultDosage;
+      if (drug.pediatricDosage && !existing.pediatricDosage) existing.pediatricDosage = drug.pediatricDosage;
+      if (drug.geriatricDosage && !existing.geriatricDosage) existing.geriatricDosage = drug.geriatricDosage;
+      if (drug.renalDoseAdjustment && !existing.renalDoseAdjustment) existing.renalDoseAdjustment = drug.renalDoseAdjustment;
+      if (drug.hepaticDoseAdjustment && !existing.hepaticDoseAdjustment) existing.hepaticDoseAdjustment = drug.hepaticDoseAdjustment;
+      if (drug.maxDoseLimit && !existing.maxDoseLimit) existing.maxDoseLimit = drug.maxDoseLimit;
+      if (drug.administrationGuideline && !existing.administrationGuideline) existing.administrationGuideline = drug.administrationGuideline;
+
+      const dosageInfo = findDosageMonograph(existing);
+      if (dosageInfo) {
+        if (!existing.adultDosage) existing.adultDosage = dosageInfo.adultDosage;
+        if (!existing.pediatricDosage) existing.pediatricDosage = dosageInfo.pediatricDosage;
+        if (!existing.geriatricDosage) existing.geriatricDosage = dosageInfo.geriatricDosage;
+        if (!existing.renalDoseAdjustment) existing.renalDoseAdjustment = dosageInfo.renalDoseAdjustment;
+        if (!existing.hepaticDoseAdjustment) existing.hepaticDoseAdjustment = dosageInfo.hepaticDoseAdjustment;
+        if (!existing.maxDoseLimit) existing.maxDoseLimit = dosageInfo.maxDoseLimit;
+        if (!existing.administrationGuideline) existing.administrationGuideline = dosageInfo.administrationGuideline;
       }
     }
   });

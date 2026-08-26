@@ -262,70 +262,77 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* Pricing Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-950 text-xs font-black border border-amber-300">
-            <Sparkles className="w-3.5 h-3.5 fill-amber-900" />
-            <span>Paket & Lisensi Layanan</span>
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-950 dark:text-amber-200 text-xs font-black border border-amber-300 dark:border-amber-800">
+            <Sparkles className="w-3.5 h-3.5 fill-amber-900 dark:fill-amber-300" />
+            <span>Paket Langganan Tahunan Hemat (1 Tahun Akses)</span>
           </div>
 
-          <h2 className="text-3xl font-extrabold text-[#082a24]">
-            Tarif & Fitur Layanan FARMASIDRUGGIST
+          <h2 className="text-3xl font-extrabold text-[#082a24] dark:text-white">
+            Tarif & Lisensi Layanan FARMASIDRUGGIST
           </h2>
-          <p className="text-slate-600 text-sm">
-            Pilih paket langganan yang paling sesuai untuk kebutuhan praktik kefarmasian dan klinik Anda.
+          <p className="text-slate-600 dark:text-slate-300 text-sm font-medium">
+            Paket lisensi tahunan terjangkau untuk mahasiswa, apoteker praktik mandiri, hingga institusi klinik & apotek.
           </p>
-
-          <div className="flex items-center justify-center gap-3 pt-2">
-            <span className={`text-xs font-bold ${billingCycle === 'monthly' ? 'text-[#082a24]' : 'text-slate-500'}`}>Bulanan</span>
-            <button
-              onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
-              className="w-12 h-6 rounded-full bg-slate-300 p-1 relative transition-colors cursor-pointer"
-            >
-              <div className={`w-4 h-4 rounded-full bg-[#0f766e] transition-transform ${billingCycle === 'yearly' ? 'translate-x-6' : ''}`}></div>
-            </button>
-            <span className={`text-xs font-bold ${billingCycle === 'yearly' ? 'text-[#082a24]' : 'text-slate-500'}`}>
-              Tahunan <span className="text-[#0f766e] font-extrabold">(Diskon 20%)</span>
-            </span>
-          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-w-5xl mx-auto gap-8">
           {activePlans.map((plan) => {
             const isPopular = plan.isPopular;
-            const price = billingCycle === 'yearly' ? Math.round(plan.priceValue * 0.8) : plan.priceValue;
 
             return (
               <div
                 key={plan.id}
-                className={`bg-white rounded-2xl p-6 border flex flex-col justify-between relative transition-all ${
+                className={`bg-white dark:bg-[#071c21] rounded-3xl p-6 sm:p-8 border flex flex-col justify-between relative transition-all ${
                   isPopular 
-                    ? 'border-teal-500 ring-2 ring-teal-500/40 shadow-xl scale-[1.02]' 
-                    : 'border-slate-200/90 shadow-sm hover:border-teal-300'
+                    ? 'border-teal-500 ring-2 ring-teal-500/40 shadow-2xl scale-[1.02]' 
+                    : 'border-slate-200/90 dark:border-teal-500/20 shadow-md hover:border-teal-300'
                 }`}
               >
-                {isPopular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-amber-400 text-slate-950 text-[10px] font-black rounded-full uppercase tracking-wider shadow-md">
-                    Paling Populer
+                {plan.badge && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 text-[11px] font-black rounded-full uppercase tracking-wider shadow-md bg-amber-400 text-slate-950">
+                    {plan.badge}
                   </div>
                 )}
 
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-lg font-extrabold text-[#082a24]">{plan.name}</h3>
-                    <p className="text-xs text-slate-500 mt-1 min-h-[32px] font-medium">{plan.description}</p>
+                    <h3 className="text-2xl font-black text-[#082a24] dark:text-white">{plan.name}</h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 min-h-[32px] font-medium leading-relaxed">{plan.description}</p>
                   </div>
 
-                  <div className="border-y border-slate-100 py-3">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-xs font-bold text-slate-500">Rp</span>
-                      <span className="text-3xl font-black text-[#082a24]">{price.toLocaleString('id-ID')}</span>
-                      <span className="text-xs text-slate-500 font-medium">/{billingCycle === 'yearly' ? 'tahun' : 'bulan'}</span>
+                  <div className="border-y border-slate-100 dark:border-slate-800 py-4">
+                    {plan.originalPriceFormatted && (
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs line-through text-slate-400 font-bold decoration-rose-500 decoration-2">
+                          {plan.originalPriceFormatted} / tahun
+                        </span>
+                        {plan.discountBadge && (
+                          <span className="bg-rose-500 text-white text-[10px] font-black px-2 py-0.2 rounded-full shadow-2xs">
+                            {plan.discountBadge}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    <div className="flex items-baseline gap-1.5">
+                      {plan.priceValue > 0 && <span className="text-sm font-bold text-slate-500">Rp</span>}
+                      <span className="text-4xl font-black text-[#082a24] dark:text-white">
+                        {plan.priceValue === 0 ? 'Gratis' : plan.priceValue.toLocaleString('id-ID')}
+                      </span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                        {plan.priceValue === 0 ? 'Selamanya' : '/tahun'}
+                      </span>
                     </div>
+                    {plan.priceValue > 0 && (
+                      <p className="text-xs text-teal-600 dark:text-teal-400 font-black mt-1">
+                        Hanya ~Rp 16.500 / bulan (Hemat Rp 800.000!)
+                      </p>
+                    )}
                   </div>
 
-                  <ul className="space-y-2 text-xs text-slate-700">
+                  <ul className="space-y-2.5 text-xs text-slate-700 dark:text-slate-300">
                     {plan.features.map((feat, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5" />
                         <span className="font-medium">{feat}</span>
                       </li>
                     ))}
@@ -335,13 +342,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <div className="pt-6">
                   <button
                     onClick={onOpenPricingModal}
-                    className={`w-full py-3 rounded-xl font-extrabold text-xs transition-all cursor-pointer ${
+                    className={`w-full py-4 rounded-2xl font-black text-xs transition-all cursor-pointer ${
                       isPopular
-                        ? 'bg-amber-400 hover:bg-amber-300 text-slate-950 font-black shadow-md hover:scale-[1.02]'
+                        ? 'bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md hover:scale-[1.02]'
                         : 'bg-[#0f766e] hover:bg-[#115e59] text-white shadow-sm hover:scale-[1.01]'
                     }`}
                   >
-                    Pilih Paket {plan.name}
+                    {plan.priceValue === 0 ? 'Mulai Akses Pemula Gratis' : `Ambil Promo Paket Pro Rp 199rb / Tahun`}
                   </button>
                 </div>
               </div>
