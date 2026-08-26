@@ -75,10 +75,15 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
   }
 
   // 2. Check Customer Subscriptions database
-  let customerUsers: UserProfile[] = INITIAL_CUSTOMERS;
+  let customerUsers: UserProfile[] = [];
   try {
     const savedCusts = localStorage.getItem('farmasi_customer_subscriptions');
-    if (savedCusts) customerUsers = JSON.parse(savedCusts);
+    if (savedCusts !== null) {
+      const parsed = JSON.parse(savedCusts);
+      if (Array.isArray(parsed)) customerUsers = parsed;
+    } else {
+      customerUsers = INITIAL_CUSTOMERS;
+    }
   } catch (e) {}
 
   const matchedCustomer = customerUsers.find(c => c.email && c.email.trim().toLowerCase() === cleanEmail);
@@ -94,8 +99,8 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
           institution: matchedCustomer.institution || '',
           licenseNumber: matchedCustomer.licenseNumber || '',
           notes: matchedCustomer.notes || '',
-          role: matchedCustomer.role || (matchedCustomer.subscriptionPlan === 'Gratis' ? 'free' : 'customer'),
-          subscriptionPlan: matchedCustomer.subscriptionPlan || 'Pro',
+          role: matchedCustomer.role || (matchedCustomer.subscriptionPlan === 'Gratis' || matchedCustomer.subscriptionPlan === 'Pemula' ? 'free' : 'customer'),
+          subscriptionPlan: matchedCustomer.subscriptionPlan || 'Pemula',
           subscriptionStatus: matchedCustomer.subscriptionStatus || 'active',
           maxDrugsOverride: matchedCustomer.maxDrugsOverride,
           canExportPdf: matchedCustomer.canExportPdf,
@@ -188,9 +193,14 @@ export async function registerWithEmail(
 
   // Save to customer list in localStorage
   try {
-    let customerUsers: UserProfile[] = INITIAL_CUSTOMERS;
+    let customerUsers: UserProfile[] = [];
     const saved = localStorage.getItem('farmasi_customer_subscriptions');
-    if (saved) customerUsers = JSON.parse(saved);
+    if (saved !== null) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) customerUsers = parsed;
+    } else {
+      customerUsers = INITIAL_CUSTOMERS;
+    }
     
     const existingIdx = customerUsers.findIndex(c => c.email && c.email.toLowerCase() === cleanEmail);
     if (existingIdx >= 0) {

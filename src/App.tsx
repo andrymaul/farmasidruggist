@@ -206,22 +206,15 @@ export default function App() {
   const [customerList, setCustomerList] = useState<UserProfile[]>(() => {
     try {
       const saved = localStorage.getItem('farmasi_customer_subscriptions');
-      if (saved) {
+      if (saved !== null) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const merged = parsed.map(c => {
-            const initialMatch = INITIAL_CUSTOMERS.find(ic => ic.uid === c.uid || ic.email === c.email);
-            return {
-              ...c,
-              password: c.password || initialMatch?.password || 'CustPass#' + (c.uid ? c.uid.slice(-4) : '2026'),
-              institution: c.institution || initialMatch?.institution || '',
-              licenseNumber: c.licenseNumber || initialMatch?.licenseNumber || '',
-              notes: c.notes || initialMatch?.notes || ''
-            };
-          });
-          return merged;
+        if (Array.isArray(parsed)) {
+          return parsed;
         }
       }
+    } catch (e) {}
+    try {
+      localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(INITIAL_CUSTOMERS));
     } catch (e) {}
     return INITIAL_CUSTOMERS;
   });

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { INITIAL_CUSTOMERS } from '../data/mockCustomers';
 import { UserProfile } from '../types';
 import { 
@@ -52,12 +52,21 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
   const [internalCustomers, setInternalCustomers] = useState<UserProfile[]>(() => {
     try {
       const saved = localStorage.getItem('farmasi_customer_subscriptions');
-      if (saved) return JSON.parse(saved);
+      if (saved !== null) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
     } catch (e) {}
     return INITIAL_CUSTOMERS;
   });
 
-  const customers = propCustomers || internalCustomers;
+  useEffect(() => {
+    if (propCustomers !== undefined) {
+      setInternalCustomers(propCustomers);
+    }
+  }, [propCustomers]);
+
+  const customers = propCustomers !== undefined ? propCustomers : internalCustomers;
 
   const setCustomers = (newCustomers: UserProfile[] | ((prev: UserProfile[]) => UserProfile[])) => {
     const updated = typeof newCustomers === 'function' ? newCustomers(customers) : newCustomers;
