@@ -146,16 +146,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-3">
             <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-extrabold rounded-full">
-              Wajib Verifikasi Email
+              Email Verification
             </span>
-            <h2 className="text-xl font-black text-slate-900">Verifikasi Email Anda</h2>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Tautan verifikasi telah dikirimkan ke alamat email:
-            </p>
-            <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-mono font-bold text-xs break-all select-all">
-              {unverifiedEmail}
+            <h2 className="text-xl font-black text-slate-900">Verifikasi Email / Email Verification</h2>
+            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 font-medium text-xs leading-relaxed">
+              We have sent you a verification email to <span className="font-bold text-teal-800 font-mono break-all">{unverifiedEmail}</span>. Please verify it and log in.
             </div>
           </div>
 
@@ -163,11 +160,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
           <div className="p-3.5 bg-teal-50/70 border border-teal-200/70 rounded-2xl text-left space-y-1.5 text-xs">
             <div className="flex items-center gap-1.5 font-bold text-[#0f766e]">
               <AlertCircle className="w-4 h-4 shrink-0 text-[#0f766e]" />
-              <span>Petunjuk Penting:</span>
+              <span>Petunjuk / Notice:</span>
             </div>
             <ul className="text-[11px] text-slate-600 space-y-1 pl-5 list-disc leading-relaxed">
-              <li>Buka kotak masuk email Anda dan klik <strong>tautan verifikasi</strong>.</li>
-              <li>Jika tidak ada di Inbox, periksa folder <strong>Spam</strong>, <strong>Junk</strong>, atau tab <strong>Promotions / Updates</strong>.</li>
+              <li>Silakan buka inbox email Anda dan klik tautan verifikasi.</li>
+              <li>Jika tidak ada di Inbox, mohon periksa folder <strong>Spam</strong>, <strong>Junk</strong>, atau tab <strong>Promotions / Updates</strong>.</li>
             </ul>
           </div>
 
@@ -193,7 +190,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
               className="w-full py-3 bg-[#0f766e] hover:bg-[#115e59] text-white font-black rounded-xl shadow-md transition-all text-xs flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
             >
               <CheckCircle2 className="w-4 h-4" />
-              <span>Saya Sudah Verifikasi / Coba Masuk</span>
+              <span>Login</span>
             </button>
 
             <button
@@ -205,10 +202,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
               <RefreshCw className={`w-3.5 h-3.5 ${resendLoading ? 'animate-spin' : ''}`} />
               <span>
                 {resendLoading 
-                  ? 'Mengirim Ulang...' 
+                  ? 'Mengirim Ulang / Sending...' 
                   : resendCooldown > 0 
-                    ? `Kirim Ulang (${resendCooldown}s)` 
-                    : 'Kirim Ulang Email Verifikasi'}
+                    ? `Kirim Ulang / Resend (${resendCooldown}s)` 
+                    : 'Kirim Ulang Email Verifikasi / Resend'}
               </span>
             </button>
 
@@ -220,7 +217,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
               }}
               className="text-[11px] text-slate-500 hover:text-slate-800 font-semibold cursor-pointer underline hover:no-underline pt-1 block mx-auto"
             >
-              Ganti email pendaftaran
+              Ganti Email / Change Email
             </button>
           </div>
         </div>
