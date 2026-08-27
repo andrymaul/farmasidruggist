@@ -28,7 +28,9 @@ import {
   Sparkles, 
   Activity, 
   HelpCircle,
-  Share2
+  Share2,
+  BookOpen,
+  ShieldCheck
 } from 'lucide-react';
 
 interface IvCompatibilityCheckerProps {
@@ -841,6 +843,57 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
           </div>
         </div>
       )}
+
+      {/* VERIFIED CLINICAL REFERENCES FOOTER */}
+      <div className="p-5 bg-slate-900/90 border border-slate-800 rounded-2xl space-y-3">
+        <div className="flex items-center gap-2 text-slate-200">
+          <BookOpen className="w-4 h-4 text-sky-400" />
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">
+            Sumber Referensi Resmi & Literatur Terverifikasi:
+          </h4>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-[11px] text-slate-400">
+          <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800/80 space-y-1">
+            <span className="font-bold text-sky-300 block flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              1. Handbook on Injectable Drugs
+            </span>
+            <p className="text-[10.5px] text-slate-400 leading-relaxed">
+              Lawrence A. Trissel, American Society of Health-System Pharmacists (ASHP). Rujukan baku dunia untuk data kompatibilitas Y-Site, presipitasi fisiko-kimiawi, dan stabilitas Beyond Use Date (BUD).
+            </p>
+          </div>
+
+          <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800/80 space-y-1">
+            <span className="font-bold text-sky-300 block flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              2. ASHP Injectable Drug Information
+            </span>
+            <p className="text-[10.5px] text-slate-400 leading-relaxed">
+              American Society of Health-System Pharmacists. Standar monografi rekonstitusi, pelarut yang direkomendasikan (NS, D5W, RL), filter membran, perlindungan cahaya, dan kecepatan titrasi syringe pump.
+            </p>
+          </div>
+
+          <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800/80 space-y-1">
+            <span className="font-bold text-sky-300 block flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              3. Pedoman Pencampuran Obat Suntik
+            </span>
+            <p className="text-[10.5px] text-slate-400 leading-relaxed">
+              Direktorat Bina Farmasi Komunitas dan Klinik, Ditjen Binfar dan Alkes, Kementerian Kesehatan Republik Indonesia. Standar teknik aseptis dispensing sediaan steril rumah sakit.
+            </p>
+          </div>
+
+          <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800/80 space-y-1">
+            <span className="font-bold text-sky-300 block flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              4. FDA & King Guide to Parenteral Admixtures
+            </span>
+            <p className="text-[10.5px] text-slate-400 leading-relaxed">
+              Black Box Warnings FDA (seperti kontraindikasi fatal Seftriakson + Kalsium) dan data kompatibilitas cairan infus parenteral multi-komponen.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

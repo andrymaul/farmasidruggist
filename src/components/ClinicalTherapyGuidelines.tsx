@@ -24,7 +24,9 @@ import {
   Check,
   Building2,
   BookmarkCheck,
-  Download
+  Download,
+  Calculator,
+  GitBranch
 } from 'lucide-react';
 import { 
   ClinicalGuideline, 
@@ -34,6 +36,8 @@ import {
   ClinicBrandingSettings 
 } from '../types';
 import { CLINICAL_GUIDELINES_DATABASE } from '../data/clinicalGuidelinesData';
+import { ClinicalScoreCalculatorsModal, CalculatorType } from './ClinicalScoreCalculatorsModal';
+import { ClinicalPathwaysModal } from './ClinicalPathwaysModal';
 
 interface ClinicalTherapyGuidelinesProps {
   allDrugs: Drug[];
@@ -53,6 +57,10 @@ export const ClinicalTherapyGuidelines: React.FC<ClinicalTherapyGuidelinesProps>
   const [selectedOrg, setSelectedOrg] = useState<GuidelineOrganization>('Semua Sumber');
   const [selectedGuideline, setSelectedGuideline] = useState<ClinicalGuideline | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [isCalculatorModalOpen, setIsCalculatorModalOpen] = useState<boolean>(false);
+  const [activeCalculatorType, setActiveCalculatorType] = useState<CalculatorType>('ascvd');
+  const [isPathwaysModalOpen, setIsPathwaysModalOpen] = useState<boolean>(false);
+  const [activePathwayId, setActivePathwayId] = useState<string>('pathway-t2dm');
 
   const categories: GuidelineCategory[] = [
     'Semua Kategori',
@@ -221,6 +229,57 @@ ${guideline.keyClinicalAlert || '-'}`;
     window.print();
   };
 
+  const getGuidelineCalculator = (guidelineId: string): { type: CalculatorType; label: string } | null => {
+    switch (guidelineId) {
+      case 'guideline-dyslipidemia':
+        return { type: 'ascvd', label: 'Hitung Risiko ASCVD 10-Th & Target LDL' };
+      case 'guideline-atrial-fibrillation':
+        return { type: 'cha2ds2vasc', label: 'Hitung Skor CHA₂DS₂-VASc' };
+      case 'guideline-cap':
+        return { type: 'curb65', label: 'Hitung Skor CURB-65 Pneumonia' };
+      case 'guideline-cirrhosis-2025':
+        return { type: 'childpugh', label: 'Hitung Skor Child-Pugh Sirosis' };
+      case 'guideline-adult-sepsis':
+        return { type: 'qsofa', label: 'Hitung Skor qSOFA Sepsis' };
+      case 'guideline-hypertensive-crisis':
+        return { type: 'map', label: 'Hitung MAP & Target Penurunan Tensi' };
+      case 'guideline-ckd':
+        return { type: 'egfr', label: 'Hitung CrCl & eGFR Fungsi Ginjal' };
+      case 'guideline-pediatric-diarrhea':
+        return { type: 'pediatric-dehydration', label: 'Hitung Derajat Dehidrasi Diare' };
+      case 'guideline-t2dm':
+        return { type: 'hba1c-eag', label: 'Konversi HbA1c ke Rata-Rata Glukosa (eAG)' };
+      case 'guideline-pediatric-pneumonia':
+      case 'guideline-pediatric-sepsis':
+        return { type: 'holliday-segar', label: 'Hitung Cairan Rumatan Holliday-Segar' };
+      case 'guideline-asthma':
+        return { type: 'act-asthma', label: 'Hitung Skor ACT Kendali Asma' };
+      case 'guideline-mdd':
+        return { type: 'phq9', label: 'Skrining Kuesioner PHQ-9 Depresi' };
+      case 'guideline-prom-pprom':
+        return { type: 'bishop', label: 'Hitung Bishop Score Kematangan Serviks' };
+      default:
+        return null;
+    }
+  };
+
+  const getGuidelinePathwayId = (guidelineId: string): string | null => {
+    switch (guidelineId) {
+      case 'guideline-t2dm':
+        return 'pathway-t2dm';
+      case 'guideline-hypertension':
+        return 'pathway-hypertension';
+      case 'guideline-asthma':
+        return 'pathway-asthma';
+      case 'guideline-hfref':
+        return 'pathway-hfref';
+      case 'guideline-dyslipidemia':
+        return 'pathway-dyslipidemia';
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
@@ -245,10 +304,30 @@ ${guideline.keyClinicalAlert || '-'}`;
             </div>
 
             <div className="flex flex-wrap items-center gap-2 shrink-0">
-              <span className="bg-teal-900/70 border border-teal-500/40 text-teal-200 text-xs font-extrabold px-3 py-1.5 rounded-xl shadow-2xs">
+              <button
+                onClick={() => {
+                  setActivePathwayId('pathway-t2dm');
+                  setIsPathwaysModalOpen(true);
+                }}
+                className="px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black text-xs rounded-xl shadow-lg shadow-cyan-500/25 flex items-center gap-2 transition-all cursor-pointer transform hover:-translate-y-0.5"
+              >
+                <GitBranch className="w-4 h-4" />
+                <span>Alur Algoritma Terapi (Step-by-Step)</span>
+              </button>
+              <button
+                onClick={() => {
+                  setActiveCalculatorType('ascvd');
+                  setIsCalculatorModalOpen(true);
+                }}
+                className="px-4 py-2.5 bg-gradient-to-r from-teal-400 to-emerald-500 hover:from-teal-300 hover:to-emerald-400 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-teal-500/25 flex items-center gap-2 transition-all cursor-pointer transform hover:-translate-y-0.5"
+              >
+                <Calculator className="w-4 h-4" />
+                <span>Pusat Kalkulator Skor Medis</span>
+              </button>
+              <span className="bg-teal-900/70 border border-teal-500/40 text-teal-200 text-xs font-extrabold px-3 py-2 rounded-xl shadow-2xs">
                 {CLINICAL_GUIDELINES_DATABASE.length} Pedoman Nasional
               </span>
-              <span className="bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-extrabold px-3 py-1.5 rounded-xl">
+              <span className="bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-extrabold px-3 py-2 rounded-xl">
                 BPJS & FORNAS Ready
               </span>
             </div>
@@ -445,6 +524,45 @@ ${guideline.keyClinicalAlert || '-'}`;
                   </div>
                 </div>
 
+                {/* Embedded Buttons on Card (Pathway & Calculator) */}
+                <div className="space-y-1.5">
+                  {(() => {
+                    const pathwayId = getGuidelinePathwayId(guideline.id);
+                    if (!pathwayId) return null;
+                    return (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActivePathwayId(pathwayId);
+                          setIsPathwaysModalOpen(true);
+                        }}
+                        className="w-full py-1.5 px-3 rounded-xl bg-cyan-50 dark:bg-cyan-950/50 hover:bg-cyan-100 dark:hover:bg-cyan-900 border border-cyan-300 dark:border-cyan-700/80 text-cyan-900 dark:text-cyan-200 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+                      >
+                        <GitBranch className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                        <span>Buka Alur Terapi Step-by-Step</span>
+                      </button>
+                    );
+                  })()}
+
+                  {(() => {
+                    const calc = getGuidelineCalculator(guideline.id);
+                    if (!calc) return null;
+                    return (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveCalculatorType(calc.type);
+                          setIsCalculatorModalOpen(true);
+                        }}
+                        className="w-full py-1.5 px-3 rounded-xl bg-teal-50 dark:bg-teal-950/50 hover:bg-teal-100 dark:hover:bg-teal-900 border border-teal-300 dark:border-teal-700/80 text-teal-900 dark:text-teal-200 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+                      >
+                        <Calculator className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                        <span>{calc.label}</span>
+                      </button>
+                    );
+                  })()}
+                </div>
+
               </div>
 
               {/* Action Buttons */}
@@ -541,6 +659,43 @@ ${guideline.keyClinicalAlert || '-'}`;
                 <p className="text-teal-100/70 text-xs font-medium">
                   {selectedGuideline.sourceGuidelines}
                 </p>
+
+                {/* Embedded Buttons in Modal Header (Pathway & Calculator) */}
+                <div className="pt-1.5 flex items-center gap-2 flex-wrap">
+                  {(() => {
+                    const pathwayId = getGuidelinePathwayId(selectedGuideline.id);
+                    if (!pathwayId) return null;
+                    return (
+                      <button
+                        onClick={() => {
+                          setActivePathwayId(pathwayId);
+                          setIsPathwaysModalOpen(true);
+                        }}
+                        className="px-3.5 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-black rounded-xl shadow-md shadow-cyan-500/20 flex items-center gap-1.5 transition-all cursor-pointer"
+                      >
+                        <GitBranch className="w-3.5 h-3.5" />
+                        <span>Alur Terapi Step-by-Step</span>
+                      </button>
+                    );
+                  })()}
+
+                  {(() => {
+                    const calc = getGuidelineCalculator(selectedGuideline.id);
+                    if (!calc) return null;
+                    return (
+                      <button
+                        onClick={() => {
+                          setActiveCalculatorType(calc.type);
+                          setIsCalculatorModalOpen(true);
+                        }}
+                        className="px-3.5 py-1.5 bg-gradient-to-r from-teal-400 to-emerald-500 hover:from-teal-300 hover:to-emerald-400 text-slate-950 text-xs font-black rounded-xl shadow-md shadow-teal-500/20 flex items-center gap-1.5 transition-all cursor-pointer"
+                      >
+                        <Calculator className="w-3.5 h-3.5" />
+                        <span>{calc.label}</span>
+                      </button>
+                    );
+                  })()}
+                </div>
               </div>
 
               <div className="flex items-center gap-1.5 shrink-0">
@@ -824,6 +979,25 @@ ${guideline.keyClinicalAlert || '-'}`;
           </div>
         </div>
       )}
+
+      {/* Embedded Clinical Score Calculators Modal */}
+      <ClinicalScoreCalculatorsModal
+        isOpen={isCalculatorModalOpen}
+        onClose={() => setIsCalculatorModalOpen(false)}
+        initialCalculator={activeCalculatorType}
+        allDrugs={allDrugs}
+        onCheckInteractionsWithRegimen={onCheckInteractionsWithRegimen}
+      />
+
+      {/* Embedded Clinical Pathways Modal */}
+      <ClinicalPathwaysModal
+        isOpen={isPathwaysModalOpen}
+        onClose={() => setIsPathwaysModalOpen(false)}
+        initialPathwayId={activePathwayId}
+        allDrugs={allDrugs}
+        onCheckInteractionsWithRegimen={onCheckInteractionsWithRegimen}
+        onSelectDrugForDetail={onSelectDrugForDetail}
+      />
 
     </div>
   );

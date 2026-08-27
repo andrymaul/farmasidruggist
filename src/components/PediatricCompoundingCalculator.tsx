@@ -44,14 +44,18 @@ interface CompoundingItem {
 interface PediatricCompoundingCalculatorProps {
   onCheckInteractions?: (drugNames: string[]) => void;
   existingDrugs?: Drug[];
+  initialSubTab?: 'quick' | 'compounding' | 'syrup' | 'classic';
+  hideHeader?: boolean;
 }
 
 export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalculatorProps> = ({
   onCheckInteractions,
-  existingDrugs = []
+  existingDrugs = [],
+  initialSubTab,
+  hideHeader = false
 }) => {
   // Navigation tabs
-  const [activeSubTab, setActiveSubTab] = useState<'quick' | 'compounding' | 'syrup' | 'classic'>('quick');
+  const [activeSubTab, setActiveSubTab] = useState<'quick' | 'compounding' | 'syrup' | 'classic'>(initialSubTab || 'quick');
 
   // Patient Profile state
   const [ageYears, setAgeYears] = useState<number>(3);
@@ -345,28 +349,30 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
   return (
     <div className="space-y-6 pb-12">
       {/* HEADER BANNER */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 p-6 md:p-8 text-white shadow-xl">
-        <div className="absolute -right-8 -bottom-8 opacity-15 pointer-events-none">
-          <Baby className="w-64 h-64 text-white" />
-        </div>
-        <div className="relative z-10 max-w-3xl">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/30 text-emerald-100 backdrop-blur-md border border-emerald-400/30">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
-              Modul Farmasi Klinis & Peracikan Resep
-            </span>
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/20 text-white">
-              BPOM & Standar Farmakope
-            </span>
+      {!hideHeader && (
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 p-6 md:p-8 text-white shadow-xl">
+          <div className="absolute -right-8 -bottom-8 opacity-15 pointer-events-none">
+            <Baby className="w-64 h-64 text-white" />
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-            Kalkulator Dosis Pediatrik & Konversi Racikan Puyer / Sirup
-          </h1>
-          <p className="mt-2 text-emerald-100 text-sm md:text-base leading-relaxed">
-            Hitung dosis anak berbasis berat badan/BSA, konversi racikan tablet utuh ke puyer dengan penambahan zat pengisi (*Saccharum Lactis*), perhitungan takaran sirup/drops, dan skrining batas dosis toksik.
-          </p>
+          <div className="relative z-10 max-w-3xl">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/30 text-emerald-100 backdrop-blur-md border border-emerald-400/30">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+                Modul Farmasi Klinis & Peracikan Resep
+              </span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/20 text-white">
+                BPOM & Standar Farmakope
+              </span>
+            </div>
+            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+              Kalkulator Dosis Pediatrik & Konversi Racikan Puyer / Sirup
+            </h1>
+            <p className="mt-2 text-emerald-100 text-sm md:text-base leading-relaxed">
+              Hitung dosis anak berbasis berat badan/BSA, konversi racikan tablet utuh ke puyer dengan penambahan zat pengisi (*Saccharum Lactis*), perhitungan takaran sirup/drops, dan skrining batas dosis toksik.
+            </p>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* PATIENT PROFILE CARD */}
       <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg backdrop-blur-md">

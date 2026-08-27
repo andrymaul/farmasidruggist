@@ -20,13 +20,32 @@ import {
   Gauge, 
   RotateCcw,
   Sliders,
-  Check
+  Check,
+  Baby,
+  FlaskConical,
+  Syringe,
+  Stethoscope,
+  Layers,
+  ArrowRight,
+  ChevronRight,
+  ExternalLink,
+  Flame,
+  Zap,
+  SlidersHorizontal
 } from 'lucide-react';
+import { PediatricCompoundingCalculator } from './PediatricCompoundingCalculator';
+import { ClinicalScoreCalculatorsModal, CalculatorType } from './ClinicalScoreCalculatorsModal';
+import { 
+  calculateSyringePumpRate, 
+  calculateGravityDripRate, 
+  IV_DRUGS_DATABASE 
+} from '../data/ivCompatibilityData';
 
 interface RenalDoseAdjusterProps {
   drugs: Drug[];
   currentUser: UserProfile | null;
   onOpenPricingModal: () => void;
+  initialTab?: 'renal' | 'hepatic' | 'pediatric' | 'compounding' | 'syringe-pump' | 'opioid' | 'ibw-bmi' | 'oxygen' | 'clinical-scores';
 }
 
 interface RenalDrugRule {
@@ -284,9 +303,28 @@ const OPIOID_DATABASE: OpioidEquiProfile[] = [
 export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
   drugs,
   currentUser,
-  onOpenPricingModal
+  onOpenPricingModal,
+  initialTab
 }) => {
-  const [activeTab, setActiveTab] = useState<'renal' | 'hepatic' | 'opioid' | 'ibw-bmi' | 'oxygen'>('renal');
+  const [activeTab, setActiveTab] = useState<'renal' | 'hepatic' | 'pediatric' | 'compounding' | 'syringe-pump' | 'opioid' | 'ibw-bmi' | 'oxygen' | 'clinical-scores'>(initialTab || 'renal');
+
+  // ==========================================
+  // SYRINGE PUMP & DRIP STATE
+  // ==========================================
+  const [calcDrugPreset, setCalcDrugPreset] = useState<string>('iv-norepinephrine');
+  const [calcPatientWeightKg, setCalcPatientWeightKg] = useState<number>(60);
+  const [calcTargetDose, setCalcTargetDose] = useState<number>(0.05); // mcg/kg/min or mg/hr
+  const [calcDrugMgInSyringe, setCalcDrugMgInSyringe] = useState<number>(4); // 4 mg
+  const [calcSyringeVolumeMl, setCalcSyringeVolumeMl] = useState<number>(50); // 50 mL
+  const [dripVolumeMl, setDripVolumeMl] = useState<number>(500);
+  const [dripDurationHours, setDripDurationHours] = useState<number>(8);
+  const [dripFactor, setDripFactor] = useState<20 | 60>(20);
+
+  // ==========================================
+  // CLINICAL SCORES MODAL LAUNCHER STATE
+  // ==========================================
+  const [selectedClinicalScore, setSelectedClinicalScore] = useState<CalculatorType | null>(null);
+  const [isScoresModalOpen, setIsScoresModalOpen] = useState<boolean>(false);
 
   // ==========================================
   // 1. RENAL STATE
@@ -560,13 +598,78 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
   };
 
   const fio2Info = calculateFiO2(oxygenDeliveryDevice, flowRateLpm);
+  // ==========================================
+  // SYRINGE PUMP & GRAVITY DRIP CALCULATIONS
+  // ==========================================
+  const syringePumpCalculations = useMemo(() => {
+    return calculateSyringePumpRate(
+      calcTargetDose,
+      calcPatientWeightKg,
+      calcDrugMgInSyringe,
+      calcSyringeVolumeMl
+    );
+  }, [calcTargetDose, calcPatientWeightKg, calcDrugMgInSyringe, calcSyringeVolumeMl]);
+
+  const gravityDripCalculations = useMemo(() => {
+    return calculateGravityDripRate(dripVolumeMl, dripDurationHours, dripFactor);
+  }, [dripVolumeMl, dripDurationHours, dripFactor]);
+
+  // Standard Presets Dictionary for ICU Syringe Pump
+  const handleApplySyringePreset = (presetKey: string) => {
+    setCalcDrugPreset(presetKey);
+    switch (presetKey) {
+      case 'iv-norepinephrine':
+        setCalcDrugMgInSyringe(4);
+        setCalcSyringeVolumeMl(50);
+        setCalcTargetDose(0.05);
+        break;
+      case 'iv-dobutamine':
+        setCalcDrugMgInSyringe(250);
+        setCalcSyringeVolumeMl(50);
+        setCalcTargetDose(5.0);
+        break;
+      case 'iv-dopamine':
+        setCalcDrugMgInSyringe(200);
+        setCalcSyringeVolumeMl(50);
+        setCalcTargetDose(5.0);
+        break;
+      case 'iv-nicardipine':
+        setCalcDrugMgInSyringe(10);
+        setCalcSyringeVolumeMl(50);
+        setCalcTargetDose(1.0);
+        break;
+      case 'iv-fentanyl':
+        setCalcDrugMgInSyringe(0.5); // 500 mcg
+        setCalcSyringeVolumeMl(50);
+        setCalcTargetDose(1.0);
+        break;
+      case 'iv-midazolam':
+        setCalcDrugMgInSyringe(50);
+        setCalcSyringeVolumeMl(50);
+        setCalcTargetDose(0.05);
+        break;
+      case 'iv-milrinone':
+        setCalcDrugMgInSyringe(10);
+        setCalcSyringeVolumeMl(50);
+        setCalcTargetDose(0.5);
+        break;
+      case 'iv-propofol':
+        setCalcDrugMgInSyringe(500);
+        setCalcSyringeVolumeMl(50);
+        setCalcTargetDose(1.5);
+        break;
+      default:
+        break;
+    }
+  };
+
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
       {/* HEADER BANNER */}
-      <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#143d47] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="space-y-2 max-w-2xl">
+      <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#143d47] space-y-6">
+        <div className="space-y-2 max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
             <Activity className="w-4 h-4 text-teal-400" />
             <span>Kalkulator Farmakoterapi Klinis Terpadu</span>
@@ -576,71 +679,121 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
             Kalkulator Medis & Penyesuaian Dosis
           </h1>
           <p className="text-teal-100/80 text-xs sm:text-sm leading-relaxed font-medium">
-            Suite kalkulator farmako-klinis terverifikasi: Klirens Ginjal (CrCl/eGFR), Skor Hepar (Child-Pugh & MELD), Konversi Opioid & Paliatif (OME CDC), Berat Badan Ideal (IBW), & Oksigen Medis.
+            Suite kalkulator farmako-klinis terpadu: Dosis Ginjal (CrCl/eGFR), Dosis Hepar (Child-Pugh & MELD), Dosis Pediatrik & Bayi, Racikan Puyer (SL & DTD), Titrasi Syringe Pump & Infus Drip, Konversi Opioid (CDC MME), IBW/BMI, Oksigen Medis, serta 13 Kalkulator Skor Klinis Terintegrasi.
           </p>
         </div>
 
-        {/* Top 5-Tab Switcher Menu */}
-        <div className="bg-[#06181c] p-1.5 rounded-2xl border border-[#14424e] grid grid-cols-2 sm:flex sm:items-center gap-1.5 shrink-0 w-full sm:w-auto overflow-x-auto custom-scrollbar">
-          <button
-            onClick={() => setActiveTab('renal')}
-            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'renal'
-                ? 'bg-[#0f766e] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
-            }`}
-          >
-            <Activity className="w-4 h-4" />
-            <span>Dosis Ginjal</span>
-          </button>
+        {/* Full-width Responsive 9-Tab Switcher Menu */}
+        <div className="bg-[#06181c]/90 p-2 rounded-2xl border border-[#14424e] shadow-inner">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
+            <button
+              onClick={() => setActiveTab('renal')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+                activeTab === 'renal'
+                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
+                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+              }`}
+            >
+              <Activity className="w-4 h-4 text-teal-400" />
+              <span>Dosis Ginjal</span>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('hepatic')}
-            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'hepatic'
-                ? 'bg-[#0f766e] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
-            }`}
-          >
-            <HeartPulse className="w-4 h-4" />
-            <span>Dosis Hepar</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('hepatic')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+                activeTab === 'hepatic'
+                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
+                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+              }`}
+            >
+              <HeartPulse className="w-4 h-4 text-rose-400" />
+              <span>Dosis Hepar</span>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('opioid')}
-            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'opioid'
-                ? 'bg-[#0f766e] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
-            }`}
-          >
-            <Pill className="w-4 h-4" />
-            <span>Konversi Opioid</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('pediatric')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+                activeTab === 'pediatric'
+                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
+                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+              }`}
+            >
+              <Baby className="w-4 h-4 text-emerald-400" />
+              <span>Dosis Pediatrik</span>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('ibw-bmi')}
-            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'ibw-bmi'
-                ? 'bg-[#0f766e] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
-            }`}
-          >
-            <Scale className="w-4 h-4" />
-            <span>IBW & BMI</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('compounding')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+                activeTab === 'compounding'
+                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
+                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+              }`}
+            >
+              <FlaskConical className="w-4 h-4 text-cyan-400" />
+              <span>Racikan Puyer</span>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('oxygen')}
-            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'oxygen'
-                ? 'bg-[#0f766e] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
-            }`}
-          >
-            <Wind className="w-4 h-4" />
-            <span>Oksigen Medis</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('syringe-pump')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+                activeTab === 'syringe-pump'
+                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
+                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+              }`}
+            >
+              <Syringe className="w-4 h-4 text-sky-400" />
+              <span>Syringe Pump & Drip</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('opioid')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+                activeTab === 'opioid'
+                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
+                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+              }`}
+            >
+              <Pill className="w-4 h-4 text-amber-400" />
+              <span>Konversi Opioid</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('ibw-bmi')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+                activeTab === 'ibw-bmi'
+                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
+                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+              }`}
+            >
+              <Scale className="w-4 h-4 text-indigo-400" />
+              <span>IBW & BMI</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('oxygen')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+                activeTab === 'oxygen'
+                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
+                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+              }`}
+            >
+              <Wind className="w-4 h-4 text-blue-400" />
+              <span>Oksigen Medis</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('clinical-scores')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+                activeTab === 'clinical-scores'
+                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
+                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+              }`}
+            >
+              <Stethoscope className="w-4 h-4 text-fuchsia-400" />
+              <span>13 Skor Klinis</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -1312,6 +1465,344 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
               <p className="text-[10px] text-teal-200">Rentang Alat: {fio2Info.range} ({fio2Info.notes})</p>
             </div>
           </div>
+        </div>
+      )}
+
+
+      {/* ========================================================================= */}
+      {/* TAB: PEDIATRIC DOSING CALCULATOR (INTEGRATED) */}
+      {/* ========================================================================= */}
+      {activeTab === 'pediatric' && (
+        <div className="space-y-4">
+          <div className="p-4 bg-emerald-950/40 border border-emerald-800/60 rounded-2xl flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <Baby className="w-5 h-5 text-emerald-400" />
+              <div>
+                <h3 className="text-sm font-bold text-white">Kalkulator Dosis Pediatrik & Sirup Terintegrasi</h3>
+                <p className="text-xs text-emerald-200/80">Perhitungan dosis anak akurat berbasis Berat Badan (mg/kgBB), Usia, Luas Permukaan Tubuh (BSA), dan takaran mL sirup.</p>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shrink-0">
+              Standar BPOM & IDAI
+            </span>
+          </div>
+
+          <PediatricCompoundingCalculator 
+            initialSubTab="quick" 
+            hideHeader={true} 
+            existingDrugs={drugs}
+          />
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* TAB: COMPOUNDING PUYER & SIRUP KERING (INTEGRATED) */}
+      {/* ========================================================================= */}
+      {activeTab === 'compounding' && (
+        <div className="space-y-4">
+          <div className="p-4 bg-cyan-950/40 border border-cyan-800/60 rounded-2xl flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <FlaskConical className="w-5 h-5 text-cyan-400" />
+              <div>
+                <h3 className="text-sm font-bold text-white">Kalkulator Peracikan Puyer & Serbuk Bagi Terintegrasi</h3>
+                <p className="text-xs text-cyan-200/80">Konversi tablet utuh ke puyer serbuk bagi, perhitungan bobot pengisi Saccharum Lactis (SL), etiket resep, dan rekonstitusi sirup kering.</p>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shrink-0">
+              Farmakope & Dispensing
+            </span>
+          </div>
+
+          <PediatricCompoundingCalculator 
+            initialSubTab="compounding" 
+            hideHeader={true} 
+            existingDrugs={drugs}
+          />
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* TAB: SYRINGE PUMP & GRAVITY DRIP CALCULATOR (INTEGRATED) */}
+      {/* ========================================================================= */}
+      {activeTab === 'syringe-pump' && (
+        <div className="space-y-6">
+          <div className="p-4 bg-sky-950/40 border border-sky-800/60 rounded-2xl flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <Syringe className="w-5 h-5 text-sky-400" />
+              <div>
+                <h3 className="text-sm font-bold text-white">Kalkulator Kecepatan Syringe Pump & Tetesan Infus Drip</h3>
+                <p className="text-xs text-sky-200/80">Hitung laju infus titrasi kontinu (mcg/kg/menit, mcg/menit, mg/jam ke mL/jam) dan tetesan infus makro/mikro per menit.</p>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/40 shrink-0">
+              ICU & Emergensi
+            </span>
+          </div>
+
+          {/* Quick Drug Presets for Syringe Pump */}
+          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+            <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+              <Zap className="w-4 h-4 text-amber-400" />
+              Pilih Preset Obat Titrasi ICU Sering Digunakan:
+            </span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {[
+                { id: 'iv-norepinephrine', name: 'Norepinephrine (Vascon)', dose: '4 mg / 50 mL (80 mcg/mL)' },
+                { id: 'iv-dobutamine', name: 'Dobutamine (Inotrop)', dose: '250 mg / 50 mL (5000 mcg/mL)' },
+                { id: 'iv-dopamine', name: 'Dopamine', dose: '200 mg / 50 mL (4000 mcg/mL)' },
+                { id: 'iv-nicardipine', name: 'Nicardipine (Perdipine)', dose: '10 mg / 50 mL (200 mcg/mL)' },
+                { id: 'iv-fentanyl', name: 'Fentanyl ICU', dose: '0.5 mg / 50 mL (10 mcg/mL)' },
+                { id: 'iv-midazolam', name: 'Midazolam Sedasi', dose: '50 mg / 50 mL (1000 mcg/mL)' },
+                { id: 'iv-milrinone', name: 'Milrinone (Primacor)', dose: '10 mg / 50 mL (200 mcg/mL)' },
+                { id: 'iv-propofol', name: 'Propofol 1%', dose: '500 mg / 50 mL (10 mg/mL)' }
+              ].map(preset => (
+                <button
+                  key={preset.id}
+                  onClick={() => handleApplySyringePreset(preset.id)}
+                  className={`p-2.5 text-left rounded-xl border text-xs transition cursor-pointer ${
+                    calcDrugPreset === preset.id
+                      ? 'bg-sky-950/90 border-sky-500 text-sky-200 shadow-sm'
+                      : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                  }`}
+                >
+                  <div className="font-bold text-white">{preset.name}</div>
+                  <div className="text-[10.5px] text-slate-400 mt-0.5">{preset.dose}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Input Parameters */}
+            <div className="lg:col-span-5 bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
+              <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-sky-400" />
+                Parameter Syringe Pump
+              </h4>
+
+              <div className="space-y-3 text-xs">
+                <div>
+                  <label className="block text-slate-400 font-medium mb-1">Berat Badan Pasien (kg):</label>
+                  <input
+                    type="number"
+                    value={calcPatientWeightKg}
+                    onChange={(e) => setCalcPatientWeightKg(Number(e.target.value))}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-sky-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 font-medium mb-1">Target Dosis Titrasi (mcg / kgBB / menit):</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={calcTargetDose}
+                    onChange={(e) => setCalcTargetDose(Number(e.target.value))}
+                    className="w-full bg-sky-950/50 border border-sky-500/60 rounded-xl px-3 py-2 text-sky-300 font-black text-sm focus:outline-none"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-400 font-medium mb-1">Total Obat (mg):</label>
+                    <input
+                      type="number"
+                      value={calcDrugMgInSyringe}
+                      onChange={(e) => setCalcDrugMgInSyringe(Number(e.target.value))}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-sky-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-400 font-medium mb-1">Volume Spuit (mL):</label>
+                    <input
+                      type="number"
+                      value={calcSyringeVolumeMl}
+                      onChange={(e) => setCalcSyringeVolumeMl(Number(e.target.value))}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-sky-500"
+                    />
+                  </div>
+                </div>
+
+                {/* Gravity Drip Inputs */}
+                <div className="pt-3 border-t border-slate-800 space-y-3">
+                  <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                    <Wind className="w-4 h-4 text-emerald-400" />
+                    Parameter Infus Gravitasi (Drip)
+                  </h4>
+
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <label className="block text-[10.5px] text-slate-400 mb-1">Volume (mL):</label>
+                      <input
+                        type="number"
+                        value={dripVolumeMl}
+                        onChange={(e) => setDripVolumeMl(Number(e.target.value))}
+                        className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white font-bold"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10.5px] text-slate-400 mb-1">Durasi (Jam):</label>
+                      <input
+                        type="number"
+                        value={dripDurationHours}
+                        onChange={(e) => setDripDurationHours(Number(e.target.value))}
+                        className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white font-bold"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10.5px] text-slate-400 mb-1">Faktor Tetes:</label>
+                      <select
+                        value={dripFactor}
+                        onChange={(e) => setDripFactor(Number(e.target.value) as 20 | 60)}
+                        className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2 py-1.5 text-xs text-white font-bold"
+                      >
+                        <option value={20}>20 gtt (Makro)</option>
+                        <option value={60}>60 gtt (Mikro)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Calculations Output */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  Hasil Perhitungan Setting Syringe Pump
+                </span>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-4">
+                    <span className="text-xs text-slate-400 font-medium">Setting Syringe Pump</span>
+                    <div className="flex items-baseline gap-2 mt-1">
+                      <span className="text-3xl font-black text-sky-400">{syringePumpCalculations.rateMlPerHour}</span>
+                      <span className="text-sm font-semibold text-slate-300">mL / jam</span>
+                    </div>
+                    <span className="text-[11px] text-slate-500 mt-1 block">
+                      Konsentrasi: {syringePumpCalculations.concentrationMcgPerMl} mcg/mL
+                    </span>
+                  </div>
+
+                  <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-4">
+                    <span className="text-xs text-slate-400 font-medium">Waktu Spuit Habis</span>
+                    <div className="flex items-baseline gap-2 mt-1">
+                      <span className="text-3xl font-black text-emerald-400">~{syringePumpCalculations.syringeDurationHours}</span>
+                      <span className="text-sm font-semibold text-slate-300">Jam</span>
+                    </div>
+                    <span className="text-[11px] text-slate-500 mt-1 block">
+                      Total dosis masuk: {syringePumpCalculations.totalDoseMgPerHour} mg/jam
+                    </span>
+                  </div>
+                </div>
+
+                {/* Gravity Drip Result Box */}
+                <div className="bg-sky-950/30 border border-sky-800/40 rounded-xl p-4">
+                  <span className="text-xs font-bold text-sky-300 block mb-1">
+                    Hasil Tetesan Infus Gravitasi ({dripVolumeMl} mL dalam {dripDurationHours} jam):
+                  </span>
+                  <div className="flex items-baseline gap-4 mt-2">
+                    <div>
+                      <span className="text-2xl font-black text-white">{gravityDripCalculations.dripRateGttPerMin}</span>
+                      <span className="text-xs font-semibold text-sky-300 ml-1">tetes / menit ({dripFactor === 20 ? 'Makro' : 'Mikro'})</span>
+                    </div>
+                    <div className="text-xs text-slate-400">
+                      Kecepatan: <strong>{gravityDripCalculations.rateMlPerHour} mL/jam</strong>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Formula Box */}
+                <div className="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1 text-xs text-slate-400">
+                  <span className="font-bold text-slate-300 block">Rumus Syringe Pump Standar:</span>
+                  <p className="font-mono text-[11px] text-slate-300">
+                    Kecepatan (mL/jam) = [Dosis ({calcTargetDose} mcg/kg/mnt) × BB ({calcPatientWeightKg} kg) × 60] ÷ Konsentrasi ({syringePumpCalculations.concentrationMcgPerMl} mcg/mL)
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* TAB: 13 INTEGRATED CLINICAL SCORE CALCULATORS */}
+      {/* ========================================================================= */}
+      {activeTab === 'clinical-scores' && (
+        <div className="space-y-6">
+          <div className="p-4 bg-fuchsia-950/40 border border-fuchsia-800/60 rounded-2xl flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <Stethoscope className="w-5 h-5 text-fuchsia-400" />
+              <div>
+                <h3 className="text-sm font-bold text-white">Suite 13 Kalkulator Skor Klinis & Risiko Terpadu</h3>
+                <p className="text-xs text-fuchsia-200/80">Kalkulator stratifikasi risiko kardiovaskular, stroke, sepsis, dehidrasi, mortalitas, dan psikometri berbasis pedoman klinis internasional.</p>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/40 shrink-0">
+              13 Skor Valid
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { id: 'ascvd' as CalculatorType, name: '10-Year ASCVD Risk', org: 'AHA / ACC 2019', desc: 'Estimasi risiko aterosklerotik kardiovaskular 10 tahun untuk memulai terapi statin & aspirin.', badge: 'Kardiologi', color: 'border-blue-800/80 bg-blue-950/20' },
+              { id: 'cha2ds2vasc' as CalculatorType, name: 'CHA2DS2-VASc Score', org: 'ESC / AHA / ACC', desc: 'Stratifikasi risiko stroke tromboemboli pada Fibrilasi Atrium (AF) & indikasi antikoagulan oral (DOAC).', badge: 'Antikoagulasi', color: 'border-indigo-800/80 bg-indigo-950/20' },
+              { id: 'curb65' as CalculatorType, name: 'CURB-65 Pneumonia', org: 'BTS Standard', desc: 'Penilaian derajat keparahan pneumonia komunitas (CAP) & penentuan lokasi rawat (Rawat Jalan / Ruang Rawat / ICU).', badge: 'Respirasi', color: 'border-cyan-800/80 bg-cyan-950/20' },
+              { id: 'qsofa' as CalculatorType, name: 'qSOFA Sepsis Score', org: 'Sepsis-3 Guidelines', desc: 'Skrining cepat bedside kecurigaan sepsis di luar ICU (Laju napas ≥22, GCS <15, TDS ≤100 mmHg).', badge: 'Emergensi', color: 'border-rose-800/80 bg-rose-950/20' },
+              { id: 'map' as CalculatorType, name: 'Mean Arterial Pressure (MAP)', org: 'ICU Hemodinamik', desc: 'Penghitungan tekanan arteri rata-rata target perfusi organ (MAP ≥65 mmHg) pada syok & resusitasi.', badge: 'Hemodinamik', color: 'border-teal-800/80 bg-teal-950/20' },
+              { id: 'egfr' as CalculatorType, name: 'eGFR CKD-EPI 2021', org: 'KDIGO Standard', desc: 'Formula estimasi laju filtrasi glomerulus berbasis kreatinin serum terbaru tanpa faktor ras.', badge: 'Nefrologi', color: 'border-emerald-800/80 bg-emerald-950/20' },
+              { id: 'holliday-segar' as CalculatorType, name: 'Holliday-Segar Cairan', org: 'Pediatrik Standar', desc: 'Kalkulasi kebutuhan cairan rumatan harian (maintenance fluid) anak & laju tetesan mL/jam.', badge: 'Pediatrik', color: 'border-amber-800/80 bg-amber-950/20' },
+              { id: 'pediatric-dehydration' as CalculatorType, name: 'Derajat Dehidrasi WHO', org: 'WHO Guidelines', desc: 'Klasifikasi dehidrasi diare akut anak (Tanpa, Ringan-Sedang, Berat) & Rencana Terapi Cairan A/B/C.', badge: 'Gastro Pediatrik', color: 'border-orange-800/80 bg-orange-950/20' },
+              { id: 'hba1c-eag' as CalculatorType, name: 'HbA1c to eAG Converter', org: 'ADA / ADAG Study', desc: 'Konversi nilai HbA1c (%) menjadi perkiraan rata-rata glukosa darah harian (eAG mg/dL).', badge: 'Endokrin', color: 'border-purple-800/80 bg-purple-950/20' },
+              { id: 'act-asthma' as CalculatorType, name: 'Asthma Control Test (ACT)', org: 'GINA Standard', desc: 'Kuesioner evaluasi tingkat kendali asma 4 minggu (Terkontrol Penuh, Baik, Tidak Terkontrol).', badge: 'Asma / Paru', color: 'border-sky-800/80 bg-sky-950/20' },
+              { id: 'phq9' as CalculatorType, name: 'PHQ-9 Depression Scale', org: 'DSM-5 / APA', desc: 'Instrumen skrining tingkat keparahan depresi 9 kriteria dan evaluasi efikasi antidepresan.', badge: 'Psikiatri', color: 'border-fuchsia-800/80 bg-fuchsia-950/20' },
+              { id: 'bishop' as CalculatorType, name: 'Bishop Score Induksi', org: 'ACOG Obstetri', desc: 'Penilaian kematangan serviks untuk memprediksi keberhasilan induksi persalinan pervaginam.', badge: 'Obstetri', color: 'border-pink-800/80 bg-pink-950/20' }
+            ].map(scoreItem => (
+              <div
+                key={scoreItem.id}
+                className={`p-4.5 rounded-2xl border ${scoreItem.color} flex flex-col justify-between space-y-3 shadow-md hover:border-slate-600 transition group`}
+              >
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-900/90 text-slate-300 border border-slate-700">
+                      {scoreItem.badge}
+                    </span>
+                    <span className="text-[10px] text-slate-500 font-medium">{scoreItem.org}</span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white group-hover:text-teal-300 transition">
+                    {scoreItem.name}
+                  </h4>
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    {scoreItem.desc}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedClinicalScore(scoreItem.id);
+                    setIsScoresModalOpen(true);
+                  }}
+                  className="w-full py-2 px-3 rounded-xl text-xs font-bold bg-slate-900 hover:bg-teal-600 text-slate-200 hover:text-white border border-slate-700 hover:border-teal-500 transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                >
+                  <Calculator className="w-3.5 h-3.5" />
+                  <span>Buka Kalkulator Skor</span>
+                  <ChevronRight className="w-3.5 h-3.5 ml-auto" />
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Modal for Clinical Score */}
+          {isScoresModalOpen && selectedClinicalScore && (
+            <ClinicalScoreCalculatorsModal
+              isOpen={isScoresModalOpen}
+              onClose={() => setIsScoresModalOpen(false)}
+              initialCalculator={selectedClinicalScore}
+              allDrugs={drugs}
+            />
+          )}
         </div>
       )}
 

@@ -363,11 +363,17 @@ export default function App() {
   const [selectedDrugForDetail, setSelectedDrugForDetail] = useState<Drug | null>(null);
   const [preselectedDrugName, setPreselectedDrugName] = useState<string>('');
   const [preselectedDrugNames, setPreselectedDrugNames] = useState<string[]>([]);
+  const [preselectedPioDrug, setPreselectedPioDrug] = useState<Drug | null>(null);
   const [searchQueryForDirectory, setSearchQueryForDirectory] = useState<string>('');
   const [reportModalData, setReportModalData] = useState<{
     selectedDrugs: Drug[];
     interactions: DrugInteraction[];
   } | null>(null);
+
+  const handleAddToPioCard = (drug: Drug) => {
+    setPreselectedPioDrug(drug);
+    handleSelectTab('whatsapp-pio');
+  };
 
   const isProUser = Boolean(
     currentUser?.role === 'admin' ||
@@ -848,6 +854,7 @@ export default function App() {
                   currentUser={currentUser}
                   onSelectDrug={(drug) => setSelectedDrugForDetail(drug)}
                   onCheckInteractionWith={handleCheckInteractionWith}
+                  onAddToPioCard={handleAddToPioCard}
                   initialSearchQuery={searchQueryForDirectory}
                 />
               )}
@@ -968,6 +975,8 @@ export default function App() {
                     clinicBranding={clinicBranding}
                     onOpenBrandingModal={() => handleSelectTab('admin-branding')}
                     drugs={drugs}
+                    onSelectDrugForDetail={(drug) => setSelectedDrugForDetail(drug)}
+                    preselectedDrug={preselectedPioDrug}
                   />
                 )
               )}
@@ -1117,6 +1126,7 @@ export default function App() {
           allDrugs={drugs}
           onClose={() => setSelectedDrugForDetail(null)}
           onCheckInteractionWith={handleCheckInteractionWith}
+          onAddToPioCard={handleAddToPioCard}
         />
       )}
 

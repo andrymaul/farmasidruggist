@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ClinicBrandingSettings, Drug } from '../types';
 import { 
   MessageSquare, 
@@ -23,10 +23,15 @@ import {
   RotateCcw,
   ExternalLink,
   Smartphone,
-  FileText
+  FileText,
+  Search,
+  Zap,
+  ChevronDown,
+  ChevronUp,
+  BookOpen
 } from 'lucide-react';
 
-interface PatientMedicationEntry {
+export interface PatientMedicationEntry {
   id: string;
   drugName: string;
   indicationLabel: string; // e.g. "Obat Tekanan Darah", "Antibiotik", "Obat Lambung"
@@ -38,16 +43,482 @@ interface PatientMedicationEntry {
   foodPrecautions?: string; // e.g. "Hindari susu/teh", "Kurangi makanan asin"
 }
 
+export interface PioDrugCategory {
+  id: string;
+  label: string;
+  icon: string;
+  keywords: string[];
+}
+
+export const PIO_DRUG_CATEGORIES: PioDrugCategory[] = [
+  { id: 'populer', label: '⭐ Populer', icon: '⭐', keywords: [] },
+  { id: 'hipertensi', label: '🫀 Hipertensi & Jantung', icon: '🫀', keywords: ['hipertensi', 'amlodipine', 'candesartan', 'captopril', 'bisoprolol', 'valsartan', 'furosemide', 'diltiazem', 'digoxin', 'spironolactone', 'kardiovaskular', 'cardiovascular', 'antihipertensi'] },
+  { id: 'diabetes', label: '🩸 Diabetes Melitus', icon: '🩸', keywords: ['diabetes', 'metformin', 'glimepiride', 'gliclazide', 'acarbose', 'pioglitazone', 'vildagliptin', 'sitagliptin', 'empagliflozin', 'antidiabetes'] },
+  { id: 'lambung', label: '🔥 Lambung & PPI / GERD', icon: '🔥', keywords: ['lambung', 'maag', 'gerd', 'omeprazole', 'lansoprazole', 'esomeprazole', 'pantoprazole', 'antasida', 'antacid', 'sukralfat', 'sucralfate', 'domperidone', 'gastro', 'mukoprotektor'] },
+  { id: 'antibiotik', label: '🦠 Antibiotik & Infeksi', icon: '🦠', keywords: ['antibiotik', 'antibakteri', 'amoxicillin', 'cefixime', 'cefadroxil', 'ciprofloxacin', 'levofloxacin', 'azithromycin', 'cotrimoxazole', 'doxycycline', 'metronidazole', 'anti-infeksi'] },
+  { id: 'analgesik', label: '⚡ Analgesik & Anti-Nyeri', icon: '⚡', keywords: ['analgesik', 'nyeri', 'nsaid', 'oains', 'paracetamol', 'mefenamat', 'ibuprofen', 'diklofenak', 'meloxicam', 'ketorolac', 'celecoxib', 'antiinflamasi'] },
+  { id: 'kolesterol', label: '🧪 Kolesterol & Asam Urat', icon: '🧪', keywords: ['kolesterol', 'statin', 'simvastatin', 'atorvastatin', 'rosuvastatin', 'fenofibrate', 'allopurinol', 'febuxostat', 'asam urat', 'gout', 'lipid'] },
+  { id: 'respirasi', label: '🫁 Respirasi, Batuk & Alergi', icon: '🫁', keywords: ['asma', 'batuk', 'alergi', 'cetirizine', 'loratadine', 'salbutamol', 'ambroxol', 'dextromethorphan', 'acetylcysteine', 'antihistamin', 'respirasi'] },
+  { id: 'semua', label: '💊 Semua Obat Monografi', icon: '💊', keywords: [] }
+];
+
+export const POPULAR_PIO_DRUGS = [
+  'Amlodipine 10 mg',
+  'Metformin 500 mg',
+  'Omeprazole 20 mg',
+  'Cefixime 100 mg',
+  'Paracetamol 500 mg',
+  'Simvastatin 20 mg',
+  'Asam Mefenamat 500 mg',
+  'Candesartan 8 mg',
+  'Allopurinol 100 mg',
+  'Cetirizine 10 mg',
+  'Amoxicillin 500 mg',
+  'Sukralfat Suspensi'
+];
+
+export const generatePioAutoFill = (
+  rawQuery: string,
+  drugObj?: Drug
+): Partial<PatientMedicationEntry> => {
+  const query = (rawQuery + ' ' + (drugObj?.name || '') + ' ' + (drugObj?.genericName || '') + ' ' + (drugObj?.category || '')).toLowerCase();
+
+  // 1. PPI & Lambung
+  if (query.includes('omeprazole') || query.includes('lokev') || query.includes('ozid')) {
+    return {
+      drugName: drugObj?.name || 'Omeprazole 20 mg',
+      indicationLabel: 'Obat Lambung / Tukak Maag & GERD',
+      frequency: '1 x sehari 1 kapsul',
+      mealRelation: 'sebelum',
+      timing: 'Pagi hari (30-60 menit SEBELUM sarapan)',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Telan utuh kapsul dengan air putih, jangan digerus atau dikunyah',
+      foodPrecautions: 'Hindari kopi, minuman bersoda, makanan pedas, asam, dan bersantan'
+    };
+  }
+  if (query.includes('lansoprazole') || query.includes('prosogan') || query.includes('inazol') || query.includes('lapraz')) {
+    return {
+      drugName: drugObj?.name || 'Lansoprazole 30 mg',
+      indicationLabel: 'Pencegah Asam Lambung & Tukak Lambung (PPI)',
+      frequency: '1 x sehari 1 kapsul',
+      mealRelation: 'sebelum',
+      timing: 'Pagi hari 30 - 60 menit SEBELUM sarapan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Telan utuh kapsul dengan segelas air matang',
+      foodPrecautions: 'Hindari makanan pedas, berminyak, dan asam'
+    };
+  }
+  if (query.includes('esomeprazole') || query.includes('nexium')) {
+    return {
+      drugName: drugObj?.name || 'Esomeprazole 40 mg',
+      indicationLabel: 'Obat Pengontrol Asam Lambung & GERD',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sebelum',
+      timing: 'Pagi hari 30 menit sebelum sarapan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Ditelan utuh dengan segelas air putih',
+      foodPrecautions: 'Hindari kopi dan makanan pemicu asam lambung'
+    };
+  }
+  if (query.includes('pantoprazole') || query.includes('pantozol') || query.includes('panloc')) {
+    return {
+      drugName: drugObj?.name || 'Pantoprazole 40 mg',
+      indicationLabel: 'Obat Penekan Asam Lambung (PPI)',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sebelum',
+      timing: 'Pagi hari 30 menit sebelum sarapan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Jangan dikunyah atau dihancurkan',
+      foodPrecautions: 'Hindari konsumsi makanan pedas & asam'
+    };
+  }
+  if (query.includes('antasida') || query.includes('antacid') || query.includes('promag') || query.includes('mylanta') || query.includes('polysilane')) {
+    return {
+      drugName: drugObj?.name || 'Antasida Doen Tablet Kunyah',
+      indicationLabel: 'Pereda Nyeri Lambung & Penetral Asam Maag',
+      frequency: '3 x sehari 1 tablet kunyah',
+      mealRelation: 'sebelum',
+      timing: '1 jam sebelum makan atau 2 jam sesudah makan & sebelum tidur',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'WAJIB dikunyah sampai halus sebelum ditelan. Beri jeda 2 jam dengan obat lain.',
+      foodPrecautions: 'Hindari makanan terlalu asam, pedas, dan berlemak'
+    };
+  }
+  if (query.includes('sucralfate') || query.includes('sukralfat') || query.includes('inpepsa') || query.includes('necra') || query.includes('episan')) {
+    return {
+      drugName: drugObj?.name || 'Sukralfat Suspensi 500 mg/5 mL',
+      indicationLabel: 'Cairan Pelapis Dinding Lambung & Usus',
+      frequency: '3 x sehari 2 sendok takar (10 mL)',
+      mealRelation: 'sebelum',
+      timing: '1 jam SEBELUM makan saat perut kosong & sebelum tidur',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Kocok botol dahulu sebelum diminum. Beri jeda minimal 2 jam dengan obat oral lain.',
+      foodPrecautions: 'Hindari konsumsi bersamaan dengan susu atau suplemen'
+    };
+  }
+  if (query.includes('domperidone') || query.includes('vometa') || query.includes('vosedon')) {
+    return {
+      drugName: drugObj?.name || 'Domperidone 10 mg',
+      indicationLabel: 'Obat Pereda Mual, Kembung & Muntah',
+      frequency: '3 x sehari 1 tablet',
+      mealRelation: 'sebelum',
+      timing: '15 - 30 menit SEBELUM makan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Minum sebelum makan agar saluran cerna siap menerima makanan'
+    };
+  }
+
+  // 2. Antihipertensi
+  if (query.includes('amlodipine') || query.includes('norvask') || query.includes('divask')) {
+    return {
+      drugName: drugObj?.name || 'Amlodipine 10 mg',
+      indicationLabel: 'Obat Penurun Tekanan Darah (Antihipertensi)',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sesudah',
+      timing: 'Pagi hari setelah sarapan (pada jam yang sama)',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Minum teratur setiap hari pada jam yang sama walau tensi sudah terasa normal',
+      foodPrecautions: 'Kurangi konsumsi garam dan hindari jus grapefruit/jeruk bali'
+    };
+  }
+  if (query.includes('candesartan') || query.includes('blopress') || query.includes('canderin')) {
+    return {
+      drugName: drugObj?.name || 'Candesartan 8 mg',
+      indicationLabel: 'Obat Penurun Tekanan Darah & Proteksi Ginjal (ARB)',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sesudah',
+      timing: 'Pagi hari setelah sarapan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Minum teratur setiap hari pada jam yang sama',
+      foodPrecautions: 'Hindari suplemen kalium tinggi atau garam diet kalium'
+    };
+  }
+  if (query.includes('valsartan') || query.includes('diovan')) {
+    return {
+      drugName: drugObj?.name || 'Valsartan 80 mg',
+      indicationLabel: 'Obat Penurun Tekanan Darah (ARB)',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sesudah',
+      timing: 'Pagi hari setelah sarapan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Minum teratur setiap hari pada jam yang sama',
+      foodPrecautions: 'Batasi asupan garam dan makanan tinggi kalium'
+    };
+  }
+  if (query.includes('captopril')) {
+    return {
+      drugName: drugObj?.name || 'Captopril 25 mg',
+      indicationLabel: 'Obat Penurun Tekanan Darah (ACE Inhibitor)',
+      frequency: '2 x sehari 1 tablet',
+      mealRelation: 'sebelum',
+      timing: 'Pagi dan malam, 1 jam SEBELUM makan saat perut kosong',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Minum saat perut kosong agar penyerapan optimal. Jika timbul batuk kering, konsultasikan ke apoteker.',
+      foodPrecautions: 'Kurangi asupan garam harian'
+    };
+  }
+  if (query.includes('bisoprolol') || query.includes('concor') || query.includes('maintate')) {
+    return {
+      drugName: drugObj?.name || 'Bisoprolol 2.5 mg',
+      indicationLabel: 'Obat Penurun Tekanan Darah & Pengatur Detak Jantung (Beta-Blocker)',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sesudah',
+      timing: 'Pagi hari setelah sarapan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Minum teratur setiap pagi. Jangan menghentikan obat secara mendadak.',
+      foodPrecautions: 'Hindari minuman berenergi atau kafein berlebih'
+    };
+  }
+  if (query.includes('furosemide') || query.includes('lasix') || query.includes('farsix')) {
+    return {
+      drugName: drugObj?.name || 'Furosemide 40 mg',
+      indicationLabel: 'Obat Pembuang Cairan Berlebih (Diuretik Pelancar Kencing)',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sesudah',
+      timing: 'PAGI HARI setelah sarapan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Minum di pagi hari agar tidak mengganggu tidur malam karena buang air kecil',
+      foodPrecautions: 'Kurangi konsumsi garam dan pantau asupan cairan'
+    };
+  }
+
+  // 3. Antidiabetes
+  if (query.includes('metformin') || query.includes('glucophage') || query.includes('glumin')) {
+    return {
+      drugName: drugObj?.name || 'Metformin 500 mg',
+      indicationLabel: 'Obat Pengontrol Gula Darah Utama (Biguanida)',
+      frequency: '2 x sehari 1 tablet',
+      mealRelation: 'bersama',
+      timing: 'Bersama suapan makan pagi dan makan malam',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Minum bersama suapan makanan untuk mencegah rasa mual dan perih lambung',
+      foodPrecautions: 'Batasi asupan karbohidrat tinggi gula dan minuman manis'
+    };
+  }
+  if (query.includes('glimepiride') || query.includes('amaryl') || query.includes('glimpid')) {
+    return {
+      drugName: drugObj?.name || 'Glimepiride 2 mg',
+      indicationLabel: 'Pemicu Pengeluaran Insulin Tubuh (Sulfonilurea)',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sebelum',
+      timing: 'Sesaat sebelum sarapan pagi (atau saat suapan pertama)',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Wajib langsung sarapan setelah minum obat untuk mencegah gula darah anjlok (hipoglikemia)',
+      foodPrecautions: 'Siapkan permen manis jika timbul keringat dingin, gemetar, atau pusing'
+    };
+  }
+  if (query.includes('acarbose') || query.includes('glucobay')) {
+    return {
+      drugName: drugObj?.name || 'Acarbose 50 mg',
+      indicationLabel: 'Penghambat Penyerapan Gula Karbohidrat Makanan',
+      frequency: '3 x sehari 1 tablet',
+      mealRelation: 'bersama',
+      timing: 'Bersama SUAPAN PERTAMA setiap makan besar',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Kunyah bersama suapan pertama makanan utama agar efektif menghambat gula'
+    };
+  }
+
+  // 4. Antibiotik
+  if (query.includes('amoxicillin') || query.includes('amoksisilin') || query.includes('amoxsan') || query.includes('clamoxyl')) {
+    return {
+      drugName: drugObj?.name || 'Amoxicillin 500 mg',
+      indicationLabel: 'Antibiotik Pengobatan Infeksi Bakteri',
+      frequency: '3 x sehari 1 kaplet (tiap 8 jam)',
+      mealRelation: 'sesudah',
+      timing: 'Tiap 8 jam (pagi 07:00, siang 15:00, malam 23:00) sesudah makan',
+      isAntibioticMustFinish: true,
+      specialInstructions: '⚠️ WAJIB DIHABISKAN selama durasi hari yang diresepkan walau gejala sudah sembuh',
+      foodPrecautions: 'Beri jeda dengan susu atau suplemen kalsium'
+    };
+  }
+  if (query.includes('cefixime') || query.includes('cepanat') || query.includes('spancef') || query.includes('fixef')) {
+    return {
+      drugName: drugObj?.name || 'Cefixime 100 mg',
+      indicationLabel: 'Antibiotik Saluran Pernapasan & Infeksi Bakteri',
+      frequency: '2 x sehari 1 kapsul (tiap 12 jam)',
+      mealRelation: 'sesudah',
+      timing: 'Tiap 12 jam (pagi dan malam) sesudah makan',
+      isAntibioticMustFinish: true,
+      specialInstructions: '⚠️ WAJIB DIHABISKAN selama 5 hari berturut-turut untuk mencegah resistensi kuman',
+      foodPrecautions: 'Hindari konsumsi bersamaan dengan susu kalsium tinggi'
+    };
+  }
+  if (query.includes('cefadroxil') || query.includes('lapicef') || query.includes('sedrofen')) {
+    return {
+      drugName: drugObj?.name || 'Cefadroxil 500 mg',
+      indicationLabel: 'Antibiotik Infeksi Kulit & Saluran Napas',
+      frequency: '2 x sehari 1 kapsul (tiap 12 jam)',
+      mealRelation: 'sesudah',
+      timing: 'Tiap 12 jam (pagi dan malam) sesudah makan',
+      isAntibioticMustFinish: true,
+      specialInstructions: '⚠️ WAJIB DIHABISKAN sesuai anjuran dokter/apoteker'
+    };
+  }
+  if (query.includes('ciprofloxacin') || query.includes('baquinor') || query.includes('ciflox')) {
+    return {
+      drugName: drugObj?.name || 'Ciprofloxacin 500 mg',
+      indicationLabel: 'Antibiotik Infeksi Saluran Kemih & Bakteri',
+      frequency: '2 x sehari 1 tablet (tiap 12 jam)',
+      mealRelation: 'sesudah',
+      timing: 'Tiap 12 jam (pagi dan malam) sesudah makan',
+      isAntibioticMustFinish: true,
+      specialInstructions: '⚠️ WAJIB DIHABISKAN. Minum banyak air putih (minimal 2 liter/hari).',
+      foodPrecautions: 'JANGAN diminum bersamaan dengan susu, antasida, atau zat besi (beri jeda 2 jam)'
+    };
+  }
+  if (query.includes('azithromycin') || query.includes('zithromax')) {
+    return {
+      drugName: drugObj?.name || 'Azithromycin 500 mg',
+      indicationLabel: 'Antibiotik Saluran Pernapasan & Infeksi',
+      frequency: '1 x sehari 1 tablet (selama 3-5 hari)',
+      mealRelation: 'sebelum',
+      timing: '1 jam sebelum makan atau 2 jam sesudah makan pada jam yang sama',
+      isAntibioticMustFinish: true,
+      specialInstructions: '⚠️ WAJIB DIHABISKAN selama 3-5 hari berturut-turut'
+    };
+  }
+
+  // 5. Analgesik & Antiinflamasi
+  if (query.includes('paracetamol') || query.includes('panadol') || query.includes('sanmol') || query.includes('pamol') || query.includes('dumin')) {
+    return {
+      drugName: drugObj?.name || 'Paracetamol 500 mg',
+      indicationLabel: 'Pereda Demam & Nyeri Ringan-Sedang',
+      frequency: '3 x sehari 1 tablet (bila perlu)',
+      mealRelation: 'sesudah',
+      timing: 'Pagi, siang, dan malam sesudah makan (bila demam/nyeri)',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Hentikan jika demam dan nyeri sudah reda. Jeda antar dosis minimal 4-6 jam.',
+      foodPrecautions: 'Hindari konsumsi alkohol selama meminum obat ini'
+    };
+  }
+  if (query.includes('mefenamic') || query.includes('mefenamat') || query.includes('ponstan') || query.includes('mefinal')) {
+    return {
+      drugName: drugObj?.name || 'Asam Mefenamat 500 mg',
+      indicationLabel: 'Pereda Nyeri Gigi, Sakit Kepala & Nyeri Haid (OAINS)',
+      frequency: '3 x sehari 1 kaplet',
+      mealRelation: 'sesudah',
+      timing: 'Segera SESUDAH makan (atau bersama makanan)',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Wajib diminum segera sesudah makan untuk mencegah nyeri lambung. Hentikan bila nyeri reda.',
+      foodPrecautions: 'Hindari minum bersamaan dengan obat pereda nyeri lain atau alkohol'
+    };
+  }
+  if (query.includes('ibuprofen') || query.includes('proris') || query.includes('bufect')) {
+    return {
+      drugName: drugObj?.name || 'Ibuprofen 400 mg',
+      indicationLabel: 'Pereda Nyeri, Radang & Demam (OAINS)',
+      frequency: '3 x sehari 1 tablet sesudah makan',
+      mealRelation: 'sesudah',
+      timing: 'Pagi, siang, dan malam sesudah makan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Wajib diminum sesudah makan dengan segelas air putih'
+    };
+  }
+  if (query.includes('diclofenac') || query.includes('diklofenak') || query.includes('voltaren') || query.includes('cataflam')) {
+    return {
+      drugName: drugObj?.name || 'Natrium Diklofenak 50 mg',
+      indicationLabel: 'Pereda Nyeri Sendi & Radang Akut (OAINS)',
+      frequency: '2-3 x sehari 1 tablet sesudah makan',
+      mealRelation: 'sesudah',
+      timing: 'Pagi dan malam segera SESUDAH makan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Ditelan utuh dengan segelas air setelah makan'
+    };
+  }
+
+  // 6. Kolesterol & Statin
+  if (query.includes('simvastatin') || query.includes('zocor') || query.includes('cholestat') || query.includes('valemia')) {
+    return {
+      drugName: drugObj?.name || 'Simvastatin 20 mg',
+      indicationLabel: 'Obat Penurun Kolesterol Jahat (LDL & Trigliserida)',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sesudah',
+      timing: 'Malam hari sebelum tidur (pukul 20:00 - 21:00)',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Sintesis kolesterol tubuh aktif di malam hari. Minum teratur setiap malam.',
+      foodPrecautions: 'Kurangi konsumsi gorengan, santan, jeroan, dan hindari jus grapefruit'
+    };
+  }
+  if (query.includes('atorvastatin') || query.includes('lipitor') || query.includes('atoris')) {
+    return {
+      drugName: drugObj?.name || 'Atorvastatin 20 mg',
+      indicationLabel: 'Obat Penurun Kolesterol & Pencegah Plak Pembuluh Darah',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sesudah',
+      timing: 'Malam hari pada jam yang sama',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Minum teratur setiap hari. Lakukan kontrol profil lipid rutin.',
+      foodPrecautions: 'Kurangi makanan tinggi lemak jenuh'
+    };
+  }
+
+  // 7. Asam Urat
+  if (query.includes('allopurinol') || query.includes('zyloric') || query.includes('puricemia')) {
+    return {
+      drugName: drugObj?.name || 'Allopurinol 100 mg',
+      indicationLabel: 'Obat Penurun Kadar Asam Urat Darah',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sesudah',
+      timing: 'Pagi hari sesudah sarapan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Minum banyak air putih (minimal 2-3 liter/hari) untuk membantu ekskresi asam urat',
+      foodPrecautions: 'Hindari emping/melinjo, jeroan, kacang-kacangan, daging merah, dan seafood tinggi purin'
+    };
+  }
+
+  // 8. Batuk & Alergi
+  if (query.includes('cetirizine') || query.includes('incidal') || query.includes('ryvel') || query.includes('cerini')) {
+    return {
+      drugName: drugObj?.name || 'Cetirizine 10 mg',
+      indicationLabel: 'Obat Pereda Alergi, Gatal, Bersin & Biduran',
+      frequency: '1 x sehari 1 tablet',
+      mealRelation: 'sesudah',
+      timing: 'Malam hari sebelum tidur',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Dapat menimbulkan rasa kantuk ringan. Hindari mengemudi setelah minum obat.',
+      foodPrecautions: 'Hindari konsumsi alkohol'
+    };
+  }
+  if (query.includes('ambroxol') || query.includes('mucos') || query.includes('mucopect')) {
+    return {
+      drugName: drugObj?.name || 'Ambroxol 30 mg',
+      indicationLabel: 'Obat Pengencer Dahak Batuk Berdahak',
+      frequency: '3 x sehari 1 tablet',
+      mealRelation: 'sesudah',
+      timing: 'Pagi, siang, dan malam sesudah makan',
+      isAntibioticMustFinish: false,
+      specialInstructions: 'Bantu efektivitas pengencer dahak dengan banyak minum air putih hangat'
+    };
+  }
+
+  // Fallback: extract directly from deep Drug monograph fields
+  if (drugObj) {
+    let cleanIndication = drugObj.indication || (drugObj.category ? `Obat Golongan ${drugObj.category}` : 'Sesuai Anjuran Dokter');
+    if (cleanIndication.includes('.')) {
+      cleanIndication = cleanIndication.split('.')[0].trim();
+    }
+    if (cleanIndication.length > 55) {
+      cleanIndication = cleanIndication.substring(0, 52) + '...';
+    }
+
+    let foodPrec = drugObj.foodInteraction || drugObj.patientTips || '';
+    let specialInst = drugObj.administrationGuideline || drugObj.contraindications || drugObj.contraindication || '';
+    let mealRel: 'sebelum' | 'bersama' | 'sesudah' | 'bebas' = 'sesudah';
+    let defTiming = 'Pagi hari sesudah makan';
+
+    const fullDesc = (foodPrec + ' ' + specialInst + ' ' + (drugObj.dosage || '')).toLowerCase();
+    if (fullDesc.includes('sebelum makan') || fullDesc.includes('perut kosong') || fullDesc.includes('30 menit sebelum')) {
+      mealRel = 'sebelum';
+      defTiming = '30-60 menit SEBELUM sarapan / makan';
+    } else if (fullDesc.includes('bersama makanan') || fullDesc.includes('suapan')) {
+      mealRel = 'bersama';
+      defTiming = 'Bersama suapan makanan besar';
+    } else if (fullDesc.includes('malam') || fullDesc.includes('sebelum tidur')) {
+      defTiming = 'Malam hari sebelum tidur';
+    }
+
+    const isAnti = (drugObj.category || '').toLowerCase().includes('antibiotik') ||
+      (drugObj.category || '').toLowerCase().includes('antibakteri') ||
+      (drugObj.category || '').toLowerCase().includes('anti-infeksi');
+
+    return {
+      drugName: drugObj.name,
+      indicationLabel: cleanIndication,
+      frequency: drugObj.adultDosage ? drugObj.adultDosage.split('\n')[0].substring(0, 30) : (drugObj.dosage ? drugObj.dosage.split('\n')[0].substring(0, 30) : '1 x sehari 1 tablet'),
+      mealRelation: mealRel,
+      timing: defTiming,
+      isAntibioticMustFinish: isAnti,
+      specialInstructions: specialInst.length > 80 ? specialInst.substring(0, 77) + '...' : specialInst,
+      foodPrecautions: foodPrec.length > 80 ? foodPrec.substring(0, 77) + '...' : foodPrec
+    };
+  }
+
+  // Default Fallback
+  return {
+    drugName: rawQuery || 'Obat Baru',
+    indicationLabel: 'Sesuai Anjuran Dokter',
+    frequency: '1 x sehari 1 tablet',
+    mealRelation: 'sesudah',
+    timing: 'Pagi hari sesudah makan',
+    isAntibioticMustFinish: query.includes('antibiotik') || query.includes('antibakteri')
+  };
+};
+
 interface WhatsAppPatientCardManagerProps {
   clinicBranding: ClinicBrandingSettings;
   onOpenBrandingModal: () => void;
   drugs?: Drug[];
+  onSelectDrugForDetail?: (drug: Drug) => void;
+  preselectedDrug?: Drug | null;
 }
 
 export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProps> = ({
   clinicBranding,
   onOpenBrandingModal,
-  drugs = []
+  drugs = [],
+  onSelectDrugForDetail,
+  preselectedDrug
 }) => {
   // Patient details state
   const [patientName, setPatientName] = useState<string>('Bpk. Hendra Wijaya');
@@ -58,12 +529,20 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
   const [copiedNotification, setCopiedNotification] = useState<boolean>(false);
   const [activePreviewMode, setActivePreviewMode] = useState<'whatsapp' | 'card'>('whatsapp');
 
+  // Monograph Category Selector & Fast Filter
+  const [selectedPioCategory, setSelectedPioCategory] = useState<string>('populer');
+  const [pioCategorySearch, setPioCategorySearch] = useState<string>('');
+
+  // Autocomplete dropdown state
+  const [activeSearchMedId, setActiveSearchMedId] = useState<string | null>(null);
+  const [autoFillNotice, setAutoFillNotice] = useState<{ [medId: string]: string }>({});
+
   // Medication list state
   const [medications, setMedications] = useState<PatientMedicationEntry[]>([
     {
       id: 'med-1',
       drugName: 'Amlodipine 10 mg',
-      indicationLabel: 'Obat Penurun Tekanan Darah',
+      indicationLabel: 'Obat Penurun Tekanan Darah (Antihipertensi)',
       frequency: '1 x sehari 1 tablet',
       timing: 'Pagi hari setelah sarapan (pada jam yang sama)',
       mealRelation: 'sesudah',
@@ -74,9 +553,9 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
     {
       id: 'med-2',
       drugName: 'Metformin 500 mg',
-      indicationLabel: 'Obat Pengontrol Gula Darah',
-      frequency: '3 x sehari 1 tablet',
-      timing: 'Bersama suapan makan pagi, siang, dan malam',
+      indicationLabel: 'Obat Pengontrol Gula Darah Utama',
+      frequency: '2 x sehari 1 tablet',
+      timing: 'Bersama suapan makan pagi dan malam',
       mealRelation: 'bersama',
       isAntibioticMustFinish: false,
       specialInstructions: 'Minum bersama makanan untuk mencegah rasa mual',
@@ -85,7 +564,7 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
     {
       id: 'med-3',
       drugName: 'Cefixime 100 mg',
-      indicationLabel: 'Antibiotik Saluran Napas',
+      indicationLabel: 'Antibiotik Saluran Napas & Infeksi',
       frequency: '2 x sehari 1 kapsul',
       timing: 'Tiap 12 jam (pagi dan malam)',
       mealRelation: 'sesudah',
@@ -255,18 +734,78 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
     }
   };
 
+  // Auto-Fill single medication from database
+  const handleAutoFillMedication = (medId: string, searchVal: string, matchedDrug?: Drug) => {
+    const autoFilled = generatePioAutoFill(searchVal, matchedDrug);
+
+    setMedications(prev => prev.map(m => {
+      if (m.id === medId) {
+        return {
+          ...m,
+          drugName: autoFilled.drugName || m.drugName,
+          indicationLabel: autoFilled.indicationLabel || m.indicationLabel,
+          frequency: autoFilled.frequency || m.frequency,
+          mealRelation: autoFilled.mealRelation || m.mealRelation,
+          timing: autoFilled.timing || m.timing,
+          isAntibioticMustFinish: autoFilled.isAntibioticMustFinish !== undefined ? autoFilled.isAntibioticMustFinish : m.isAntibioticMustFinish,
+          specialInstructions: autoFilled.specialInstructions || m.specialInstructions,
+          foodPrecautions: autoFilled.foodPrecautions || m.foodPrecautions
+        };
+      }
+      return m;
+    }));
+
+    setActiveSearchMedId(null);
+    setAutoFillNotice(prev => ({ ...prev, [medId]: `✅ Terisi: ${autoFilled.indicationLabel}` }));
+    setTimeout(() => {
+      setAutoFillNotice(prev => {
+        const copy = { ...prev };
+        delete copy[medId];
+        return copy;
+      });
+    }, 3500);
+  };
+
+  // Quick add a popular drug with full auto-fill
+  const handleQuickAddPopularDrug = (drugName: string) => {
+    const matchedDrug = drugs.find(d => d.name.toLowerCase().includes(drugName.toLowerCase()));
+    const autoFilled = generatePioAutoFill(drugName, matchedDrug);
+
+    const newEntry: PatientMedicationEntry = {
+      id: `med-${Date.now()}`,
+      drugName: autoFilled.drugName || drugName,
+      indicationLabel: autoFilled.indicationLabel || 'Sesuai Resep',
+      frequency: autoFilled.frequency || '1 x sehari 1 tablet',
+      timing: autoFilled.timing || 'Pagi hari sesudah makan',
+      mealRelation: autoFilled.mealRelation || 'sesudah',
+      isAntibioticMustFinish: Boolean(autoFilled.isAntibioticMustFinish),
+      specialInstructions: autoFilled.specialInstructions || '',
+      foodPrecautions: autoFilled.foodPrecautions || ''
+    };
+
+    setMedications(prev => [...prev, newEntry]);
+  };
+
+  // Automatically insert drug when sent from Monograph / Directory
+  useEffect(() => {
+    if (preselectedDrug) {
+      handleQuickAddPopularDrug(preselectedDrug.name);
+    }
+  }, [preselectedDrug]);
+
   // Add Medication Row
   const handleAddMedication = () => {
     const newEntry: PatientMedicationEntry = {
       id: `med-${Date.now()}`,
-      drugName: 'Nama Obat Baru',
-      indicationLabel: 'Kegunaan Obat',
-      frequency: '3 x sehari 1 tablet',
-      timing: 'Pagi, siang, dan malam',
+      drugName: '',
+      indicationLabel: '',
+      frequency: '1 x sehari 1 tablet',
+      timing: 'Pagi hari sesudah sarapan',
       mealRelation: 'sesudah',
       isAntibioticMustFinish: false
     };
     setMedications([...medications, newEntry]);
+    setActiveSearchMedId(newEntry.id);
   };
 
   // Remove Medication Row
@@ -488,116 +1027,358 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
 
           {/* Medications Form */}
           <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Pill className="w-4 h-4 text-emerald-400" />
-                Daftar Obat Pasien ({medications.length} Obat)
-              </h3>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Pill className="w-4 h-4 text-emerald-400" />
+                  Daftar Obat Pasien ({medications.length} Obat)
+                </h3>
+                <p className="text-[11px] text-slate-400 font-medium">
+                  Ketik nama obat untuk mendapatkan saran aturan pakai & edukasi otomatis.
+                </p>
+              </div>
               <button
+                type="button"
                 onClick={handleAddMedication}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition shadow-sm"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition shadow-sm cursor-pointer shrink-0"
               >
-                <Plus className="w-3.5 h-3.5" />
+                <Plus className="w-4 h-4" />
                 Tambah Obat
               </button>
             </div>
 
-            <div className="space-y-4">
-              {medications.map((med, idx) => (
-                <div
-                  key={med.id}
-                  className="bg-slate-950/80 border border-slate-800 rounded-xl p-4 space-y-3 relative group"
-                >
-                  <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
-                    <span className="text-xs font-bold text-emerald-400">
-                      Obat #{idx + 1}
-                    </span>
+            {/* Quick Add Monograph Therapy Category Ribbon */}
+            <div className="p-3.5 bg-slate-950/90 rounded-xl border border-slate-800 space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-amber-400" />
+                  Katalog Cepat Monografi Obat (Auto-Fill PIO):
+                </span>
+                
+                {/* Fast search within monograph catalog */}
+                <div className="relative min-w-[180px]">
+                  <Search className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2" />
+                  <input
+                    type="text"
+                    value={pioCategorySearch}
+                    onChange={(e) => setPioCategorySearch(e.target.value)}
+                    placeholder="Saring obat monografi..."
+                    className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-8 pr-2.5 py-1 text-[11px] text-white focus:outline-none focus:border-emerald-500"
+                  />
+                  {pioCategorySearch && (
                     <button
-                      onClick={() => handleRemoveMedication(med.id)}
-                      className="text-slate-500 hover:text-rose-400 transition p-1"
-                      title="Hapus obat"
+                      onClick={() => setPioCategorySearch('')}
+                      className="absolute right-2 top-1.5 text-slate-400 hover:text-white text-xs"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      ✕
                     </button>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Nama & Kekuatan Obat</label>
-                      <input
-                        type="text"
-                        value={med.drugName}
-                        onChange={(e) => handleUpdateMedication(med.id, 'drugName', e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                        placeholder="cth. Amlodipine 10 mg"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Kegunaan / Indikasi Awam</label>
-                      <input
-                        type="text"
-                        value={med.indicationLabel}
-                        onChange={(e) => handleUpdateMedication(med.id, 'indicationLabel', e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                        placeholder="cth. Obat Darah Tinggi"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Aturan Pakai</label>
-                      <input
-                        type="text"
-                        value={med.frequency}
-                        onChange={(e) => handleUpdateMedication(med.id, 'frequency', e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-emerald-300 font-semibold focus:outline-none focus:border-emerald-500"
-                        placeholder="cth. 1 x sehari 1 tablet"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Hubungan dengan Makanan</label>
-                      <select
-                        value={med.mealRelation}
-                        onChange={(e) => handleUpdateMedication(med.id, 'mealRelation', e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                      >
-                        <option value="sesudah">Sesudah Makan</option>
-                        <option value="sebelum">Sebelum Makan (30-60 mnt)</option>
-                        <option value="bersama">Bersama Suapan Makan</option>
-                        <option value="bebas">Bebas (Dapat dg/tanpa)</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Waktu Minum Spesifik</label>
-                      <input
-                        type="text"
-                        value={med.timing}
-                        onChange={(e) => handleUpdateMedication(med.id, 'timing', e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                        placeholder="cth. Pagi hari"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
-                    <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
-                      <input
-                        type="checkbox"
-                        checked={med.isAntibioticMustFinish}
-                        onChange={(e) => handleUpdateMedication(med.id, 'isAntibioticMustFinish', e.target.checked)}
-                        className="rounded accent-emerald-500 w-3.5 h-3.5"
-                      />
-                      <span className="text-amber-300 font-semibold text-[11px]">
-                        ⚠️ Tandai sebagai Antibiotik (Wajib Dihabiskan)
-                      </span>
-                    </label>
-                  </div>
+                  )}
                 </div>
-              ))}
+              </div>
+
+              {/* Therapy Category Tabs */}
+              <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-thin">
+                {PIO_DRUG_CATEGORIES.map((cat) => {
+                  const isActive = selectedPioCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setSelectedPioCategory(cat.id)}
+                      className={`px-2.5 py-1 rounded-lg text-[10.5px] font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1 ${
+                        isActive
+                          ? 'bg-emerald-600 text-white shadow-xs'
+                          : 'bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                      }`}
+                    >
+                      <span>{cat.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Dynamic Chips Rendered from Master Monograph Database */}
+              {(() => {
+                const currentCat = PIO_DRUG_CATEGORIES.find(c => c.id === selectedPioCategory) || PIO_DRUG_CATEGORIES[0];
+                let displayedItems: { name: string; drugObj?: Drug }[] = [];
+
+                if (selectedPioCategory === 'populer') {
+                  displayedItems = POPULAR_PIO_DRUGS
+                    .filter(name => !pioCategorySearch || name.toLowerCase().includes(pioCategorySearch.toLowerCase()))
+                    .map(name => {
+                      const match = (drugs || []).find(d => d.name.toLowerCase().includes(name.toLowerCase()) || (d.genericName && name.toLowerCase().includes(d.genericName.toLowerCase())));
+                      return { name, drugObj: match };
+                    });
+                } else if (selectedPioCategory === 'semua') {
+                  displayedItems = (drugs || [])
+                    .filter(d => !pioCategorySearch || d.name.toLowerCase().includes(pioCategorySearch.toLowerCase()) || (d.genericName && d.genericName.toLowerCase().includes(pioCategorySearch.toLowerCase())))
+                    .slice(0, 24)
+                    .map(d => ({ name: d.name, drugObj: d }));
+                } else {
+                  const kws = currentCat.keywords || [];
+                  displayedItems = (drugs || [])
+                    .filter(d => {
+                      const combined = (d.name + ' ' + (d.genericName || '') + ' ' + (d.category || '')).toLowerCase();
+                      const matchesCat = kws.some(kw => combined.includes(kw));
+                      const matchesSearch = !pioCategorySearch || combined.includes(pioCategorySearch.toLowerCase());
+                      return matchesCat && matchesSearch;
+                    })
+                    .slice(0, 24)
+                    .map(d => ({ name: d.name, drugObj: d }));
+                }
+
+                return (
+                  <div className="space-y-1.5">
+                    <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1">
+                      {displayedItems.length > 0 ? (
+                        displayedItems.map((item, idx) => (
+                          <button
+                            key={idx}
+                            type="button"
+                            onClick={() => handleQuickAddPopularDrug(item.name)}
+                            className="px-2.5 py-1 rounded-lg text-[10.5px] font-semibold bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 border border-slate-800 hover:border-emerald-700 transition cursor-pointer flex items-center gap-1 shadow-2xs group/chip"
+                            title={item.drugObj?.indication ? `Indikasi: ${item.drugObj.indication}` : 'Klik untuk tambah ke daftar PIO'}
+                          >
+                            <Plus className="w-3 h-3 text-emerald-400 group-hover/chip:rotate-90 transition-transform" />
+                            <span>{item.name}</span>
+                          </button>
+                        ))
+                      ) : (
+                        <div className="text-[11px] text-slate-500 py-1 italic">
+                          Tidak ada obat monografi yang cocok dengan kata kunci "{pioCategorySearch}".
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-900">
+                      <span>Tersedia {displayedItems.length} obat siap auto-fill pada kategori ini</span>
+                      <span className="text-emerald-400/90 font-medium">⚡ Klik obat untuk auto-populate 7 kolom edukasi</span>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+
+            <div className="space-y-4">
+              {medications.map((med, idx) => {
+                const searchQ = (med.drugName || '').toLowerCase().trim();
+                const matchingSuggestions = searchQ.length > 0 && activeSearchMedId === med.id
+                  ? (drugs.length > 0 ? drugs : []).filter(d => 
+                      d.name.toLowerCase().includes(searchQ) || 
+                      (d.genericName && d.genericName.toLowerCase().includes(searchQ)) ||
+                      (d.category && d.category.toLowerCase().includes(searchQ))
+                    ).slice(0, 6)
+                  : [];
+
+                const matchedMasterDrug = (drugs || []).find(d => 
+                  d.name.toLowerCase() === (med.drugName || '').toLowerCase() || 
+                  (d.genericName && (med.drugName || '').toLowerCase().includes(d.genericName.toLowerCase())) ||
+                  ((med.drugName || '').toLowerCase().includes(d.name.toLowerCase()))
+                );
+
+                return (
+                  <div
+                    key={med.id}
+                    className="bg-slate-950/80 border border-slate-800 rounded-xl p-4 space-y-3 relative group"
+                  >
+                    <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-emerald-400">
+                          Obat #{idx + 1}
+                        </span>
+                        {autoFillNotice[med.id] && (
+                          <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-800 px-2 py-0.5 rounded-full animate-in fade-in">
+                            {autoFillNotice[med.id]}
+                          </span>
+                        )}
+                      </div>
+                      
+                      <div className="flex items-center gap-1.5">
+                        {matchedMasterDrug && onSelectDrugForDetail && (
+                          <button
+                            type="button"
+                            onClick={() => onSelectDrugForDetail(matchedMasterDrug)}
+                            className="px-2 py-0.5 rounded-lg text-[10.5px] font-bold bg-teal-950 hover:bg-teal-900 text-teal-300 border border-teal-800 transition flex items-center gap-1 cursor-pointer"
+                            title="Buka monografi farmakologi klinis lengkap obat ini"
+                          >
+                            <BookOpen className="w-3 h-3 text-teal-400" />
+                            <span>Monografi</span>
+                          </button>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() => handleAutoFillMedication(med.id, med.drugName, matchedMasterDrug)}
+                          className="px-2 py-0.5 rounded-lg text-[10.5px] font-bold bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 transition flex items-center gap-1 cursor-pointer"
+                          title="Auto-isi edukasi & aturan minum berdasarkan nama obat"
+                        >
+                          <Zap className="w-3 h-3 text-amber-400" />
+                          <span>Auto-Isi PIO</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveMedication(med.id)}
+                          className="text-slate-500 hover:text-rose-400 transition p-1 cursor-pointer"
+                          title="Hapus obat"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {/* Nama & Kekuatan Obat (dengan Autocomplete Dropdown) */}
+                      <div className="relative">
+                        <label className="block text-[11px] font-bold text-slate-400 mb-1">
+                          Nama & Kekuatan Obat <span className="text-emerald-400 font-bold">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={med.drugName}
+                          onFocus={() => setActiveSearchMedId(med.id)}
+                          onChange={(e) => {
+                            handleUpdateMedication(med.id, 'drugName', e.target.value);
+                            setActiveSearchMedId(med.id);
+                          }}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500 font-bold"
+                          placeholder="Ketik cth. Amlodipine 10 mg / Metformin"
+                        />
+
+                        {/* Floating Autocomplete Suggestions */}
+                        {activeSearchMedId === med.id && matchingSuggestions.length > 0 && (
+                          <div className="absolute left-0 right-0 top-full mt-1 bg-slate-900 border border-emerald-500/60 rounded-xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-800 text-xs">
+                            <div className="p-1.5 bg-slate-950 text-[10px] font-bold text-emerald-400 flex items-center justify-between">
+                              <span>Pilih Obat Untuk Auto-Fill Otomatis:</span>
+                              <button
+                                type="button"
+                                onClick={() => setActiveSearchMedId(null)}
+                                className="text-slate-500 hover:text-slate-300"
+                              >
+                                ✕
+                              </button>
+                            </div>
+                            {matchingSuggestions.map((d) => (
+                              <button
+                                key={d.id}
+                                type="button"
+                                onClick={() => handleAutoFillMedication(med.id, d.name, d)}
+                                className="w-full p-2.5 text-left hover:bg-emerald-950/60 transition flex items-center justify-between cursor-pointer group/item"
+                              >
+                                <div>
+                                  <span className="font-bold text-white group-hover/item:text-emerald-300 block">
+                                    {d.name}
+                                  </span>
+                                  <span className="text-[10px] text-slate-400">
+                                    {d.genericName} • {d.category}
+                                  </span>
+                                </div>
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-900/60 text-emerald-300 border border-emerald-700">
+                                  ⚡ Terapkan
+                                </span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Kegunaan / Indikasi Awam */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-400 mb-1">
+                          Kegunaan / Indikasi Awam Pasien
+                        </label>
+                        <input
+                          type="text"
+                          value={med.indicationLabel}
+                          onChange={(e) => handleUpdateMedication(med.id, 'indicationLabel', e.target.value)}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          placeholder="cth. Obat Penurun Tekanan Darah"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-400 mb-1">Aturan Pakai</label>
+                        <input
+                          type="text"
+                          value={med.frequency}
+                          onChange={(e) => handleUpdateMedication(med.id, 'frequency', e.target.value)}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-emerald-300 font-semibold focus:outline-none focus:border-emerald-500"
+                          placeholder="cth. 1 x sehari 1 tablet"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-400 mb-1">Hubungan dengan Makanan</label>
+                        <select
+                          value={med.mealRelation}
+                          onChange={(e) => handleUpdateMedication(med.id, 'mealRelation', e.target.value)}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500 font-medium"
+                        >
+                          <option value="sesudah">Sesudah Makan</option>
+                          <option value="sebelum">Sebelum Makan (30-60 mnt)</option>
+                          <option value="bersama">Bersama Suapan Makan</option>
+                          <option value="bebas">Bebas (Dapat dg/tanpa makanan)</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-400 mb-1">Waktu Minum Spesifik</label>
+                        <input
+                          type="text"
+                          value={med.timing}
+                          onChange={(e) => handleUpdateMedication(med.id, 'timing', e.target.value)}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          placeholder="cth. Pagi hari setelah sarapan"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Petunjuk Khusus & Pantangan Makanan / Minuman */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                      <div>
+                        <label className="block text-[10.5px] font-medium text-slate-400 mb-1">
+                          Petunjuk Khusus & Cara Pakai (Opsional)
+                        </label>
+                        <input
+                          type="text"
+                          value={med.specialInstructions || ''}
+                          onChange={(e) => handleUpdateMedication(med.id, 'specialInstructions', e.target.value)}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-emerald-500"
+                          placeholder="cth. Minum teratur pada jam yang sama"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[10.5px] font-medium text-slate-400 mb-1">
+                          Pantangan Makanan / Minuman (Opsional)
+                        </label>
+                        <input
+                          type="text"
+                          value={med.foodPrecautions || ''}
+                          onChange={(e) => handleUpdateMedication(med.id, 'foodPrecautions', e.target.value)}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-amber-200/90 focus:outline-none focus:border-emerald-500"
+                          placeholder="cth. Kurangi garam dan hindari jus grapefruit"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-900">
+                      <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                        <input
+                          type="checkbox"
+                          checked={med.isAntibioticMustFinish}
+                          onChange={(e) => handleUpdateMedication(med.id, 'isAntibioticMustFinish', e.target.checked)}
+                          className="rounded accent-emerald-500 w-3.5 h-3.5"
+                        />
+                        <span className="text-amber-300 font-semibold text-[11px]">
+                          ⚠️ Tandai sebagai Antibiotik (Wajib Dihabiskan)
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

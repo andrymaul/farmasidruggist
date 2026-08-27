@@ -534,6 +534,2504 @@ export const IV_DRUGS_DATABASE: IvDrugProfile[] = [
     },
     blackBoxIncompatibilities: ['Inkompatibel dengan hampir seluruh obat injeksi lain jika dicampur dalam satu jalur (merusak droplet emulsi dan memicu emboli minyak). Sediakan jalur IV khusus (Dedicated Line).']
   }
+,
+  {
+    id: "iv-epinephrine",
+    name: "Epinephrine (Adrenalin)",
+    genericName: "Epinephrine Hydrochloride",
+    brandNames: [
+      "Epinephrine OGB",
+      "Adrenalin",
+      "EpiPen"
+    ],
+    category: "Vasoaktif / Inotropik",
+    phRange: "2.2 - 5.0 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "D5W atau Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "Larutkan 1 mg (1 mL) ke dalam 100 mL - 250 mL D5W/NS (Konsentrasi: 4 - 10 mcg/mL) atau 4 mg dalam 50 mL NS/D5W via syringe pump (80 mcg/mL)",
+      resultantConcentration: "4 - 80 mcg/mL",
+      instructions: "Lindungi dari cahaya dan panas. Jangan gunakan jika larutan berubah warna menjadi merah muda, cokelat, atau terdapat presipitat."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan D5W, NS, dan D5NS. Dekstrosa melindungi dari oksidasi pada infus jangka panjang."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah pelarutan",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "16 mcg/mL (Hanya dalam situasi darurat/resusitasi)",
+      maxCentralConcentration: "64 - 80 mcg/mL (Dianjurkan via Vena Sentral / CVC)",
+      standardInfusionRate: "0.01 - 1 mcg/kgBB/menit (titrasi respons hemodinamik / syok anafilaksis / sepsis)",
+      infusionRoute: "IV Syringe Pump",
+      specialPrecautions: [
+        "Wajib terlindung dari cahaya (tutup syringe/infus dengan kantong pelindung gelap).",
+        "Pemberian via vena perifer berisiko ekstravasasi nekrosis jaringan; gunakan vena sentral untuk infus kontinu.",
+        "Inkompatibel fatal dengan larutan alkali/basa (Sodium Bicarbonate, Furosemide, Aminophylline)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Sodium Bicarbonate (degradasi oksidatif katekolamin cepat)",
+      "Furosemide (presipitasi asam-basa seketika)",
+      "Aminophylline"
+    ]
+  },
+  {
+    id: "iv-vasopressin",
+    name: "Vasopressin (ADH)",
+    genericName: "Arginine Vasopressin",
+    brandNames: [
+      "Pitressin",
+      "Vasostrict",
+      "Fustab"
+    ],
+    category: "Vasoaktif / Inotropik",
+    phRange: "2.5 - 4.5 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan 20 Unit (1 mL) ke dalam 100 mL NS (Konsentrasi: 0.2 Unit/mL) atau 40 Unit dalam 50 mL NS (Konsentrasi: 0.8 Unit/mL via syringe pump)",
+      resultantConcentration: "0.1 - 1 Unit/mL",
+      instructions: "Campur perlahan tanpa pengocokan keras untuk mencegah denaturasi peptida."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Stabil dalam larutan NS 0.9% dan D5W."
+    },
+    stability: {
+      roomTemp25C: "18 Jam pada suhu ruang",
+      refrigerated2to8C: "24 Jam pada 2-8°C",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "0.2 Unit/mL",
+      maxCentralConcentration: "1 Unit/mL (Jalur Vena Sentral)",
+      standardInfusionRate: "0.01 - 0.04 Unit/menit (dosis tetap kontinu pada syok septik refrakter)",
+      infusionRoute: "IV Syringe Pump",
+      specialPrecautions: [
+        "Dosis infus syok septik bersifat fixed-dose (0.03-0.04 Unit/menit) dan BUKAN untuk dititrasi cepat.",
+        "Dapat menyebabkan vasokonstriksi koroner dan iskemia splanknikus/mesenterika pada dosis >0.04 Unit/menit."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Furosemide",
+      "Phenytoin Sodium"
+    ]
+  },
+  {
+    id: "iv-nitroglycerin",
+    name: "Nitroglycerin (NTG)",
+    genericName: "Glyceryl Trinitrate",
+    brandNames: [
+      "Nitrokaf",
+      "Nitrocine",
+      "Nitronal",
+      "Tridil"
+    ],
+    category: "Antikoagulan & Kardiovaskular",
+    phRange: "3.5 - 6.0",
+    reconstitution: {
+      recommendedDiluent: "D5W atau Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "Larutkan 50 mg (10 mL) ke dalam 250 mL D5W/NS (Konsentrasi: 200 mcg/mL) atau 50 mg dalam 50 mL (1000 mcg/mL via syringe pump)",
+      resultantConcentration: "100 - 400 mcg/mL (infus) atau 1000 mcg/mL (syringe pump)",
+      instructions: "Wajib menggunakan botol kaca / kantong non-PVC (Polyolefin/EVA) dan selang infus non-PVC untuk mencegah adsorpsi NTG hingga 80% ke plastik PVC standar."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Kompatibel dengan NS dan D5W. Wajib wadah dan selang khusus Non-PVC."
+    },
+    stability: {
+      roomTemp25C: "24 Jam (dalam wadah kaca/non-PVC)",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "400 mcg/mL",
+      maxCentralConcentration: "1000 mcg/mL",
+      standardInfusionRate: "5 - 200 mcg/menit (titrasi tiap 3-5 menit sesuai target penurunan tekanan darah / nyeri dada)",
+      infusionRoute: "IV Syringe Pump",
+      specialPrecautions: [
+        "Absorpsi ke plastik PVC konvensional sangat tinggi; gunakan set infus non-PVC (polyethylene).",
+        "Kontraindikasi mutlak bersamaan dengan inhibitor PDE-5 (Sildenafil, Tadalafil, Vardenafil) dalam 24-48 jam terakhir karena risiko hipotensi kolaps fatal."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Inhibitor PDE-5 oral (Sildenafil/Tadalafil)",
+      "Sodium Bicarbonate",
+      "Furosemide"
+    ]
+  },
+  {
+    id: "iv-heparin",
+    name: "Heparin Sodium",
+    genericName: "Heparin Sodium Injection",
+    brandNames: [
+      "Inviclot",
+      "Heparin OGB",
+      "Liquaemin"
+    ],
+    category: "Antikoagulan & Kardiovaskular",
+    phRange: "5.0 - 8.0",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan 25.000 Unit (5 mL) ke dalam 250 mL NS/D5W (Konsentrasi: 100 Unit/mL) atau 20.000 Unit dalam 50 mL NS (Konsentrasi: 400 Unit/mL via syringe pump)",
+      resultantConcentration: "50 - 400 Unit/mL",
+      instructions: "Inversi kantong perlahan untuk memastikan homogenitas larutan."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, RL, dan D5NS."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang",
+      refrigerated2to8C: "7 Hari",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "100 Unit/mL",
+      maxCentralConcentration: "400 Unit/mL",
+      standardInfusionRate: "Bolus awal 60-80 Unit/kgBB dilanjutkan infus 12-18 Unit/kgBB/jam (titrasi aPTT target 1.5 - 2.5x kontrol)",
+      infusionRoute: "IV Syringe Pump",
+      specialPrecautions: [
+        "Wajib pemantauan aPTT serial tiap 6 jam pasca titrasi dan hitung trombosit harian (waspada Heparin-Induced Thrombocytopenia / HIT).",
+        "Inkompatibel fatal dengan Vancomycin, Amiodarone, Gentamicin, Ciprofloxacin, Cefotaxime (membentuk presipitat garam kompleks insoluble)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Vancomycin",
+      "Amiodarone",
+      "Ciprofloxacin",
+      "Gentamicin",
+      "Tobramycin",
+      "Haloperidol"
+    ]
+  },
+  {
+    id: "iv-morphine",
+    name: "Morphine Sulfate",
+    genericName: "Morphine Sulfate Injection",
+    brandNames: [
+      "Morphine OGB",
+      "MST Continus (oral)",
+      "Morfin Kimia Farma"
+    ],
+    category: "Analgesik & Antiinflamasi",
+    phRange: "2.5 - 6.0 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%), D5W, atau WFI",
+      volumeToReconstitute: "Larutkan 10-50 mg ke dalam 50 mL NS (Konsentrasi: 0.2 - 1 mg/mL) via syringe pump / PCA",
+      resultantConcentration: "0.2 - 5 mg/mL",
+      instructions: "Lindungi dari cahaya matahari langsung. Jangan gunakan jika larutan berubah warna menjadi lebih gelap dari kuning pucat."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan sebagian besar pelarut kristaloid standar."
+    },
+    stability: {
+      roomTemp25C: "24 Jam",
+      refrigerated2to8C: "7 Hari",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "1 - 5 mg/mL",
+      maxCentralConcentration: "10 mg/mL",
+      standardInfusionRate: "Bolus IV lambat 2 - 5 mg tiap 5-15 menit atau infus kontinu 1 - 10 mg/jam",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Wajib monitor saturasi oksigen, laju pernapasan, dan refleks sedasi (siapkan antagonis Nalokson IV).",
+        "Inkompatibel dengan larutan alkali (Furosemide, Sodium Bicarbonate, Aminophylline, Thiopental)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Furosemide",
+      "Sodium Bicarbonate",
+      "Aminophylline",
+      "Thiopental",
+      "Phenytoin"
+    ]
+  },
+  {
+    id: "iv-fentanyl",
+    name: "Fentanyl Citrate",
+    genericName: "Fentanyl Citrate Injection",
+    brandNames: [
+      "Fentanyl OGB",
+      "Sublimaze",
+      "Durogesic (patch)"
+    ],
+    category: "Sedasi & Anestesi",
+    phRange: "4.0 - 7.5",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan 500 mcg (10 mL) ke dalam 40 mL NS (Konsentrasi akhir: 10 mcg/mL) via syringe pump 50 mL",
+      resultantConcentration: "10 - 50 mcg/mL",
+      instructions: "Kompatibel dan stabil dalam spuit polipropilen dan kantong infus NS/D5W."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9% dan D5W."
+    },
+    stability: {
+      roomTemp25C: "24 Jam (dalam spuit syringe pump)",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "10 - 50 mcg/mL",
+      maxCentralConcentration: "50 mcg/mL",
+      standardInfusionRate: "Bolus 25 - 100 mcg IV lambat; infus sedasi ICU: 0.5 - 2 mcg/kgBB/jam (25 - 150 mcg/jam)",
+      infusionRoute: "IV Syringe Pump",
+      specialPrecautions: [
+        "Injeksi bolus terlalu cepat (<1 menit) dapat memicu spasme otot dinding dada (wooden chest syndrome) yang menghambat ventilasi.",
+        "Wajib monitor depresi pernapasan; siapkan Naloxone."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Thiopental Sodium",
+      "Methohexital"
+    ]
+  },
+  {
+    id: "iv-ketamine",
+    name: "Ketamine Hydrochloride",
+    genericName: "Ketamine HCl",
+    brandNames: [
+      "KTM",
+      "Ketanest",
+      "Ketalar",
+      "Ivanes"
+    ],
+    category: "Sedasi & Anestesi",
+    phRange: "3.5 - 5.5 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan 500 mg (10 mL sediaan 50 mg/mL) ke dalam 40 mL NS/D5W (Konsentrasi: 10 mg/mL) atau ke dalam 500 mL D5W (Konsentrasi: 1 mg/mL)",
+      resultantConcentration: "1 - 10 mg/mL",
+      instructions: "Jangan gunakan bersamaan dalam spuit yang sama dengan barbiturat atau diazepam karena langsung membentuk endapan."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9% dan D5W."
+    },
+    stability: {
+      roomTemp25C: "24 Jam",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "2 - 10 mg/mL",
+      maxCentralConcentration: "10 mg/mL",
+      standardInfusionRate: "Induksi anestesi: 1-2 mg/kgBB IV bolus lambat (60 detik); Infus sedasi/analgesia: 0.15 - 0.5 mg/kgBB/jam",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Injeksi cepat dapat memicu apnea sementara dan lonjakan tekanan darah/detak jantung.",
+        "Inkompatibel kimiawi dengan Barbiturat (Thiopental) dan Diazepam."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Thiopental Sodium",
+      "Diazepam"
+    ]
+  },
+  {
+    id: "iv-dexmedetomidine",
+    name: "Dexmedetomidine",
+    genericName: "Dexmedetomidine Hydrochloride",
+    brandNames: [
+      "Precedex",
+      "Dexmedetomidine OGB"
+    ],
+    category: "Sedasi & Anestesi",
+    phRange: "4.5 - 7.0",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "Larutkan 200 mcg (2 mL vial) ke dalam 48 mL NS 0.9% (Konsentrasi: 4 mcg/mL)",
+      resultantConcentration: "4 mcg/mL",
+      instructions: "Kocok perlahan agar homogen. Konsentrasi standar 4 mcg/mL adalah konsentrasi wajib untuk mencegah overdosis."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: false,
+      d5ns: true,
+      notes: "Pelarut utama adalah Normal Saline 0.9%."
+    },
+    stability: {
+      roomTemp25C: "24 Jam (dalam spuit/kantong)",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "4 mcg/mL",
+      maxCentralConcentration: "4 mcg/mL",
+      standardInfusionRate: "Maintenance: 0.2 - 1.4 mcg/kgBB/jam (hindari bolus loading dose pada pasien kritis untuk mencegah bradikardia/hipotensi berat)",
+      infusionRoute: "IV Syringe Pump",
+      specialPrecautions: [
+        "Wajib monitor kontinyu denyut jantung dan tekanan darah (risiko bradikardia sinus dan henti jantung sementara).",
+        "Tidak menyebabkan depresi napas signifikan (keunggulan dibanding opioid/benzodiazepin)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Amphotericin B",
+      "Diazepam"
+    ]
+  },
+  {
+    id: "iv-ciprofloxacin",
+    name: "Ciprofloxacin IV",
+    genericName: "Ciprofloxacin Lactate",
+    brandNames: [
+      "Baquinor IV",
+      "Ciflox IV",
+      "Ciproxin"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "3.5 - 4.6 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Tersedia dalam bentuk larutan siap infus (Premixed 200 mg/100 mL atau 400 mg/200 mL dalam NS/D5W)",
+      volumeToReconstitute: "Larutan siap pakai (tidak memerlukan rekonstitusi serbuk)",
+      resultantConcentration: "2 mg/mL",
+      instructions: "Infus IV lambat selama minimal 60 menit (untuk 400 mg) guna mencegah flebitis dan sensasi terbakar pada vena."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Bentuk premixed stabil pada NS dan D5W."
+    },
+    stability: {
+      roomTemp25C: "Stabil hingga tanggal kedaluwarsa jika terlindung dari cahaya (setelah dibuka gunakan dalam 24 jam)",
+      refrigerated2to8C: "Dapat mengendap pada suhu dingin (refrigerated); SIMPAN PADA SUHU RUANG (15-30°C)",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "2 mg/mL",
+      maxCentralConcentration: "2 mg/mL",
+      standardInfusionRate: "200 mg habis dalam 30-60 menit; 400 mg habis dalam 60 menit",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "JANGAN DISIMPAN DI KULKAS karena suhu <15°C memicu presipitasi kristal siprofloksasin.",
+        "Inkompatibel fatal pada percabangan Y-site dengan Furosemide, Heparin, Sodium Bicarbonate, Aminophylline, Methylprednisolone (presipitasi instan)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Furosemide",
+      "Heparin",
+      "Sodium Bicarbonate",
+      "Aminophylline",
+      "Methylprednisolone",
+      "Cefepime"
+    ]
+  },
+  {
+    id: "iv-levofloxacin",
+    name: "Levofloxacin IV",
+    genericName: "Levofloxacin",
+    brandNames: [
+      "Cravit IV",
+      "Levovid IV",
+      "Lequin IV",
+      "Levofloxacin OGB"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "3.8 - 5.8",
+    reconstitution: {
+      recommendedDiluent: "Premixed siap infus 500 mg/100 mL atau 750 mg/150 mL (5 mg/mL)",
+      volumeToReconstitute: "Sediaan siap infus",
+      resultantConcentration: "5 mg/mL",
+      instructions: "Infus IV lambat selama minimal 60 menit (500 mg) atau 90 menit (750 mg). Lindungi dari paparan cahaya matahari langsung."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9% dan D5W."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah segel dibuka",
+      refrigerated2to8C: "72 Jam",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "5 mg/mL",
+      maxCentralConcentration: "5 mg/mL",
+      standardInfusionRate: "500 mg diberikan selama 60 menit; 750 mg selama 90 menit",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Infus terlalu cepat dapat menyebabkan hipotensi mendadak dan takikardia.",
+        "Inkompatibel dengan larutan alkali dan kation polivalen (Aluminium, Magnesium)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Furosemide",
+      "Sodium Bicarbonate",
+      "Heparin",
+      "Acyclovir"
+    ]
+  },
+  {
+    id: "iv-metronidazole",
+    name: "Metronidazole IV",
+    genericName: "Metronidazole Injection",
+    brandNames: [
+      "Flagyl IV",
+      "Metronidazole OGB",
+      "Trichodazol IV"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "5.0 - 7.0",
+    reconstitution: {
+      recommendedDiluent: "Tersedia dalam botol infus siap pakai 500 mg/100 mL (5 mg/mL)",
+      volumeToReconstitute: "Sediaan siap infus",
+      resultantConcentration: "5 mg/mL",
+      instructions: "JANGAN DISIMPAN DI DALAM KULKAS / LEMARI ES. Suhu dingin menyebabkan pembentukan kristal metronidazol yang tidak larut kembali."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Premixed siap infus."
+    },
+    stability: {
+      roomTemp25C: "Stabil pada suhu ruang (15 - 25°C) terlindung dari cahaya",
+      refrigerated2to8C: "KONTRAINDIKASI REFRIGERASI (Memicu Presipitasi Kristal)",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "5 mg/mL",
+      maxCentralConcentration: "5 mg/mL",
+      standardInfusionRate: "500 mg diberikan secara IV drip selama 30 - 60 menit tiap 8 jam",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Dilarang menyimpan di kulkas (presipitasi kristal).",
+        "Inkompatibel dengan jarum/set infus berbahan aluminium."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Amphotericin B",
+      "Aztreonam",
+      "Dopamine (konsentrasi tinggi)"
+    ]
+  },
+  {
+    id: "iv-piperacillin-tazobactam",
+    name: "Piperacillin / Tazobactam",
+    genericName: "Piperacillin Sodium and Tazobactam Sodium",
+    brandNames: [
+      "Tazocin",
+      "Bactacin",
+      "Tazam",
+      "Piptaz"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "5.5 - 6.8",
+    reconstitution: {
+      recommendedDiluent: "WFI atau Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "Larutkan vial 4.5 g dengan 20 mL WFI/NS (kocok kuat hingga larut bening), lalu encerkan ke dalam 50-100 mL NS/D5W",
+      resultantConcentration: "20 - 45 mg/mL",
+      instructions: "Infus intermiten selama 30 menit atau extended infusion selama 3-4 jam untuk optimalisasi farmakokinetik/farmakodinamik (PK/PD T>MIC)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan WFI. Inkompatibel dengan Ringer Lactate."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang (25°C)",
+      refrigerated2to8C: "48 Jam (2-8°C)",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "45 mg/mL",
+      maxCentralConcentration: "45 mg/mL",
+      standardInfusionRate: "Standard: 30 menit; Extended Infusion: 3 - 4 jam",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Inkompatibel Y-Site dengan Vancomycin pada banyak formulasi generik (terjadi presipitasi partikulat keruh seketika). Bilas jalur infus dengan 20 mL NS sebelum & sesudah!",
+        "Inkompatibel langsung jika dicampur dengan Aminoglikosida (Gentamicin/Amikacin) karena inaktivasi cincin beta-laktam."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Vancomycin (kondisional/inkompatibel pada banyak konsentrasi)",
+      "Acyclovir",
+      "Amphotericin B",
+      "Gentamicin (inaktivasi langsung)"
+    ]
+  },
+  {
+    id: "iv-ampicillin-sulbactam",
+    name: "Ampicillin / Sulbactam",
+    genericName: "Ampicillin Sodium and Sulbactam Sodium",
+    brandNames: [
+      "Bactesyn",
+      "Vicilin-SX",
+      "Sulbacef",
+      "Ampicillin-Sulbactam OGB"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "8.0 - 10.0 (Alkali/Basa)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau WFI (HINDARI D5W UNTUK INFUS LAMA)",
+      volumeToReconstitute: "Larutkan vial 1.5 g dengan 3.2 mL WFI/NS, lalu encerkan ke dalam 50-100 mL NS 0.9%",
+      resultantConcentration: "15 - 30 mg/mL",
+      instructions: "Wajib menggunakan Normal Saline 0.9%. JANGAN gunakan D5W/Dextrose untuk infus berkepanjangan karena ampicillin terhidrolisis sangat cepat dalam larutan dekstrosa (stabilitas <1-2 jam)."
+    },
+    diluents: {
+      ns: true,
+      d5w: false,
+      rl: false,
+      wfi: true,
+      d5ns: false,
+      notes: "Normal Saline 0.9% adalah pelarut pilihan mutlak. Dalam D5W obat rusak dalam 1 jam."
+    },
+    stability: {
+      roomTemp25C: "8 Jam dalam Normal Saline (dalam D5W hanya stabil 1 Jam)",
+      refrigerated2to8C: "48 Jam dalam Normal Saline",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "30 mg/mL",
+      maxCentralConcentration: "45 mg/mL",
+      standardInfusionRate: "Diberikan secara IV drip lambat selama 15 - 30 menit",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Jangan dicampur dengan sediaan darah atau cairan yang mengandung lipid.",
+        "Inkompatibel dengan aminoglikosida dalam satu wadah/spuit."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Dextrose 5% (degradasi hidrolisis cepat)",
+      "Gentamicin",
+      "Amikacin",
+      "Ciprofloxacin",
+      "Midazolam"
+    ]
+  },
+  {
+    id: "iv-gentamicin",
+    name: "Gentamicin Sulfate",
+    genericName: "Gentamicin Sulfate",
+    brandNames: [
+      "Garamycin IV/IM",
+      "Gentamicin OGB",
+      "Ottogenta"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "3.0 - 5.5 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan dosis terhitung (misal 5-7 mg/kgBB) ke dalam 50 - 100 mL NS atau D5W",
+      resultantConcentration: "1 - 2 mg/mL",
+      instructions: "Infus selama 30 - 60 menit. Jangan diberikan secara IV bolus cepat karena memicu blokade neuromuskular dan nefrotoksisitas."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang",
+      refrigerated2to8C: "7 Hari",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "2 mg/mL",
+      maxCentralConcentration: "2 mg/mL",
+      standardInfusionRate: "Diberikan secara IV drip selama 30 - 60 menit",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Wajib monitor fungsi ginjal (Serum Kreatinin) dan fungsi pendengaran (Ototoksisitas vestibular/koklear).",
+        "Inkompatibel kimiawi dengan Heparin dan Penicillin/Beta-laktam jika dicampur dalam satu wadah infus."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Heparin",
+      "Furosemide",
+      "Ampicillin",
+      "Piperacillin (jika tercampur langsung dalam botol/spuit yang sama)",
+      "Propofol"
+    ]
+  },
+  {
+    id: "iv-fluconazole",
+    name: "Fluconazole IV",
+    genericName: "Fluconazole",
+    brandNames: [
+      "Diflucan IV",
+      "Fluconazole OGB",
+      "Flucoral"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "3.5 - 6.5",
+    reconstitution: {
+      recommendedDiluent: "Tersedia premixed 200 mg/100 mL dalam NS 0.9% (2 mg/mL)",
+      volumeToReconstitute: "Sediaan siap infus",
+      resultantConcentration: "2 mg/mL",
+      instructions: "Kecepatan infus maksimum tidak boleh melebihi 200 mg/jam (100 mL/jam)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: false,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan Ringer Lactate."
+    },
+    stability: {
+      roomTemp25C: "Stabil hingga batas kedaluwarsa pada suhu ruang (15-30°C)",
+      refrigerated2to8C: "Dapat disimpan pada 2-8°C, jangan dibekukan",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "2 mg/mL",
+      maxCentralConcentration: "2 mg/mL",
+      standardInfusionRate: "Maksimal 200 mg/jam (infus 200 mg habis dalam minimal 60 menit)",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Infus cepat dapat memicu kemerahan kulit, hipotensi, dan aritmia.",
+        "Inkompatibel Y-Site dengan Furosemide, Diazepam, Ceftriaxone, dan Pantoprazole."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Furosemide",
+      "Diazepam",
+      "Pantoprazole",
+      "Amphotericin B"
+    ]
+  },
+  {
+    id: "iv-acyclovir",
+    name: "Acyclovir Sodium",
+    genericName: "Acyclovir Sodium",
+    brandNames: [
+      "Zovirax IV",
+      "Acyclovir OGB",
+      "Clovir"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "10.5 - 11.5 (Sangat Basa / Alkali Kuat)",
+    reconstitution: {
+      recommendedDiluent: "Water for Injection (WFI) atau NS 0.9%",
+      volumeToReconstitute: "Larutkan vial 250 mg atau 500 mg dengan 10 mL WFI (Konsentrasi: 25 - 50 mg/mL), lalu ENCERKAN ke dalam 100 mL NS/D5W hingga konsentrasi ≤7 mg/mL",
+      resultantConcentration: "≤ 7 mg/mL (wajib diencerkan untuk mencegah flebitis berat dan kristaluria)",
+      instructions: "Wajib diinfuskan lambat selama minimal 60 menit dengan hidrasi cairan yang cukup untuk mencegah nefropati kristal akut di tubulus ginjal."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Gunakan WFI untuk rekonstitusi awal, lalu encerkan dengan NS/D5W."
+    },
+    stability: {
+      roomTemp25C: "12 Jam setelah rekonstitusi & pengenceran pada suhu ruang 15-25°C",
+      refrigerated2to8C: "KONTRAINDIKASI REFRIGERASI (Suhu dingin memicu presipitasi kristal acyclovir)",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "7 mg/mL",
+      maxCentralConcentration: "7 mg/mL",
+      standardInfusionRate: "Diberikan melalui infus IV lambat selama minimal 60 menit",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "pH larutan sangat basa (10.5 - 11.5); ekstravasasi dapat menyebabkan nekrosis jaringan parah.",
+        "Wajib hidrasi cairan adekuat sebelum & sesudah infus untuk mencegah presipitasi kristal di ginjal.",
+        "Inkompatibel Y-Site dengan hampir semua obat asam (Dopamine, Dobutamine, Midazolam, Morphine, Vancomycin, Ondansetron)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Dopamine",
+      "Dobutamine",
+      "Norepinephrine",
+      "Midazolam",
+      "Morphine",
+      "Vancomycin",
+      "Ondansetron",
+      "Fentanyl"
+    ]
+  },
+  {
+    id: "iv-sodium-bicarbonate",
+    name: "Sodium Bicarbonate 8.4% (Meylon)",
+    genericName: "Sodium Bicarbonate 8.4% (1 mEq/mL)",
+    brandNames: [
+      "Meylon 8.4%",
+      "Bicnat",
+      "Sodium Bicarbonate OGB"
+    ],
+    category: "Elektrolit & Koreksi",
+    phRange: "7.0 - 8.5 (Basa)",
+    reconstitution: {
+      recommendedDiluent: "D5W atau WFI (Dapat diberikan murni via vena sentral pada henti jantung / resusitasi)",
+      volumeToReconstitute: "Sediaan 8.4% mengandung 1 mEq/mL (Osmolaritas ~2000 mOsm/L; sangat hipertonik)",
+      resultantConcentration: "1 mEq/mL (8.4%) atau diencerkan 1:1 dengan D5W/WFI menjadi 4.2% (0.5 mEq/mL)",
+      instructions: "Infus perifer wajib diencerkan untuk mencegah flebitis kimiawi berat. Jangan pernah mencampur dengan kalsium!"
+    },
+    diluents: {
+      ns: false,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: false,
+      notes: "D5W dan WFI adalah pelarut pengencer utama."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah dibuka",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "4.2% (0.5 mEq/mL - wajib diencerkan dengan D5W)",
+      maxCentralConcentration: "8.4% (1 mEq/mL - Vena Sentral)",
+      standardInfusionRate: "Resusitasi henti jantung: Bolus IV 1 mEq/kg; Koreksi asidosis metabolik: drip selama 2-4 jam",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "KONTRAINDIKASI MUTLAK DICAMPUR DENGAN KALSIUM: Langsung membentuk endapan kapur kalsium karbonat (chalky white precipitate).",
+        "Inkompatibel dengan semua katekolamin vasoaktif (Norepinephrine, Epinephrine, Dopamine, Dobutamine) karena memicu inaktivasi oksidatif basa seketika."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Calcium Gluconate",
+      "Calcium Chloride",
+      "Norepinephrine",
+      "Epinephrine",
+      "Dopamine",
+      "Dobutamine",
+      "Amiodarone",
+      "Ciprofloxacin"
+    ]
+  },
+  {
+    id: "iv-calcium-gluconate",
+    name: "Calcium Gluconate 10%",
+    genericName: "Calcium Gluconate 10% (0.465 mEq Ca2+/mL)",
+    brandNames: [
+      "Calcium Gluconate OGB",
+      "Calcii Gluconas"
+    ],
+    category: "Elektrolit & Koreksi",
+    phRange: "6.0 - 8.2",
+    reconstitution: {
+      recommendedDiluent: "D5W atau Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "1 Ampul (10 mL = 1 g) diencerkan ke dalam 50 - 100 mL D5W/NS (Konsentrasi: 10 - 20 mg/mL)",
+      resultantConcentration: "10 - 20 mg/mL (infus) atau 100 mg/mL (bolus darurat sangat lambat)",
+      instructions: "Infus IV lambat selama 20 - 60 menit. Pada darurat hiperkalemia dengan perubahan EKG, bolus 10 mL diberikan minimal selama 3-5 menit."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9% dan D5W."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah diencerkan",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "50 mg/mL",
+      maxCentralConcentration: "100 mg/mL",
+      standardInfusionRate: "Bolus darurat: 10 mL selama 3 - 5 menit; Infus kontinu: 1 - 2 g selama 1 - 2 jam",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "BLACK BOX WARNING FDA: KONTRAINDIKASI FATAL BERSAMA CEFTRIAXONE PADA NEONATUS/BAYI (presipitasi kristal kalsium-seftriakson di paru & ginjal).",
+        "KONTRAINDIKASI BERSAMA SODIUM BICARBONATE & FOSFAT (Presipitasi Kalsium Karbonat / Kalsium Fosfat tak larut).",
+        "Injeksi bolus terlalu cepat dapat menyebabkan vasodilatasi mendadak, bradikardia parah, aritmia, dan henti jantung."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Ceftriaxone (FATAL)",
+      "Sodium Bicarbonate (FATAL)",
+      "Potassium Phosphate",
+      "Amphotericin B",
+      "Fluconazole"
+    ]
+  },
+  {
+    id: "iv-magnesium-sulfate",
+    name: "Magnesium Sulfate (MgSO4 20% / 40%)",
+    genericName: "Magnesium Sulfate Heptahydrate",
+    brandNames: [
+      "MgSO4 20%",
+      "MgSO4 40% Otsuka",
+      "Magnesium Sulfate OGB"
+    ],
+    category: "Elektrolit & Koreksi",
+    phRange: "5.5 - 7.0",
+    reconstitution: {
+      recommendedDiluent: "D5W atau Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "Larutkan 4 g MgSO4 40% (10 mL) ke dalam 100 mL NS/D5W untuk loading dose, atau 10 g dalam 500 mL NS untuk maintenance",
+      resultantConcentration: "20 - 40 mg/mL (maksimal 200 mg/mL untuk IV bolus sangat lambat)",
+      instructions: "Wajib diencerkan hingga konsentrasi ≤20% sebelum pemberian IV."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah pelarutan",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "200 mg/mL (20%)",
+      maxCentralConcentration: "200 mg/mL (20%)",
+      standardInfusionRate: "Eklamsia loading dose: 4 g IV selama 15-20 menit; Maintenance: 1 - 2 g/jam via syringe pump",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Wajib monitor refleks patella, laju pernapasan (minimal ≥16x/menit), dan produksi urin (minimal ≥30 mL/jam).",
+        "Siapkan antidotum Kalsium Glukonat 10% di dekat tempat tidur pasien jika terjadi tanda intoksikasi magnesium."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Calcium Gluconate (konsentrasi pekat)",
+      "Sodium Bicarbonate",
+      "Salicylates",
+      "Clindamycin"
+    ]
+  },
+  {
+    id: "iv-ondansetron",
+    name: "Ondansetron Hydrochloride",
+    genericName: "Ondansetron HCl",
+    brandNames: [
+      "Narfoz IV",
+      "Zofran IV",
+      "Cendantron IV",
+      "Ondansetron OGB"
+    ],
+    category: "Gastrointestinal",
+    phRange: "3.3 - 4.0 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Dapat diberikan bolus perlahan tanpa pengenceran (4-8 mg dalam 2-4 mL) atau diencerkan ke dalam 50 mL NS/D5W",
+      resultantConcentration: "0.08 - 2 mg/mL",
+      instructions: "Injeksi IV bolus lambat selama 2 - 5 menit."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "48 Jam pada suhu ruang terlindung dari cahaya",
+      refrigerated2to8C: "7 Hari",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "2 mg/mL",
+      maxCentralConcentration: "2 mg/mL",
+      standardInfusionRate: "Bolus IV lambat selama 2 - 5 menit; Infus kemoterapi: 15 menit",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Dapat memicu perpanjangan interval QT pada EKG; gunakan dengan hati-hati pada pasien dengan sindrom QT panjang.",
+        "Inkompatibel Y-Site dengan Furosemide, Lorazepam, Methylprednisolone, Ampicillin, dan Acyclovir."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Furosemide",
+      "Methylprednisolone",
+      "Lorazepam",
+      "Acyclovir",
+      "Sodium Bicarbonate"
+    ]
+  },
+  {
+    id: "iv-metoclopramide",
+    name: "Metoclopramide (Primperan)",
+    genericName: "Metoclopramide Hydrochloride",
+    brandNames: [
+      "Primperan IV",
+      "Sotatic IV",
+      "Tomit",
+      "Metoclopramide OGB"
+    ],
+    category: "Gastrointestinal",
+    phRange: "2.5 - 6.5 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%), D5W, atau RL",
+      volumeToReconstitute: "Dapat diberikan bolus lambat (10 mg / 2 mL) atau diencerkan ke dalam 50 mL NS/D5W",
+      resultantConcentration: "0.2 - 5 mg/mL",
+      instructions: "Injeksi IV bolus wajib diberikan secara perlahan selama minimal 1-2 menit untuk mencegah rasa cemas/gelisah ekstrem (akathisia)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan semua pelarut kristaloid standar."
+    },
+    stability: {
+      roomTemp25C: "24 Jam terlindung dari cahaya",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "5 mg/mL",
+      maxCentralConcentration: "5 mg/mL",
+      standardInfusionRate: "Bolus lambat minimal 1 - 2 menit per 10 mg",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Pemberian bolus cepat menyebabkan disforia, agitasi motorik, dan reaksi ekstrapiramidal (distonia akut).",
+        "Inkompatibel dengan Furosemide, Calcium Gluconate, Ampicillin, dan Sodium Bicarbonate."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Furosemide",
+      "Sodium Bicarbonate",
+      "Ampicillin",
+      "Cefepime"
+    ]
+  },
+  {
+    id: "iv-ranitidine",
+    name: "Ranitidine Hydrochloride",
+    genericName: "Ranitidine HCl Injection",
+    brandNames: [
+      "Acran IV",
+      "Rantin IV",
+      "Ranitidine OGB",
+      "Zantac IV"
+    ],
+    category: "Gastrointestinal",
+    phRange: "6.7 - 7.3",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan 50 mg (2 mL) dengan 18 mL NS hingga 20 mL untuk IV bolus, atau dalam 50-100 mL NS untuk infus",
+      resultantConcentration: "0.5 - 2.5 mg/mL",
+      instructions: "Injeksi IV bolus wajib diencerkan hingga minimal 20 mL dan disuntikkan lambat selama 5 menit untuk mencegah bradikardia."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "48 Jam pada suhu ruang",
+      refrigerated2to8C: "7 Hari",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "2.5 mg/mL",
+      maxCentralConcentration: "2.5 mg/mL",
+      standardInfusionRate: "Bolus IV lambat minimal 5 menit; Infus kontinu: 6.25 mg/jam (150 mg/24 jam)",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Injeksi bolus cepat dapat memicu bradikardia transien dan hipotensi.",
+        "Inkompatibel dengan Amphotericin B dan Diazepam."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Amphotericin B",
+      "Diazepam",
+      "Midazolam (konsentrasi tinggi)"
+    ]
+  },
+  {
+    id: "iv-tranexamic-acid",
+    name: "Tranexamic Acid (Asam Traneksamat)",
+    genericName: "Tranexamic Acid Injection",
+    brandNames: [
+      "Transamin IV",
+      "Kalnex IV",
+      "Plasil IV",
+      "Asam Traneksamat OGB"
+    ],
+    category: "Antikoagulan & Kardiovaskular",
+    phRange: "6.5 - 8.0",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%), D5W, atau RL",
+      volumeToReconstitute: "Larutkan 500 mg - 1000 mg (5 - 10 mL) ke dalam 50 - 100 mL NS/D5W/RL",
+      resultantConcentration: "5 - 20 mg/mL",
+      instructions: "Infus IV lambat dengan kecepatan tidak melebihi 100 mg/menit (1 g habis dalam minimal 10-15 menit)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9%, D5W, RL, dan larutan elektrolit seimbang."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "20 mg/mL",
+      maxCentralConcentration: "50 mg/mL",
+      standardInfusionRate: "Loading dose: 1 g IV selama 10 - 20 menit; Maintenance: 1 g IV drip selama 8 jam (protokol trauma CRASH-2)",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Penyuntikan IV terlalu cepat dapat memicu hipotensi akut dan mual/muntah hebat.",
+        "Jangan dicampur bersamaan dengan sediaan darah atau larutan yang mengandung penisilin."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Urokinase",
+      "Streptokinase",
+      "Dopamine (konsentrasi tinggi)"
+    ]
+  },
+  {
+    id: "iv-aminophylline",
+    name: "Aminophylline",
+    genericName: "Aminophylline (Theophylline Ethylenediamine)",
+    brandNames: [
+      "Phyllocontin",
+      "Aminophylline OGB",
+      "Pharkan"
+    ],
+    category: "Lainnya",
+    phRange: "8.6 - 9.0 (Basa Kuat)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan 250 mg (10 mL) ke dalam 100 - 250 mL NS/D5W (Konsentrasi: 1 - 2.5 mg/mL)",
+      resultantConcentration: "1 - 2.5 mg/mL",
+      instructions: "Kecepatan infus tidak boleh melebihi 25 mg/menit untuk mencegah aritmia ventrikel dan kejang toksik."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS dan D5W."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "2.5 mg/mL",
+      maxCentralConcentration: "5 mg/mL",
+      standardInfusionRate: "Loading dose: 5-6 mg/kgBB IV selama 20-30 menit; Maintenance: 0.4 - 0.7 mg/kgBB/jam",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Rentang terapi sempit (10 - 20 mcg/mL); toksisitas menyebabkan takiaritmia fatal dan kejang refrakter.",
+        "pH sangat basa; inkompatibel fatal dengan katekolamin (Epinephrine, Norepinephrine, Dopamine, Dobutamine), Morphine, Ciprofloxacin, dan Ondansetron."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Epinephrine",
+      "Norepinephrine",
+      "Dobutamine",
+      "Dopamine",
+      "Morphine",
+      "Ciprofloxacin",
+      "Ondansetron",
+      "Ceftriaxone"
+    ]
+  },
+  {
+    id: "iv-dexamethasone",
+    name: "Dexamethasone Sodium Phosphate",
+    genericName: "Dexamethasone Sodium Phosphate",
+    brandNames: [
+      "Kalmethasone IV",
+      "Indexon IV",
+      "Dexamethasone OGB",
+      "Decadron"
+    ],
+    category: "Analgesik & Antiinflamasi",
+    phRange: "7.0 - 8.5",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Dapat diberikan bolus IV langsung (4-10 mg dalam 1-2 mL) atau diencerkan ke dalam 50 mL NS/D5W",
+      resultantConcentration: "0.1 - 5 mg/mL",
+      instructions: "Injeksi IV bolus lambat selama 2-5 menit."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "24 Jam",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "5 mg/mL",
+      maxCentralConcentration: "5 mg/mL",
+      standardInfusionRate: "Bolus lambat 2-5 menit atau infus intermiten 15 menit",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Injeksi bolus terlalu cepat dapat memicu sensasi terbakar/nyeri perianal sementara yang intens.",
+        "Inkompatibel Y-Site dengan Ciprofloxacin, Midazolam, Ondansetron, dan Vancomycin."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Ciprofloxacin",
+      "Midazolam",
+      "Vancomycin (konsentrasi pekat)",
+      "Haloperidol"
+    ]
+  },
+  {
+    id: "iv-methylprednisolone",
+    name: "Methylprednisolone (Solu-Medrol)",
+    genericName: "Methylprednisolone Sodium Succinate",
+    brandNames: [
+      "Solu-Medrol",
+      "Lameson IV",
+      "Toras",
+      "Methylprednisolone OGB"
+    ],
+    category: "Analgesik & Antiinflamasi",
+    phRange: "7.0 - 8.0",
+    reconstitution: {
+      recommendedDiluent: "Bacteriostatic Water for Injection atau WFI khusus yang disertakan dalam Act-O-Vial",
+      volumeToReconstitute: "Tekan tombol Act-O-Vial untuk melarutkan 125 mg, 500 mg, atau 1000 mg serbuk dengan pelarut, lalu encerkan ke dalam 50-250 mL D5W/NS",
+      resultantConcentration: "2.5 - 20 mg/mL",
+      instructions: "Dosis pulse / tinggi (>250 mg) wajib diinfuskan selama minimal 30 - 60 menit untuk mencegah henti jantung dan aritmia fatal."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan D5W dan NS 0.9%."
+    },
+    stability: {
+      roomTemp25C: "48 Jam setelah rekonstitusi pada suhu ruang 20-25°C",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "20 mg/mL",
+      maxCentralConcentration: "20 mg/mL",
+      standardInfusionRate: "Dosis rendah (≤125 mg): IV bolus lambat 5 menit; Dosis tinggi (≥500 mg): infus minimal 30 - 60 menit",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Penyuntikan bolus cepat dosis tinggi (>500 mg dalam <10 menit) dilaporkan menyebabkan aritmia ventrikel dan kolaps kardiovaskular fatal.",
+        "Inkompatibel Y-Site dengan Ciprofloxacin, Diltiazem, Ondansetron, Promethazine, dan Potassium Chloride."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Ciprofloxacin",
+      "Diltiazem",
+      "Ondansetron",
+      "Promethazine",
+      "Calcium Gluconate"
+    ]
+  },
+  {
+    id: "iv-diazepam",
+    name: "Diazepam (Valium / Stesolid)",
+    genericName: "Diazepam Injection",
+    brandNames: [
+      "Valium IV",
+      "Stesolid IV",
+      "Diazepam OGB"
+    ],
+    category: "Sedasi & Anestesi",
+    phRange: "6.2 - 6.9 (Mengandung pelarut Propilen Glikol & Etanol)",
+    reconstitution: {
+      recommendedDiluent: "DIBERIKAN MURNI TANPA PENGENCERAN (Injeksi IV bolus langsung lambat)",
+      volumeToReconstitute: "Sediaan 5 mg/mL mengandung pelarut hidrofobik",
+      resultantConcentration: "5 mg/mL",
+      instructions: "JANGAN DIENCERKAN ke dalam kantong infus cairan kristaloid biasa karena segera memicu presipitasi kabut putih susu partikulat tak larut."
+    },
+    diluents: {
+      ns: false,
+      d5w: false,
+      rl: false,
+      wfi: false,
+      d5ns: false,
+      notes: "Inkompatibel untuk pencampuran infus kristaloid rutin (mengendap). Diberikan bolus langsung."
+    },
+    stability: {
+      roomTemp25C: "Segera gunakan setelah spuit disiapkan",
+      refrigerated2to8C: "Tidak dianjurkan disimpan dalam spuit plastik",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "5 mg/mL",
+      maxCentralConcentration: "5 mg/mL",
+      standardInfusionRate: "IV bolus lambat tidak melebihi 5 mg/menit (2-5 menit per 10 mg)",
+      infusionRoute: "IV Bolus",
+      specialPrecautions: [
+        "Injeksi langsung ke vena besar; hindari vena kecil di punggung tangan (risiko tromboflebitis tinggi karena pelarut propilen glikol).",
+        "INKOMPATIBEL Y-SITE DENGAN HAMPIR SEMUA OBAT LAIN (Langsung presipitasi putih keruh). Wajib bilas jalur infus sebelum dan sesudah dengan 10-20 mL NS."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Semua obat infus kristaloid (Presipitasi instan)",
+      "Furosemide",
+      "Morphine",
+      "Fentanyl",
+      "Potassium Chloride",
+      "Ceftriaxone",
+      "Dobutamine"
+    ]
+  },
+  {
+    id: "iv-diltiazem",
+    name: "Diltiazem Hydrochloride",
+    genericName: "Diltiazem HCl Injection",
+    brandNames: [
+      "Herbesser IV",
+      "Farmabes IV",
+      "Diltiazem OGB"
+    ],
+    category: "Antikoagulan & Kardiovaskular",
+    phRange: "3.7 - 4.4 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan vial 50 mg serbuk dengan 5 mL NS/WFI, lalu encerkan ke dalam 100 - 250 mL NS/D5W (Konsentrasi: 0.5 - 1 mg/mL) atau 50 mg dalam 50 mL via syringe pump (1 mg/mL)",
+      resultantConcentration: "0.5 - 1 mg/mL",
+      instructions: "Infus titrasi untuk kontrol laju ventrikel pada AF/Atrial Flutter atau krisis hipertensi."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9% dan D5W."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang (25°C)",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "1 mg/mL",
+      maxCentralConcentration: "1 mg/mL",
+      standardInfusionRate: "Bolus awal 0.25 mg/kgBB selama 2 menit; dilanjutkan infus 5 - 15 mg/jam (titrasi respons denyut jantung)",
+      infusionRoute: "IV Syringe Pump",
+      specialPrecautions: [
+        "Kontraindikasi pada syok kardiogenik, blok AV derajat 2/3 tanpa pacemaker, dan sindrom WPW dengan AF.",
+        "Inkompatibel Y-Site dengan Furosemide, Thiopental, Diazepam, dan Phenytoin."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Furosemide (Presipitasi instan)",
+      "Sodium Bicarbonate",
+      "Diazepam",
+      "Methylprednisolone"
+    ]
+  },
+  {
+    id: "iv-ketorolac",
+    name: "Ketorolac Tromethamine",
+    genericName: "Ketorolac Tromethamine",
+    brandNames: [
+      "Toradol IV",
+      "Ketolac IV",
+      "Remopain IV",
+      "Ketorolac OGB"
+    ],
+    category: "Analgesik & Antiinflamasi",
+    phRange: "6.9 - 7.9",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Dapat diberikan bolus IV langsung (30 mg / 1 mL) secara lambat atau diencerkan ke dalam 50-100 mL NS/D5W",
+      resultantConcentration: "0.3 - 30 mg/mL",
+      instructions: "Pemberian IV bolus disuntikkan perlahan selama minimal 15 detik. Durasi total terapi maksimal 5 hari untuk mencegah gagal ginjal akut & perdarahan lambung masif."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan Ringer Lactate."
+    },
+    stability: {
+      roomTemp25C: "48 Jam terlindung dari cahaya",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "30 mg/mL",
+      maxCentralConcentration: "30 mg/mL",
+      standardInfusionRate: "Bolus IV lambat minimal 15-30 detik (15 - 30 mg tiap 6-8 jam; maks 120 mg/hari; lansia maks 60 mg/hari)",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "DURASI MAKSIMAL 5 HARI (risiko ulserasi gastrointestinal dan nefrotoksisitas akut berat).",
+        "Inkompatibel Y-Site dengan Morphine Sulfate, Haloperidol, Hydroxyzine, dan Promethazine (presipitasi garam)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Morphine (konsentrasi pekat)",
+      "Haloperidol",
+      "Promethazine",
+      "Azithromycin"
+    ]
+  },
+  {
+    id: "iv-tramadol",
+    name: "Tramadol Hydrochloride",
+    genericName: "Tramadol HCl Injection",
+    brandNames: [
+      "Tramal IV",
+      "Centrasic IV",
+      "Tramadol OGB",
+      "Tradyl"
+    ],
+    category: "Analgesik & Antiinflamasi",
+    phRange: "5.0 - 7.0",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan 100 mg (2 mL) ke dalam 50 - 100 mL NS/D5W (Konsentrasi: 1 - 2 mg/mL)",
+      resultantConcentration: "1 - 2 mg/mL",
+      instructions: "Infus perlahan selama 15 - 30 menit atau bolus IV sangat lambat selama 2-3 menit."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9%, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "2 mg/mL",
+      maxCentralConcentration: "5 mg/mL",
+      standardInfusionRate: "50 - 100 mg IV diberikan perlahan selama 15 - 30 menit tiap 6-8 jam (maksimal 400 mg/hari)",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Injeksi bolus cepat memicu mual hebat, muntah, pusing berputar, dan berkeringat dingin.",
+        "Waspada risiko sindrom serotonin dan penurunan ambang kejang."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Diazepam",
+      "Midazolam (kondisional)",
+      "Acyclovir"
+    ]
+  },
+  {
+    id: "iv-insulin-regular",
+    name: "Insulin Regular (Human)",
+    genericName: "Regular Human Insulin Injection",
+    brandNames: [
+      "Actrapid HM",
+      "Humulin R",
+      "Novolin R",
+      "Insulatard"
+    ],
+    category: "Elektrolit & Koreksi",
+    phRange: "7.0 - 7.8 (Netral)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "Larutkan 50 Unit (0.5 mL sediaan 100 IU/mL) ke dalam 50 mL NS 0.9% (Konsentrasi tepat: 1 Unit/mL)",
+      resultantConcentration: "1 Unit/mL (infus kontinu)",
+      instructions: "Wajib priming (bilas dan buang 20-50 mL larutan pertama yang melewati selang infus) karena molekul insulin menempel kuat (teradsorpsi) pada permukaan dinding plastik selang/syringe."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Normal Saline 0.9% adalah pelarut standar definitif untuk koreksi DKA/HHS."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah dicampur dalam NS pada suhu ruang",
+      refrigerated2to8C: "24 Jam (Vial belum dibuka stabil pada 2-8°C hingga kedaluwarsa)",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "1 Unit/mL",
+      maxCentralConcentration: "1 Unit/mL",
+      standardInfusionRate: "Protokol DKA: Bolus 0.1 Unit/kg dilanjutkan infus kontinu 0.1 Unit/kgBB/jam (titrasi penurunan GDS 50-75 mg/dL/jam)",
+      infusionRoute: "IV Syringe Pump",
+      specialPrecautions: [
+        "Wajib monitor GDS berkala tiap 1 jam dan Kalium darah tiap 2-4 jam (insulin memicu perpindahan kalium intraseluler / hipokalemia berat).",
+        "Inkompatibel dengan larutan asam kuat dan pemanasan."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Dopamine (konsentrasi pekat)",
+      "Dobutamine",
+      "Phenytoin",
+      "Sodium Bicarbonate"
+    ]
+  }
+,
+  {
+    id: "iv-omeprazole",
+    name: "Omeprazole Sodium IV",
+    genericName: "Omeprazole Sodium",
+    brandNames: [
+      "Losec IV",
+      "Ozid IV",
+      "Gastrofer IV",
+      "Omeprazole OGB"
+    ],
+    category: "Gastrointestinal",
+    phRange: "9.0 - 10.0 (Basa Kuat)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W (Tersedia pelarut khusus bawaan pabrik 10 mL untuk bolus)",
+      volumeToReconstitute: "Larutkan vial 40 mg dengan 10 mL pelarut khusus bawaan / NS untuk bolus lambat (4 mg/mL), atau larutkan dalam 100 mL NS / D5W untuk drip (0.4 mg/mL)",
+      resultantConcentration: "0.4 mg/mL (infus) atau 4 mg/mL (bolus)",
+      instructions: "Infus IV bolus diberikan perlahan minimal 2.5 - 5 menit. Jika menggunakan D5W, infus harus dihabiskan dalam waktu MAKSIMAL 6 JAM karena omeprazole terdegradasi cepat pada pH asam D5W. Dalam NS stabil hingga 12 jam."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: false,
+      notes: "Normal Saline 0.9% lebih disukai (stabil 12 jam). Dalam D5W hanya stabil 6 jam karena sifat asam dekstrosa."
+    },
+    stability: {
+      roomTemp25C: "12 Jam dalam NS 0.9%; 6 Jam dalam D5W",
+      refrigerated2to8C: "24 Jam dalam NS 0.9%",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "4 mg/mL (bolus) / 0.4 mg/mL (infus)",
+      maxCentralConcentration: "4 mg/mL",
+      standardInfusionRate: "Bolus IV lambat selama 2.5 - 5 menit; Drip kontinu perdarahan saluran cerna: bolus 80 mg dilanjutkan 8 mg/jam selama 72 jam via syringe pump",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Wajib terlindung dari cahaya (larutan dapat menguning/kecokelatan jika teroksidasi). Jangan gunakan jika warna berubah menjadi gelap.",
+        "pH larutan sangat basa (9.0 - 10.0); inkompatibel seketika dengan larutan asam (Dopamine, Dobutamine, Midazolam, Ondansetron, Morphine, Fentanyl)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Dopamine",
+      "Dobutamine",
+      "Norepinephrine",
+      "Midazolam",
+      "Ondansetron",
+      "Morphine",
+      "Fentanyl",
+      "Ciprofloxacin"
+    ]
+  },
+  {
+    id: "iv-esomeprazole",
+    name: "Esomeprazole Sodium IV",
+    genericName: "Esomeprazole Sodium",
+    brandNames: [
+      "Nexium IV",
+      "Esomeprazole OGB",
+      "Inexium"
+    ],
+    category: "Gastrointestinal",
+    phRange: "9.0 - 11.0 (Basa Kuat)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan vial 40 mg dengan 5 mL NS/D5W untuk IV bolus, atau dalam 100 mL NS/D5W untuk infus intermiten (0.4 mg/mL)",
+      resultantConcentration: "0.4 - 8 mg/mL",
+      instructions: "Injeksi IV bolus diberikan minimal selama 3 menit. Untuk perdarahan ulkus peptikum berat: bolus 80 mg dalam 30 menit, dilanjutkan infus kontinu 8 mg/jam selama 71.5 jam."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9%, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "12 Jam dalam NS 0.9%; 6 Jam dalam D5W",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "8 mg/mL",
+      maxCentralConcentration: "8 mg/mL",
+      standardInfusionRate: "Bolus lambat minimal 3 menit; Infus kontinu perdarahan: 8 mg/jam via syringe pump",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Larutan bersifat basa; hindari pencampuran dengan sediaan obat yang bersifat asam pada jalur infus yang sama.",
+        "Inkompatibel Y-Site dengan Ondansetron, Midazolam, dan Katekolamin."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Ondansetron",
+      "Midazolam",
+      "Dopamine",
+      "Dobutamine",
+      "Morphine"
+    ]
+  },
+  {
+    id: "iv-paracetamol",
+    name: "Paracetamol IV (Infus 1000 mg/100 mL)",
+    genericName: "Acetaminophen / Paracetamol",
+    brandNames: [
+      "Sanmol IV",
+      "Perfalgan",
+      "Farmadol IV",
+      "Paracetamol OGB Infus",
+      "Tamoliv"
+    ],
+    category: "Analgesik & Antiinflamasi",
+    phRange: "5.5 - 6.5 (Netral)",
+    reconstitution: {
+      recommendedDiluent: "Sediaan siap infus premixed (1000 mg/100 mL / 10 mg/mL)",
+      volumeToReconstitute: "Larutan siap infus (tidak perlu rekonstitusi serbuk)",
+      resultantConcentration: "10 mg/mL",
+      instructions: "Infus IV diberikan selama 15 menit. Pada pasien dengan BB <50 kg, dosis harus disesuaikan secara ketat 15 mg/kgBB (jangan berikan 1 botol penuh 100 mL)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Dapat diencerkan lebih lanjut dengan NS 0.9% atau D5W jika diperlukan (hingga 1:10)."
+    },
+    stability: {
+      roomTemp25C: "Segera gunakan setelah botol dibuka (maksimal 6 jam)",
+      refrigerated2to8C: "Simpan pada suhu ruang (15-30°C); jangan disimpan di kulkas",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "10 mg/mL",
+      maxCentralConcentration: "10 mg/mL",
+      standardInfusionRate: "Diberikan secara IV drip selama 15 menit tiap 6 jam (maksimal 4 g/hari pada dewasa ≥50 kg)",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Waspada kesalahan dosis 10-kali lipat pada pasien pediatrik/BB rendah: gunakan satuan mg dan volume mL yang tepat.",
+        "Inkompatibel jika dicampur langsung dengan Diazepam, Chlorpromazine, dan Sodium Bicarbonate."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Diazepam",
+      "Sodium Bicarbonate",
+      "Chlorpromazine"
+    ]
+  },
+  {
+    id: "iv-cefotaxime",
+    name: "Cefotaxime Sodium",
+    genericName: "Cefotaxime Sodium",
+    brandNames: [
+      "Claforan",
+      "Taxegram",
+      "Cefotaxime OGB",
+      "Kalfoxim"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "4.5 - 6.5",
+    reconstitution: {
+      recommendedDiluent: "Water for Injection (WFI), NS 0.9%, atau D5W",
+      volumeToReconstitute: "Larutkan vial 1 g dengan 4 mL WFI untuk bolus IV (kocok kuat), lalu encerkan ke dalam 50-100 mL NS/D5W untuk infus",
+      resultantConcentration: "10 - 200 mg/mL",
+      instructions: "Injeksi IV bolus lambat selama 3 - 5 menit atau infus intermiten selama 20 - 30 menit."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, RL, dan WFI."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang (25°C)",
+      refrigerated2to8C: "7 Hari pada 2-8°C",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "100 mg/mL",
+      maxCentralConcentration: "200 mg/mL",
+      standardInfusionRate: "Bolus IV lambat 3-5 menit atau infus drip 20-30 menit",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Warna larutan dapat menggelap menjadi kuning jerami/cokelat pucat saat penyimpanan (tidak mempengaruhi potensi selama dalam rentang BUD).",
+        "Inkompatibel fisiko-kimiawi langsung dengan Aminoglikosida dan Sodium Bicarbonate."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Sodium Bicarbonate",
+      "Gentamicin (dalam botol/spuit yang sama)",
+      "Amikacin",
+      "Allopurinol"
+    ]
+  },
+  {
+    id: "iv-ceftazidime",
+    name: "Ceftazidime",
+    genericName: "Ceftazidime Pentahydrate",
+    brandNames: [
+      "Fortum",
+      "Ceptik",
+      "Thidim",
+      "Ceftazidime OGB"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "5.0 - 7.5",
+    reconstitution: {
+      recommendedDiluent: "Water for Injection (WFI) atau NS 0.9%",
+      volumeToReconstitute: "Larutkan 1 g dengan 10 mL WFI (atau 50 mL NS untuk infus). PERINGATAN TEKANAN: Rekonstitusi melepaskan gas CO2 yang meningkatkan tekanan internal vial secara signifikan.",
+      resultantConcentration: "20 - 100 mg/mL",
+      instructions: "Setelah memasukkan pelarut, biarkan vial beberapa saat hingga buih gelembung CO2 menghilang dan larutan menjadi jernih kekuningan."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "18 Jam pada suhu ruang (25°C)",
+      refrigerated2to8C: "7 Hari pada 2-8°C",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "40 mg/mL",
+      maxCentralConcentration: "100 mg/mL",
+      standardInfusionRate: "Infus intermiten selama 30 menit atau extended infusion selama 3-4 jam",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Waspadai lonjakan tekanan gas CO2 di dalam vial saat menusukkan jarum rekonstitusi.",
+        "Inkompatibel Y-Site dengan Vancomycin (membentuk presipitat keruh), Aminophylline, dan Fluconazole."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Vancomycin",
+      "Aminophylline",
+      "Fluconazole",
+      "Midazolam"
+    ]
+  },
+  {
+    id: "iv-cefepime",
+    name: "Cefepime Hydrochloride",
+    genericName: "Cefepime HCl",
+    brandNames: [
+      "Maxipime",
+      "Cefepime OGB",
+      "Dipsin",
+      "Interpime"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "4.0 - 6.0",
+    reconstitution: {
+      recommendedDiluent: "Water for Injection (WFI), NS 0.9%, atau D5W",
+      volumeToReconstitute: "Larutkan vial 1 g dengan 10 mL WFI/NS, lalu encerkan ke dalam 50-100 mL NS/D5W (Konsentrasi: 10 - 40 mg/mL)",
+      resultantConcentration: "10 - 40 mg/mL",
+      instructions: "Diberikan secara IV drip selama 30 menit atau extended infusion selama 3-4 jam (optimalisasi PK/PD Time above MIC)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9%, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang (25°C)",
+      refrigerated2to8C: "7 Hari pada 2-8°C",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "40 mg/mL",
+      maxCentralConcentration: "40 mg/mL",
+      standardInfusionRate: "Infus standar: 30 menit; Extended infusion ICU: 3 - 4 jam",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Waspadai neurotoksisitas (ensefalopati, mioklonus, status epileptikus non-konvulsif) pada pasien dengan gangguan ginjal tanpa penyesuaian dosis.",
+        "Inkompatibel Y-Site dengan Vancomycin, Aminophylline, Ciprofloxacin, dan Metronidazole."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Vancomycin",
+      "Aminophylline",
+      "Ciprofloxacin",
+      "Metronidazole",
+      "Diazepam"
+    ]
+  },
+  {
+    id: "iv-cefazolin",
+    name: "Cefazolin Sodium",
+    genericName: "Cefazolin Sodium",
+    brandNames: [
+      "Ancef",
+      "Kefzol",
+      "Cefazolin OGB",
+      "Zolicef"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "4.5 - 6.0",
+    reconstitution: {
+      recommendedDiluent: "Water for Injection (WFI), NS 0.9%, atau D5W",
+      volumeToReconstitute: "Larutkan 1 g dengan 10 mL WFI untuk bolus lambat (100 mg/mL), atau encerkan dalam 50-100 mL NS/D5W untuk infus",
+      resultantConcentration: "10 - 100 mg/mL",
+      instructions: "Standar emas profilaksis bedah: Diberikan IV dalam waktu 30-60 menit SEBELUM insisi kulit."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan semua kristaloid standar termasuk Ringer Lactate."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang",
+      refrigerated2to8C: "10 Hari pada 2-8°C",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "100 mg/mL",
+      maxCentralConcentration: "100 mg/mL",
+      standardInfusionRate: "Bolus lambat 3-5 menit atau infus intermiten 20-30 menit",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Pemberian profilaksis bedah wajib diulang (*re-dosing*) intraoperatif tiap 4 jam jika operasi berlangsung lama atau perdarahan >1500 mL.",
+        "Inkompatibel dengan Amiodarone, Bleomycin, dan Pentobarbital."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Amiodarone",
+      "Bleomycin",
+      "Pentobarbital"
+    ]
+  },
+  {
+    id: "iv-amikacin",
+    name: "Amikacin Sulfate",
+    genericName: "Amikacin Sulfate Injection",
+    brandNames: [
+      "Amikin IV",
+      "Alostil IV",
+      "Amikacin OGB",
+      "Mikasin"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "3.5 - 5.5 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan 500 mg - 1000 mg (15 mg/kgBB) ke dalam 100 - 200 mL NS atau D5W (Konsentrasi: 2.5 - 5 mg/mL)",
+      resultantConcentration: "2.5 - 5 mg/mL",
+      instructions: "Infus IV diberikan selama 30 - 60 menit. Jangan diberikan secara bolus cepat untuk mencegah kelumpuhan otot pernapasan (neuromuscular blockade)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9%, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang (25°C)",
+      refrigerated2to8C: "60 Hari pada 2-8°C",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "5 mg/mL",
+      maxCentralConcentration: "10 mg/mL",
+      standardInfusionRate: "Diberikan secara IV drip selama 30 - 60 menit",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Wajib Therapeutic Drug Monitoring (TDM) kadar puncak (Peak: 20-30 mcg/mL) dan palung (Trough: <5 mcg/mL) untuk mencegah nefrotoksisitas & ototoksisitas permanen.",
+        "Inkompatibel jika dicampur langsung dalam satu botol infus bersama Penisilin/Beta-laktam atau Heparin."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Heparin",
+      "Ampicillin",
+      "Piperacillin (pencampuran langsung)",
+      "Propofol",
+      "Phenytoin"
+    ]
+  },
+  {
+    id: "iv-colistin",
+    name: "Colistin (Colistimethate Sodium / CMS)",
+    genericName: "Colistimethate Sodium",
+    brandNames: [
+      "Colistimethate OGB",
+      "Colomycin",
+      "Tadacol",
+      "Coly-Mycin M"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "7.0 - 8.0",
+    reconstitution: {
+      recommendedDiluent: "Water for Injection (WFI) atau Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "Larutkan vial 1.000.000 IU (atau 2.000.000 IU / ~66.6 mg kolistin basa) dengan 2 - 4 mL WFI perlahan tanpa dikocok keras untuk mencegah busa berlebih, lalu encerkan ke dalam 50-100 mL NS",
+      resultantConcentration: "10.000 - 50.000 IU/mL",
+      instructions: "WAJIB SEGERA DIGUNAKAN SETELAH REKONSTITUSI. Prodrug CMS secara bertahap terhidrolisis menjadi kolistin bebas yang jauh lebih toksik jika disimpan dalam bentuk terlarut."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "Normal Saline 0.9% dan WFI adalah pelarut pilihan."
+    },
+    stability: {
+      roomTemp25C: "Gunakan dalam waktu 24 jam setelah rekonstitusi (anjuran segera diberikan)",
+      refrigerated2to8C: "24 Jam pada 2-8°C",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "50.000 IU/mL",
+      maxCentralConcentration: "50.000 IU/mL",
+      standardInfusionRate: "Loading dose: 9.000.000 IU infus selama 60 menit; Maintenance: 4.500.000 IU tiap 12 jam selama 60 menit",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Nefrotoksisitas akut (ATN) sangat tinggi; monitor serum kreatinin dan ureum harian di ICU.",
+        "Hindari penggunaan bersamaan dengan relaksan otot depolarisasi/non-depolarisasi (potensiasi blokade neuromuskular)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Erythromycin",
+      "Hydrocortisone",
+      "Parenteral Nutrition (Lipid)"
+    ]
+  },
+  {
+    id: "iv-tigecycline",
+    name: "Tigecycline",
+    genericName: "Tigecycline",
+    brandNames: [
+      "Tygacil",
+      "Tigecycline OGB",
+      "Tigecil",
+      "Tygat"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "7.0 - 8.0 (Larutan Warna Kuning-Oranye Khas)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan vial 50 mg dengan 5.3 mL NS/D5W (Konsentrasi: 10 mg/mL), kocok perlahan hingga larut sempurna berwarna kuning-oranye, lalu encerkan ke dalam 100 mL NS/D5W",
+      resultantConcentration: "0.5 - 1 mg/mL",
+      instructions: "Infus IV diberikan selama 30 - 60 menit. Warna larutan harus kuning hingga jingga; buang jika berwarna hijau tua atau keruh."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: false,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9%, D5W, dan Ringer Lactate."
+    },
+    stability: {
+      roomTemp25C: "24 Jam (dalam kantong infus pada 25°C)",
+      refrigerated2to8C: "48 Jam pada 2-8°C",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "1 mg/mL",
+      maxCentralConcentration: "1 mg/mL",
+      standardInfusionRate: "Loading dose: 100 mg IV selama 30-60 menit; Maintenance: 50 mg tiap 12 jam selama 30-60 menit",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Mual dan muntah berat dilaporkan pada >30% pasien (dapat diberikan profilaksis antiemetik).",
+        "Inkompatibel Y-Site dengan Amphotericin B, Diazepam, dan Omeprazole."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Amphotericin B",
+      "Diazepam",
+      "Omeprazole",
+      "Piperacillin/Tazobactam (konsentrasi tertentu)"
+    ]
+  },
+  {
+    id: "iv-linezolid",
+    name: "Linezolid IV",
+    genericName: "Linezolid",
+    brandNames: [
+      "Zyvox IV",
+      "Linezolid OGB",
+      "Linospan IV",
+      "Lizolid IV"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "4.4 - 5.2",
+    reconstitution: {
+      recommendedDiluent: "Premixed siap infus 600 mg/300 mL (2 mg/mL)",
+      volumeToReconstitute: "Sediaan siap infus dalam kantong foil pelindung cahaya",
+      resultantConcentration: "2 mg/mL",
+      instructions: "Infus IV diberikan selama 30 - 120 menit. Jangan membuka kantong pelindung foil luar sampai saat akan diinfuskan ke pasien."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: false,
+      d5ns: true,
+      notes: "Sediaan premixed siap pakai."
+    },
+    stability: {
+      roomTemp25C: "Stabil hingga tanggal kedaluwarsa dalam kantong foil pembungkus",
+      refrigerated2to8C: "SIMPAN PADA SUHU RUANG (15-30°C); jangan disimpan di kulkas/dibekukan",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "2 mg/mL",
+      maxCentralConcentration: "2 mg/mL",
+      standardInfusionRate: "600 mg diberikan secara IV drip selama 30 - 120 menit tiap 12 jam",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "Inhibitor MAO reversibel non-selektif: risiko SINDROM SEROTONIN fatal jika digabung bersama SSRI/SNRI/Opioid serotonergik.",
+        "Wajib monitor hitung darah lengkap (CBC) mingguan: risiko mielosupresi (trombositopenia/anemia) pada pemakaian >14 hari.",
+        "Inkompatibel Y-Site dengan Ceftriaxone, Diazepam, Phenytoin, dan Amphotericin B."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Ceftriaxone",
+      "Diazepam",
+      "Phenytoin Sodium",
+      "Amphotericin B"
+    ]
+  },
+  {
+    id: "iv-milrinone",
+    name: "Milrinone Lactate",
+    genericName: "Milrinone Lactate",
+    brandNames: [
+      "Primacor IV",
+      "Inovad",
+      "Milrinone OGB"
+    ],
+    category: "Vasoaktif / Inotropik",
+    phRange: "3.2 - 4.0 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%), 0.45% Saline, atau D5W",
+      volumeToReconstitute: "Larutkan 10 mg (10 mL) ke dalam 40 mL NS/D5W (Konsentrasi: 200 mcg/mL) via syringe pump",
+      resultantConcentration: "200 mcg/mL",
+      instructions: "Diberikan via syringe pump kontinu untuk terapi jangka pendek gagal jantung dekompensasi akut (ADHF)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9% dan D5W."
+    },
+    stability: {
+      roomTemp25C: "72 Jam dalam kantong atau spuit plastik",
+      refrigerated2to8C: "72 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "200 mcg/mL",
+      maxCentralConcentration: "200 mcg/mL",
+      standardInfusionRate: "Loading dose (opsional): 50 mcg/kg selama 10 menit; Maintenance: 0.375 - 0.75 mcg/kgBB/menit",
+      infusionRoute: "IV Syringe Pump",
+      specialPrecautions: [
+        "Wajib monitor EKG kontinyu dan tekanan darah (risiko aritmia ventrikel dan hipotensi sekunder akibat vasodilatasi sistemik).",
+        "INKOMPATIBEL FATAL DENGAN FUROSEMIDE (segera terbentuk presipitat kristal seketika pada Y-Site)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Furosemide (Presipitasi Instan)",
+      "Sodium Bicarbonate",
+      "Procainamide"
+    ]
+  },
+  {
+    id: "iv-isdn",
+    name: "Isosorbide Dinitrate (ISDN) IV",
+    genericName: "Isosorbide Dinitrate",
+    brandNames: [
+      "Cedocard IV",
+      "Fasorbid IV",
+      "Isoket IV",
+      "ISDN OGB"
+    ],
+    category: "Antikoagulan & Kardiovaskular",
+    phRange: "5.0 - 7.0",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan 10 mg (10 mL sediaan 1 mg/mL) atau 50 mg ke dalam 50 mL NS/D5W (Konsentrasi: 0.2 - 1 mg/mL) via syringe pump",
+      resultantConcentration: "0.1 - 1 mg/mL",
+      instructions: "Wajib menggunakan spuit dan set infus berbahan Non-PVC (Polietilen/Kaca) untuk mencegah kehilangan zat aktif akibat adsorpsi ke plastik PVC."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Kompatibel dengan NS 0.9% dan D5W. Gunakan set infus non-PVC."
+    },
+    stability: {
+      roomTemp25C: "24 Jam dalam wadah non-PVC",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "1 mg/mL",
+      maxCentralConcentration: "1 mg/mL",
+      standardInfusionRate: "2 - 10 mg/jam (dapat dititrasi hingga 20 mg/jam sesuai respons tekanan darah & edema paru)",
+      infusionRoute: "IV Syringe Pump",
+      specialPrecautions: [
+        "KONTRAINDIKASI MUTLAK BERSAMA INHIBITOR PDE-5 (Sildenafil, Tadalafil) dalam 24-48 jam terakhir karena risiko kolaps kardiovaskular fatal.",
+        "Wajib monitor tekanan darah secara ketat; hentikan/turunkan laju jika TDS <90 mmHg."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Inhibitor PDE-5 (Sildenafil/Tadalafil)",
+      "Sodium Bicarbonate",
+      "Furosemide"
+    ]
+  },
+  {
+    id: "iv-lidocaine",
+    name: "Lidocaine Hydrochloride (Lidokain 2%)",
+    genericName: "Lidocaine HCl 2% (20 mg/mL)",
+    brandNames: [
+      "Lidocain 2% OGB",
+      "Xylocaine IV",
+      "Extracaine"
+    ],
+    category: "Antikoagulan & Kardiovaskular",
+    phRange: "5.0 - 7.0",
+    reconstitution: {
+      recommendedDiluent: "D5W atau Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "Untuk infus anti-aritmia: Larutkan 1 g (50 mL sediaan 2%) ke dalam 500 mL D5W (Konsentrasi: 2 mg/mL) atau 1 g dalam 50 mL via syringe pump (20 mg/mL)",
+      resultantConcentration: "2 - 20 mg/mL",
+      instructions: "Bolus awal 1 - 1.5 mg/kgBB IV lambat selama 2-3 menit pada VT/VF tanpa nadi."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan D5W, NS, dan RL."
+    },
+    stability: {
+      roomTemp25C: "24 Jam pada suhu ruang",
+      refrigerated2to8C: "48 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "4 mg/mL (infus) / 20 mg/mL (bolus)",
+      maxCentralConcentration: "20 mg/mL",
+      standardInfusionRate: "Bolus awal 1 - 1.5 mg/kg; dilanjutkan infus maintenance 1 - 4 mg/menit (30 - 120 mL/jam sediaan 2 mg/mL)",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Waspada tanda toksisitas SSP (baal perioral, tinitus, disorientasi, kejang, hingga henti jantung).",
+        "Inkompatibel dengan Phenytoin, Thiopental, Ampicillin, dan Sodium Bicarbonate."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Phenytoin Sodium",
+      "Thiopental Sodium",
+      "Sodium Bicarbonate",
+      "Ampicillin"
+    ]
+  },
+  {
+    id: "iv-atropine",
+    name: "Atropine Sulfate",
+    genericName: "Atropine Sulfate Injection",
+    brandNames: [
+      "Atropin Sulfat OGB",
+      "Atropine Ethica"
+    ],
+    category: "Antikoagulan & Kardiovaskular",
+    phRange: "3.0 - 6.5 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Dapat diberikan bolus IV langsung tanpa pengenceran (0.25 mg/mL atau 1 mg/mL)",
+      volumeToReconstitute: "Sediaan ampul 0.25 mg/mL atau 1 mg/mL",
+      resultantConcentration: "0.25 - 1 mg/mL",
+      instructions: "Diberikan secara IV bolus cepat. Dosis <0.5 mg pada dewasa dapat memicu efek paradoksal bradikardia sentral."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah dibuka",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "1 mg/mL",
+      maxCentralConcentration: "1 mg/mL",
+      standardInfusionRate: "Bradikardia simtomatik: Bolus IV cepat 0.5 - 1 mg tiap 3-5 menit (maksimal total 3 mg); Antidotum pestisida organofosfat: 2 - 5 mg IV tiap 10-15 menit hingga atropinisasi tercapai",
+      infusionRoute: "IV Bolus",
+      specialPrecautions: [
+        "Jangan berikan dosis bolus <0.5 mg pada orang dewasa (risiko perburukan bradikardia paradoksal).",
+        "Inkompatibel dengan larutan alkali (Sodium Bicarbonate, Furosemide, Thiopental)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Sodium Bicarbonate",
+      "Furosemide",
+      "Thiopental",
+      "Diazepam"
+    ]
+  },
+  {
+    id: "iv-digoxin",
+    name: "Digoxin Injection",
+    genericName: "Digoxin Injection (0.25 mg/mL)",
+    brandNames: [
+      "Fargoxin IV",
+      "Lanoxin IV",
+      "Digoxin OGB"
+    ],
+    category: "Antikoagulan & Kardiovaskular",
+    phRange: "6.8 - 7.2",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%), D5W, atau WFI (dengan pengenceran minimal 1:4)",
+      volumeToReconstitute: "1 Ampul (0.5 mg / 2 mL) diencerkan dengan minimal 8 mL NS/D5W menjadi 10 mL (0.05 mg/mL)",
+      resultantConcentration: "0.05 - 0.25 mg/mL",
+      instructions: "Wajib diencerkan minimal 4x lipat untuk mencegah presipitasi dan iritasi vena. Suntikkan secara IV bolus sangat lambat selama minimal 5 menit."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "Pengenceran dengan NS atau D5W minimal 4x volume ampul."
+    },
+    stability: {
+      roomTemp25C: "Gunakan segera setelah diencerkan (maksimal 6 jam)",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "0.05 - 0.1 mg/mL",
+      maxCentralConcentration: "0.25 mg/mL",
+      standardInfusionRate: "Loading dose digitalisasi: 0.25 - 0.5 mg IV sangat lambat selama minimal 5 - 10 menit",
+      infusionRoute: "IV Bolus",
+      specialPrecautions: [
+        "KONTRAINDIKASI PEMBERIAN BERSAMA KALSIUM IV (Kalsium Glukonat/Klorida) karena memicu aritmia fatal seketika.",
+        "Waspadai intoksikasi digitalis jika kadar Kalium darah rendah (hipokalemia memperparah toksisitas digoksin)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Calcium Gluconate (FATAL)",
+      "Calcium Chloride",
+      "Dobutamine (konsentrasi tinggi)",
+      "Furosemide"
+    ]
+  },
+  {
+    id: "iv-atracurium",
+    name: "Atracurium Besylate",
+    genericName: "Atracurium Besylate Injection",
+    brandNames: [
+      "Tracrium IV",
+      "Notrixum",
+      "Atracurium OGB",
+      "Tramus"
+    ],
+    category: "Sedasi & Anestesi",
+    phRange: "3.2 - 3.7 (Asam Kuat)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Larutkan 50 mg (5 mL sediaan 10 mg/mL) ke dalam 45 mL NS/D5W (Konsentrasi: 1 mg/mL) via syringe pump",
+      resultantConcentration: "0.5 - 2 mg/mL (infus) atau 10 mg/mL (bolus murni)",
+      instructions: "Wajib disimpan di kulkas (2-8°C). Inaktivasi terjadi spontan melalui degradasi Hofmann pada suhu hangat dan suasana basa."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "Normal Saline 0.9% dan D5W adalah pelarut pilihan."
+    },
+    stability: {
+      roomTemp25C: "24 Jam dalam NS 0.9% pada suhu ruang (25°C)",
+      refrigerated2to8C: "Vial utuh wajib pada 2-8°C hingga tanggal kedaluwarsa",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "2 mg/mL (infus) / 10 mg/mL (bolus intubasi)",
+      maxCentralConcentration: "5 mg/mL",
+      standardInfusionRate: "Intubasi: 0.4 - 0.5 mg/kg bolus IV; Maintenance ICU: 0.3 - 0.6 mg/kgBB/jam via syringe pump",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "KONTRAINDIKASI DIBERIKAN SEJALUR DENGAN LARUTAN BASA (Thiopental, Furosemide, Sodium Bicarbonate): Langsung rusak dan memicu presipitasi asam bebas.",
+        "Wajib pasien dalam kondisi terintubasi dan tersedasi penuh (tidak memiliki efek analgesia/sedasi)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Thiopental Sodium",
+      "Sodium Bicarbonate",
+      "Furosemide",
+      "Diazepam",
+      "Propofol (jalur tertentu)"
+    ]
+  },
+  {
+    id: "iv-rocuronium",
+    name: "Rocuronium Bromide",
+    genericName: "Rocuronium Bromide Injection",
+    brandNames: [
+      "Esmeron IV",
+      "Roculax",
+      "Rocuronium OGB"
+    ],
+    category: "Sedasi & Anestesi",
+    phRange: "3.8 - 4.2 (Asam)",
+    reconstitution: {
+      recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
+      volumeToReconstitute: "Diberikan bolus murni 10 mg/mL atau diencerkan ke dalam NS/D5W menjadi 1 - 5 mg/mL untuk infus kontinu ICU",
+      resultantConcentration: "1 - 10 mg/mL",
+      instructions: "Standar emas Rapid Sequence Intubation (RSI). Simpan pada suhu 2-8°C (stabil pada suhu ruang hingga 12 minggu sebelum dibuka)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, dan RL."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah diencerkan dalam NS/D5W",
+      refrigerated2to8C: "2-8°C hingga tanggal kedaluwarsa",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "5 mg/mL (infus) / 10 mg/mL (bolus RSI)",
+      maxCentralConcentration: "10 mg/mL",
+      standardInfusionRate: "RSI Intubasi: 0.6 - 1.2 mg/kg bolus IV cepat; Infus ICU: 0.3 - 0.6 mg/kgBB/jam",
+      infusionRoute: "IV Bolus & Drip",
+      specialPrecautions: [
+        "Reversal spesifik cepat tersedia: Sugammadex (Bridion) berikatan 1:1 dengan rocuronium.",
+        "Inkompatibel dengan larutan alkali (Furosemide, Thiopental, Bicarbonate)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Furosemide",
+      "Thiopental Sodium",
+      "Sodium Bicarbonate",
+      "Dexamethasone"
+    ]
+  },
+  {
+    id: "iv-phenytoin",
+    name: "Phenytoin Sodium (Fenitoin)",
+    genericName: "Phenytoin Sodium Injection",
+    brandNames: [
+      "Dilantin IV",
+      "Curelep IV",
+      "Phenytoin OGB",
+      "Decatona"
+    ],
+    category: "Sedasi & Anestesi",
+    phRange: "12.0 (SANGAT BASA / ALKALI EKSTREM)",
+    reconstitution: {
+      recommendedDiluent: "HANYA BOLEH NORMAL SALINE (NS 0.9%) - KONTRAINDIKASI MUTLAK D5W / DEKSTROSA!",
+      volumeToReconstitute: "Larutkan 250 - 1000 mg (sediaan 50 mg/mL) HANYA ke dalam 50 - 100 mL NS 0.9% (Konsentrasi akhir tidak boleh melebihi 10 mg/mL)",
+      resultantConcentration: "1 - 10 mg/mL (dalam NS 0.9%)",
+      instructions: "KONTRAINDIKASI MUTLAK DENGAN D5W: Dekstrosa memiliki pH asam yang seketika memicu kristalisasi mikro masif fenitoin bebas tak larut yang mematikan. Wajib gunakan inline filter 0.22 mikron. Kecepatan infus maksimal 50 mg/menit."
+    },
+    diluents: {
+      ns: true,
+      d5w: false,
+      rl: false,
+      wfi: false,
+      d5ns: false,
+      notes: "HANYA Normal Saline 0.9% yang diizinkan. Dextrose / Glukosa menyebabkan presipitasi kristal instan."
+    },
+    stability: {
+      roomTemp25C: "Maksimal 1 - 4 Jam dalam NS 0.9% (segera infuskannya setelah pencampuran)",
+      refrigerated2to8C: "KONTRAINDIKASI REFRIGERASI (Memicu kristalisasi)",
+      lightProtectionRequired: false,
+      filterRequired: true,
+      filterType: "Filter inline 0.22 - 1.2 mikron wajib digunakan untuk menangkap mikrokristal"
+    },
+    administration: {
+      maxPeripheralConcentration: "10 mg/mL (dalam NS 0.9%)",
+      maxCentralConcentration: "10 mg/mL",
+      standardInfusionRate: "Status epileptikus loading: 15 - 20 mg/kgBB dengan kecepatan MAKSIMAL 50 mg/menit (25 mg/menit pada lansia/kardiak)",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "PURPLE GLOVE SYNDROME: Ekstravasasi fenitoin (pH 12) memicu iskemia jaringan berat, edema, sianosis, hingga amputasi ekstremitas.",
+        "Infus terlalu cepat (>50 mg/menit) memicu kolaps kardiovaskular, hipotensi berat, dan blok AV total.",
+        "Wajib membilas selang infus dengan minimal 20 mL NS sebelum & sesudah pemberian. INKOMPATIBEL DENGAN HAMPIR SEMUA OBAT LAIN."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Dextrose 5% (Kristalisasi Fatal)",
+      "Semua larutan selain NS 0.9%",
+      "Morphine",
+      "Fentanyl",
+      "Midazolam",
+      "Norepinephrine",
+      "Dobutamine",
+      "Propofol"
+    ]
+  },
+  {
+    id: "iv-potassium-phosphate",
+    name: "Potassium Phosphate (K-Phos / Kalium Fosfat)",
+    genericName: "Potassium Phosphate Injection (3 mmol Phosphate & 4.4 mEq K+ per mL)",
+    brandNames: [
+      "K-Phos IV",
+      "Potassium Phosphate Fresenius"
+    ],
+    category: "Elektrolit & Koreksi",
+    phRange: "6.5 - 7.5",
+    reconstitution: {
+      recommendedDiluent: "D5W atau Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "Larutkan dosis terhitung (misal 15 - 30 mmol fosfat) ke dalam 250 - 500 mL NS atau D5W",
+      resultantConcentration: "0.06 - 0.12 mmol fosfat/mL",
+      instructions: "Wajib diencerkan dengan volume besar. Kecepatan infus fosfat tidak boleh melebihi 10 - 15 mmol/jam (dan Kalium tidak boleh melebihi 20 mEq/jam)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Kompatibel dengan NS dan D5W."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah diencerkan",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "15 mmol fosfat (22 mEq K+) / 250 mL",
+      maxCentralConcentration: "30 mmol fosfat (44 mEq K+) / 250 mL",
+      standardInfusionRate: "Infus IV lambat selama minimal 4 - 6 jam",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "KONTRAINDIKASI FATAL BERSAMA KALSIUM (Kalsium Glukonat / Kalsium Klorida): Segera membentuk endapan kristal kalsium fosfat tak larut yang memicu emboli paru.",
+        "Wajib hitung ganda kandungan ion Kalium (1 mL mengandung 4.4 mEq K+ dan 3 mmol fosfat)."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Calcium Gluconate (FATAL)",
+      "Calcium Chloride (FATAL)",
+      "Magnesium Sulfate",
+      "Dextrose pekat tanpa pengencer"
+    ]
+  }
 ];
 
 export const Y_SITE_COMPATIBILITY_MATRIX: YSiteCompatibilityPair[] = [
@@ -765,6 +3263,674 @@ export const Y_SITE_COMPATIBILITY_MATRIX: YSiteCompatibilityPair[] = [
     mechanism: 'Keduanya stabil pada pH netral-basa.',
     clinicalEffect: 'Stabil tanpa presipitasi.',
     recommendation: 'Kompatibel Y-Site.'
+  }
+,
+  {
+    drugAId: "iv-ceftriaxone",
+    drugBId: "iv-calcium-gluconate",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi mikrokristal kalsium-seftriakson tak larut yang mengendap di mikrovaskular paru dan ginjal.",
+    clinicalEffect: "FATAL: Emboli kristal paru dan gagal ginjal akut dilaporkan pada neonatus dan pasien dewasa.",
+    recommendation: "KONTRAINDIKASI MUTLAK: Dilarang diberikan bersamaan dalam jalur infus atau set Y-site yang sama. Beri jeda minimal 48 jam pada neonatus."
+  },
+  {
+    drugAId: "iv-sodium-bicarbonate",
+    drugBId: "iv-calcium-gluconate",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Reaksi pembentukan garam Kalsium Karbonat yang tidak larut dalam air (endapan kapur putih susu).",
+    clinicalEffect: "Presipitasi langsung partikulat kristal kapur yang menyumbat jalur kateter dan memicu flebitis/emboli.",
+    recommendation: "KONTRAINDIKASI: Wajib gunakan jalur IV terpisah atau bilas kateter dengan minimal 20 mL NS sebelum beralih obat."
+  },
+  {
+    drugAId: "iv-furosemide",
+    drugBId: "iv-epinephrine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi asam-basa seketika dan degradasi oksidatif epinefrin dalam suasana basa.",
+    clinicalEffect: "Larutan berubah keruh dengan pembentukan kristal partikulat.",
+    recommendation: "KONTRAINDIKASI Y-SITE: Berikan melalui jalur infus terpisah."
+  },
+  {
+    drugAId: "iv-furosemide",
+    drugBId: "iv-morphine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi garam morfin basa bebas akibat peningkatan pH oleh furosemide.",
+    clinicalEffect: "Presipitasi langsung partikulat kristal putih pada percabangan Y-site.",
+    recommendation: "KONTRAINDIKASI: Berikan injeksi morfin pada jalur terpisah atau lakukan flushing komprehensif."
+  },
+  {
+    drugAId: "iv-furosemide",
+    drugBId: "iv-ondansetron",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi kristal putih halus tak larut dalam hitungan detik setelah kontak.",
+    clinicalEffect: "Oklusi kateter IV dan embolisasi mikropartikel ke sirkulasi vena.",
+    recommendation: "KONTRAINDIKASI: Wajib bilas selang infus dengan 15-20 mL NS sebelum dan sesudah injeksi ondansetron."
+  },
+  {
+    drugAId: "iv-furosemide",
+    drugBId: "iv-ciprofloxacin",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi kristal siprofloksasin zwitterionik tak larut pada pergeseran pH netral/basa.",
+    clinicalEffect: "Presipitasi keruh putih masif seketika.",
+    recommendation: "KONTRAINDIKASI MUTLAK Y-SITE: Dilarang co-infus. Bilas jalur dengan 20 mL NS."
+  },
+  {
+    drugAId: "iv-heparin",
+    drugBId: "iv-vancomycin",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Ikatan elektrostatik anionik heparin dengan kation vankomisin membentuk kompleks presipitat tidak larut.",
+    clinicalEffect: "Presipitat kental keruh yang menyumbat filter dan kateter infus.",
+    recommendation: "KONTRAINDIKASI Y-SITE: Berikan melalui lumen CVC berbeda atau lakukan pembilasan dengan NS."
+  },
+  {
+    drugAId: "iv-heparin",
+    drugBId: "iv-ciprofloxacin",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi kompleks garam fluoroquinolon-heparin.",
+    clinicalEffect: "Kekeruhan dan hilangnya potensi antikoagulan serta antibiotik.",
+    recommendation: "KONTRAINDIKASI: Berikan via jalur terpisah."
+  },
+  {
+    drugAId: "iv-heparin",
+    drugBId: "iv-amiodarone",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi segera surfaktan dan garam kompleks.",
+    clinicalEffect: "Emboli partikulat dan penurunan bioavailabilitas obat.",
+    recommendation: "KONTRAINDIKASI: Gunakan jalur infus terpisah."
+  },
+  {
+    drugAId: "iv-sodium-bicarbonate",
+    drugBId: "iv-norepinephrine",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Oksidasi katekolamin yang sangat cepat dalam suasana alkali/basa (pH >7.5) menjadi kuinon inaktif berwarna cokelat.",
+    clinicalEffect: "Inaktivasi total efek vasopresor norepinefrin (kegagalan kontrol tekanan darah).",
+    recommendation: "KONTRAINDIKASI MUTLAK: Jangan pernah memasukkan bikarbonat ke dalam jalur infus norepinefrin."
+  },
+  {
+    drugAId: "iv-sodium-bicarbonate",
+    drugBId: "iv-dobutamine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Oksidasi cincin katekol dobutamin menghasilkan senyawa inaktif berwarna merah muda/cokelat.",
+    clinicalEffect: "Hilangnya daya inotropik obat.",
+    recommendation: "KONTRAINDIKASI: Berikan melalui jalur terpisah."
+  },
+  {
+    drugAId: "iv-sodium-bicarbonate",
+    drugBId: "iv-epinephrine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Degradasi oksidatif epinefrin menjadi adrenokrom.",
+    clinicalEffect: "Kehilangan aktivitas simpatomimetik resusitasi.",
+    recommendation: "KONTRAINDIKASI: Dilarang mencampur dalam spuit atau jalur Y-site yang sama."
+  },
+  {
+    drugAId: "iv-sodium-bicarbonate",
+    drugBId: "iv-dopamine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Inaktivasi basa cepat terhadap gugus katekolamin dopamin.",
+    clinicalEffect: "Larutan berubah warna menjadi gelap dan kehilangan efek hemodinamik.",
+    recommendation: "KONTRAINDIKASI: Wajib jalur IV terpisah."
+  },
+  {
+    drugAId: "iv-acyclovir",
+    drugBId: "iv-midazolam",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Perbedaan pH ekstrem (Acyclovir pH 11.0 vs Midazolam pH 3.0) memicu penutupan cincin diazepin dan presipitasi masif kedua obat.",
+    clinicalEffect: "Presipitasi putih susu tebal seketika.",
+    recommendation: "KONTRAINDIKASI: Jalur terpisah mutlak diperlukan."
+  },
+  {
+    drugAId: "iv-acyclovir",
+    drugBId: "iv-morphine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi asam-basa masif.",
+    clinicalEffect: "Presipitat partikulat padat.",
+    recommendation: "KONTRAINDIKASI Y-SITE."
+  },
+  {
+    drugAId: "iv-acyclovir",
+    drugBId: "iv-vancomycin",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi garam vankomisin dalam pH sangat basa.",
+    clinicalEffect: "Penggumpalan partikulat di selang infus.",
+    recommendation: "KONTRAINDIKASI: Wajib bilas 20 mL NS di antara pemberian."
+  },
+  {
+    drugAId: "iv-vancomycin",
+    drugBId: "iv-piperacillin-tazobactam",
+    status: "conditional",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Inkompatibilitas fisiko-kimiawi tergantung pada konsentrasi dan merek dagang formulasi generik.",
+    clinicalEffect: "Risiko kekeruhan dan presipitasi sub-visual yang dapat menyumbat membran dialisis/kateter.",
+    recommendation: "WASPADA: Dianjurkan memberikan secara terpisah atau membilas jalur kateter dengan 20 mL NS sebelum & sesudah."
+  },
+  {
+    drugAId: "iv-norepinephrine",
+    drugBId: "iv-epinephrine",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Sama-sama katekolamin dengan stabilitas pH asam yang selaras.",
+    clinicalEffect: "Larutan jernih tanpa perubahan kimiawi selama 24 jam.",
+    recommendation: "KOMPATIBEL: Aman diberikan bersamaan via Y-site pada syok refrakter."
+  },
+  {
+    drugAId: "iv-norepinephrine",
+    drugBId: "iv-vasopressin",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Stabil secara fisika dan kimia pada pH asam.",
+    clinicalEffect: "Kombinasi standar lini pertama syok septik.",
+    recommendation: "KOMPATIBEL: Aman diberikan co-infus via Y-site CVC."
+  },
+  {
+    drugAId: "iv-norepinephrine",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel pada konsentrasi klinis ICU standar.",
+    clinicalEffect: "Larutan jernih stabil tanpa presipitasi.",
+    recommendation: "KOMPATIBEL: Aman co-infus pada pasien kritis terintubasi."
+  },
+  {
+    drugAId: "iv-dobutamine",
+    drugBId: "iv-dopamine",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Stabilitas pH asam saling kompatibel.",
+    clinicalEffect: "Larutan stabil 24 jam.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
+  },
+  {
+    drugAId: "iv-dobutamine",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Stabil secara fisika dan kimia.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL: Aman co-infus di ICU."
+  },
+  {
+    drugAId: "iv-propofol",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Emulsi lipid propofol tidak mengalami cracking saat bercampur dengan fentanil di Y-site.",
+    clinicalEffect: "Kombinasi sedasi-analgesia ICU standar.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
+  },
+  {
+    drugAId: "iv-midazolam",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibilitas fisiko-kimiawi sangat baik.",
+    clinicalEffect: "Larutan stabil dan jernih.",
+    recommendation: "KOMPATIBEL: Dapat diberikan dalam jalur yang sama."
+  },
+  {
+    drugAId: "iv-morphine",
+    drugBId: "iv-midazolam",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel pada pelarut NS dan D5W.",
+    clinicalEffect: "Larutan stabil.",
+    recommendation: "KOMPATIBEL: Aman co-infus / Y-site."
+  },
+  {
+    drugAId: "iv-potassium-chloride",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel stabil.",
+    clinicalEffect: "Tidak ada interaksi fisiko-kimiawi.",
+    recommendation: "KOMPATIBEL: Aman co-infus."
+  },
+  {
+    drugAId: "iv-diazepam",
+    drugBId: "iv-potassium-chloride",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Pengenceran pelarut organik diazepam oleh larutan kristaloid menyebabkan presipitasi diazepam seketika.",
+    clinicalEffect: "Presipitat kristal jarum putih tak larut.",
+    recommendation: "KONTRAINDIKASI: Berikan diazepam melalui jalur IV terpisah atau bilas kateter sebelum & sesudah."
+  },
+  {
+    drugAId: "iv-diazepam",
+    drugBId: "iv-furosemide",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi instan kedua obat.",
+    clinicalEffect: "Kekeruhan masif.",
+    recommendation: "KONTRAINDIKASI Y-SITE."
+  },
+  {
+    drugAId: "iv-diazepam",
+    drugBId: "iv-morphine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi diazepam bebas.",
+    clinicalEffect: "Presipitat putih.",
+    recommendation: "KONTRAINDIKASI: Wajib jalur terpisah."
+  },
+  {
+    drugAId: "iv-diazepam",
+    drugBId: "iv-ceftriaxone",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi kristalisasi seketika.",
+    clinicalEffect: "Kekeruhan tebal.",
+    recommendation: "KONTRAINDIKASI: Berikan terpisah."
+  },
+  {
+    drugAId: "iv-meropenem",
+    drugBId: "iv-norepinephrine",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kompatibel pada kontak Y-site 4 jam.",
+    clinicalEffect: "Larutan jernih stabil.",
+    recommendation: "KOMPATIBEL: Aman diberikan bersamaan."
+  },
+  {
+    drugAId: "iv-meropenem",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibilitas fisiko-kimiawi baik.",
+    clinicalEffect: "Larutan stabil.",
+    recommendation: "KOMPATIBEL: Aman co-infus."
+  },
+  {
+    drugAId: "iv-dexmedetomidine",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kedua obat stabil dalam pelarut NS.",
+    clinicalEffect: "Kombinasi sedasi-analgesia aman.",
+    recommendation: "KOMPATIBEL: Aman co-infus di ruang intensif."
+  },
+  {
+    drugAId: "iv-dexmedetomidine",
+    drugBId: "iv-norepinephrine",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel pada konsentrasi standar syringe pump.",
+    clinicalEffect: "Larutan stabil 24 jam.",
+    recommendation: "KOMPATIBEL: Aman co-infus."
+  },
+  {
+    drugAId: "iv-diltiazem",
+    drugBId: "iv-furosemide",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi asam-basa instan.",
+    clinicalEffect: "Terbentuk endapan putih keruh dalam beberapa detik.",
+    recommendation: "KONTRAINDIKASI Y-SITE: Berikan melalui jalur infus berbeda."
+  },
+  {
+    drugAId: "iv-ketorolac",
+    drugBId: "iv-morphine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi garam kompleks pada konsentrasi pekat.",
+    clinicalEffect: "Kekeruhan partikulat.",
+    recommendation: "KONTRAINDIKASI DALAM SATU SPUT / Y-SITE PEKAT: Berikan secara terpisah atau bilas dengan NS."
+  },
+  {
+    drugAId: "iv-tranexamic-acid",
+    drugBId: "iv-norepinephrine",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Stabil secara fisiko-kimiawi pada pelarut NS/D5W.",
+    clinicalEffect: "Larutan jernih tanpa perubahan potensi.",
+    recommendation: "KOMPATIBEL: Aman diberikan via Y-site pada manajemen syok hemoragik."
+  },
+  {
+    drugAId: "iv-insulin-regular",
+    drugBId: "iv-potassium-chloride",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Sangat kompatibel dalam larutan kristaloid infus.",
+    clinicalEffect: "Kombinasi standar terapi DKA / Hiperkalemia.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site atau dalam kantong infus yang sama."
+  },
+  {
+    drugAId: "iv-insulin-regular",
+    drugBId: "iv-norepinephrine",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Stabil pada konsentrasi standar ICU.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
+  }
+,
+  {
+    drugAId: "iv-omeprazole",
+    drugBId: "iv-midazolam",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Inkompatibilitas asam-basa ekstrem: pH alkali omeprazole menetralkan buffer asam midazolam, memicu presipitasi keruh putih seketika.",
+    clinicalEffect: "Presipitasi partikulat menyumbat lumen kateter.",
+    recommendation: "KONTRAINDIKASI Y-SITE: Berikan melalui jalur terpisah atau bilas kateter dengan minimal 20 mL NS."
+  },
+  {
+    drugAId: "iv-omeprazole",
+    drugBId: "iv-ondansetron",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi kristal seketika akibat perbedaan pH.",
+    clinicalEffect: "Terbentuk endapan putih kabut di selang infus.",
+    recommendation: "KONTRAINDIKASI: Berikan terpisah."
+  },
+  {
+    drugAId: "iv-omeprazole",
+    drugBId: "iv-norepinephrine",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Degradasi oksidatif vasopresor dalam pH basa omeprazole.",
+    clinicalEffect: "Inaktivasi norepinefrin dan penurunan tekanan darah mendadak.",
+    recommendation: "KONTRAINDIKASI SEJALUR: Jangan memasukkan omeprazole ke dalam jalur kontinu vasopresor."
+  },
+  {
+    drugAId: "iv-omeprazole",
+    drugBId: "iv-dobutamine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi dan perubahan warna kecokelatan seketika.",
+    clinicalEffect: "Hilangnya daya inotropik obat.",
+    recommendation: "KONTRAINDIKASI Y-SITE."
+  },
+  {
+    drugAId: "iv-omeprazole",
+    drugBId: "iv-morphine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi morfin basa bebas.",
+    clinicalEffect: "Endapan kristal.",
+    recommendation: "KONTRAINDIKASI: Jalur terpisah."
+  },
+  {
+    drugAId: "iv-omeprazole",
+    drugBId: "iv-fentanyl",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi fisiko-kimiawi.",
+    clinicalEffect: "Kekeruhan larutan.",
+    recommendation: "KONTRAINDIKASI Y-SITE."
+  },
+  {
+    drugAId: "iv-omeprazole",
+    drugBId: "iv-ciprofloxacin",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi zwitterionik siprofloksasin dalam pH tinggi.",
+    clinicalEffect: "Presipitasi masif seketika.",
+    recommendation: "KONTRAINDIKASI MUTLAK: Bilas selang dengan 20 mL NS."
+  },
+  {
+    drugAId: "iv-omeprazole",
+    drugBId: "iv-potassium-chloride",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel dalam larutan kristaloid NaCl 0.9%.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL: Aman diberikan via Y-site."
+  },
+  {
+    drugAId: "iv-esomeprazole",
+    drugBId: "iv-midazolam",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi asam-basa instan.",
+    clinicalEffect: "Presipitat partikulat putih.",
+    recommendation: "KONTRAINDIKASI: Wajib jalur terpisah."
+  },
+  {
+    drugAId: "iv-esomeprazole",
+    drugBId: "iv-ondansetron",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi seketika.",
+    clinicalEffect: "Kekeruhan larutan.",
+    recommendation: "KONTRAINDIKASI."
+  },
+  {
+    drugAId: "iv-phenytoin",
+    drugBId: "iv-morphine",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi masif kristal fenitoin bebas tak larut saat kontak dengan pH asam morfin.",
+    clinicalEffect: "Kristalisasi jarum putih pekat seketika menyumbat jalur IV.",
+    recommendation: "KONTRAINDIKASI MUTLAK: Wajib jalur IV tersendiri. Bilas dengan 20 mL NS sebelum & sesudah."
+  },
+  {
+    drugAId: "iv-phenytoin",
+    drugBId: "iv-fentanyl",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi kristal fenitoin.",
+    clinicalEffect: "Oklusi kateter IV dan risiko emboli kristal.",
+    recommendation: "KONTRAINDIKASI MUTLAK Y-SITE."
+  },
+  {
+    drugAId: "iv-phenytoin",
+    drugBId: "iv-midazolam",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi masif kedua zat aktif.",
+    clinicalEffect: "Endapan putih susu tebal.",
+    recommendation: "KONTRAINDIKASI MUTLAK."
+  },
+  {
+    drugAId: "iv-phenytoin",
+    drugBId: "iv-norepinephrine",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Presipitasi fenitoin dan destruksi kimia katekolamin.",
+    clinicalEffect: "Hilangnya kontrol vasopresor dan sumbatan selang.",
+    recommendation: "KONTRAINDIKASI MUTLAK."
+  },
+  {
+    drugAId: "iv-phenytoin",
+    drugBId: "iv-potassium-chloride",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi fenitoin bebas akibat pergeseran ionik.",
+    clinicalEffect: "Kekeruhan partikulat.",
+    recommendation: "KONTRAINDIKASI."
+  },
+  {
+    drugAId: "iv-potassium-phosphate",
+    drugBId: "iv-calcium-gluconate",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Reaksi pengikatan ion Kalsium dan Fosfat membentuk Kalsium Fosfat (Dibasic / Tribasic Calcium Phosphate) yang praktis tidak larut dalam air.",
+    clinicalEffect: "FATAL: Pembentukan mikrokristal di pembuluh darah perifer/paru yang memicu emboli paru masif dan kematian mendadak.",
+    recommendation: "KONTRAINDIKASI MUTLAK DALAM SATU JALUR: Berikan melalui jalur infus terpisah atau bilas kateter dengan minimal 30 mL NS di antara pemberian."
+  },
+  {
+    drugAId: "iv-milrinone",
+    drugBId: "iv-furosemide",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Presipitasi asam-basa seketika membentuk endapan kristal putih padat.",
+    clinicalEffect: "Sumbatan kateter syringe pump dan emboli partikulat.",
+    recommendation: "KONTRAINDIKASI MUTLAK: Gunakan jalur IV berbeda untuk bolus Furosemide pada pasien yang sedang menerima infus kontinu Milrinone."
+  },
+  {
+    drugAId: "iv-milrinone",
+    drugBId: "iv-norepinephrine",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kedua obat stabil pada pH asam dan kompatibel dalam D5W/NS.",
+    clinicalEffect: "Kombinasi inodilator dan vasopresor aman diberikan via Y-site.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site jalur sentral (CVC)."
+  },
+  {
+    drugAId: "iv-milrinone",
+    drugBId: "iv-dobutamine",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Stabil dan jernih tanpa perubahan kimiawi.",
+    clinicalEffect: "Kombinasi inotropik aman.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
+  },
+  {
+    drugAId: "iv-milrinone",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Stabil secara fisiko-kimiawi.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL."
+  },
+  {
+    drugAId: "iv-paracetamol",
+    drugBId: "iv-morphine",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel stabil pada konsentrasi klinis Y-site.",
+    clinicalEffect: "Kombinasi analgesia multimodal pascabedah standar.",
+    recommendation: "KOMPATIBEL: Aman diberikan via Y-site."
+  },
+  {
+    drugAId: "iv-paracetamol",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Stabil dan kompatibel.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL."
+  },
+  {
+    drugAId: "iv-paracetamol",
+    drugBId: "iv-ketorolac",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel pada kontak Y-site kristaloid.",
+    clinicalEffect: "Analgesia multimodal efektif.",
+    recommendation: "KOMPATIBEL: Aman diberikan via Y-site."
+  },
+  {
+    drugAId: "iv-paracetamol",
+    drugBId: "iv-tramadol",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel fisiko-kimiawi.",
+    clinicalEffect: "Larutan stabil.",
+    recommendation: "KOMPATIBEL."
+  },
+  {
+    drugAId: "iv-paracetamol",
+    drugBId: "iv-ondansetron",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Stabil tanpa presipitasi.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL: Aman co-infus."
+  },
+  {
+    drugAId: "iv-ceftazidime",
+    drugBId: "iv-vancomycin",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi garam kation-anion membentuk kabut keruh partikulat.",
+    clinicalEffect: "Penurunan bioavailabilitas antibiotik dan sumbatan kateter.",
+    recommendation: "KONTRAINDIKASI Y-SITE: Berikan secara intermiten terpisah atau bilas dengan 20 mL NS."
+  },
+  {
+    drugAId: "iv-cefepime",
+    drugBId: "iv-vancomycin",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi fisikokimia tergantung konsentrasi.",
+    clinicalEffect: "Kekeruhan larutan dan risiko nefrotoksisitas sinergis.",
+    recommendation: "KONTRAINDIKASI Y-SITE: Bilas jalur kateter dengan 20 mL NS sebelum & sesudah."
+  },
+  {
+    drugAId: "iv-rocuronium",
+    drugBId: "iv-furosemide",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Presipitasi asam-basa seketika.",
+    clinicalEffect: "Endapan putih keruh di selang infus.",
+    recommendation: "KONTRAINDIKASI Y-SITE."
+  },
+  {
+    drugAId: "iv-rocuronium",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Stabil dan kompatibel.",
+    clinicalEffect: "Kombinasi RSI anestesi standar.",
+    recommendation: "KOMPATIBEL: Aman diberikan via Y-site."
+  },
+  {
+    drugAId: "iv-rocuronium",
+    drugBId: "iv-propofol",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel pada kontak Y-site bolus induksi.",
+    clinicalEffect: "Emulsi stabil.",
+    recommendation: "KOMPATIBEL: Aman diberikan berurutan/Y-site."
+  },
+  {
+    drugAId: "iv-atracurium",
+    drugBId: "iv-furosemide",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Inaktivasi Hofmann cepat dan presipitasi asam bebas.",
+    clinicalEffect: "Presipitat putih.",
+    recommendation: "KONTRAINDIKASI."
+  },
+  {
+    drugAId: "iv-digoxin",
+    drugBId: "iv-calcium-gluconate",
+    status: "incompatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Sinergisme toksisitas intraseluler: Kalsium IV meningkatkan konsentrasi kalsium sitosolik miokard yang sudah terhambat oleh inhibisi pompa Na+/K+-ATPase oleh digoksin.",
+    clinicalEffect: "FATAL: Memicu aritmia ventrikel refrakter, takikardia ventrikel polimorfik, dan henti jantung asistol seketika (\"Stone Heart\").",
+    recommendation: "KONTRAINDIKASI MUTLAK: Dilarang keras memberikan kalsium IV pada pasien dengan terapi digoksin kecuali pada darurat hiperkalemia ekstrim dengan pengawasan sangat ketat."
+  },
+  {
+    drugAId: "iv-lidocaine",
+    drugBId: "iv-amiodarone",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel secara fisikokimia dalam pelarut D5W/NS.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site pada tata laksana aritmia refrakter."
+  },
+  {
+    drugAId: "iv-lidocaine",
+    drugBId: "iv-norepinephrine",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Stabil pada pH asam.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
+  },
+  {
+    drugAId: "iv-isdn",
+    drugBId: "iv-heparin",
+    status: "compatible",
+    evidence: "ASHP Injectable Drugs",
+    mechanism: "Kompatibel pada pelarut infus standar.",
+    clinicalEffect: "Kombinasi standar sindrom koroner akut (ACS).",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
   }
 ];
 

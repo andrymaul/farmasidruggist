@@ -1,5 +1,6 @@
 import { Drug } from '../types';
 import { DRUGSCOM_ADDITIONAL_DRUGS } from './drugsComData';
+import { FORNAS_ADDITIONAL_DRUGS } from './fornasDatabase';
 
 const BASE_EXTENDED_DRUGS: Drug[] = [
   {
@@ -4571,6 +4572,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "halfLife": "20 - 40 menit (metabolit aktif asam misoprostol)",
     "clearance": "Metabolisme cepat via asam misoprostol di hepar, ekskresi renal (73%) dan feses (15%).",
     "pregnancyCategory": "X (Tukak lambung) / C (Induksi aterm)",
+    "foodInteraction": "HARUS diminum bersama makanan atau sesudah makan dan sebelum tidur untuk mengurangi risiko diare dan kram perut. Hindari antasida yang mengandung magnesium.",
     "offLabelIndication": "• Induksi Persalinan & Pematangan Serviks Aterm: 25 mcg intravagina tiap 3-6 jam (atau 25-50 mcg oral tiap 4 jam).\n• Penanganan Perdarahan Postpartum (PPH) / Atonia Uteri: 600-800 mcg sublingual atau rektal dosis tunggal.\n• Evakuasi Abortus Inkomplit / Missed Abortion: 600-800 mcg bukal/sublingual dosis tunggal.",
     "ddinterId": "DDInter-D00216"
   },
@@ -4593,6 +4595,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "adverseEffects": "Perdarahan uterus berkepanjangan, kram pelvis hebat, mual, muntah, astenia, hipotensi ortostatik.",
     "halfLife": "18 jam (fase lambat)",
     "clearance": "Metabolisme hepatik via CYP3A4, ekskresi dominan fekal (90%).",
+    "foodInteraction": "Dapat diminum dengan atau tanpa makanan (pada terapi hiperglikemia sindrom Cushing, diminum bersama makanan). HINDARI konsumsi jus grapefruit selama terapi.",
     "pregnancyCategory": "X",
     "ddinterId": "DDInter-D00217"
   },
@@ -4617,6 +4620,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "adverseEffects": "Hipertensi akut, vasospasme koroner (nyeri dada), sakit kepala berdenyut, mual, muntah, tinitus, bradikardia atau takikardia.",
     "halfLife": "0.5 - 2 jam",
     "clearance": "Metabolisme hepatik ekstensif via CYP3A4, ekskresi melalui empedu dan urin.",
+    "foodInteraction": "Dapat diminum sebelum atau sesudah makan. Jika timbul mual atau gangguan lambung, dapat diminum bersama makanan atau segelas air/susu. Hindari alkohol.",
     "pregnancyCategory": "X (Kala I & II) / C (Postpartum)",
     "ddinterId": "DDInter-D00218"
   },
@@ -4639,6 +4643,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "adverseEffects": "Hepatotoksisitas berat / gagal hepar fulminan (Black Box Warning), agranulositosis akut (demam & sakit tenggorokan mendadak), vaskulitis ANCA-positif, ruam kulit, artralgia.",
     "halfLife": "1 - 2 jam",
     "clearance": "Metabolisme hepatik via glukuronidasi (90%), ekskresi urin.",
+    "foodInteraction": "Dapat diminum dengan atau tanpa makanan, namun harus KONSISTEN terhadap jadwal makan setiap hari untuk menjaga stabilitas penyerapan. Diminum bersama makanan bila memicu dispepsia.",
     "pregnancyCategory": "D (Pilihan utama pada Trimester I Kehamilan)",
     "ddinterId": "DDInter-D00219"
   },
@@ -4661,6 +4666,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "adverseEffects": "Agranulositosis, pankreatitis akut, kolestasis hepatik, ruam makulopapular, artralgia, parestesia.",
     "halfLife": "5 - 6 jam (akumulasi intratiroid hingga 24 jam)",
     "clearance": "Metabolisme hepatik, ekskresi urin (>80%).",
+    "foodInteraction": "Dapat diminum dengan atau tanpa makanan, namun dianjurkan KONSISTEN setiap hari pada waktu yang sama. Dapat diminum bersama makanan atau segelas susu jika memicu mual lambung.",
     "pregnancyCategory": "D (Pilihan utama pada Trimester II & III Kehamilan)",
     "ddinterId": "DDInter-D00220"
   },
@@ -4684,6 +4690,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "adverseEffects": "Hot flashes (semburan panas), tromboemboli vena (DVT/PE), hiperplasia endometrium / karsinoma endometrium, perdarahan vagina, katarak / retinopati, leukopenia.",
     "halfLife": "5 - 7 hari (metabolit aktif endoxifen: 14 hari)",
     "clearance": "Bioaktivasi hepatik ekstensif via CYP2D6 dan CYP3A4 menghasilkan metabolit aktif poten Endoxifen; ekskresi feses (65%) dan urin.",
+    "foodInteraction": "Dapat diminum dengan atau tanpa makanan. Telan utuh tablet dengan air pada waktu yang sama setiap hari. Hindari jus grapefruit dalam jumlah berlebih.",
     "pregnancyCategory": "D",
     "offLabelIndication": "• Ginekomastia Nyeri pada Pria (Pubertas / Terinduksi Obat): 10 - 20 mg per oral sekali sehari selama 3 - 6 bulan.\n• Induksi Ovulasi pada Infertilitas Anovulatori: 20 - 40 mg/hari pada hari ke 3-7 siklus haid.",
     "ddinterId": "DDInter-D00221"
@@ -4708,6 +4715,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "adverseEffects": "Artralgia / kaku sendi, osteoporosis / fraktur tulang, hot flashes, astenia, sakit kepala, hiperkolesterolemia.",
     "halfLife": "40 - 50 jam",
     "clearance": "Metabolisme hepatik via N-dealkilasi dan glukuronidasi (85%), ekskresi urin dan feses.",
+    "foodInteraction": "Dapat diminum dengan atau tanpa makanan, sebaiknya pada jam yang sama setiap hari. Pastikan kecukupan asupan kalsium dan vitamin D harian.",
     "pregnancyCategory": "X",
     "ddinterId": "DDInter-D00222"
   },
@@ -4729,6 +4737,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "adverseEffects": "Valvulopati katup jantung (pada terapi kronis dosis tinggi), mual, sakit kepala, pusing postural / hipotensi ortostatik, fibrosis retroperitoneal/pleura, somnolen mendadak.",
     "halfLife": "63 - 69 jam",
     "clearance": "Metabolisme hepar via hidrolisis ikatan asilurea, ekskresi feses (60%) dan urin (22%).",
+    "foodInteraction": "HARUS diminum bersama makanan atau sesudah makan untuk meminimalkan efek samping mual, pusing, dan hipotensi postural ortostatik.",
     "pregnancyCategory": "B",
     "ddinterId": "DDInter-D00223"
   }
@@ -4736,6 +4745,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
 
 export const EXTENDED_DRUGS_DATABASE: Drug[] = [
   ...BASE_EXTENDED_DRUGS,
-  ...DRUGSCOM_ADDITIONAL_DRUGS
+  ...DRUGSCOM_ADDITIONAL_DRUGS,
+  ...FORNAS_ADDITIONAL_DRUGS
 ];
 

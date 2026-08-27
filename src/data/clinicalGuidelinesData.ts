@@ -1829,5 +1829,2427 @@ export const CLINICAL_GUIDELINES_DATABASE: ClinicalGuideline[] = [
     sourceGuidelines: 'Pedoman Nasional Pelayanan Kedokteran Jiwa (PNPK Jiwa Kemenkes RI) / APA Practice Guideline for MDD',
     updatedYear: '2024',
     keyClinicalAlert: 'Terapi antidepresan WAJIB dilanjutkan selama minimal 6 - 9 BULAN setelah tercapainya remisi gejala penuh untuk mencegah kekambuhan episode depresi.'
+  },
+{
+    "id": "guideline-postpartum-hemorrhage",
+    "diseaseName": "Perdarahan Pasca Persalinan (Postpartum Hemorrhage / HPP)",
+    "category": "Obstetri & Ginekologi",
+    "organization": "POGI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "O72.1",
+    "indonesianKeywords": [
+      "pendarahan melahirkan",
+      "perdarahan postpartum",
+      "hpp",
+      "atonia uteri",
+      "oksitosin",
+      "asam traneksamat",
+      "metilergometrin",
+      "misoprostol"
+    ],
+    "summary": "Kehilangan darah > 500 mL setelah persalinan pervaginam atau > 1000 mL setelah seksio sesarea, atau perdarahan yang memicu ketidakstabilan hemodinamik. Merupakan penyebab utama kematian maternal. Etiologi 4T: Tonus (Atonia Uteri 70%), Tissue (Retensio Plasenta), Trauma (Laserasi Jalan Lahir), dan Thrombin (Koagulopati).",
+    "targetGoals": [
+      "Hentikan Perdarahan Aktif Sesegera Mungkin (< 30-60 Menit)",
+      "Pertahankan Stabilitas Hemodinamik (Tekanan Darah Sistolik >= 90 mmHg, Nadi < 100 bpm, Produksi Urin >= 0.5 mL/kg/jam)",
+      "Cegah Trias Kematian Hipotermia, Asidosis, dan Koagulopati Konsumtif"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Oxytocin",
+        "dosage": "Profilaksis: 10 IU IM segera setelah bayi lahir (MAK III). Terapi Atonia: 20 - 40 IU dalam 1000 mL NaCl 0.9%/RL IV drip 40-60 tetes/menit",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Uterotonika lini pertama baku emas; merangsang kontraksi ritmik miometrium segmen atas uterus secara kuat."
+      },
+      {
+        "drugName": "Tranexamic Acid",
+        "dosage": "1 gram (100 mg/mL, 10 mL) IV bolus lambat dalam 10 menit (dalam kurun waktu < 3 jam pasca salin); dapat diulang 1 gram setelah 30 menit jika perdarahan berlanjut",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Antifibrinolitik (rekomendasi WHO & WOMAN Trial); mengurangi mortalitas akibat perdarahan tanpa meningkatkan risiko trombosis."
+      },
+      {
+        "drugName": "Methylergometrine",
+        "dosage": "0.2 mg IM atau IV lambat (dapat diulang tiap 2-4 jam, maks 5 dosis / 1 mg/hari)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Alkaloid ergot pemicu kontraksi tetanik miometrium. KONTRAINDIKASI MUTLAK pada Preeklamsia, Hipertensi Gestasional, dan Penyakit Jantung."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Misoprostol",
+        "dosage": "600 - 800 mcg per oral sublingual atau per rektal (dosis tunggal)",
+        "role": "Alternative",
+        "fornasTier": "Faskes 1",
+        "notes": "Analog Prostaglandin E1; sangat stabil pada suhu ruang, pilihan utama jika oksitosin dingin tidak tersedia di faskes primer."
+      }
+    ],
+    "nonPharmacological": [
+      "Manajemen Aktif Kala III (MAK III) secara rutin pada semua persalinan.",
+      "Masase Fundus Uteri segera pasca pengeluaran plasenta.",
+      "Kompresi Bimanual Interna (KBI) dan Kompresi Bimanual Eksterna (KBE) atau Kompresi Aorta Abdominalis.",
+      "Pemasangan Balon Tamponade Uterus (Kondom Kateter Uterin) jika atonia belum teratasi.",
+      "Resusitasi Cairan Kristaloid Hangat jalur ganda (jarum IV 16-18G) dengan rasio penggantian 3:1 dan transfusi PRC jika Hb < 8 g/dL atau syok."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Ibu dengan Preeklamsia Berat atau Riwayat Hipertensi Kronis",
+        "recommendation": "HINDARI Methylergometrine; gunakan Oksitosin IV infus kontinu dan Misoprostol sublingual/rektal.",
+        "contraindicatedDrugs": [
+          "Methylergometrine (memicu krisis hipertensi ensefalopati dan stroke perdarahan)"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Tanda-tanda Vital (Tekanan Darah, Denyut Jantung, Laju Napas, Saturasi SpO2) setiap 15 menit",
+      "Tonus Kontraksi Uterus (teraba keras dan bundar)",
+      "Estimasi Volume Perdarahan dan Produksi Urin melalui Kateter Folley (target >= 30 mL/jam)"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Kedokteran (PNPK) Perdarahan Pasca Persalinan Kemenkes RI / Rekomendasi POGI / WHO Guidelines on Postpartum Haemorrhage",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "Setiap menit sangat berharga! Berikan Asam Traneksamat 1 gram IV sesegera mungkin dalam rentang waktu < 3 JAM pertama sejak timbulnya perdarahan postpartum."
+  },
+  {
+    "id": "guideline-hypothyroidism",
+    "diseaseName": "Hipotiroidisme Primer Dewasa & Tiroiditis Hashimoto",
+    "category": "Endokrin & Metabolik",
+    "organization": "PERKENI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "E03.9",
+    "indonesianKeywords": [
+      "kurang hormon tiroid",
+      "hipotiroid",
+      "levothyroxine",
+      "euthyrox",
+      "hashimoto",
+      "tsh tinggi",
+      "badan bengkak",
+      "lemas lambat"
+    ],
+    "summary": "Kondisi defisiensi hormon tiroid sistemik akibat kegagalan kelenjar tiroid memproduksi tiroksin (T4) dan triiodotironin (T3) dalam jumlah adekuat, ditandai peningkatan TSH serum (>4.5 mIU/L) dan penurunan FT4 bebas. Penyebab tersering di daerah non-defisiensi iodium adalah tiroiditis autoimun (Hashimoto).",
+    "targetGoals": [
+      "Normalisasi Kadar TSH Serum Sesuai Usia (Target 0.5 - 2.5 mIU/L pada dewasa muda; 1.0 - 3.0 mIU/L pada geriatri/CKD)",
+      "Resolusi Gejala Klinis (Menghilangkan lemas, intoleransi dingin, konstipasi, bradikardia, dan edema miksedema)",
+      "Pencegahan Komplikasi Koma Miksedema dan Dislipidemia Aterogenik"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Levothyroxine",
+        "dosage": "Dewasa muda tanpa PJK: Dosis penuh 1.6 mcg/kgBB/hari PO sekali sehari saat perut kosong. Lansia/PJK: Awali 12.5 - 25 mcg/hari PO, titrasi tiap 6-8 minggu",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Hormon T4 sintetik baku emas; memiliki waktu paruh panjang (7 hari) yang stabil. WAJIB diminum saat perut kosong 30-60 menit sebelum sarapan dengan air putih."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Liothyronine",
+        "dosage": "5 - 25 mcg per oral per hari terbagi 2-3 dosis",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Hormon T3 sintetik kerja cepat; hanya digunakan pada kondisi emergensi koma miksedema atau terapi kombinasi refrakter di bawah pengawasan Sp.PD-KEMD."
+      }
+    ],
+    "nonPharmacological": [
+      "Konsumsi makanan bergizi seimbang dengan asupan iodium cukup.",
+      "Patuhi aturan minum obat di pagi hari saat bangun tidur dengan segelas air putih murni.",
+      "Jeda minimal 4 jam dari konsumsi suplemen kalsium, suplemen zat besi, antasida, kopi/teh, atau produk kedelai."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Wanita Hamil dengan Hipotiroidisme",
+        "recommendation": "Target TSH trimester I < 2.5 mIU/L; trimester II-III < 3.0 mIU/L. Segera naikkan dosis Levothyroxine 25-30% begitu konfirmasi kehamilan positif untuk mendukung neurogenesis otak janin.",
+        "contraindicatedDrugs": [
+          "Penundaan terapi atau pengurangan dosis selama kehamilan"
+        ]
+      },
+      {
+        "condition": "Lansia / Geriatri dengan Penyakit Jantung Koroner",
+        "recommendation": "Prinsip \"Start Low, Go Slow\": Awali dosis 12.5 - 25 mcg/hari untuk mencegah presipitasi angina pektoris atau aritmia fibrilasi atrium.",
+        "contraindicatedDrugs": [
+          "Inisiasi dosis penuh langsung pada pasien iskemia miokard aktif"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Kadar TSH Serum dan Free T4 (FT4) setiap 6 - 8 minggu setelah inisiasi atau penyesuaian dosis",
+      "Evaluasi TSH berkala setiap 6 - 12 bulan setelah kadar terapeutik stabil tercapai",
+      "Frekuensi denyut nadi istirahat dan berat badan"
+    ],
+    "sourceGuidelines": "Konsensus Pengelolaan Hipotiroidisme Perhimpunan Endokrinologi Indonesia (PERKENI) / American Thyroid Association (ATA) Hypothyroidism Guidelines",
+    "updatedYear": "2023",
+    "keyClinicalAlert": "Levothyroxine HARUS diminum saat perut kosong di pagi hari dengan air putih murni. Beri jeda minimal 4 jam dari suplemen Kalsium, Besi, dan Antasida agar obat tidak terikat dan gagal diserap."
+  },
+  {
+    "id": "guideline-epilepsy",
+    "diseaseName": "Epilepsi & Penatalaksanaan Status Epileptikus",
+    "category": "Sistem Saraf & Psikiatri",
+    "organization": "PERDOSSI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "G40.9",
+    "indonesianKeywords": [
+      "epilepsi",
+      "ayan",
+      "kejang berulang",
+      "status epileptikus",
+      "diazepam",
+      "phenytoin",
+      "valproat",
+      "carbamazepine",
+      "levetiracetam"
+    ],
+    "summary": "Penyakit neurologis kronis yang ditandai dengan kecenderungan bangkitan epileptik berulang spontan tanpa provokasi akibat pelepasan muatan listrik abnormal neuron korteks serebri. Status Epileptikus (kejang berlangsung > 5 menit tanpa jeda) merupakan kegawatdaruratan neurologis yang mengancam jiwa.",
+    "targetGoals": [
+      "Hentikan Kejang Akut dalam < 10-20 Menit Pertama pada Status Epileptikus",
+      "Bebas Bangkitan Kejang Penuh (Seizure-Free) Tanpa Efek Samping Obat Bermakna",
+      "Mencegah Cedera Fisik, Status Epileptikus Sekunder, dan Kematian Mendadak pada Pasien Epilepsi (SUDEP)"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Diazepam",
+        "dosage": "Status Akut: 10 mg IV bolus lambat (2-5 mg/menit), dapat diulang 1 kali setelah 5-10 menit; atau 10 mg per rektal (dewasa/anak >10 kg) jika jalur IV belum siap",
+        "role": "Acute Rescue",
+        "fornasTier": "Faskes 1",
+        "notes": "Benzodiazepin kerja cepat lini pertama darurat status epileptikus. Siapkan oksigenasi dan bagging jika terjadi depresi napas."
+      },
+      {
+        "drugName": "Phenytoin Sodium",
+        "dosage": "Status Akut Lini 2: Loading dose 15 - 20 mg/kgBB IV dilarutkan dalam NaCl 0.9% kecepatan maks 50 mg/menit. Rumatan: 200 - 300 mg/hari PO terbagi 2-3 dosis",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Antikonvulsan penghambat kanal natrium; lini pertama bangkitan fokal dan status epileptikus terkonfirmasi. Wajib monitor EKG."
+      },
+      {
+        "drugName": "Valproic Acid",
+        "dosage": "Rumatan: Awal 500 mg/hari PO, titrasi hingga 1000 - 2000 mg/hari (15 - 30 mg/kgBB/hari) terbagi 2 dosis",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Antikonvulsan spektrum luas baku emas untuk bangkitan umum tonik-klonik, mioklonik, dan lena (absence). KONTRAINDIKASI pada wanita hamil (sangat teratogenik)."
+      },
+      {
+        "drugName": "Carbamazepine",
+        "dosage": "Awal 200 mg PO 2 kali sehari, titrasi hingga 800 - 1200 mg/hari terbagi 2-3 dosis",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Pilihan utama bangkitan fokal/parsial dengan atau tanpa generalisasi sekunder. Waspada ruam SJS."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Levetiracetam",
+        "dosage": "Awal 500 mg PO/IV 2 kali sehari, titrasi hingga 1000 - 1500 mg 2 kali sehari",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Antiepilepsi pengikat glikoprotein vesikel sinaptik SV2A; profil keamanan hepar dan interaksi obat paling aman."
+      },
+      {
+        "drugName": "Lamotrigine",
+        "dosage": "Awal 25 mg PO sekali sehari selama 2 minggu, lalu 50 mg/hari 2 minggu, titrasi lambat target 100 - 200 mg/hari",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Pilihan teraman pada wanita usia subur/kehamilan. WAJIB titrasi sangat lambat untuk mencegah ruam Stevens-Johnson Syndrome."
+      }
+    ],
+    "nonPharmacological": [
+      "Amankan pasien saat kejang: Miringkan tubuh ke posisi pemulihan (recovery position), longgarkan pakaian leher, jangan masukkan sendok/benda apapun ke dalam mulut.",
+      "Hindari faktor pemicu: Kurang tidur, stres berat, konsumsi alkohol, demam tinggi, dan cahaya berkedip (fotosensitivitas).",
+      "Patuhi konsumsi obat antiepilepsi setiap hari tanpa putus obat mendadak."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Wanita Usia Subur & Kehamilan",
+        "recommendation": "HINDARI Asam Valproat (risiko defek tabung saraf spina bifida & penurunan IQ anak >10%). Pilih Lamotrigine atau Levetiracetam dengan suplementasi Asam Folat dosis tinggi 4-5 mg/hari.",
+        "contraindicatedDrugs": [
+          "Valproic Acid / Asam Valproat pada wanita usia subur"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Buku Harian Bangkitan Kejang (frekuensi, tipe, durasi, dan waktu bangkitan)",
+      "Kadar obat dalam darah (TDM Fenitoin/Karbamazepin jika curiga toksisitas atau ketidakpatuhan)",
+      "Pemeriksaan fungsi hepar, enzim hati, dan Darah Lengkap berkala"
+    ],
+    "sourceGuidelines": "Pedoman Diagnosis dan Penatalaksanaan Epilepsi Kelompok Studi Epilepsi PERDOSSI / ILAE Official Guidelines on Epilepsy",
+    "updatedYear": "2023",
+    "keyClinicalAlert": "Jangan pernah memasukkan benda apapun (sendok/jari) ke dalam mulut pasien yang sedang kejang! JANGAN menghentikan obat antiepilepsi secara mendadak karena dapat memicu Status Epileptikus refrakter mematikan."
+  },
+  {
+    "id": "guideline-rheumatoid-arthritis",
+    "diseaseName": "Artritis Reumatoid (Rheumatoid Arthritis / RA)",
+    "category": "Reumatologi & Ginjal",
+    "organization": "IRA",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "M05.9",
+    "indonesianKeywords": [
+      "rematik radang sendi",
+      "artritis reumatoid",
+      "nyeri sendi simetris",
+      "kaku pagi hari",
+      "methotrexate",
+      "leflunomide",
+      "sulfasalazine",
+      "faktor reumatoid"
+    ],
+    "summary": "Penyakit autoimun inflamasi sistemik kronis progresif yang menyerang membran sinovial sendi diartrodial perifer secara simetris (terutama sendi MCP, PIP tangan, pergelangan tangan, dan MTP kaki), ditandai kaku sendi pagi hari > 1 jam, pembengkakan sendi, dan destruksi erosi tulang rawan permanen.",
+    "targetGoals": [
+      "Mencapai Remisi Klinis Penuh (DAS28-ESR < 2.6 atau CDAI <= 2.8)",
+      "Menghambat Progresivitas Erosi Radiologis Sendi dan Mencegah Deformitas Permanen",
+      "Mempertahankan Kualitas Hidup dan Kemandirian Fungsional Pasien"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Methotrexate",
+        "dosage": "Awal 7.5 - 10 mg PO atau SC SEKALI SEMINGGU, titrasi bertahap tiap 4 minggu hingga target 15 - 25 mg SEKALI SEMINGGU + Asam Folat 1-5 mg/hari (di luar hari MTX)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "csDMARD baku emas jangkar lini pertama. KONTRAINDIKASI pada kehamilan, penyakit hepar aktif, dan CrCl < 30 mL/min."
+      },
+      {
+        "drugName": "Methylprednisolone",
+        "dosage": "4 - 8 mg PO sekali sehari pada pagi hari sebagai terapi jembatan (bridging therapy) jangka pendek (maksimal 3-6 bulan saat inisiasi DMARD)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Kortikosteroid dosis rendah pereda inflamasi cepat; lakukan tapering off dan hentikan begitu efek MTX tercapai."
+      },
+      {
+        "drugName": "Folic Acid",
+        "dosage": "1 - 5 mg PO per hari (diminum setiap hari KECUALI pada hari konsumsi Methotrexate)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Proteksi toksisitas gastrointestinal, stomatitis ulseratif, dan kenaikan enzim hepar akibat antagonisme folat MTX."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Sulfasalazine",
+        "dosage": "Awal 500 mg PO 2 kali sehari sesudah makan, titrasi hingga 1000 mg 2 kali sehari",
+        "role": "Combination / Add-On",
+        "fornasTier": "Faskes 1",
+        "notes": "csDMARD alternatif atau kombinasi ganda bersama MTX. Waspada alergi sulfa."
+      },
+      {
+        "drugName": "Rituximab",
+        "dosage": "1000 mg IV infus lambat pada Hari ke-1 dan Hari ke-15 (siklus diulang tiap 6 bulan)",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Biologic DMARD anti-CD20; diindikasikan pada RA seropositif berat yang gagal dengan kombinasi csDMARD konvensional."
+      }
+    ],
+    "nonPharmacological": [
+      "Fisioterapi dan latihan rentang gerak sendi (ROM) non-beban untuk mencegah kekakuan kontraktur.",
+      "Edukasi perlindungan sendi (joint protection techniques) dan penggunaan bidai/splint saat fase akut.",
+      "Diet anti-inflamasi tinggi asam lemak omega-3 dan berhenti merokok (merokok memperparah destruksi RA)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Wanita Merencanakan Kehamilan & Hamil",
+        "recommendation": "HENTIKAN Methotrexate dan Leflunomide minimal 3-6 bulan sebelum konsepsi (sangat teratogenik). Beralih ke Sulfasalazine + Asam Folat atau Hydroxychloroquine.",
+        "contraindicatedDrugs": [
+          "Methotrexate",
+          "Leflunomide"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Skor Aktivitas Penyakit (DAS28 atau CDAI) setiap 1 - 3 bulan hingga remisi tercapai",
+      "Pemeriksaan Darah Lengkap (skrining leukopenia/pansitopenia MTX) dan Enzim Hati (SGOT/SGPT) berkala tiap 4-8 minggu",
+      "Foto Rontgen Sendi Tangan dan Kaki setiap 1-2 tahun untuk evaluasi progresi erosi tulang"
+    ],
+    "sourceGuidelines": "Rekomendasi Pengelolaan Artritis Reumatoid Ikatan Reumatologi Indonesia (IRA) / EULAR Recommendations for RA Management",
+    "updatedYear": "2023",
+    "keyClinicalAlert": "Methotrexate HANYA DIMINUM SEKALI SEMINGGU (bukan setiap hari!). Minum setiap hari memicu overdosis mielosupresi fatal. Selalu dampingi dengan Asam Folat pada hari yang berbeda."
+  },
+  {
+    "id": "guideline-osteoporosis",
+    "diseaseName": "Osteoporosis Pascamenopause & Senilis Dewasa",
+    "category": "Reumatologi & Ginjal",
+    "organization": "PERKENI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "M81.0",
+    "indonesianKeywords": [
+      "pengeroposan tulang",
+      "tulang rapuh",
+      "osteoporosis",
+      "alendronate",
+      "zoledronic acid",
+      "kalsium karbonat",
+      "vitamin d3",
+      "dexa scan"
+    ],
+    "summary": "Penyakit tulang metabolik sistemik yang ditandai dengan penurunan densitas massa tulang (T-score densitometri DEXA <= -2.5 SD) dan kemunduran mikroarsitektur jaringan tulang, yang mengakibatkan peningkatan kerapuhan tulang dan kerentanan fraktur patologis (terutama tulang belakang vertebra, panggul/femur, dan pergelangan tangan).",
+    "targetGoals": [
+      "Mencegah Terjadinya Fraktur Fragilitas Tulang Pertama Maupun Berulang",
+      "Meningkatkan Densitas Mineral Tulang (Bone Mineral Density / BMD) Terukur pada Evaluasi DEXA",
+      "Menghilangkan Nyeri Tulang Kronis dan Mempertahankan Postur serta Mobilitas Aktif"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Alendronate",
+        "dosage": "70 mg per oral SEKALI SEMINGGU di pagi hari saat bangun tidur saat perut kosong dengan segelas penuh air putih murni",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Bifosfonat oral baku emas; menghambat resorpsi osteoklas. WAJIB tetap dalam posisi tegak (duduk/berdiri) minimal 30 menit setelah minum obat."
+      },
+      {
+        "drugName": "Calcium Carbonate",
+        "dosage": "1000 - 1200 mg kalsium elemental per hari terbagi 1-2 dosis bersama makanan",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Suplementasi substrat mineralisasi matriks tulang; diminum bersama makanan. Jeda minimal 1 jam dari Alendronate."
+      },
+      {
+        "drugName": "Cholecalciferol",
+        "dosage": "1000 - 2000 IU per oral sekali sehari sesudah makan berlemak",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Vitamin D3 esensial untuk penyerapan kalsium usus dan fungsi neuromuskular kekuatan otot pencegah jatuh."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Zoledronic Acid",
+        "dosage": "5 mg IV infus dalam 100 mL NaCl 0.9% selama minimal 15-30 menit SEKALI SETAHUN",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Bifosfonat IV poten tahunan; kepatuhan 100%, pilihan utama pada intoleransi saluran cerna atas atau malabsorpsi bifosfonat oral."
+      }
+    ],
+    "nonPharmacological": [
+      "Latihan fisik teratur menahan beban (weight-bearing exercise) seperti jalan cepat, senam osteoporosis, dan latihan keseimbangan (Tai Chi) untuk mencegah jatuh.",
+      "Pencegahan Risiko Jatuh di Rumah: Pasang pegangan di kamar mandi, pastikan pencahayaan terang, hindari karpet licin.",
+      "Hindari merokok dan batasi konsumsi alkohol serta kafein berlebih."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien dengan Penyakit Ginjal Kronis Berat (CrCl < 35 mL/min)",
+        "recommendation": "HINDARI Bifosfonat (Alendronate/Zoledronic Acid) karena risiko nefrotoksisitas akumulasi. Konsultasikan terapi alternatif non-renal (Denosumab) ke konsultan endokrin/reumatologi.",
+        "contraindicatedDrugs": [
+          "Alendronate Sodium",
+          "Zoledronic Acid"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Pemeriksaan Bone Mineral Densitometry (DEXA Scan) vertebra lumbal dan leher panggul setiap 1 - 2 tahun",
+      "Evaluasi kepatuhan cara minum obat bifosfonat dan skrining efek samping dispepsia/esofagitis",
+      "Kadar Kalsium serum dan Kreatinin ginjal sebelum pemberian Zoledronic Acid tahunan"
+    ],
+    "sourceGuidelines": "Panduan Diagnosis dan Tata Laksana Osteoporosis Perhimpunan Osteoporosis Indonesia (PEROSI) / AACE Clinical Practice Guidelines for Postmenopausal Osteoporosis",
+    "updatedYear": "2023",
+    "keyClinicalAlert": "Tablet Alendronate HARUS DITELAN UTUH di pagi hari dengan segelas air putih murni saat perut kosong. Pasien DILARANG BERBARING minimal 30 menit setelahnya untuk mencegah erosi dan perforasi esofagus berat!"
+  },
+  {
+    "id": "guideline-ulcerative-colitis",
+    "diseaseName": "Kolitis Ulseratif & Penyakit Radang Usus (IBD)",
+    "category": "Gastrointestinal",
+    "organization": "PGI-PEGI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "K51.9",
+    "indonesianKeywords": [
+      "radang usus",
+      "kolitis ulseratif",
+      "ibd",
+      "diare berdarah menahun",
+      "mesalazine",
+      "azathioprine",
+      "kolonoskopi",
+      "feses berdarah"
+    ],
+    "summary": "Penyakit radang usus kronis idiopatik (Inflammatory Bowel Disease / IBD) yang ditandai peradangan mukosa kolon yang berjalan difus kontinu mulai dari rektum meluas ke arah proksimal kolon, bermanifestasi sebagai diare bercampur darah dan lendir berulang, tenesmus, kram nyeri abdomen, dan anemia.",
+    "targetGoals": [
+      "Induksi dan Pemeliharaan Remisi Klinis Bebas Kortikosteroid (Corticosteroid-Free Remission)",
+      "Penyembuhan Mukosa Endoskopi Kolon (Mucosal Healing Mayo Endoscopic Score <= 1)",
+      "Mencegah Eksaserbasi Akut, Megakolon Toksik, dan Risiko Karsinoma Kolorektal Jangka Panjang"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Mesalazine",
+        "dosage": "Induksi Ringan-Sedang: 2.4 - 4.8 gram/hari PO terbagi 2-3 dosis sesudah makan + Supositoria 1 g/hari pada proktitis. Pemeliharaan: 1.5 - 2.4 g/hari PO",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Senyawa 5-ASA anti-inflamasi topikal kolonik baku emas untuk induksi dan pemeliharaan remisi jangka panjang."
+      },
+      {
+        "drugName": "Methylprednisolone",
+        "dosage": "Induksi Eksaserbasi Sedang-Berat: 16 - 32 mg PO per hari pada pagi hari selama 2-4 minggu, dilanjutkan tapering-off bertahap dalam 8-12 minggu",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Kortikosteroid sistemik pereda inflamasi cepat pada fase eksaserbasi aktif; TIDAK BOLEH digunakan untuk terapi pemeliharaan kronis."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Azathioprine",
+        "dosage": "1.5 - 2.5 mg/kgBB/hari PO sekali sehari sesudah makan",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Imunosupresan tiopurin; diindikasikan pada kasus ketergantungan steroid (steroid-dependent) atau sering relaps."
+      }
+    ],
+    "nonPharmacological": [
+      "Nutrisi adekuat tinggi protein rendah residu selama fase eksaserbasi aktif.",
+      "Hindari makanan pemicu iritasi: Makanan sangat pedas, susu/laktosa (bila intoleran), pemanis buatan, dan alkohol.",
+      "Suplementasi Besi dan Asam Folat jika terjadi anemia defisiensi akibat perdarahan kolon kronis."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien dengan Eksaserbasi Berat / Megakolon Toksik",
+        "recommendation": "Rawat inap intensif segera: Puasakan, hidrasi cairan IV elektrolit, Hidrokortison 100 mg IV tiap 6 jam, dan siapkan konsultasi bedah digestif darurat bila ada tanda perforasi.",
+        "contraindicatedDrugs": [
+          "Opioid antimotilitas (Loperamide) - Memicu Megakolon Toksik Fatal",
+          "NSAID"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Evaluasi Frekuensi BAB dan adanya darah tinja (Mayo Clinical Score / Partial Mayo Score)",
+      "Kadar Hemoglobin, Laju Endap Darah (LED), CRP kuantitatif, dan Kalprotektin Fekal (Fecal Calprotectin)",
+      "Surveilans Kolonoskopi berkala setelah 8-10 tahun durasi penyakit untuk skrining displasia/kanker kolon"
+    ],
+    "sourceGuidelines": "Konsensus Nasional Penatalaksanaan Inflammatory Bowel Disease (IBD) Perkumpulan Gastroenterologi Indonesia (PGI-PEGI) / ECCO Guidelines on Ulcerative Colitis",
+    "updatedYear": "2023",
+    "keyClinicalAlert": "DILARANG MEMBERIKAN OBAT ANTIMOTILITAS (seperti Loperamide) pada pasien dengan diare berdarah kolitis ulseratif akut aktif karena dapat memicu komplikasi MEGAKOLON TOKSIK dan perforasi usus mematikan!"
+  },
+  {
+    "id": "guideline-parkinson",
+    "diseaseName": "Penyakit Parkinson (Parkinson's Disease)",
+    "category": "Sistem Saraf & Psikiatri",
+    "organization": "PERDOSSI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "G20",
+    "indonesianKeywords": [
+      "parkinson",
+      "gemetar istirahat",
+      "gerakan lambat",
+      "kaku otot",
+      "jalan menyeret",
+      "levodopa",
+      "benserazide",
+      "pramipexole",
+      "trihexyphenidyl"
+    ],
+    "summary": "Penyakit neurodegeneratif progresif yang ditandai dengan hilangnya neuron dopaminergik di substansia nigra pars kompakta ganglia basalis, bermanifestasi sebagai tetrad motorik kardinal TRAP: Tremor saat istirahat (resting tremor), Rigiditas otot tipe roda gigi (cogwheel rigidity), Akinesia/Bradikinesia, dan Instabilitas Postural.",
+    "targetGoals": [
+      "Mengoptimalkan Kontrol Fungsi Motorik dan Mobilitas Mandiri Pasien",
+      "Meminimalkan Komplikasi Fluktuasi Motorik (Wearing-off / On-Off Phenomenon) dan Diskinesia",
+      "Menangani Gejala Non-Motorik (Depresi, Gangguan Tidur, Konstipasi, dan Hipotensi Ortostatik)"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Levodopa / Benserazide",
+        "dosage": "Awal 62.5 - 125 mg PO 2-3 kali sehari saat perut kosong (minimal 30-60 menit sebelum makan), titrasi bertahap tiap minggu sesuai respon klinis",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Prekursor dopamin + inhibitor dopa-dekarboksilase perifer; baku emas efikasi motorik terbaik. Hindari konsumsi bersamaan dengan makanan tinggi protein."
+      },
+      {
+        "drugName": "Pramipexole",
+        "dosage": "Awal 0.125 mg PO 3 kali sehari sesudah makan, titrasi bertahap tiap minggu hingga target 0.5 - 1.5 mg 3 kali sehari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Agonis Dopamin non-ergot; pilihan awal utama pada pasien usia lebih muda (<60-65 tahun) untuk menunda komplikasi motorik levodopa."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Trihexyphenidyl",
+        "dosage": "Awal 1 mg PO 2-3 kali sehari sesudah makan, titrasi bertahap hingga 2 mg 3 kali sehari",
+        "role": "Alternative",
+        "fornasTier": "Faskes 1",
+        "notes": "Antikolinergik sentral; efektif meredakan resting tremor pada pasien usia muda. HINDARI pada lansia (memicu halusinasi, konfusi, dan retensi urin)."
+      }
+    ],
+    "nonPharmacological": [
+      "Fisioterapi motorik teratur, latihan berjalan dengan aba-aba ritmik (cued gait training), dan senam peregangan.",
+      "Terapi wicara (Lee Silverman Voice Treatment / LSVT) untuk mengatasi suara serak/monoton dan disfagia.",
+      "Penyesuaian waktu diet protein tinggi: Konsumsi protein hewani pada makan malam agar penyerapan levodopa siang hari tidak terganggu."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien Usia Lanjut (> 70 tahun) atau dengan Gangguan Kognitif",
+        "recommendation": "Prioritaskan monoterapi Levodopa dosis rendah yang disesuaikan; HINDARI Antikolinergik (Trihexyphenidyl) dan hati-hati Agonis Dopamin karena risiko psikosis/halusinasi visual.",
+        "contraindicatedDrugs": [
+          "Trihexyphenidyl pada lansia demensia",
+          "Antipsikotik tipikal penyekat D2 (Haloperidol)"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Skor Evaluasi Motorik Unified Parkinson's Disease Rating Scale (UPDRS)",
+      "Deteksi dini fluktuasi motorik (wearing-off, fenomena on-off, atau diskinesia involunter)",
+      "Pemeriksaan tekanan darah posisi tidur dan berdiri (skrining hipotensi ortostatik)"
+    ],
+    "sourceGuidelines": "Panduan Praktis Klinis Gangguan Gerak Perhimpunan Dokter Spesialis Neurologi Indonesia (PERDOSSI) / Movement Disorder Society (MDS) Evidence-Based Guidelines for Parkinson's Disease",
+    "updatedYear": "2023",
+    "keyClinicalAlert": "Tablet Levodopa HARUS diminum saat perut kosong minimal 30-60 menit sebelum makan. JANGAN DIMINUM BERSAMAAN DENGAN LAUK TINGGI PROTEIN (daging/telur/susu) karena asam amino bersaing di saluran cerna dan sawar darah otak, membuat obat kehilangan khasiatnya."
+  },
+  {
+    "id": "guideline-pediatric-pneumonia",
+    "diseaseName": "Pneumonia Komunitas pada Balita & Anak (Pneumonia Pediatrik)",
+    "category": "Pediatri (Kesehatan Anak)",
+    "organization": "IDAI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "J18.9",
+    "indonesianKeywords": [
+      "pneumonia anak",
+      "paru-paru basah anak",
+      "napas cepat balita",
+      "tarikan dinding dada",
+      "amoxicillin dosis tinggi",
+      "ampicillin",
+      "gentamicin",
+      "sesak anak"
+    ],
+    "summary": "Infeksi akut parenkim paru pada anak yang ditandai dengan batuk dan/atau kesulitan bernapas disertai Napas Cepat (Takipnea sesuai usia: <2 bln >=60x/m, 2-11 bln >=50x/m, 1-5 thn >=40x/m) dan/atau Tarikan Dinding Dada Bagian Bawah ke Dalam (Chest Indrawing). Merupakan salah satu penyebab mortalitas balita tertinggi di Indonesia.",
+    "targetGoals": [
+      "Eradikasi Patogen Penyebab (Streptococcus pneumoniae, Haemophilus influenzae) dan Resolusi Takipnea",
+      "Pertahankan Oksigenasi Darah Adekuat (Target Saturasi SpO2 >= 94% pada udara ruangan)",
+      "Mencegah Komplikasi Gagal Napas, Efusi Pleura Empiema, dan Sepsis Berat"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Amoxicillin",
+        "dosage": "Rawat Jalan (Pneumonia Ringan-Sedang): Dosis tinggi 80 - 90 mg/kgBB/hari PO terbagi dalam 2 dosis (tiap 12 jam) sesudah makan selama 3 - 5 hari penuh",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Lini pertama baku emas rawat jalan rekomendasi IDAI & WHO; dosis tinggi mengatasi strain pneumokokus dengan resistensi penisilin intermediate."
+      },
+      {
+        "drugName": "Ampicillin",
+        "dosage": "Rawat Inap (Pneumonia Berat): 50 mg/kgBB/kali IV tiap 6 jam (200 mg/kgBB/hari) dikombinasikan dengan Gentamicin 7.5 mg/kgBB IV sekali sehari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Regimen parenteral lini pertama di rumah sakit untuk balita dengan pneumonia berat / distres napas."
+      },
+      {
+        "drugName": "Paracetamol",
+        "dosage": "10 - 15 mg/kgBB/kali PO tiap 4-6 jam prn bila suhu >= 38.5°C atau anak rewel gelisah",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Antipiretik dan analgesik kenyamanan anak; hindari dehidrasi akibat demam."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Ceftriaxone",
+        "dosage": "50 - 100 mg/kgBB/hari IV/IM sekali sehari (maksimal 2 gram/hari)",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Sefalosporin generasi ke-3; diindikasikan bila tidak ada perbaikan klinis dalam 48 jam dengan lini pertama atau curiga komplikasi empiema."
+      }
+    ],
+    "nonPharmacological": [
+      "Terapi Oksigen kanul nasal atau sungkup bila SpO2 < 94% atau sianosis/distres napas berat.",
+      "Pemberian cairan hidrasi dan nutrisi adekuat (ASI diteruskan pada bayi).",
+      "Pembersihan jalan napas dari lendir hidung dengan saline nasal drop sebelum menyusui/makan."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Bayi Muda Usia < 2 Bulan dengan Napas Cepat / Distres Napas",
+        "recommendation": "Semua pneumonia pada usia < 2 bulan diklasifikasikan sebagai PNEUMONIA BERAT / PENYAKIT SANGAT BERAT; WAJIB RAWAT INAP di RS dengan Ampicillin + Gentamicin IV.",
+        "contraindicatedDrugs": [
+          "Terapi rawat jalan tanpa observasi ketat pada neonatus < 2 bulan"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Hitung Laju Pernapasan dalam 1 Menit Penuh saat anak tenang",
+      "Saturasi Oksigen (SpO2) kontinu dengan Pulse Oximeter",
+      "Evaluasi respon klinis dalam 48 - 72 jam pertama (penurunan demam, nafsu makan membaik, tarikan dinding dada berkurang)"
+    ],
+    "sourceGuidelines": "Pedoman Pelayanan Medis Ikatan Dokter Anak Indonesia (IDAI) / PNPK Pneumonia Anak Kemenkes RI / WHO Revised Pocket Book of Hospital Care for Children",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "Hitung napas balita dalam 1 MENIT PENUH saat anak tenang! Tanda bahaya umum: Tidak bisa minum/menyusui, memuntahkan semua, kejang, letargis/tidak sadar, atau stridor saat tenang — WAJIB SEGERA RUJUK KE RUMAH SAKIT."
+  },
+  {
+    "id": "guideline-tb-mdr",
+    "diseaseName": "Tuberkulosis Resistan Obat (TB-RO / MDR-TB & TB-RR)",
+    "category": "Anti-Infeksi",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Faskes 2/3 (RS Rujukan)",
+    "icd10": "U88.0",
+    "indonesianKeywords": [
+      "tb kebal obat",
+      "tb mdr",
+      "tb resistan",
+      "bedaquiline",
+      "linezolid",
+      "pretomanid",
+      "moxifloxacin",
+      "bpalm",
+      "tcm genexpert"
+    ],
+    "summary": "Infeksi Mycobacterium tuberculosis yang telah resistan terhadap minimal Rifampisin (TB-RR) atau resistan ganda simultan terhadap Rifampisin dan Isoniazid (MDR-TB), dikonfirmasi melalui pemeriksaan Tes Cepat Molekuler (TCM GeneXpert MTB/RIF) dan uji kepekaan obat fenotipik/genotipik (LPA).",
+    "targetGoals": [
+      "Konversi Biakan Dahak (Sputum Culture Conversion) Menjadi Negatif dalam 2-3 Bulan Pertama",
+      "Kesembuhan Klinis dan Bakteriologis Penuh Tanpa Relaps dengan Paduan Jangka Pendek (BPaLM 6 Bulan)",
+      "Mencegah Transmisi Penularan Strain Resistan di Keluarga dan Komunitas"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Bedaquiline",
+        "dosage": "400 mg PO sekali sehari selama 2 minggu pertama, dilanjutkan 200 mg 3 kali seminggu selama 22 minggu berikutnya (diminum bersama makanan)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Inhibitor ATP sintase mikobakteri; jangkar utama paduan TB-RO modern. Wajib monitor EKG berkala (interval QTc)."
+      },
+      {
+        "drugName": "Pretomanid",
+        "dosage": "200 mg PO sekali sehari selama 24 minggu (6 bulan penuh) bersama makanan",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Senyawa nitroimidazooxazine bakterisidal; komponen kunci paduan standar BPaLM Kemenkes RI 2024."
+      },
+      {
+        "drugName": "Linezolid",
+        "dosage": "600 mg PO sekali sehari selama 24 minggu (dapat diturunkan ke 300 mg/hari jika timbul neuropati perifer / anemia)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Antibiotik oksazolidinon poten. Pantau Darah Lengkap (risiko trombositopenia/anemia) dan sensasi saraf perifer."
+      },
+      {
+        "drugName": "Moxifloxacin",
+        "dosage": "400 mg PO sekali sehari selama 24 minggu",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Fluorokuinolon respirasi generasi lanjut; diberikan pada paduan BPaLM jika kuman terbukti sensitif terhadap kuinolon."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Levofloxacin",
+        "dosage": "750 - 1000 mg PO sekali sehari pagi hari",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Alternatif fluorokuinolon pada paduan jangka panjang individu (individualized long regimen)."
+      }
+    ],
+    "nonPharmacological": [
+      "Penerapan Pengawasan Menelan Obat Langsung (PMO / DOTS-RO) secara ketat setiap hari.",
+      "Pengendalian Pencegahan Infeksi (PPI) TB: Penggunaan masker respirator N95, ventilasi ruangan alami yang baik dan paparan sinar matahari.",
+      "Dukungan nutrisi tinggi kalori tinggi protein dan pendampingan psikososial melalui organisasi penyintas TB (Pejuang TB)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien TB-RO dengan Ko-infeksi HIV",
+        "recommendation": "Mulai terapi ARV (Dolutegravir-based) sesegera mungkin dalam 2-8 minggu setelah terapi TB-RO dimulai dan dapat ditoleransi.",
+        "contraindicatedDrugs": [
+          "Efavirenz bersama Bedaquiline (menurunkan kadar bedaquiline hingga 50%)"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Pemeriksaan Mikroskopis dan Biakan Dahak Sputum setiap bulan hingga pengobatan selesai",
+      "Pemeriksaan Rekam Jantung EKG (Interval QTc) pada awal (basal), minggu ke-2, 4, 8, 12, dan 24",
+      "Pemeriksaan Darah Lengkap (Hb, Leukosit, Trombosit) dan Fungsi Hati (SGOT/SGPT/Bilirubin) berkala"
+    ],
+    "sourceGuidelines": "Petunjuk Teknis Penatalaksanaan Tuberkulosis Resistan Obat di Indonesia Kemenkes RI 2024 / WHO Consolidated Guidelines on Tuberculosis (Module 4: Drug-Resistant TB)",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "Regimen BPaLM (Bedaquiline, Pretomanid, Linezolid, Moxifloxacin) kini menjadi standar baru pengobatan TB-RO dengan durasi jauh lebih singkat (6 BULAN). Pantau EKG interval QTc secara rutin pada setiap kunjungan."
+  },
+  {
+    "id": "guideline-gad-panic",
+    "diseaseName": "Gangguan Cemas Menyeluruh (GAD) & Gangguan Panik",
+    "category": "Sistem Saraf & Psikiatri",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "F41.1",
+    "indonesianKeywords": [
+      "cemas berlebihan",
+      "gad",
+      "serangan panik",
+      "panic attack",
+      "sertraline",
+      "escitalopram",
+      "clonazepam",
+      "jantung berdebar cemas",
+      "sesak panik"
+    ],
+    "summary": "Kondisi kecemasan dan kekhawatiran yang berlebihan, persisten, dan sulit dikendalikan mengenai berbagai situasi kehidupan sehari-hari minimal 6 bulan berturut-turut (GAD) atau serangan ketakutan intens tiba-tiba disertai gejala fisik mendadak seperti palpitasi, sesak napas, rasa tercekik, dan ketakutan akan kematian/kehilangan kendali (Gangguan Panik).",
+    "targetGoals": [
+      "Meredakan Gejala Kecemasan Psikis dan Manifestasi Somatik Otonom",
+      "Menghentikan Terjadinya Serangan Panik Spontan (Panic Attack-Free)",
+      "Mengembalikan Fungsi Sosial, Pekerjaan, dan Kualitas Hidup Normal"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Sertraline",
+        "dosage": "Awal 25 - 50 mg PO sekali sehari pada pagi hari, titrasi bertahap tiap 1-2 minggu hingga target 50 - 150 mg/hari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "SSRI baku emas lini pertama untuk terapi pemeliharaan jangka panjang GAD dan Gangguan Panik; aman pada kardiovaskular."
+      },
+      {
+        "drugName": "Escitalopram",
+        "dosage": "Awal 5 - 10 mg PO sekali sehari pada pagi hari, titrasi hingga 10 - 20 mg/hari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "SSRI dengan selektivitas transporter serotonin tertinggi dan interaksi obat minimal."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Clonazepam",
+        "dosage": "0.25 - 0.5 mg PO 1-2 kali sehari pada fase akut serangan cemas berat",
+        "role": "Acute Rescue",
+        "fornasTier": "Faskes 1",
+        "notes": "Benzodiazepin potensi tinggi; HANYA digunakan sebagai terapi jembatan pereda cemas cepat pada 2-4 MINGGU PERTAMA saat menunggu efek SSRI bekerja, lalu lakukan tapering-off."
+      }
+    ],
+    "nonPharmacological": [
+      "Cognitive Behavioral Therapy (CBT / Terapi Perilaku Kognitif) untuk restrukturisasi pola pikir cemas bencana (catastrophizing).",
+      "Teknik Relaksasi Pernapasan Diafragma (Box Breathing 4-4-4-4) saat serangan panik muncul.",
+      "Hindari konsumsi kafein (kopi, minuman berenergi), alkohol, dan nikotin yang memicu takikardia dan serangan panik."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien dengan Riwayat Ketergantungan Zat atau Risiko Adiksi",
+        "recommendation": "HINDARI pemberian golongan Benzodiazepin (Clonazepam/Alprazolam). Gunakan monoterapi SSRI murni (Sertraline/Escitalopram) atau Buspirone.",
+        "contraindicatedDrugs": [
+          "Peresepan Benzodiazepin jangka panjang > 4 minggu"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Skala Keparahan Kecemasan Klinis (HAM-A atau GAD-7 Score) setiap kunjungan",
+      "Evaluasi respons terapi SSRI (efek anxiolitik optimal biasanya terlihat setelah 4 - 6 minggu pemakaian rutin)",
+      "Tapering-off Benzodiazepin secara bertahap untuk mencegah rebound anxiety"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Kedokteran Jiwa Kemenkes RI / APA Practice Guideline for Anxiety Disorders / NICE Clinical Guidelines for GAD and Panic",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "Benzodiazepin (Clonazepam/Alprazolam) HANYA DIGUNAKAN DALAM JANGKA PENDEK (maksimal 2-4 minggu) saat awal pengobatan. Penggunaan kronis memicu ketergantungan fisik dan sindrom putus obat berat."
+  },
+  {
+    "id": "guideline-hypertensive-crisis",
+    "diseaseName": "Krisis Hipertensi (Hipertensi Emergensi & Hipertensi Urgensi)",
+    "category": "Kardiovaskular",
+    "organization": "PERKI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "I16.0",
+    "indonesianKeywords": [
+      "tensi sangat tinggi",
+      "krisis hipertensi",
+      "hipertensi emergensi",
+      "hipertensi urgensi",
+      "nicardipine iv",
+      "diltiazem iv",
+      "nitrogliserin",
+      "captopril sublingual"
+    ],
+    "summary": "Peningkatan tekanan darah arterial akut yang sangat tinggi (Sistolik >= 180 mmHg dan/atau Diastolik >= 120 mmHg). Hipertensi Emergensi: Disertai kerusakan organ target akut (Target Organ Damage / TOD: Ensefalopati, Stroke Akut, Sindrom Koroner Akut, Edema Paru Akut Kardiogenik, Diseksi Aorta, AKI); wajib dirawat di ICU dengan titrasi antihipertensi IV. Hipertensi Urgensi: Tanpa kerusakan organ target akut; ditangani dengan obat oral bertahap dalam 24-48 jam.",
+    "targetGoals": [
+      "Hipertensi Emergensi: Turunkan Mean Arterial Pressure (MAP) maksimal 20 - 25% dalam 1 Jam Pertama, lalu target 160/100-110 mmHg dalam 2 - 6 jam berikutnya",
+      "Pengecualian Diseksi Aorta Akut: Turunkan Tekanan Darah Sistolik < 120 mmHg dan Heart Rate < 60 bpm dalam waktu < 20 Menit",
+      "Hipertensi Urgensi: Turunkan Tekanan Darah secara Bertahap dalam 24 - 48 Jam dengan Obat Oral di Faskes Rawat Jalan/IGD"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Nicardipine",
+        "dosage": "Hipertensi Emergensi: Infus kontinu 5 mg/jam IV, titrasi naik 2.5 mg/jam tiap 5-15 menit (maks 15 mg/jam) hingga target tercapai, lalu turunkan ke rumatan 3 mg/jam",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "CCB dihidropiridin IV poten kerja cepat dengan titrasi mudah; pilihan utama pada ensefalopati hipertensi dan stroke perdarahan."
+      },
+      {
+        "drugName": "Nitroglycerin",
+        "dosage": "5 - 100 mcg/menit IV drip infus kontinu (titrasi naik 5 mcg/menit tiap 5 menit)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Venodilator selektif; pilihan utama bila krisis hipertensi disertai Sindrom Koroner Akut (SKA) atau Edema Paru Akut."
+      },
+      {
+        "drugName": "Captopril",
+        "dosage": "Hipertensi Urgensi Oral: 12.5 - 25 mg PO ditelan/dikunyah (onset 15-30 menit, dapat diulang 1 kali setelah 1-2 jam)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "ACE Inhibitor kerja cepat untuk hipertensi urgensi tanpa kerusakan organ target akut."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Diltiazem",
+        "dosage": "Bolus IV 10 mg (1-3 menit), dilanjutkan infus kontinu 5 - 15 mcg/kgBB/menit",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "CCB non-dihidropiridin; alternatif bila diperlukan kontrol denyut jantung bersamaan."
+      },
+      {
+        "drugName": "Clonidine",
+        "dosage": "Hipertensi Urgensi Oral: 0.15 mg PO awal, dapat diulang 0.15 mg tiap 1 jam (maksimal 0.6 mg/hari)",
+        "role": "Alternative",
+        "fornasTier": "Faskes 1",
+        "notes": "Agonis alfa-2 sentral; menurunkan aktivitas simpatis secara cepat."
+      }
+    ],
+    "nonPharmacological": [
+      "Istirahatkan pasien di ruang tenang dan redup selama 30 menit (tekanan darah sering turun spontan 10-20 mmHg pada hipertensi urgensi).",
+      "Pemasangan kateter urin menetap untuk pemantauan produksi urin per jam pada hipertensi emergensi.",
+      "Pasang jalur akses intravena paten dan monitor EKG 12 lead serta saturasi oksigen kontinu."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien Stroke Iskemik Akut Calon Trombolisis rt-PA",
+        "recommendation": "Turunkan Tekanan Darah dengan hati-hati hingga Sistolik < 185 mmHg dan Diastolik < 110 mmHg sebelum trombolisis dimulai, dan pertahankan < 180/105 mmHg selama 24 jam pertama.",
+        "contraindicatedDrugs": [
+          "Penurunan tensi terlalu agresif (>25%) yang memicu hipoperfusi area penumbra iskemik otak"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Tekanan Darah Otomatis setiap 5 - 15 menit selama titrasi obat IV infus",
+      "Status Neurologis (Skor GCS / skrining defisit neurologis fokal baru)",
+      "Elektrokardiogram EKG kontinu, Foto Toraks, dan Urin Output per jam"
+    ],
+    "sourceGuidelines": "Panduan Tata Laksana Hipertensi Perhimpunan Dokter Spesialis Kardiovaskular Indonesia (PERKI) / ESC Guidelines for the Management of Arterial Hypertension",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "JANGAN MENURUNKAN TEKANAN DARAH TERLALU CEPAT ATAU TERLALU DRASTIS! Penurunan MAP > 25% pada jam pertama dapat memicu iskemia serebral fatal (stroke iskemik sekunder), infark miokard, atau gagal ginjal akut."
+  },
+  {
+    "id": "guideline-pediatric-nephrotic-syndrome",
+    "diseaseName": "Sindrom Nefrotik Primer pada Anak (SN Kelainan Minimal)",
+    "category": "Pediatri (Kesehatan Anak)",
+    "organization": "IDAI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "N04.0",
+    "indonesianKeywords": [
+      "sindrom nefrotik anak",
+      "bengkak kelopak mata anak",
+      "kencing berbusa",
+      "albumin rendah anak",
+      "prednisone dosis penuh",
+      "proteinuria masif"
+    ],
+    "summary": "Penyakit glomerulus tersering pada anak usia 1-6 tahun yang ditandai oleh 4 serangkai: Proteinuria masif (dipstick >= +3 atau rasio protein/kreatinin urin > 2 mg/mg), Hipoalbuminemia berat (< 2.5 g/dL), Edema anasarka (terutama bengkak kelopak mata pagi hari, asites, dan tungkai), serta Hiperkolesterolemia (> 200 mg/dL). Mayoritas sensitif terhadap kortikosteroid.",
+    "targetGoals": [
+      "Induksi Remisi Penuh (Proteinuria Urin Menjadi Negatif atau Trace 3 Hari Berturut-turut)",
+      "Mengurangi Edema dan Asites serta Mencegah Syok Hipovolemik Intravaskular",
+      "Mencegah dan Menangani Komplikasi Infeksi Bakterial (Peritonitis Spontan) dan Tromboemboli"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Prednisone",
+        "dosage": "Fase Induksi Awal: Dosis penuh 60 mg/m²/hari atau 2 mg/kgBB/hari (maksimal 80 mg/hari) PO dibagi 3 dosis sesudah makan selama 4 MINGGU PENUH. Dilanjutkan Dosis Alternate-Day (selang sehari): 40 mg/m²/hari (maks 60 mg/hari) dosis tunggal pagi hari sesudah sarapan selama 4 MINGGU BERIKUTNYA",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Kortikosteroid baku emas inisiasi serangan pertama konsensus IDAI 2023 (total durasi 8 minggu sebelum tapering off)."
+      },
+      {
+        "drugName": "Calcium Carbonate",
+        "dosage": "500 mg PO 1-2 kali sehari sesudah makan bersama suplemen Vitamin D3",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Proteksi densitas tulang terhadap efek samping demineralisasi kortikosteroid dosis tinggi."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Furosemide",
+        "dosage": "1 - 2 mg/kgBB/hari PO atau IV pelan (hanya diberikan jika edema berat/edema skrotum/asites tegang dan hemodinamik stabil)",
+        "role": "Combination / Add-On",
+        "fornasTier": "Faskes 1",
+        "notes": "Diuretik loop; gunakan dengan sangat hati-hati untuk menghindari hipovolemia berat."
+      },
+      {
+        "drugName": "Human Albumin 20%",
+        "dosage": "0.5 - 1 gram/kgBB IV infus pelan (selama 4 jam) diberikan bersamaan Furosemide 1 mg/kgBB IV di tengah infus albumin",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "HANYA diindikasikan pada hipoalbuminemia berat (< 1.5 g/dL) yang disertai syok hipovolemik, edema paru, atau asites masif sesak napas."
+      }
+    ],
+    "nonPharmacological": [
+      "Diet rendah garam (1-2 g/hari) selama fase edema aktif; tidak perlu diet rendah protein (berikan protein normal sesuai AKG usia).",
+      "Pantau asupan cairan harian (batasi bila edema anasarka berat).",
+      "Timbang berat badan anak setiap pagi setelah buang air kecil pertama."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Anak dengan Sindrom Nefrotik Resisten Steroid (SNRS)",
+        "recommendation": "Bila setelah 4 minggu dosis penuh prednisone proteinuria tetap >= +2 (tidak remisi), rujuk ke Konsultan Nefrologi Anak untuk Biopsi Ginjal dan inisiasi imunosupresan lini kedua (Siklosporin / Tacrolimus / CPA).",
+        "contraindicatedDrugs": [
+          "Melanjutkan prednisone dosis tinggi terus-menerus tanpa evaluasi nefrologi anak"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Uji Celup Protein Urin (Dipstick) setiap pagi di rumah oleh orang tua (catat di buku harian)",
+      "Penimbangan Berat Badan harian dan Pengukuran Lingkar Perut (bila ada asites)",
+      "Tekanan Darah, Laju Pertumbuhan Tinggi Badan, dan Skrining Tanda Infeksi (Demam/Nyeri Perut)"
+    ],
+    "sourceGuidelines": "Konsensus Tata Laksana Sindrom Nefrotik Idiopatik pada Anak Ikatan Dokter Anak Indonesia (IDAI) / KDIGO Clinical Practice Guideline for Glomerular Diseases",
+    "updatedYear": "2023",
+    "keyClinicalAlert": "Orang tua WAJIB diajari cara memeriksa protein urin mandiri dengan carik celup (dipstick) setiap pagi! Remisi tercapai bila dipstick negatif/trace selama 3 hari berturut-turut. Jangan hentikan Prednisone mendadak."
+  },
+{
+    "id": "guideline-syphilis-2026",
+    "diseaseName": "Sifilis (Treponema pallidum) Dewasa & Maternal",
+    "category": "Anti-Infeksi",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "A51.0",
+    "indonesianKeywords": [
+      "sifilis",
+      "raja singa",
+      "treponema pallidum",
+      "ulkus durum",
+      "rpr vdrl positif",
+      "benzathine penicillin",
+      "sifilis kehamilan",
+      "injeksi penisilin"
+    ],
+    "summary": "Infeksi menular seksual sistemik kronis yang disebabkan oleh bakteri spiroseta Treponema pallidum. Terbagi menjadi Sifilis Dini (Sifilis Primer dengan ulkus durum tidak nyeri, Sifilis Sekunder dengan ruam makulopapular telapak tangan/kaki dan kondiloma lata, serta Sifilis Laten Dini < 1 tahun) dan Sifilis Lanjut (Sifilis Laten Lanjut >= 1 tahun, Sifilis Tersier gumatosa/kardiovaskular, Neurosifilis, dan Sifilis Kongenital).",
+    "targetGoals": [
+      "Eradikasi Total Kuman Treponema pallidum dan Penyembuhan Lesi Mukokutan",
+      "Penurunan Titer Serologi Non-Treponemal (RPR/VDRL) Minimal 4 Kali Lipat (misal dari 1:32 menjadi <= 1:8) dalam 6 - 12 Bulan",
+      "Mencegah Transmisi Kongenital Vertikal Ibu ke Janin dan Komplikasi Neurosifilis Tersier"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Benzathine Penicillin G",
+        "dosage": "Sifilis Dini (Primer/Sekunder/Laten Dini): 2.4 juta IU IM DOSIS TUNGGAL (injeksi gluteal dalam terbagi di 2 bokong kiri & kanan). Sifilis Laten Lanjut / Tersier: 2.4 juta IU IM SEKALI SEMINGGU selama 3 MINGGU BERTURUT-TURUT (total 7.2 juta IU)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Baku emas terapi kausatif mutlak rekomendasi PNPK Kemenkes RI 2026 & WHO. Menghasilkan kadar treponemisidal plasma stabil selama 2-3 minggu."
+      },
+      {
+        "drugName": "Procaine Penicillin G",
+        "dosage": "Neurosifilis / Sifilis Okular: 2.4 juta IU IM sekali sehari + Probenecid 500 mg PO 4 kali sehari selama 10 - 14 hari penuh",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Alternatif parenteral dengan penetrasi sawar darah otak yang baik; atau Benzilpenisilin G Kristalin 18-24 juta IU/hari IV selama 10-14 hari."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Doxycycline",
+        "dosage": "100 mg PO 2 kali sehari sesudah makan selama 14 hari (sifilis dini) atau 28 hari (sifilis laten lanjut)",
+        "role": "Alternative",
+        "fornasTier": "Faskes 1",
+        "notes": "Pilihan utama pada pasien ALERGI PENISILIN (HANYA UNTUK WANITA TIDAK HAMIL DAN DEWASA). KONTRAINDIKASI PADA KEHAMILAN."
+      },
+      {
+        "drugName": "Ceftriaxone",
+        "dosage": "1 - 2 gram IM atau IV sekali sehari selama 10 - 14 hari",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Alternatif sefalosporin bila penisilin tidak tersedia atau alergi ringan."
+      }
+    ],
+    "nonPharmacological": [
+      "Abstinensia (pantang hubungan seksual) hingga ulkus chancre/ruam sembuh total dan titer serologi turun.",
+      "Pelacakan Kontak Seksual (Partner Notification & Contact Tracing): Semua pasangan seksual dalam 90 hari terakhir WAJIB diperiksa dan diterapi secara bersamaan.",
+      "Penggunaan kondom lateks secara konsisten pada setiap aktivitas seksual pasca kesembuhan.",
+      "Edukasi Reaksi Jarisch-Herxheimer (demam, menggigil, nyeri otot akut dalam 24 jam pertama pasca injeksi penisilin akibat lisis masif spiroseta; bukan alergi obat)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Wanita Hamil dengan Sifilis",
+        "recommendation": "PENISILIN ADALAH SATU-SATUNYA TERAPI EFEKTIF YANG DAPAT MENEMBUS PLASENTA UNTUK MENCEGAH KEMATIAN JANIN DAN SIFILIS KONGENITAL. Jika ibu hamil alergi penisilin, WAJIB DILAKUKAN DESENSITISASI PENISILIN di Rumah Sakit.",
+        "contraindicatedDrugs": [
+          "Doxycycline (Teratogenik diskolorasi gigi permanen dan displasia tulang janin)"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Uji Serologi Non-Treponemal Kuantitatif (RPR atau VDRL) pada bulan ke-3, ke-6, dan ke-12 pasca terapi",
+      "Evaluasi Keberhasilan Terapi: Penurunan titer minimal 4 kali lipat (misal 1:64 menjadi 1:16)",
+      "Skrining Koinfeksi Menular Seksual Lainnya (HIV, Gonore, Hepatitis B) pada saat diagnosis awal"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Klinis (PNPK) Tata Laksana Sifilis Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/291/2026) / CDC STI Treatment Guidelines",
+    "updatedYear": "2026",
+    "keyClinicalAlert": "Benzathine Penicillin G 2.4 juta IU IM adalah baku emas terapi Sifilis. Pada ibu hamil yang alergi penisilin, DILARANG mengganti dengan Doksisiklin; pasien WAJIB dirujuk untuk prosedur Desensitisasi Penisilin agar janin selamat dari Sifilis Kongenital!"
+  },
+  {
+    "id": "guideline-dementia-2026",
+    "diseaseName": "Demensia (Penyakit Alzheimer & Demensia Vaskular)",
+    "category": "Sistem Saraf & Psikiatri",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "F00.9",
+    "indonesianKeywords": [
+      "demensia",
+      "pikun berat",
+      "penyakit alzheimer",
+      "demensia vaskular",
+      "donepezil",
+      "memantine",
+      "rivastigmine",
+      "lupa ingatan",
+      "gangguan perilaku lansia"
+    ],
+    "summary": "Sindrom penurunan fungsi kognitif global neurodegeneratif progresif (memori episodik, orientasi waktu/tempat, bahasa, praksis, dan fungsi eksekutif) yang melampaui proses penuaan fisiologis normal, mengakibatkan hilangnya kemandirian aktivitas hidup sehari-hari (ADL). Penyebab tersering: Penyakit Alzheimer (60-70%) dan Demensia Vaskular pasca-stroke.",
+    "targetGoals": [
+      "Memperlambat Laju Kemunduran Fungsi Kognitif dan Memori Terukur",
+      "Mempertahankan Kemandirian Fungsional Aktivitas Harian (ADL / IADL) Sepanjang Mungkin",
+      "Mengendalikan Gejala Perilaku dan Psikologis Demensia (BPSD: Agitasi, Agresi, Halusinasi, Wandering) Serta Meringankan Beban Caregiver"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Donepezil",
+        "dosage": "Awal 5 mg PO sekali sehari pada malam hari sebelum tidur selama minimal 4-6 minggu, dapat ditingkatkan hingga 10 mg/hari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Inhibitor Asetilkolinesterase (AChEI) reversibel spesifik lini pertama untuk Alzheimer derajat ringan hingga sedang. Tingkatkan neurotransmisi kolinergik sentral."
+      },
+      {
+        "drugName": "Memantine",
+        "dosage": "Awal 5 mg PO sekali sehari pagi hari, titrasi naik 5 mg per minggu hingga dosis target 10 mg 2 kali sehari (20 mg/hari)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Antagonis reseptor NMDA unkompetitif afinitas sedang; melindungi neuron dari eksitotoksisitas glutamat kronis. Lini pertama Alzheimer derajat sedang hingga berat."
+      },
+      {
+        "drugName": "Rivastigmine",
+        "dosage": "Oral: 1.5 mg PO 2 kali sehari bersama makanan (titrasi hingga 3 - 6 mg 2x/hari). Transdermal Patch: 4.6 mg/24 jam ditempel sekali sehari (titrasi ke 9.5 mg/24 jam)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Inhibitor ganda asetilkolinesterase dan butirilkolinesterase; sediaan patch transdermal sangat meminimalkan efek samping mual saluran cerna."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Risperidone",
+        "dosage": "0.25 - 0.5 mg PO malam hari (dosis sangat rendah, maks 1 - 1.5 mg/hari) hanya untuk BPSD refrakter parah",
+        "role": "Alternative",
+        "fornasTier": "Faskes 1",
+        "notes": "Antipsikotik atipikal ajuvan jangka pendek (<6-12 minggu) jika terdapat agitasi agresif berat atau psikosis membahayakan diri sendiri."
+      }
+    ],
+    "nonPharmacological": [
+      "Terapi Stimulasi Kognitif (Cognitive Stimulation Therapy / CST) dan Terapi Reminisensi (bercerita pengalaman masa lalu menggunakan foto/musik nostalgia).",
+      "Modifikasi Lingkungan Rumah Aman: Pasang pegangan tangan di kamar mandi, lantai anti-slip, kunci pengaman pintu luar, pencahayaan terang malam hari, gelang identitas GPS.",
+      "Jadwal rutinitas harian yang terstruktur dan teratur untuk mengurangi kebingungan (sundowning).",
+      "Pelatihan dan Konseling Dukungan Caregiver Keluarga untuk mencegah kelelahan fisik dan emosional (Caregiver Burnout)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Lansia dengan Demensia Lewy Body (DLB) atau Demensia Parkinson",
+        "recommendation": "HINDARI obat Antipsikotik Tipikal (seperti Haloperidol) karena pasien DLB memiliki hipersensitivitas neuroleptik ekstrem yang dapat memicu rigiditas katatonik dan kematian mendadak.",
+        "contraindicatedDrugs": [
+          "Antipsikotik Tipikal (Haloperidol, Klorpromazin)",
+          "Obat antikolinergik kuat (Trihexyphenidyl, Amitriptyline)"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Skor Penilaian Kognitif Global (Mini-Mental State Examination / MMSE atau MoCA-Ina) setiap 6 bulan",
+      "Skor Kemandirian Aktivitas Harian Barthel Index (ADL) dan Lawton (IADL)",
+      "Evaluasi Gejala Perilaku BPSD (Neuropsychiatric Inventory / NPI) dan toleransi kardiovaskular AChEI (denyut nadi / bradikardia)"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Klinis (PNPK) Tata Laksana Demensia Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/273/2026) / Panduan Praktis PERDOSSI",
+    "updatedYear": "2026",
+    "keyClinicalAlert": "Hindari peresepan obat-obatan yang memiliki efek antikolinergik kuat (seperti Trihexyphenidyl, Diphenhydramine, Amitriptyline) pada pasien demensia karena dapat memperparah kemunduran daya ingat dan memicu konfusi delirium akut!"
+  },
+  {
+    "id": "guideline-hypertension-pregnancy-2026",
+    "diseaseName": "Hipertensi Dalam Kehamilan (HDK) & Preeklamsia",
+    "category": "Obstetri & Ginekologi",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "O13",
+    "indonesianKeywords": [
+      "hipertensi kehamilan",
+      "preeklamsia",
+      "hdk",
+      "ibu hamil darah tinggi",
+      "nifedipine hamil",
+      "methyldopa",
+      "magnesium sulfat",
+      "aspirin dosis rendah hamil"
+    ],
+    "summary": "Spektrum kelainan vaskular plasenta yang ditandai dengan Tekanan Darah Sistolik >= 140 mmHg dan/atau Diastolik >= 90 mmHg pada usia kehamilan > 20 minggu, mencakup Hipertensi Gestasional (tanpa proteinuria) dan Preeklamsia (disertai proteinuria >= +1 atau disfungsi organ maternal: trombositopenia < 100.000, gangguan hepar SGOT/SGPT naik 2x, kreatinin > 1.1 mg/dL, edema paru, atau nyeri kepala hebat menetap).",
+    "targetGoals": [
+      "Mencegah Komplikasi Serebrovaskular Maternal Fatal (Stroke Perdarahan, Eklamsia Kejang, Solusio Plasenta, dan Sindrom HELLP)",
+      "Mengendalikan Tekanan Darah Optimal (Target Sistolik 130 - 140 mmHg dan Diastolik 80 - 90 mmHg) Tanpa Mengorbankan Perfusi Uteroplasenta Janin",
+      "Menurunkan Angka Kematian Ibu (AKI) dan Mortalitas Perinatal Akibat Prematuritas Iatrogenik"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Methyldopa",
+        "dosage": "250 - 500 mg PO 2-3 kali sehari sesudah makan (maksimal 2000 - 3000 mg/hari)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Agonis alfa-2 adrenergik sentral; baku emas dengan profil keamanan jangka panjang terlengkap pada janin dan pertumbuhan anak."
+      },
+      {
+        "drugName": "Nifedipine",
+        "dosage": "Sediaan Lepas Lambat (GITS/Retard): 20 - 30 mg PO sekali sehari (atau 10-20 mg 2 kali sehari). Kasus Urgensi Tensi >= 160/110: 10 mg kapsul ditelan utuh (bukan sublingual)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "CCB dihidropiridin; sangat efektif menurunkan tahanan vaskular perifer tanpa mengganggu aliran darah plasenta."
+      },
+      {
+        "drugName": "Magnesium Sulfate",
+        "dosage": "Inisiasi PEB / Eklamsia: Loading Dose 4 gram IV (larutan 20% / 40%) dalam 100 mL RL selama 15-20 menit, dilanjutkan Dosis Rumatan 1 gram/jam IV infus selama 24 jam pasca salin",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Profilaksis dan terapi lini pertama baku emas kejang eklamsia. Syarat pemberian: Refleks patela (+), Laju Napas >= 16x/m, Produksi Urin >= 30 mL/jam, dan Tersedia Kalsium Glukonat 10% sebagai antidotum."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Aspirin",
+        "dosage": "Pencegahan Primer Risiko Tinggi: 80 - 150 mg PO sekali sehari pada malam hari sebelum tidur, dimulai sejak usia kehamilan 12 - 16 minggu hingga 36 minggu",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Antiplatelet profilaksis terbukti menurunkan risiko preeklamsia hingga >50% pada populasi risiko tinggi (riwayat preeklamsia, kehamilan ganda, DM, penyakit ginjal)."
+      },
+      {
+        "drugName": "Calcium Carbonate",
+        "dosage": "1000 - 1500 mg kalsium elemental PO per hari terbagi 2-3 dosis bersama makanan",
+        "role": "Combination / Add-On",
+        "fornasTier": "Faskes 1",
+        "notes": "Suplementasi kalsium pencegah preeklamsia pada populasi dengan asupan kalsium harian rendah."
+      }
+    ],
+    "nonPharmacological": [
+      "Istirahat tirah baring posisi miring ke kiri (left lateral recumbent position) untuk memaksimalkan venous return vena kava inferior dan perfusi plasenta.",
+      "Diet bergizi seimbang normal protein (TIDAK PERLU diet rendah garam ketat pada kehamilan normal kecuali ada gagal jantung).",
+      "Perencanaan persalinan terpadu (terminasi kehamilan adalah satu-satunya terapi definitif preeklamsia berat pada usia gestasi >= 34-37 minggu)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Semua Wanita Hamil dengan Hipertensi",
+        "recommendation": "KONTRAINDIKASI MUTLAK GOLONGAN ACEi DAN ARB SEPANJANG MASA KEHAMILAN karena memicu fetopati renal, anuria janin, gagal ginjal permanen, dan kematian janin dalam kandungan.",
+        "contraindicatedDrugs": [
+          "ACE Inhibitor (Captopril, Lisinopril, Ramipril)",
+          "ARB (Candesartan, Valsartan, Losartan)",
+          "Spironolactone / Diuretik dosis tinggi (kecuali ada edema paru maternal)"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Pengukuran Tekanan Darah berkala dengan manset ukuran pas",
+      "Pemeriksaan Proteinuria Urin (Carik Celup / Protein Esbach / Rasio Protein-Kreatinin)",
+      "Pemeriksaan Laboratorium Sindrom HELLP (Darah Lengkap/Trombosit, SGOT/SGPT, LDH, Bilirubin, Kreatinin Serum)",
+      "Pemantauan Kesejahteraan Janin (Kardiotokografi / USG Doppler Arteri Umbilikalis)"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Klinis (PNPK) Tata Laksana Hipertensi Dalam Kehamilan Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/701/2026) / PNPK Preeklamsia POGI",
+    "updatedYear": "2026",
+    "keyClinicalAlert": "GOLONGAN OBAT DARAH TINGGI ACE INHIBITOR (Captopril/Lisinopril) DAN ARB (Candesartan/Valsartan) DILARANG KERAS DIGUNAKAN PADA KEHAMILAN karena bersifat teratogenik fatal pada ginjal janin!"
+  },
+  {
+    "id": "guideline-obesity-2025",
+    "diseaseName": "Obesitas Dewasa & Penurunan Risiko Kardiometabolik",
+    "category": "Endokrin & Metabolik",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "E66.0",
+    "indonesianKeywords": [
+      "obesitas",
+      "kegemukan",
+      "berat badan berlebih",
+      "perut buncit",
+      "bmi tinggi",
+      "orlistat",
+      "liraglutide",
+      "diet kalori",
+      "bariatrik"
+    ],
+    "summary": "Penyakit metabolik multifaktorial kronis yang ditandai dengan penumpukan jaringan lemak tubuh berlebihan yang berdampak buruk terhadap kesehatan fisik, metabolik, dan psikososial. Klasifikasi Asia-Pasifik Kemenkes RI: Berat Badan Berlebih / Overweight (BMI 23.0 - 24.9 kg/m²), Obesitas Tingkat I (BMI 25.0 - 29.9 kg/m²), Obesitas Tingkat II (BMI >= 30.0 kg/m²), dan Obesitas Sentral (Lingkar Perut Pria >= 90 cm, Wanita >= 80 cm).",
+    "targetGoals": [
+      "Penurunan Berat Badan Realistis Sebesar 5 - 10% dari Berat Badan Basal dalam 6 Bulan Pertama",
+      "Perbaikan Parameter Komorbiditas Kardiometabolik (Menurunkan HbA1c, Tekanan Darah Sistolik/Diastolik, Trigliserida, dan Menaikkan HDL)",
+      "Mempertahankan Penurunan Berat Badan Jangka Panjang dan Mencegah Efek Yoyo (Weight Regain)"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Liraglutide",
+        "dosage": "Injeksi subkutan harian; awal 0.6 mg/hari SC selama 1 minggu, titrasi naik 0.6 mg tiap minggu hingga dosis terapeutik 3.0 mg/hari SC bersamaan dengan diet rendah kalori dan aktivitas fisik",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Agonis Reseptor GLP-1 lini pertama persetujuan BPOM/FDA untuk obesitas; meningkatkan rasa kenyang di hipotalamus dan memperlambat pengosongan lambung."
+      },
+      {
+        "drugName": "Orlistat",
+        "dosage": "120 mg PO 3 kali sehari diminum bersamaan atau maksimal 1 jam setelah makan makanan yang mengandung lemak",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Inhibitor lipase lambung dan pankreas; menghambat penyerapan ~30% lemak makanan di usus halus. Wajib suplemen multivitamin ADEK larut lemak."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Metformin",
+        "dosage": "500 - 1000 mg PO 2 kali sehari bersama makanan",
+        "role": "Combination / Add-On",
+        "fornasTier": "Faskes 1",
+        "notes": "Sensitizer insulin; terapi pilihan tambahan pada pasien obesitas dengan komorbid Pradiabetes, Resistensi Insulin, atau Sindrom Ovarium Polikistik (PCOS)."
+      }
+    ],
+    "nonPharmacological": [
+      "Terapi Nutrisi Medis Defisit Kalori: Pengurangan 500 - 750 kkal/hari dari kebutuhan harian basal (target asupan 1200 - 1500 kkal/hari untuk wanita, 1500 - 1800 kkal/hari untuk pria).",
+      "Aktivitas Fisik Aerobik & Latihan Beban: Minimal 150 - 300 menit per minggu aktivitas aerobik intensitas sedang (jalan cepat, bersepeda) ditambah latihan resistensi otot 2-3 kali seminggu.",
+      "Modifikasi Perilaku & Higiene Tidur: Tidur cukup 7-8 jam per malam (kurang tidur meningkatkan hormon lapar ghrelin), pencatatan harian makanan (food logging).",
+      "Pertimbangan Bedah Bariatrik & Metabolik (Sleeve Gastrectomy / Roux-en-Y Gastric Bypass) pada Obesitas Ekstrem (BMI >= 35 kg/m² dengan komorbid berat atau BMI >= 37.5 kg/m²)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien Obesitas dengan Riwayat Kanker Tiroid Medularis atau MEN-2",
+        "recommendation": "HINDARI obat golongan Agonis Reseptor GLP-1 (Liraglutide/Semaglutide). Pilih Orlistat atau terapi non-farmakologis intensif.",
+        "contraindicatedDrugs": [
+          "Liraglutide / Agonis GLP-1 pada riwayat Medullary Thyroid Carcinoma (MTC)"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Penimbangan Berat Badan, Indeks Massa Tubuh (BMI), dan Pengukuran Lingkar Pinggang setiap 2 - 4 minggu",
+      "Profil Glikemik (Gula Darah Puasa / HbA1c) dan Profil Lipid Lengkap (Trigliserida, Kolesterol Total, HDL, LDL)",
+      "Pemeriksaan Tekanan Darah dan Enzim Hati (SGOT/SGPT untuk evaluasi perbaikan perlemakan hati NAFLD/MASLD)"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Klinis (PNPK) Tata Laksana Obesitas Dewasa Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/509/2025) / Konsensus Pengelolaan Obesitas PERKENI",
+    "updatedYear": "2025",
+    "keyClinicalAlert": "Farmakoterapi obesitas diindikasikan pada pasien dengan BMI >= 27 kg/m² yang memiliki komorbid (Hipertensi/DM/Dislipidemia) atau BMI >= 30 kg/m² yang belum mencapai target dengan perubahan gaya hidup. Obat obesitas harus selalu didampingi diet defisit kalori dan olahraga!"
+  },
+  {
+    "id": "guideline-schizophrenia-2025",
+    "diseaseName": "Skizofrenia & Gangguan Psikotik Kronis Dewasa",
+    "category": "Sistem Saraf & Psikiatri",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "F20.9",
+    "indonesianKeywords": [
+      "skizofrenia",
+      "gangguan jiwa berat",
+      "psikotik",
+      "halusinasi suara",
+      "waham curiga",
+      "risperidone",
+      "olanzapine",
+      "aripiprazole",
+      "clozapine",
+      "haloperidol"
+    ],
+    "summary": "Gangguan jiwa psikotik berat kronis yang ditandai dengan distorsi mendalam pada proses berpikir, persepsi, emosi, bahasa, dan perilaku. Meliputi Gejala Positif (Waham/Delusi, Halusinasi dengar/lihat), Gejala Negatif (Afek tumpul, Avolisi, Alogia, Penarikan diri sosial), serta Disorganisasi Pikiran dan Perilaku motorik katatonik.",
+    "targetGoals": [
+      "Mengatasi Episode Psikotik Akut dan Meredakan Agitasi Perilaku Gaduh Gelisah",
+      "Mencapai Remisi Gejala Penuh dan Mencegah Terjadinya Relaps Kekambuhan Berulang",
+      "Meningkatkan Fungsi Kognitif, Keterampilan Sosial, dan Reintegrasi Komunitas Pasien (Recovery)"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Risperidone",
+        "dosage": "Awal 1 - 2 mg PO per hari pada malam hari, titrasi bertahap tiap 2-3 hari hingga dosis efektif 2 - 6 mg/hari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Antipsikotik Atipikal (APG-II) lini pertama baku emas; efektifitas seimbang pada gejala positif dan negatif dengan risiko ekstrapiramidal rendah."
+      },
+      {
+        "drugName": "Olanzapine",
+        "dosage": "Awal 5 - 10 mg PO sekali sehari pada malam hari sebelum tidur, titrasi hingga 10 - 20 mg/hari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "APG-II sangat poten untuk agitasi dan gejala negatif; monitor berat badan dan profil metabolik berkala."
+      },
+      {
+        "drugName": "Aripiprazole",
+        "dosage": "Awal 10 - 15 mg PO sekali sehari pada pagi hari, titrasi hingga 15 - 30 mg/hari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Agonis parsial reseptor dopamin D2; profil metabolik terbaik (tidak memicu kenaikan berat badan atau sedasi berlebih)."
+      },
+      {
+        "drugName": "Haloperidol",
+        "dosage": "Akut Gaduh Gelisah: 2.5 - 5 mg IM atau PO (dapat diulang setelah 30-60 menit, maks 15-20 mg/hari). Rumatan: 5 - 15 mg/hari PO",
+        "role": "Acute Rescue",
+        "fornasTier": "Faskes 1",
+        "notes": "Antipsikotik Tipikal (APG-I) poten pereda gaduh gelisah darurat; siapkan Trihexyphenidyl atau Difenhidramin injeksi bila terjadi distonia akut."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Clozapine",
+        "dosage": "Awal 12.5 - 25 mg PO malam hari, titrasi lambat tiap beberapa hari hingga 200 - 450 mg/hari terbagi 1-2 dosis",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Baku emas Skizofrenia Resisten Pengobatan (Treatment-Resistant Schizophrenia / TRS yang gagal dengan 2 antipsikotik berbeda). Wajib monitor hitung leukosit/ANC berkala (risiko agranulositosis)."
+      }
+    ],
+    "nonPharmacological": [
+      "Psikoedukasi Keluarga (Family Psychoeducation) untuk menurunkan tingkat Expressed Emotion (kritikan berlebih dan permusuhan di rumah) yang merupakan pemicu utama relaps.",
+      "Rehabilitasi Psikososial dan Pelatihan Keterampilan Sosial (Social Skills Training / SST).",
+      "Terapi Perilaku Kognitif untuk Psikosis (CBTp) dan dukungan okupasi mandiri.",
+      "Dukungan komunitas dan pencegahan stigma serta penolakan pemasungan (*Gerakan Bebas Pasung Kemenkes RI*)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien dengan Episode Pertama Psikosis (First-Episode Psychosis / FEP)",
+        "recommendation": "Gunakan dosis awal yang lebih rendah (misal Risperidone 1-2 mg/hari) karena pasien FEP sangat sensitif terhadap efek samping ekstrapiramidal dan respons terapeutik.",
+        "contraindicatedDrugs": [
+          "Penghentian dini antipsikotik dalam kurun waktu < 1-2 tahun pertama pasca remisi"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Skala Gejala Klinis Positive and Negative Syndrome Scale (PANSS) atau BPRS",
+      "Skrining Efek Samping Ekstrapiramidal (EPS: Parkinsonisme, Akatisia, Distonia Akut, Diskinesia Tardif)",
+      "Profil Sindrom Metabolik: Berat Badan, Lingkar Perut, Tekanan Darah, Gula Darah Puasa, dan Profil Lipid setiap 3-6 bulan"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Klinis (PNPK) Tata Laksana Skizofrenia Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/970/2025) / Konsensus PDSKJI",
+    "updatedYear": "2025",
+    "keyClinicalAlert": "Pengobatan antipsikotik pada skizofrenia WAJIB DILANJUTKAN MINIMAL 1 - 2 TAHUN (pada episode pertama) atau SEUMUR HIDUP (pada episode berulang) untuk mencegah kekambuhan dan perburukan fungsi otak!"
+  },
+  {
+    "id": "guideline-cirrhosis-2025",
+    "diseaseName": "Sirosis Hati & Tatalaksana Komplikasi Hipertensi Porta",
+    "category": "Gastrointestinal",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "K74.6",
+    "indonesianKeywords": [
+      "sirosis hati",
+      "liver kronis",
+      "perut buncit asites",
+      "varises esofagus",
+      "muntah darah liver",
+      "koma hepatik",
+      "spironolactone furosemide",
+      "lactulose sirosis"
+    ],
+    "summary": "Stadium akhir fibrosis hepatik difus progresif dengan distorsi arsitektur vaskular dan pembentukan nodul regeneratif parenkim hati abnormal. Komplikasi dekompensasi meliputi Asites masif, Peritonitis Bakterial Spontan (SBP), Perdarahan Varises Gastroesofagus (VH), Ensefalopati Hepatik (HE), dan Sindrom Hepatorenal (HRS).",
+    "targetGoals": [
+      "Mengontrol Asites dan Edema Perifer Tanpa Menginduksi Hipovolemia Intravaskular atau Gangguan Elektrolit",
+      "Mencegah Terjadinya Perdarahan Varises Esofagus Primer Maupun Perdarahan Ulang Sekunder",
+      "Mengatasi dan Mencegah Episode Ensefalopati Hepatik serta Infeksi Peritonitis Bakterial Spontan (SBP)",
+      "Memperlambat Dekompensasi Hati dan Skrining Dini Karsinoma Sel Hati (HCC)"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Spironolactone",
+        "dosage": "Asites: Awal 100 mg PO sekali sehari pada pagi hari, dititrasi bertahap setiap 3-5 hari hingga maksimal 400 mg/hari (dikombinasikan dengan Furosemide)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Antagonis aldosteron lini pertama asites sirosis; membalikkan hiperaldosteronisme sekunder retensi natrium."
+      },
+      {
+        "drugName": "Furosemide",
+        "dosage": "Asites: Awal 40 mg PO sekali sehari pagi hari (kombinasi rasio emas 100 mg Spironolactone : 40 mg Furosemide), titrasi hingga maks 160 mg/hari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Diuretik loop sinergis; mempertahankan keseimbangan kalium serum normal bersama spironolakton."
+      },
+      {
+        "drugName": "Propranolol",
+        "dosage": "Preventsi Perdarahan Varises: Awal 20 - 40 mg PO 2 kali sehari, titrasi bertahap hingga target resting heart rate 55 - 60 bpm (maks 160-320 mg/hari)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Beta-bloker non-selektif; menurunkan tekanan vena porta via vasokonstriksi splanknikus alfa-1 (blokade beta-2) dan penurunan cardiac output (blokade beta-1)."
+      },
+      {
+        "drugName": "Lactulose",
+        "dosage": "Ensefalopati Hepatik: 30 - 45 mL PO 3-4 kali sehari (titrasi target 2-3 kali defekasi lunak per hari)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Disakarida osmotik pengasam kolon; mengubah amonia difusibel (NH3) menjadi ion amonium (NH4+) yang terperangkap dan dibuang di feses."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Ceftriaxone",
+        "dosage": "1 - 2 gram IV sekali sehari selama 5 - 7 hari",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Antibiotik empiris lini pertama baku emas untuk terapi Peritonitis Bakterial Spontan (SBP / hitung neutrofil cairan asites PMN >= 250 sel/mm³) dan profilaksis perdarahan varises akut."
+      },
+      {
+        "drugName": "Human Albumin 20%",
+        "dosage": "Parasantesis Asites Volume Besar (>5 Liter): 8 gram Albumin per 1 Liter cairan asites yang dikeluarkan IV; SBP: 1.5 g/kgBB IV hari-1 dan 1 g/kgBB hari-3",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Mencegah Disfungsi Sirkulasi Pasca-Parasentesis (PPCD) dan gagal ginjal hepatorenal sindrom."
+      }
+    ],
+    "nonPharmacological": [
+      "Diet Rendah Garam / Natrium: Batasi asupan natrium < 2 gram/hari (< 1 sendok teh garam dapur) untuk mengontrol asites.",
+      "Asupan Nutrisi dan Kalori Adekuat: Diet tinggi kalori (30-35 kkal/kgBB/hari) dan protein normal-tinggi (1.2 - 1.5 g/kgBB/hari) terbagi dalam porsi kecil sering (hindari restriksi protein karena memperparah sarkopenia).",
+      "Hentikan Total Konsumsi Alkohol dan hindari obat-obatan hepatotoksik (NSAID, Parasetamol dosis tinggi, suplemen herbal tanpa izin).",
+      "Vaksinasi Hepatitis A, Hepatitis B, dan Pneumokokus."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien Sirosis dengan Asites yang Membutuhkan Analgesik",
+        "recommendation": "KONTRAINDIKASI MUTLAK GOLONGAN NSAID (Ibuprofen, Meloxicam, Ketorolac, Asam Mefenamat) karena memicu vasokonstriksi arteriol ginjal, Gagal Ginjal Akut Hepatorenal, asites refrakter, dan perdarahan saluran cerna.",
+        "contraindicatedDrugs": [
+          "Semua jenis NSAID",
+          "Obat nefrotoksisitas aminoglikosida"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Skor Penilaian Keparahan Fungsi Hati Child-Pugh Score dan MELD Score (Model for End-Stage Liver Disease)",
+      "Penimbangan Berat Badan harian (target penurunan BB 0.5 kg/hari tanpa edema atau 1 kg/hari dengan edema)",
+      "Pemeriksaan USG Abdomen dan Alfa-Fetoprotein (AFP) setiap 6 bulan untuk deteksi dini Kanker Hati (Karsinoma Sel Hati / HCC)"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Klinis (PNPK) Tata Laksana Sirosis Hati pada Dewasa Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/778/2025) / Konsensus PGI-PEGI",
+    "updatedYear": "2025",
+    "keyClinicalAlert": "DILARANG MEMBERIKAN OBAT PEREDA NYERI GOLONGAN NSAID (seperti Asam Mefenamat/Ibuprofen/Natrium Diklofenak) pada pasien sirosis hati karena dapat memicu GAGAL GINJAL AKUT (Sindrom Hepatorenal) yang mematikan dalam hitungan hari!"
+  },
+  {
+    "id": "guideline-stable-angina-pnpk",
+    "diseaseName": "Angina Pektoris Stabil & Sindrom Koroner Kronis (CCS)",
+    "category": "Kardiovaskular",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "I20.9",
+    "indonesianKeywords": [
+      "angina stabil",
+      "penyakit jantung koroner",
+      "nyeri dada saat aktivitas",
+      "pjk kronis",
+      "isdn sublingual",
+      "bisoprolol",
+      "aspirin",
+      "atorvastatin",
+      "pasang ring jantung"
+    ],
+    "summary": "Sindrom klinis nyeri dada retrosternal substernal iskemik miokard (rasa tertekan berat, menjalar ke leher, rahang, atau lengan kiri) yang dipicu oleh aktivitas fisik atau stres emosional dan mereda dalam waktu < 5-10 menit dengan istirahat atau nitrat sublingual, akibat plak aterosklerosis koroner obstruktif yang stabil.",
+    "targetGoals": [
+      "Menghilangkan Gejala Angina Pektoris dan Memperbaiki Kapasitas Fungsional Aktivitas Harian (CCS Class 0-I)",
+      "Pencegahan Kejadian Kardiovaskular Mayor (MACE: Infark Miokard Akut, Kematian Kardiovaskular, dan Gagal Jantung)",
+      "Mencapai Target Agresif Kadar Kolesterol LDL < 55 mg/dL dan Penurunan >= 50% dari Nilai Basal"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Bisoprolol",
+        "dosage": "2.5 - 5 mg PO sekali sehari pada pagi hari, titrasi hingga target resting heart rate 55 - 60 bpm (maksimal 10 mg/hari)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Beta-1 bloker kardioselektif lini pertama anti-angina; menurunkan konsumsi oksigen miokard (MVO2) via penurunan laju denyut jantung dan kontraktilitas."
+      },
+      {
+        "drugName": "Isosorbide Dinitrate",
+        "dosage": "Serangan Akut: 5 mg Sublingual saat nyeri dada (dapat diulang tiap 5 menit, maks 3 dosis). Profilaksis Rumatan: 10 - 20 mg PO 2-3 kali sehari dengan interval bebas nitrat 10-12 jam",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Nitrat kerja cepat venodilator koroner; wajib menyertakan interval bebas nitrat malam hari untuk mencegah toleransi nitrat."
+      },
+      {
+        "drugName": "Aspirin",
+        "dosage": "75 - 100 mg PO sekali sehari sesudah makan pagi",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Antiplatelet tunggal baku emas pencegahan sekunder jangka panjang untuk mencegah trombosis plak ateroma."
+      },
+      {
+        "drugName": "Atorvastatin",
+        "dosage": "20 - 40 mg (atau Rosuvastatin 10 - 20 mg) PO sekali sehari pada malam hari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Statin intensitas tinggi; stabilisasi plak aterosklerotik koroner dan penurunan agresif kolesterol aterogenik."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Amlodipine",
+        "dosage": "5 - 10 mg PO sekali sehari",
+        "role": "Combination / Add-On",
+        "fornasTier": "Faskes 1",
+        "notes": "CCB dihidropiridin; lini kedua kombinasi bersama Beta-bloker bila gejala angina belum terkontrol penuh atau intoleran beta-bloker."
+      },
+      {
+        "drugName": "Clopidogrel",
+        "dosage": "75 mg PO sekali sehari sesudah makan",
+        "role": "Alternative",
+        "fornasTier": "Faskes 1",
+        "notes": "Antiplatelet inhibitor P2Y12; alternatif utama jika pasien memiliki kontraindikasi/alergi terhadap Aspirin."
+      }
+    ],
+    "nonPharmacological": [
+      "Pola Makan Sehat Jantung (Diet Mediterania): Kaya sayuran, buah-buahan, biji-bijian utuh, ikan, minyak zaitun, dan batasi lemak jenuh serta gula sederhana.",
+      "Aktivitas Fisik Teratur Terbimbing: Olahraga aerobik 30-60 menit/hari minimal 5 hari seminggu yang disesuaikan dengan kapasitas uji latih jantung (Treadmill Test).",
+      "Berhenti Merokok Total (termasuk rokok elektrik) dan hindari paparan asap rokok pasif.",
+      "Pengendalian Berat Badan (target BMI 18.5 - 22.9 kg/m²) dan pengelolaan stres."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien Angina yang Mengonsumsi Obat Disfungsi Ereksi (Sildenafil / Tadalafil)",
+        "recommendation": "KONTRAINDIKASI MUTLAK PEMBERIAN NITRAT (ISDN / Nitrogliserin) dalam kurun waktu 24 jam setelah Sildenafil atau 48 jam setelah Tadalafil karena memicu vasodilatasi masif, hipotensi berat refrakter, syok kardiogenik, dan kematian.",
+        "contraindicatedDrugs": [
+          "ISDN / Nitrat bersama Sildenafil atau Tadalafil"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Frekuensi dan Derajat Keparahan Serangan Angina (Canadian Cardiovascular Society / CCS Functional Class)",
+      "Profil Lipid Lengkap (Kolesterol Total, Trigliserida, HDL, dan LDL) setiap 6 - 12 minggu hingga target tercapai",
+      "Elektrokardiogram EKG 12 Sadapan, Uji Latih Beban Jantung (Treadmill Stress Test), atau Ekokardiografi berkala"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Kedokteran (PNPK) Tata Laksana Angina Pektoris Stabil Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/1419/2023) / Panduan PERKI / ESC CCS Guidelines",
+    "updatedYear": "2026",
+    "keyClinicalAlert": "DILARANG KERAS meminum obat nitrat (seperti ISDN) bersamaan dengan obat kuat disfungsi ereksi golongan inhibitor PDE-5 (seperti Sildenafil / Viagra atau Tadalafil) karena dapat memicu DROP TEKANAN DARAH FATAL dan henti jantung!"
+  },
+{
+    "id": "guideline-adult-sepsis",
+    "diseaseName": "Sepsis & Syok Septik Dewasa (Hour-1 Bundle Protocol)",
+    "category": "Anti-Infeksi",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "A41.9",
+    "indonesianKeywords": [
+      "sepsis",
+      "syok septik",
+      "infeksi berat",
+      "laktat tinggi",
+      "norepinephrine",
+      "meropenem",
+      "resusitasi cairan kristaloid",
+      "qsofa"
+    ],
+    "summary": "Disfungsi organ yang mengancam jiwa akibat disregulasi respon imun pejamu terhadap infeksi sistemik (peningkatan skor SOFA >= 2 atau skrining cepat qSOFA >= 2: Laju Napas >= 22x/m, Perubahan Status Mental GCS < 15, Tekanan Darah Sistolik <= 100 mmHg). Syok Septik ditandai hipotensi refrakter yang memerlukan vasopresor untuk mempertahankan MAP >= 65 mmHg dan kadar laktat serum > 2 mmol/L meski telah diresusitasi cairan adekuat.",
+    "targetGoals": [
+      "Pelaksanaan Protokol Hour-1 Bundle Sepsis dalam Kurun Waktu < 60 Menit Sejak Pasien Tiba di Faskes/IGD",
+      "Mencapai dan Mempertahankan Target Mean Arterial Pressure (MAP) >= 65 mmHg dan Urin Output >= 0.5 mL/kg/jam",
+      "Klirens Asam Laktat Serum (Penurunan Kadar Laktat Menuju Normal < 2.0 mmol/L dalam 6 Jam Pertama)"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Norepinephrine",
+        "dosage": "Infus IV kontinu via central venous line (atau jalur perifer darurat); awal 0.05 - 0.1 mcg/kgBB/menit, titrasi cepat tiap 2-5 menit hingga target MAP >= 65 mmHg (dosis lazim 0.2 - 1.0 mcg/kgBB/menit)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Vasopresor lini pertama pilihan utama; agonis alfa-1 poten yang meningkatkan resistensi vaskular sistemik tanpa takikardia berlebih."
+      },
+      {
+        "drugName": "Meropenem",
+        "dosage": "1000 mg IV tiap 8 jam diberikan secara infus diperpanjang (extended infusion selama 3 jam) setelah bolus loading dose inisial",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Karbapenem antipseudomonas spektrum luas; wajib diberikan dalam < 1 jam pertama setelah pengambilan kultur darah pada sepsis berat/syok septik."
+      },
+      {
+        "drugName": "Ceftriaxone",
+        "dosage": "2000 mg (2 gram) IV sekali sehari dilarutkan dalam 100 mL NaCl 0.9% habis dalam 30 menit",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Antibiotik empiris lini pertama di faskes primer/rujukan awal untuk sepsis komunitas sebelum data mikrobiologi tersedia."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Vasopressin",
+        "dosage": "0.03 unit/menit IV drip infus kontinu dosis tetap (tidak dititrasi)",
+        "role": "Combination / Add-On",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Vasopresor lini kedua tambahan; ditambahkan untuk menurunkan kebutuhan dosis norepinefrin jika MAP belum stabil."
+      },
+      {
+        "drugName": "Hydrocortisone",
+        "dosage": "200 mg/hari IV (diberikan 50 mg IV tiap 6 jam atau infus kontinu 200 mg/24 jam)",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Kortikosteroid dosis fisiologis; diindikasikan HANYA pada syok septik refrakter vasopresor dosis tinggi (Norepinefrin >= 0.25 mcg/kg/menit)."
+      }
+    ],
+    "nonPharmacological": [
+      "Resusitasi Cairan Kristaloid Cepat: Berikan minimal 30 mL/kgBB cairan kristaloid isotonik (Ringer Laktat) IV dalam 3 jam pertama.",
+      "Pengambilan Kultur Darah 2 Set (aerob dan anaerob) SEBELUM antibiotik pertama dimasukkan (tanpa menunda antibiotik > 1 jam).",
+      "Pemeriksaan Asam Laktat Darah Awal dan evaluasi ulang dalam 2-4 jam untuk menilai adekuasi perfusi jaringan.",
+      "Pencarian dan Kontrol Sumber Infeksi (Source Control: drainase abses, debridemen luka nekrotik, pelepasan kateter terinfeksi) dalam < 6-12 jam."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien Sepsis dengan Gagal Jantung Kongestif Berat atau Penyakit Ginjal Kronis Stadium Akhir",
+        "recommendation": "Lakukan pemberian cairan kristaloid dengan teknik uji beban dinamis (fluid challenge 250-500 mL) terpandu ultrasonografi paru (B-lines) dan vena kava inferior (VKI collapsibility) untuk mencegah edema paru kardiogenik iatrogenik.",
+        "contraindicatedDrugs": [
+          "Pemberian koloid hidroksietil starches (HES) - meningkatkan mortalitas dan gagal ginjal akut"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Target Mean Arterial Pressure (MAP) kontinu via monitor tekanan darah invasif/non-invasif",
+      "Kadar Asam Laktat Serum serial setiap 2 - 4 jam hingga < 2 mmol/L",
+      "Produksi Urin per jam via kateter Folley (target >= 0.5 mL/kgBB/jam)"
+    ],
+    "sourceGuidelines": "Surviving Sepsis Campaign International Guidelines for Management of Sepsis and Septic Shock / PNPK Sepsis Kemenkes RI",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "HOUR-1 BUNDLE PROTOCOL: Ambil kultur darah dan masukkan antibiotik IV spektrum luas serta resusitasi cairan kristaloid 30 mL/kgBB dalam kurun waktu < 60 MENIT PERTAMA! Setiap keterlambatan 1 jam pemberian antibiotik meningkatkan mortalitas sepsis hingga 7.6%!"
+  },
+  {
+    "id": "guideline-pediatric-sepsis",
+    "diseaseName": "Sepsis & Syok Septik pada Anak & Neonatus",
+    "category": "Pediatri (Kesehatan Anak)",
+    "organization": "IDAI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "P36.9",
+    "indonesianKeywords": [
+      "sepsis anak",
+      "sepsis neonatus",
+      "infeksi darah bayi",
+      "syok septik anak",
+      "ampicillin gentamicin bayi",
+      "epinephrine infus anak",
+      "crt lambat anak"
+    ],
+    "summary": "Disfungsi organ kardiovaskular atau multiorgan yang mengancam jiwa akibat infeksi sistemik pada bayi baru lahir dan anak-anak. Meliputi Sepsis Neonatorum Awitan Dini / Early-Onset Sepsis (< 72 jam pertama kehidupan, transmisi vertikal maternal) dan Awitan Lambat / Late-Onset Sepsis (> 72 jam, infeksi nosokomial/komunitas).",
+    "targetGoals": [
+      "Pemberian Antibiotik IV Empiris Spektrum Luas Sesuai Usia dalam < 60 Menit Pertama",
+      "Resusitasi Cairan Bolus 10 - 20 mL/kgBB dalam 20 Menit Pertama hingga Perfusi Membaik",
+      "Normalisasi Capillary Refill Time (CRT < 2 detik), Denyut Nadi Kuat, Laju Jantung Sesuai Usia, dan Produksi Urin >= 1 mL/kg/jam"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Ampicillin",
+        "dosage": "Sepsis Neonatus Awal (<72 jam): 50 mg/kgBB/kali IV tiap 12 jam (usia < 7 hari) atau tiap 8 jam (usia >= 7 hari) dikombinasikan dengan Gentamicin",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Baku emas lini pertama sepsis neonatus awitan dini; mencakup patogen maternal Streptococcus Grup B (GBS) dan Listeria monocytogenes."
+      },
+      {
+        "drugName": "Gentamicin",
+        "dosage": "Sepsis Neonatus: 4 - 5 mg/kgBB IV sekali sehari (tiap 24 jam) diinfuskan lambat dalam 30 menit",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Aminoglikosida sinergis mencakup basil gram negatif enterik (E. coli, Klebsiella)."
+      },
+      {
+        "drugName": "Ceftriaxone",
+        "dosage": "Sepsis Anak Usia > 1 Bulan: 50 - 100 mg/kgBB/hari IV sekali sehari (maks 2 gram/hari)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Sefalosporin generasi ke-3 lini pertama sepsis anak komunitas. KONTRAINDIKASI PADA NEONATUS < 28 HARI DENGAN HIPERBILIRUBINEMIA ATAU MENERIMA KALSIUM IV."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Epinephrine",
+        "dosage": "Syok Dingin Anak (Cold Shock): Infus IV/IO 0.05 - 0.3 mcg/kgBB/menit titrasi",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Inotropik dan vasopresor lini pertama pilihan pada syok septik anak tipe cold shock (ekstremitas dingin, CRT > 2 detik, nadi lemah)."
+      },
+      {
+        "drugName": "Meropenem",
+        "dosage": "Sepsis Nosokomial Berat: 20 - 40 mg/kgBB/kali IV tiap 8 jam",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Diindikasikan pada sepsis rumah sakit (HAIs) dengan kecurigaan bakteri resisten ESBL."
+      }
+    ],
+    "nonPharmacological": [
+      "Akses Vaskular Segera: Jika akses IV perifer gagal dipasang dalam 5 menit pertama, PASANG JARUM INTRAOSEUS (IO) SEGERA.",
+      "Oksigenasi konsentrasi tinggi via sungkup dengan reservoir (NRM) atau nasal kanul high-flow.",
+      "Pencegahan Hipotermia pada neonatus (gunakan infant warmer / metode kanguru) dan koreksi hipoglikemia (Dextrose 10% 2 mL/kgBB bolus IV)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Neonatus Usia < 28 Hari dengan Sepsis",
+        "recommendation": "HINDARI Ceftriaxone (menggeser ikatan bilirubin pada albumin memicu kernikterus ensefalopati dan membentuk presipitat kalsium-seftriakson di paru/ginjal). Gunakan Cefotaxime jika sefalosporin generasi 3 diperlukan.",
+        "contraindicatedDrugs": [
+          "Ceftriaxone pada neonatus hiperbilirubinemia / menerima infus kalsium"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Waktu Pengisian Kapiler (Capillary Refill Time / CRT) pada sternum/ujung jari",
+      "Tekanan Darah Arteri, Frekuensi Denyut Jantung, dan Skor Kesadaran Pediatrik",
+      "Kadar Gula Darah Sewaktu (skrining hipoglikemia neonatus) dan Kadar Asam Laktat"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Kedokteran (PNPK) Tata Laksana Sepsis Pada Anak Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/4722/2021) / Surviving Sepsis Campaign International Guidelines for Pediatric Sepsis",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "Bila akses infus vena perifer pada anak/bayi syok septik sulit dipasang dalam 5 MENIT PERTAMA, SEGERA PASANG AKSES INTRAOSEUS (IO) pada tuberositas tibia untuk memasukkan cairan resusitasi dan antibiotik!"
+  },
+  {
+    "id": "guideline-dka-hhs",
+    "diseaseName": "Ketoasidosis Diabetik (KAD) & Krisis Hiperglikemia Dewasa",
+    "category": "Endokrin & Metabolik",
+    "organization": "PERKENI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "E10.1",
+    "indonesianKeywords": [
+      "kad",
+      "ketoasidosis diabetik",
+      "gula darah sangat tinggi",
+      "napas kussmaul",
+      "keton positif",
+      "insulin reguler actrapid",
+      "kcl infus",
+      "krisis diabetes"
+    ],
+    "summary": "Kegawatdaruratan metabolik diabetes melitus yang ditandai oleh trias biokimia: Hiperglikemia (Glukosa Darah > 250 mg/dL), Ketosis (Keton serum/urin positif >= +2), dan Asidosis Metabolik Anion Gap Tinggi (pH darah < 7.30, Bikarbonat serum < 18 mEq/L, Anion Gap > 12) akibat defisiensi insulin absolut atau relatif berat disertai lonjakan hormon glukagon dan katekolamin.",
+    "targetGoals": [
+      "Rehidrasi Volume Cairan Intravaskular yang Hilang (Defisit Rata-rata 100 mL/kgBB atau 5-8 Liter) secara Bertahap",
+      "Resolusi Total Asidosis Metabolik dan Ketosis (pH Arteri > 7.30, Bikarbonat >= 18 mEq/L, Normal Anion Gap <= 12)",
+      "Penurunan Glukosa Darah Bertahap 50 - 75 mg/dL per Jam (Mencegah Risiko Edema Serebral dan Hipokalemia Fatal)"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Insulin Reguler (Short-Acting)",
+        "dosage": "Infus IV Kontinu: Awal 0.1 Unit/kgBB/jam IV kontinu (atau bolus 0.1 U/kgBB IV dilanjutkan 0.1 U/kgBB/jam). Bila glukosa darah tidak turun 50-75 mg/dL dalam jam pertama, gandakan kecepatan infus insulin",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Baku emas terapi KAD; menekan lipolisis hepar dan produksi benda keton. JANGAN MEMULAI INSULIN BILA KALIUM SERUM < 3.3 mEq/L."
+      },
+      {
+        "drugName": "Kalium Klorida (KCl)",
+        "dosage": "Koreksi Elektrolit: Tambahkan 20 - 30 mEq KCl per 1 Liter cairan infus segera setelah Kalium serum < 5.2 mEq/L dan urin output terpantau lancar (target Kalium serum 4.0 - 5.0 mEq/L)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Mencegah hipokalemia fatal akibat perpindahan kalium dari ekstraseluler ke intraseluler yang dipacu oleh insulin."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Natrium Bikarbonat",
+        "dosage": "100 mmol NaHCO3 dalam 400 mL air steril + 20 mEq KCl diinfuskan selama 2 jam HANYA JIKA pH darah arteri < 6.90",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Hanya diindikasikan pada asidosis ekstrem mengancam jiwa (pH < 6.90); tidak direkomendasikan pada pH >= 6.90 karena risiko hipokalemia dan asidosis SSP paradoksal."
+      }
+    ],
+    "nonPharmacological": [
+      "Protokol Resusitasi Cairan Kristaloid NaCl 0.9%: Jam ke-1: 1000 - 1500 mL IV bolus; Jam ke-2 hingga ke-4: 500 - 1000 mL/jam. Evaluasi natrium terkoreksi: jika normal/tinggi, ganti ke NaCl 0.45% (250-500 mL/jam).",
+      "Ganti Cairan ke Dextrose 5% dalam NaCl 0.45%: Begitu glukosa darah mencapai < 200 - 250 mg/dL, SEGERA tambahkan infus Dextrose 5% dengan mempertahankan infus insulin dosis rendah (0.02 - 0.05 U/kg/jam) hingga ketoasidosis teratasi penuh.",
+      "Identifikasi Faktor Presipitasi: Infeksi akut (pneumonia, ISK, sepsis - 50% kasus), putus obat insulin, infark miokard akut, atau pankreatitis.",
+      "Transisi ke Insulin Subkutan Basal-Bolus: Dilakukan HANYA setelah KAD teratasi penuh (pH > 7.30, HCO3 >= 18, Anion Gap normal) dan pasien bisa makan per oral (berikan insulin subkutan 1-2 jam SEBELUM infus insulin IV dihentikan)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien KAD dengan Hipokalemia Basal (Kalium < 3.3 mEq/L)",
+        "recommendation": "TUNDA PEMBERIAN INSULIN! Berikan infus cairan resusitasi yang mengandung KCl 20-40 mEq/jam hingga kadar Kalium serum naik di atas 3.3 mEq/L untuk mencegah aritmia ventrikel fatal dan henti jantung.",
+        "contraindicatedDrugs": [
+          "Inisiasi insulin saat Kalium < 3.3 mEq/L"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Glukosa Darah Kapiler setiap 1 jam selama titrasi infus insulin",
+      "Elektrolit Serum (Kalium, Natrium, Klorida), Bikarbonat, dan Analisis Gas Darah (AGD) setiap 2 - 4 jam",
+      "Hitung Anion Gap Serum: [Na+] - ([Cl-] + [HCO3-]) setiap 4 jam (target <= 12 mEq/L)"
+    ],
+    "sourceGuidelines": "Petunjuk Praktis Pengelolaan Krisis Hiperglikemia pada Diabetes Melitus PERKENI / ADA Consensus Statement on Hyperglycemic Crises in Adults",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "JANGAN PERNAH MEMBERIKAN INSULIN JIKA KALIUM SERUM < 3.3 mEq/L! Insulin akan mendorong kalium masuk ke dalam sel secara masif, memicu hipokalemia berat, aritmia fatal, dan henti jantung seketika."
+  },
+  {
+    "id": "guideline-nonvariceal-ugib",
+    "diseaseName": "Perdarahan Saluran Cerna Atas Non-Varises (Tukak Peptikum Berdarah)",
+    "category": "Gastrointestinal",
+    "organization": "PGI-PEGI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "K25.0",
+    "indonesianKeywords": [
+      "muntah darah hitam",
+      "hematemesis",
+      "melena",
+      "tukak lambung berdarah",
+      "omeprazole drip",
+      "asam traneksamat lambung",
+      "endoskopi hemostatik",
+      "rockall score"
+    ],
+    "summary": "Perdarahan akut saluran pencernaan yang bersumber dari lesi mukosa proksimal dari ligamentum Treitz yang bukan disebabkan oleh varises esofagus/gaster (paling sering akibat Ulkus Lambung, Ulkus Duodenum, Gastritis Erosif akibat NSAID/Aspirin, atau Sindrom Mallory-Weiss), ditandai dengan muntah darah hitam/segar (hematemesis) dan buang air besar hitam pekat seperti petis (melena).",
+    "targetGoals": [
+      "Stabilisasi Hemodinamik Resusitasi Cairan Cepat (Target Hb >= 7.0 - 8.0 g/dL pada umum; >= 9.0 g/dL pada riwayat PJK aktif)",
+      "Supresi Asam Lambung Agresif Mempertahankan pH Lambung > 6.0 untuk Mencegah Lisis Bekuan Fibrin Platelet",
+      "Tindakan Hemostasis Endoskopi Saluran Cerna Dini (< 24 Jam) dan Eradikasi Bakteri Helicobacter pylori"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Omeprazole",
+        "dosage": "Regimen Dosis Tinggi: Bolus 80 mg IV lambat (dalam 10-20 menit), dilanjutkan Drip Infus Kontinu 8 mg/jam (atau 40 mg IV bolus tiap 12 jam) selama 72 jam pertama pasca endoskopi hemostatik",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Inhibitor Pompa Proton (PPI) parenteral baku emas; menaikkan pH intralambung > 6.0 secara stabil untuk memicu agregasi trombosit dan stabilitas clot bekuan darah."
+      },
+      {
+        "drugName": "Pantoprazole",
+        "dosage": "Bolus 80 mg IV dilanjutkan Drip Infus Kontinu 8 mg/jam selama 72 jam",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Alternatif PPI parenteral dengan profil interaksi sitokrom P450 (CYP2C19) paling rendah."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Amoxicillin",
+        "dosage": "Eradikasi H. pylori (diberikan setelah perdarahan akut berhenti): 1000 mg PO 2 kali sehari sesudah makan selama 14 hari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Komponen triple therapy baku emas pembasmi H. pylori bersama Klaritromisin dan PPI dosis ganda."
+      },
+      {
+        "drugName": "Clarithromycin",
+        "dosage": "500 mg PO 2 kali sehari sesudah makan selama 14 hari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Makrolida bakterisidal eradikasi H. pylori."
+      }
+    ],
+    "nonPharmacological": [
+      "Pemasangan 2 Jalur Intravena Jarum Besar (16G atau 18G) dan resusitasi kristaloid Ringer Laktat cepat.",
+      "Strategi Transfusi Darah Restriktif: Transfusi Packed Red Cells (PRC) diberikan jika Hb < 7.0 g/dL (target pasca transfusi Hb 7.0 - 9.0 g/dL). Transfusi terlalu agresif (target Hb > 10) terbukti meningkatkan risiko perdarahan ulang.",
+      "Pemeriksaan Endoskopi Saluran Cerna Atas (EGD) Dini dalam 24 Jam Pertama (klasifikasi Forrest I-III untuk hemostasis injeksi adrenalin, kliping mekanik, atau koagulasi termal).",
+      "Hentikan sementara semua obat pemicu ulserasi lambung: NSAID, Aspirin, Antikoagulan, dan Kortikosteroid."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien Pasca Pasang Ring Jantung (PCI/Stent) yang Mengalami Perdarahan Tukak Lambung",
+        "recommendation": "Konsultasikan bersama Dokter Spesialis Jantung; lanjutkan Aspirin dosis rendah (80-100 mg) setelah hemostasis endoskopi tercapai dan dampingi dengan terapi PPI jangka panjang untuk mencegah trombosis stent koroner.",
+        "contraindicatedDrugs": [
+          "Penghentian antiplatelet ganda jangka panjang tanpa koordinasi spesialis jantung"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Tanda Vital (Tekanan Darah, Laju Nadi) dan Skor Stratifikasi Risiko Klinis (Glasgow-Blatchford Score / GBS dan Rockall Score)",
+      "Kadar Hemoglobin dan Hematokrit serial setiap 6 - 12 jam selama fase akut",
+      "Evaluasi tanda-tanda perdarahan ulang (aspirat NGT merah segar berulang, melena masif baru, hemodinamik tidak stabil)"
+    ],
+    "sourceGuidelines": "Konsensus Nasional Penatalaksanaan Perdarahan Saluran Cerna Atas Non-Varises Perkumpulan Gastroenterologi Indonesia (PGI-PEGI) / ESGE Non-Variceal Upper GI Bleeding Guidelines",
+    "updatedYear": "2023",
+    "keyClinicalAlert": "Gunakan strategi transfusi darah PRC RESTRIKTIF (hanya mulai transfusi jika Hb < 7 g/dL; target 7-9 g/dL). Transfusi terlalu agresif hingga Hb > 10 g/dL justru meningkatkan tekanan vaskular dan melipatgandakan risiko perdarahan ulang!"
+  },
+  {
+    "id": "guideline-hiv-aids-tld",
+    "diseaseName": "HIV / AIDS Dewasa & Terapi Antiretroviral Lini Pertama (TLD)",
+    "category": "Anti-Infeksi",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "B20",
+    "indonesianKeywords": [
+      "hiv aids",
+      "arv lini pertama",
+      "tld",
+      "tenofovir lamivudine dolutegravir",
+      "cd4 rendah",
+      "infeksi oportunistik",
+      "viral load",
+      "profilaksis kotrimoksazol"
+    ],
+    "summary": "Infeksi retrovirus Human Immunodeficiency Virus yang menyerang limfosit T CD4+, mengakibatkan penurunan daya tahan tubuh seluler progresif dan kerentanan fatal terhadap berbagai Infeksi Oportunistik (IO). Program Nasional Kemenkes RI: Terapi ARV Dini untuk Semua (Treat All) segera dimulai tanpa memandang hitung limfosit CD4.",
+    "targetGoals": [
+      "Supresi Replikasi Viral Load HIV Menjadi Tidak Terdeteksi (Undetectable Viral Load < 50 copies/mL dalam 6 Bulan Pertama)",
+      "Pemulihan dan Pemeliharaan Hitung Limfosit CD4+ (Pencegahan Infeksi Oportunistik dan Kematian)",
+      "Mencapai Konsep U=U (Undetectable = Untransmittable: Tidak Menularkan Virus ke Pasangan Seksual Maupun Vertikal)"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "TLD (Tenofovir + Lamivudine + Dolutegravir)",
+        "dosage": "1 tablet kombinasi dosis tetap FDC (TDF 300 mg + 3TC 300 mg + DTG 50 mg) per oral SEKALI SEHARI pada malam hari sebelum tidur dengan atau tanpa makanan",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Paduan ARV lini pertama baku emas pilihan utama rekomendasi PNPK Kemenkes RI & WHO. Memiliki barrier resistensi genetik sangat tinggi, supresi virologis cepat, dan efek samping minimal."
+      },
+      {
+        "drugName": "Cotrimoxazole",
+        "dosage": "Profilaksis Infeksi Oportunistik (TPK): 960 mg (1 tablet Forte) PO sekali sehari pada semua pasien dengan CD4 < 200 sel/mm³ atau Stadium Klinis 3-4",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Mencegah Pneumonia Pneumocystis jirovecii (PCP), Toksoplasmosis Ensefalopati serebri, dan infeksi bakterial berat."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "TLE (Tenofovir + Lamivudine + Efavirenz)",
+        "dosage": "1 tablet FDC (TDF 300 mg + 3TC 300 mg + EFV 600 mg) PO sekali sehari malam sebelum tidur",
+        "role": "Alternative",
+        "fornasTier": "Faskes 1",
+        "notes": "Paduan alternatif lini pertama berbasis NNRTI bila terdapat kontraindikasi terhadap Dolutegravir."
+      }
+    ],
+    "nonPharmacological": [
+      "Konseling Kepatuhan Menelan Obat (Adherence Counseling): Edukasi minum obat SEUMUR HIDUP pada jam yang sama setiap hari dengan tingkat kepatuhan minimal >= 95%.",
+      "Skrining Koinfeksi Tuberkulosis (TB) dan Inisiasi Terapi Pencegahan TB (TPT: Isoniazid + Rifapentine 3HP atau Isoniazid 6H).",
+      "Pencegahan Transmisi: Penggunaan kondom konsisten dan notifikasi pasangan seksual untuk tes sukarela (VCT).",
+      "Dukungan Psikososial melalui Kelompok Dukungan Sebaya (KDS) Orang dengan HIV (ODHIV)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien HIV dengan Koinfeksi Tuberkulosis (TB-HIV) yang Mendapat Rifampisin",
+        "recommendation": "Dolutegravir mengalami percepatan metabolisme oleh Rifampisin; WAJIB MENAMBAHKAN DOSIS EKSTRA DOLUTEGRAVIR 50 mg PO (diberikan dengan jeda 12 jam dari dosis TLD malam) selama terapi Rifampisin berlangsung dan 2 minggu setelahnya.",
+        "contraindicatedDrugs": [
+          "Monoterapi ARV atau penghentian ARV karena sedang terapi TB"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Pemeriksaan Jumlah Viral Load HIV RNA Plasma pada bulan ke-6 dan ke-12 setelah inisiasi ARV, lalu setiap 12 bulan",
+      "Hitung Limfosit T CD4+ awal dan berkala",
+      "Pemeriksaan Fungsi Ginjal (Kreatinin Serum / eGFR untuk keamanan Tenofovir) dan HBsAg (skrining koinfeksi Hepatitis B)"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Kedokteran (PNPK) Tata Laksana HIV Kementerian Kesehatan RI / WHO Consolidated Guidelines on HIV Prevention, Testing, Treatment, Service Delivery and Monitoring",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "KONSEP U=U (UNDETECTABLE = UNTRANSMITTABLE): Pasien HIV yang patuh meminum obat ARV TLD harian hingga jumlah virus tidak terdeteksi (< 50 copies/mL) TIDAK AKAN MENULARKAN HIV ke pasangan seksualnya!"
+  },
+  {
+    "id": "guideline-hepatitis-b-c",
+    "diseaseName": "Hepatitis B Kronis & Hepatitis C Terapi Antivirus DAA",
+    "category": "Gastrointestinal",
+    "organization": "PNPK Kemenkes RI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "B18.1",
+    "indonesianKeywords": [
+      "hepatitis b kronis",
+      "hepatitis c",
+      "hbsag positif",
+      "sofosbuvir daclatasvir",
+      "tenofovir hepar",
+      "entecavir",
+      "daa hepatitis",
+      "fibroscan"
+    ],
+    "summary": "Infeksi virus hepatotropik kronis (> 6 bulan) yang menjadi penyebab utama sirosis hati dan karsinoma sel hati (kanker hati). Hepatitis B (HBV): Ditandai HBsAg persisten positif dengan DNA HBV terdeteksi dan peningkatan enzim ALT/fibrosis hepar. Hepatitis C (HCV): Ditandai Anti-HCV reaktif dengan RNA HCV terdeteksi.",
+    "targetGoals": [
+      "Hepatitis B: Supresi Replikasi DNA HBV Plasma Jangka Panjang Menjadi Tidak Terdeteksi (< 10-20 IU/mL) dan Normalisasi Enzim ALT (Mencegah Progresi ke Sirosis dan Karsinoma Sel Hati)",
+      "Hepatitis C: Mencapai Respons Virologi Berkelanjutan (Sustained Virologic Response / SVR12 pada 12 Minggu Pasca Terapi Selesai) / KESEMBUHAN TOTAL BEBAS VIRUS > 95%"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Tenofovir Disoproxil Fumarate",
+        "dosage": "Hepatitis B Kronis: 300 mg PO sekali sehari sesudah makan diminum jangka panjang",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Analog nukleotida poten baku emas; barrier resistensi genetik sangat tinggi (hampir 0% resistensi setelah 5 tahun terapi)."
+      },
+      {
+        "drugName": "Sofosbuvir + Daclatasvir (Regimen DAA Pan-Genotip)",
+        "dosage": "Hepatitis C: Sofosbuvir 400 mg + Daclatasvir 60 mg PO sekali sehari bersama makanan selama 12 MINGGU PENUH (pada pasien tanpa sirosis atau sirosis terkompensasi)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Direct-Acting Antiviral (DAA) pan-genotipik bebas interferon; tingkat kesembuhan virologi (cure rate) mencapai 95-98% dengan efek samping minimal."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Entecavir",
+        "dosage": "Hepatitis B Kronis: 0.5 mg PO sekali sehari saat perut kosong (minimal 2 jam sebelum/sesudah makan)",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Pilihan utama terapi Hepatitis B pada pasien dengan gangguan ginjal (CrCl < 50 mL/min), osteoporosis, atau lansia."
+      }
+    ],
+    "nonPharmacological": [
+      "Pantang Total Mengonsumsi Alkohol dan zat hepatotoksik.",
+      "Skrining Kanker Hati (Karsinoma Sel Hati / KSH): Lakukan USG Abdomen dan pemeriksaan Alfa-Fetoprotein (AFP) setiap 6 bulan pada semua pasien hepatitis B risiko tinggi dan sirosis.",
+      "Vaksinasi Hepatitis B pada seluruh anggota keluarga serumah dan pasangan seksual yang memiliki HBsAg negatif dan Anti-HBs negatif.",
+      "Edukasi transmisi darah dan cairan tubuh (hindari penggunaan alat cukur/sikat gigi bersama, jarum tato tidak steril)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Ibu Hamil dengan Hepatitis B (HBsAg Positif dan DNA HBV Tinggi > 200.000 IU/mL)",
+        "recommendation": "Berikan Tenofovir Disoproxil (TDF) 300 mg/hari mulai usia kehamilan 28 MINGGU hingga 1-3 bulan pasca salin untuk mencegah transmisi vertikal ke bayi, dan BERIKAN VAKSIN HEPATITIS B + IMMUNOGLOBULIN HEPATITIS B (HBIg) PADA BAYI DALAM KURUN WAKTU < 24 JAM SETELAH LAHIR.",
+        "contraindicatedDrugs": [
+          "Penundaan profilaksis HBIg pada bayi dari ibu HBsAg positif"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Kuantitatif DNA HBV / RNA HCV PCR berkala",
+      "Enzim Hati Serum (SGOT, SGPT) dan Profil Fungsi Hati setiap 3 - 6 bulan",
+      "Evaluasi Derajat Kekakuan Jaringan Hati / Fibrosis (Transient Elastography / FibroScan atau APRI Score)"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Kedokteran (PNPK) Tata Laksana Hepatitis B & C Kementerian Kesehatan RI / Konsensus PGI-PEGI / WHO Guidelines for the Care and Treatment of Persons Diagnosed with Chronic Hepatitis C",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "Hepatitis C kini DAPAT DISEMBUHKAN TOTAL dalam kurun waktu 12 MINGGU dengan obat DAA oral (Sofosbuvir + Daclatasvir) dengan tingkat kesembuhan > 95%! Program pengobatan DAA tersedia secara gratis di faskes program Kemenkes RI."
+  },
+  {
+    "id": "guideline-stunting-malnutrition",
+    "diseaseName": "Stunting & Gizi Buruk pada Balita (Severe Acute Malnutrition / SAM)",
+    "category": "Pediatri (Kesehatan Anak)",
+    "organization": "IDAI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "E43",
+    "indonesianKeywords": [
+      "stunting",
+      "gizi buruk",
+      "anak pendek",
+      "marasmus",
+      "kwashiorkor",
+      "formula f75",
+      "f100 rutf",
+      "zink gizi buruk",
+      "10 langkah tatalaksana gizi"
+    ],
+    "summary": "Gangguan pertumbuhan dan perkembangan balita akibat kekurangan asupan gizi kronis dan infeksi berulang, ditandai nilai Z-score Panjang/Tinggi Badan menurut Usia (PB/U atau TB/U) < -2 SD (Stunting) atau Z-score Berat Badan menurut Panjang/Tinggi Badan (BB/PB) < -3 SD dan/atau Edema Nutrisional Bilateral (Gizi Buruk Marasmus / Kwashiorkor).",
+    "targetGoals": [
+      "Penyelamatan Nyawa Balita Mengikuti Protokol 10 Langkah Tatalaksana Gizi Buruk WHO & Kemenkes RI",
+      "Fase Stabilisasi: Koreksi dan Pencegahan Hipoglikemia (< 54 mg/dL), Hipotermia (< 36.5°C), dan Dehidrasi Berat",
+      "Fase Rehabilitasi: Kejar Tumbuh Cepat (Catch-Up Growth) dengan Target Kenaikan Berat Badan >= 10 gram/kgBB/hari"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Formula F-75 (Fase Stabilisasi Hari 1-7)",
+        "dosage": "130 mL/kgBB/hari (atau 100 mL/kgBB/hari jika ada edema derajat 3) dibagi dalam 8 hingga 12 kali pemberian porsi kecil sering (tiap 2-3 jam) siang dan malam",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Formula terapeutik khusus rendah protein dan natrium (75 kkal dan 0.9 g protein per 100 mL); memulihkan fungsi homeostasis organ tanpa membebani jantung dan ginjal."
+      },
+      {
+        "drugName": "Formula F-100 / RUTF (Fase Transisi & Rehabilitasi)",
+        "dosage": "150 - 220 kkal/kgBB/hari dan 3 - 5 gram protein/kgBB/hari dalam bentuk sirup F-100 atau Ready-to-Use Therapeutic Food (RUTF pasta kacang bergizi tinggi)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Formula padat energi untuk kejar tumbuh pesat setelah nafsu makan anak pulih dan edema mereda."
+      },
+      {
+        "drugName": "Zinc Sulfate Dispersibel",
+        "dosage": "10 mg/hari (usia < 6 bulan) atau 20 mg/hari (usia >= 6 bulan) dilarutkan dalam air selama 14 HARI PENUH",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Mineral mikro esensial untuk regenerasi mukosa usus, perbaikan sistem imun, dan stimulasi nafsu makan."
+      },
+      {
+        "drugName": "Vitamin A Dosis Tinggi",
+        "dosage": "Usia < 6 bln: 50.000 IU; 6-11 bln: 100.000 IU; 1-5 thn: 200.000 IU PO diberikan pada Hari ke-1, Hari ke-2, dan Hari ke-15",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Mencegah kebutaan xeroftalmia dan memperbaiki integritas epitel mukosa pernapasan/pencernaan."
+      },
+      {
+        "drugName": "Amoxicillin",
+        "dosage": "Dosis empiris profilaksis infeksi tersembunyi: 50 mg/kgBB/hari PO terbagi 3 dosis selama 5 hari (tanpa komplikasi berat)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Semua anak gizi buruk mengalami defisiensi imun berat dan bakteremia tersembunyi; wajib antibiotik empiris."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "ReSoMal (Rehydration Solution for Malnutrition)",
+        "dosage": "5 mL/kgBB tiap 30 menit selama 2 jam pertama oral/NGT, lalu 5-10 mL/kg/jam berselang dengan F-75",
+        "role": "Alternative",
+        "fornasTier": "Faskes 1",
+        "notes": "Oralit khusus gizi buruk rendah natrium tinggi kalium/magnesium; HINDARI ORALIT BIASA KARENA NATRIUM TINGGI MEMICU GAGAL JANTUNG KONGESTIF."
+      }
+    ],
+    "nonPharmacological": [
+      "Pemberian Makanan Pendamping ASI (MPASI) Kaya Protein Hewani (Telur, Ikan, Daging Ayam/Sapi, Susu) secara konsisten pada balita stunting.",
+      "Stimulasi Sensorik dan Emosional Tumbuh Kembang (Play Therapy / Terapi Bermain) untuk mencegah retardasi mental kognitif permanen.",
+      "Penerapan Pola Hidup Bersih dan Sehat (PHBS): Akses air minum bersih, jamban sehat, dan cuci tangan pakai sabun.",
+      "Pemantauan Pertumbuhan Bulanan di Posyandu menggunakan kurva pertumbuhan WHO (KMS digital)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Balita Gizi Buruk dengan Tanda Dehidrasi Akut",
+        "recommendation": "HINDARI RESUSITASI CAIRAN INTRAVENA CEPAT KECUALI DALAM KONDISI SYOK BERAT! Anak gizi buruk memiliki massa miokardium atrofi tipis; beban cairan IV berlebih memicu edema paru akut dan kematian seketika. Gunakan cairan ReSoMal per oral / NGT.",
+        "contraindicatedDrugs": [
+          "Infus cairan IV agresif tanpa tanda syok terbukti",
+          "Oralit standar WHO tanpa modifikasi (tinggi natrium)"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Penimbangan Berat Badan Harian dengan timbangan digital presisi sebelum makan pagi",
+      "Evaluasi Kenaikan Berat Badan Mingguan: Buruk (< 5 g/kg/hari), Sedang (5-10 g/kg/hari), Baik (> 10 g/kg/hari)",
+      "Pengukuran Lingkar Lengan Atas (LiLA) dan Pemantauan Berkurangnya Derajat Edema"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Kedokteran (PNPK) Tata Laksana Stunting Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/1928/2022) / Pedoman Pelayanan Medis IDAI Asuhan Nutrisi Pediatrik",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "JANGAN MEMBERIKAN CAIRAN INFUS CEPAT DAN ORALIT STANDAR BIASA PADA ANAK GIZI BURUK! Jantung anak gizi buruk mengalami atrofi; natrium tinggi dan beban cairan cepat memicu GAGAL JANTUNG AKUT DAN EDEMA PARU FATAL. Gunakan ReSoMal per oral/pipa NGT."
+  },
+  {
+    "id": "guideline-thalassemia-pediatric",
+    "diseaseName": "Thalasemia Mayor pada Anak & Terapi Kelasi Besi",
+    "category": "Pediatri (Kesehatan Anak)",
+    "organization": "IDAI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "D56.1",
+    "indonesianKeywords": [
+      "thalasemia mayor",
+      "transfusi darah rutin anak",
+      "kelasi besi",
+      "deferasirox",
+      "deferiprone",
+      "desferal",
+      "feritin tinggi",
+      "facies cooley"
+    ],
+    "summary": "Penyakit anemia hemolitik herediter autosomal resesif akibat mutasi gen pembentukan rantai beta-globin hemoglobin, mengakibatkan eritropoiesis inefektif berat, anemia kronis bergantung transfusi seumur hidup (Transfusion-Dependent Thalassemia / TDT), pembesaran limpa dan hati (hepatosplenomegali), perubahan tulang wajah khas (facies cooley), serta risiko penumpukan besi berlebih di organ vital (Hemosiderosis).",
+    "targetGoals": [
+      "Mempertahankan Kadar Hemoglobin Pre-Transfusi 9.5 - 10.5 g/dL untuk Menjamin Oksigenasi Jaringan dan Pertumbuhan Fisik Normal",
+      "Mengurangi Beban Akumulasi Zat Besi Toksik dalam Tubuh (Target Kadar Feritin Serum < 1000 - 1500 ng/mL)",
+      "Mencegah Kerusakan Organ Sekunder Akibat Kelebihan Besi (Kardiomiopati Aritmia, Sirosis Hepar, Diabetes, dan Gagal Pubertas)"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Packed Red Cells (PRC) Leukodepleted",
+        "dosage": "Transfusi Darah Rutin: 10 - 15 mL/kgBB per siklus (diberikan tiap 3-4 minggu) dengan kecepatan transfusi 2 - 3 mL/kgBB/jam",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Darah PRC yang telah disaring leukositnya (leukodepleted / leukoreduced) untuk mencegah reaksi transfusi febris non-hemolitik dan aloimunisasi."
+      },
+      {
+        "drugName": "Deferasirox",
+        "dosage": "Kelasi Besi Oral Lini Pertama: 20 - 40 mg/kgBB PO sekali sehari diminum saat perut kosong 30 menit sebelum makan (larutkan tablet dispersibel dalam segelas air atau jus jeruk)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Pengikat besi tridentat oral harian baku emas; kepatuhan sangat tinggi dibanding pompa injeksi desferal. Dimulai saat feritin serum > 1000 ng/mL."
+      },
+      {
+        "drugName": "Folic Acid",
+        "dosage": "1 - 5 mg PO sekali sehari",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Suplementasi koenzim untuk mendukung aktivitas eritropoiesis hepar/limpa yang hiperaktif."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Deferiprone",
+        "dosage": "75 - 100 mg/kgBB/hari PO terbagi dalam 3 dosis sesudah makan",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Kelador besi bidentat oral dengan kemampuan penetrasi kelasi besi miokardium jantung terbaik. Wajib monitor neutrofil darah (risiko agranulositosis)."
+      },
+      {
+        "drugName": "Deferoxamine (Desferal)",
+        "dosage": "20 - 40 mg/kgBB/hari via infus subkutan lambat menggunakan syringe pump selama 8-12 jam semalam, 5-7 malam per minggu",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Kelador parenteral klasik; digunakan bila timbul intoleransi atau kegagalan kelasi oral."
+      }
+    ],
+    "nonPharmacological": [
+      "Pola Makan Rendah Besi: Hindari makanan yang difortifikasi zat besi (sereal besi tinggi, suplemen multivitamin mengandung zat besi, daging merah berlebih).",
+      "Minum Teh Hijau / Teh Hitam saat makan (polifenol dan tanin dalam teh menghambat penyerapan zat besi non-heme di saluran pencernaan).",
+      "Skrining Thalasemia Pra-Nikah (Premarital Screening): Pemeriksaan Darah Lengkap (MCV/MCH rendah) dan Analisis Hemoglobin (Hb Elektroforesis / HPLC) pada calon pengantin untuk mencegah kelahiran anak thalasemia mayor baru.",
+      "Dukungan Psikososial dan Komunitas Persatuan Orang Tua Penderita Thalasemia Indonesia (POPTI)."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Pasien Thalasemia dengan Beban Besi Tinggi yang Mendapat Suplemen Vitamin C",
+        "recommendation": "Vitamin C meningkatkan ketersediaan besi bebas terionisasi untuk kelasi desferal, TETAPI DILARANG DIBERIKAN MELEBIHI 100-200 mg/hari atau diberikan pada pasien dengan gagal jantung karena memicu aritmia ventrikel fatal.",
+        "contraindicatedDrugs": [
+          "Suplemen Zat Besi (Ferrous Sulfate/Fumarate)",
+          "Vitamin C dosis tinggi pada kardiomiopati besi"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Kadar Hemoglobin Pre-Transfusi dan Post-Transfusi pada setiap siklus kunjungan",
+      "Kadar Feritin Serum setiap 3 - 6 bulan untuk titrasi penyesuaian dosis kelasi besi",
+      "Pemeriksaan MRI T2* Jantung dan Hati setiap 1-2 tahun untuk evaluasi hemosiderosis miokard",
+      "Evaluasi Tumbuh Kembang: Kurva Tinggi Badan, Indeks Maturasi Seksual (Tanner Staging), dan Skrining Endokrin (Gula Darah, Fungsi Tiroid, Kalsium)"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Kedokteran (PNPK) Tata Laksana Thalasemia Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/1/2018) / Panduan Praktis Klinis IDAI / Thalassaemia International Federation (TIF) Guidelines",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "DILARANG KERAS MEMBERIKAN SUPLEMEN ZAT BESI ATAU MULTIVITAMIN PENAMBAH DARAH pada pasien Thalasemia! Pasien thalasemia mengalami kelebihan zat besi berat akibat transfusi; penambahan zat besi mempercepat kerusakan fatal jantung dan hati."
+  },
+  {
+    "id": "guideline-t1dm-pediatric",
+    "diseaseName": "Diabetes Melitus Tipe 1 pada Anak & Remaja",
+    "category": "Pediatri (Kesehatan Anak)",
+    "organization": "IDAI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "E10.9",
+    "indonesianKeywords": [
+      "dm tipe 1 anak",
+      "diabetes anak",
+      "insulin basal bolus anak",
+      "actrapid novorapid anak",
+      "lantus tresiba anak",
+      "gula darah anak tinggi",
+      "hipoglikemia anak"
+    ],
+    "summary": "Penyakit metabolik autoimun kronis yang disebabkan oleh destruksi autoimun sel beta pankreas penghasil insulin, mengakibatkan defisiensi insulin absolut seumur hidup. Ditandai oleh gejala kardinal 4P: Poliuria (sering kencing/mengompol kembali), Polidipsia (haus berlebih), Polifagia (banyak makan), dan Penurunan Berat Badan Cepat, serta risiko tinggi komplikasi fatal Ketoasidosis Diabetik (KAD).",
+    "targetGoals": [
+      "Target Kadar HbA1c < 7.0% (atau < 7.5%) Tanpa Menimbulkan Episode Hipoglikemia Berat",
+      "Rentang Target Glukosa Darah Harian: Pre-Prandial 70 - 130 mg/dL dan Post-Prandial 90 - 180 mg/dL (Waktu Tidur 100 - 140 mg/dL)",
+      "Menjamin Pertumbuhan Fisik Linier Normal, Kematangan Pubertas Sesuai Usia, dan Kesejahteraan Psikososial Anak"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Insulin Basal-Bolus Intensif (MDI - Multiple Daily Injections)",
+        "dosage": "Total Dosis Harian (TDD): Awal 0.5 - 0.75 Unit/kgBB/hari (Fase Honeymoon 0.2-0.5 U/kg; Pubertas 1.0-1.5 U/kg/hari).\n• Insulin Basal (Glargine / Degludec): 30 - 45% dari TDD diinjeksi subkutan SEKALI SEHARI pada jam yang sama malam hari.\n• Insulin Prandial Kerja Cepat (Aspart / Lispro): 55 - 70% dari TDD dibagi 3 kali injeksi subkutan tepat 5-15 menit SEBELUM makan",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Regimen terapi baku emas mutlak rekomendasi IDAI & ISPAD; meniru profil fisiologis sekresi insulin alami tubuh."
+      },
+      {
+        "drugName": "Glukosa Oral / Tablet Dextrose",
+        "dosage": "Pertolongan Pertama Hipoglikemia Ringan-Sedang (Gula Darah < 70 mg/dL): Aturan \"Rule of 15\" — Berikan 15 gram karbohidrat cepat serap (1/2 gelas jus buah manis atau 3-4 sendok teh gula pasir dilarutkan air), tunggu 15 menit, lalu cek ulang gula darah",
+        "role": "Acute Rescue",
+        "fornasTier": "Faskes 1",
+        "notes": "Wajib selalu dibawa oleh anak dan orang tua ke sekolah dan tempat beraktivitas."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Glucagon Injeksi",
+        "dosage": "Hipoglikemia Berat dengan Penurunan Kesadaran / Kejang: 0.5 mg (< 25 kg) atau 1.0 mg (>= 25 kg) IM/SC",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Hormon penyelamat gawat darurat hipoglikemia berat jika anak tidak sadar / tidak bisa menelan."
+      }
+    ],
+    "nonPharmacological": [
+      "Edukasi Perhitungan Karbohidrat (Carbohydrate Counting): Mencocokkan dosis insulin bolus prandial dengan jumlah gram karbohidrat yang dikonsumsi (Rasio Insulin:Karbohidrat / ICR).",
+      "Pemantauan Glukosa Darah Mandiri (Self-Monitoring of Blood Glucose / SMBG): Minimal 4-6 kali per hari (sebelum makan, 2 jam sesudah makan, sebelum tidur, dan jam 03.00 dini hari) atau menggunakan Continuous Glucose Monitoring (CGM).",
+      "Penyesuaian Insulin saat Olahraga: Konsumsi camilan karbohidrat ekstra 15-30 gram sebelum aktivitas fisik intensif untuk mencegah hipoglikemia saat dan setelah olahraga.",
+      "Manajemen Hari Sakit (Sick Day Rules): JANGAN PERNAH MENGHENTIKAN INSULIN BASAL saat anak sakit/demam karena kebutuhan insulin justru meningkat."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Anak dengan Fenomena Dawn atau Efek Somogyi (Gula Darah Pagi Tinggi)",
+        "recommendation": "Periksa glukosa darah jam 03.00 dini hari: Jika jam 03.00 rendah (<70 mg/dL) = Efek Somogyi (turunkan insulin basal malam); Jika jam 03.00 tinggi = Fenomena Dawn (naikkan insulin basal malam).",
+        "contraindicatedDrugs": [
+          "Obat antidiabetes oral sulfonilurea (Glibenklamid/Glimepirid) - TIDAK EFEKTIF DAN KONTRAINDIKASI PADA DM TIPE 1"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Pemeriksaan HbA1c setiap 3 bulan sekali di laboratorium",
+      "Buku Catatan Harian Glukosa Darah (Logbook SMBG) dan Evaluasi Pola Hipoglikemia",
+      "Skrining Komplikasi Jangka Panjang (Mulai 2-5 tahun pasca diagnosis atau usia >= 11 tahun): Mikroalbuminuria urin berkala, Pemeriksaan Mata Funduskopi, Profil Lipid, dan Skrining Tiroid Autoimun (TSH/FT4)"
+    ],
+    "sourceGuidelines": "Konsensus Nasional Pengelolaan Diabetes Melitus Tipe 1 Ikatan Dokter Anak Indonesia (IDAI) / ISPAD Clinical Practice Consensus Guidelines for Type 1 Diabetes",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "JANGAN PERNAH MENGHENTIKAN SUNTIKAN INSULIN SAAT ANAK SEDANG SAKIT/DEMAM/MUNTAH (SICK DAY RULES)! Saat sakit, stres metabolik meningkatkan hormon kontra-regulator sehingga kebutuhan insulin tetap ada. Menghentikan insulin memicu KETOASIDOSIS DIABETIK (KAD) fatal dalam < 24 jam!"
+  },
+  {
+    "id": "guideline-prom-pprom",
+    "diseaseName": "Ketuban Pecah Dini (KPD / PROM & PPROM)",
+    "category": "Obstetri & Ginekologi",
+    "organization": "POGI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "O42.0",
+    "indonesianKeywords": [
+      "ketuban pecah dini",
+      "kpd",
+      "pprom",
+      "air ketuban merembes",
+      "ampicillin erythromycin kpd",
+      "dexamethasone pematangan paru",
+      "korioamnionitis"
+    ],
+    "summary": "Pecahnya selaput ketuban sebelum adanya tanda-tanda inpartu/persalinan. Terbagi atas KPD Aterm (PROM / usia kehamilan >= 37 minggu) dan KPD Preterm (PPROM / Preterm Premature Rupture of Membranes pada usia kehamilan < 37 minggu). Merupakan penyebab utama persalinan prematur dan komplikasi infeksi intrauterin asenden (korioamnionitis maternal dan sepsis neonatal).",
+    "targetGoals": [
+      "Memperpanjang Masa Latensi Kehamilan pada PPROM (< 34 Minggu) untuk Memberi Waktu Pematangan Paru Janin",
+      "Pencegahan Infeksi Intrauterin Asenden (Korioamnionitis) dan Sepsis Neonatal Dini",
+      "Pencegahan Sindrom Distres Pernapasan (RDS), Perdarahan Intraventrikular (IVH), dan Enterokolitis Nekrotikans pada Bayi Prematur"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Ampicillin + Erythromycin (Regimen Antibiotik Latensi POGI / ACOG)",
+        "dosage": "Fase Intravena (48 Jam Pertama): Ampicillin 2 gram IV tiap 6 jam + Erythromycin 250 mg IV tiap 6 jam selama 48 jam.\nFase Oral (5 Hari Berikutnya): Amoxicillin 500 mg PO tiap 8 jam + Erythromycin 333 mg (atau 500 mg) PO tiap 8 jam selama 5 hari (Total Durasi Terapi 7 Hari Penuh)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Regimen antibiotik baku emas terbukti memperpanjang masa latensi kehamilan dan menurunkan mortalitas sepsis neonatal serta morbiditas RDS."
+      },
+      {
+        "drugName": "Dexamethasone",
+        "dosage": "Kortikosteroid Pematangan Paru Janin (Usia Gestasi 24 - 34 Minggu): 6 mg IM tiap 12 jam (total 4 dosis dalam kurun waktu 48 jam)",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Menstimulasi produksi surfaktan tipe II paru janin; menurunkan insidensi Respiratory Distress Syndrome (RDS) dan mortalitas perinatal hingga 50%."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Nifedipine",
+        "dosage": "Tokolitik Jangka Pendek (Hanya untuk Memberi Waktu 48 Jam Kortikosteroid Bekerja): Awal 20 mg PO, dilanjutkan 10 - 20 mg tiap 6-8 jam (maksimal 48 jam)",
+        "role": "Alternative",
+        "fornasTier": "Faskes 1",
+        "notes": "CCB tokolitik; merelaksasikan kontraksi miometrium preterm sementara. HINDARI PENGGUNAAN TOKOLITIK JANGKA PANJANG > 48 JAM."
+      },
+      {
+        "drugName": "Magnesium Sulfate",
+        "dosage": "Neuroproteksi Janin (Usia Gestasi < 32 Minggu): Loading dose 4 gram IV dalam 20-30 menit dilanjutkan 1 g/jam IV selama 12-24 jam menjelang persalinan prematur iminen",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Menurunkan risiko Cerebral Palsy (kelumpuhan otak) pada bayi prematur ekstrem."
+      }
+    ],
+    "nonPharmacological": [
+      "Konfirmasi Diagnosis KPD: Pemeriksaan spekulum steril inspekulo (melihat genangan cairan ketuban di forniks posterior / pooling), Uji Nitrazin (kertas lakmus merah berubah menjadi biru karena pH basa ketuban 7.0 - 7.5), dan Uji Pakis (Ferning Test mikroskopis).",
+      "HINDARI Pemeriksaan Dalam Vagina (Digital Vaginal Toucher / VT) berulang kecuali pasien sudah inpartu aktif fase aktif, karena VT berulang melipatgandakan risiko infeksi korioamnionitis asenden.",
+      "Tirah baring dan observasi tanda-tanda korioamnionitis (Demam maternal >= 38.0°C, takikardia maternal > 100 bpm, takikardia janin > 160 bpm, nyeri tekan uterus, cairan ketuban berbau busuk). Jika timbul korioamnionitis, TERMINASI PERSALINAN SEGERA TANPA MEMANDANG USIA GESTASI."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "KPD Aterm (Usia Kehamilan >= 37 Minggu)",
+        "recommendation": "Jika tidak terjadi his persalinan spontan dalam 6-12 jam pasca pecah ketuban, LAKUKAN INDUKSI PERSALINAN (dengan Oksitosin IV infus drip) untuk menurunkan risiko infeksi maternal dan neonatal.",
+        "contraindicatedDrugs": [
+          "Amoxicillin-Clavulanate (Co-amoxiclav) pada KPD preterm - memicu Enterokolitis Nekrotikans / NEC pada bayi"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Tanda Vital Maternal (Suhu Tubuh setiap 4 jam, Denyut Nadi)",
+      "Denyut Jantung Janin (Kardiotokografi / CTG kontinu atau Doppler)",
+      "Hitung Darah Lengkap (skrining Leukositosis maternal > 15.000 / shift to the left) dan USG Volume Cairan Ketuban (AFI)"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Kedokteran (PNPK) Ketuban Pecah Dini Perkumpulan Obstetri dan Ginekologi Indonesia (POGI) / ACOG Practice Bulletin on Prelabor Rupture of Membranes",
+    "updatedYear": "2023",
+    "keyClinicalAlert": "HINDARI PENGGUNAAN ANTIBIOTIK AMOXICILLIN-CLAVULANATE (CO-AMOXICLAV) PADA KPD PRETERM karena terbukti secara klinis memicu komplikasi fatal Enterokolitis Nekrotikans (NEC / pembusukan usus bayi baru lahir)! Gunakan kombinasi Ampicillin + Erythromycin."
+  },
+  {
+    "id": "guideline-neonatal-hyperbilirubinemia",
+    "diseaseName": "Hiperbilirubinemia & Ikterus Neonatorum pada Bayi Baru Lahir",
+    "category": "Pediatri (Kesehatan Anak)",
+    "organization": "IDAI",
+    "fornasTier": "Semua Tingkat Faskes",
+    "icd10": "P59.9",
+    "indonesianKeywords": [
+      "bayi kuning",
+      "ikterus neonatorum",
+      "bilirubin tinggi bayi",
+      "fototerapi blue light",
+      "transfusi tukar bayi",
+      "kernikterus",
+      "inkompatibilitas abo rhesus"
+    ],
+    "summary": "Peningkatan konsentrasi kadar Bilirubin Serum Total (TSB) pada bayi baru lahir yang termanifestasi secara klinis sebagai pewarnaan kuning pada sklera mata, kulit, dan membran mukosa (kemerahan visual Kramer I hingga V). Hiperbilirubinemia indirek tak terkonjugasi patologis berisiko menembus sawar darah otak dan memicu Ensefalopati Bilirubin Akut (ABE) serta kerusakan otak permanen (Kernikterus).",
+    "targetGoals": [
+      "Menurunkan Kadar Bilirubin Serum Total (TSB) di Bawah Batas Kurva Ambang Batas Fototerapi Nomogram Bhutani / AAP",
+      "Mencegah Terjadinya Kerusakan Neurologis Ensefalopati Bilirubin Akut (Letargis, Hipotonia, Tangisan Melengking / High-Pitched Cry, Opistotonus) dan Kernikterus Permanen",
+      "Mempertahankan Asupan Cairan dan Nutrisi ASI Eksklusif yang Adekuat"
+    ],
+    "firstLineTherapy": [
+      {
+        "drugName": "Fototerapi Intensif (Blue-Green Light)",
+        "dosage": "Penyinaran lampu fototerapi intensif (panjang gelombang 460 - 490 nm, iradians minimal 30 mcW/cm²/nm) pada seluruh luas permukaan tubuh bayi telanjang (hanya memakai popok dan penutup mata khusus) secara kontinu",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Baku emas terapi non-invasif; memicu reaksi fotoisomerisasi struktural mengubah 4Z,15Z-bilirubin menjadi lumirubin larut air yang diekskresikan via empedu dan urin tanpa perlu konjugasi hepar."
+      },
+      {
+        "drugName": "ASI Eksklusif / Nutrisi Enteral Adekuat",
+        "dosage": "Pemberian ASI atau formula 8 - 12 kali per hari (tiap 2-3 jam) untuk meningkatkan motilitas usus dan mempercepat pembuangan bilirubin via mekonium/feses",
+        "role": "Lini Pertama",
+        "fornasTier": "Faskes 1",
+        "notes": "Menurunkan resirkulasi enterohepatik bilirubin tak terkonjugasi di lumen usus."
+      }
+    ],
+    "secondLineTherapy": [
+      {
+        "drugName": "Transfusi Tukar (Exchange Transfusion)",
+        "dosage": "Transfusi ganti darah volume ganda (Double-Volume Exchange Transfusion = 2 x 80 mL/kgBB = 160 mL/kgBB) via kateter vena umbilikalis",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Tindakan penyelamatan darurat jika kadar TSB mencapai garis ambang transfusi tukar atau timbul tanda ensefalopati bilirubin akut fase awal."
+      },
+      {
+        "drugName": "Intravenous Immunoglobulin (IVIg)",
+        "dosage": "0.5 - 1.0 gram/kgBB IV infus pelan dalam 2 jam (dapat diulang setelah 12 jam jika perlu)",
+        "role": "Alternative",
+        "fornasTier": "Faskes 2/3",
+        "notes": "Diindikasikan pada penyakit hemolitik autoimun isoimunisasi (Inkompatibilitas Golongan Darah ABO atau Inkompatibilitas Rhesus) untuk memblokade reseptor Fc RES dan mencegah hemolisis eritrosit masif."
+      }
+    ],
+    "nonPharmacological": [
+      "Pemeriksaan Visual Derajat Ikterus Kramer (Kramer 1: Kepala/leher ~5 mg/dL; Kramer 2: Dada/pusat ~9 mg/dL; Kramer 3: Paha ~11 mg/dL; Kramer 4: Lengan/betis ~12 mg/dL; Kramer 5: Telapak tangan & kaki > 15 mg/dL).",
+      "Pemeriksaan Kadar Bilirubin Transkutan (TcB) atau Bilirubin Serum Total (TSB) laboratorium.",
+      "Perlindungan Mata dan Genitalia: Pasang penutup mata kedap cahaya (eye patch) selama fototerapi dan pastikan posisi bayi diubah setiap 2-3 jam.",
+      "Pemantauan Suhu Tubuh bayi setiap 3-4 jam (cegah hipertermia atau hipotermia) dan hidrasi cairan."
+    ],
+    "specialPopulations": [
+      {
+        "condition": "Bayi dengan Ikterus Timbul dalam Kurun Waktu < 24 Jam Pertama Kehidupan",
+        "recommendation": "Semua ikterus pada usia < 24 jam adalah IKTERUS PATOLOGIS BERAT (kebanyakan akibat inkompatibilitas ABO/Rhesus atau defisiensi enzim G6PD); WAJIB SEGERA RUJUK KE RS untuk pemeriksaan TSB, Coombs Test, Golongan Darah Ibu-Bayi, dan FOTOTERAPI INTENSIF SEGERA.",
+        "contraindicatedDrugs": [
+          "Menjemur bayi di bawah sinar matahari pagi sebagai pengganti fototerapi pada ikterus patologis"
+        ]
+      }
+    ],
+    "monitoringParameters": [
+      "Kadar Bilirubin Serum Total (TSB) setiap 12 - 24 jam selama fototerapi (hentikan jika TSB turun < 13-14 mg/dL atau 2-3 mg/dL di bawah garis ambang)",
+      "Evaluasi Rebound Bilirubin 24 jam pasca penghentian fototerapi",
+      "Skrining Status Hidrasi (Penurunan Berat Badan harian, Frekuensi Buang Air Kecil minimal 6 kali/hari, Karakteristik Feses)"
+    ],
+    "sourceGuidelines": "Pedoman Nasional Pelayanan Kedokteran (PNPK) Tata Laksana Hiperbilirubinemia Kementerian Kesehatan RI (KMK No. HK.01.07/MENKES/240/2019) / Panduan Praktis Klinis IDAI / AAP Clinical Practice Guideline Revision: Management of Hyperbilirubinemia in the Newborn Infant",
+    "updatedYear": "2024",
+    "keyClinicalAlert": "Ikterus yang muncul dalam waktu < 24 JAM PERTAMA setelah lahir adalah GAWAT DARURAT PATOLOGIS! Menjemur bayi di bawah sinar matahari pagi BUKAN terapi yang tepat untuk hiperbilirubinemia dan tidak dapat menggantikan Fototerapi Medis Rumah Sakit."
   }
 ];

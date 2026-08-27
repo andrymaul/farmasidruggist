@@ -15,7 +15,8 @@ import {
   SlidersHorizontal,
   Baby,
   X,
-  Check
+  Check,
+  Smartphone
 } from 'lucide-react';
 import { DDINTER_CATEGORIES, resolveDrugFromDDInter, deduplicateDrugs } from '../utils/ddinterEngine';
 import { 
@@ -33,6 +34,7 @@ interface DrugDirectoryProps {
   onSelectDrug: (drug: Drug) => void;
   onCheckInteractionWith: (drugName: string) => void;
   onOpenAddDrugModal?: () => void;
+  onAddToPioCard?: (drug: Drug) => void;
   initialSearchQuery?: string;
 }
 
@@ -45,6 +47,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
   onSelectDrug,
   onCheckInteractionWith,
   onOpenAddDrugModal,
+  onAddToPioCard,
   initialSearchQuery = ''
 }) => {
   const [searchTerm, setSearchTerm] = useState(initialSearchQuery);
@@ -83,6 +86,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
         (drug.offLabelIndication && drug.offLabelIndication.toLowerCase().includes(query)) ||
         (drug.blackBoxWarning && drug.blackBoxWarning.toLowerCase().includes(query)) ||
         (drug.cypPathway && drug.cypPathway.toLowerCase().includes(query)) ||
+        (drug.foodInteraction && drug.foodInteraction.toLowerCase().includes(query)) ||
         (drug.monitoringParameters && drug.monitoringParameters.toLowerCase().includes(query)) ||
         (drug.brandNames && Array.isArray(drug.brandNames) && drug.brandNames.some((b) => b && b.toLowerCase().includes(query)));
 
@@ -519,18 +523,31 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                 </div>
 
                 {/* Card Actions */}
-                <div className="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                <div className="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between gap-1.5">
                   <button
                     onClick={() => onSelectDrug(drug)}
-                    className="flex-1 bg-teal-50 hover:bg-teal-100 text-teal-800 font-bold text-xs py-2 px-3 rounded-xl border border-teal-200 transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                    className="flex-1 bg-teal-50 hover:bg-teal-100 text-teal-800 font-bold text-xs py-2 px-2 rounded-xl border border-teal-200 transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                    title="Lihat monografi lengkap"
                   >
                     <Info className="w-3.5 h-3.5" />
                     <span>Monografi</span>
                   </button>
 
+                  {onAddToPioCard && (
+                    <button
+                      onClick={() => onAddToPioCard(drug)}
+                      className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-xs py-2 px-2.5 rounded-xl border border-emerald-200 transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                      title="Kirim obat ini ke Kartu PIO WhatsApp"
+                    >
+                      <Smartphone className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>+ PIO</span>
+                    </button>
+                  )}
+
                   <button
                     onClick={() => onCheckInteractionWith(drug.name)}
-                    className="flex-1 bg-[#0f766e] hover:bg-[#115e59] text-white font-bold text-xs py-2 px-3 rounded-xl transition-all flex items-center justify-center gap-1 shadow-xs cursor-pointer hover:scale-[1.02]"
+                    className="flex-1 bg-[#0f766e] hover:bg-[#115e59] text-white font-bold text-xs py-2 px-2 rounded-xl transition-all flex items-center justify-center gap-1 shadow-xs cursor-pointer hover:scale-[1.02]"
+                    title="Skrining interaksi obat"
                   >
                     <ShieldAlert className="w-3.5 h-3.5" />
                     <span>Interaksi ({intCount > 0 ? intCount : 'Cek'})</span>

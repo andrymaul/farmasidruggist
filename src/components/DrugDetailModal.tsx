@@ -8,16 +8,17 @@ import {
   Activity, 
   ShieldAlert, 
   FileText, 
-  Info,
-  ChevronRight,
-  Sparkles,
-  Baby,
-  Dna,
-  HeartPulse,
-  BookOpen,
-  ExternalLink,
-  ShieldCheck,
-  CheckCircle2
+  Info, 
+  ChevronRight, 
+  Sparkles, 
+  Baby, 
+  Dna, 
+  HeartPulse, 
+  BookOpen, 
+  ExternalLink, 
+  ShieldCheck, 
+  CheckCircle2,
+  Smartphone
 } from 'lucide-react';
 import { getBpomBadge } from '../utils/bpomHelper';
 
@@ -27,6 +28,7 @@ interface DrugDetailModalProps {
   allDrugs: Drug[];
   onClose: () => void;
   onCheckInteractionWith: (targetDrugName: string) => void;
+  onAddToPioCard?: (drug: Drug) => void;
 }
 
 export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
@@ -34,7 +36,8 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
   allInteractions,
   allDrugs,
   onClose,
-  onCheckInteractionWith
+  onCheckInteractionWith,
+  onAddToPioCard
 }) => {
   if (!drug) return null;
 
@@ -387,7 +390,7 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-slate-50 dark:bg-slate-850 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2 flex-shrink-0">
+        <div className="p-4 bg-slate-50 dark:bg-slate-850 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 flex-shrink-0">
           <div className="flex items-center gap-2">
             <span className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold flex items-center gap-1">
               <BookOpen className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
@@ -395,12 +398,28 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
             </span>
           </div>
 
-          <button
-            onClick={onClose}
-            className="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2 rounded-xl font-semibold text-xs shadow-xs transition-colors cursor-pointer"
-          >
-            Tutup
-          </button>
+          <div className="flex items-center gap-2">
+            {onAddToPioCard && (
+              <button
+                type="button"
+                onClick={() => {
+                  onAddToPioCard(drug);
+                  onClose();
+                }}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+                <span>📲 Buat Kartu PIO WhatsApp</span>
+              </button>
+            )}
+
+            <button
+              onClick={onClose}
+              className="bg-slate-200 hover:bg-slate-300 dark:bg-slate-750 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-xl font-semibold text-xs shadow-xs transition-colors cursor-pointer"
+            >
+              Tutup
+            </button>
+          </div>
         </div>
 
       </div>

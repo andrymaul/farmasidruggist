@@ -1,5 +1,6 @@
 import { DrugInteraction } from '../types';
 import { DRUGSCOM_ADDITIONAL_INTERACTIONS } from './drugsComData';
+import { FORNAS_ADDITIONAL_INTERACTIONS } from './fornasInteractions';
 
 const BASE_EXTENDED_INTERACTIONS: DrugInteraction[] = [
   {
@@ -1748,6 +1749,8 @@ const BASE_EXTENDED_INTERACTIONS: DrugInteraction[] = [
 
 export const EXTENDED_INTERACTIONS_DATABASE: DrugInteraction[] = [
   ...BASE_EXTENDED_INTERACTIONS,
-  ...DRUGSCOM_ADDITIONAL_INTERACTIONS
+  ...DRUGSCOM_ADDITIONAL_INTERACTIONS,
+  ...FORNAS_ADDITIONAL_INTERACTIONS
 ];
+
 

@@ -286,8 +286,7 @@ export const Header: React.FC<HeaderProps> = ({
       case 'interactions': return { title: 'Deteksi Interaksi Obat (Evaluasi Klinis)', desc: 'Pemeriksaan potensi efek samping & tingkat keparahan' };
       case 'usage': return { title: 'Panduan Penggunaan Obat', desc: 'Petunjuk langkah demi langkah tata cara penggunaan sediaan obat khusus' };
       case 'history': return { title: 'Riwayat Pemeriksaan', desc: 'Rekam jejak simulasi & penelusuran interaksi' };
-      case 'pricing': return { title: 'Paket & Langganan', desc: 'Pilih lisensi layanan yang sesuai untuk fasilitas kesehatan Anda' };
-      case 'renal-adjuster': return { title: 'Kalkulator Dosis Pediatrik & Penyesuaian Ginjal', desc: 'Perhitungan dosis anak berbasis BB/Usia/BSA & penyesuaian dosis ginjal CrCl/eGFR' };
+      case 'renal-adjuster': return { title: 'Kalkulator Medis & Penyesuaian Dosis', desc: 'Suite kalkulator farmako-klinis terpadu: Dosis Ginjal, Hepar, Pediatrik, Puyer, Syringe Pump, Opioid, IBW, Oksigen, dan 13 Skor Klinis' };
       case 'sop': return { title: 'Standar Operasional Prosedur (SOP) Farmasi', desc: 'Kumpulan SOP Pelayanan Kefarmasian berstandar Permenkes No. 73/2016 & CDOB BPOM' };
       case 'regulations': return { title: 'Regulasi & Kebijakan Farmasi Indonesia', desc: 'Kompilasi UU Kesehatan No. 17/2023, Narkotika, Psikotropika, Permenkes No. 73/2016, DOWA & PerBPOM' };
       case 'admin': return { title: 'Panel Administrasi', desc: 'Manajemen basis data obat & aturan interaksi' };
