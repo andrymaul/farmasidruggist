@@ -708,7 +708,7 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
               <p className="text-[7.5px] text-slate-500">Dicetak melalui FARMASIDRUGGIST Decision Support System</p>
             </div>
             <div className="text-center w-36 shrink-0 relative space-y-0.5">
-              {clinicBranding?.stampUrl && (
+              {clinicBranding?.enableDigitalStamp !== false && clinicBranding?.stampUrl && (
                 <img 
                   src={clinicBranding.stampUrl} 
                   alt="Stempel Digital" 

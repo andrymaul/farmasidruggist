@@ -26,7 +26,10 @@ import {
   RefreshCw, 
   ClipboardList, 
   Scale,
-  HeartPulse
+  HeartPulse,
+  Baby,
+  Syringe,
+  MessageSquare
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -60,7 +63,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman' },
         { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru' },
         { id: 'interactions', label: 'Cek Interaksi', icon: ShieldAlert, badge: 'Klinis' },
-        { id: 'renal-adjuster', label: 'Kalkulator Dosis', icon: Calculator, badge: 'Dosis' },
+        { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp', icon: MessageSquare, badge: 'Pasien' },
+        { id: 'iv-compatibility', label: 'Kompatibilitas Injeksi IV', icon: Syringe, badge: 'IV/ICU' },
+        { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer' },
+        { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap' },
         { id: 'sop', label: 'SOP Farmasi', icon: ClipboardList, badge: 'Resmi' },
         { id: 'regulations', label: 'Regulasi Farmasi', icon: Scale, badge: 'Hukum' },
         { id: 'usage', label: 'Penggunaan Obat', icon: BookOpen },
@@ -72,7 +78,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         { id: 'drugs', label: 'Katalog Obat', icon: Pill },
         { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman' },
         { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru' },
-        { id: 'renal-adjuster', label: 'Kalkulator Dosis', icon: Calculator, badge: 'Dosis' },
+        { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp', icon: MessageSquare, badge: 'Pasien' },
+        { id: 'iv-compatibility', label: 'Kompatibilitas Injeksi IV', icon: Syringe, badge: 'IV/ICU' },
+        { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer' },
+        { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap' },
         { id: 'sop', label: 'SOP Farmasi', icon: ClipboardList, badge: 'Resmi' },
         { id: 'regulations', label: 'Regulasi Farmasi', icon: Scale, badge: 'Hukum' },
         { id: 'usage', label: 'Penggunaan Obat', icon: BookOpen },

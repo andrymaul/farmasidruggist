@@ -11,5 +11,9 @@ export const DEFAULT_CLINIC_BRANDING: ClinicBrandingSettings = {
   pharmacistSipa: 'SIPA: 19920814/SIPA_31.74/2023/2019',
   primaryColor: '#0d9488', // Teal
   showWatermark: true,
+  enableHeaderKop: true,
+  enableDigitalStamp: true,
+  enablePharmacistSignature: true,
+  enableFooter: true,
   customFooterText: 'Dokumen evaluasi klinis interaksi obat ini diterbitkan secara sah dan tervalidasi melalui Sistem Informasi Farmasi Klinis.'
 };

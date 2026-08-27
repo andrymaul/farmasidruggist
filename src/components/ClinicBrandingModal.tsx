@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ClinicBrandingSettings } from '../types';
-import { X, Building2, Save, FileText, Check, Stamp, UserCheck, Phone, MapPin, Sparkles, Image } from 'lucide-react';
+import { X, Building2, Save, FileText, Check, Stamp, UserCheck, Phone, MapPin, Sparkles, Image, Power, Layers } from 'lucide-react';
 
 interface ClinicBrandingModalProps {
   branding: ClinicBrandingSettings;
@@ -13,7 +13,14 @@ export const ClinicBrandingModal: React.FC<ClinicBrandingModalProps> = ({
   onSave,
   onClose
 }) => {
-  const [formData, setFormData] = useState<ClinicBrandingSettings>({ ...branding });
+  const [formData, setFormData] = useState<ClinicBrandingSettings>({
+    ...branding,
+    enableHeaderKop: branding.enableHeaderKop ?? true,
+    enableDigitalStamp: branding.enableDigitalStamp ?? true,
+    enablePharmacistSignature: branding.enablePharmacistSignature ?? true,
+    enableFooter: branding.enableFooter ?? true,
+    showWatermark: branding.showWatermark ?? true,
+  });
   const [savedSuccess, setSavedSuccess] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,6 +32,11 @@ export const ClinicBrandingModal: React.FC<ClinicBrandingModalProps> = ({
       onClose();
     }, 1200);
   };
+
+  const isKopOn = formData.enableHeaderKop !== false;
+  const isStampOn = formData.enableDigitalStamp !== false;
+  const isSigOn = formData.enablePharmacistSignature !== false;
+  const isWatermarkOn = formData.showWatermark !== false;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto print:hidden">
@@ -38,65 +50,136 @@ export const ClinicBrandingModal: React.FC<ClinicBrandingModalProps> = ({
             </div>
             <div>
               <h2 className="text-base font-extrabold tracking-tight">Pengaturan Kop Surat & Stempel Digital</h2>
-              <p className="text-xs text-slate-300">Integrasi Nama Apotek/Klinik, SIPA, Logo, & Stempel pada seluruh laporan PDF</p>
+              <p className="text-xs text-slate-300">Integrasi Nama Apotek/Klinik, SIPA, Logo, & Sakelar ON/OFF Cetak PDF</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition-colors"
+            className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-5 text-xs max-h-[80vh] overflow-y-auto">
+        <form onSubmit={handleSubmit} className="p-6 space-y-5 max-h-[80vh] overflow-y-auto custom-scrollbar text-xs">
           
-          {/* Section 1: Data Fasilitas Kesehatan */}
+          {/* SAKELAR ON/OFF ELEMEN CETAK */}
+          <div className="bg-slate-900 text-white p-4 rounded-2xl border border-slate-800 space-y-3">
+            <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
+              <Power className="w-4 h-4 text-teal-400" />
+              <span className="font-bold text-teal-300">Sakelar ON / OFF Elemen Dokumen Cetak</span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {/* Kop Toggle */}
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, enableHeaderKop: !isKopOn })}
+                className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                  isKopOn ? 'bg-teal-600/30 text-teal-200 border-teal-500/50 font-bold' : 'bg-slate-800 text-slate-400 border-slate-700'
+                }`}
+              >
+                <p className="text-[10px] text-slate-400">Kop Surat</p>
+                <p className="text-xs font-black mt-0.5">{isKopOn ? '🟢 ON' : '⚪ OFF'}</p>
+              </button>
+
+              {/* Stamp Toggle */}
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, enableDigitalStamp: !isStampOn })}
+                className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                  isStampOn ? 'bg-teal-600/30 text-teal-200 border-teal-500/50 font-bold' : 'bg-slate-800 text-slate-400 border-slate-700'
+                }`}
+              >
+                <p className="text-[10px] text-slate-400">Stempel</p>
+                <p className="text-xs font-black mt-0.5">{isStampOn ? '🟢 ON' : '⚪ OFF'}</p>
+              </button>
+
+              {/* Signature Toggle */}
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, enablePharmacistSignature: !isSigOn })}
+                className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                  isSigOn ? 'bg-teal-600/30 text-teal-200 border-teal-500/50 font-bold' : 'bg-slate-800 text-slate-400 border-slate-700'
+                }`}
+              >
+                <p className="text-[10px] text-slate-400">Tanda Tangan</p>
+                <p className="text-xs font-black mt-0.5">{isSigOn ? '🟢 ON' : '⚪ OFF'}</p>
+              </button>
+
+              {/* Watermark Toggle */}
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, showWatermark: !isWatermarkOn })}
+                className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                  isWatermarkOn ? 'bg-teal-600/30 text-teal-200 border-teal-500/50 font-bold' : 'bg-slate-800 text-slate-400 border-slate-700'
+                }`}
+              >
+                <p className="text-[10px] text-slate-400">Watermark</p>
+                <p className="text-xs font-black mt-0.5">{isWatermarkOn ? '🟢 ON' : '⚪ OFF'}</p>
+              </button>
+            </div>
+          </div>
+
+          {/* Section 1: Profil Instansi */}
           <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
             <h3 className="font-extrabold text-slate-900 text-xs flex items-center gap-2 border-b border-slate-200 pb-2">
               <Building2 className="w-4 h-4 text-teal-600" />
-              <span>Identitas Fasilitas Kesehatan (Kop Surat)</span>
+              <span>Identitas Resmi Klinik / Apotek</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="sm:col-span-2">
-                <label className="font-bold text-slate-700 block mb-1">Nama Klinik / Apotek / Rumah Sakit</label>
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Nama Klinik / Apotek *</label>
                 <input
                   type="text"
                   value={formData.clinicName}
                   onChange={(e) => setFormData({ ...formData, clinicName: e.target.value })}
-                  placeholder="Contoh: Apotek & Klinik Sehat Medika Utama"
+                  placeholder="Klinik & Apotek Medika Sejahtera"
                   className="w-full px-3 py-2 bg-white rounded-xl border border-slate-200 font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
                   required
                 />
               </div>
 
-              <div className="sm:col-span-2">
-                <label className="font-bold text-slate-700 block mb-1">Alamat Lengkap Fasilitas Kesehatan</label>
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Tagline / Slogan</label>
                 <input
                   type="text"
-                  value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  placeholder="Jl. Kesehatan Raya No. 12, Jakarta Selatan"
+                  value={formData.tagline || ''}
+                  onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
+                  placeholder="Pusat Pelayanan Farmasi Klinis"
+                  className="w-full px-3 py-2 bg-white rounded-xl border border-slate-200 text-slate-700 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="font-bold text-slate-700 block mb-1">Alamat Lengkap *</label>
+              <input
+                type="text"
+                value={formData.address}
+                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                placeholder="Jl. Jendral Sudirman No. 45, Jakarta"
+                className="w-full px-3 py-2 bg-white rounded-xl border border-slate-200 text-slate-700 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">No. Kontak / WA</label>
+                <input
+                  type="text"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  placeholder="(021) 555-0199"
                   className="w-full px-3 py-2 bg-white rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none"
                   required
                 />
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Nomor Telepon / WhatsApp</label>
-                <input
-                  type="text"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="(021) 555-0199 / 0812-9988-7766"
-                  className="w-full px-3 py-2 bg-white rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">Nomor Izin Operasional (SIA / Kemenkes)</label>
+                <label className="font-bold text-slate-700 block mb-1">No. Izin Operasional / SIA</label>
                 <input
                   type="text"
                   value={formData.licenseNumber || ''}
@@ -188,21 +271,29 @@ export const ClinicBrandingModal: React.FC<ClinicBrandingModalProps> = ({
             </span>
 
             <div className="p-3 bg-white rounded-2xl border-2 border-teal-600/30 shadow-xs space-y-2">
-              <div className="border-b border-teal-700 pb-2 flex items-center justify-between">
-                <div>
-                  <h4 className="font-black text-sm text-teal-950 uppercase">{formData.clinicName || 'Nama Klinik/Apotek'}</h4>
-                  <p className="text-[10px] text-slate-600 font-medium">{formData.address || 'Alamat Klinik'}</p>
+              {isKopOn ? (
+                <div className="border-b border-teal-700 pb-2 flex items-center justify-between">
+                  <div>
+                    <h4 className="font-black text-sm text-teal-950 uppercase">{formData.clinicName || 'Nama Klinik/Apotek'}</h4>
+                    <p className="text-[10px] text-slate-600 font-medium">{formData.address || 'Alamat Klinik'}</p>
+                  </div>
+                  <div className="text-right text-[9px] text-slate-500 font-bold">
+                    <p className="text-teal-800">LEMBAR RESMI PIO</p>
+                    <p>Tanggal: {new Date().toLocaleDateString('id-ID')}</p>
+                  </div>
                 </div>
-                <div className="text-right text-[9px] text-slate-500 font-bold">
-                  <p className="text-teal-800">LEMBAR RESMI PIO</p>
-                  <p>Tanggal: {new Date().toLocaleDateString('id-ID')}</p>
+              ) : (
+                <div className="p-2 bg-amber-50 rounded-xl text-center text-amber-800 font-bold text-[10px] border border-amber-200">
+                  [ Kop Surat Dinonaktifkan - Menggunakan Kertas Kop Fisik ]
                 </div>
-              </div>
+              )}
 
-              <div className="flex items-center justify-between text-[10px] text-slate-600 pt-1">
-                <span>Apoteker Penanggung Jawab: <strong>{formData.pharmacistName}</strong></span>
-                <span>{formData.pharmacistSipa}</span>
-              </div>
+              {isSigOn && (
+                <div className="flex items-center justify-between text-[10px] text-slate-600 pt-1">
+                  <span>Apoteker Penanggung Jawab: <strong>{formData.pharmacistName}</strong></span>
+                  <span>{formData.pharmacistSipa}</span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -211,13 +302,13 @@ export const ClinicBrandingModal: React.FC<ClinicBrandingModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition-colors"
+              className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition-colors cursor-pointer"
             >
               Batal
             </button>
             <button
               type="submit"
-              className="px-6 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold shadow-md transition-all flex items-center gap-2"
+              className="px-6 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold shadow-md transition-all flex items-center gap-2 cursor-pointer"
             >
               {savedSuccess ? (
                 <>

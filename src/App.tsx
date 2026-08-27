@@ -14,6 +14,9 @@ import { PharmacyRegulationsManager } from './components/PharmacyRegulationsMana
 import { RenalDoseAdjuster } from './components/RenalDoseAdjuster';
 import { ClinicalPolypharmacyEvaluator } from './components/ClinicalPolypharmacyEvaluator';
 import { ClinicalTherapyGuidelines } from './components/ClinicalTherapyGuidelines';
+import { PediatricCompoundingCalculator } from './components/PediatricCompoundingCalculator';
+import { IvCompatibilityChecker } from './components/IvCompatibilityChecker';
+import { WhatsAppPatientCardManager } from './components/WhatsAppPatientCardManager';
 import { CustomerSubscriptionManager } from './components/CustomerSubscriptionManager';
 import { ProFeatureGate } from './components/ProFeatureGate';
 import { AuthModal } from './components/AuthModal';
@@ -848,11 +851,65 @@ export default function App() {
                 )
               )}
 
+              {activeTab === 'whatsapp-pio' && (
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Kartu PIO Pasien Siap Kirim via WhatsApp"
+                    featureDescription="Buat kartu edukasi aturan pakai obat digital, pantangan makanan, dan instruksi penyimpanan, lalu kirim langsung ke WhatsApp pasien hanya dengan 1 kali klik."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <WhatsAppPatientCardManager
+                    clinicBranding={clinicBranding}
+                    onOpenBrandingModal={() => handleSelectTab('admin-branding')}
+                    drugs={drugs}
+                  />
+                )
+              )}
+
+              {activeTab === 'iv-compatibility' && (
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Uji Kompatibilitas Injeksi IV, Y-Site & Stabilitas Rekonstitusi"
+                    featureDescription="Evaluasi kompatibilitas percabangan jalur infus bersama (Y-Site Co-Infusion), skrining presipitasi asam-basa, kompatibilitas pelarut infus (NS, D5W, RL), stabilitas BUD, dan titrasi syringe pump."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <IvCompatibilityChecker
+                    onSelectTab={handleSelectTab}
+                  />
+                )
+              )}
+
+              {activeTab === 'pediatric' && (
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Kalkulator Dosis Pediatrik & Konversi Racikan Puyer / Sirup"
+                    featureDescription="Hitung dosis terapi anak berbasis BB & BSA, konversi peracikan tablet utuh ke serbuk puyer dengan perhitungan zat pengisi Saccharum Lactis, dan takaran botol sirup."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <PediatricCompoundingCalculator
+                    existingDrugs={drugs}
+                    onCheckInteractions={(drugNames) => {
+                      setPreselectedDrugNames(drugNames);
+                      handleSelectTab('interactions');
+                    }}
+                  />
+                )
+              )}
+
               {activeTab === 'renal-adjuster' && (
                 !isProUser ? (
                   <ProFeatureGate
-                    featureTitle="Kalkulator Penyesuaian Dosis Ginjal & Pediatri"
-                    featureDescription="Kalkulator komprehensif klirens kreatinin (Cockcroft-Gault & eGFR CKD-EPI) dengan rekomendasi penyesuaian dosis obat otomatis berbasis literatur klinis."
+                    featureTitle="Kalkulator Medis & Penyesuaian Dosis"
+                    featureDescription="Kalkulator farmakoterapi komprehensif: Klirens Ginjal (CrCl/eGFR), Skor Hepar (Child-Pugh & MELD), Konversi Opioid & Paliatif (OME CDC), Berat Badan Ideal (IBW), dan Oksigen Medis."
                     onOpenPricingModal={() => setShowPricingModal(true)}
                     onOpenAuthModal={() => setShowAuthModal(true)}
                     isLoggedIn={Boolean(currentUser)}

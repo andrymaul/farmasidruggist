@@ -318,7 +318,7 @@ ${notes || 'Diminum secara teratur sesuai aturan dosis dokter. Segera hubungi ap
               </div>
 
               <div className="text-center space-y-1 shrink-0 relative w-48">
-                {clinicBranding?.stampUrl && (
+                {clinicBranding?.enableDigitalStamp !== false && clinicBranding?.stampUrl && (
                   <img 
                     src={clinicBranding.stampUrl} 
                     alt="Stempel Digital Klinik" 
@@ -467,7 +467,7 @@ ${notes || 'Diminum secara teratur sesuai aturan dosis dokter. Segera hubungi ap
           </div>
 
           <div className="text-center w-36 shrink-0 space-y-0.5 relative">
-            {clinicBranding?.stampUrl && (
+            {clinicBranding?.enableDigitalStamp !== false && clinicBranding?.stampUrl && (
               <img 
                 src={clinicBranding.stampUrl} 
                 alt="Stempel Digital" 

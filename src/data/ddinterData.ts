@@ -13,7 +13,7 @@ export const DDINTER_DATASET_INFO: DDInterDatasetInfo = {
   totalDFI: 915,
   totalDDSI: 8520,
   totalDuplications: 6140,
-  lastSyncDate: '2026-08-23',
+  lastSyncDate: '2026-08-27',
   sourceUrl: 'https://www.drugs.com/drug_interactions.html',
   categories: [
     { code: 'ddinter_A', name: 'Obat Kardiovaskular & Antikoagulan (DOAC/NOAC)', recordCount: 43250, description: 'Interaksi DOAC (Apixaban, Dabigatran), Statin, Antiplatelet, Antihipertensi, dan Antiarrhythmia.' },

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#042f2e" />
+      <stop offset="50%" stop-color="#0f766e" />
+      <stop offset="100%" stop-color="#0891b2" />
+    </linearGradient>
+
+    <!-- Ring Glow Gradient -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+
+    <!-- Capsule & Leaf Accent Gradient -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+
+    <!-- Shadow filter -->
+    <filter id="dropGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Outer Rounded Squircle Container -->
+  <rect x="24" y="24" width="464" height="464" rx="128" fill="url(#bgGrad)" filter="url(#dropGlow)" />
+  <rect x="24" y="24" width="464" height="464" rx="128" stroke="url(#ringGrad)" stroke-width="12" stroke-opacity="0.85" />
+
+  <!-- Inner Subtle Medical Cross Background Grid -->
+  <path d="M256 110 V402 M110 256 H402" stroke="#2dd4bf" stroke-width="6" stroke-opacity="0.15" stroke-dasharray="8 8" />
+
+  <!-- Stylized Mortar & Pestle + Cross + Helix Center Icon -->
+  <!-- 1. Mortar Bowl Base -->
+  <path d="M148 240 C148 350 210 395 256 395 C302 395 364 350 364 240 Z" fill="url(#ringGrad)" fill-opacity="0.15" stroke="url(#ringGrad)" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" />
+  
+  <!-- Mortar Rim Lip -->
+  <path d="M128 240 C128 226 140 216 156 216 H356 C372 216 384 226 384 240 C384 254 372 264 356 264 H156 C140 264 128 254 128 240 Z" fill="#ffffff" />
+
+  <!-- 2. Pestle / Pharmacist Rod extending upwards with gradient head -->
+  <path d="M228 136 C220 120 232 98 256 98 C280 98 292 120 284 136 L264 230 H248 Z" fill="url(#ringGrad)" stroke="#ffffff" stroke-width="6" stroke-linejoin="round" />
+
+  <!-- 3. Medical Cross & Heartbeat Pulse in the Center of Bowl -->
+  <!-- Medical Plus ✚ in White / Cyan Glow -->
+  <rect x="240" y="275" width="32" height="85" rx="8" fill="#ffffff" />
+  <rect x="213.5" y="301.5" width="85" height="32" rx="8" fill="#ffffff" />
+
+  <!-- Center Heartbeat Accent Dot / Sparkle -->
+  <circle cx="256" cy="317.5" r="8" fill="#0f766e" />
+
+  <!-- 4. Dynamic Leaf / Capsule Sparkle on top right of the Mortar -->
+  <path d="M340 145 C380 145 395 180 395 210 C365 210 330 195 330 155 C330 145 335 145 340 145 Z" fill="url(#accentGrad)" />
+  <path d="M340 150 C365 170 380 185 390 205" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-opacity="0.8" />
+  
+  <!-- Left Side Pharmacy Sparkle -->
+  <circle cx="140" cy="160" r="14" fill="#38bdf8" />
+  <circle cx="140" cy="160" r="7" fill="#ffffff" />
+</svg>

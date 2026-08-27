@@ -328,5 +328,105 @@ export const DRUGSCOM_DOSAGE_MAP: Record<string, DrugDosageMonograph> = {
     hepaticDoseAdjustment: `• Pasien dengan Gangguan Fungsi Hati (Insufisiensi Hepatik): Dosis yang direkomendasikan adalah 5 mg per oral sekali sehari.`,
     maxDoseLimit: `• Dewasa & Remaja: 10 mg per 24 jam; Anak 2-5 th: 5 mg/24 jam; Anak 6-23 bln: 5 mg/24 jam.`,
     administrationGuideline: `• Dapat diminum dengan atau tanpa makanan (makanan tidak mempengaruhi tingkat absorpsi, hanya sedikit memperlambat Tmax).\n• Disarankan diminum pada malam hari sebelum tidur karena dapat memicu rasa kantuk ringan pada sebagian pasien (~14%).\n• Hindari mengemudi, mengoperasikan mesin berbahaya, atau mengonsumsi alkohol dan obat penenang depresan SSP saat menggunakan obat ini.`
+  },
+
+  'dextromethorphan': {
+    adultDosage: `• Pereda Batuk Kering (Non-Produktif):\n  - Sediaan Standar (Sirup / Tablet IR): 10 - 20 mg per oral setiap 4 jam ATAU 30 mg per oral setiap 6 - 8 jam sesuai kebutuhan.\n  - Sediaan Lepas Lambat (Dextromethorphan Polistirex ER): 60 mg per oral dua kali sehari (setiap 12 jam).\n  - Dosis Maksimal Harian: 120 mg per 24 jam.`,
+    pediatricDosage: `• Anak Usia 6 tahun hingga 11 tahun:\n  - 5 - 10 mg per oral setiap 4 jam ATAU 15 mg setiap 6 - 8 jam (Maksimal: 60 mg dalam 24 jam).\n• Anak Usia 4 tahun hingga 5 tahun:\n  - 2.5 - 5 mg per oral setiap 4 jam ATAU 7.5 mg setiap 6 - 8 jam (Maksimal: 30 mg dalam 24 jam).\n• Anak Usia <4 tahun: KONTRAINDIKASI / Tidak direkomendasikan penggunaan obat batuk OTC tanpa pengawasan dokter spesialis anak.`,
+    geriatricDosage: `• Pasien Usia Lanjut (>=65 tahun): Dosis sama dengan dewasa (10-20 mg q4h), namun perhatikan efek samping sedasi atau pusing yang dapat meningkatkan risiko jatuh.`,
+    renalDoseAdjustment: `• Tidak diperlukan penyesuaian dosis spesifik pada gangguan ginjal ringan-sedang. Gunakan dengan hati-hati pada gagal ginjal berat.`,
+    hepaticDoseAdjustment: `• Gunakan dengan hati-hati dan kurangi frekuensi pemberian pada gangguan hepar berat karena penurunan metabolisme CYP2D6/CYP3A4 hepar.`,
+    maxDoseLimit: `• Dewasa & Remaja (>=12 tahun): 120 mg/24 jam; Anak 6-11 tahun: 60 mg/24 jam; Anak 4-5 tahun: 30 mg/24 jam.`,
+    administrationGuideline: `• Gunakan sendok takar atau gelas takar khusus yang disertakan dalam kemasan sirup untuk memastikan ketepatan dosis.\n• Dapat diminum sebelum atau sesudah makan dengan air putih yang cukup.\n• HINDARI penggunaan bersamaan dengan jus grapefruit atau minuman beralkohol.\n• KONTRAINDIKASI MUTLAK bila pasien sedang mengonsumsi atau dalam 14 hari pasca-penghentian obat antidepresan golongan MAOI.`
+  },
+
+  'methylphenidate': {
+    adultDosage: `• Attention Deficit Hyperactivity Disorder (ADHD) & Narkolepsi Dewasa:\n  - Sediaan Standar (Ritalin IR): Awal 10 mg/hari (5 mg dua kali sehari sebelum sarapan dan makan siang), titrasi bertahap 5-10 mg/minggu hingga dosis efektif rata-rata 20 - 30 mg/hari dibagi 2-3 dosis (Maksimal 60 mg/hari).\n  - Sediaan Lepas Lambat (Concerta OROS): Awal 18 mg atau 36 mg per oral sekali sehari pada pagi hari, dapat dititrasi bertahap tiap minggu (18 mg, 27 mg, 36 mg, hingga 54 mg sekali sehari). Maksimal: 72 mg/hari.`,
+    pediatricDosage: `• Anak Usia >=6 tahun (ADHD):\n  - Sediaan IR (Ritalin): Awal 5 mg per oral dua kali sehari (sebelum sarapan dan makan siang). Tingkatkan dosis 5 - 10 mg tiap minggu sesuai respons klinis hingga maksimal 60 mg/hari (atau 2 mg/kgBB/hari).\n  - Sediaan ER (Concerta): Awal 18 mg sekali sehari pada pagi hari. Titrasi bertahap tiap minggu hingga maksimal 54 mg/hari (pada anak 6-12 tahun) atau 72 mg/hari (pada remaja 13-17 tahun).`,
+    geriatricDosage: `• Pengalaman klinis terbatas pada lansia; mulai dari dosis terendah dengan pemantauan tekanan darah dan fungsi kardiovaskular.`,
+    renalDoseAdjustment: `• Tidak diperlukan penyesuaian dosis pada gangguan ginjal karena obat diekskresi sebagai metabolit inaktif asam ritalinat.`,
+    hepaticDoseAdjustment: `• Gunakan dengan hati-hati pada gangguan fungsi hepar berat.`,
+    maxDoseLimit: `• Sediaan IR Dewasa/Anak: 60 mg/hari; Concerta Dewasa: 72 mg/hari; Concerta Anak 6-12 th: 54 mg/hari.`,
+    administrationGuideline: `• Sediaan IR: Minum 30-45 menit sebelum makan. Dosis terakhir diminum sebelum pukul 16.00 sore untuk mencegah insomnia di malam hari.\n• Sediaan Concerta OROS: TELAN UTUH DENGAN SE GELAS AIR pada pagi hari. JANGAN PERNAH DIKUNYAH, DIBELAH, ATAU DIGERUS karena akan merusak mekanisme pompa osmosis OROS.`
+  },
+
+  'olmesartan': {
+    adultDosage: `• Hipertensi Esensial Dewasa:\n  - Dosis Awal Standar: 20 mg per oral sekali sehari.\n  - Titrasi Dosis: Dapat ditingkatkan hingga 40 mg sekali sehari setelah 2 minggu jika respons tekanan darah tambahan diperlukan.\n  - Pasien dengan Deplesi Volume Intravaskular (misal terapi diuretik sebelumnya): Dosis awal 10 mg sekali sehari di bawah pengawasan medis.`,
+    pediatricDosage: `• Anak Usia 6 tahun hingga 16 tahun (Hipertensi):\n  - BB 20 kg hingga <35 kg: Awal 10 mg per oral sekali sehari; dapat ditingkatkan ke 20 mg sekali sehari setelah 2 minggu.\n  - BB >=35 kg: Awal 20 mg per oral sekali sehari; dapat ditingkatkan ke 40 mg sekali sehari.`,
+    geriatricDosage: `• Pasien Usia Lanjut (>=65 tahun): Tidak diperlukan penyesuaian dosis awal spesifik (20 mg/hari), namun titrasi dosis harus dilakukan dengan hati-hati.`,
+    renalDoseAdjustment: `• CrCl 20 - 60 mL/min (Gangguan Ginjal Ringan-Sedang): Dosis awal maksimal yang direkomendasikan adalah 20 mg sekali sehari;\n• CrCl <20 mL/min: Pengalaman klinis sangat terbatas, gunakan dosis awal 10 mg dengan pemantauan kalium dan kreatinin ketat.`,
+    hepaticDoseAdjustment: `• Gangguan Hati Ringan (Child-Pugh A): Tidak perlu penyesuaian dosis;\n• Gangguan Hati Sedang (Child-Pugh B): Dosis maksimal 20 mg sekali sehari;\n• Gangguan Hati Berat (Child-Pugh C): Tidak direkomendasikan.`,
+    maxDoseLimit: `• Dewasa: 40 mg per oral sekali sehari.`,
+    administrationGuideline: `• Dapat diminum dengan atau tanpa makanan pada jam yang sama setiap hari.\n• KONTRAINDIKASI MUTLAK pada kehamilan trimester 2 & 3 (Hentikan segera jika hamil).\n• Laporkan ke dokter jika timbul diare berat berkepanjangan dengan penurunan berat badan drastis (skrining enteropati mirip Sprue).`
+  },
+
+  'indapamide': {
+    adultDosage: `• Hipertensi Esensial Dewasa:\n  - Sediaan Lepas Lambat (Natrilix SR 1.5 mg): 1.5 mg per oral sekali sehari pada pagi hari.\n  - Sediaan Konvensional (IR 2.5 mg): 1.25 mg hingga 2.5 mg per oral sekali sehari pada pagi hari.\n  - Dosis >2.5 mg/hari (atau >1.5 mg SR) tidak menambah efikasi antihipertensi namun secara bermakna meningkatkan risiko hipokalemia dan gangguan metabolik.\n• Edema Akibat Gagal Jantung Kongestif:\n  - Awal 2.5 mg per oral sekali sehari pada pagi hari; dapat ditingkatkan hingga 5 mg sekali sehari setelah 1 minggu jika diperlukan.`,
+    pediatricDosage: `• Keamanan dan efektivitas belum ditetapkan pada populasi pediatrik (<18 tahun).`,
+    geriatricDosage: `• Dosis sama dengan dewasa (1.5 mg SR atau 1.25-2.5 mg IR), namun pemantauan elektrolit (kalium dan natrium) wajib dilakukan lebih sering karena kerentanan lansia.`,
+    renalDoseAdjustment: `• CrCl >=30 mL/min: Tidak diperlukan penyesuaian dosis;\n• CrCl <30 mL/min (Gangguan Ginjal Berat) atau Anuria: KONTRAINDIKASI (diuretik tiazid/tiazid-like tidak efektif bila GFR <30 mL/min).`,
+    hepaticDoseAdjustment: `• Gangguan Hati Berat atau Ensefalopati Hepatik: KONTRAINDIKASI MUTLAK (perubahan elektrolit dapat memicu koma hepatikum).`,
+    maxDoseLimit: `• Hipertensi: 1.5 mg/hari (SR) atau 2.5 mg/hari (IR); Edema: 5 mg/hari.`,
+    administrationGuideline: `• Minum 1 tablet pada pagi hari setelah sarapan dengan segelas air untuk mencegah nokturia (terbangun kencing di malam hari).\n• Telan utuh tablet Natrilix SR 1.5 mg, jangan dikunyah atau digerus.`
+  },
+
+  'mirabegron': {
+    adultDosage: `• Overactive Bladder (OAB) dengan Gejala Urgensi, Frekuensi, & Inkontinensia Urgensi:\n  - Dosis Awal: 25 mg per oral sekali sehari.\n  - Dosis Pemeliharaan / Titrasi: Dapat ditingkatkan ke 50 mg per oral sekali sehari setelah 4 - 8 minggu berdasarkan respons klinis dan tolerabilitas pasien.\n  - Terapi Kombinasi dengan Antimuskarinik (Solifenacin): Mirabegron 25 mg atau 50 mg sekali sehari dikombinasikan dengan Solifenacin 5 mg sekali sehari untuk gejala refrakter.`,
+    pediatricDosage: `• Neurogenic Detrusor Overactivity (NDO) pada Anak Usia >=3 tahun (Sediaan Granul Oral Tertentu):\n  - BB 11 kg hingga <22 kg: Awal 24 mg/hari, Maks 48 mg/hari;\n  - BB 22 kg hingga <35 kg: Awal 32 mg/hari, Maks 64 mg/hari;\n  - BB >=35 kg: Awal 48 mg/hari, Maks 80 mg/hari.`,
+    geriatricDosage: `• Pasien Usia Lanjut (>=65 tahun): Tidak diperlukan penyesuaian dosis awal (25-50 mg/hari), namun pantau tekanan darah secara berkala.`,
+    renalDoseAdjustment: `• CrCl 30 - 89 mL/min (Ringan-Sedang): 25 mg hingga 50 mg sekali sehari;\n• CrCl 15 - 29 mL/min (Gangguan Ginjal Berat): Dosis maksimal 25 mg per oral sekali sehari;\n• CrCl <15 mL/min (ESRD) atau Hemodialisis: Tidak direkomendasikan.`,
+    hepaticDoseAdjustment: `• Gangguan Hati Ringan (Child-Pugh A): 25 mg hingga 50 mg sekali sehari;\n• Gangguan Hati Sedang (Child-Pugh B): Dosis maksimal 25 mg per oral sekali sehari;\n• Gangguan Hati Berat (Child-Pugh C): KONTRAINDIKASI / Tidak direkomendasikan.`,
+    maxDoseLimit: `• Dewasa dengan fungsi ginjal normal: 50 mg per oral sekali sehari.`,
+    administrationGuideline: `• TELAN TABLET UTUH DENGAN AIR PUTIH. JANGAN DIKUNYAH, DIBELAH, ATAU DIGERUS.\n• Dapat diminum dengan atau tanpa makanan pada jam yang sama setiap hari.\n• Pantau tekanan darah secara teratur (KONTRAINDIKASI bila hipertensi berat tidak terkontrol TD >=180/110 mmHg).`
+  },
+
+  'silodosin': {
+    adultDosage: `• Benign Prostatic Hyperplasia (BPH / Pembesaran Prostat Jinak):\n  - 8 mg per oral sekali sehari diminum BERSAMA MAKANAN (disarankan saat makan malam atau sarapan pagi secara konsisten).`,
+    pediatricDosage: `• Tidak diindikasikan untuk populasi pediatrik.`,
+    geriatricDosage: `• Pasien Usia Lanjut (>=65 tahun): Dosis standar 8 mg sekali sehari bersama makanan. Tidak diperlukan penyesuaian dosis berdasarkan usia saja.`,
+    renalDoseAdjustment: `• CrCl 50 - 80 mL/min (Ringan): 8 mg sekali sehari bersama makanan;\n• CrCl 30 - 49 mL/min (Gangguan Ginjal Sedang): TURUNKAN DOSIS ke 4 mg per oral sekali sehari bersama makanan;\n• CrCl <30 mL/min (Gangguan Ginjal Berat): KONTRAINDIKASI MUTLAK.`,
+    hepaticDoseAdjustment: `• Gangguan Hati Ringan hingga Sedang (Child-Pugh A/B): Tidak perlu penyesuaian dosis;\n• Gangguan Hati Berat (Child-Pugh C): KONTRAINDIKASI MUTLAK (belum ada data keamanan).`,
+    maxDoseLimit: `• 8 mg per oral sekali sehari (4 mg/hari pada gangguan ginjal sedang).`,
+    administrationGuideline: `• HARUS DIMINUM BERSAMA DENGAN MAKANAN untuk memastikan absorpsi yang stabil dan mengurangi fluktuasi kadar plasma.\n• Edukasi pasien mengenai efek samping umum ejakulasi retrograd (ejakulasi kering tanpa cairan sperma ke luar) yang bersifat reversibel dan tidak berbahaya.\n• Beritahu dokter mata bila akan menjalani operasi katarak terkait risiko Intraoperative Floppy Iris Syndrome (IFIS).`
+  },
+
+  'buprenorphine': {
+    adultDosage: `• Nyeri Kronis Sedang - Berat (Plester Transdermal Norspan):\n  - Pasien Opioid-Naïve (Belum Pernah Opioid Kuat): Awal 5 mcg/jam plester transdermal ditempelkan pada kulit utuh sekali setiap 7 hari (ganti plester tiap 7 hari).\n  - Titrasi Dosis: Dapat ditingkatkan bertahap ke 10 mcg/jam, 15 mcg/jam, hingga 20 mcg/jam dengan interval minimal 3-7 hari antar kenaikan dosis.\n  - Dosis Maksimal Norspan: 20 mcg/jam (penggunaan 2 plester 20 mcg/jam bersamaan berisiko memperpanjang interval QTc).\n• Terapi Ketergantungan Opioid (Tablet Sublingual Subutex / Suboxone):\n  - Dosis Induksi: 2 mg hingga 4 mg sublingual saat tanda putus zat objektif (skor COWS >=12) muncul.\n  - Dosis Pemeliharaan: Dititrasi bertahap hingga rentang terapeutik standar 8 mg - 24 mg sublingual sekali sehari (Maksimal 32 mg/hari).`,
+    pediatricDosage: `• Keamanan dan efektivitas plester transdermal belum ditetapkan pada anak usia <18 tahun.`,
+    geriatricDosage: `• Mulai dari dosis plester terendah (5 mcg/jam); pantau fungsi respirasi dan sedasi.`,
+    renalDoseAdjustment: `• Tidak diperlukan penyesuaian dosis pada gangguan ginjal karena eliminasi dominan non-renal via hepar dan feses.`,
+    hepaticDoseAdjustment: `• Gangguan Hati Berat (Child-Pugh C): KONTRAINDIKASI / Tidak direkomendasikan.`,
+    maxDoseLimit: `• Norspan Patch: 20 mcg/jam per 7 hari; Subutex Sublingual: 24 - 32 mg/hari.`,
+    administrationGuideline: `• Plester Norspan: Tempelkan pada kulit bersih, kering, dan tidak berbulu di area dada atas, punggung atas, atau lengan luar. Ganti tiap 7 hari dan rotasikan lokasi tempelan (jangan gunakan area yang sama dalam 3-4 minggu). HINDARI SUMBER PANAS LANGSUNG (bantal pemanas/sauna).\n• Tablet Sublingual: LETAKKAN DI BAWAH LIDAH HINGGA LARUT LENGKAP (5-10 menit). DILARANG MENELAN UTUH, MENGUNYAH, ATAU MINUM AIR saat tablet sedang larut.`
+  },
+
+  'ropinirole': {
+    adultDosage: `• Penyakit Parkinson (Sediaan Lepas Lambat Requip PD 24 Jam):\n  - Dosis Awal: 2 mg per oral sekali sehari pada pagi hari selama minggu ke-1.\n  - Titrasi Bertahap: Minggu ke-2 tingkatkan ke 4 mg/hari; Minggu ke-3 tingkatkan ke 6 mg/hari; Minggu ke-4 tingkatkan ke 8 mg/hari.\n  - Dosis Pemeliharaan: 8 mg hingga 16 mg sekali sehari (Dosis Maksimal: 24 mg per oral sekali sehari).\n• Sindrom Kaki Gelisah (Restless Legs Syndrome / RLS - Sediaan IR Standar):\n  - Awal 0.25 mg per oral sekali sehari diminum 1 hingga 3 jam sebelum tidur selama hari 1-2;\n  - Hari 3-7: 0.5 mg sekali sehari; Minggu ke-2: 1 mg sekali sehari; Minggu ke-3: 1.5 mg sekali sehari; Minggu ke-4: 2 mg sekali sehari (Maksimal RLS: 4 mg/hari).`,
+    pediatricDosage: `• Keamanan dan efektivitas belum ditetapkan pada populasi pediatrik (<18 tahun).`,
+    geriatricDosage: `• Titrasi dosis lebih lambat pada pasien lansia (>=65 tahun) karena peningkatan risiko halusinasi visual dan hipotensi postural.`,
+    renalDoseAdjustment: `• CrCl >=30 mL/min: Tidak perlu penyesuaian dosis;\n• CrCl <30 mL/min tanpa Hemodialisis: Tidak direkomendasikan;\n• Pasien Hemodialisis Kronis: Awal 2 mg/hari Requip PD (Maksimal 18 mg/hari).`,
+    hepaticDoseAdjustment: `• KONTRAINDIKASI pada gangguan fungsi hati berat.`,
+    maxDoseLimit: `• Parkinson: 24 mg/hari (Requip PD); Restless Legs Syndrome: 4 mg/hari.`,
+    administrationGuideline: `• Tablet Requip PD 24 Jam Lepas Lambat: TELAN UTUH DENGAN SE GELAS AIR. JANGAN DIKUNYAH, DIBELAH, ATAU DIGERUS.\n• Dapat diminum dengan atau tanpa makanan (diminum bersama makanan dapat mengurangi keluhan mual awal).\n• Waspadai efek samping tertidur mendadak (sleep attacks) saat mengemudi dan gangguan kontrol impuls (judi patologis, belanja kompulsif).`
+  },
+
+  'azelastine': {
+    adultDosage: `• Rinitis Alergi Musiman, Perenial, & Rinitis Vasomotor Non-Alergi:\n  - Semprot Hidung (Nasal Spray 0.1% / 137 mcg per semprot): 1 hingga 2 semprotan pada masing-masing lubang hidung dua kali sehari (pagi dan malam).\n  - Semprot Hidung 0.15% (205.5 mcg per semprot): 1 atau 2 semprotan per lubang hidung dua kali sehari ATAU 2 semprotan sekali sehari.\n• Konjungtivitis Alergi (Tetes Mata 0.05%):\n  - 1 tetes pada masing-masing mata yang terkena 2 kali sehari (tiap 12 jam).`,
+    pediatricDosage: `• Rinitis Alergi Anak Usia 6 tahun hingga 11 tahun:\n  - Semprot Hidung 0.1%: 1 semprotan pada masing-masing lubang hidung dua kali sehari.\n• Rinitis Alergi Anak Usia 2 tahun hingga 5 tahun:\n  - Semprot Hidung 0.1%: 1 semprotan pada masing-masing lubang hidung dua kali sehari (di bawah pengawasan medis).\n• Tetes Mata Alergi Anak Usia >=4 tahun: 1 tetes pada masing-masing mata 2 kali sehari.`,
+    geriatricDosage: `• Dosis sama dengan dewasa. Perhatikan risiko rasa kantuk ringan pada pasien usia lanjut.`,
+    renalDoseAdjustment: `• Tidak diperlukan penyesuaian dosis untuk sediaan semprot hidung dan tetes mata topikal.`,
+    hepaticDoseAdjustment: `• Tidak diperlukan penyesuaian dosis.`,
+    maxDoseLimit: `• Semprot Hidung: Maksimal 2 semprotan per lubang hidung dua kali sehari (Total 4 semprotan per lubang hidung/24 jam).`,
+    administrationGuideline: `• Sebelum pemakaian pertama, kocok dan pompa semprotan 4-6 kali ke udara hingga kabut halus keluar.\n• TEKNIK PENYEMPROTAN YANG BENAR: Duduk tegak dengan kepala sedikit menunduk ke depan. Masukkan ujung aplikator ke lubang hidung mengarah ke dinding luar hidung (ke arah telinga/sudut mata luar). Semprotkan sambil menarik napas lembut melalui hidung.\n• JANGAN MENDONGAKKAN KEPALA KE BELAKANG untuk mencegah obat mengalir ke tenggorokan dan menimbulkan rasa pahit.`
+  },
+
+  'fluticasone furoate': {
+    adultDosage: `• Rinitis Alergi Musiman & Perenial (Semprot Hidung Avamys 27.5 mcg/semprot):\n  - Dosis Awal Dewasa & Remaja (>=12 tahun): 2 semprotan pada masing-masing lubang hidung sekali sehari pada jam yang sama (Dosis Total Harian: 110 mcg/hari).\n  - Dosis Pemeliharaan: Setelah gejala alergi terkontrol optimal, turunkan dosis menjadi 1 semprotan pada masing-masing lubang hidung sekali sehari (Dosis Total: 55 mcg/hari).\n• Asma Bronkial & PPOK (Inhaler Serbuk Kering Relvar Ellipta 100/25 mcg atau 200/25 mcg):\n  - 1 inhalasi per oral sekali sehari pada jam yang sama setiap hari.`,
+    pediatricDosage: `• Rinitis Alergi Anak Usia 2 tahun hingga 11 tahun (Avamys Nasal Spray):\n  - Dosis Awal: 1 semprotan pada masing-masing lubang hidung sekali sehari (Total: 55 mcg/hari).\n  - Jika respons tidak adekuat, dosis dapat ditingkatkan sementara menjadi 2 semprotan per lubang hidung sekali sehari (110 mcg/hari), lalu diturunkan kembali ke 1 semprotan/hari setelah terkontrol.\n• Anak Usia <2 tahun: Keamanan dan efektivitas belum ditetapkan.`,
+    geriatricDosage: `• Dosis sama dengan dewasa. Tidak diperlukan penyesuaian dosis khusus pada lansia.`,
+    renalDoseAdjustment: `• Tidak diperlukan penyesuaian dosis pada pasien gangguan fungsi ginjal.`,
+    hepaticDoseAdjustment: `• Gangguan Hati Ringan-Sedang: Gunakan dengan hati-hati;\n• Gangguan Hati Berat: Paparan sistemik dapat meningkat hingga 3 kali lipat; pantau tanda supresi adrenal.`,
+    maxDoseLimit: `• Semprot Hidung Dewasa: 110 mcg/hari (2 semprotan per lubang hidung/hari); Anak 2-11 th: 110 mcg/hari.`,
+    administrationGuideline: `• Semprot Hidung Avamys: Kocok botol dengan kuat selama minimal 10 detik sebelum digunakan. Buka tutup pelindung, arahkan ke luar septum hidung, dan tekan tuas samping secara mantap.\n• Bersihkan ujung aplikator dengan tisu kering bersih setelah digunakan (JANGAN MENCUCI DENGAN AIR).\n• Gunakan secara teratur setiap hari karena efek antiinflamasi maksimal dicapai setelah beberapa hari pemakaian rutin.`
   }
 };

@@ -7,7 +7,7 @@ interface LogoProps {
   variant?: 'light' | 'dark';
 }
 
-export const LOGO_IMAGE_URL = 'https://i.ibb.co/0pgKRTsz/Logo-FD.png';
+export const LOGO_IMAGE_URL = '/logo.svg';
 
 export const Logo: React.FC<LogoProps> = ({ 
   className = '', 
@@ -31,7 +31,7 @@ export const Logo: React.FC<LogoProps> = ({
     xl: { title: 'text-2xl font-black', sub: 'text-xs tracking-[0.22em]' }
   };
 
-  // Official Logo Emblem Image
+  // Official Logo Emblem Image (Crisp Vector SVG)
   const LogoEmblem = (
     <div className={`relative flex items-center justify-center shrink-0 ${iconSizes[size]}`}>
       <img 
@@ -39,6 +39,13 @@ export const Logo: React.FC<LogoProps> = ({
         alt="Logo Farmasi Druggist" 
         className="w-full h-full object-contain drop-shadow-sm select-none"
         loading="eager"
+        onError={(e) => {
+          // Fallback if local svg isn't served
+          const target = e.currentTarget;
+          if (target.src !== 'https://i.ibb.co/0pgKRTsz/Logo-FD.png') {
+            target.src = 'https://i.ibb.co/0pgKRTsz/Logo-FD.png';
+          }
+        }}
       />
     </div>
   );

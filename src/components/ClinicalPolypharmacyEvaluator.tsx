@@ -596,7 +596,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
           </div>
 
           <div className="text-center w-40 shrink-0 relative">
-            {clinicBranding?.stampUrl && (
+            {clinicBranding?.enableDigitalStamp !== false && clinicBranding?.stampUrl && (
               <img 
                 src={clinicBranding.stampUrl} 
                 alt="Stempel Digital" 

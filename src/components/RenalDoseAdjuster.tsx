@@ -1,30 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Drug, UserProfile } from '../types';
 import { 
   Calculator, 
   Activity, 
   BookOpen, 
-  FileText, 
   Binary, 
   HelpCircle, 
   AlertTriangle, 
   CheckCircle2, 
-  ShieldAlert, 
   Pill, 
   User, 
   Scale, 
-  Info,
-  ChevronRight,
-  Sparkles,
-  Search,
-  Baby,
-  Stethoscope,
-  Droplets,
-  Ruler,
-  Clock,
+  Info, 
+  Search, 
+  Wind, 
+  HeartPulse, 
+  Sparkles, 
+  ShieldAlert, 
+  Gauge, 
+  RotateCcw,
   Sliders,
-  Wind,
-  Gauge
+  Check
 } from 'lucide-react';
 
 interface RenalDoseAdjusterProps {
@@ -32,218 +28,6 @@ interface RenalDoseAdjusterProps {
   currentUser: UserProfile | null;
   onOpenPricingModal: () => void;
 }
-
-interface PediatricDrugPreset {
-  name: string;
-  genericName: string;
-  strengthLabel: string;
-  mgStrength: number;
-  mlStrength: number;
-  defaultDoseMgKg: number;
-  minDoseMgKg: number;
-  maxDoseMgKg: number;
-  defaultMode: 'per-day' | 'per-dose';
-  defaultTimesPerDay: number;
-  literatureRangeLabel: string;
-  literatureSource: string;
-  maxDailyAbsoluteMg?: number;
-  notes: string;
-}
-
-const PEDIATRIC_DRUG_PRESETS: PediatricDrugPreset[] = [
-  {
-    name: 'Paracetamol Drops Bayi',
-    genericName: 'Paracetamol (Tetes Bayi)',
-    strengthLabel: '100 mg / 1 mL',
-    mgStrength: 100,
-    mlStrength: 1,
-    defaultDoseMgKg: 12.5,
-    minDoseMgKg: 10,
-    maxDoseMgKg: 15,
-    defaultMode: 'per-dose',
-    defaultTimesPerDay: 4,
-    literatureRangeLabel: '10 - 15 mg/kgBB/kali (maks 60 mg/kg/hari)',
-    literatureSource: 'IDAI / Nelson Pediatric / BNF for Children',
-    maxDailyAbsoluteMg: 4000,
-    notes: 'Sediaan tetes bayi (infant drops). Gunakan pipet tetes presisi.'
-  },
-  {
-    name: 'Paracetamol Sirup Standar',
-    genericName: 'Paracetamol',
-    strengthLabel: '120 mg / 5 mL',
-    mgStrength: 120,
-    mlStrength: 5,
-    defaultDoseMgKg: 12.5,
-    minDoseMgKg: 10,
-    maxDoseMgKg: 15,
-    defaultMode: 'per-dose',
-    defaultTimesPerDay: 4,
-    literatureRangeLabel: '10 - 15 mg/kgBB/kali (maks 60 mg/kg/hari)',
-    literatureSource: 'IDAI / Nelson Pediatric / BNF for Children',
-    maxDailyAbsoluteMg: 4000,
-    notes: 'Dosis lazim anak: 10 - 15 mg/kgBB per kali minum (maksimal 4-5x sehari).'
-  },
-  {
-    name: 'Paracetamol Forte Sirup',
-    genericName: 'Paracetamol (Forte)',
-    strengthLabel: '250 mg / 5 mL',
-    mgStrength: 250,
-    mlStrength: 5,
-    defaultDoseMgKg: 12.5,
-    minDoseMgKg: 10,
-    maxDoseMgKg: 15,
-    defaultMode: 'per-dose',
-    defaultTimesPerDay: 4,
-    literatureRangeLabel: '10 - 15 mg/kgBB/kali (maks 60 mg/kg/hari)',
-    literatureSource: 'IDAI / Nelson Pediatric / BNF for Children',
-    maxDailyAbsoluteMg: 4000,
-    notes: 'Sediaan konsentrasi tinggi untuk anak di atas 6 tahun.'
-  },
-  {
-    name: 'Amoxicillin Sirup Kering',
-    genericName: 'Amoxicillin Trihydrate',
-    strengthLabel: '125 mg / 5 mL',
-    mgStrength: 125,
-    mlStrength: 5,
-    defaultDoseMgKg: 30,
-    minDoseMgKg: 25,
-    maxDoseMgKg: 50,
-    defaultMode: 'per-day',
-    defaultTimesPerDay: 3,
-    literatureRangeLabel: '25 - 50 mg/kgBB/hari (Infeksi berat / OMA: 80-90 mg/kg/hari)',
-    literatureSource: 'IDAI / AAP Pediatric Guidelines / Nelson',
-    maxDailyAbsoluteMg: 3000,
-    notes: 'Dosis total harian: 25 - 50 mg/kgBB/hari dibagi dalam 3 dosis terbagi.'
-  },
-  {
-    name: 'Amoxicillin Forte Sirup',
-    genericName: 'Amoxicillin (Forte)',
-    strengthLabel: '250 mg / 5 mL',
-    mgStrength: 250,
-    mlStrength: 5,
-    defaultDoseMgKg: 40,
-    minDoseMgKg: 25,
-    maxDoseMgKg: 50,
-    defaultMode: 'per-day',
-    defaultTimesPerDay: 3,
-    literatureRangeLabel: '25 - 50 mg/kgBB/hari (Infeksi berat: 80-90 mg/kg/hari)',
-    literatureSource: 'IDAI / AAP Guidelines / BNF for Children',
-    maxDailyAbsoluteMg: 3000,
-    notes: 'Untuk infeksi bakteri sedang-berat pada anak.'
-  },
-  {
-    name: 'Ibuprofen Sirup Anak',
-    genericName: 'Ibuprofen',
-    strengthLabel: '100 mg / 5 mL',
-    mgStrength: 100,
-    mlStrength: 5,
-    defaultDoseMgKg: 7.5,
-    minDoseMgKg: 5,
-    maxDoseMgKg: 10,
-    defaultMode: 'per-dose',
-    defaultTimesPerDay: 3,
-    literatureRangeLabel: '5 - 10 mg/kgBB/kali (maks 30 - 40 mg/kg/hari)',
-    literatureSource: 'IDAI / Nelson Pediatric / BNF for Children',
-    maxDailyAbsoluteMg: 2400,
-    notes: 'Dosis lazim anak: 5 - 10 mg/kgBB per kali minum. Berikan sesudah makan.'
-  },
-  {
-    name: 'Cefixime Sirup Kering',
-    genericName: 'Cefixime',
-    strengthLabel: '100 mg / 5 mL',
-    mgStrength: 100,
-    mlStrength: 5,
-    defaultDoseMgKg: 8,
-    minDoseMgKg: 8,
-    maxDoseMgKg: 10,
-    defaultMode: 'per-day',
-    defaultTimesPerDay: 2,
-    literatureRangeLabel: '8 - 10 mg/kgBB/hari (dosis tunggal atau 2 dosis terbagi)',
-    literatureSource: 'IDAI / Nelson Pediatric / Medscape',
-    maxDailyAbsoluteMg: 400,
-    notes: 'Dosis total harian: 8 - 10 mg/kgBB/hari dibagi 1 - 2 kali sehari.'
-  },
-  {
-    name: 'Cetirizine Sirup Anak',
-    genericName: 'Cetirizine HCl',
-    strengthLabel: '5 mg / 5 mL',
-    mgStrength: 5,
-    mlStrength: 5,
-    defaultDoseMgKg: 0.25,
-    minDoseMgKg: 0.25,
-    maxDoseMgKg: 0.5,
-    defaultMode: 'per-dose',
-    defaultTimesPerDay: 1,
-    literatureRangeLabel: '0.25 - 0.5 mg/kgBB/hari (atau 2.5 - 5 mg/hari)',
-    literatureSource: 'IDAI / BNF for Children / Drugs.com',
-    maxDailyAbsoluteMg: 10,
-    notes: 'Usia 2-6 thn: 2.5 mg (2.5 mL) 1x/hari. Usia >6 thn: 5-10 mg (5-10 mL) 1x/hari.'
-  },
-  {
-    name: 'Domperidone Sirup',
-    genericName: 'Domperidone',
-    strengthLabel: '5 mg / 5 mL',
-    mgStrength: 5,
-    mlStrength: 5,
-    defaultDoseMgKg: 0.25,
-    minDoseMgKg: 0.25,
-    maxDoseMgKg: 0.4,
-    defaultMode: 'per-dose',
-    defaultTimesPerDay: 3,
-    literatureRangeLabel: '0.25 - 0.4 mg/kgBB/kali (maks 1 mg/kgBB/hari)',
-    literatureSource: 'BNF for Children / MIMS Pediatrik',
-    maxDailyAbsoluteMg: 80,
-    notes: 'Dosis lazim anak: 0.25 - 0.4 mg/kgBB per kali minum (15-30 menit sebelum makan).'
-  },
-  {
-    name: 'Cotrimoxazole Sirup',
-    genericName: 'Sulfamethoxazole + Trimethoprim',
-    strengthLabel: '240 mg / 5 mL',
-    mgStrength: 240,
-    mlStrength: 5,
-    defaultDoseMgKg: 30,
-    minDoseMgKg: 25,
-    maxDoseMgKg: 40,
-    defaultMode: 'per-day',
-    defaultTimesPerDay: 2,
-    literatureRangeLabel: '25 - 40 mg SMX/kgBB/hari (atau 5 - 8 mg TMP/kgBB/hari)',
-    literatureSource: 'IDAI / WHO Pocket Book of Hospital Care for Children',
-    maxDailyAbsoluteMg: 1920,
-    notes: 'Berdasarkan komponen Sulfamethoxazole (25-40 mg/kgBB/hari dibagi 2 dosis).'
-  },
-  {
-    name: 'Ambroxol Sirup Anak',
-    genericName: 'Ambroxol HCl',
-    strengthLabel: '15 mg / 5 mL',
-    mgStrength: 15,
-    mlStrength: 5,
-    defaultDoseMgKg: 1.5,
-    minDoseMgKg: 1.2,
-    maxDoseMgKg: 1.6,
-    defaultMode: 'per-day',
-    defaultTimesPerDay: 3,
-    literatureRangeLabel: '1.2 - 1.6 mg/kgBB/hari (dibagi 2 - 3 dosis)',
-    literatureSource: 'MIMS Indonesia / BNF for Children',
-    maxDailyAbsoluteMg: 120,
-    notes: 'Mukolitik sekretolitik untuk batuk produktif pada anak.'
-  },
-  {
-    name: 'Cefadroxil Sirup Kering',
-    genericName: 'Cefadroxil Monohydrate',
-    strengthLabel: '125 mg / 5 mL',
-    mgStrength: 125,
-    mlStrength: 5,
-    defaultDoseMgKg: 30,
-    minDoseMgKg: 25,
-    maxDoseMgKg: 50,
-    defaultMode: 'per-day',
-    defaultTimesPerDay: 2,
-    literatureRangeLabel: '25 - 50 mg/kgBB/hari (dibagi 2 dosis terbagi)',
-    literatureSource: 'Nelson Pediatric / IDAI / Medscape',
-    maxDailyAbsoluteMg: 2000,
-    notes: 'Sefalosporin generasi I untuk infeksi saluran napas & kulit anak.'
-  }
-];
 
 interface RenalDrugRule {
   drugName: string;
@@ -336,100 +120,220 @@ const RENAL_DRUG_RULES: RenalDrugRule[] = [
   }
 ];
 
+interface HepaticDrugRule {
+  drugName: string;
+  genericName: string;
+  category: string;
+  childPughA: string;
+  childPughB: string;
+  childPughC: string;
+  clinicalPearls: string;
+}
+
+const HEPATIC_DRUG_RULES: HepaticDrugRule[] = [
+  {
+    drugName: 'Paracetamol',
+    genericName: 'Acetaminophen / Paracetamol',
+    category: 'Analgesik & Antipiretik',
+    childPughA: 'Dosis maksimal 2000 - 3000 mg/hari (jangan melebihi 3 g/hari).',
+    childPughB: 'Dosis maksimal 2000 mg/hari (500 mg tiap 6 jam p.r.n).',
+    childPughC: 'Hindari penggunaan rutin atau batasi maks 1000 - 1500 mg/hari hanya jika mutlak perlu.',
+    clinicalPearls: 'Paracetamol tetap menjadi analgesik pilihan lini pertama pada sirosis stabil (lebih aman dibanding NSAID yang memicu sindrom hepatorenal/perdarahan varises), namun dosis harian WAJIB DIBATASI ≤ 2000 mg/hari.'
+  },
+  {
+    drugName: 'Metronidazole',
+    genericName: 'Metronidazole',
+    category: 'Antibiotik & Antiprotozoa',
+    childPughA: 'Dosis standar (500 mg tiap 8 jam).',
+    childPughB: 'Kurangi dosis sebesar 50% (500 mg tiap 12-24 jam).',
+    childPughC: 'Kurangi dosis sebesar 50% (250-500 mg tiap 24 jam). Pantau tanda ensefalopati dan toksisitas SSP.',
+    clinicalPearls: 'Metronidazole dimetabolisme secara ekstensif di hati (>80%). Klirens plasma turun drastis pada sirosis hati berat.'
+  },
+  {
+    drugName: 'Simvastatin / Atorvastatin',
+    genericName: 'HMG-CoA Reductase Inhibitor',
+    category: 'Hipolipidemik / Statin',
+    childPughA: 'Gunakan dosis terendah dengan pemantauan ALT/AST berkala.',
+    childPughB: 'KONTRAINDIKASI pada penyakit hati aktif atau peningkatan transaminase persisten.',
+    childPughC: 'KONTRAINDIKASI MUTLAK.',
+    clinicalPearls: 'Statin mengalami metabolisme lintas pertama (*first-pass metabolism*) hepar yang tinggi. Akumulasi pada sirosis berat memicu rhabdomyolysis.'
+  },
+  {
+    drugName: 'Voriconazole',
+    genericName: 'Voriconazole',
+    category: 'Antijamur Triazol',
+    childPughA: 'Loading dose standar, turunkan dosis pemeliharaan (maintenance) sebesar 50%.',
+    childPughB: 'Loading dose standar, turunkan dosis pemeliharaan sebesar 50%. TDM (Therapeutic Drug Monitoring) wajib.',
+    childPughC: 'KONTRAINDIKASI / Gunakan hanya jika manfaat melebihi risiko kematian akibat infeksi jamur invasif.',
+    clinicalPearls: 'Voriconazole dimetabolisme oleh CYP2C19, CYP2C9, dan CYP3A4. Klirens hepar sangat menurun pada sirosis.'
+  },
+  {
+    drugName: 'Diazepam / Midazolam',
+    genericName: 'Benzodiazepin',
+    category: 'Sedasi & Anxiolitik',
+    childPughA: 'Gunakan dosis minimal dengan interval diperpanjang.',
+    childPughB: 'HINDARI PENGGUNAAN (Risiko tinggi presipitasi Koma Ensefalopati Hepatik).',
+    childPughC: 'KONTRAINDIKASI MUTLAK. Memicu depresi SSP dalam dan koma hepatikum.',
+    clinicalPearls: 'Pasien sirosis memiliki sensitivitas reseptor GABA yang meningkat pesat. Benzodiazepin waktu paruh panjang adalah pemicu utama ensefalopati hepatik akut.'
+  },
+  {
+    drugName: 'Lansoprazole / Omeprazole',
+    genericName: 'Proton Pump Inhibitor (PPI)',
+    category: 'Gastrointestinal',
+    childPughA: 'Dosis standar (Lansoprazole 30 mg atau Omeprazole 20 mg/hari).',
+    childPughB: 'Dosis maksimal Lansoprazole 15-30 mg/hari atau Omeprazole 10-20 mg/hari.',
+    childPughC: 'Dosis maksimal Lansoprazole 15 mg/hari atau Omeprazole 10 mg/hari.',
+    clinicalPearls: 'Klirens hepar menurun hingga 50-70%. Penggunaan jangka panjang pada sirosis juga dikaitkan dengan peningkatan risiko SBP (Spontaneous Bacterial Peritonitis).'
+  }
+];
+
+interface OpioidEquiProfile {
+  id: string;
+  name: string;
+  route: 'Oral' | 'IV/SC' | 'Transdermal Patch' | 'Sublingual';
+  conversionFactorToOralMorphine: number; // Multiply by this to get Oral Morphine Equivalent (OME)
+  unit: string;
+  standardBreakthroughPct: number; // e.g. 10 - 15%
+  notes: string;
+}
+
+const OPIOID_DATABASE: OpioidEquiProfile[] = [
+  {
+    id: 'morphine-oral',
+    name: 'Morphine (Oral)',
+    route: 'Oral',
+    conversionFactorToOralMorphine: 1.0, // 1 mg Oral Morphine = 1 OME
+    unit: 'mg / hari',
+    standardBreakthroughPct: 15,
+    notes: 'Standar emas acuan konversi ekivalensi analgetik (Oral Morphine Equivalent / OME).'
+  },
+  {
+    id: 'morphine-iv',
+    name: 'Morphine (IV / SC)',
+    route: 'IV/SC',
+    conversionFactorToOralMorphine: 3.0, // 10 mg IV Morphine = 30 mg Oral Morphine
+    unit: 'mg / hari',
+    standardBreakthroughPct: 15,
+    notes: 'Potensi parenteral 3x lebih kuat dari rute oral akibat eliminasi first-pass hepar.'
+  },
+  {
+    id: 'fentanyl-patch',
+    name: 'Fentanyl Transdermal Patch',
+    route: 'Transdermal Patch',
+    conversionFactorToOralMorphine: 2.4, // 25 mcg/hr patch ~ 60 mg Oral Morphine / hari (25 * 2.4 = 60)
+    unit: 'mcg / jam (Patch)',
+    standardBreakthroughPct: 10,
+    notes: 'Ganti patch setiap 72 jam. Onset 12-24 jam. HANYA untuk nyeri kronis yang sudah toleran opioid.'
+  },
+  {
+    id: 'fentanyl-iv',
+    name: 'Fentanyl (IV / Bolus)',
+    route: 'IV/SC',
+    conversionFactorToOralMorphine: 0.3, // 100 mcg IV Fentanyl (0.1 mg) ~ 10 mg IV Morphine = 30 mg Oral Morphine (100 * 0.3 = 30 OME)
+    unit: 'mcg / hari',
+    standardBreakthroughPct: 10,
+    notes: 'Sangat lipofilik, onset cepat (1-2 menit), durasi pendek (30-60 menit).'
+  },
+  {
+    id: 'oxycodone-oral',
+    name: 'Oxycodone (Oral)',
+    route: 'Oral',
+    conversionFactorToOralMorphine: 1.5, // 20 mg Oral Oxycodone ~ 30 mg Oral Morphine (20 * 1.5 = 30)
+    unit: 'mg / hari',
+    standardBreakthroughPct: 15,
+    notes: '1.5x lebih poten dari morfin oral. Efek samping mual dan pelepasan histamin lebih rendah.'
+  },
+  {
+    id: 'codeine-oral',
+    name: 'Codeine (Oral)',
+    route: 'Oral',
+    conversionFactorToOralMorphine: 0.15, // 200 mg Oral Codeine ~ 30 mg Oral Morphine (200 * 0.15 = 30)
+    unit: 'mg / hari',
+    standardBreakthroughPct: 15,
+    notes: 'Prodrug yang diaktifkan oleh CYP2D6 menjadi morfin. Plafon dosis analgetik 360 mg/hari.'
+  },
+  {
+    id: 'tramadol-oral',
+    name: 'Tramadol (Oral)',
+    route: 'Oral',
+    conversionFactorToOralMorphine: 0.1, // 300 mg Oral Tramadol ~ 30 mg Oral Morphine (300 * 0.1 = 30)
+    unit: 'mg / hari',
+    standardBreakthroughPct: 15,
+    notes: 'Agonis mu-opioid lemah & inhibitor reuptake serotonin/norepinefrin. Dosis maksimal 400 mg/hari.'
+  },
+  {
+    id: 'hydromorphone-oral',
+    name: 'Hydromorphone (Oral)',
+    route: 'Oral',
+    conversionFactorToOralMorphine: 4.0, // 7.5 mg Oral Hydromorphone ~ 30 mg Oral Morphine
+    unit: 'mg / hari',
+    standardBreakthroughPct: 15,
+    notes: '4x - 5x lebih poten dibanding morfin oral. Metabolit bebas neurotoksisitas glukuronida.'
+  },
+  {
+    id: 'buprenorphine-sublingual',
+    name: 'Buprenorphine (Sublingual)',
+    route: 'Sublingual',
+    conversionFactorToOralMorphine: 30.0, // 1 mg Sublingual Buprenorphine ~ 30 mg Oral Morphine
+    unit: 'mg / hari',
+    standardBreakthroughPct: 10,
+    notes: 'Agonis parsial reseptor mu berpotensi tinggi dengan efek plafon pada depresi napas.'
+  }
+];
+
 export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
   drugs,
   currentUser,
   onOpenPricingModal
 }) => {
-  const [activeTab, setActiveTab] = useState<'pediatric' | 'renal' | 'iv-drip' | 'ibw-bmi' | 'oxygen'>('pediatric');
+  const [activeTab, setActiveTab] = useState<'renal' | 'hepatic' | 'opioid' | 'ibw-bmi' | 'oxygen'>('renal');
 
-  // 1. PEDIATRIC STATE
-  const [pedsAgeYears, setPedsAgeYears] = useState<number>(3);
-  const [pedsWeightKg, setPedsWeightKg] = useState<number>(14);
-  const [pedsHeightCm, setPedsHeightCm] = useState<number>(95);
-  const [adultDoseMg, setAdultDoseMg] = useState<number>(500);
-
-  const [selectedPreset, setSelectedPreset] = useState<PediatricDrugPreset>(PEDIATRIC_DRUG_PRESETS[1]);
-  const [doseMode, setDoseMode] = useState<'per-day' | 'per-dose'>(PEDIATRIC_DRUG_PRESETS[1].defaultMode);
-  const [targetMgKg, setTargetMgKg] = useState<number>(PEDIATRIC_DRUG_PRESETS[1].defaultDoseMgKg);
-  const [timesPerDay, setTimesPerDay] = useState<number>(PEDIATRIC_DRUG_PRESETS[1].defaultTimesPerDay);
-  const [syrupMgStrength, setSyrupMgStrength] = useState<number>(PEDIATRIC_DRUG_PRESETS[1].mgStrength);
-  const [syrupMlStrength, setSyrupMlStrength] = useState<number>(PEDIATRIC_DRUG_PRESETS[1].mlStrength);
-
-  // 2. RENAL STATE
+  // ==========================================
+  // 1. RENAL STATE
+  // ==========================================
   const [renalAge, setRenalAge] = useState<number>(60);
   const [renalGender, setRenalGender] = useState<'male' | 'female'>('male');
   const [renalWeight, setRenalWeight] = useState<number>(65);
   const [renalScr, setRenalScr] = useState<number>(1.8);
   const [searchRenalDrug, setSearchRenalDrug] = useState('');
 
-  // 3. IV DRIP INFUSION STATE
-  const [ivVolumeMl, setIvVolumeMl] = useState<number>(500);
-  const [ivTimeHours, setIvTimeHours] = useState<number>(8);
-  const [dripFactor, setDripFactor] = useState<number>(20);
+  // ==========================================
+  // 2. HEPATIC STATE (Child-Pugh & MELD)
+  // ==========================================
+  const [biliTotal, setBiliTotal] = useState<number>(2.2); // mg/dL
+  const [serumAlbumin, setSerumAlbumin] = useState<number>(2.9); // g/dL
+  const [serumInr, setSerumInr] = useState<number>(1.8);
+  const [ascitesDegree, setAscitesDegree] = useState<'none' | 'mild' | 'moderate_severe'>('mild');
+  const [encephGrade, setEncephGrade] = useState<'none' | 'grade_1_2' | 'grade_3_4'>('none');
+  const [serumCreatinineMeld, setSerumCreatinineMeld] = useState<number>(1.2); // for MELD
+  const [searchHepaticDrug, setSearchHepaticDrug] = useState('');
 
+  // ==========================================
+  // 3. OPIOID EQUIANALGESIC STATE
+  // ==========================================
+  const [fromOpioidId, setFromOpioidId] = useState<string>('tramadol-oral');
+  const [fromOpioidDose, setFromOpioidDose] = useState<number>(300); // 300 mg/day
+  const [toOpioidId, setToOpioidId] = useState<string>('fentanyl-patch');
+  const [crossToleranceReductionPct, setCrossToleranceReductionPct] = useState<number>(25); // 25% default safe reduction
+
+  // ==========================================
   // 4. IBW & BMI STATE
+  // ==========================================
   const [ibwGender, setIbwGender] = useState<'male' | 'female'>('male');
   const [ibwHeightCm, setIbwHeightCm] = useState<number>(170);
   const [ibwActualWeightKg, setIbwActualWeightKg] = useState<number>(85);
 
+  // ==========================================
   // 5. OXYGEN CYLINDER DURATION & FIO2 STATE
-  const [cylinderType, setCylinderType] = useState<string>('D'); // D=0.16, E=0.28, M=1.56, G=2.41, H=3.14
-  const [pressurePsi, setPressurePsi] = useState<number>(1500); // Standard full ~2000 psi
-  const [flowRateLpm, setFlowRateLpm] = useState<number>(3); // 1-15 LPM
+  // ==========================================
+  const [cylinderType, setCylinderType] = useState<string>('D');
+  const [pressurePsi, setPressurePsi] = useState<number>(1500);
+  const [flowRateLpm, setFlowRateLpm] = useState<number>(3);
   const [oxygenDeliveryDevice, setOxygenDeliveryDevice] = useState<string>('nasal-cannula');
 
-  // PEDIATRIC CALCULATIONS WITH SAFEGUARD GUARDS
-  const safePedsAge = Math.max(0, pedsAgeYears || 0);
-  const safePedsWeight = Math.max(0, pedsWeightKg || 0);
-  const safePedsHeight = Math.max(0, pedsHeightCm || 0);
-  const safeAdultDose = Math.max(0, adultDoseMg || 0);
-
-  let calculatedTotalDailyMg = 0;
-  let calculatedSingleDoseMg = 0;
-  let calculatedMinDailyMg = 0;
-  let calculatedMaxDailyMg = 0;
-  let calculatedMinSingleDoseMg = 0;
-  let calculatedMaxSingleDoseMg = 0;
-
-  const minDoseMgKg = selectedPreset.minDoseMgKg || (selectedPreset.defaultDoseMgKg * 0.8);
-  const maxDoseMgKg = selectedPreset.maxDoseMgKg || (selectedPreset.defaultDoseMgKg * 1.2);
-
-  if (doseMode === 'per-day') {
-    calculatedTotalDailyMg = Math.round(targetMgKg * safePedsWeight * 10) / 10;
-    calculatedSingleDoseMg = Math.round((calculatedTotalDailyMg / (timesPerDay || 1)) * 10) / 10;
-    
-    calculatedMinDailyMg = Math.round(minDoseMgKg * safePedsWeight * 10) / 10;
-    calculatedMaxDailyMg = Math.round(maxDoseMgKg * safePedsWeight * 10) / 10;
-    calculatedMinSingleDoseMg = Math.round((calculatedMinDailyMg / (timesPerDay || 1)) * 10) / 10;
-    calculatedMaxSingleDoseMg = Math.round((calculatedMaxDailyMg / (timesPerDay || 1)) * 10) / 10;
-  } else {
-    calculatedSingleDoseMg = Math.round(targetMgKg * safePedsWeight * 10) / 10;
-    calculatedTotalDailyMg = Math.round(calculatedSingleDoseMg * timesPerDay * 10) / 10;
-
-    calculatedMinSingleDoseMg = Math.round(minDoseMgKg * safePedsWeight * 10) / 10;
-    calculatedMaxSingleDoseMg = Math.round(maxDoseMgKg * safePedsWeight * 10) / 10;
-    calculatedMinDailyMg = Math.round(calculatedMinSingleDoseMg * timesPerDay * 10) / 10;
-    calculatedMaxDailyMg = Math.round(calculatedMaxSingleDoseMg * timesPerDay * 10) / 10;
-  }
-
-  const safeSyrupMg = Math.max(0.1, syrupMgStrength || 1);
-  const safeSyrupMl = Math.max(0, syrupMlStrength || 0);
-  
-  const calculatedMlPerDose = Math.round(((calculatedSingleDoseMg / safeSyrupMg) * safeSyrupMl) * 100) / 100;
-  const calculatedMinMlPerDose = Math.round(((calculatedMinSingleDoseMg / safeSyrupMg) * safeSyrupMl) * 100) / 100;
-  const calculatedMaxMlPerDose = Math.round(((calculatedMaxSingleDoseMg / safeSyrupMg) * safeSyrupMl) * 100) / 100;
-  
-  const spoon5ml = Math.round((calculatedMlPerDose / 5) * 10) / 10;
-  const dropper08ml = Math.round((calculatedMlPerDose / 0.8) * 10) / 10;
-  const intervalHours = Math.round(24 / (timesPerDay || 1));
-
-  const youngDoseMg = safePedsAge > 0 ? Math.round((safePedsAge / (safePedsAge + 12)) * safeAdultDose) : 0;
-  const dillingDoseMg = safePedsAge > 0 ? Math.round((safePedsAge / 20) * safeAdultDose) : 0;
-  const bsaM2 = (safePedsHeight > 0 && safePedsWeight > 0) ? Math.round(Math.sqrt((safePedsHeight * safePedsWeight) / 3600) * 100) / 100 : 0;
-  const bsaDoseMg = bsaM2 > 0 ? Math.round((bsaM2 / 1.73) * safeAdultDose) : 0;
-
+  // ==========================================
   // RENAL CALCULATIONS (Cockcroft-Gault)
+  // ==========================================
   const calculateCrCl = () => {
     if (!renalAge || !renalWeight || !renalScr || renalScr <= 0 || renalAge <= 0 || renalWeight <= 0) return 0;
     let baseCrCl = ((140 - renalAge) * renalWeight) / (72 * renalScr);
@@ -459,13 +363,146 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       r.atcCode.toLowerCase().includes(searchRenalDrug.toLowerCase())
   );
 
-  // IV DRIP CALCULATIONS
-  const safeIvHours = Math.max(0, ivTimeHours || 0);
-  const safeIvVol = Math.max(0, ivVolumeMl || 0);
-  const calcTpm = safeIvHours > 0 ? Math.round((safeIvVol * dripFactor) / (safeIvHours * 60)) : 0;
-  const calcSecPerDrop = calcTpm > 0 ? Math.round((60 / calcTpm) * 10) / 10 : 0;
+  // ==========================================
+  // HEPATIC CALCULATIONS (Child-Pugh & MELD)
+  // ==========================================
+  const childPughCalculation = useMemo(() => {
+    // 1. Bilirubin points
+    let biliPts = 1;
+    if (biliTotal > 3.0) biliPts = 3;
+    else if (biliTotal >= 2.0) biliPts = 2;
 
+    // 2. Albumin points
+    let albPts = 1;
+    if (serumAlbumin < 2.8) albPts = 3;
+    else if (serumAlbumin <= 3.5) albPts = 2;
+
+    // 3. INR points
+    let inrPts = 1;
+    if (serumInr > 2.3) inrPts = 3;
+    else if (serumInr >= 1.7) inrPts = 2;
+
+    // 4. Ascites points
+    let ascPts = ascitesDegree === 'none' ? 1 : ascitesDegree === 'mild' ? 2 : 3;
+
+    // 5. Encephalopathy points
+    let encPts = encephGrade === 'none' ? 1 : encephGrade === 'grade_1_2' ? 2 : 3;
+
+    const totalScore = biliPts + albPts + inrPts + ascPts + encPts;
+
+    let grade: 'A' | 'B' | 'C' = 'A';
+    let severityLabel = 'Gangguan Ringan (Kompensasi Baik)';
+    let survival1Yr = '100%';
+    let survival2Yr = '85%';
+    let badgeColor = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+
+    if (totalScore >= 10) {
+      grade = 'C';
+      severityLabel = 'Gangguan Berat (Dekomposisi Lanjut)';
+      survival1Yr = '45%';
+      survival2Yr = '35%';
+      badgeColor = 'bg-rose-500/20 text-rose-300 border-rose-500/40';
+    } else if (totalScore >= 7) {
+      grade = 'B';
+      severityLabel = 'Gangguan Sedang (Kompensasi Menurun)';
+      survival1Yr = '81%';
+      survival2Yr = '57%';
+      badgeColor = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+    }
+
+    // MELD Score calculation: 9.57 * ln(Cr) + 3.78 * ln(Bili) + 11.2 * ln(INR) + 6.43
+    const safeCr = Math.min(4.0, Math.max(1.0, serumCreatinineMeld || 1.0));
+    const safeBili = Math.max(1.0, biliTotal || 1.0);
+    const safeInr = Math.max(1.0, serumInr || 1.0);
+
+    const meldRaw = 9.57 * Math.log(safeCr) + 3.78 * Math.log(safeBili) + 11.2 * Math.log(safeInr) + 6.43;
+    const meldScore = Math.min(40, Math.max(6, Math.round(meldRaw)));
+
+    let meldMortality90Day = '< 2%';
+    if (meldScore >= 40) meldMortality90Day = '71.3%';
+    else if (meldScore >= 30) meldMortality90Day = '52.6%';
+    else if (meldScore >= 20) meldMortality90Day = '19.6%';
+    else if (meldScore >= 10) meldMortality90Day = '6.0%';
+
+    return {
+      totalScore,
+      grade,
+      severityLabel,
+      survival1Yr,
+      survival2Yr,
+      badgeColor,
+      biliPts,
+      albPts,
+      inrPts,
+      ascPts,
+      encPts,
+      meldScore,
+      meldMortality90Day
+    };
+  }, [biliTotal, serumAlbumin, serumInr, ascitesDegree, encephGrade, serumCreatinineMeld]);
+
+  const filteredHepaticRules = HEPATIC_DRUG_RULES.filter(
+    (r) =>
+      r.drugName.toLowerCase().includes(searchHepaticDrug.toLowerCase()) ||
+      r.genericName.toLowerCase().includes(searchHepaticDrug.toLowerCase()) ||
+      r.category.toLowerCase().includes(searchHepaticDrug.toLowerCase())
+  );
+
+  // ==========================================
+  // OPIOID CALCULATIONS (Equianalgesic Converter)
+  // ==========================================
+  const opioidCalculation = useMemo(() => {
+    const fromProfile = OPIOID_DATABASE.find(o => o.id === fromOpioidId) || OPIOID_DATABASE[0];
+    const toProfile = OPIOID_DATABASE.find(o => o.id === toOpioidId) || OPIOID_DATABASE[2];
+
+    const safeFromDose = Math.max(0, fromOpioidDose || 0);
+
+    // 1. Convert current opioid dose to Oral Morphine Equivalent (OME / MME in mg/day)
+    const totalOmeMgPerDay = safeFromDose * fromProfile.conversionFactorToOralMorphine;
+
+    // 2. Apply Incomplete Cross-Tolerance Reduction
+    const reductionMultiplier = (100 - crossToleranceReductionPct) / 100;
+    const targetOmeAfterReduction = totalOmeMgPerDay * reductionMultiplier;
+
+    // 3. Convert target OME to the new target opioid units
+    const targetNewDoseRaw = targetOmeAfterReduction / toProfile.conversionFactorToOralMorphine;
+    const targetNewDose = Math.round(targetNewDoseRaw * 10) / 10;
+
+    // 4. Breakthrough pain dose (PRN rescue dose: 10 - 15% of 24h total dose)
+    const breakthroughDose10Pct = Math.round((targetNewDose * 0.10) * 10) / 10;
+    const breakthroughDose15Pct = Math.round((targetNewDose * 0.15) * 10) / 10;
+
+    // 5. CDC Risk Level
+    let cdcRiskLevel: 'Safe' | 'Caution' | 'HighRisk' = 'Safe';
+    let cdcRiskText = 'Beban Opioid Rendah (< 50 MME/hari). Risiko overdosis minimal.';
+    let cdcBadgeColor = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+
+    if (totalOmeMgPerDay >= 90) {
+      cdcRiskLevel = 'HighRisk';
+      cdcRiskText = '⚠️ RISIKO TINGGI (≥ 90 MME/hari). Risiko fatal depresi napas & overdosis meningkat pesat. Hindari kenaikan dosis dan wajib siapkan/resepkan Nalokson!';
+      cdcBadgeColor = 'bg-rose-500/20 text-rose-300 border-rose-500/40';
+    } else if (totalOmeMgPerDay >= 50) {
+      cdcRiskLevel = 'Caution';
+      cdcRiskText = '⚠️ PERHATIAN (50 - 89 MME/hari). Gandakan pemantauan, evaluasi manfaat vs efek samping sedasi.';
+      cdcBadgeColor = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+    }
+
+    return {
+      fromProfile,
+      toProfile,
+      totalOmeMgPerDay: Math.round(totalOmeMgPerDay * 10) / 10,
+      targetNewDose,
+      breakthroughDose10Pct,
+      breakthroughDose15Pct,
+      cdcRiskLevel,
+      cdcRiskText,
+      cdcBadgeColor
+    };
+  }, [fromOpioidId, fromOpioidDose, toOpioidId, crossToleranceReductionPct]);
+
+  // ==========================================
   // IBW & BMI CALCULATIONS (Devine Formula)
+  // ==========================================
   const safeHeightCm = Math.max(0, ibwHeightCm || 0);
   const heightOver50Inches = Math.max(0, safeHeightCm - 152.4);
   const ibwKg = safeHeightCm > 0 ? Math.round((ibwGender === 'male' ? 50 : 45.5) + 0.9 * heightOver50Inches) : 0;
@@ -485,7 +522,9 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
   const bmiCatInfo = getBmiCategory(bmiValue);
 
+  // ==========================================
   // OXYGEN DURATION CALCULATIONS
+  // ==========================================
   const getCylinderFactor = (type: string) => {
     switch (type) {
       case 'D': return 0.16;
@@ -522,62 +561,27 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
   const fio2Info = calculateFiO2(oxygenDeliveryDevice, flowRateLpm);
 
-  const handleSelectPreset = (preset: PediatricDrugPreset) => {
-    setSelectedPreset(preset);
-    setDoseMode(preset.defaultMode);
-    setTargetMgKg(preset.defaultDoseMgKg);
-    setTimesPerDay(preset.defaultTimesPerDay);
-    setSyrupMgStrength(preset.mgStrength);
-    setSyrupMlStrength(preset.mlStrength);
-  };
-
-  const handleSwitchDoseMode = (newMode: 'per-day' | 'per-dose') => {
-    if (newMode === doseMode) return;
-    const freq = Math.max(1, timesPerDay || 1);
-    if (newMode === 'per-day') {
-      const newTarget = Math.round(targetMgKg * freq * 10) / 10;
-      setDoseMode('per-day');
-      setTargetMgKg(newTarget);
-    } else {
-      const newTarget = Math.round((targetMgKg / freq) * 10) / 10;
-      setDoseMode('per-dose');
-      setTargetMgKg(newTarget);
-    }
-  };
-
   return (
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
-      {/* Header Banner */}
+      {/* HEADER BANNER */}
       <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#143d47] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
-            <Calculator className="w-4 h-4 text-teal-400" />
-            <span>Kalkulator Farmako-Klinis Terintegrasi</span>
+            <Activity className="w-4 h-4 text-teal-400" />
+            <span>Kalkulator Farmakoterapi Klinis Terpadu</span>
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Kalkulator Dosis & Farmakoterapi Klinis
+            Kalkulator Medis & Penyesuaian Dosis
           </h1>
           <p className="text-teal-100/80 text-xs sm:text-sm leading-relaxed font-medium">
-            Suite kalkulator medis lengkap: Dosis Pediatrik Anak, Dosis Ginjal CrCl, Tetesan Infus (TPM), Berat Badan Ideal (IBW), & Durasi Oksigen Medis.
+            Suite kalkulator farmako-klinis terverifikasi: Klirens Ginjal (CrCl/eGFR), Skor Hepar (Child-Pugh & MELD), Konversi Opioid & Paliatif (OME CDC), Berat Badan Ideal (IBW), & Oksigen Medis.
           </p>
         </div>
 
         {/* Top 5-Tab Switcher Menu */}
         <div className="bg-[#06181c] p-1.5 rounded-2xl border border-[#14424e] grid grid-cols-2 sm:flex sm:items-center gap-1.5 shrink-0 w-full sm:w-auto overflow-x-auto custom-scrollbar">
-          <button
-            onClick={() => setActiveTab('pediatric')}
-            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'pediatric'
-                ? 'bg-[#0f766e] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
-            }`}
-          >
-            <Baby className="w-4 h-4" />
-            <span>Pediatrik</span>
-          </button>
-
           <button
             onClick={() => setActiveTab('renal')}
             className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
@@ -591,15 +595,27 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveTab('iv-drip')}
+            onClick={() => setActiveTab('hepatic')}
             className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'iv-drip'
+              activeTab === 'hepatic'
                 ? 'bg-[#0f766e] text-white shadow-md'
                 : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
             }`}
           >
-            <Droplets className="w-4 h-4" />
-            <span>Tetesan Infus</span>
+            <HeartPulse className="w-4 h-4" />
+            <span>Dosis Hepar</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('opioid')}
+            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              activeTab === 'opioid'
+                ? 'bg-[#0f766e] text-white shadow-md'
+                : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+            }`}
+          >
+            <Pill className="w-4 h-4" />
+            <span>Konversi Opioid</span>
           </button>
 
           <button
@@ -616,10 +632,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
           <button
             onClick={() => setActiveTab('oxygen')}
-            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === 'oxygen'
-                ? 'bg-teal-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-slate-700/60'
+                ? 'bg-[#0f766e] text-white shadow-md'
+                : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
             }`}
           >
             <Wind className="w-4 h-4" />
@@ -628,385 +644,9 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
         </div>
       </div>
 
-      {/* TAB 1: PEDIATRIC DOSAGE CALCULATOR */}
-      {activeTab === 'pediatric' && (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-5 bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
-              <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-                <Baby className="w-5 h-5 text-teal-600" />
-                <h2 className="text-sm font-bold text-slate-900">1. Parameter Fisik Pasien Bayi & Anak</h2>
-              </div>
-
-              <div className="space-y-3 text-xs">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="font-bold text-slate-700 block mb-1">Usia Anak (Tahun):</label>
-                    <input
-                      type="number"
-                      value={pedsAgeYears}
-                      onChange={(e) => setPedsAgeYears(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:bg-white focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="font-bold text-slate-700 block mb-1">Berat Badan Pasien (kg):</label>
-                    <input
-                      type="number"
-                      step="0.5"
-                      value={pedsWeightKg}
-                      onChange={(e) => setPedsWeightKg(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-teal-50 border border-teal-300 rounded-xl text-sm font-black text-teal-950 focus:ring-2 focus:ring-teal-500 focus:bg-white focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="font-bold text-slate-700 block mb-1">Tinggi Badan (cm):</label>
-                    <input
-                      type="number"
-                      value={pedsHeightCm}
-                      onChange={(e) => setPedsHeightCm(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:bg-white focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="font-bold text-slate-700 block mb-1">Dosis Dewasa Acuan (mg):</label>
-                    <input
-                      type="number"
-                      value={adultDoseMg}
-                      onChange={(e) => setAdultDoseMg(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:bg-white focus:outline-none"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-2 border-t border-slate-100 space-y-2">
-                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">2. Mode Aturan Dosis Farmakologi:</label>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <button
-                    onClick={() => handleSwitchDoseMode('per-day')}
-                    className={`p-2.5 rounded-2xl font-bold border transition-all text-center ${
-                      doseMode === 'per-day'
-                        ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                    }`}
-                  >
-                    <span>mg / kgBB / Hari</span>
-                    <p className="text-[9px] font-normal opacity-80">(Total Dosis Harian)</p>
-                  </button>
-
-                  <button
-                    onClick={() => handleSwitchDoseMode('per-dose')}
-                    className={`p-2.5 rounded-2xl font-bold border transition-all text-center ${
-                      doseMode === 'per-dose'
-                        ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                    }`}
-                  >
-                    <span>mg / kgBB / Kali</span>
-                    <p className="text-[9px] font-normal opacity-80">(Sekali Minum)</p>
-                  </button>
-                </div>
-
-                <div className="p-2 bg-teal-50/70 rounded-xl border border-teal-100 text-[10px] text-teal-900 leading-snug">
-                  {doseMode === 'per-day' ? (
-                    <span>💡 <strong>Mode Total Harian:</strong> Total Dosis (mg/hari) = Dosis mg/kg × BB. Dosis Sekali Minum (mg/dosis) = Total Harian ÷ Frekuensi Pemberian.</span>
-                  ) : (
-                    <span>💡 <strong>Mode Dosis Sekali Minum:</strong> Dosis Sekali Minum (mg/dosis) = Dosis mg/kg × BB. Total Dosis Harian (mg/hari) = Sekali Minum × Frekuensi.</span>
-                  )}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">
-                    {doseMode === 'per-day' ? 'Dosis mg/kg/hari:' : 'Dosis mg/kg/kali:'}
-                  </label>
-                  <input
-                    type="number"
-                    step="0.1"
-                    value={targetMgKg}
-                    onChange={(e) => setTargetMgKg(Number(e.target.value))}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">Frekuensi Pemberian:</label>
-                  <select
-                    value={timesPerDay}
-                    onChange={(e) => setTimesPerDay(Number(e.target.value))}
-                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none cursor-pointer"
-                  >
-                    <option value={1}>1 kali sehari (tiap 24 jam)</option>
-                    <option value={2}>2 kali sehari (tiap 12 jam)</option>
-                    <option value={3}>3 kali sehari (tiap 8 jam)</option>
-                    <option value={4}>4 kali sehari (tiap 6 jam)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 text-xs">
-                <p className="font-bold text-slate-800 flex items-center gap-1">
-                  <Sliders className="w-3.5 h-3.5 text-teal-600" />
-                  <span>Kekuatan Sediaan Objek (Kustom):</span>
-                </p>
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <label className="text-[10px] font-bold text-slate-500 block">Kandungan Miligram (mg):</label>
-                    <input
-                      type="number"
-                      value={syrupMgStrength}
-                      onChange={(e) => setSyrupMgStrength(Number(e.target.value))}
-                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-800"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-[10px] font-bold text-slate-500 block">Per Volume (mL):</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      value={syrupMlStrength}
-                      onChange={(e) => setSyrupMlStrength(Number(e.target.value))}
-                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-800"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2 pt-2 border-t border-slate-100">
-                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Komparasi Rumus Baku Konversi Dosis:</p>
-                <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                  <div className="bg-teal-50 p-2.5 rounded-2xl border border-teal-100">
-                    <p className="text-[10px] text-teal-800 font-bold">Rumus Young</p>
-                    <p className="text-sm font-black text-teal-950 mt-0.5">{youngDoseMg} <span className="text-[10px] font-normal">mg</span></p>
-                  </div>
-                  <div className="bg-slate-50 p-2.5 rounded-2xl border border-slate-200">
-                    <p className="text-[10px] text-slate-600 font-bold">Rumus Dilling</p>
-                    <p className="text-sm font-black text-slate-900 mt-0.5">{dillingDoseMg} <span className="text-[10px] font-normal">mg</span></p>
-                  </div>
-                  <div className="bg-emerald-50 p-2.5 rounded-2xl border border-emerald-100">
-                    <p className="text-[10px] text-emerald-800 font-bold">BSA Mosteller</p>
-                    <p className="text-sm font-black text-emerald-950 mt-0.5">{bsaDoseMg} <span className="text-[10px] font-normal">mg</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 space-y-4">
-              <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-md space-y-3">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                  <div className="flex items-center gap-2">
-                    <Pill className="w-5 h-5 text-teal-600" />
-                    <h2 className="text-sm font-bold text-slate-900">Pilih Obat & Sediaan Pediatrik Populer:</h2>
-                  </div>
-                  <span className="bg-teal-100 text-teal-900 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">
-                    BB Pasien: {pedsWeightKg} kg
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {PEDIATRIC_DRUG_PRESETS.map((preset, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleSelectPreset(preset)}
-                      className={`p-2.5 rounded-2xl text-left border transition-all ${
-                        selectedPreset.name === preset.name
-                          ? 'bg-teal-600 text-white border-teal-600 shadow-xs font-bold'
-                          : 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-slate-100'
-                      }`}
-                    >
-                      <p className="text-xs truncate">{preset.name}</p>
-                      <p className={`text-[10px] ${selectedPreset.name === preset.name ? 'text-teal-100' : 'text-slate-500'}`}>{preset.strengthLabel}</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 text-white space-y-5 shadow-xl border border-slate-800">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
-                  <div>
-                    <span className="bg-teal-500/20 text-teal-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-teal-500/30">
-                      PRESISION DOSAGE RESULT
-                    </span>
-                    <h3 className="text-lg font-black text-teal-300 pt-1">{selectedPreset.name}</h3>
-                    <p className="text-xs text-slate-300 font-medium">{selectedPreset.genericName} • Sediaan: {syrupMgStrength} mg / {syrupMlStrength} mL</p>
-                  </div>
-
-                  <div className="text-left sm:text-right shrink-0 bg-slate-800/80 p-2.5 rounded-2xl border border-slate-700">
-                    <p className="text-[10px] text-slate-400 uppercase font-bold">Aturan Pakai Terjadwal:</p>
-                    <p className="text-sm font-black text-teal-400">{timesPerDay}x Sehari <span className="text-xs font-normal text-slate-300">(Tiap {intervalHours} Jam)</span></p>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-                    <div className="bg-slate-800/90 p-3.5 rounded-2xl border border-slate-700 space-y-0.5">
-                      <p className="text-[10px] text-slate-400 uppercase font-bold">Dosis Total Harian:</p>
-                      <p className="text-2xl font-black text-teal-400">{calculatedTotalDailyMg}</p>
-                      <p className="text-[10px] text-slate-400">mg / hari</p>
-                    </div>
-
-                    <div className="bg-slate-800/90 p-3.5 rounded-2xl border border-slate-700 space-y-0.5">
-                      <p className="text-[10px] text-slate-400 uppercase font-bold">Dosis Sekali Minum:</p>
-                      <p className="text-2xl font-black text-teal-400">{calculatedSingleDoseMg}</p>
-                      <p className="text-[10px] text-slate-400">mg / dosis</p>
-                    </div>
-
-                    <div className="bg-teal-950 p-3.5 rounded-2xl border border-teal-500/50 space-y-0.5 col-span-2 sm:col-span-2">
-                      <p className="text-[10px] text-teal-300 uppercase font-bold">VOLUME PRESISI SEKALI MINUM (mL):</p>
-                      <p className="text-3xl font-black text-white">{calculatedMlPerDose} <span className="text-base text-teal-300">mL</span></p>
-                      <div className="flex items-center justify-center gap-3 pt-1 text-[11px] font-bold text-teal-200 border-t border-teal-800/80">
-                        <span>🥄 {spoon5ml} Sendok Takar (5 mL)</span>
-                        <span>•</span>
-                        <span>💧 {dropper08ml} Pipet Tetes (0.8 mL)</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Rentang Dosis Literatur Box */}
-                  <div className="bg-slate-800/90 p-3.5 rounded-2xl border border-teal-500/30 text-xs text-white space-y-2">
-                    <div className="flex items-center justify-between border-b border-slate-700/80 pb-1.5">
-                      <span className="font-extrabold text-teal-300 flex items-center gap-1.5">
-                        <Scale className="w-4 h-4 text-teal-400" />
-                        <span>Rentang Dosis Literatur Aman Pasien (BB {pedsWeightKg} kg):</span>
-                      </span>
-                      <span className="text-[10px] text-slate-400">{selectedPreset.literatureSource}</span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-[11px]">
-                      <div className="bg-slate-950/60 p-2 rounded-xl border border-slate-700/60">
-                        <p className="text-slate-400 text-[10px]">Rentang Harian:</p>
-                        <p className="font-bold text-teal-300 mt-0.5">
-                          {calculatedMinDailyMg} - {calculatedMaxDailyMg} <span className="text-[10px] font-normal text-slate-300">mg/hari</span>
-                        </p>
-                      </div>
-
-                      <div className="bg-slate-950/60 p-2 rounded-xl border border-slate-700/60">
-                        <p className="text-slate-400 text-[10px]">Rentang Sekali Minum:</p>
-                        <p className="font-bold text-teal-300 mt-0.5">
-                          {calculatedMinSingleDoseMg} - {calculatedMaxSingleDoseMg} <span className="text-[10px] font-normal text-slate-300">mg/dosis</span>
-                        </p>
-                      </div>
-
-                      <div className="bg-slate-950/60 p-2 rounded-xl border border-slate-700/60">
-                        <p className="text-slate-400 text-[10px]">Rentang Volume Sirup (mL):</p>
-                        <p className="font-bold text-amber-300 mt-0.5">
-                          {calculatedMinMlPerDose} - {calculatedMaxMlPerDose} <span className="text-[10px] font-normal text-slate-300">mL</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-slate-800/60 p-3.5 rounded-2xl border border-slate-700/80 text-xs text-slate-300 space-y-1">
-                  <p className="font-bold text-teal-300 flex items-center gap-1.5">
-                    <Info className="w-4 h-4 text-teal-400" />
-                    <span>Petunjuk Pemberian Obat Pasien Anak:</span>
-                  </p>
-                  <p className="leading-relaxed">
-                    Minumkan sebanyak <strong>{calculatedMlPerDose} mL</strong> (sekitar {spoon5ml} sendok takar 5mL) sebanyak <strong>{timesPerDay} kali sehari</strong> (setiap {intervalHours} jam). {selectedPreset.notes}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-              {/* Formula & Calculation Step-by-Step Card */}
-              <div className="bg-slate-900 text-white rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
-                <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-                  <BookOpen className="w-5 h-5 text-teal-400" />
-                  <h3 className="text-sm font-black text-teal-300">
-                    📐 Keterangan Rumus Matematis & Langkah Perhitungan Dosis Pediatrik
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                  {/* Rumus Berat Badan & Sediaan */}
-                  <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2.5">
-                    <p className="font-bold text-teal-300 flex items-center gap-1.5">
-                      <Binary className="w-4 h-4 text-teal-400" />
-                      <span>1. Rumus Dosis Berbasis Berat Badan (BB):</span>
-                    </p>
-                    <div className="bg-slate-950/80 p-3 rounded-xl font-mono text-[11px] text-teal-200 space-y-1 border border-teal-900/40">
-                      <p className="text-slate-400">// Dosis Total Harian:</p>
-                      <p className="font-bold">Dosis Harian (mg) = Dosis Acuan (mg/kg) × BB (kg)</p>
-                      <p className="text-teal-300">
-                        = {targetMgKg} mg/kg × {safePedsWeight} kg = <strong className="text-white">{calculatedTotalDailyMg} mg/hari</strong>
-                      </p>
-                      <div className="pt-2 border-t border-slate-800">
-                        <p className="text-slate-400">// Dosis Sekali Minum:</p>
-                        <p className="font-bold">Dosis Sekali Minum (mg) = Dosis Harian ÷ Frekuensi</p>
-                        <p className="text-teal-300">
-                          = {calculatedTotalDailyMg} mg ÷ {timesPerDay}x = <strong className="text-white">{calculatedSingleDoseMg} mg/kali</strong>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Rumus Konversi Volume Sirup */}
-                  <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2.5">
-                    <p className="font-bold text-teal-300 flex items-center gap-1.5">
-                      <Droplets className="w-4 h-4 text-teal-400" />
-                      <span>2. Rumus Konversi Volume Sediaan Sirup (mL):</span>
-                    </p>
-                    <div className="bg-slate-950/80 p-3 rounded-xl font-mono text-[11px] text-teal-200 space-y-1 border border-teal-900/40">
-                      <p className="text-slate-400">// Perhitungan Volume Minum (mL):</p>
-                      <p className="font-bold">Volume (mL) = (Dosis Sekali Minum ÷ Kekuatan mg) × Volume Sediaan (mL)</p>
-                      <p className="text-teal-300">
-                        = ({calculatedSingleDoseMg} mg ÷ {safeSyrupMg} mg) × {safeSyrupMl} mL
-                      </p>
-                      <p className="text-amber-300 font-bold">
-                        = <strong className="text-white text-sm">{calculatedMlPerDose} mL</strong> (± {spoon5ml} sendok takar 5mL)
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Komparasi Rumus Pediatrik Baku Klasik */}
-                <div className="bg-slate-800/60 p-4 rounded-2xl border border-slate-700/80 space-y-2.5 text-xs">
-                  <p className="font-bold text-teal-300 flex items-center gap-1.5">
-                    <HelpCircle className="w-4 h-4 text-teal-400" />
-                    <span>3. Referensi & Keterangan Rumus Konversi Dosis Pediatrik Klasik:</span>
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-[11px]">
-                    <div className="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800">
-                      <p className="font-bold text-teal-300">Rumus Young (1-12 Thn):</p>
-                      <p className="font-mono text-[10px] text-slate-300">Dosis = [Usia / (Usia + 12)] × Dosis Dewasa</p>
-                      <p className="text-teal-400 font-bold mt-1">= [{safePedsAge} / ({safePedsAge} + 12)] × {safeAdultDose} = {youngDoseMg} mg</p>
-                    </div>
-
-                    <div className="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800">
-                      <p className="font-bold text-teal-300">Rumus Dilling (&gt; 8 Thn):</p>
-                      <p className="font-mono text-[10px] text-slate-300">Dosis = (Usia / 20) × Dosis Dewasa</p>
-                      <p className="text-teal-400 font-bold mt-1">= ({safePedsAge} / 20) × {safeAdultDose} = {dillingDoseMg} mg</p>
-                    </div>
-
-                    <div className="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800">
-                      <p className="font-bold text-teal-300">Rumus Clark (Berat Badan):</p>
-                      <p className="font-mono text-[10px] text-slate-300">Dosis = (BB Anak / 70 kg) × Dosis Dewasa</p>
-                      <p className="text-teal-400 font-bold mt-1">= ({safePedsWeight} / 70) × {safeAdultDose} = {Math.round((safePedsWeight / 70) * safeAdultDose)} mg</p>
-                    </div>
-
-                    <div className="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800">
-                      <p className="font-bold text-teal-300">Rumus BSA (Mosteller):</p>
-                      <p className="font-mono text-[10px] text-slate-300">Dosis = (BSA / 1.73 m²) × Dosis Dewasa</p>
-                      <p className="text-teal-400 font-bold mt-1">= ({bsaM2} / 1.73) × {safeAdultDose} = {bsaDoseMg} mg</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-        </div>
-      )}
-
-      {/* TAB 2: RENAL DOSAGE CALCULATOR */}
+      {/* ========================================================================= */}
+      {/* TAB 1: RENAL DOSAGE CALCULATOR */}
+      {/* ========================================================================= */}
       {activeTab === 'renal' && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -1050,7 +690,7 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
                       type="number"
                       value={renalAge}
                       onChange={(e) => setRenalAge(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:bg-white focus:outline-none"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
                     />
                   </div>
 
@@ -1060,294 +700,466 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
                       type="number"
                       value={renalWeight}
                       onChange={(e) => setRenalWeight(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:bg-white focus:outline-none"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Serum Kreatinin (SrCr mg/dL):</label>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="number"
-                      step="0.1"
-                      value={renalScr}
-                      onChange={(e) => setRenalScr(Number(e.target.value))}
-                      className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:bg-white focus:outline-none"
-                    />
-                    <span className="text-xs font-semibold text-slate-500">mg/dL</span>
-                  </div>
+                  <label className="font-bold text-slate-700 block mb-1">Serum Kreatinin (mg/dL):</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={renalScr}
+                    onChange={(e) => setRenalScr(Number(e.target.value))}
+                    className="w-full px-3 py-2 bg-teal-50 border border-teal-300 rounded-xl text-sm font-black text-teal-950 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                  />
+                  <p className="text-[10px] text-slate-400 mt-1">Nilai normal rata-rata: 0.6 - 1.2 mg/dL</p>
                 </div>
-              </div>
-
-              <div className="bg-slate-800 p-4 rounded-2xl text-white space-y-1 text-center">
-                <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Nilai Estimasi CrCl:</p>
-                <p className="text-3xl font-black text-teal-400">{crClValue} <span className="text-xs font-normal text-slate-300">mL/min</span></p>
-                <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${ckdInfo.color}`}>
-                  {ckdInfo.stage}
-                </span>
               </div>
             </div>
 
             <div className="lg:col-span-7 space-y-4">
-              <div className="bg-white p-4 rounded-3xl border border-slate-200 shadow-xs flex items-center justify-between gap-4">
-                <div className="flex items-center gap-2">
-                  <Pill className="w-5 h-5 text-teal-600" />
-                  <h2 className="text-sm font-bold text-slate-900">Rekomendasi Dosis Ginjal Obat Berisiko</h2>
+              <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 text-white space-y-4 shadow-xl border border-slate-800">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <span className="text-xs font-bold text-teal-300">HASIL ESTIMASI ESTIMASI KLINIK</span>
+                  <span className="text-[10px] text-slate-400">Formula Cockcroft-Gault</span>
                 </div>
 
-                <div className="relative w-60">
-                  <Search className="w-3.5 h-3.5 absolute left-3 top-3 text-slate-400" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 space-y-1">
+                    <p className="text-[10px] text-slate-400 uppercase font-bold">Klirens Kreatinin (CrCl):</p>
+                    <p className="text-3xl font-black text-teal-400">{crClValue} <span className="text-sm font-normal text-slate-300">mL/min</span></p>
+                    <p className="text-[10px] text-slate-400">Dasar penyesuaian dosis obat</p>
+                  </div>
+
+                  <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 space-y-1">
+                    <p className="text-[10px] text-slate-400 uppercase font-bold">Stadium Penurunan Fungsi Ginjal (CKD):</p>
+                    <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-bold border mt-1 ${ckdInfo.color}`}>
+                      {ckdInfo.stage}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Renal Drug Rules Search */}
+              <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-md space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                    <ShieldAlert className="w-4 h-4 text-teal-600" />
+                    Panduan Dosis Obat Ginjal (CrCl Pasien: {crClValue} mL/min)
+                  </h3>
+                </div>
+
+                <div className="relative">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                   <input
                     type="text"
                     value={searchRenalDrug}
                     onChange={(e) => setSearchRenalDrug(e.target.value)}
-                    placeholder="Cari obat (Metformin...)"
-                    className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-teal-500 focus:bg-white focus:outline-none"
+                    placeholder="Cari obat penyesuaian ginjal (Metformin, Allopurinol, Ciprofloxacin...)"
+                    className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-teal-500"
+                  />
+                </div>
+
+                <div className="space-y-2.5 max-h-64 overflow-y-auto custom-scrollbar">
+                  {filteredRenalRules.map((drug, idx) => {
+                    const matchedRule = drug.rules.find(r => crClValue >= r.minCrCl && crClValue <= r.maxCrCl);
+                    return (
+                      <div key={idx} className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-slate-900">{drug.drugName} <span className="text-[10px] text-slate-500 font-normal">({drug.genericName})</span></span>
+                          {matchedRule?.status === 'Contraindicated' && (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-200">KONTRAINDIKASI</span>
+                          )}
+                          {matchedRule?.status === 'Adjust' && (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">PENYESUAIAN DOSIS</span>
+                          )}
+                          {matchedRule?.status === 'Normal' && (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">DOSIS NORMAL</span>
+                          )}
+                        </div>
+                        <p className="text-slate-700"><strong className="text-teal-700">Rekomendasi:</strong> {matchedRule?.recommendation || 'Gunakan sesuai petunjuk dokter.'}</p>
+                        <p className="text-[10px] text-slate-500 italic">*Mutiara Klinis: {drug.clinicalPearls}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* TAB 2: HEPATIC DOSAGE (CHILD-PUGH & MELD) */}
+      {/* ========================================================================= */}
+      {activeTab === 'hepatic' && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Input Panel */}
+            <div className="lg:col-span-5 bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
+              <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+                <HeartPulse className="w-5 h-5 text-teal-600" />
+                <h2 className="text-sm font-bold text-slate-900">Parameter Laboratorium & Klinis Hepar</h2>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Bilirubin Total (mg/dL):
+                  </label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    value={biliTotal}
+                    onChange={(e) => setBiliTotal(Math.max(0, parseFloat(e.target.value) || 0))}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                  />
+                  <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                    <span>&lt;2.0 (1 pt)</span>
+                    <span>2.0 - 3.0 (2 pt)</span>
+                    <span>&gt;3.0 (3 pt)</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Serum Albumin (g/dL):
+                  </label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    value={serumAlbumin}
+                    onChange={(e) => setSerumAlbumin(Math.max(0, parseFloat(e.target.value) || 0))}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                  />
+                  <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                    <span>&gt;3.5 (1 pt)</span>
+                    <span>2.8 - 3.5 (2 pt)</span>
+                    <span>&lt;2.8 (3 pt)</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    International Normalized Ratio (INR):
+                  </label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    min="0.5"
+                    value={serumInr}
+                    onChange={(e) => setSerumInr(Math.max(0.5, parseFloat(e.target.value) || 1))}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                  />
+                  <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                    <span>&lt;1.7 (1 pt)</span>
+                    <span>1.7 - 2.3 (2 pt)</span>
+                    <span>&gt;2.3 (3 pt)</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Derajat Asites Pasien:</label>
+                  <select
+                    value={ascitesDegree}
+                    onChange={(e) => setAscitesDegree(e.target.value as any)}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none"
+                  >
+                    <option value="none">Tidak Ada Asites (1 poin)</option>
+                    <option value="mild">Ringan / Terkontrol Diuretik (2 poin)</option>
+                    <option value="moderate_severe">Sedang - Berat / Refrakter (3 poin)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Ensefalopati Hepatik:</label>
+                  <select
+                    value={encephGrade}
+                    onChange={(e) => setEncephGrade(e.target.value as any)}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none"
+                  >
+                    <option value="none">Tidak Ada / Grade 0 (1 poin)</option>
+                    <option value="grade_1_2">Grade 1 - 2 (Bingung ringan, tremor, asteriksis) (2 poin)</option>
+                    <option value="grade_3_4">Grade 3 - 4 (Somnolen berat, stupor, koma) (3 poin)</option>
+                  </select>
+                </div>
+
+                <div className="pt-2 border-t border-slate-100">
+                  <label className="font-bold text-slate-700 block mb-1">Serum Kreatinin untuk Skor MELD (mg/dL):</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={serumCreatinineMeld}
+                    onChange={(e) => setSerumCreatinineMeld(parseFloat(e.target.value) || 1.0)}
+                    className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800"
                   />
                 </div>
               </div>
+            </div>
 
-              <div className="space-y-4">
-                {filteredRenalRules.map((item, idx) => {
-                  const matchedRule = item.rules.find(
-                    (r) => crClValue >= r.minCrCl && crClValue <= r.maxCrCl
-                  ) || item.rules[item.rules.length - 1];
+            {/* Results Panel */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 text-white space-y-4 shadow-xl border border-slate-800">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <span className="text-xs font-bold text-teal-300 uppercase tracking-wider">
+                    Hasil Klasifikasi Child-Pugh & MELD
+                  </span>
+                  <span className="text-[10px] text-slate-400">UNOS / Mayo Clinic Standard</span>
+                </div>
 
-                  return (
-                    <div key={idx} className="bg-white rounded-3xl p-5 border border-slate-200 shadow-md space-y-3">
-                      <div className="flex items-start justify-between gap-3 border-b border-slate-100 pb-3">
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <h3 className="text-base font-extrabold text-slate-900">{item.drugName}</h3>
-                            <span className="bg-teal-50 text-teal-700 text-[10px] px-2 py-0.5 rounded font-bold border border-teal-100">
-                              ATC: {item.atcCode}
-                            </span>
-                          </div>
-                          <p className="text-xs text-slate-500 font-medium">Generik: {item.genericName}</p>
-                        </div>
-
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold border ${
-                          matchedRule.status === 'Normal'
-                            ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                            : matchedRule.status === 'Adjust'
-                            ? 'bg-amber-100 text-amber-800 border-amber-300'
-                            : 'bg-red-100 text-red-800 border-red-300 animate-pulse'
-                        }`}>
-                          {matchedRule.status === 'Normal' ? '✅ Dosis Standar' : matchedRule.status === 'Adjust' ? '⚠️ Perlu Penyesuaian Dosis' : '🚫 KONTRAINDIKASI'}
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                        <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-1">
-                          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Dosis Normal Pasien Tanpa Gangguan Ginjal:</p>
-                          <p className="font-bold text-slate-800">{item.normalDose}</p>
-                        </div>
-
-                        <div className={`p-3 rounded-2xl border space-y-1 ${
-                          matchedRule.status === 'Contraindicated' 
-                            ? 'bg-red-50 border-red-200 text-red-900' 
-                            : 'bg-teal-50 border-teal-100 text-teal-950'
-                        }`}>
-                          <p className="text-[10px] font-bold uppercase tracking-wider opacity-80">Rekomendasi Dosis (CrCl = {crClValue} mL/min):</p>
-                          <p className="font-bold leading-relaxed">{matchedRule.recommendation}</p>
-                        </div>
-                      </div>
-
-                      <div className="bg-amber-50/60 p-2.5 rounded-xl border border-amber-200 flex items-start gap-2 text-[11px] text-amber-900">
-                        <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                        <p className="leading-snug">
-                          <strong>Catatan Klinis:</strong> {item.clinicalPearls}
-                        </p>
-                      </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 space-y-1">
+                    <p className="text-[10px] text-slate-400 uppercase font-bold">Skor & Kelas Child-Pugh:</p>
+                    <div className="flex items-baseline gap-2 mt-1">
+                      <span className="text-3xl font-black text-teal-400">Kelas {childPughCalculation.grade}</span>
+                      <span className="text-xs font-semibold text-slate-300">({childPughCalculation.totalScore} Poin)</span>
                     </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Renal Formula & Step-by-Step Card */}
-          <div className="bg-slate-900 text-white rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
-            <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-              <BookOpen className="w-5 h-5 text-teal-400" />
-              <h3 className="text-sm font-black text-teal-300">
-                📐 Keterangan Rumus Cockcroft-Gault & Penilaian Fungsi Ginjal (CrCl / eGFR)
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2.5">
-                <p className="font-bold text-teal-300 flex items-center gap-1.5">
-                  <Binary className="w-4 h-4 text-teal-400" />
-                  <span>1. Persamaan Baku Cockcroft-Gault (CrCl):</span>
-                </p>
-                <div className="bg-slate-950/80 p-3 rounded-xl font-mono text-[11px] text-teal-200 space-y-1.5 border border-teal-900/40">
-                  <p className="text-slate-400">// Pasien Laki-Laki:</p>
-                  <p className="font-bold">CrCl (mL/min) = [(140 - Usia) × Berat Badan (kg)] ÷ [72 × Serum Kreatinin (mg/dL)]</p>
-                  
-                  <p className="text-slate-400 pt-1 border-t border-slate-800">// Pasien Wanita (Koreksi Massa Otot × 0.85):</p>
-                  <p className="font-bold">CrCl Wanita (mL/min) = CrCl Laki-Laki × 0.85</p>
-
-                  <div className="pt-2 border-t border-slate-800 text-amber-300">
-                    <p className="text-slate-400">// Substitusi Nilai Pasien:</p>
-                    <p>
-                      CrCl = [({140} - {renalAge}) × {renalWeight} kg] ÷ [72 × {renalScr} mg/dL] {renalGender === 'female' ? '× 0.85' : ''}
+                    <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border mt-1 ${childPughCalculation.badgeColor}`}>
+                      {childPughCalculation.severityLabel}
+                    </span>
+                    <p className="text-[10px] text-slate-400 mt-2">
+                      Survival 1 Tahun: <strong>{childPughCalculation.survival1Yr}</strong> • 2 Tahun: <strong>{childPughCalculation.survival2Yr}</strong>
                     </p>
-                    <p className="text-white font-bold text-sm mt-1">
-                      = <strong className="text-teal-400">{crClValue} mL/menit</strong> ({ckdInfo.stage})
+                  </div>
+
+                  <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 space-y-1">
+                    <p className="text-[10px] text-slate-400 uppercase font-bold">Skor MELD (End-Stage Liver):</p>
+                    <div className="flex items-baseline gap-2 mt-1">
+                      <span className="text-3xl font-black text-amber-400">{childPughCalculation.meldScore}</span>
+                      <span className="text-xs font-semibold text-slate-300">/ 40</span>
+                    </div>
+                    <p className="text-[11px] text-slate-300 mt-1">
+                      Mortalitas 90-Hari: <strong className="text-amber-300">{childPughCalculation.meldMortality90Day}</strong>
+                    </p>
+                    <p className="text-[10px] text-slate-400 mt-2">
+                      Prediktor kesintasan sirosis dekompensata
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2.5">
-                <p className="font-bold text-teal-300 flex items-center gap-1.5">
-                  <Activity className="w-4 h-4 text-teal-400" />
-                  <span>2. Kategori Derajat Gangguan Ginjal (KDIGO & FDA Guideline):</span>
-                </p>
-                <div className="space-y-1.5 text-[11px]">
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-slate-950/60 border border-slate-800">
-                    <span className="font-bold text-emerald-400">G1 (CrCl ≥ 90 mL/min):</span>
-                    <span className="text-slate-300">Fungsi Ginjal Normal / Optimal</span>
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-slate-950/60 border border-slate-800">
-                    <span className="font-bold text-teal-400">G2 (CrCl 60 - 89 mL/min):</span>
-                    <span className="text-slate-300">Penurunan Fungsi Ringan</span>
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-slate-950/60 border border-slate-800">
-                    <span className="font-bold text-amber-400">G3a-G3b (CrCl 30 - 59 mL/min):</span>
-                    <span className="text-slate-300">Gangguan Ginjal Sedang</span>
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-slate-950/60 border border-slate-800">
-                    <span className="font-bold text-rose-400">G4 (CrCl 15 - 29 mL/min):</span>
-                    <span className="text-slate-300">Gangguan Ginjal Berat</span>
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-slate-950/60 border border-slate-800">
-                    <span className="font-bold text-red-500">G5 (CrCl &lt; 15 mL/min / HD):</span>
-                    <span className="text-slate-300">Gagal Ginjal Terminal (End-Stage)</span>
-                  </div>
+              {/* Hepatic Drug Adjustment Directory */}
+              <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-md space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                    <Pill className="w-4 h-4 text-teal-600" />
+                    Panduan Dosis Obat Gangguan Hepar (Pasien: Kelas {childPughCalculation.grade})
+                  </h3>
+                </div>
+
+                <div className="relative">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                  <input
+                    type="text"
+                    value={searchHepaticDrug}
+                    onChange={(e) => setSearchHepaticDrug(e.target.value)}
+                    placeholder="Cari obat metabolisme hepar (Paracetamol, Metronidazole, Statin, PPI...)"
+                    className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-teal-500"
+                  />
+                </div>
+
+                <div className="space-y-2.5 max-h-72 overflow-y-auto custom-scrollbar">
+                  {filteredHepaticRules.map((drug, idx) => {
+                    const currentClassRec = 
+                      childPughCalculation.grade === 'A' ? drug.childPughA :
+                      childPughCalculation.grade === 'B' ? drug.childPughB :
+                      drug.childPughC;
+
+                    const isContraindicated = currentClassRec.toUpperCase().includes('KONTRAINDIKASI') || currentClassRec.toUpperCase().includes('HINDARI');
+
+                    return (
+                      <div key={idx} className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-slate-900">
+                            {drug.drugName} <span className="text-[10px] text-slate-500 font-normal">({drug.category})</span>
+                          </span>
+                          {isContraindicated ? (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-200">
+                              KONTRAINDIKASI / HINDARI
+                            </span>
+                          ) : (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-teal-100 text-teal-800 border border-teal-200">
+                              REKOMENDASI KELAS {childPughCalculation.grade}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-slate-700">
+                          <strong className="text-teal-700">Aturan Dosis:</strong> {currentClassRec}
+                        </p>
+                        <p className="text-[10px] text-slate-500 italic">*Mutiara Klinis: {drug.clinicalPearls}</p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       )}
 
-      {/* TAB 3: IV DRIP INFUSION CALCULATOR */}
-      {activeTab === 'iv-drip' && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-            <Droplets className="w-6 h-6 text-teal-600" />
-            <div>
-              <h2 className="text-base font-bold text-slate-900">Kalkulator Kecepatan Tetesan Infus (IV Drip TPM)</h2>
-              <p className="text-xs text-slate-500">Hitung Tetes Per Menit (TPM) dan interval waktu antar tetesan infus pasien.</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Volume Cairan Infus (mL):</label>
-              <input
-                type="number"
-                value={ivVolumeMl}
-                onChange={(e) => setIvVolumeMl(Number(e.target.value))}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Target Waktu Habis (Jam):</label>
-              <input
-                type="number"
-                value={ivTimeHours}
-                onChange={(e) => setIvTimeHours(Number(e.target.value))}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Faktor Tetes Set Infus:</label>
-              <select
-                value={dripFactor}
-                onChange={(e) => setDripFactor(Number(e.target.value))}
-                className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none cursor-pointer"
-              >
-                <option value={20}>Makro 20 tetes/mL (Dewasa Standar)</option>
-                <option value={60}>Mikro 60 tetes/mL (Pediatrik / Otsuka)</option>
-                <option value={15}>Terumo 15 tetes/mL (Darah / Plasma)</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-r from-slate-900 to-teal-950 rounded-3xl p-6 text-white grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-lg text-center">
-            <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700">
-              <p className="text-[10px] text-slate-400 uppercase font-bold">Kecepatan Tetesan Infus:</p>
-              <p className="text-4xl font-black text-teal-400 mt-1">{calcTpm} <span className="text-sm font-semibold text-slate-300">TPM (Tetes/Menit)</span></p>
-            </div>
-
-            <div className="bg-teal-950 p-4 rounded-2xl border border-teal-500/40">
-              <p className="text-[10px] text-teal-300 uppercase font-bold">Interval Tetesan:</p>
-              <p className="text-4xl font-black text-white mt-1">1 <span className="text-sm font-semibold text-teal-200">tetes tiap</span> {calcSecPerDrop} <span className="text-sm font-semibold text-teal-200">detik</span></p>
-            </div>
-          </div>
-
-          {/* IV Drip Formula & Step-by-Step Card */}
-          <div className="bg-slate-900 text-white rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
-            <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-              <BookOpen className="w-5 h-5 text-teal-400" />
-              <h3 className="text-sm font-black text-teal-300">
-                📐 Keterangan Rumus Kecepatan Tetesan Infus & Pompa Syringe (IV Drip TPM)
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-              <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2">
-                <p className="font-bold text-teal-300">1. Rumus Tetes Per Menit (TPM):</p>
-                <div className="bg-slate-950/80 p-3 rounded-xl font-mono text-[11px] text-teal-200 space-y-1 border border-teal-900/40">
-                  <p className="font-bold text-slate-300">TPM = (Volume mL × Faktor Tetes) ÷ (Waktu Jam × 60)</p>
-                  <p className="text-amber-300 pt-1">
-                    = ({ivVolumeMl} × {dripFactor}) ÷ ({ivTimeHours} × 60)
-                  </p>
-                  <p className="text-white font-black text-sm">
-                    = <strong className="text-teal-400">{calcTpm} TPM</strong>
-                  </p>
-                </div>
+      {/* ========================================================================= */}
+      {/* TAB 3: OPIOID EQUIANALGESIC CONVERTER */}
+      {/* ========================================================================= */}
+      {activeTab === 'opioid' && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Input Opioid Source */}
+            <div className="lg:col-span-5 bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
+              <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+                <Pill className="w-5 h-5 text-teal-600" />
+                <h2 className="text-sm font-bold text-slate-900">1. Opioid Saat Ini (Regimen Aktif Pasien)</h2>
               </div>
 
-              <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2">
-                <p className="font-bold text-teal-300">2. Rumus Interval Waktu Tetes:</p>
-                <div className="bg-slate-950/80 p-3 rounded-xl font-mono text-[11px] text-teal-200 space-y-1 border border-teal-900/40">
-                  <p className="font-bold text-slate-300">Interval (Detik) = 60 Detik ÷ Nilai TPM</p>
-                  <p className="text-amber-300 pt-1">
-                    = 60 ÷ {calcTpm || 1}
-                  </p>
-                  <p className="text-white font-black text-sm">
-                    = 1 tetes tiap <strong className="text-teal-400">{calcSecPerDrop} detik</strong>
-                  </p>
+              <div className="space-y-3 text-xs">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Pilih Jenis Opioid Asal:</label>
+                  <select
+                    value={fromOpioidId}
+                    onChange={(e) => setFromOpioidId(e.target.value)}
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none"
+                  >
+                    {OPIOID_DATABASE.map(o => (
+                      <option key={o.id} value={o.id}>
+                        {o.name} ({o.unit})
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              </div>
 
-              <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2">
-                <p className="font-bold text-teal-300">3. Kecepatan Pompa (Infusion Pump):</p>
-                <div className="bg-slate-950/80 p-3 rounded-xl font-mono text-[11px] text-teal-200 space-y-1 border border-teal-900/40">
-                  <p className="font-bold text-slate-300">Laju (mL/Jam) = Volume Total (mL) ÷ Target Waktu (Jam)</p>
-                  <p className="text-amber-300 pt-1">
-                    = {ivVolumeMl} mL ÷ {ivTimeHours} Jam
-                  </p>
-                  <p className="text-white font-black text-sm">
-                    = <strong className="text-teal-400">{ivTimeHours > 0 ? Math.round((ivVolumeMl / ivTimeHours) * 10) / 10 : 0} mL/Jam</strong>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Total Dosis Harian Pasien ({opioidCalculation.fromProfile.unit}):
+                  </label>
+                  <input
+                    type="number"
+                    step="1"
+                    min="0"
+                    value={fromOpioidDose}
+                    onChange={(e) => setFromOpioidDose(Math.max(0, parseFloat(e.target.value) || 0))}
+                    className="w-full px-3 py-2 bg-teal-50 border border-teal-300 rounded-xl text-sm font-black text-teal-950 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                  />
+                  <p className="text-[10px] text-slate-400 mt-1">{opioidCalculation.fromProfile.notes}</p>
+                </div>
+
+                <div className="pt-3 border-t border-slate-100 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="font-bold text-slate-700 block">2. Opioid Target yang Akan Digunakan:</label>
+                  </div>
+                  <select
+                    value={toOpioidId}
+                    onChange={(e) => setToOpioidId(e.target.value)}
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none"
+                  >
+                    {OPIOID_DATABASE.map(o => (
+                      <option key={o.id} value={o.id}>
+                        {o.name} ({o.unit})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="pt-3 border-t border-slate-100 space-y-2">
+                  <label className="font-bold text-slate-700 block">
+                    3. Pengurangan Toleransi Silang (*Incomplete Cross-Tolerance*):
+                  </label>
+                  <div className="grid grid-cols-4 gap-1.5 text-center">
+                    {[0, 25, 33, 50].map(pct => (
+                      <button
+                        key={pct}
+                        onClick={() => setCrossToleranceReductionPct(pct)}
+                        className={`p-2 rounded-xl text-xs font-bold border transition-all ${
+                          crossToleranceReductionPct === pct
+                            ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
+                            : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                        }`}
+                      >
+                        {pct === 0 ? '0%' : `-${pct}%`}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-[10px] text-amber-800 bg-amber-50 p-2 rounded-xl border border-amber-200 leading-relaxed">
+                    💡 Standar keselamatan paliatif: Disarankan mereduksi dosis target <strong>25% - 50%</strong> saat rotasi opioid untuk mencegah depresi pernapasan fatal akibat toleransi silang tak sempurna.
                   </p>
                 </div>
               </div>
             </div>
-          </div>
 
+            {/* Results Panel */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 text-white space-y-5 shadow-xl border border-slate-800">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <span className="text-xs font-bold text-teal-300 uppercase tracking-wider">
+                    Hasil Konversi Ekivalensi Dosis Opioid
+                  </span>
+                  <span className="text-[10px] text-slate-400">CDC & EAPC Guideline</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                  <div className="bg-slate-800/80 p-3.5 rounded-2xl border border-slate-700 space-y-1">
+                    <p className="text-[10px] text-slate-400 uppercase font-bold">Total Beban Opioid (MME):</p>
+                    <p className="text-3xl font-black text-teal-400">{opioidCalculation.totalOmeMgPerDay}</p>
+                    <p className="text-[10px] text-slate-400">mg Oral Morphine / hari</p>
+                  </div>
+
+                  <div className="bg-teal-950 p-3.5 rounded-2xl border border-teal-500/50 space-y-1 col-span-2">
+                    <p className="text-[10px] text-teal-300 uppercase font-bold">
+                      REKOMENDASI DOSIS BARU ({crossToleranceReductionPct}% Reduksi):
+                    </p>
+                    <p className="text-3xl font-black text-white">
+                      {opioidCalculation.targetNewDose} <span className="text-sm text-teal-300">{opioidCalculation.toProfile.unit}</span>
+                    </p>
+                    <p className="text-[10px] text-teal-200">
+                      Target: {opioidCalculation.toProfile.name}
+                    </p>
+                  </div>
+                </div>
+
+                {/* CDC Risk Banner */}
+                <div className={`p-3.5 rounded-2xl border text-xs leading-relaxed ${opioidCalculation.cdcBadgeColor}`}>
+                  <p className="font-bold">{opioidCalculation.cdcRiskText}</p>
+                </div>
+
+                {/* Breakthrough Pain Rescue Dose Box */}
+                <div className="bg-slate-800/60 p-4 rounded-2xl border border-slate-700/80 text-xs space-y-2">
+                  <span className="font-extrabold text-teal-300 flex items-center gap-1.5">
+                    <Sparkles className="w-4 h-4 text-teal-400" />
+                    Dosis Penyelamat Nyeri Terobosan (*Breakthrough Pain Rescue / PRN*):
+                  </span>
+                  <p className="text-slate-300 leading-relaxed">
+                    Jika pasien mengalami nyeri mendadak (*breakthrough pain*), berikan dosis penyelamat oral/injeksi sebesar <strong>10% - 15%</strong> dari total dosis 24 jam:
+                  </p>
+                  <div className="flex items-center gap-3 font-mono text-[11px] font-bold text-amber-300 bg-slate-950/80 p-2.5 rounded-xl border border-slate-800">
+                    <span>• 10% Dosis: {opioidCalculation.breakthroughDose10Pct} {opioidCalculation.toProfile.unit.split(' ')[0]}</span>
+                    <span>• 15% Dosis: {opioidCalculation.breakthroughDose15Pct} {opioidCalculation.toProfile.unit.split(' ')[0]} (tiap 2-4 jam p.r.n)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Opioid Conversion Table Info */}
+              <div className="bg-slate-900 text-white rounded-3xl p-5 border border-slate-800 shadow-lg text-xs space-y-3">
+                <span className="font-bold text-teal-300 flex items-center gap-1.5">
+                  <BookOpen className="w-4 h-4 text-teal-400" />
+                  Prinsip Klinis Rotasi Opioid pada Pasien Paliatif & Onkologi:
+                </span>
+                <ul className="list-disc list-inside text-slate-300 space-y-1 text-[11px] pl-1">
+                  <li><strong>Hitung Total 24 Jam:</strong> Jumlahkan seluruh opioid reguler + dosis PRN yang diminum pasien dalam 24 jam terakhir.</li>
+                  <li><strong>Konversi ke MME:</strong> Kalikan dosis dengan faktor konversi standar morfin oral.</li>
+                  <li><strong>Reduksi Toleransi Silang:</strong> Selalu kurangi 25-50% dari dosis kalkulasi matematis karena toleransi reseptor mu tidak sepenuhnya berpindah ke molekul opioid baru.</li>
+                  <li><strong>Evaluasi 24-48 Jam Pertama:</strong> Pantau skor nyeri (NRS/VAS), laju pernapasan (&lt;10x/menit tanda overdosis), dan tingkat sedasi (*Richmond Agitation-Sedation Scale*).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
+      {/* ========================================================================= */}
       {/* TAB 4: IBW & BMI CALCULATOR */}
+      {/* ========================================================================= */}
       {activeTab === 'ibw-bmi' && (
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
@@ -1413,58 +1225,12 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
               </span>
             </div>
           </div>
-
-          {/* IBW & BMI Formula & Step-by-Step Card */}
-          <div className="bg-slate-900 text-white rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
-            <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-              <BookOpen className="w-5 h-5 text-teal-400" />
-              <h3 className="text-sm font-black text-teal-300">
-                📐 Keterangan Rumus Berat Badan Ideal (Devine IBW, ABW & BMI)
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2.5">
-                <p className="font-bold text-teal-300 flex items-center gap-1.5">
-                  <Binary className="w-4 h-4 text-teal-400" />
-                  <span>1. Rumus Devine (Berat Badan Ideal / IBW):</span>
-                </p>
-                <div className="bg-slate-950/80 p-3 rounded-xl font-mono text-[11px] text-teal-200 space-y-1 border border-teal-900/40">
-                  <p className="text-slate-400">// Laki-Laki: 50 kg + 0.9 × (TB cm - 152.4 cm)</p>
-                  <p className="text-slate-400">// Wanita: 45.5 kg + 0.9 × (TB cm - 152.4 cm)</p>
-                  <div className="pt-2 border-t border-slate-800 text-amber-300">
-                    <p>
-                      IBW = {ibwGender === 'male' ? '50' : '45.5'} + 0.9 × ({safeHeightCm} - 152.4)
-                    </p>
-                    <p className="text-white font-bold mt-1">
-                      = <strong className="text-teal-400 text-sm">{ibwKg} kg</strong>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2.5">
-                <p className="font-bold text-teal-300 flex items-center gap-1.5">
-                  <Scale className="w-4 h-4 text-teal-400" />
-                  <span>2. Rumus Adjusted Body Weight (ABW Koreksi Obesitas):</span>
-                </p>
-                <div className="bg-slate-950/80 p-3 rounded-xl font-mono text-[11px] text-teal-200 space-y-1 border border-teal-900/40">
-                  <p className="text-slate-400">// ABW = IBW + 0.4 × (BB Aktual - IBW)</p>
-                  <p className="text-amber-300 pt-1">
-                    = {ibwKg} + 0.4 × ({ibwActualWeightKg} - {ibwKg})
-                  </p>
-                  <p className="text-white font-bold mt-1">
-                    = <strong className="text-teal-400 text-sm">{abwKg} kg</strong> (Dosis Aminoglikosida)
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
       )}
 
+      {/* ========================================================================= */}
       {/* TAB 5: OXYGEN MEDIS CALCULATOR */}
+      {/* ========================================================================= */}
       {activeTab === 'oxygen' && (
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
@@ -1481,127 +1247,71 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
               <select
                 value={cylinderType}
                 onChange={(e) => setCylinderType(e.target.value)}
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none cursor-pointer"
+                className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none cursor-pointer"
               >
-                <option value="D">Tabung D (1 m³ / 350 L - Kecil Portable)</option>
-                <option value="E">Tabung E (1.5 m³ / 600 L - Ambulance)</option>
-                <option value="M">Tabung M (3 m³ / 3000 L - Sedang Klinik)</option>
-                <option value="G">Tabung G (6 m³ / 6000 L - Besar Klinik)</option>
-                <option value="H">Tabung H/K (7 m³ / 6900 L - Besar Rumah Sakit)</option>
+                <option value="D">Tipe D (Portabel 350 L - Faktor 0.16)</option>
+                <option value="E">Tipe E (Emergency Standar 680 L - Faktor 0.28)</option>
+                <option value="M">Tipe M (3000 L - Faktor 1.56)</option>
+                <option value="G">Tipe G (5300 L - Faktor 2.41)</option>
+                <option value="H">Tipe H (Besar RS 6900 L - Faktor 3.14)</option>
               </select>
             </div>
 
             <div>
-              <label className="font-bold text-slate-700 block mb-1">Tekanan Manometer (PSI / Bar):</label>
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  value={pressurePsi}
-                  onChange={(e) => setPressurePsi(Number(e.target.value))}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-                />
-                <span className="text-xs font-bold text-slate-500">PSI</span>
-              </div>
-              <p className="text-[9px] text-slate-400 mt-1">Penuh ≈ 2000 PSI (Batas aman: 200 PSI)</p>
+              <label className="font-bold text-slate-700 block mb-1">Tekanan Manometer (psi):</label>
+              <input
+                type="number"
+                value={pressurePsi}
+                onChange={(e) => setPressurePsi(Number(e.target.value))}
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+              />
+              <p className="text-[10px] text-slate-400 mt-1">Standar tabung penuh: ~2000 psi</p>
             </div>
 
             <div>
-              <label className="font-bold text-slate-700 block mb-1">Laju Aliran Flowmeter (LPM):</label>
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  step="0.5"
-                  value={flowRateLpm}
-                  onChange={(e) => setFlowRateLpm(Number(e.target.value))}
-                  className="w-full px-3 py-2 bg-teal-50 border border-teal-300 rounded-xl text-xs font-black text-teal-950 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-                />
-                <span className="text-xs font-bold text-teal-700">L/menit</span>
-              </div>
+              <label className="font-bold text-slate-700 block mb-1">Laju Aliran / Flow Rate (LPM):</label>
+              <input
+                type="number"
+                step="0.5"
+                min="0.5"
+                max="15"
+                value={flowRateLpm}
+                onChange={(e) => setFlowRateLpm(Number(e.target.value))}
+                className="w-full px-3 py-2 bg-teal-50 border border-teal-300 rounded-xl text-xs font-black text-teal-950 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+              />
+              <p className="text-[10px] text-slate-400 mt-1">Liter per menit (L/min)</p>
             </div>
 
             <div>
-              <label className="font-bold text-slate-700 block mb-1">Alat Terapi Oksigen Pasien:</label>
+              <label className="font-bold text-slate-700 block mb-1">Perangkat Oksigenasi:</label>
               <select
                 value={oxygenDeliveryDevice}
                 onChange={(e) => setOxygenDeliveryDevice(e.target.value)}
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none cursor-pointer"
+                className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none cursor-pointer"
               >
-                <option value="nasal-cannula">Nasal Kanul (1-6 LPM)</option>
-                <option value="simple-mask">Simple Mask (5-8 LPM)</option>
-                <option value="nrm">NRM / Kantung Masker (10-15 LPM)</option>
-                <option value="venturi-mask">Venturi Mask (Presisi High Flow)</option>
+                <option value="nasal-cannula">Nasal Cannula (1 - 6 LPM)</option>
+                <option value="simple-mask">Simple Mask (5 - 8 LPM)</option>
+                <option value="nrm">NRM Reservoir (10 - 15 LPM)</option>
+                <option value="venturi">Venturi Mask (Konsentrasi Presisi)</option>
               </select>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-            
-            <div className="bg-gradient-to-r from-slate-900 to-teal-950 p-5 rounded-3xl text-white space-y-1 shadow-lg sm:col-span-2">
-              <p className="text-[10px] text-teal-300 uppercase font-bold tracking-wider">ESTIMASI DURASI WAKTU HABIS TABUNG OKSIGEN:</p>
-              <p className="text-4xl font-black text-teal-400 mt-1">
-                {oxygenDurationHours} <span className="text-base font-semibold text-slate-200">Jam</span> {oxygenDurationRemMinutes} <span className="text-base font-semibold text-slate-200">Menit</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
+            <div className="bg-slate-900 p-5 rounded-2xl text-white space-y-1">
+              <p className="text-[10px] text-slate-400 uppercase font-bold">Estimasi Sisa Durasi Tabung:</p>
+              <p className="text-3xl font-black text-teal-400 mt-1">
+                {oxygenDurationHours} <span className="text-sm font-semibold text-slate-300">Jam</span> {oxygenDurationRemMinutes} <span className="text-sm font-semibold text-slate-300">Menit</span>
               </p>
-              <p className="text-xs text-slate-300 pt-1">
-                Sisa Volume Oksigen Efektif: <strong>{remainingLiters} Liter</strong> (Faktor Tabung: {cFactor})
-              </p>
+              <p className="text-[10px] text-slate-400">Total: {oxygenDurationMinutes} menit (Sisa Volume: ~{remainingLiters} Liter)</p>
             </div>
 
-            <div className="bg-teal-50 p-5 rounded-3xl border border-teal-200 text-teal-950 space-y-1 shadow-xs">
-              <p className="text-[10px] text-teal-800 uppercase font-bold tracking-wider">Estimasi Fraksi Oksigen (FiO2):</p>
-              <p className="text-3xl font-black text-teal-950 mt-1">{fio2Info.fio2}</p>
-              <p className="text-[10px] font-bold text-teal-700">{fio2Info.notes}</p>
-            </div>
-
-          </div>
-
-          {/* Oxygen Formula & Step-by-Step Card */}
-          <div className="bg-slate-900 text-white rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
-            <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-              <BookOpen className="w-5 h-5 text-teal-400" />
-              <h3 className="text-sm font-black text-teal-300">
-                📐 Keterangan Rumus Durasi Tabung Oksigen & Estimasi Fraksi FiO2
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2.5">
-                <p className="font-bold text-teal-300 flex items-center gap-1.5">
-                  <Wind className="w-4 h-4 text-teal-400" />
-                  <span>1. Rumus Durasi Tabung Oksigen Medis:</span>
-                </p>
-                <div className="bg-slate-950/80 p-3 rounded-xl font-mono text-[11px] text-teal-200 space-y-1.5 border border-teal-900/40">
-                  <p className="font-bold text-slate-300">Durasi (Menit) = [(Tekanan Manometer PSI - 200 PSI) × Faktor Tabung (K)] ÷ Laju Aliran (LPM)</p>
-                  <p className="text-amber-300 pt-1">
-                    = [({pressurePsi} - 200) × {cFactor}] ÷ {flowRateLpm} LPM
-                  </p>
-                  <p className="text-amber-300">
-                    = {remainingLiters} Liter ÷ {flowRateLpm} LPM = <strong className="text-white text-sm">{oxygenDurationMinutes} Menit</strong>
-                  </p>
-                  <p className="text-teal-300 font-bold">
-                    = <strong className="text-white">{oxygenDurationHours} Jam {oxygenDurationRemMinutes} Menit</strong>
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 space-y-2.5">
-                <p className="font-bold text-teal-300 flex items-center gap-1.5">
-                  <Gauge className="w-4 h-4 text-teal-400" />
-                  <span>2. Rumus Estimasi Fraksi Oksigen Terhirup (FiO2):</span>
-                </p>
-                <div className="bg-slate-950/80 p-3 rounded-xl font-mono text-[11px] text-teal-200 space-y-1.5 border border-teal-900/40">
-                  <p className="text-slate-400">// Nasal Kanul (1 - 6 LPM):</p>
-                  <p className="font-bold">FiO2 (%) ≈ 20% + (Laju Flow LPM × 4%)</p>
-                  <p className="text-amber-300">
-                    = 20% + ({flowRateLpm} × 4%) ≈ <strong className="text-white text-sm">{fio2Info.fio2}</strong>
-                  </p>
-                  <p className="text-teal-300 text-[10px] pt-1 border-t border-slate-800">
-                    *Venturi Mask memberikan FiO2 presisi tinggi independen terhadap pola napas pasien.
-                  </p>
-                </div>
-              </div>
+            <div className="bg-teal-950 p-5 rounded-2xl border border-teal-500/40 space-y-1 text-white">
+              <p className="text-[10px] text-teal-300 uppercase font-bold">Estimasi Fraksi Oksigen Terhirup (FiO2):</p>
+              <p className="text-3xl font-black text-white mt-1">{fio2Info.fio2}</p>
+              <p className="text-[10px] text-teal-200">Rentang Alat: {fio2Info.range} ({fio2Info.notes})</p>
             </div>
           </div>
-
         </div>
       )}
 

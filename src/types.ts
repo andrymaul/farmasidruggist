@@ -50,6 +50,10 @@ export interface ClinicBrandingSettings {
   stampUrl?: string;
   primaryColor: string;
   showWatermark: boolean;
+  enableHeaderKop?: boolean;
+  enableDigitalStamp?: boolean;
+  enablePharmacistSignature?: boolean;
+  enableFooter?: boolean;
   customFooterText: string;
   pharmacistName: string;
   pharmacistSipa: string;
