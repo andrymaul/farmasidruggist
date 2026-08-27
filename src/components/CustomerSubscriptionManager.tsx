@@ -130,10 +130,80 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
 
   // Modals
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showImportModal, setShowImportModal] = useState(false);
   const [showClearConfirmModal, setShowClearConfirmModal] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState<UserProfile | null>(null);
   const [deletingCustomer, setDeletingCustomer] = useState<UserProfile | null>(null);
   const [editModalTab, setEditModalTab] = useState<'profile' | 'license' | 'permissions' | 'notes'>('profile');
+
+  // Import from Firebase State
+  const [importEmailsText, setImportEmailsText] = useState('');
+  const [importPlan, setImportPlan] = useState<'Pro' | 'Pemula' | 'Elite'>('Pro');
+  const [importInstitution, setImportInstitution] = useState('');
+
+  const handleImportEmailsFromFirebase = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const raw = importEmailsText.trim();
+    if (!raw) return;
+
+    // Split by comma, newline, semicolon, or whitespace
+    const emailList = raw
+      .split(/[\n,;\s]+/)
+      .map(e => e.trim().toLowerCase())
+      .filter(e => e.includes('@') && e.includes('.'));
+
+    if (emailList.length === 0) {
+      alert('Tidak ada alamat email valid yang ditemukan.');
+      return;
+    }
+
+    const expiryDate = new Date();
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+
+    const newProfiles: UserProfile[] = [];
+
+    for (const email of emailList) {
+      // Avoid duplicate
+      const existing = customers.find(c => c.email && c.email.toLowerCase() === email);
+      if (!existing) {
+        const displayName = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        const profile: UserProfile = {
+          uid: 'auth-sync-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+          email,
+          name: displayName,
+          password: 'Pass#' + Math.floor(1000 + Math.random() * 9000),
+          phone: '',
+          institution: importInstitution || 'Klinik / Faskes Terdaftar',
+          licenseNumber: '',
+          notes: 'Diimpor langsung dari data pendaftaran Firebase Console',
+          role: importPlan === 'Pemula' ? 'free' : 'customer',
+          subscriptionPlan: importPlan,
+          subscriptionStatus: 'active',
+          maxDrugsOverride: importPlan === 'Pemula' ? 20 : 30,
+          canExportPdf: importPlan !== 'Pemula',
+          canAccessRenal: importPlan !== 'Pemula',
+          canAccessPolypharmacy: importPlan !== 'Pemula',
+          expiresAt: expiryDate.toISOString(),
+          createdAt: new Date().toISOString()
+        };
+        await saveUserProfileToFirestore(profile);
+        newProfiles.push(profile);
+      }
+    }
+
+    if (newProfiles.length > 0) {
+      setCustomers([...newProfiles, ...customers]);
+      setSyncMessage(`Sukses mengimpor & mengaktifkan ${newProfiles.length} akun pelanggan ke Cloud Firestore!`);
+      setTimeout(() => setSyncMessage(null), 4500);
+    } else {
+      setSyncMessage('Semua email yang dimasukkan sudah terdaftar di database.');
+      setTimeout(() => setSyncMessage(null), 4500);
+    }
+
+    setImportEmailsText('');
+    setImportInstitution('');
+    setShowImportModal(false);
+  };
 
   // Form State for Add / Deep Edit
   const [formState, setFormState] = useState({
@@ -442,6 +512,15 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
         </div>
 
         <div className="relative z-10 shrink-0 flex flex-wrap items-center gap-2.5">
+          <button
+            onClick={() => setShowImportModal(true)}
+            className="px-4 py-3 bg-[#3dbfd1]/20 hover:bg-[#3dbfd1]/30 border border-[#3dbfd1]/50 text-cyan-200 rounded-2xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer hover:scale-105"
+            title="Impor atau Tambah Cepat Akun Terdaftar dari Firebase Console"
+          >
+            <Sparkles className="w-4 h-4 text-[#3dbfd1]" />
+            <span>Impor Akun Firebase</span>
+          </button>
+
           <button
             onClick={handleSyncFromFirebase}
             disabled={syncingFirebase}
@@ -1392,6 +1471,90 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
                 Ya, Bersihkan Semua
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: Impor Akun dari Firebase Authentication */}
+      {showImportModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-[#092327] w-full max-w-xl rounded-3xl shadow-2xl p-6 space-y-5 animate-in zoom-in-95 border border-slate-200 dark:border-[#184c53] max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#184c53] pb-3">
+              <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
+                <Sparkles className="w-5 h-5 text-[#3dbfd1]" />
+                Impor & Daftarkan Akun dari Firebase Console
+              </h3>
+              <button onClick={() => setShowImportModal(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Salin atau ketik alamat email pengguna yang sudah terdaftar di <strong>Firebase Authentication</strong> (bisa 1 email atau banyak sekaligus dipisahkan baris baru / koma). Sistem akan otomatis membuatkan profil lisensinya ke Cloud Firestore.
+            </p>
+
+            <form onSubmit={handleImportEmailsFromFirebase} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">
+                  Daftar Alamat Email (dari Firebase Console) *
+                </label>
+                <textarea
+                  rows={4}
+                  required
+                  value={importEmailsText}
+                  onChange={(e) => setImportEmailsText(e.target.value)}
+                  placeholder="contoh@gmail.com&#10;dokter.budi@rsmedika.com&#10;apt.siti@apotek.co.id"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#06191c] border border-slate-200 dark:border-[#184c53] rounded-xl text-xs font-mono font-medium focus:ring-2 focus:ring-[#3dbfd1] focus:outline-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">
+                    Pilihan Paket Subskripsi
+                  </label>
+                  <select
+                    value={importPlan}
+                    onChange={(e) => setImportPlan(e.target.value as any)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#06191c] border border-slate-200 dark:border-[#184c53] rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-[#3dbfd1] focus:outline-none"
+                  >
+                    <option value="Pro">Pro (1 Tahun Akses Penuh)</option>
+                    <option value="Elite">Elite (Multi-Faskes / RS)</option>
+                    <option value="Pemula">Pemula (Gratis Dasar)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">
+                    Instansi / Keterangan (Opsional)
+                  </label>
+                  <input
+                    type="text"
+                    value={importInstitution}
+                    onChange={(e) => setImportInstitution(e.target.value)}
+                    placeholder="Contoh: RS Medika / Apotek"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#06191c] border border-slate-200 dark:border-[#184c53] rounded-xl text-xs font-medium focus:ring-2 focus:ring-[#3dbfd1] focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-3 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-[#184c53]">
+                <button
+                  type="button"
+                  onClick={() => setShowImportModal(false)}
+                  className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#0d2c31] rounded-xl cursor-pointer"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2.5 text-xs font-bold text-white btn-teal-gradient rounded-xl shadow-md cursor-pointer flex items-center gap-1.5"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>Impor & Aktifkan ke Firestore</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

@@ -28,7 +28,7 @@ import { Drug, DrugInteraction, UserProfile, InteractionCheckRecord, SeverityLev
 import { INITIAL_DRUGS, INITIAL_INTERACTIONS, PRICING_PLANS, SAMPLE_FOOD_INTERACTIONS, SAMPLE_THERAPEUTIC_DUPLICATIONS } from './data/ddinterData';
 import { INITIAL_AUDIT_LOGS } from './data/mockAuditLogs';
 import { INITIAL_ADMIN_USERS } from './data/mockAdminUsers';
-import { INITIAL_CUSTOMERS } from './data/mockCustomers';
+import { INITIAL_CUSTOMERS, SAMPLE_DEMO_CUSTOMERS } from './data/mockCustomers';
 import { DEFAULT_CLINIC_BRANDING } from './data/defaultBranding';
 import { DEFAULT_PAYMENT_SETTINGS } from './data/defaultPaymentSettings';
 import {
@@ -222,12 +222,12 @@ export default function App() {
       const saved = localStorage.getItem('farmasi_customer_subscriptions');
       if (saved !== null) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) {
+        if (Array.isArray(parsed) && parsed.length > 0) {
           return parsed;
         }
       }
     } catch (e) {}
-    return [];
+    return SAMPLE_DEMO_CUSTOMERS;
   });
 
   // Real-time Firestore Listener for Customer Subscriptions

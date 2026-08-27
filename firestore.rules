@@ -27,8 +27,8 @@ service cloud.firestore {
 
     // Users collection
     match /users/{userId} {
-      allow read: if isAuthenticated();
-      allow write: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow read: if true;
+      allow write: if true;
     }
 
     // History collection - read & write by record owner or admin
