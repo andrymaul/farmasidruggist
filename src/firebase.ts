@@ -187,6 +187,16 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
         isEmailVerified: true,
         createdAt: matchedAdmin.createdAt || new Date().toISOString()
       };
+
+      // Authenticate with Firebase Auth if possible so Firestore rules grant permissions
+      try {
+        await signInWithEmailAndPassword(auth, cleanEmail, cleanPass);
+      } catch (authErr: any) {
+        try {
+          await createUserWithEmailAndPassword(auth, cleanEmail, cleanPass);
+        } catch (createErr) {}
+      }
+
       saveUserProfileToFirestore(adminProfile).catch(() => {});
       return {
         user: adminProfile
