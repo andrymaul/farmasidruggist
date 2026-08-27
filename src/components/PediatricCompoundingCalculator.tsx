@@ -696,7 +696,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
               ) : (
                 <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-200 text-xs flex items-center gap-2 mt-3">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                  <span>Dosis berada dalam rentang terapi aman standar BPOM & Drugs.com.</span>
+                  <span>Dosis berada dalam rentang terapi aman standar farmakope & pedoman klinis.</span>
                 </div>
               )}
 

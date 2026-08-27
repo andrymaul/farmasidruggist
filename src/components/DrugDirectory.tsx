@@ -455,7 +455,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                         </span>
                       )}
                       {drug.blackBoxWarning && (
-                        <span className="bg-rose-100 text-rose-900 text-[10px] font-extrabold px-2 py-0.5 rounded border border-rose-300 flex items-center gap-0.5" title="FDA Boxed Warning (Peringatan Khusus Drugs.com)">
+                        <span className="bg-rose-100 text-rose-900 text-[10px] font-extrabold px-2 py-0.5 rounded border border-rose-300 flex items-center gap-0.5" title="Peringatan Khusus (Boxed Warning)">
                           <span>⚠️ Boxed Warning</span>
                         </span>
                       )}
@@ -506,11 +506,11 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                     {drug.indication}
                   </p>
 
-                  {/* Waktu Terhadap Makanan (Medscape Reference) */}
+                  {/* Waktu Terhadap Makanan */}
                   {drug.foodInteraction && (
                     <div className="bg-amber-50/90 p-2.5 rounded-xl border border-amber-200 text-[11px] text-amber-950 space-y-0.5">
                       <span className="font-bold text-amber-900 flex items-center gap-1">
-                        🍽️ Waktu Terhadap Makanan (Medscape):
+                        🍽️ Waktu Terhadap Makanan:
                       </span>
                       <p className="line-clamp-2 leading-snug font-medium text-amber-900">{drug.foodInteraction}</p>
                     </div>

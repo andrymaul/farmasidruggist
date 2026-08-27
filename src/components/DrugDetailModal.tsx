@@ -75,7 +75,7 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
             )}
             <span className="bg-sky-950/80 text-sky-200 text-[10px] px-2 py-0.5 rounded font-bold border border-sky-700/50 flex items-center gap-1">
               <ShieldCheck className="w-3 h-3 text-sky-400" />
-              <span>Drugs.com & FDA Verified</span>
+              <span>Monografi Terverifikasi</span>
             </span>
           </div>
 
@@ -91,7 +91,7 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
             <div className="p-4 rounded-xl bg-linear-to-br from-rose-950 to-rose-900 text-rose-100 border-2 border-rose-500/80 shadow-lg space-y-2">
               <div className="flex items-center gap-2 text-rose-300 font-black tracking-wide uppercase text-[11px]">
                 <AlertTriangle className="w-4 h-4 text-rose-400 animate-pulse flex-shrink-0" />
-                <span>⚠️ FDA Boxed Warning (Peringatan Kotak Hitam Drugs.com)</span>
+                <span>⚠️ Peringatan Kotak Hitam (Boxed Warning)</span>
               </div>
               <p className="text-rose-100 font-medium leading-relaxed whitespace-pre-line text-xs pl-6">
                 {drug.blackBoxWarning}
@@ -125,20 +125,20 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
           <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-2xs">
             <div className="flex items-center gap-1.5 text-teal-700 dark:text-teal-400 font-bold">
               <Activity className="w-4 h-4" />
-              <span>Indikasi Klinis Resmi (FDA & BPOM On-Label)</span>
+              <span>Indikasi Klinis Resmi</span>
             </div>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-xs">{drug.indication}</p>
           </div>
 
-          {/* Dosis & Cara Pemberian Lengkap (Drugs.com Monograph) */}
+          {/* Dosis & Cara Pemberian Lengkap */}
           <div className="bg-gradient-to-br from-teal-50/70 via-slate-50 to-white dark:from-slate-800 dark:via-slate-800/90 dark:to-slate-850 p-5 rounded-2xl border border-teal-200/80 dark:border-teal-900/60 shadow-xs space-y-4">
             <div className="flex items-center justify-between border-b border-teal-100 dark:border-slate-700 pb-2.5">
               <div className="flex items-center gap-2 text-teal-900 dark:text-teal-300 font-extrabold text-sm">
                 <Pill className="w-4 h-4 text-teal-600 dark:text-teal-400" />
-                <span>Dosis & Cara Pemberian Lengkap (Drugs.com Clinical Monograph)</span>
+                <span>Dosis & Cara Pemberian Lengkap</span>
               </div>
               <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-teal-100 dark:bg-teal-900 text-teal-900 dark:text-teal-200 border border-teal-300 dark:border-teal-700">
-                FDA Verified
+                Panduan Terapi
               </span>
             </div>
 
@@ -322,7 +322,7 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
           <div className="bg-red-50 dark:bg-red-950/30 p-4 rounded-xl border border-red-200 dark:border-red-900/50 space-y-1.5">
             <div className="flex items-center gap-1.5 text-red-700 dark:text-red-300 font-bold">
               <AlertTriangle className="w-4 h-4" />
-              <span>Kontraindikasi & Efek Samping (Drugs.com Monograph)</span>
+              <span>Kontraindikasi & Efek Samping</span>
             </div>
             <p className="text-slate-700 dark:text-slate-300"><strong>Kontraindikasi:</strong> {drug.contraindications || drug.contraindication || 'Hipersensitivitas terhadap zat aktif.'}</p>
             <p className="text-slate-700 dark:text-slate-300 pt-0.5"><strong>Efek Samping Umum:</strong> {drug.sideEffects || drug.adverseEffects || 'Lihat leaflet kemasan obat.'}</p>
@@ -391,19 +391,8 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
           <div className="flex items-center gap-2">
             <span className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold flex items-center gap-1">
               <BookOpen className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
-              <span>Drugs.com Clinical Monograph & Interaction Checker</span>
+              <span>Monografi Farmakologi Klinis & Penapisan Interaksi</span>
             </span>
-            {drug.drugsComUrl && (
-              <a
-                href={drug.drugsComUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-[11px] font-bold text-teal-600 hover:text-teal-700 dark:text-teal-400 underline underline-offset-2 ml-1"
-              >
-                <span>Lihat di Drugs.com</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            )}
           </div>
 
           <button
