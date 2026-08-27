@@ -10,8 +10,21 @@ import {
   signInWithPopup,
   User 
 } from 'firebase/auth';
+import { 
+  getFirestore, 
+  collection, 
+  doc, 
+  setDoc, 
+  getDoc, 
+  getDocs, 
+  updateDoc, 
+  deleteDoc, 
+  onSnapshot 
+} from 'firebase/firestore';
 import { Drug, DrugInteraction, UserProfile, InteractionCheckRecord, AdminUser } from './types';
 import { INITIAL_DRUGS, INITIAL_INTERACTIONS } from './data/ddinterData';
+import { INITIAL_ADMIN_USERS } from './data/mockAdminUsers';
+import { INITIAL_CUSTOMERS } from './data/mockCustomers';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -26,18 +39,124 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 export const auth = getAuth(app);
-export const db = null;
+export const db = getFirestore(app);
 export const isDemoConfig = false;
-
-import { INITIAL_ADMIN_USERS } from './data/mockAdminUsers';
-import { INITIAL_CUSTOMERS } from './data/mockCustomers';
 
 export interface LoginResult {
   user?: UserProfile;
   emailUnverified?: string;
 }
 
-// Auth Helpers
+// === FIRESTORE CUSTOMER & USER PROFILE SYNC HELPERS ===
+
+/**
+ * Menyimpan atau memperbarui profil pelanggan / pengguna ke Cloud Firestore (koleksi 'users')
+ */
+export async function saveUserProfileToFirestore(profile: UserProfile): Promise<void> {
+  if (!db || !profile.uid) return;
+  try {
+    const userDocRef = doc(db, 'users', profile.uid);
+    const cleanData: Record<string, any> = {};
+    Object.entries(profile).forEach(([key, val]) => {
+      if (val !== undefined) cleanData[key] = val;
+    });
+    cleanData.updatedAt = new Date().toISOString();
+    await setDoc(userDocRef, cleanData, { merge: true });
+  } catch (err) {
+    console.warn('Firestore saveUserProfileToFirestore (handled gracefully):', err);
+  }
+}
+
+/**
+ * Mengambil profil pelanggan / pengguna berdasarkan UID dari Cloud Firestore
+ */
+export async function getUserProfileFromFirestore(uid: string): Promise<UserProfile | null> {
+  if (!db || !uid) return null;
+  try {
+    const userDocRef = doc(db, 'users', uid);
+    const snap = await getDoc(userDocRef);
+    if (snap.exists()) {
+      return snap.data() as UserProfile;
+    }
+  } catch (err) {
+    console.warn('Firestore getUserProfileFromFirestore (handled gracefully):', err);
+  }
+  return null;
+}
+
+/**
+ * Mengambil semua data customer / subscriber dari Cloud Firestore
+ */
+export async function fetchCustomersFromFirestore(): Promise<UserProfile[]> {
+  if (!db) return [];
+  try {
+    const usersCol = collection(db, 'users');
+    const snap = await getDocs(usersCol);
+    const result: UserProfile[] = [];
+    snap.forEach((docSnap) => {
+      const data = docSnap.data() as UserProfile;
+      if (data && (data.uid || docSnap.id)) {
+        result.push({
+          ...data,
+          uid: data.uid || docSnap.id
+        });
+      }
+    });
+    return result;
+  } catch (err) {
+    console.warn('Firestore fetchCustomersFromFirestore (handled gracefully):', err);
+    return [];
+  }
+}
+
+/**
+ * Real-time Listener untuk koleksi 'users' di Cloud Firestore
+ */
+export function subscribeToCustomersFirestore(callback: (customers: UserProfile[]) => void): () => void {
+  if (!db) return () => {};
+  try {
+    const usersCol = collection(db, 'users');
+    const unsubscribe = onSnapshot(
+      usersCol,
+      (snap) => {
+        const result: UserProfile[] = [];
+        snap.forEach((docSnap) => {
+          const data = docSnap.data() as UserProfile;
+          if (data && (data.uid || docSnap.id)) {
+            result.push({
+              ...data,
+              uid: data.uid || docSnap.id
+            });
+          }
+        });
+        callback(result);
+      },
+      (err) => {
+        console.warn('Firestore subscribeToCustomersFirestore listener warning:', err);
+      }
+    );
+    return unsubscribe;
+  } catch (err) {
+    console.warn('Firestore subscribeToCustomersFirestore error:', err);
+    return () => {};
+  }
+}
+
+/**
+ * Menghapus dokumen customer dari Cloud Firestore
+ */
+export async function deleteCustomerFromFirestore(uid: string): Promise<void> {
+  if (!db || !uid) return;
+  try {
+    const userDocRef = doc(db, 'users', uid);
+    await deleteDoc(userDocRef);
+  } catch (err) {
+    console.warn('Firestore deleteCustomerFromFirestore warning:', err);
+  }
+}
+
+// === AUTH HELPERS ===
+
 export async function loginWithEmail(email: string, pass: string): Promise<LoginResult> {
   const cleanEmail = (email || '').trim().toLowerCase();
   const cleanPass = (pass || '').trim();
@@ -57,18 +176,20 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
   if (matchedAdmin) {
     const expectedPass = (matchedAdmin.password || (matchedAdmin.id === 'admin-main-000' ? 'admin123' : 'pass12345')).trim();
     if (cleanPass === expectedPass || cleanPass === 'admin123') {
+      const adminProfile: UserProfile = {
+        uid: matchedAdmin.id,
+        email: matchedAdmin.email,
+        name: matchedAdmin.name,
+        phone: matchedAdmin.phone || '',
+        role: 'admin',
+        subscriptionPlan: 'Klinik',
+        subscriptionStatus: 'active',
+        isEmailVerified: true,
+        createdAt: matchedAdmin.createdAt || new Date().toISOString()
+      };
+      saveUserProfileToFirestore(adminProfile).catch(() => {});
       return {
-        user: {
-          uid: matchedAdmin.id,
-          email: matchedAdmin.email,
-          name: matchedAdmin.name,
-          phone: matchedAdmin.phone || '',
-          role: 'admin',
-          subscriptionPlan: 'Klinik',
-          subscriptionStatus: 'active',
-          isEmailVerified: true,
-          createdAt: matchedAdmin.createdAt || new Date().toISOString()
-        }
+        user: adminProfile
       };
     }
   }
@@ -94,16 +215,42 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
       };
     }
 
-    const userProfile: UserProfile = {
-      uid: fbUser.uid,
-      email: fbUser.email || cleanEmail,
-      name: fbUser.displayName || cleanEmail.split('@')[0] || 'User',
-      role: cleanEmail.includes('admin') ? 'admin' : 'free',
-      subscriptionPlan: cleanEmail.includes('admin') ? 'Klinik' : 'Pemula',
-      subscriptionStatus: 'active',
-      isEmailVerified: true,
-      createdAt: new Date().toISOString()
-    };
+    // Ambil data profil tersimpan dari Firestore
+    let userProfile = await getUserProfileFromFirestore(fbUser.uid);
+    if (!userProfile) {
+      const expiryDate = new Date();
+      expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+
+      userProfile = {
+        uid: fbUser.uid,
+        email: fbUser.email || cleanEmail,
+        name: fbUser.displayName || cleanEmail.split('@')[0] || 'User',
+        password: cleanPass,
+        phone: fbUser.phoneNumber || '',
+        institution: '',
+        licenseNumber: '',
+        notes: 'Terdaftar via Firebase Auth',
+        role: cleanEmail.includes('admin') ? 'admin' : 'free',
+        subscriptionPlan: cleanEmail.includes('admin') ? 'Klinik' : 'Pemula',
+        subscriptionStatus: 'active',
+        maxDrugsOverride: cleanEmail.includes('admin') ? 99 : 20,
+        canExportPdf: cleanEmail.includes('admin'),
+        canAccessRenal: cleanEmail.includes('admin'),
+        canAccessPolypharmacy: cleanEmail.includes('admin'),
+        expiresAt: expiryDate.toISOString(),
+        isEmailVerified: true,
+        createdAt: new Date().toISOString()
+      };
+      await saveUserProfileToFirestore(userProfile);
+    } else {
+      // Sinkronkan status emailVerified terbaru dan perbarui password jika dimasukkan
+      userProfile = {
+        ...userProfile,
+        isEmailVerified: true,
+        password: cleanPass || userProfile.password
+      };
+      await saveUserProfileToFirestore(userProfile);
+    }
 
     return {
       user: userProfile
@@ -116,17 +263,37 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
 export async function loginWithGoogle(): Promise<UserProfile> {
   const provider = new GoogleAuthProvider();
   const userCred = await signInWithPopup(auth, provider);
-  const user = userCred.user;
-  return {
-    uid: user.uid,
-    email: user.email || 'user@gmail.com',
-    name: user.displayName || user.email?.split('@')[0] || 'User',
-    role: user.email?.includes('admin') ? 'admin' : 'free',
-    subscriptionPlan: user.email?.includes('admin') ? 'Pro' : 'Pemula',
-    subscriptionStatus: 'active',
-    isEmailVerified: true,
-    createdAt: new Date().toISOString()
-  };
+  const fbUser = userCred.user;
+  const cleanEmail = (fbUser.email || 'user@gmail.com').toLowerCase();
+
+  let userProfile = await getUserProfileFromFirestore(fbUser.uid);
+  if (!userProfile) {
+    const expiryDate = new Date();
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+
+    userProfile = {
+      uid: fbUser.uid,
+      email: cleanEmail,
+      name: fbUser.displayName || cleanEmail.split('@')[0] || 'User',
+      phone: fbUser.phoneNumber || '',
+      institution: '',
+      licenseNumber: '',
+      notes: 'Login via Akun Google',
+      role: cleanEmail.includes('admin') ? 'admin' : 'free',
+      subscriptionPlan: cleanEmail.includes('admin') ? 'Pro' : 'Pemula',
+      subscriptionStatus: 'active',
+      maxDrugsOverride: cleanEmail.includes('admin') ? 99 : 20,
+      canExportPdf: cleanEmail.includes('admin'),
+      canAccessRenal: cleanEmail.includes('admin'),
+      canAccessPolypharmacy: cleanEmail.includes('admin'),
+      expiresAt: expiryDate.toISOString(),
+      isEmailVerified: true,
+      createdAt: new Date().toISOString()
+    };
+    await saveUserProfileToFirestore(userProfile);
+  }
+
+  return userProfile;
 }
 
 export async function registerWithEmail(
@@ -135,7 +302,7 @@ export async function registerWithEmail(
   name?: string, 
   phone?: string,
   institution?: string
-): Promise<{ emailSent: string }> {
+): Promise<{ emailSent: string; userProfile?: UserProfile }> {
   const cleanEmail = (email || '').trim().toLowerCase();
   const cleanPass = (pass || '').trim();
 
@@ -149,6 +316,35 @@ export async function registerWithEmail(
   // Create User in Firebase Authentication
   try {
     const userCred = await createUserWithEmailAndPassword(auth, cleanEmail, cleanPass);
+    const fbUser = userCred.user;
+
+    const expiryDate = new Date();
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+
+    const userProfile: UserProfile = {
+      uid: fbUser.uid,
+      email: cleanEmail,
+      name: name?.trim() || cleanEmail.split('@')[0] || 'User',
+      password: cleanPass,
+      phone: phone?.trim() || '',
+      institution: institution?.trim() || '',
+      licenseNumber: '',
+      notes: 'Pendaftaran mandiri akun customer baru',
+      role: 'free',
+      subscriptionPlan: 'Pemula',
+      subscriptionStatus: 'active',
+      maxDrugsOverride: 20,
+      canExportPdf: false,
+      canAccessRenal: false,
+      canAccessPolypharmacy: false,
+      expiresAt: expiryDate.toISOString(),
+      isEmailVerified: false,
+      createdAt: new Date().toISOString()
+    };
+
+    // Simpan langsung ke Cloud Firestore agar tampil di menu Subskripsi Customer Admin
+    await saveUserProfileToFirestore(userProfile);
+
     if (userCred.user) {
       try {
         await sendEmailVerification(userCred.user);
@@ -160,7 +356,7 @@ export async function registerWithEmail(
     // Do not sign the user in automatically
     await signOut(auth);
 
-    return { emailSent: cleanEmail };
+    return { emailSent: cleanEmail, userProfile };
   } catch (fbErr: any) {
     const errCode = fbErr?.code || '';
     if (errCode === 'auth/email-already-in-use') {
@@ -264,4 +460,5 @@ export async function saveInteractionCheckHistory(record: Omit<InteractionCheckR
 export async function fetchUserHistory(userId: string): Promise<InteractionCheckRecord[]> {
   return [];
 }
+
 

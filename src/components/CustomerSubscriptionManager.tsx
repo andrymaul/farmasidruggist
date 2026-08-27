@@ -2,6 +2,11 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { INITIAL_CUSTOMERS, SAMPLE_DEMO_CUSTOMERS } from '../data/mockCustomers';
 import { UserProfile } from '../types';
 import { 
+  saveUserProfileToFirestore, 
+  deleteCustomerFromFirestore, 
+  fetchCustomersFromFirestore 
+} from '../firebase';
+import { 
   Users, 
   Search, 
   Filter, 
@@ -35,7 +40,8 @@ import {
   Download,
   Stethoscope,
   Calculator,
-  RotateCcw
+  RotateCcw,
+  Cloud
 } from 'lucide-react';
 
 interface CustomerSubscriptionManagerProps {
@@ -82,6 +88,41 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlanFilter, setSelectedPlanFilter] = useState<string>('Semua');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>('Semua');
+
+  // Firebase Sync State
+  const [syncingFirebase, setSyncingFirebase] = useState(false);
+  const [syncMessage, setSyncMessage] = useState<string | null>(null);
+
+  const handleSyncFromFirebase = async () => {
+    setSyncingFirebase(true);
+    setSyncMessage(null);
+    try {
+      const remoteUsers = await fetchCustomersFromFirestore();
+      const cleanRemote = remoteUsers.filter(u => 
+        u.role !== 'admin' && 
+        !(u.email && u.email.toLowerCase().includes('admin@farmasidruggist.com'))
+      );
+
+      const map = new Map<string, UserProfile>();
+      customers.forEach(c => {
+        if (c.uid) map.set(c.uid, c);
+        else if (c.email) map.set(c.email.toLowerCase(), c);
+      });
+      cleanRemote.forEach(rc => {
+        if (rc.uid) map.set(rc.uid, rc);
+        else if (rc.email) map.set(rc.email.toLowerCase(), rc);
+      });
+      const merged = Array.from(map.values());
+      setCustomers(merged);
+      setSyncMessage(`Berhasil menyinkronkan ${cleanRemote.length} akun pelanggan dari Cloud Firebase!`);
+      setTimeout(() => setSyncMessage(null), 4500);
+    } catch (err) {
+      setSyncMessage('Gagal mengambil data dari Cloud Firebase.');
+      setTimeout(() => setSyncMessage(null), 4500);
+    } finally {
+      setSyncingFirebase(false);
+    }
+  };
 
   // Password Visibility State (uid -> boolean)
   const [visiblePasswords, setVisiblePasswords] = useState<Record<string, boolean>>({});
@@ -258,6 +299,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       createdAt: new Date().toISOString()
     };
 
+    saveUserProfileToFirestore(newCustomer).catch(() => {});
     setCustomers([newCustomer, ...customers]);
     setShowAddModal(false);
   };
@@ -270,25 +312,29 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       ? new Date(formState.expiresAtDate + 'T23:59:59.000Z').toISOString()
       : editingCustomer.expiresAt;
 
+    const updatedCustomer: UserProfile = {
+      ...editingCustomer,
+      name: formState.name,
+      email: formState.email,
+      password: formState.password,
+      phone: formState.phone,
+      institution: formState.institution,
+      licenseNumber: formState.licenseNumber,
+      subscriptionPlan: formState.subscriptionPlan,
+      subscriptionStatus: formState.subscriptionStatus,
+      expiresAt: expiryDate,
+      maxDrugsOverride: Number(formState.maxDrugsOverride),
+      canExportPdf: formState.canExportPdf,
+      canAccessRenal: formState.canAccessRenal,
+      canAccessPolypharmacy: formState.canAccessPolypharmacy,
+      notes: formState.notes
+    };
+
+    saveUserProfileToFirestore(updatedCustomer).catch(() => {});
+
     setCustomers(customers.map(c => {
       if (c.uid === editingCustomer.uid) {
-        return {
-          ...c,
-          name: formState.name,
-          email: formState.email,
-          password: formState.password,
-          phone: formState.phone,
-          institution: formState.institution,
-          licenseNumber: formState.licenseNumber,
-          subscriptionPlan: formState.subscriptionPlan,
-          subscriptionStatus: formState.subscriptionStatus,
-          expiresAt: expiryDate,
-          maxDrugsOverride: Number(formState.maxDrugsOverride),
-          canExportPdf: formState.canExportPdf,
-          canAccessRenal: formState.canAccessRenal,
-          canAccessPolypharmacy: formState.canAccessPolypharmacy,
-          notes: formState.notes
-        };
+        return updatedCustomer;
       }
       return c;
     }));
@@ -321,11 +367,13 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
         const baseDate = currentExp > new Date() ? currentExp : new Date();
         baseDate.setMonth(baseDate.getMonth() + months);
 
-        return {
+        const updated: UserProfile = {
           ...c,
           subscriptionStatus: 'active',
           expiresAt: baseDate.toISOString()
         };
+        saveUserProfileToFirestore(updated).catch(() => {});
+        return updated;
       }
       return c;
     }));
@@ -337,7 +385,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
 
     setCustomers(customers.map(c => {
       if (c.uid === uid) {
-        return {
+        const updated: UserProfile = {
           ...c,
           role: 'customer',
           subscriptionPlan: 'Pro',
@@ -347,6 +395,8 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
           canAccessPolypharmacy: true,
           expiresAt: expiryDate.toISOString()
         };
+        saveUserProfileToFirestore(updated).catch(() => {});
+        return updated;
       }
       return c;
     }));
@@ -356,7 +406,9 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
     setCustomers(customers.map(c => {
       if (c.uid === uid) {
         const newStatus = c.subscriptionStatus === 'active' ? 'expired' : 'active';
-        return { ...c, subscriptionStatus: newStatus };
+        const updated: UserProfile = { ...c, subscriptionStatus: newStatus };
+        saveUserProfileToFirestore(updated).catch(() => {});
+        return updated;
       }
       return c;
     }));
@@ -364,6 +416,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
 
   const handleDeleteCustomer = () => {
     if (!deletingCustomer) return;
+    deleteCustomerFromFirestore(deletingCustomer.uid).catch(() => {});
     setCustomers(customers.filter(c => c.uid !== deletingCustomer.uid));
     setDeletingCustomer(null);
   };
@@ -384,11 +437,21 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
           </h2>
           
           <p className="text-teal-100/80 text-xs sm:text-sm font-medium leading-relaxed">
-            Pantau kata sandi, status lisensi aktif, durasi masa langganan, kuota penapisan obat, dan data instansi customer dalam satu kendali administrator.
+            Pantau kata sandi, status lisensi aktif, durasi masa langganan, kuota penapisan obat, dan data instansi customer dalam satu kendali administrator tersinkronisasi Cloud Firebase.
           </p>
         </div>
 
         <div className="relative z-10 shrink-0 flex flex-wrap items-center gap-2.5">
+          <button
+            onClick={handleSyncFromFirebase}
+            disabled={syncingFirebase}
+            className="px-4 py-3 bg-[#156d67]/40 hover:bg-[#156d67]/70 border border-[#3dbfd1]/40 text-teal-100 rounded-2xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer hover:scale-105 disabled:opacity-50"
+            title="Tarik & Sinkronkan data pelanggan terbaru dari Cloud Firebase"
+          >
+            <Cloud className={`w-4 h-4 text-[#3dbfd1] ${syncingFirebase ? 'animate-pulse' : ''}`} />
+            <span>{syncingFirebase ? 'Menyinkronkan...' : 'Sinkronkan dari Firebase'}</span>
+          </button>
+
           {customers.length > 0 && (
             <button
               onClick={() => setShowClearConfirmModal(true)}
@@ -420,6 +483,14 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
           </button>
         </div>
       </div>
+
+      {/* Sync Message Alert */}
+      {syncMessage && (
+        <div className="p-3.5 bg-teal-50 dark:bg-[#092b31] border border-teal-200 dark:border-[#184c53] rounded-2xl text-xs font-bold text-[#12645e] dark:text-[#5fd0df] flex items-center gap-2 shadow-xs animate-in fade-in">
+          <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+          <span>{syncMessage}</span>
+        </div>
+      )}
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

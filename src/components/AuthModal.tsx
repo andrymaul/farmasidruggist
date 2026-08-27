@@ -66,6 +66,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
     try {
       if (isRegister) {
         const res = await registerWithEmail(email, password, name, phone, institution);
+        if (res.userProfile && onNewAccountCreated) {
+          onNewAccountCreated(res.userProfile);
+        }
         if (res.emailSent) {
           setUnverifiedEmail(res.emailSent);
           setResendCooldown(30);

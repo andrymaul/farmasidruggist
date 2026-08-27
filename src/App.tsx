@@ -41,7 +41,11 @@ import {
   saveInteractionToFirestore,
   saveInteractionCheckHistory,
   fetchUserHistory,
-  seedFirestoreIfEmpty
+  seedFirestoreIfEmpty,
+  saveUserProfileToFirestore,
+  getUserProfileFromFirestore,
+  subscribeToCustomersFirestore,
+  fetchCustomersFromFirestore
 } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { deduplicateDrugs, deduplicateInteractions } from './utils/ddinterEngine';
@@ -226,11 +230,48 @@ export default function App() {
     return [];
   });
 
+  // Real-time Firestore Listener for Customer Subscriptions
+  useEffect(() => {
+    const unsubscribe = subscribeToCustomersFirestore((firestoreCustomers) => {
+      if (!firestoreCustomers) return;
+      const cleanList = firestoreCustomers.filter(c => 
+        c.role !== 'admin' && 
+        !(c.email && c.email.toLowerCase().includes('admin@farmasidruggist.com'))
+      );
+
+      setCustomerList((prev) => {
+        const map = new Map<string, UserProfile>();
+        // Add existing local customers first
+        prev.forEach(c => {
+          const key = (c.uid || c.email).toLowerCase();
+          map.set(key, c);
+        });
+        // Merge with fresh Firestore customer data
+        cleanList.forEach(fc => {
+          const key = (fc.uid || fc.email).toLowerCase();
+          map.set(key, fc);
+        });
+        const merged = Array.from(map.values());
+        try {
+          localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(merged));
+        } catch (e) {}
+        return merged;
+      });
+    });
+    return () => unsubscribe();
+  }, []);
+
   const handleRegisterOrSyncCustomer = (newUser: UserProfile) => {
     // Exclude admin accounts from being inserted into customer subscriptions
     if (newUser.role === 'admin' || (newUser.email && newUser.email.toLowerCase().includes('admin@farmasidruggist.com'))) {
       return;
     }
+
+    // Save directly to Cloud Firestore
+    saveUserProfileToFirestore(newUser).catch((err) => {
+      console.warn('Could not sync user to Firestore:', err);
+    });
+
     setCustomerList((prev) => {
       const existingIdx = prev.findIndex(c => 
         (c.email && newUser.email && c.email.toLowerCase() === newUser.email.toLowerCase()) || 
@@ -288,6 +329,12 @@ export default function App() {
     try {
       localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(updated));
     } catch (e) {}
+    // Sync each customer to Firestore
+    updated.forEach((c) => {
+      if (c.uid) {
+        saveUserProfileToFirestore(c).catch(() => {});
+      }
+    });
   };
 
   const [historyRecords, setHistoryRecords] = useState<InteractionCheckRecord[]>([]);
@@ -471,9 +518,12 @@ export default function App() {
         }
 
         const email = firebaseUser.email;
-        setCurrentUser((prev) => {
-          if (prev && prev.email.toLowerCase() === email.toLowerCase() && prev.isEmailVerified) return prev;
-          return {
+        let profile = await getUserProfileFromFirestore(firebaseUser.uid);
+        if (!profile) {
+          const expiryDate = new Date();
+          expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+
+          profile = {
             uid: firebaseUser.uid,
             email: email,
             name: firebaseUser.displayName || email.split('@')[0] || 'User',
@@ -481,9 +531,13 @@ export default function App() {
             subscriptionPlan: email.includes('admin') ? 'Klinik' : 'Pemula',
             subscriptionStatus: 'active',
             isEmailVerified: true,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            expiresAt: expiryDate.toISOString()
           };
-        });
+          await saveUserProfileToFirestore(profile);
+        }
+
+        setCurrentUser(profile);
       }
     });
     return () => unsubscribe();
