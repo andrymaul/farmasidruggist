@@ -517,16 +517,20 @@ export default function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser && firebaseUser.email) {
-        // Block unverified email users from automatic dashboard entry
-        if (!firebaseUser.emailVerified) {
+        const email = firebaseUser.email.toLowerCase();
+        const isAdmin = email === 'admin@farmasidruggist.com' || 
+                        email.includes('admin') || 
+                        INITIAL_ADMIN_USERS.some(a => a.email && a.email.toLowerCase() === email);
+
+        // Block unverified email users from automatic dashboard entry (except administrators)
+        if (!isAdmin && !firebaseUser.emailVerified) {
           try {
             await logoutUser();
           } catch (e) {}
-          setCurrentUser((prev) => (prev && prev.email.toLowerCase() === firebaseUser.email?.toLowerCase() ? null : prev));
+          setCurrentUser((prev) => (prev && prev.email.toLowerCase() === email ? null : prev));
           return;
         }
 
-        const email = firebaseUser.email;
         let profile = await getUserProfileFromFirestore(firebaseUser.uid);
         if (!profile) {
           const expiryDate = new Date();
@@ -536,12 +540,21 @@ export default function App() {
             uid: firebaseUser.uid,
             email: email,
             name: firebaseUser.displayName || email.split('@')[0] || 'User',
-            role: email.includes('admin') ? 'admin' : 'free',
-            subscriptionPlan: email.includes('admin') ? 'Klinik' : 'Pemula',
+            role: isAdmin ? 'admin' : 'free',
+            subscriptionPlan: isAdmin ? 'Klinik' : 'Pemula',
             subscriptionStatus: 'active',
             isEmailVerified: true,
             createdAt: new Date().toISOString(),
             expiresAt: expiryDate.toISOString()
+          };
+          await saveUserProfileToFirestore(profile);
+        } else if (isAdmin && profile.role !== 'admin') {
+          profile = {
+            ...profile,
+            role: 'admin',
+            subscriptionPlan: 'Klinik',
+            subscriptionStatus: 'active',
+            isEmailVerified: true
           };
           await saveUserProfileToFirestore(profile);
         }

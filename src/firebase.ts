@@ -212,8 +212,12 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
     // Reload user to get fresh emailVerified status
     await fbUser.reload();
 
-    // If email is not verified, automatically trigger a new verification email, block access, and sign out
-    if (!fbUser.emailVerified) {
+    const isAdminUser = cleanEmail === 'admin@farmasidruggist.com' || 
+                        cleanEmail.includes('admin') || 
+                        adminUsers.some(a => a.email && a.email.toLowerCase() === cleanEmail);
+
+    // If email is not verified, automatically trigger a new verification email, block access, and sign out (except admins)
+    if (!isAdminUser && !fbUser.emailVerified) {
       try {
         await sendEmailVerification(fbUser);
       } catch (sendErr) {
@@ -240,8 +244,8 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
         institution: '',
         licenseNumber: '',
         notes: 'Terdaftar via Firebase Auth',
-        role: cleanEmail.includes('admin') ? 'admin' : 'free',
-        subscriptionPlan: cleanEmail.includes('admin') ? 'Klinik' : 'Pemula',
+        role: isAdminUser ? 'admin' : (cleanEmail.includes('admin') ? 'admin' : 'free'),
+        subscriptionPlan: isAdminUser ? 'Klinik' : (cleanEmail.includes('admin') ? 'Klinik' : 'Pemula'),
         subscriptionStatus: 'active',
         maxDrugsOverride: cleanEmail.includes('admin') ? 99 : 20,
         canExportPdf: cleanEmail.includes('admin'),
@@ -251,6 +255,12 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
         isEmailVerified: true,
         createdAt: new Date().toISOString()
       };
+      await saveUserProfileToFirestore(userProfile);
+    } else if (isAdminUser && userProfile.role !== 'admin') {
+      userProfile.role = 'admin';
+      userProfile.subscriptionPlan = 'Klinik';
+      userProfile.subscriptionStatus = 'active';
+      userProfile.isEmailVerified = true;
       await saveUserProfileToFirestore(userProfile);
     } else {
       // Sinkronkan status emailVerified terbaru dan perbarui password jika dimasukkan
