@@ -223,11 +223,20 @@ export default function App() {
       if (saved !== null) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+          const map = new Map<string, UserProfile>();
+          INITIAL_CUSTOMERS.forEach(c => {
+            if (c.uid) map.set(c.uid, c);
+            else if (c.email) map.set(c.email.toLowerCase(), c);
+          });
+          parsed.forEach((p: UserProfile) => {
+            if (p.uid) map.set(p.uid, p);
+            else if (p.email) map.set(p.email.toLowerCase(), p);
+          });
+          return Array.from(map.values());
         }
       }
     } catch (e) {}
-    return SAMPLE_DEMO_CUSTOMERS;
+    return INITIAL_CUSTOMERS;
   });
 
   // Real-time Firestore Listener for Customer Subscriptions

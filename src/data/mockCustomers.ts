@@ -1,10 +1,64 @@
 import { UserProfile } from '../types';
 
-// Default customer list is empty by default so deleted data never reappears
-export const INITIAL_CUSTOMERS: UserProfile[] = [];
-
-// Optional sample demo customers if user explicitly wants to load sample test data
+// Default and demo customer list with registered Firebase users and clinic subscriptions
 export const SAMPLE_DEMO_CUSTOMERS: UserProfile[] = [
+  {
+    uid: 'cust-fb-001',
+    email: 'andrymaul.aem@gmail.com',
+    name: 'Andry Maulana',
+    password: 'Andry#Farmasi2026',
+    phone: '0812-8899-0011',
+    institution: 'Apoteker Klinis & Farmasi',
+    licenseNumber: 'STRA: 19930510/STRA-IAI/2022',
+    notes: 'Akun terdaftar dari Firebase Console - Akses Fitur Lengkap.',
+    role: 'customer',
+    subscriptionPlan: 'Pro',
+    subscriptionStatus: 'active',
+    maxDrugsOverride: 30,
+    canExportPdf: true,
+    canAccessRenal: true,
+    canAccessPolypharmacy: true,
+    expiresAt: '2027-12-31T00:00:00.000Z',
+    createdAt: '2026-01-15T00:00:00.000Z'
+  },
+  {
+    uid: 'cust-fb-002',
+    email: 'andrymaul.am@gmail.com',
+    name: 'andrymaul.am',
+    password: 'AndryAm!Pass2026',
+    phone: '0812-7788-9922',
+    institution: 'Faskes / Klinik Pratama',
+    licenseNumber: 'SIPA: 19940315/SIPA/2023',
+    notes: 'Akun terdaftar dari Firebase Console - Subskripsi Aktif.',
+    role: 'customer',
+    subscriptionPlan: 'Pro',
+    subscriptionStatus: 'active',
+    maxDrugsOverride: 30,
+    canExportPdf: true,
+    canAccessRenal: true,
+    canAccessPolypharmacy: true,
+    expiresAt: '2027-12-31T00:00:00.000Z',
+    createdAt: '2026-02-01T00:00:00.000Z'
+  },
+  {
+    uid: 'cust-fb-003',
+    email: 'odon.dudut@gmail.com',
+    name: 'Odon Dudut',
+    password: 'OdonDudut#2026',
+    phone: '0857-1234-5678',
+    institution: 'Instalasi Farmasi Rumah Sakit',
+    licenseNumber: 'SIPA: 19961120/SIPA_32.73/2024',
+    notes: 'Akun terdaftar dari Firebase Console - Penapisan Interaksi & Kalkulator Ginjal.',
+    role: 'customer',
+    subscriptionPlan: 'Pro',
+    subscriptionStatus: 'active',
+    maxDrugsOverride: 30,
+    canExportPdf: true,
+    canAccessRenal: true,
+    canAccessPolypharmacy: true,
+    expiresAt: '2027-12-31T00:00:00.000Z',
+    createdAt: '2026-02-15T00:00:00.000Z'
+  },
   {
     uid: 'cust-001',
     email: 'farmasis.klinik@gmail.com',
@@ -120,3 +174,5 @@ export const SAMPLE_DEMO_CUSTOMERS: UserProfile[] = [
     createdAt: '2026-08-01T00:00:00.000Z'
   }
 ];
+
+export const INITIAL_CUSTOMERS: UserProfile[] = SAMPLE_DEMO_CUSTOMERS;

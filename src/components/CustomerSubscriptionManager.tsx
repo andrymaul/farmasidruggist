@@ -60,10 +60,21 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       const saved = localStorage.getItem('farmasi_customer_subscriptions');
       if (saved !== null) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const map = new Map<string, UserProfile>();
+          INITIAL_CUSTOMERS.forEach(c => {
+            if (c.uid) map.set(c.uid, c);
+            else if (c.email) map.set(c.email.toLowerCase(), c);
+          });
+          parsed.forEach((p: UserProfile) => {
+            if (p.uid) map.set(p.uid, p);
+            else if (p.email) map.set(p.email.toLowerCase(), p);
+          });
+          return Array.from(map.values());
+        }
       }
     } catch (e) {}
-    return [];
+    return INITIAL_CUSTOMERS;
   });
 
   useEffect(() => {
