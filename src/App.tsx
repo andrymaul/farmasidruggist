@@ -457,9 +457,14 @@ export default function App() {
 
   // Protective guard: if not logged in or non-admin on restricted tab, redirect to landing
   useEffect(() => {
-    if (!currentUser && (activeTab === 'dashboard' || activeTab === 'admin' || activeTab.startsWith('admin-'))) {
-      setActiveTab('landing');
-      localStorage.setItem('farmasi_active_tab', 'landing');
+    if (!currentUser) {
+      const savedUser = localStorage.getItem('farmasi_current_user');
+      if (!savedUser || savedUser === 'null_session') {
+        if (activeTab === 'dashboard' || activeTab === 'admin' || activeTab.startsWith('admin-')) {
+          setActiveTab('landing');
+          localStorage.setItem('farmasi_active_tab', 'landing');
+        }
+      }
     } else if (currentUser && currentUser.role !== 'admin' && (activeTab === 'admin' || activeTab.startsWith('admin-'))) {
       setActiveTab('dashboard');
       localStorage.setItem('farmasi_active_tab', 'dashboard');
@@ -560,6 +565,17 @@ export default function App() {
         }
 
         setCurrentUser(profile);
+        localStorage.setItem('farmasi_current_user', JSON.stringify(profile));
+
+        // Auto-navigate from landing to workspace/admin upon authentication
+        setActiveTab((prevTab) => {
+          if (prevTab === 'landing') {
+            const nextTab = profile.role === 'admin' ? 'admin' : 'dashboard';
+            localStorage.setItem('farmasi_active_tab', nextTab);
+            return nextTab;
+          }
+          return prevTab;
+        });
       }
     });
     return () => unsubscribe();
@@ -568,7 +584,10 @@ export default function App() {
   const handleLoginSuccess = (user: UserProfile) => {
     setCurrentUser(user);
     setShowAuthModal(false);
-    setActiveTab('dashboard');
+    const targetTab = user.role === 'admin' ? 'admin' : 'dashboard';
+    setActiveTab(targetTab);
+    localStorage.setItem('farmasi_current_user', JSON.stringify(user));
+    localStorage.setItem('farmasi_active_tab', targetTab);
   };
 
   const handleLogout = async () => {
