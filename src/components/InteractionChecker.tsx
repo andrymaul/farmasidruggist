@@ -539,42 +539,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             </div>
           )}
 
-          {/* Drug-Food Interactions (DFI) Section - Sweet Lavender Styling */}
-          {matchedFoodInteractions.length > 0 && (
-            <div className="bg-gradient-to-r from-purple-50/90 via-fuchsia-50/90 to-purple-50/90 dark:from-purple-950/30 dark:via-fuchsia-950/30 dark:to-purple-950/30 border border-purple-300 dark:border-purple-800/80 rounded-2xl p-5 space-y-3 shadow-xs">
-              <div className="flex items-center gap-2 text-purple-950 dark:text-purple-200 font-black text-sm">
-                <span className="p-1 rounded-lg bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300">
-                  <Utensils className="w-4 h-4" />
-                </span>
-                <span>Interaksi Makanan & Minuman (Drug-Food Interactions / DFI)</span>
-                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-200 dark:bg-purple-900 text-purple-900 dark:text-purple-200">
-                  {matchedFoodInteractions.length} Interaksi
-                </span>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {matchedFoodInteractions.map((dfi) => (
-                  <div key={dfi.id} className="bg-white dark:bg-[#071c21] p-4 rounded-xl border border-purple-200 dark:border-purple-800/60 text-xs space-y-1.5 shadow-2xs hover:border-purple-400 transition-all">
-                    <div className="flex items-center justify-between gap-2 flex-wrap">
-                      <span className="font-black text-slate-900 dark:text-white flex items-center gap-1">
-                        <span>💊 {dfi.drugName}</span>
-                        <span className="text-purple-600 dark:text-purple-400">⚡</span>
-                        <span>🥗 {dfi.foodName}</span>
-                      </span>
-                      <span className="bg-purple-100 dark:bg-purple-900/80 text-purple-800 dark:text-purple-200 text-[10px] font-black px-2 py-0.5 rounded-md border border-purple-300 dark:border-purple-700 shadow-2xs">
-                        {dfi.foodCategory}
-                      </span>
-                    </div>
-                    <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{dfi.clinicalOutcome}</p>
-                    <p className="text-purple-950 dark:text-purple-200 font-bold bg-purple-50 dark:bg-purple-950/40 p-2 rounded-lg border border-purple-200/60 dark:border-purple-900/50">
-                      📌 Petunjuk Konsumsi: {dfi.recommendation}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Individual DDI Pairs */}
+          {/* Individual DDI Pairs (Drug-Drug Interactions) */}
           {selectedDrugs.length >= 2 && matchedInteractions.length > 0 ? (
             <div className="space-y-4">
               <h3 className="text-base font-black text-[#082a24]">
@@ -644,12 +609,47 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
           ) : selectedDrugs.length >= 2 ? (
             <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-2 shadow-xs">
               <ShieldCheck className="w-10 h-10 text-emerald-600 mx-auto" />
-              <h3 className="text-base font-black text-[#082a24]">Aman! Tidak Ditemukan Interaksi Signifikan</h3>
+              <h3 className="text-base font-black text-[#082a24]">Aman! Tidak Ditemukan Interaksi Signifikan Antar Obat</h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto font-medium">
-                Kombinasi obat yang Anda pilih tidak menunjukkan efek interaksi berbahaya pada analisis standar database.
+                Kombinasi obat yang Anda pilih tidak menunjukkan efek interaksi obat-dengan-obat yang berbahaya pada analisis standar database.
               </p>
             </div>
           ) : null}
+
+          {/* Drug-Food Interactions (DFI) Section - Sweet Lavender Styling */}
+          {matchedFoodInteractions.length > 0 && (
+            <div className="bg-gradient-to-r from-purple-50/90 via-fuchsia-50/90 to-purple-50/90 dark:from-purple-950/30 dark:via-fuchsia-950/30 dark:to-purple-950/30 border border-purple-300 dark:border-purple-800/80 rounded-2xl p-5 space-y-3 shadow-xs">
+              <div className="flex items-center gap-2 text-purple-950 dark:text-purple-200 font-black text-sm">
+                <span className="p-1 rounded-lg bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300">
+                  <Utensils className="w-4 h-4" />
+                </span>
+                <span>Interaksi Makanan & Minuman (Drug-Food Interactions / DFI)</span>
+                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-200 dark:bg-purple-900 text-purple-900 dark:text-purple-200">
+                  {matchedFoodInteractions.length} Interaksi
+                </span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {matchedFoodInteractions.map((dfi) => (
+                  <div key={dfi.id} className="bg-white dark:bg-[#071c21] p-4 rounded-xl border border-purple-200 dark:border-purple-800/60 text-xs space-y-1.5 shadow-2xs hover:border-purple-400 transition-all">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className="font-black text-slate-900 dark:text-white flex items-center gap-1">
+                        <span>💊 {dfi.drugName}</span>
+                        <span className="text-purple-600 dark:text-purple-400">⚡</span>
+                        <span>🥗 {dfi.foodName}</span>
+                      </span>
+                      <span className="bg-purple-100 dark:bg-purple-900/80 text-purple-800 dark:text-purple-200 text-[10px] font-black px-2 py-0.5 rounded-md border border-purple-300 dark:border-purple-700 shadow-2xs">
+                        {dfi.foodCategory}
+                      </span>
+                    </div>
+                    <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{dfi.clinicalOutcome}</p>
+                    <p className="text-purple-950 dark:text-purple-200 font-bold bg-purple-50 dark:bg-purple-950/40 p-2 rounded-lg border border-purple-200/60 dark:border-purple-900/50">
+                      📌 Petunjuk Konsumsi: {dfi.recommendation}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
         </div>
       ) : (
