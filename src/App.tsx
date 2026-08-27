@@ -222,43 +222,51 @@ export default function App() {
       const saved = localStorage.getItem('farmasi_customer_subscriptions');
       if (saved !== null) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const map = new Map<string, UserProfile>();
-          INITIAL_CUSTOMERS.forEach(c => {
-            if (c.uid) map.set(c.uid, c);
-            else if (c.email) map.set(c.email.toLowerCase(), c);
-          });
-          parsed.forEach((p: UserProfile) => {
-            if (p.uid) map.set(p.uid, p);
-            else if (p.email) map.set(p.email.toLowerCase(), p);
-          });
-          return Array.from(map.values());
+        if (Array.isArray(parsed)) {
+          let deletedList: string[] = [];
+          try {
+            const savedDeleted = localStorage.getItem('farmasi_deleted_customer_uids');
+            if (savedDeleted) deletedList = JSON.parse(savedDeleted);
+          } catch (e) {}
+          return parsed.filter((p: UserProfile) => p.uid && !deletedList.includes(p.uid));
         }
       }
     } catch (e) {}
-    return INITIAL_CUSTOMERS;
+    return [];
   });
 
   // Real-time Firestore Listener for Customer Subscriptions
   useEffect(() => {
     const unsubscribe = subscribeToCustomersFirestore((firestoreCustomers) => {
       if (!firestoreCustomers) return;
+
+      let deletedList: string[] = [];
+      try {
+        const savedDeleted = localStorage.getItem('farmasi_deleted_customer_uids');
+        if (savedDeleted) deletedList = JSON.parse(savedDeleted);
+      } catch (e) {}
+
       const cleanList = firestoreCustomers.filter(c => 
         c.role !== 'admin' && 
-        !(c.email && c.email.toLowerCase().includes('admin@farmasidruggist.com'))
+        !(c.email && c.email.toLowerCase().includes('admin@farmasidruggist.com')) &&
+        c.uid && !deletedList.includes(c.uid)
       );
 
       setCustomerList((prev) => {
         const map = new Map<string, UserProfile>();
         // Add existing local customers first
         prev.forEach(c => {
-          const key = (c.uid || c.email).toLowerCase();
-          map.set(key, c);
+          if (c.uid && !deletedList.includes(c.uid)) {
+            const key = (c.uid || c.email).toLowerCase();
+            map.set(key, c);
+          }
         });
         // Merge with fresh Firestore customer data
         cleanList.forEach(fc => {
-          const key = (fc.uid || fc.email).toLowerCase();
-          map.set(key, fc);
+          if (fc.uid && !deletedList.includes(fc.uid)) {
+            const key = (fc.uid || fc.email).toLowerCase();
+            map.set(key, fc);
+          }
         });
         const merged = Array.from(map.values());
         try {

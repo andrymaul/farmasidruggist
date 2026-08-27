@@ -60,21 +60,17 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       const saved = localStorage.getItem('farmasi_customer_subscriptions');
       if (saved !== null) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const map = new Map<string, UserProfile>();
-          INITIAL_CUSTOMERS.forEach(c => {
-            if (c.uid) map.set(c.uid, c);
-            else if (c.email) map.set(c.email.toLowerCase(), c);
-          });
-          parsed.forEach((p: UserProfile) => {
-            if (p.uid) map.set(p.uid, p);
-            else if (p.email) map.set(p.email.toLowerCase(), p);
-          });
-          return Array.from(map.values());
+        if (Array.isArray(parsed)) {
+          let deletedList: string[] = [];
+          try {
+            const savedDeleted = localStorage.getItem('farmasi_deleted_customer_uids');
+            if (savedDeleted) deletedList = JSON.parse(savedDeleted);
+          } catch (e) {}
+          return parsed.filter((p: UserProfile) => p.uid && !deletedList.includes(p.uid));
         }
       }
     } catch (e) {}
-    return INITIAL_CUSTOMERS;
+    return [];
   });
 
   useEffect(() => {
@@ -109,19 +105,30 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
     setSyncMessage(null);
     try {
       const remoteUsers = await fetchCustomersFromFirestore();
+      let deletedList: string[] = [];
+      try {
+        const savedDeleted = localStorage.getItem('farmasi_deleted_customer_uids');
+        if (savedDeleted) deletedList = JSON.parse(savedDeleted);
+      } catch (e) {}
+
       const cleanRemote = remoteUsers.filter(u => 
         u.role !== 'admin' && 
-        !(u.email && u.email.toLowerCase().includes('admin@farmasidruggist.com'))
+        !(u.email && u.email.toLowerCase().includes('admin@farmasidruggist.com')) &&
+        !deletedList.includes(u.uid)
       );
 
       const map = new Map<string, UserProfile>();
       customers.forEach(c => {
-        if (c.uid) map.set(c.uid, c);
-        else if (c.email) map.set(c.email.toLowerCase(), c);
+        if (!deletedList.includes(c.uid)) {
+          if (c.uid) map.set(c.uid, c);
+          else if (c.email) map.set(c.email.toLowerCase(), c);
+        }
       });
       cleanRemote.forEach(rc => {
-        if (rc.uid) map.set(rc.uid, rc);
-        else if (rc.email) map.set(rc.email.toLowerCase(), rc);
+        if (!deletedList.includes(rc.uid)) {
+          if (rc.uid) map.set(rc.uid, rc);
+          else if (rc.email) map.set(rc.email.toLowerCase(), rc);
+        }
       });
       const merged = Array.from(map.values());
       setCustomers(merged);
@@ -498,6 +505,14 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
   const handleDeleteCustomer = () => {
     if (!deletingCustomer) return;
     deleteCustomerFromFirestore(deletingCustomer.uid).catch(() => {});
+    try {
+      const savedDeleted = localStorage.getItem('farmasi_deleted_customer_uids');
+      const deletedList: string[] = savedDeleted ? JSON.parse(savedDeleted) : [];
+      if (!deletedList.includes(deletingCustomer.uid)) {
+        deletedList.push(deletingCustomer.uid);
+        localStorage.setItem('farmasi_deleted_customer_uids', JSON.stringify(deletedList));
+      }
+    } catch (e) {}
     setCustomers(customers.filter(c => c.uid !== deletingCustomer.uid));
     setDeletingCustomer(null);
   };
@@ -1474,6 +1489,13 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
               <button
                 type="button"
                 onClick={() => {
+                  try {
+                    const allUids = customers.map(c => c.uid).filter(Boolean);
+                    localStorage.setItem('farmasi_deleted_customer_uids', JSON.stringify(allUids));
+                    for (const u of customers) {
+                      if (u.uid) deleteCustomerFromFirestore(u.uid).catch(() => {});
+                    }
+                  } catch (e) {}
                   setCustomers([]);
                   setShowClearConfirmModal(false);
                 }}
