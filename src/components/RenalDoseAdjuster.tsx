@@ -667,24 +667,27 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
   return (
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
-      {/* HEADER BANNER */}
-      <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#143d47] space-y-6">
-        <div className="space-y-2 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
-            <Activity className="w-4 h-4 text-teal-400" />
+      {/* HEADER BANNER - Modern Deep Obsidian & Violet/Sapphire Palette */}
+      <div className="bg-gradient-to-r from-slate-900 via-[#131127] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-violet-500/20 relative overflow-hidden space-y-6">
+        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
+          <Calculator className="w-64 h-64 text-violet-400 -rotate-12" />
+        </div>
+        <div className="space-y-2 max-w-3xl relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-bold border border-violet-500/30">
+            <Activity className="w-4 h-4 text-violet-400" />
             <span>Kalkulator Farmakoterapi Klinis Terpadu</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Kalkulator Medis & Penyesuaian Dosis
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+            Kalkulator Medis & <span className="text-violet-400">Penyesuaian Dosis</span>
           </h1>
-          <p className="text-teal-100/80 text-xs sm:text-sm leading-relaxed font-medium">
+          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
             Suite kalkulator farmako-klinis terpadu: Dosis Ginjal (CrCl/eGFR), Dosis Hepar (Child-Pugh & MELD), Dosis Pediatrik & Bayi, Racikan Puyer (SL & DTD), Titrasi Syringe Pump & Infus Drip, Konversi Opioid (CDC MME), IBW/BMI, Oksigen Medis, serta 13 Kalkulator Skor Klinis Terintegrasi.
           </p>
         </div>
 
         {/* Full-width Responsive 9-Tab Switcher Menu */}
-        <div className="bg-[#06181c]/90 p-2 rounded-2xl border border-[#14424e] shadow-inner">
+        <div className="bg-slate-950/90 p-2 rounded-2xl border border-slate-800 shadow-inner relative z-10">
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
             <button
               onClick={() => setActiveTab('renal')}

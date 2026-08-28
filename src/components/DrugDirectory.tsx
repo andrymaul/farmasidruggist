@@ -167,25 +167,28 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       
-      {/* Header Banner - Dark Teal */}
-      <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] p-6 sm:p-7 rounded-2xl text-white border border-[#143d47] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1.5">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold border border-teal-500/30">
+      {/* Header Banner - Modern Deep Obsidian & Sapphire Palette */}
+      <div className="bg-gradient-to-r from-slate-900 via-[#0e1728] to-slate-900 p-6 sm:p-8 rounded-3xl text-white border border-blue-500/20 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
+          <Pill className="w-64 h-64 text-blue-400 -rotate-12" />
+        </div>
+        <div className="space-y-2 max-w-2xl relative z-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-500/30">
             <Database className="w-3.5 h-3.5" />
             <span>Direktori Farmakologi & Monografi Resmi</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-            Katalog Informasi & <span className="text-teal-300">Monografi Obat</span>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+            Katalog Informasi & <span className="text-blue-400">Monografi Obat</span>
           </h1>
-          <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+          <p className="text-xs sm:text-sm text-slate-300 font-medium">
             Direktori komprehensif indikasi medis, dosis baku, kategori kehamilan FDA, dan identifikasi merk dagang Indonesia.
           </p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
-          <div className="bg-[#06181c] px-4 py-2.5 rounded-xl border border-[#14424e] text-right">
-            <span className="text-[11px] text-teal-200/70 block font-medium">Total Obat Terdaftar:</span>
-            <span className="text-lg font-black text-teal-300">{drugs.length.toLocaleString('id-ID')} Obat</span>
+        <div className="flex items-center gap-3 shrink-0 relative z-10">
+          <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <span className="text-[11px] text-slate-400 block font-medium">Total Obat Terdaftar:</span>
+            <span className="text-lg font-black text-blue-400">{cleanDrugs.length.toLocaleString('id-ID')} Obat Unik</span>
           </div>
         </div>
       </div>
@@ -324,7 +327,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
         {/* Filter Summary Status */}
         <div className="flex items-center justify-between text-xs font-medium text-slate-500 pt-1">
           <p>
-            Menampilkan <span className="font-black text-[#0f766e]">{filteredAndSortedDrugs.length.toLocaleString('id-ID')}</span> dari <span className="font-black text-slate-900">{drugs.length.toLocaleString('id-ID')}</span> obat.
+            Menampilkan <span className="font-black text-[#0f766e]">{filteredAndSortedDrugs.length.toLocaleString('id-ID')}</span> dari <span className="font-black text-slate-900">{cleanDrugs.length.toLocaleString('id-ID')}</span> obat unik terdaftar ({drugs.length.toLocaleString('id-ID')} entri terintegrasi).
           </p>
           {isFiltered && (
             <span className="text-[11px] bg-teal-50 text-teal-800 font-bold px-2.5 py-0.5 rounded-full border border-teal-200">

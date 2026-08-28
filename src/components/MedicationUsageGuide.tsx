@@ -173,21 +173,23 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
       {/* SCREEN UI WRAPPER */}
       <div className="space-y-6 print:hidden">
         {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#143d47] relative overflow-hidden">
-        <div className="absolute right-0 top-0 -mt-8 -mr-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-400/20 text-teal-300 text-xs font-bold border border-teal-400/30">
-            <BookOpen className="w-3.5 h-3.5" />
-            Panduan Edukasi Pasien & Apoteker
+        <div className="bg-gradient-to-r from-slate-900 via-[#0c1c24] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 relative overflow-hidden">
+          <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
+            <BookOpen className="w-64 h-64 text-teal-400 -rotate-12" />
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Panduan Tata Cara Penggunaan Obat
-          </h1>
-          <p className="text-slate-200 text-sm sm:text-base leading-relaxed">
-            Edukasi langkah demi langkah cara penggunaan bentuk sediaan khusus (Tetes mata, Tetes telinga, Salep mata, Pen Insulin, Inhaler, Turbuhaler, Diskus, Suppositoria, dan Ovula) untuk efektifitas terapi maksimal.
-          </p>
+          <div className="relative z-10 max-w-3xl space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold border border-teal-500/30">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Panduan Edukasi Pasien & Apoteker</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white font-outfit">
+              Panduan Tata Cara <span className="text-teal-400">Penggunaan Obat</span>
+            </h1>
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
+              Edukasi langkah demi langkah cara penggunaan bentuk sediaan khusus (Tetes mata, Tetes telinga, Salep mata, Pen Insulin, Inhaler, Turbuhaler, Diskus, Suppositoria, dan Ovula) untuk efektifitas terapi maksimal.
+            </p>
+          </div>
         </div>
-      </div>
 
       {/* Filter & Search Bar */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm space-y-4">

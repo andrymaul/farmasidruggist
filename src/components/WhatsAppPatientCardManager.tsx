@@ -28,7 +28,8 @@ import {
   Zap,
   ChevronDown,
   ChevronUp,
-  BookOpen
+  BookOpen,
+  X
 } from 'lucide-react';
 
 export interface PatientMedicationEntry {
@@ -532,6 +533,8 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
   // Monograph Category Selector & Fast Filter
   const [selectedPioCategory, setSelectedPioCategory] = useState<string>('populer');
   const [pioCategorySearch, setPioCategorySearch] = useState<string>('');
+  const [showMonographModal, setShowMonographModal] = useState<boolean>(false);
+  const [addedToastMessage, setAddedToastMessage] = useState<string | null>(null);
 
   // Autocomplete dropdown state
   const [activeSearchMedId, setActiveSearchMedId] = useState<string | null>(null);
@@ -784,6 +787,10 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
     };
 
     setMedications(prev => [...prev, newEntry]);
+    setAddedToastMessage(drugName);
+    setTimeout(() => {
+      setAddedToastMessage(null);
+    }, 2500);
   };
 
   // Automatically insert drug when sent from Monograph / Directory
@@ -903,63 +910,63 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
 
   return (
     <div className="space-y-6 pb-12">
-      {/* HEADER BANNER */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-green-700 p-6 md:p-8 text-white shadow-xl">
-        <div className="absolute -right-8 -bottom-8 opacity-15 pointer-events-none">
-          <MessageSquare className="w-64 h-64 text-white" />
+      {/* HEADER BANNER - Modern Obsidian Deep Emerald */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-[#06241e] to-slate-900 p-6 md:p-8 text-white shadow-xl border border-emerald-500/20">
+        <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
+          <MessageSquare className="w-64 h-64 text-emerald-400" />
         </div>
-        <div className="relative z-10 max-w-3xl">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/30 text-emerald-100 backdrop-blur-md border border-emerald-400/30">
+        <div className="relative z-10 max-w-3xl space-y-3">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
               <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
               Pelayanan Informasi Obat (PIO) & Edukasi Digital
             </span>
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/20 text-white">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/10 text-slate-200 border border-white/10">
               Standar Permenkes 73/2016
             </span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-black tracking-tight text-white font-outfit">
             Kartu PIO Pasien Siap Kirim via WhatsApp
           </h1>
-          <p className="mt-2 text-emerald-100 text-sm md:text-base leading-relaxed">
+          <p className="text-slate-300 text-xs md:text-sm leading-relaxed font-medium">
             Buat ringkasan jadwal aturan minum obat yang rapi, pantangan makanan, dan instruksi penyimpanan, lalu kirimkan langsung ke WhatsApp pasien hanya dengan 1 kali klik!
           </p>
         </div>
       </div>
 
       {/* QUICK TEMPLATES PRESETS */}
-      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 shadow-lg flex flex-wrap items-center gap-2">
-        <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5 mr-1">
-          <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-wrap items-center gap-2">
+        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 mr-1 font-outfit">
+          <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
           Template Resep Cepat:
         </span>
         <button
           onClick={() => handleLoadPreset('hipertensi')}
-          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:text-white transition"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 transition cursor-pointer"
         >
           🫀 Paket Hipertensi
         </button>
         <button
           onClick={() => handleLoadPreset('diabetes')}
-          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:text-white transition"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 transition cursor-pointer"
         >
           🩸 Paket Diabetes
         </button>
         <button
           onClick={() => handleLoadPreset('ispa')}
-          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:text-white transition"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 transition cursor-pointer"
         >
           🤧 Paket Batuk Pilek / ISPA
         </button>
         <button
           onClick={() => handleLoadPreset('gerd')}
-          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:text-white transition"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 transition cursor-pointer"
         >
           🔥 Paket Maag / GERD
         </button>
         <button
           onClick={() => handleLoadPreset('diare_anak')}
-          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:text-white transition"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 transition cursor-pointer"
         >
           👶 Paket Diare Anak (Zinc + Oralit)
         </button>
@@ -969,35 +976,35 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
         {/* LEFT COLUMN: EDITOR FORM */}
         <div className="lg:col-span-6 space-y-6">
           {/* Patient Details Card */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <User className="w-4 h-4 text-emerald-400" />
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
+              <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               Informasi Pasien Penerima Edukasi
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">Nama Pasien</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-400 mb-1">Nama Pasien</label>
                 <input
                   type="text"
                   value={patientName}
                   onChange={(e) => setPatientName(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
                   placeholder="cth. Bpk. Hendra"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">
-                  Nomor WhatsApp Pasien <span className="text-emerald-400 font-bold">*Wajib</span>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-400 mb-1">
+                  Nomor WhatsApp Pasien <span className="text-emerald-600 dark:text-emerald-400 font-bold">*Wajib</span>
                 </label>
                 <div className="relative">
-                  <Phone className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+                  <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                   <input
                     type="tel"
                     value={patientPhone}
                     onChange={(e) => setPatientPhone(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-sm font-semibold text-emerald-400 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-9 pr-3 py-2 text-sm font-bold text-emerald-600 dark:text-emerald-400 focus:outline-none focus:border-emerald-500"
                     placeholder="081234567890"
                   />
                 </div>
@@ -1008,17 +1015,17 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
             </div>
 
             {/* Clinic Branding Indicator */}
-            <div className="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3 flex items-center justify-between">
+            <div className="bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800/80 rounded-xl p-3 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <Building2 className="w-4 h-4 text-slate-400" />
+                <Building2 className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 <div className="text-xs">
-                  <span className="text-slate-300 font-semibold">{clinicBranding.clinicName || 'Apotek Anda'}</span>
+                  <span className="text-slate-900 dark:text-slate-300 font-bold">{clinicBranding.clinicName || 'Apotek Anda'}</span>
                   <span className="text-slate-500 block text-[11px]">{clinicBranding.pharmacistName || 'Apoteker Penanggung Jawab'} ({clinicBranding.pharmacistSipa || clinicBranding.sipNumber || 'SIPA'})</span>
                 </div>
               </div>
               <button
                 onClick={onOpenBrandingModal}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-sky-400 transition"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-sky-400 transition cursor-pointer"
               >
                 Ubah Kop
               </button>
@@ -1026,136 +1033,36 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
           </div>
 
           {/* Medications Form */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800/80">
               <div>
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Pill className="w-4 h-4 text-emerald-400" />
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
+                  <Pill className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   Daftar Obat Pasien ({medications.length} Obat)
                 </h3>
-                <p className="text-[11px] text-slate-400 font-medium">
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
                   Ketik nama obat untuk mendapatkan saran aturan pakai & edukasi otomatis.
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={handleAddMedication}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition shadow-sm cursor-pointer shrink-0"
-              >
-                <Plus className="w-4 h-4" />
-                Tambah Obat
-              </button>
-            </div>
-
-            {/* Quick Add Monograph Therapy Category Ribbon */}
-            <div className="p-3.5 bg-slate-950/90 rounded-xl border border-slate-800 space-y-3">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
-                  <Zap className="w-3.5 h-3.5 text-amber-400" />
-                  Katalog Cepat Monografi Obat (Auto-Fill PIO):
-                </span>
-                
-                {/* Fast search within monograph catalog */}
-                <div className="relative min-w-[180px]">
-                  <Search className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2" />
-                  <input
-                    type="text"
-                    value={pioCategorySearch}
-                    onChange={(e) => setPioCategorySearch(e.target.value)}
-                    placeholder="Saring obat monografi..."
-                    className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-8 pr-2.5 py-1 text-[11px] text-white focus:outline-none focus:border-emerald-500"
-                  />
-                  {pioCategorySearch && (
-                    <button
-                      onClick={() => setPioCategorySearch('')}
-                      className="absolute right-2 top-1.5 text-slate-400 hover:text-white text-xs"
-                    >
-                      ✕
-                    </button>
-                  )}
-                </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => setShowMonographModal(true)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 dark:bg-amber-500/15 hover:bg-amber-100 dark:hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30 transition shadow-2xs cursor-pointer shrink-0"
+                  title="Buka katalog monografi obat cepat"
+                >
+                  <Zap className="w-3.5 h-3.5 text-amber-500" />
+                  <span>⚡ Katalog Monografi</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleAddMedication}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition shadow-sm cursor-pointer shrink-0"
+                >
+                  <Plus className="w-4 h-4" />
+                  Tambah Obat
+                </button>
               </div>
-
-              {/* Therapy Category Tabs */}
-              <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-thin">
-                {PIO_DRUG_CATEGORIES.map((cat) => {
-                  const isActive = selectedPioCategory === cat.id;
-                  return (
-                    <button
-                      key={cat.id}
-                      type="button"
-                      onClick={() => setSelectedPioCategory(cat.id)}
-                      className={`px-2.5 py-1 rounded-lg text-[10.5px] font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1 ${
-                        isActive
-                          ? 'bg-emerald-600 text-white shadow-xs'
-                          : 'bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
-                      }`}
-                    >
-                      <span>{cat.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Dynamic Chips Rendered from Master Monograph Database */}
-              {(() => {
-                const currentCat = PIO_DRUG_CATEGORIES.find(c => c.id === selectedPioCategory) || PIO_DRUG_CATEGORIES[0];
-                let displayedItems: { name: string; drugObj?: Drug }[] = [];
-
-                if (selectedPioCategory === 'populer') {
-                  displayedItems = POPULAR_PIO_DRUGS
-                    .filter(name => !pioCategorySearch || name.toLowerCase().includes(pioCategorySearch.toLowerCase()))
-                    .map(name => {
-                      const match = (drugs || []).find(d => d.name.toLowerCase().includes(name.toLowerCase()) || (d.genericName && name.toLowerCase().includes(d.genericName.toLowerCase())));
-                      return { name, drugObj: match };
-                    });
-                } else if (selectedPioCategory === 'semua') {
-                  displayedItems = (drugs || [])
-                    .filter(d => !pioCategorySearch || d.name.toLowerCase().includes(pioCategorySearch.toLowerCase()) || (d.genericName && d.genericName.toLowerCase().includes(pioCategorySearch.toLowerCase())))
-                    .slice(0, 24)
-                    .map(d => ({ name: d.name, drugObj: d }));
-                } else {
-                  const kws = currentCat.keywords || [];
-                  displayedItems = (drugs || [])
-                    .filter(d => {
-                      const combined = (d.name + ' ' + (d.genericName || '') + ' ' + (d.category || '')).toLowerCase();
-                      const matchesCat = kws.some(kw => combined.includes(kw));
-                      const matchesSearch = !pioCategorySearch || combined.includes(pioCategorySearch.toLowerCase());
-                      return matchesCat && matchesSearch;
-                    })
-                    .slice(0, 24)
-                    .map(d => ({ name: d.name, drugObj: d }));
-                }
-
-                return (
-                  <div className="space-y-1.5">
-                    <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1">
-                      {displayedItems.length > 0 ? (
-                        displayedItems.map((item, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            onClick={() => handleQuickAddPopularDrug(item.name)}
-                            className="px-2.5 py-1 rounded-lg text-[10.5px] font-semibold bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 border border-slate-800 hover:border-emerald-700 transition cursor-pointer flex items-center gap-1 shadow-2xs group/chip"
-                            title={item.drugObj?.indication ? `Indikasi: ${item.drugObj.indication}` : 'Klik untuk tambah ke daftar PIO'}
-                          >
-                            <Plus className="w-3 h-3 text-emerald-400 group-hover/chip:rotate-90 transition-transform" />
-                            <span>{item.name}</span>
-                          </button>
-                        ))
-                      ) : (
-                        <div className="text-[11px] text-slate-500 py-1 italic">
-                          Tidak ada obat monografi yang cocok dengan kata kunci "{pioCategorySearch}".
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-900">
-                      <span>Tersedia {displayedItems.length} obat siap auto-fill pada kategori ini</span>
-                      <span className="text-emerald-400/90 font-medium">⚡ Klik obat untuk auto-populate 7 kolom edukasi</span>
-                    </div>
-                  </div>
-                );
-              })()}
             </div>
 
             <div className="space-y-4">
@@ -1178,15 +1085,15 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
                 return (
                   <div
                     key={med.id}
-                    className="bg-slate-950/80 border border-slate-800 rounded-xl p-4 space-y-3 relative group"
+                    className="bg-slate-50/80 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-xl p-4 space-y-3 relative group"
                   >
-                    <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
+                    <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800/80 pb-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-emerald-400">
+                        <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400">
                           Obat #{idx + 1}
                         </span>
                         {autoFillNotice[med.id] && (
-                          <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-800 px-2 py-0.5 rounded-full animate-in fade-in">
+                          <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 px-2 py-0.5 rounded-full animate-in fade-in">
                             {autoFillNotice[med.id]}
                           </span>
                         )}
@@ -1197,10 +1104,10 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
                           <button
                             type="button"
                             onClick={() => onSelectDrugForDetail(matchedMasterDrug)}
-                            className="px-2 py-0.5 rounded-lg text-[10.5px] font-bold bg-teal-950 hover:bg-teal-900 text-teal-300 border border-teal-800 transition flex items-center gap-1 cursor-pointer"
+                            className="px-2 py-0.5 rounded-lg text-[10.5px] font-bold bg-teal-50 dark:bg-teal-950 hover:bg-teal-100 dark:hover:bg-teal-900 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800 transition flex items-center gap-1 cursor-pointer"
                             title="Buka monografi farmakologi klinis lengkap obat ini"
                           >
-                            <BookOpen className="w-3 h-3 text-teal-400" />
+                            <BookOpen className="w-3 h-3 text-teal-600 dark:text-teal-400" />
                             <span>Monografi</span>
                           </button>
                         )}
@@ -1208,17 +1115,17 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
                         <button
                           type="button"
                           onClick={() => handleAutoFillMedication(med.id, med.drugName, matchedMasterDrug)}
-                          className="px-2 py-0.5 rounded-lg text-[10.5px] font-bold bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 transition flex items-center gap-1 cursor-pointer"
+                          className="px-2 py-0.5 rounded-lg text-[10.5px] font-bold bg-emerald-50 dark:bg-emerald-950 hover:bg-emerald-100 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 transition flex items-center gap-1 cursor-pointer"
                           title="Auto-isi edukasi & aturan minum berdasarkan nama obat"
                         >
-                          <Zap className="w-3 h-3 text-amber-400" />
+                          <Zap className="w-3 h-3 text-amber-500" />
                           <span>Auto-Isi PIO</span>
                         </button>
 
                         <button
                           type="button"
                           onClick={() => handleRemoveMedication(med.id)}
-                          className="text-slate-500 hover:text-rose-400 transition p-1 cursor-pointer"
+                          className="text-slate-400 hover:text-rose-600 transition p-1 cursor-pointer"
                           title="Hapus obat"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -1229,8 +1136,8 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {/* Nama & Kekuatan Obat (dengan Autocomplete Dropdown) */}
                       <div className="relative">
-                        <label className="block text-[11px] font-bold text-slate-400 mb-1">
-                          Nama & Kekuatan Obat <span className="text-emerald-400 font-bold">*</span>
+                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-400 mb-1">
+                          Nama & Kekuatan Obat <span className="text-emerald-600 dark:text-emerald-400 font-bold">*</span>
                         </label>
                         <input
                           type="text"
@@ -1240,19 +1147,19 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
                             handleUpdateMedication(med.id, 'drugName', e.target.value);
                             setActiveSearchMedId(med.id);
                           }}
-                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500 font-bold"
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 font-bold shadow-2xs"
                           placeholder="Ketik cth. Amlodipine 10 mg / Metformin"
                         />
 
                         {/* Floating Autocomplete Suggestions */}
                         {activeSearchMedId === med.id && matchingSuggestions.length > 0 && (
-                          <div className="absolute left-0 right-0 top-full mt-1 bg-slate-900 border border-emerald-500/60 rounded-xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-800 text-xs">
-                            <div className="p-1.5 bg-slate-950 text-[10px] font-bold text-emerald-400 flex items-center justify-between">
+                          <div className="absolute left-0 right-0 top-full mt-1 bg-white dark:bg-slate-900 border border-emerald-500 rounded-xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+                            <div className="p-1.5 bg-slate-50 dark:bg-slate-950 text-[10px] font-bold text-emerald-700 dark:text-emerald-400 flex items-center justify-between">
                               <span>Pilih Obat Untuk Auto-Fill Otomatis:</span>
                               <button
                                 type="button"
                                 onClick={() => setActiveSearchMedId(null)}
-                                className="text-slate-500 hover:text-slate-300"
+                                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                               >
                                 ✕
                               </button>
@@ -1262,17 +1169,17 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
                                 key={d.id}
                                 type="button"
                                 onClick={() => handleAutoFillMedication(med.id, d.name, d)}
-                                className="w-full p-2.5 text-left hover:bg-emerald-950/60 transition flex items-center justify-between cursor-pointer group/item"
+                                className="w-full p-2.5 text-left hover:bg-emerald-50 dark:hover:bg-emerald-950/60 transition flex items-center justify-between cursor-pointer group/item"
                               >
                                 <div>
-                                  <span className="font-bold text-white group-hover/item:text-emerald-300 block">
+                                  <span className="font-bold text-slate-900 dark:text-white group-hover/item:text-emerald-600 dark:group-hover/item:text-emerald-300 block">
                                     {d.name}
                                   </span>
-                                  <span className="text-[10px] text-slate-400">
+                                  <span className="text-[10px] text-slate-500 dark:text-slate-400">
                                     {d.genericName} • {d.category}
                                   </span>
                                 </div>
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-900/60 text-emerald-300 border border-emerald-700">
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700">
                                   ⚡ Terapkan
                                 </span>
                               </button>
@@ -1283,14 +1190,14 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
 
                       {/* Kegunaan / Indikasi Awam */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-400 mb-1">
+                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-400 mb-1">
                           Kegunaan / Indikasi Awam Pasien
                         </label>
                         <input
                           type="text"
                           value={med.indicationLabel}
                           onChange={(e) => handleUpdateMedication(med.id, 'indicationLabel', e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 shadow-2xs"
                           placeholder="cth. Obat Penurun Tekanan Darah"
                         />
                       </div>
@@ -1298,22 +1205,22 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-400 mb-1">Aturan Pakai</label>
+                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-400 mb-1">Aturan Pakai</label>
                         <input
                           type="text"
                           value={med.frequency}
                           onChange={(e) => handleUpdateMedication(med.id, 'frequency', e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-emerald-300 font-semibold focus:outline-none focus:border-emerald-500"
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-emerald-700 dark:text-emerald-300 font-bold focus:outline-none focus:border-emerald-500 shadow-2xs"
                           placeholder="cth. 1 x sehari 1 tablet"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-400 mb-1">Hubungan dengan Makanan</label>
+                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-400 mb-1">Hubungan dengan Makanan</label>
                         <select
                           value={med.mealRelation}
                           onChange={(e) => handleUpdateMedication(med.id, 'mealRelation', e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500 font-medium"
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 font-semibold shadow-2xs"
                         >
                           <option value="sesudah">Sesudah Makan</option>
                           <option value="sebelum">Sebelum Makan (30-60 mnt)</option>
@@ -1323,12 +1230,12 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-400 mb-1">Waktu Minum Spesifik</label>
+                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-400 mb-1">Waktu Minum Spesifik</label>
                         <input
                           type="text"
                           value={med.timing}
                           onChange={(e) => handleUpdateMedication(med.id, 'timing', e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 shadow-2xs"
                           placeholder="cth. Pagi hari setelah sarapan"
                         />
                       </div>
@@ -1337,41 +1244,41 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
                     {/* Petunjuk Khusus & Pantangan Makanan / Minuman */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                       <div>
-                        <label className="block text-[10.5px] font-medium text-slate-400 mb-1">
+                        <label className="block text-[10.5px] font-bold text-slate-700 dark:text-slate-400 mb-1">
                           Petunjuk Khusus & Cara Pakai (Opsional)
                         </label>
                         <input
                           type="text"
                           value={med.specialInstructions || ''}
                           onChange={(e) => handleUpdateMedication(med.id, 'specialInstructions', e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-emerald-500"
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 dark:text-slate-300 focus:outline-none focus:border-emerald-500 shadow-2xs"
                           placeholder="cth. Minum teratur pada jam yang sama"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10.5px] font-medium text-slate-400 mb-1">
+                        <label className="block text-[10.5px] font-bold text-slate-700 dark:text-slate-400 mb-1">
                           Pantangan Makanan / Minuman (Opsional)
                         </label>
                         <input
                           type="text"
                           value={med.foodPrecautions || ''}
                           onChange={(e) => handleUpdateMedication(med.id, 'foodPrecautions', e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-amber-200/90 focus:outline-none focus:border-emerald-500"
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-amber-800 dark:text-amber-200/90 focus:outline-none focus:border-emerald-500 shadow-2xs"
                           placeholder="cth. Kurangi garam dan hindari jus grapefruit"
                         />
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-900">
-                      <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-200 dark:border-slate-900">
+                      <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-700 dark:text-slate-300">
                         <input
                           type="checkbox"
                           checked={med.isAntibioticMustFinish}
                           onChange={(e) => handleUpdateMedication(med.id, 'isAntibioticMustFinish', e.target.checked)}
-                          className="rounded accent-emerald-500 w-3.5 h-3.5"
+                          className="rounded accent-emerald-600 w-3.5 h-3.5"
                         />
-                        <span className="text-amber-300 font-semibold text-[11px]">
+                        <span className="text-amber-700 dark:text-amber-300 font-bold text-[11px]">
                           ⚠️ Tandai sebagai Antibiotik (Wajib Dihabiskan)
                         </span>
                       </label>
@@ -1386,22 +1293,22 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
         {/* RIGHT COLUMN: PREVIEW & ACTION BAR */}
         <div className="lg:col-span-6 space-y-6">
           {/* Action Trigger Buttons */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <span className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+              <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-outfit">
                 Aksi Pengiriman Edukasi Pasien
               </span>
-              <div className="flex items-center gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800">
+              <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800">
                 <button
                   onClick={() => setActivePreviewMode('whatsapp')}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${activePreviewMode === 'whatsapp' ? 'bg-emerald-600 text-white' : 'text-slate-400'}`}
+                  className={`px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${activePreviewMode === 'whatsapp' ? 'bg-emerald-600 text-white shadow-2xs' : 'text-slate-600 dark:text-slate-400'}`}
                 >
                   <Smartphone className="w-3.5 h-3.5 inline mr-1" />
                   Format WA
                 </button>
                 <button
                   onClick={() => setActivePreviewMode('card')}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${activePreviewMode === 'card' ? 'bg-emerald-600 text-white' : 'text-slate-400'}`}
+                  className={`px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${activePreviewMode === 'card' ? 'bg-emerald-600 text-white shadow-2xs' : 'text-slate-600 dark:text-slate-400'}`}
                 >
                   <FileText className="w-3.5 h-3.5 inline mr-1" />
                   Kartu Digital
@@ -1412,7 +1319,7 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <button
                 onClick={handleOpenWhatsAppDirect}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white shadow-xl shadow-emerald-950/60 transition transform active:scale-95"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white shadow-md shadow-emerald-600/20 transition transform active:scale-95 cursor-pointer font-outfit"
               >
                 <Send className="w-4 h-4" />
                 Kirim via WhatsApp (1-Klik)
@@ -1420,11 +1327,11 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
 
               <button
                 onClick={handleCopyToClipboard}
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition cursor-pointer font-outfit"
               >
                 {copiedNotification ? (
                   <>
-                    <Check className="w-4 h-4 text-emerald-400" />
+                    <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     Teks Tersalin!
                   </>
                 ) : (
@@ -1532,6 +1439,171 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
           )}
         </div>
       </div>
+
+      {/* Monograph Catalog Popover / Modal */}
+      {showMonographModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            {/* Modal Header */}
+            <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 bg-slate-50/70 dark:bg-slate-950/50">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-500/20 text-amber-600 dark:text-amber-300 flex items-center justify-center font-bold">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white font-outfit">
+                    Katalog Cepat Monografi Obat (Auto-Fill PIO)
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    Pilih obat untuk langsung mengisi 7 kolom aturan pakai & edukasi pasien secara otomatis
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowMonographModal(false)}
+                className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Search & Category Tabs */}
+            <div className="p-4 border-b border-slate-100 dark:border-slate-800 space-y-3 bg-white dark:bg-slate-900">
+              <div className="relative">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                <input
+                  type="text"
+                  value={pioCategorySearch}
+                  onChange={(e) => setPioCategorySearch(e.target.value)}
+                  placeholder="Cari nama obat, generik, atau indikasi..."
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 shadow-2xs"
+                />
+                {pioCategorySearch && (
+                  <button
+                    type="button"
+                    onClick={() => setPioCategorySearch('')}
+                    className="absolute right-2.5 top-2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Category Tabs */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
+                {PIO_DRUG_CATEGORIES.map((cat) => {
+                  const isActive = selectedPioCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setSelectedPioCategory(cat.id)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1.5 ${
+                        isActive
+                          ? 'bg-emerald-600 text-white shadow-xs'
+                          : 'bg-slate-100 dark:bg-slate-950 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-800'
+                      }`}
+                    >
+                      <span>{cat.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Drug Grid Content */}
+            <div className="p-4 overflow-y-auto max-h-[45vh] space-y-2">
+              {addedToastMessage && (
+                <div className="p-2.5 mb-2 rounded-xl bg-emerald-50 dark:bg-emerald-500/20 border border-emerald-200 dark:border-emerald-500/40 text-emerald-800 dark:text-emerald-300 text-xs font-bold flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span>Obat <strong>"{addedToastMessage}"</strong> berhasil ditambahkan ke daftar pasien!</span>
+                </div>
+              )}
+
+              {(() => {
+                const currentCat = PIO_DRUG_CATEGORIES.find(c => c.id === selectedPioCategory) || PIO_DRUG_CATEGORIES[0];
+                let displayedItems: { name: string; drugObj?: Drug }[] = [];
+
+                if (selectedPioCategory === 'populer') {
+                  displayedItems = POPULAR_PIO_DRUGS
+                    .filter(name => !pioCategorySearch || name.toLowerCase().includes(pioCategorySearch.toLowerCase()))
+                    .map(name => {
+                      const match = (drugs || []).find(d => d.name.toLowerCase().includes(name.toLowerCase()) || (d.genericName && name.toLowerCase().includes(d.genericName.toLowerCase())));
+                      return { name, drugObj: match };
+                    });
+                } else if (selectedPioCategory === 'semua') {
+                  displayedItems = (drugs || [])
+                    .filter(d => !pioCategorySearch || d.name.toLowerCase().includes(pioCategorySearch.toLowerCase()) || (d.genericName && d.genericName.toLowerCase().includes(pioCategorySearch.toLowerCase())))
+                    .slice(0, 50)
+                    .map(d => ({ name: d.name, drugObj: d }));
+                } else {
+                  const kws = currentCat.keywords || [];
+                  displayedItems = (drugs || [])
+                    .filter(d => {
+                      const combined = (d.name + ' ' + (d.genericName || '') + ' ' + (d.category || '')).toLowerCase();
+                      const matchesCat = kws.some(kw => combined.includes(kw));
+                      const matchesSearch = !pioCategorySearch || combined.includes(pioCategorySearch.toLowerCase());
+                      return matchesCat && matchesSearch;
+                    })
+                    .slice(0, 50)
+                    .map(d => ({ name: d.name, drugObj: d }));
+                }
+
+                if (displayedItems.length === 0) {
+                  return (
+                    <div className="py-8 text-center text-xs text-slate-500">
+                      Tidak ditemukan obat monografi yang cocok dengan "{pioCategorySearch}".
+                    </div>
+                  );
+                }
+
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {displayedItems.map((item, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => handleQuickAddPopularDrug(item.name)}
+                        className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-left border border-slate-200 dark:border-slate-800 hover:border-emerald-400 dark:hover:border-emerald-700/60 transition cursor-pointer flex items-center justify-between gap-2 group/card"
+                      >
+                        <div className="min-w-0">
+                          <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover/card:text-emerald-700 dark:group-hover/card:text-emerald-300 block truncate">
+                            {item.name}
+                          </span>
+                          {item.drugObj?.category && (
+                            <span className="text-[10px] text-slate-500 group-hover/card:text-emerald-600 dark:group-hover/card:text-emerald-400/80 block truncate">
+                              {item.drugObj.category}
+                            </span>
+                          )}
+                        </div>
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold bg-slate-200 dark:bg-slate-900 group-hover/card:bg-emerald-600 text-slate-700 dark:text-slate-400 group-hover/card:text-white transition shrink-0">
+                          <Plus className="w-3 h-3" />
+                          Pilih
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                );
+              })()}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950 flex items-center justify-between gap-3 text-xs">
+              <span className="text-slate-500 font-medium">
+                💡 Anda dapat memilih beberapa obat sekaligus.
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowMonographModal(false)}
+                className="px-4 py-1.5 rounded-xl font-bold bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer"
+              >
+                Selesai ({medications.length} Obat di Resep)
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

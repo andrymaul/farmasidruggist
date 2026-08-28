@@ -71,17 +71,20 @@ export const PharmacySopManager: React.FC<PharmacySopManagerProps> = ({
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#143d47] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 print:hidden">
-        <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
+      <div className="bg-gradient-to-r from-slate-900 via-[#131b2e] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-slate-800 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 print:hidden">
+        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
+          <ClipboardList className="w-64 h-64 text-slate-400 -rotate-12" />
+        </div>
+        <div className="space-y-2 max-w-2xl relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700">
             <ClipboardList className="w-4 h-4 text-teal-400" />
             <span>Dokumen Mutu & Akreditasi Kefarmasian Resmi</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Standar Operasional Prosedur (SOP) Farmasi
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+            Standar Operasional Prosedur <span className="text-teal-400">(SOP) Farmasi</span>
           </h1>
-          <p className="text-teal-100/80 text-xs sm:text-sm leading-relaxed font-medium">
+          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
             Kumpulan SOP Pelayanan Kefarmasian resmi berstandar Permenkes No. 73/2016, Permenkes No. 72/2016, CDOB & PerBPOM. Terintegrasi kop instansi siap cetak.
           </p>
         </div>

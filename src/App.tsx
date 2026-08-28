@@ -117,7 +117,7 @@ export default function App() {
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState<boolean>(false);
 
-  const APP_DB_VERSION = 'v2026_mims_drugs_medscape_offlabel_v11';
+  const APP_DB_VERSION = 'v2026_mims_drugs_medscape_offlabel_v12';
 
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>(PRICING_PLANS);
   const [drugs, setDrugs] = useState<Drug[]>(() => {
@@ -801,8 +801,8 @@ export default function App() {
         />
       )}
 
-      {/* Container Utama Aplikasi with Steak11 Inspired Ambient Lights & Exact Logo Colors */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen bg-[#f2f9f9] dark:bg-[#06191c] relative overflow-x-clip transition-colors duration-300">
+      {/* Container Utama Aplikasi with Modern Clinical Obsidian & Clean Slate Theme */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen bg-slate-50 dark:bg-[#090d16] relative overflow-x-clip transition-colors duration-200">
         
         {/* Subtle Ambient Glow Mesh Orbs matching Logo Palette */}
         <div className="fixed top-0 left-1/4 w-96 h-96 bg-[#156d67]/5 dark:bg-[#156d67]/15 rounded-full blur-3xl pointer-events-none -z-10" />

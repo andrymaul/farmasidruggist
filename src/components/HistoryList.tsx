@@ -38,18 +38,25 @@ export const HistoryList: React.FC<HistoryListProps> = ({
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       
-      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 flex items-center gap-2">
-            <History className="w-6 h-6 text-teal-600" />
-            <span>Riwayat Pemeriksaan Resep</span>
+      {/* Header Banner */}
+      <div className="bg-gradient-to-r from-slate-900 via-[#181126] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-purple-500/20 relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
+          <History className="w-64 h-64 text-purple-400 -rotate-12" />
+        </div>
+        <div className="space-y-2 max-w-2xl relative z-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold border border-purple-500/30">
+            <History className="w-3.5 h-3.5" />
+            <span>Cloud Patient Interaction Archive</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+            Riwayat Pemeriksaan <span className="text-purple-400">Resep & Interaksi</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Catatan pemeriksaan interaksi tersimpan {currentUser?.email ? `di akun ${currentUser.email}` : 'pada sesi lokal'}
+          <p className="text-slate-300 text-xs sm:text-sm font-medium">
+            Catatan pemeriksaan interaksi tersimpan {currentUser?.email ? `di akun ${currentUser.email}` : 'pada sesi lokal'}.
           </p>
         </div>
-        <span className="bg-teal-50 text-teal-700 text-xs font-bold px-3 py-1 rounded border border-teal-100">
-          {historyRecords.length} Catatan
+        <span className="bg-purple-500/20 text-purple-300 text-xs font-bold px-3.5 py-1.5 rounded-xl border border-purple-500/30 shrink-0 relative z-10">
+          {historyRecords.length} Catatan Tersimpan
         </span>
       </div>
 

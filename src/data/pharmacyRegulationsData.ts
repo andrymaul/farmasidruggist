@@ -356,5 +356,287 @@ export const PHARMACY_REGULATIONS_DATA: RegulationItem[] = [
       'Tuntutan pidana bagi oknum yang menyalurkan OOT untuk penyalahgunaan jalanan.'
     ],
     notes: 'Ketamin diklasifikasikan sebagai OOT berisiko tinggi penyalahgunaan di fasilitas pelayanan kesehatan.'
+  },
+  {
+    id: 'reg-pmk-72-2016',
+    regNumber: 'Permenkes No. 72 Tahun 2016',
+    title: 'Peraturan Menteri Kesehatan RI No. 72 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Rumah Sakit',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2016,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Pedoman baku penyelenggaraan pelayanan kefarmasian di rumah sakit (tipe A, B, C, dan D) yang mencakup manajemen rantai pasok sediaan farmasi (KFT, Formularium RS, Unit Dose Dispensing / UDD) serta pelayanan farmasi klinis spesifik (visite, pemantauan kadar obat dalam darah / PKOD, dan dispensing sediaan steril).',
+    scope: 'Instalasi Farmasi Rumah Sakit (IFRS), Depo Rawat Inap, Depo Rawat Jalan, Depo Bedah/IGD, Ruang Cleanroom IV Admixture, dan Komite Farmasi dan Terapi (KFT) Rumah Sakit.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 3 - 4',
+        topic: 'Komite Farmasi dan Terapi (KFT) & Formularium Rumah Sakit',
+        content: 'Rumah sakit wajib membentuk Komite Farmasi dan Terapi (KFT) yang bertugas menyusun dan mengevaluasi Formularium Rumah Sakit secara berkala berdasarkan bukti efikasi dan efisiensi biaya (Farmakoekonomi).',
+        clinicalImplication: 'Seluruh dokter DPJP wajib meresepkan obat yang tercantum dalam Formularium Rumah Sakit yang berlaku.'
+      },
+      {
+        articleNumber: 'Bab II - Sistem Distribusi Obat Rawat Inap',
+        topic: 'Unit Dose Dispensing (UDD) & Desentralisasi Pelayanan',
+        content: 'Distribusi obat untuk pasien rawat inap harus menerapkan sistem resep per unit dosis (Unit Dose Dispensing / UDD) yang disiapkan untuk pemakaian 24 jam atau satu kali waktu minum.',
+        clinicalImplication: 'Sistem UDD terbukti menurunkan angka kesalahan pemberian obat (Medication Error) dan menghindari penumpukan obat berlebih di ruang rawat.'
+      },
+      {
+        articleNumber: 'Bab III - Pelayanan Farmasi Klinis Steril',
+        topic: 'Dispensing Sediaan Steril (Aseptic Dispensing, Sitostatika & TPN)',
+        content: 'Pencampuran obat suntik, rekonstitusi sitostatika kemoterapi, dan penyiapan Nutrisi Parenteral Total (TPN) wajib dilakukan secara terpusat di Instalasi Farmasi dengan fasilitas ruang bersih (cleanroom) dan kabinet LAF/BSC.',
+        clinicalImplication: 'Menjamin sterilitas sediaan injeksi dan melindungi petugas kesehatan dari keterpaparan uap obat karsinogenik.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Penurunan predikat akreditasi rumah sakit pada penilaian standar STARKES/KARS (Bab PKPO).',
+      'Teguran tertulis dan sanksi administratif dari Dinas Kesehatan Provinsi / Kementerian Kesehatan.'
+    ],
+    notes: 'Permenkes No. 72/2016 merupakan dasar hukum tertinggi operasional seluruh Apoteker Rumah Sakit di Indonesia.'
+  },
+  {
+    id: 'reg-pmk-14-2021',
+    regNumber: 'Permenkes No. 14 Tahun 2021',
+    title: 'Peraturan Menteri Kesehatan RI No. 14 Tahun 2021 tentang Standar Usaha & Perizinan Berusaha Berbasis Risiko Sektor Kesehatan (OSS-RBA Apotek)',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2021,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Standar perizinan berusaha berbasis risiko terintegrasi sistem Online Single Submission (OSS-RBA) untuk sarana Apotek (KBLI 47721) dan Toko Obat (KBLI 47722), menetapkan persyaratan sarana, prasarana, peralatan kefarmasian, struktur organisasi SDM Apoteker, serta instrumen sertifikat standar.',
+    scope: 'Seluruh pendirian apotek baru, perpanjangan Surat Izin Apotek (SIA), perubahan Apoteker Penanggung Jawab (APJ), dan relokasi sarana apotek di Indonesia.',
+    keyArticles: [
+      {
+        articleNumber: 'Lampiran KBLI 47721 (Apotek)',
+        topic: 'Persyaratan Sarana, Bangunan & Tata Ruang Apotek',
+        content: 'Apotek wajib memiliki ruang penerimaan resep, ruang pelayanan resep dan peracikan, ruang penyerahan obat, ruang konseling khusus privat berpartisi, ruang penyimpanan sediaan farmasi dengan pengatur suhu (AC & chiller), dan ruang arsip dokumen.',
+        clinicalImplication: 'Apotek dilarang beroperasi tanpa ruangan konseling dan tanpa pemantau suhu ruangan yang terkalibrasi.'
+      },
+      {
+        articleNumber: 'Lampiran KBLI 47721 (SDM Apotek)',
+        topic: 'Persyaratan Tenaga Apoteker & Waktu Pelayanan',
+        content: 'Apotek harus dipimpin oleh 1 (satu) orang Apoteker Penanggung Jawab (APJ) berkewarganegaraan Indonesia dengan SIPA aktif. Jika apotek buka 24 jam atau lebih dari 1 shift, wajib didampingi oleh Apoteker Pendamping (Aping) dan/atau Tenaga Vokasi Farmasi.',
+        clinicalImplication: 'Pelayanan obat keras resep hanya boleh berlangsung saat ada Apoteker yang bertugas di tempat.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Penolakan penerbitan Sertifikat Standar Perizinan Apotek pada sistem OSS-RBA.',
+      'Pembekuan sementara izin operasional apotek oleh Dinas Penanaman Modal & Pelayanan Terpadu Satu Pintu (DPMPTSP).'
+    ],
+    notes: 'Permenkes No. 14/2021 menyederhanakan birokrasi izin apotek melalui pengawasan post-audit berbasis matriks risiko.'
+  },
+  {
+    id: 'reg-pp-44-2010',
+    regNumber: 'PP No. 44 Tahun 2010',
+    title: 'Peraturan Pemerintah RI Nomor 44 Tahun 2010 tentang Prekursor',
+    type: 'pp',
+    typeLabel: 'Peraturan Pemerintah (PP)',
+    year: 2010,
+    issuingAuthority: 'Presiden Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Mengatur pengadaan, penyimpanan, peredaran, penyaluran, dan pencatatan zat atau bahan pemula/kimiawi (Prekursor Farmasi) yang dapat digunakan untuk pembuatan Narkotika dan Psikotropika secara ilegal.',
+    scope: 'Industri farmasi, Pedagang Besar Farmasi (PBF), Apotek, Rumah Sakit, Puskesmas, dan Klinik.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 2 - 4 & Lampiran Tabel I',
+        topic: 'Daftar Prekursor Farmasi Tabel I (Zat Aktif Obat Flu/Batuk/Kebidanan)',
+        content: 'Prekursor Tabel I mencakup: Ephedrine, Pseudoephedrine, Norephedrine/Phenylpropanolamine (PPA), Ergometrine, Ergotamine, dan Potassium Permanganate (PK).',
+        clinicalImplication: 'Obat flu/dekongestan yang mengandung Pseudoefedrin atau Efedrin wajib dikelola dengan pengawasan ketat untuk mencegah ekstraksi bahan baku metamfetamin (shabu).'
+      },
+      {
+        articleNumber: 'Pasal 11 - 15',
+        topic: 'Surat Pesanan Khusus & Pelaporan Prekursor',
+        content: 'Pemesanan prekursor farmasi wajib menggunakan Surat Pesanan (SP) Prekursor khusus yang terpisah dan ditandatangani oleh Apoteker Penanggung Jawab dengan mencantumkan nomor SIPA.',
+        clinicalImplication: 'Apoteker bertanggung jawab penuh atas kewajaran jumlah pesanan dan pencegahan kebocoran stok prekursor.'
+      }
+    ],
+    drugListsOrSchedules: [
+      {
+        category: 'Prekursor Farmasi Tabel I (Bahan Obat Resmi)',
+        items: [
+          'Pseudoephedrine HCl (Dekongestan Oral)',
+          'Ephedrine HCl (Bronkodilator / Vasopresor Injeksi)',
+          'Phenylpropanolamine / PPA (Dekongestan)',
+          'Ergometrine Maleate (Uterotonika Pendarahan Kebidanan)',
+          'Ergotamine Tartrate (Antimigrain)',
+          'Potassium Permanganate / PK (Antiseptik Kristal)'
+        ],
+        rules: 'Surat Pesanan Khusus Prekursor Farmasi, kartu stok mutasi realtime, pelaporan SIPNAP rutin bulanan.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Pidana penjara dan denda sesuai UU No. 35/2009 bila prekursor dialihkan untuk pembuatan narkotika ilegal.',
+      'Sanksi administratif berupa penutupan sarana dan pencabutan izin bagi apotek yang menjual prekursor dalam jumlah tidak wajar.'
+    ],
+    notes: 'Penyerahan obat flu bebas terbatas yang mengandung Pseudoephedrine/Ephedrine harus dibatasi kewajaran jumlah pembeliannya.'
+  },
+  {
+    id: 'reg-perbpom-cdob-2020',
+    regNumber: 'PerBPOM No. 6 Tahun 2020',
+    title: 'Peraturan BPOM RI No. 6 Tahun 2020 tentang Perubahan atas PerBPOM No. 9 Tahun 2019 tentang Pedoman Teknis Cara Distribusi Obat yang Baik (CDOB)',
+    type: 'perbpom',
+    typeLabel: 'Peraturan BPOM (PerBPOM)',
+    year: 2020,
+    issuingAuthority: 'Badan Pengawas Obat dan Makanan (BPOM RI)',
+    status: 'Berlaku',
+    summary: 'Standar penjaminan mutu rantai distribusi obat dari industri hingga sarana pelayanan farmasi guna memastikan integritas kualitas, keamanan, dan keabsahan obat tidak terdegradasi selama penyimpanan dan transportasi.',
+    scope: 'Pedagang Besar Farmasi (PBF), Instalasi Farmasi Pemerintah, Gudang Farmasi Rumah Sakit, dan Apotek.',
+    keyArticles: [
+      {
+        articleNumber: 'Bab Manajemen Mutu & Penyimpanan',
+        topic: 'Kontrol Suhu, Kalibrasi Termometer & Validasi Ruangan',
+        content: 'Penyimpanan obat wajib dikelompokkan sesuai bentuk sediaan dan dipantau menggunakan termohigrometer yang terkalibrasi berkala oleh laboratorium terakreditasi KAN.',
+        clinicalImplication: 'Menjamin obat tidak rusak akibat paparan panas, kelembaban ekstrem, atau sinar matahari langsung.'
+      },
+      {
+        articleNumber: 'Aneks Produk Rantai Dingin (Cold Chain Products)',
+        topic: 'Spesifikasi Chiller Vaksin & Cold Chain Monitoring',
+        content: 'Produk termolabil (Vaksin, Insulin, Oksitosin, Imunoglobulin) wajib disimpan pada chiller suhu 2-8°C dengan sistem alarm darurat dan genset otomatis jika terjadi pemadaman listrik.',
+        clinicalImplication: 'Wajib melakukan verifikasi kondisi suhu ice pack dan indikator VVM saat menerima kiriman vaksin dari PBF.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Penerbitan Surat Peringatan Keras (SPK) dari BPOM.',
+      'Penghentian Sementara Kegiatan (PSK) distribusi/pelayanan.',
+      'Pencabutan Sertifikat CDOB dan rekomendasi pencabutan izin PBF/Apotek.'
+    ],
+    notes: 'Standar CDOB wajib dipahami oleh Apoteker yang bertugas di bagian penerimaan logistik gudang farmasi.'
+  },
+  {
+    id: 'reg-pmk-11-2017',
+    regNumber: 'Permenkes No. 11 Tahun 2017',
+    title: 'Peraturan Menteri Kesehatan RI No. 11 Tahun 2017 tentang Keselamatan Pasien (Patient Safety & SKP)',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2017,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Pedoman nasional keselamatan pasien di fasilitas pelayanan kesehatan, mengatur implementasi 6 Sasaran Keselamatan Pasien (SKP) dengan fokus khusus pada Sasaran 3 (Peningkatan Keamanan Obat yang Perlu Diwaspadai / High-Alert Medications) serta sistem pelaporan insiden tanpa rasa takut (*No Blame Culture*).',
+    scope: 'Seluruh Rumah Sakit, Puskesmas, Klinik, dan Apotek di wilayah Indonesia.',
+    keyArticles: [
+      {
+        articleNumber: 'Sasaran 3 - SKP (Sasaran Keselamatan Pasien)',
+        topic: 'Peningkatan Keamanan Obat High Alert & LASA/NORUM',
+        content: 'Fasilitas pelayanan kesehatan wajib menetapkan daftar obat High Alert, memberi stiker penanda khusus (merah untuk High Alert, kuning untuk LASA), menata terpisah di rak, dan menerapkan verifikasi ganda mandiri (independent double check).',
+        clinicalImplication: 'Elektrolit konsentrat tinggi (KCl 7.46%, NaCl 3%) tidak boleh disimpan di ruang perawatan umum kecuali di ICU/Kamar Operasi dengan pengawasan ketat.'
+      },
+      {
+        articleNumber: 'Bab Sistem Pelaporan Insiden Keselamatan Pasien',
+        topic: 'Pelaporan KNC, KTC, KTD & Kejadian Sentinel',
+        content: 'Setiap insiden kesalahan obat (Medication Error) wajib dilaporkan secara tertulis dalam waktu 2x24 jam kepada Komite Keselamatan Pasien untuk dilakukan investigasi grading matriks risiko dan Root Cause Analysis (RCA).',
+        clinicalImplication: 'Pelaporan bertujuan untuk perbaikan sistem prosedur secara berkelanjutan, bukan untuk menghukum staf.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Penurunan tingkat kelulusan akreditasi fasilitas kesehatan.',
+      'Audit investigasi khusus keselamatan pasien oleh Kementerian Kesehatan / Dinas Kesehatan.'
+    ],
+    notes: 'Kewaspadaan obat High Alert dan LASA adalah indikator mutu keselamatan pasien nomor satu di Instalasi Farmasi.'
+  },
+  {
+    id: 'reg-fornas-kmk-2023',
+    regNumber: 'KMK No. HK.01.07/MENKES/2000/2023',
+    title: 'Keputusan Menteri Kesehatan RI tentang Formularium Nasional (FORNAS) BPJS Kesehatan',
+    type: 'permenkes',
+    typeLabel: 'Keputusan Menteri Kesehatan (KMK / FORNAS)',
+    year: 2023,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Daftar obat terpilih yang wajib tersedia dan dijamin pembiayaannya dalam program Jaminan Kesehatan Nasional (JKN/BPJS Kesehatan), menetapkan restriksi indikasi medis, fasilitas peresepan (Faskes 1, 2, atau 3), serta batas maksimal jumlah peresepan per episode pelayanan.',
+    scope: 'Fasilitas Kesehatan Tingkat Pertama (FKTP - Puskesmas/Klinik Pratama) dan Fasilitas Kesehatan Rujukan Tingkat Lanjutan (FKRTL - RS Tipe A, B, C, D) yang bekerjasama dengan BPJS Kesehatan.',
+    keyArticles: [
+      {
+        articleNumber: 'Ketentuan Umum Restriksi Obat FORNAS',
+        topic: 'Kepatuhan Restriksi Indikasi & Kewenangan Peresepan',
+        content: 'Obat yang diresepkan untuk peserta BPJS Kesehatan harus sesuai dengan indikasi medis yang tercantum dalam FORNAS. Peresepan di luar restriksi FORNAS tidak dapat ditagihkan klaimnya ke BPJS.',
+        clinicalImplication: 'Apoteker berperan menyaring resep obat BPJS agar tidak terjadi penolakan klaim (dispute klaim) akibat peresepan obat off-label atau melampaui kuota restriksi.'
+      },
+      {
+        articleNumber: 'Tingkat Fasilitas Pelayanan (Faskes 1 vs Faskes 2/3)',
+        topic: 'Jenjang Kompetensi Penggunaan Obat',
+        content: 'Obat Faskes 1 dapat diresepkan oleh dokter umum di Puskesmas/Klinik (misal Metformin, Amlodipine, Captopril). Obat Faskes 2/3 khusus diresepkan oleh dokter spesialis/subspesialis di rumah sakit rujukan (misal Insulin Analog, Clopidogrel, ARB, Statin poten).',
+        clinicalImplication: 'Menjaga kesinambungan rujukan balik (Program Rujuk Balik / PRB) untuk kestabilan penyakit kronis di faskes primer.'
+      }
+    ],
+    drugListsOrSchedules: [
+      {
+        category: 'Contoh Restriksi Obat FORNAS Penyakit Kronis',
+        items: [
+          'Amlodipine (Hipertensi Faskes 1 - Maks 30 tab/bulan)',
+          'Atorvastatin (Dislipidemia Faskes 2/3 - Pasien PJK / DM pasca infark - Maks 30 tab/bulan)',
+          'Clopidogrel (Pasca Pasang Ring Jantung / Stroke Iskemik Akut - Maks 1 tahun pertama)',
+          'Insulin Glargine / Detemir (DM Tipe 2 gagal terapi oral ganda HbA1c > 8%)'
+        ],
+        rules: 'Wajib mencocokkan diagnosa ICD-10 dan lampiran hasil lab klinis saat verifikasi resep BPJS.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Penolakan klaim pembiayaan obat (klaim unapproved) oleh verifikator BPJS Kesehatan.',
+      'Beban pembiayaan obat menjadi tanggung jawab rumah sakit bila melanggar restriksi FORNAS.'
+    ],
+    notes: 'FORNAS diperbarui secara berkala oleh Komite Nasional Formularium Nasional berbasis Evidence-Based Medicine (EBM).'
+  },
+  {
+    id: 'reg-perbpom-telefarmasi-2020',
+    regNumber: 'PerBPOM No. 8 Tahun 2020 jo No. 32 Tahun 2020',
+    title: 'Peraturan BPOM RI tentang Pengawasan Obat dan Makanan yang Diedarkan Secara Daring (Telefarmasi & E-Pharmacy)',
+    type: 'perbpom',
+    typeLabel: 'Peraturan BPOM (PerBPOM)',
+    year: 2020,
+    issuingAuthority: 'Badan Pengawas Obat dan Makanan (BPOM RI)',
+    status: 'Berlaku',
+    summary: 'Mengatur standar hukum pelayanan kefarmasian berbasis elektronik/daring (Telefarmasi), legalitas sistem elektronik farmasi (PSEF), tata cara penyerahan obat melalui kurir pengantaran, serta daftar obat yang DILARANG KERAS diperjualbelikan secara online.',
+    scope: 'Apotek yang menyelenggarakan layanan pesan-antar obat online, Penyelenggara Sistem Elektronik Farmasi (PSEF), dan platform telemedicine.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 3 - 5',
+        topic: 'Legalitas Sarana Pelayanan Obat Daring (PSEF)',
+        content: 'Penjualan obat secara online hanya boleh dilakukan oleh Apotek resmi yang terdaftar pada sistem Penyelenggara Sistem Elektronik Farmasi (PSEF) Kementerian Kesehatan RI.',
+        clinicalImplication: 'Toko obat atau marketplace non-farmasi dilarang menjual obat keras secara bebas.'
+      },
+      {
+        articleNumber: 'Pasal 27',
+        topic: 'Daftar Obat yang DILARANG Diedarkan Secara Daring',
+        content: 'Apotek dilarang mengedarkan secara daring obat golongan: (1) Narkotika, (2) Psikotropika, (3) Obat-Obat Tertentu (OOT), (4) Obat keras sediaan injeksi/parenteral, (5) Obat keras sediaan implan, dan (6) Obat penggugur kandungan (Mifepriston, Misoprostol).',
+        clinicalImplication: 'Obat narkotika/psikotropika/injeksi hanya boleh dilayani dan diserahkan secara tatap muka fisik di apotek.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Take down (pemblokiran) tautan situs web atau toko online oleh Kementerian Kominfo dan BPOM.',
+      'Pencabutan izin Penyelenggara Sistem Elektronik Farmasi (PSEF) dan Surat Izin Apotek (SIA).'
+    ],
+    notes: 'Pengantaran obat resep online wajib menggunakan wadah tertutup kedap dan segel pengaman berlogo Apotek pengirim.'
+  },
+  {
+    id: 'reg-pmk-generik-2014',
+    regNumber: 'Permenkes No. 28 Tahun 2014 & Permenkes No. 068/2010',
+    title: 'Permenkes tentang Kewajiban Menggunakan Obat Generik di Fasilitas Pelayanan Kesehatan Pemerintah',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2014,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Mewajibkan dokter dan dokter gigi di fasilitas pelayanan kesehatan pemerintah (RSUD, RSUP, Puskesmas) untuk meresepkan Obat Generik Berlogo (OGB) serta memberikan hak substitusi obat generik kepada Apoteker demi keterjangkauan akses obat nasional.',
+    scope: 'Seluruh Rumah Sakit Pemerintah, Puskesmas, Balai Kesehatan, dan Apotek penyedia layanan BPJS.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 4 - 7 (Permenkes 068/2010)',
+        topic: 'Kewajiban Penulisan Resep Generik',
+        content: 'Dokter di faskes pemerintah wajib menuliskan resep dengan nama generik (INN - International Nonproprietary Names). Dilarang menuliskan nama dagang kecuali obat tersebut belum tersedia bentuk generiknya.',
+        clinicalImplication: 'Memastikan efisiensi anggaran belanja obat pemerintah dan keterjangkauan terapi pasien.'
+      },
+      {
+        articleNumber: 'Pasal 8',
+        topic: 'Hak Substitusi Generik oleh Apoteker',
+        content: 'Apoteker berwenang mengganti obat merk dagang yang tertulis pada resep dengan obat generik yang setara secara bioekivalen dengan menginformasikan kepada pasien.',
+        clinicalImplication: 'Mendukung kemandirian klinis Apoteker dalam mengoptimalkan biaya terapi pasien tanpa menurunkan khasiat.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Teguran lisan dan peringatan tertulis dari pimpinan fasilitas kesehatan.',
+      'Sanksi administratif kepegawaian bagi tenaga medis yang menolak meresepkan generik tanpa alasan ilmiah.'
+    ],
+    notes: 'Obat generik wajib memenuhi standar Cara Pembuatan Obat yang Baik (CPOB) dan uji Bioekivalensi (BE) BPOM yang setara dengan obat inovator/paten.'
   }
 ];
+

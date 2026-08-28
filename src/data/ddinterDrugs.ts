@@ -1,6 +1,7 @@
 import { Drug } from '../types';
 import { DRUGSCOM_ADDITIONAL_DRUGS } from './drugsComData';
 import { FORNAS_ADDITIONAL_DRUGS } from './fornasDatabase';
+import { deduplicateDrugs } from '../utils/ddinterEngine';
 
 const BASE_EXTENDED_DRUGS: Drug[] = [
   {
@@ -4743,9 +4744,9 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
   }
 ];
 
-export const EXTENDED_DRUGS_DATABASE: Drug[] = [
+export const EXTENDED_DRUGS_DATABASE: Drug[] = deduplicateDrugs([
   ...BASE_EXTENDED_DRUGS,
   ...DRUGSCOM_ADDITIONAL_DRUGS,
   ...FORNAS_ADDITIONAL_DRUGS
-];
+]);
 

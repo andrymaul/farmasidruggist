@@ -413,22 +413,22 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
     const bmi = Math.round((patient.weightKg / (heightM * heightM)) * 10) / 10;
     
     let status = 'Normal (Ideal)';
-    let color = 'text-emerald-700 bg-emerald-50 border-emerald-200';
+    let color = 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-800';
     if (bmi < 18.5) {
       status = 'Underweight (Kurang Gizi)';
-      color = 'text-blue-700 bg-blue-50 border-blue-200';
+      color = 'text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-800';
     } else if (bmi >= 18.5 && bmi <= 22.9) {
       status = 'Normal (Gizi Baik)';
-      color = 'text-emerald-700 bg-emerald-50 border-emerald-200';
+      color = 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-800';
     } else if (bmi >= 23.0 && bmi <= 24.9) {
       status = 'Overweight (Kelebihan BB)';
-      color = 'text-amber-700 bg-amber-50 border-amber-200';
+      color = 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border-amber-200 dark:border-amber-800';
     } else if (bmi >= 25.0 && bmi <= 29.9) {
       status = 'Obesitas Tingkat 1';
-      color = 'text-rose-700 bg-rose-50 border-rose-200';
+      color = 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60 border-rose-200 dark:border-rose-800';
     } else {
       status = 'Obesitas Tingkat 2 (Morbid)';
-      color = 'text-rose-900 bg-rose-100 border-rose-300';
+      color = 'text-rose-900 dark:text-rose-200 bg-rose-100 dark:bg-rose-950/80 border-rose-300 dark:border-rose-700';
     }
 
     // IBW (Devine formula)
@@ -621,16 +621,16 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
   const polypharmacyStatus = useMemo(() => {
     const count = prescription.length;
     let level: 'Normal' | 'Polifarmasi' | 'Hiperpolifarmasi' = 'Normal';
-    let color = 'bg-emerald-50 border-emerald-200 text-emerald-800';
+    let color = 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200';
     let badge = 'Risiko Rendah';
 
     if (count >= 10) {
       level = 'Hiperpolifarmasi';
-      color = 'bg-rose-50 border-rose-200 text-rose-800';
+      color = 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200';
       badge = '⚠️ Risiko Sangat Tinggi (10+ Obat)';
     } else if (count >= 5) {
       level = 'Polifarmasi';
-      color = 'bg-amber-50 border-amber-200 text-amber-800';
+      color = 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200';
       badge = '⚠️ Polifarmasi (5-9 Obat)';
     }
 
@@ -965,8 +965,8 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
         name: 'PAGI HARI (Sarapan Pagi)',
         timeRange: '06:30 - 08:30',
         icon: Sunrise,
-        color: 'border-amber-300 bg-amber-50/40 text-amber-950',
-        badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
+        color: 'border-amber-300 dark:border-amber-800/80 bg-amber-50/40 dark:bg-amber-950/40 text-amber-950 dark:text-amber-200',
+        badgeColor: 'bg-amber-100 dark:bg-amber-950 text-amber-900 dark:text-amber-200 border-amber-300 dark:border-amber-800',
         drugs: prescription.filter(p => p.preferredTimes.some(t => ['06:00', '06:30', '07:00', '08:00', '08:30', '09:00'].includes(t)))
       },
       {
@@ -974,8 +974,8 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
         name: 'SIANG HARI (Makan Siang)',
         timeRange: '11:30 - 13:30',
         icon: Sun,
-        color: 'border-sky-300 bg-sky-50/40 text-sky-950',
-        badgeColor: 'bg-sky-100 text-sky-900 border-sky-300',
+        color: 'border-sky-300 dark:border-sky-800/80 bg-sky-50/40 dark:bg-sky-950/40 text-sky-950 dark:text-sky-200',
+        badgeColor: 'bg-sky-100 dark:bg-sky-950 text-sky-900 dark:text-sky-200 border-sky-300 dark:border-sky-800',
         drugs: prescription.filter(p => p.preferredTimes.some(t => ['11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00'].includes(t)))
       },
       {
@@ -983,8 +983,8 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
         name: 'SORE / MALAM HARI (Makan Malam)',
         timeRange: '17:30 - 19:30',
         icon: Sunset,
-        color: 'border-indigo-300 bg-indigo-50/40 text-indigo-950',
-        badgeColor: 'bg-indigo-100 text-indigo-900 border-indigo-300',
+        color: 'border-indigo-300 dark:border-indigo-800/80 bg-indigo-50/40 dark:bg-indigo-950/40 text-indigo-950 dark:text-indigo-200',
+        badgeColor: 'bg-indigo-100 dark:bg-indigo-950 text-indigo-900 dark:text-indigo-200 border-indigo-300 dark:border-indigo-800',
         drugs: prescription.filter(p => p.preferredTimes.some(t => ['17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00'].includes(t)))
       },
       {
@@ -992,8 +992,8 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
         name: 'SEBELUM TIDUR MALAM',
         timeRange: '21:00 - 22:30',
         icon: Moon,
-        color: 'border-purple-300 bg-purple-50/40 text-purple-950',
-        badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
+        color: 'border-purple-300 dark:border-purple-800/80 bg-purple-50/40 dark:bg-purple-950/40 text-purple-950 dark:text-purple-200',
+        badgeColor: 'bg-purple-100 dark:bg-purple-950 text-purple-900 dark:text-purple-200 border-purple-300 dark:border-purple-800',
         drugs: prescription.filter(p => p.preferredTimes.some(t => ['21:00', '21:30', '22:00', '22:30', '23:00', '24:00'].includes(t)))
       }
     ];
@@ -1209,17 +1209,22 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
       <div className="space-y-6 print:hidden">
         
         {/* Header Banner */}
-        <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#143d47] relative overflow-hidden">
-          <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="bg-gradient-to-r from-slate-900 via-[#0e172a] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-slate-800 relative overflow-hidden">
+          <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
+            <Stethoscope className="w-64 h-64 text-indigo-400 -rotate-12" />
+          </div>
+          <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
           
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold border border-teal-500/30">
-                <Stethoscope className="w-4 h-4 text-teal-400" />
-                <span>Modul Evaluasi Klinis & Penapisan Polifarmasi 2026</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold border border-indigo-500/30">
+                <Stethoscope className="w-4 h-4 text-indigo-400" />
+                <span>Modul Evaluasi Klinis & Penapisan Polifarmasi</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Evaluasi Klinis & Penapisan Polifarmasi Pasien</h1>
-              <p className="text-teal-100/80 text-xs sm:text-sm leading-relaxed max-w-2xl font-medium">
+              <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+                Evaluasi Klinis & <span className="text-indigo-300">Penapisan Polifarmasi</span> Pasien
+              </h1>
+              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl font-medium">
                 Skrining parameter klinis, evaluasi kecocokan dosis, deteksi bahaya polifarmasi, generator jadwal pemberian obat harian, serta interaksi obat dengan makanan & gaya hidup.
               </p>
             </div>
@@ -1246,27 +1251,27 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
         </div>
 
         {/* Case Presets Quick-Load Bar */}
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <Bookmark className="w-4 h-4 text-teal-600" />
-            <span className="text-xs font-black text-slate-800">Muat Cepat Contoh Kasus Klinis:</span>
+            <Bookmark className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+            <span className="text-xs font-black text-slate-800 dark:text-white">Muat Cepat Contoh Kasus Klinis:</span>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => handleLoadCasePreset('geriatri')}
-              className="px-3 py-1.5 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-900 border border-teal-200 text-xs font-bold transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-xl bg-teal-50 dark:bg-teal-950/50 hover:bg-teal-100 dark:hover:bg-teal-900/60 text-teal-900 dark:text-teal-200 border border-teal-200 dark:border-teal-800 text-xs font-bold transition-colors cursor-pointer"
             >
               🩺 Kasus 1: Geriatri Polifarmasi (6 Obat)
             </button>
             <button
               onClick={() => handleLoadCasePreset('hamil')}
-              className="px-3 py-1.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-pink-900 border border-pink-200 text-xs font-bold transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-xl bg-pink-50 dark:bg-pink-950/50 hover:bg-pink-100 dark:hover:bg-pink-900/60 text-pink-900 dark:text-pink-200 border border-pink-200 dark:border-pink-800 text-xs font-bold transition-colors cursor-pointer"
             >
               🤰 Kasus 2: Kehamilan Trimester 1
             </button>
             <button
               onClick={() => handleLoadCasePreset('cascade')}
-              className="px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 text-xs font-bold transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/50 hover:bg-amber-100 dark:hover:bg-amber-900/60 text-amber-900 dark:text-amber-200 border border-amber-200 dark:border-amber-800 text-xs font-bold transition-colors cursor-pointer"
             >
               ⚠️ Kasus 3: Prescribing Cascade
             </button>
@@ -1277,13 +1282,13 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
           {/* Kolom Kiri (1/3): Parameter Klinis Pasien */}
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-sm">
-                <User className="w-5 h-5 text-teal-600" />
+          <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-5">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <div className="flex items-center gap-2 text-slate-900 dark:text-white font-extrabold text-sm">
+                <User className="w-5 h-5 text-teal-600 dark:text-teal-400" />
                 <span>Parameter Klinis Pasien</span>
               </div>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
                 Profil Pasien
               </span>
             </div>
@@ -1291,36 +1296,36 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
             <div className="space-y-4 text-xs">
               {/* Identitas Pasien */}
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Nama Pasien</label>
+                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Nama Pasien</label>
                 <input
                   type="text"
                   value={patient.name}
                   onChange={(e) => setPatient({ ...patient, name: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none bg-white dark:bg-slate-950"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Usia (Tahun)</label>
+                  <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Usia (Tahun)</label>
                   <input
                     type="number"
                     value={patient.age}
                     onChange={(e) => setPatient({ ...patient, age: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none bg-white dark:bg-slate-950"
                   />
                   {patient.age >= 65 && (
-                    <span className="text-[9px] font-black text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200 mt-1 inline-block">
+                    <span className="text-[9px] font-black text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60 px-1.5 py-0.5 rounded border border-rose-200 dark:border-rose-800 mt-1 inline-block">
                       👴 Pasien Geriatri (≥65 th)
                     </span>
                   )}
                 </div>
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Jenis Kelamin</label>
+                  <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Jenis Kelamin</label>
                   <select
                     value={patient.gender}
                     onChange={(e) => setPatient({ ...patient, gender: e.target.value as any })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none bg-white"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none bg-white dark:bg-slate-950"
                   >
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
@@ -1330,51 +1335,51 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Berat Badan (kg)</label>
+                  <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Berat Badan (kg)</label>
                   <input
                     type="number"
                     value={patient.weightKg}
                     onChange={(e) => setPatient({ ...patient, weightKg: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none bg-white dark:bg-slate-950"
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Tinggi Badan (cm)</label>
+                  <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Tinggi Badan (cm)</label>
                   <input
                     type="number"
                     value={patient.heightCm}
                     onChange={(e) => setPatient({ ...patient, heightCm: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-teal-500 focus:outline-none bg-white dark:bg-slate-950"
                   />
                 </div>
               </div>
 
               {/* Box Kalkulasi IMT / BMI & Berat Badan Ideal (IBW / ABW) */}
               {bmiDetails.bmi > 0 && (
-                <div className="p-3 bg-teal-50/70 rounded-2xl border border-teal-200 space-y-1.5">
+                <div className="p-3 bg-teal-50/70 dark:bg-teal-950/40 rounded-2xl border border-teal-200 dark:border-teal-800 space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-800 text-[11px]">Indeks Massa Tubuh (IMT):</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-200 text-[11px]">Indeks Massa Tubuh (IMT):</span>
                     <span className={`text-[10px] font-black px-2 py-0.5 rounded-md border ${bmiDetails.color}`}>
                       {bmiDetails.bmi} kg/m² • {bmiDetails.status}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-[10px] text-slate-600 pt-0.5 border-t border-teal-200/60">
-                    <span>Berat Badan Ideal (IBW): <strong>{bmiDetails.ibw} kg</strong></span>
+                  <div className="flex items-center justify-between text-[10px] text-slate-600 dark:text-slate-400 pt-0.5 border-t border-teal-200/60 dark:border-teal-800">
+                    <span>Berat Badan Ideal (IBW): <strong className="text-slate-900 dark:text-white">{bmiDetails.ibw} kg</strong></span>
                     {patient.weightKg > bmiDetails.ibw && (
-                      <span>Adjusted BW (ABW): <strong>{bmiDetails.abw} kg</strong></span>
+                      <span>Adjusted BW (ABW): <strong className="text-slate-900 dark:text-white">{bmiDetails.abw} kg</strong></span>
                     )}
                   </div>
                 </div>
               )}
 
               {/* FITUR RIWAYAT ALERGI OBAT SPESIFIK & ALERGI SILANG */}
-              <div className="p-3 bg-rose-50/50 rounded-2xl border border-rose-200 space-y-2">
+              <div className="p-3 bg-rose-50/50 dark:bg-rose-950/30 rounded-2xl border border-rose-200 dark:border-rose-900/60 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-rose-950 text-xs flex items-center gap-1.5">
-                    <AlertCircle className="w-4 h-4 text-rose-600" />
+                  <span className="font-bold text-rose-950 dark:text-rose-200 text-xs flex items-center gap-1.5">
+                    <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400" />
                     <span>Riwayat Alergi Obat Spesifik</span>
                   </span>
-                  <span className="text-[10px] font-black text-rose-700">
+                  <span className="text-[10px] font-black text-rose-700 dark:text-rose-300">
                     {patient.allergies?.length || 0} Terpilih
                   </span>
                 </div>
@@ -1390,11 +1395,11 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                         className={`p-2 rounded-xl text-[10.5px] font-bold text-left transition-all flex items-center justify-between border cursor-pointer ${
                           isSelected
                             ? 'bg-rose-600 text-white border-rose-600 shadow-2xs'
-                            : 'bg-white text-slate-700 border-slate-200 hover:border-rose-300'
+                            : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-800 hover:border-rose-300'
                         }`}
                       >
                         <span className="truncate pr-1">{alg}</span>
-                        {isSelected ? <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" /> : <span className="text-slate-300">+</span>}
+                        {isSelected ? <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" /> : <span className="text-slate-300 dark:text-slate-600">+</span>}
                       </button>
                     );
                   })}
@@ -1402,7 +1407,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
               </div>
 
               {/* Fitur ON / OFF Penyesuaian Fungsi Ginjal & Kalkulator Cockcroft-Gault */}
-              <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+              <div className="p-3 bg-slate-50 dark:bg-slate-950/60 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-slate-800 text-xs flex items-center gap-1.5">
                     <Activity className="w-4 h-4 text-teal-600" />
@@ -1792,27 +1797,27 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
             <div className={`p-6 rounded-3xl border ${polypharmacyStatus.color} shadow-xs space-y-3`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <ShieldAlert className="w-6 h-6" />
-                  <h3 className="text-base font-extrabold">Evaluasi Risiko Polifarmasi & Klinis</h3>
+                  <ShieldAlert className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Evaluasi Risiko Polifarmasi & Klinis</h3>
                 </div>
                 <div className="flex items-center gap-2">
                   {polypharmacyStatus.totalAcbScore > 0 && (
                     <span className={`px-2.5 py-1 rounded-full text-[11px] font-black border ${
                       polypharmacyStatus.totalAcbScore >= 3 
-                        ? 'bg-purple-100 text-purple-900 border-purple-300' 
-                        : 'bg-white text-slate-700 border-slate-200'
+                        ? 'bg-purple-100 dark:bg-purple-950 text-purple-900 dark:text-purple-200 border-purple-300 dark:border-purple-700' 
+                        : 'bg-purple-50 dark:bg-purple-950/80 text-purple-800 dark:text-purple-200 border-purple-200 dark:border-purple-800'
                     }`}>
                       Skor ACB: {polypharmacyStatus.totalAcbScore}
                     </span>
                   )}
-                  <span className="px-3 py-1 rounded-full text-xs font-black bg-white shadow-2xs border">
+                  <span className="px-3 py-1 rounded-full text-xs font-black bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 shadow-2xs border border-slate-200 dark:border-slate-700">
                     {polypharmacyStatus.badge}
                   </span>
                 </div>
               </div>
 
-              <p className="text-xs leading-relaxed font-medium">
-                Pasien saat ini mengonsumsi <strong>{polypharmacyStatus.count} macam obat</strong>. 
+              <p className="text-xs leading-relaxed font-medium text-slate-700 dark:text-slate-300">
+                Pasien saat ini mengonsumsi <strong className="text-slate-900 dark:text-white">{polypharmacyStatus.count} macam obat</strong>. 
                 {polypharmacyStatus.count >= 5 && ' Perlu dilakukan pemantauan ketat terhadap efek samping interaksi obat dan kepatuhan minum obat.'}
               </p>
 
@@ -1826,76 +1831,76 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                 polypharmacyStatus.renalAlerts.length > 0 || 
                 polypharmacyStatus.prescribingCascades.length > 0 ||
                 polypharmacyStatus.acbAlert) && (
-                <div className="space-y-1.5 pt-2 border-t border-slate-200/60 text-xs">
+                <div className="space-y-1.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-xs">
                   
                   {/* ALERGI OBAT & ALERGI SILANG (BAHAYA TINGGI - MERAH MENYALA) */}
                   {polypharmacyStatus.allergyAlerts.map((alt, idx) => (
-                    <div key={idx} className="flex items-start gap-1.5 text-rose-950 font-black bg-rose-100 p-2.5 rounded-xl border-2 border-rose-500 shadow-sm animate-pulse">
-                      <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-1.5 text-rose-950 dark:text-rose-200 font-black bg-rose-100 dark:bg-rose-950/70 p-2.5 rounded-xl border-2 border-rose-500 shadow-sm animate-pulse">
+                      <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
                       <span>{alt}</span>
                     </div>
                   ))}
 
                   {/* KONTRAINDIKASI KOMORBIDITAS KHUSUS */}
                   {polypharmacyStatus.comorbidityAlerts.map((alt, idx) => (
-                    <div key={idx} className="flex items-start gap-1.5 text-amber-950 font-bold bg-amber-100/90 p-2.5 rounded-xl border border-amber-400 shadow-2xs">
-                      <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-1.5 text-amber-950 dark:text-amber-200 font-bold bg-amber-100/90 dark:bg-amber-950/60 p-2.5 rounded-xl border border-amber-400 dark:border-amber-700 shadow-2xs">
+                      <AlertTriangle className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
                       <span>{alt}</span>
                     </div>
                   ))}
 
                   {/* HASIL LAB & TANDA VITAL KRITIS */}
                   {polypharmacyStatus.labAlerts.map((alt, idx) => (
-                    <div key={idx} className="flex items-start gap-1.5 text-rose-950 font-bold bg-rose-50 p-2.5 rounded-xl border border-rose-300 shadow-2xs">
-                      <Activity className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-1.5 text-rose-950 dark:text-rose-200 font-bold bg-rose-50 dark:bg-rose-950/60 p-2.5 rounded-xl border border-rose-300 dark:border-rose-800 shadow-2xs">
+                      <Activity className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
                       <span>{alt}</span>
                     </div>
                   ))}
 
                   {/* Kehamilan */}
                   {polypharmacyStatus.pregnancyAlerts.map((alt, idx) => (
-                    <div key={idx} className="flex items-start gap-1.5 text-rose-950 font-bold bg-white/80 p-2.5 rounded-xl border border-rose-300 shadow-2xs">
-                      <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-1.5 text-rose-950 dark:text-rose-200 font-bold bg-rose-50/90 dark:bg-rose-950/60 p-2.5 rounded-xl border border-rose-300 dark:border-rose-800 shadow-2xs">
+                      <AlertTriangle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
                       <span>{alt}</span>
                     </div>
                   ))}
 
                   {/* Hepar */}
                   {polypharmacyStatus.hepaticAlerts.map((alt, idx) => (
-                    <div key={idx} className="flex items-start gap-1.5 text-amber-950 font-bold bg-white/80 p-2.5 rounded-xl border border-amber-300 shadow-2xs">
-                      <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-1.5 text-amber-950 dark:text-amber-200 font-bold bg-amber-50/90 dark:bg-amber-950/60 p-2.5 rounded-xl border border-amber-300 dark:border-amber-800 shadow-2xs">
+                      <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                       <span>{alt}</span>
                     </div>
                   ))}
 
                   {/* Beers Criteria 2023 Lansia */}
                   {polypharmacyStatus.elderlyAlerts.map((alt, idx) => (
-                    <div key={idx} className="flex items-start gap-1.5 text-rose-950 font-bold bg-white/80 p-2 rounded-xl border border-rose-200">
-                      <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-1.5 text-rose-950 dark:text-rose-200 font-bold bg-rose-50/90 dark:bg-rose-950/60 p-2 rounded-xl border border-rose-200 dark:border-rose-800">
+                      <AlertTriangle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
                       <span>{alt}</span>
                     </div>
                   ))}
 
                   {/* Beban Antikolinergik ACB */}
                   {polypharmacyStatus.acbAlert && (
-                    <div className="flex items-start gap-1.5 text-purple-950 font-bold bg-purple-50 p-2.5 rounded-xl border border-purple-200">
-                      <ShieldAlert className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
+                    <div className="flex items-start gap-1.5 text-purple-950 dark:text-purple-200 font-bold bg-purple-50/90 dark:bg-purple-950/60 p-2.5 rounded-xl border border-purple-200 dark:border-purple-800">
+                      <ShieldAlert className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />
                       <span>{polypharmacyStatus.acbAlert}</span>
                     </div>
                   )}
 
                   {/* Prescribing Cascades */}
                   {polypharmacyStatus.prescribingCascades.map((alt, idx) => (
-                    <div key={idx} className="flex items-start gap-1.5 text-indigo-950 font-bold bg-indigo-50/90 p-2.5 rounded-xl border border-indigo-200">
-                      <RotateCcw className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-1.5 text-indigo-950 dark:text-indigo-200 font-bold bg-indigo-50/90 dark:bg-indigo-950/60 p-2.5 rounded-xl border border-indigo-200 dark:border-indigo-800">
+                      <RotateCcw className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
                       <span>{alt}</span>
                     </div>
                   ))}
 
                   {/* Ginjal */}
                   {polypharmacyStatus.renalAlerts.map((alt, idx) => (
-                    <div key={idx} className="flex items-start gap-1.5 text-amber-950 font-bold bg-white/70 p-2 rounded-xl border border-amber-200">
-                      <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-1.5 text-amber-950 dark:text-amber-200 font-bold bg-amber-50/90 dark:bg-amber-950/60 p-2.5 rounded-xl border border-amber-300 dark:border-amber-800">
+                      <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                       <span>{alt}</span>
                     </div>
                   ))}
@@ -1904,31 +1909,31 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
             </div>
 
             {/* Form Tambah Obat & Daftar Resep Pasien */}
-            <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <div className="flex items-center gap-2 text-slate-900 font-extrabold text-sm">
-                  <Pill className="w-5 h-5 text-teal-600" />
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div className="flex items-center gap-2 text-slate-900 dark:text-white font-extrabold text-sm">
+                  <Pill className="w-5 h-5 text-teal-600 dark:text-teal-400" />
                   <span>Resep / Daftar Obat Pasien</span>
                 </div>
-                <span className="text-xs font-bold text-slate-500">
+                <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
                   Total: {prescription.length} Obat
                 </span>
               </div>
 
               {/* Input Form Tambah Obat */}
-              <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3 text-xs">
+              <div className="bg-slate-50 dark:bg-slate-950/70 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3 text-xs">
                 
                 {/* Search Bar Obat Cepat & Kategori Chips */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="font-bold text-slate-700 block text-xs">
+                    <label className="font-bold text-slate-700 dark:text-slate-300 block text-xs">
                       🔍 Cari & Pilih Nama Obat ({filteredDrugsList.length} Ditemukan)
                     </label>
                     {drugSearchTerm && (
                       <button
                         type="button"
                         onClick={() => setDrugSearchTerm('')}
-                        className="text-[10px] text-rose-600 hover:underline font-bold cursor-pointer"
+                        className="text-[10px] text-rose-600 dark:text-rose-400 hover:underline font-bold cursor-pointer"
                       >
                         Reset Filter
                       </button>
@@ -1945,7 +1950,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                         className={`px-2.5 py-1 rounded-lg font-bold shrink-0 transition-colors cursor-pointer ${
                           selectedCategoryFilter === cat
                             ? 'bg-teal-700 text-white shadow-2xs'
-                            : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
+                            : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                         }`}
                       >
                         {cat}
@@ -1955,7 +1960,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
 
                   {/* Search Input with Live Suggestions Dropdown */}
                   <div className="relative">
-                    <Search className="w-4 h-4 text-teal-600 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <Search className="w-4 h-4 text-teal-600 dark:text-teal-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       type="text"
                       placeholder="Ketik nama obat (misal: Omeprazole, Kalsium, Amlodipine, Metformin)..."
@@ -1975,13 +1980,13 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                           setIsManualDoseInput(false);
                         }
                       }}
-                      className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-slate-300 font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 bg-white shadow-xs text-xs"
+                      className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 bg-white dark:bg-slate-950 shadow-xs text-xs"
                     />
                     {drugSearchTerm && (
                       <button
                         type="button"
                         onClick={() => setDrugSearchTerm('')}
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 cursor-pointer font-bold"
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 p-0.5 cursor-pointer font-bold"
                       >
                         ✕
                       </button>
@@ -1989,8 +1994,8 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
 
                     {/* Floating Suggestion Popover */}
                     {isDrugDropdownOpen && filteredDrugsList.length > 0 && (
-                      <div className="absolute left-0 right-0 top-full mt-1.5 bg-white rounded-2xl border border-teal-500/40 shadow-2xl z-50 max-h-64 overflow-y-auto p-1.5 space-y-1">
-                        <div className="px-2 py-1 text-[10px] font-bold text-slate-400 border-b border-slate-100 flex items-center justify-between">
+                      <div className="absolute left-0 right-0 top-full mt-1.5 bg-white dark:bg-slate-900 rounded-2xl border border-teal-500/40 shadow-2xl z-50 max-h-64 overflow-y-auto p-1.5 space-y-1">
+                        <div className="px-2 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
                           <span>Hasil Pencarian ({filteredDrugsList.length} Obat):</span>
                           <span>Klik obat untuk memilih</span>
                         </div>
@@ -2009,25 +2014,25 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                               }}
                               className={`w-full text-left p-2 rounded-xl transition-all flex items-center justify-between gap-2 cursor-pointer ${
                                 isSelected
-                                  ? 'bg-teal-500 text-white font-bold'
-                                  : 'hover:bg-teal-50 text-slate-800'
+                                  ? 'bg-teal-600 text-white font-bold'
+                                  : 'hover:bg-teal-50 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200'
                               }`}
                             >
                               <div className="space-y-0.5">
                                 <div className="flex items-center gap-1.5">
                                   <span className="font-extrabold text-xs">{d.name}</span>
                                   <span className={`text-[9px] px-1.5 py-0.2 rounded font-semibold ${
-                                    isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
+                                    isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                                   }`}>
                                     {d.genericName}
                                   </span>
                                 </div>
-                                <span className={`text-[10px] block ${isSelected ? 'text-teal-100' : 'text-slate-500'}`}>
+                                <span className={`text-[10px] block ${isSelected ? 'text-teal-100' : 'text-slate-500 dark:text-slate-400'}`}>
                                   {d.category} {profile ? `• Dosis: ${profile.defaultStrength} • ${profile.defaultTiming}` : ''}
                                 </span>
                               </div>
                               <span className={`text-[10px] font-bold px-2 py-0.5 rounded-lg shrink-0 ${
-                                isSelected ? 'bg-white text-teal-900' : 'bg-teal-100 text-teal-800'
+                                isSelected ? 'bg-white text-teal-900' : 'bg-teal-100 dark:bg-teal-950 text-teal-800 dark:text-teal-300'
                               }`}>
                                 Pilih
                               </span>
@@ -2041,15 +2046,15 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
 
                 {/* Status Obat Aktif Terpilih */}
                 {currentDrug && (
-                  <div className="p-2.5 rounded-xl bg-teal-100/60 border border-teal-300 text-[11px] flex items-center justify-between gap-2">
+                  <div className="p-2.5 rounded-xl bg-teal-50 dark:bg-teal-950/60 border border-teal-300 dark:border-teal-700/60 text-[11px] flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <span className="p-1 rounded-lg bg-teal-600 text-white">
                         <Pill className="w-3.5 h-3.5" />
                       </span>
                       <div>
-                        <span className="font-extrabold text-teal-950">{currentDrug.name}</span>
-                        <span className="text-teal-800 font-medium"> ({currentDrug.genericName})</span>
-                        <span className="text-teal-700 font-bold block text-[10px]">Golongan: {currentDrug.category}</span>
+                        <span className="font-extrabold text-teal-950 dark:text-teal-200">{currentDrug.name}</span>
+                        <span className="text-teal-800 dark:text-teal-300 font-medium"> ({currentDrug.genericName})</span>
+                        <span className="text-teal-700 dark:text-teal-400 font-bold block text-[10px]">Golongan: {currentDrug.category}</span>
                       </div>
                     </div>
                     <span className="px-2 py-0.5 rounded-md bg-teal-700 text-white text-[10px] font-black shrink-0">
@@ -2062,11 +2067,11 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                   {/* Dosis Sediaan Disesuaikan Presisi (Dropdown / Custom Input) */}
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="font-bold text-slate-700 block">Dosis Sediaan Obat</label>
+                      <label className="font-bold text-slate-700 dark:text-slate-300 block">Dosis Sediaan Obat</label>
                       <button
                         type="button"
                         onClick={() => setIsManualDoseInput(!isManualDoseInput)}
-                        className="text-[10px] text-teal-700 font-bold hover:underline flex items-center gap-0.5 cursor-pointer"
+                        className="text-[10px] text-teal-700 dark:text-teal-400 font-bold hover:underline flex items-center gap-0.5 cursor-pointer"
                       >
                         <Edit3 className="w-3 h-3" />
                         <span>{isManualDoseInput ? 'Pilihan' : 'Ketik Manual'}</span>
@@ -2077,7 +2082,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                       <select
                         value={customDose}
                         onChange={(e) => setCustomDose(e.target.value)}
-                        className="w-full px-3 py-2 rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 bg-white"
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-teal-500 bg-white dark:bg-slate-950"
                       >
                         {availableDosages.map((ds, idx) => (
                           <option key={idx} value={ds}>{ds}</option>
@@ -2089,18 +2094,18 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                         value={customDose}
                         onChange={(e) => setCustomDose(e.target.value)}
                         placeholder="misal: 500 mg"
-                        className="w-full px-3 py-2 rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 bg-white"
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-teal-500 bg-white dark:bg-slate-950"
                       />
                     )}
                   </div>
 
                   {/* Frekuensi Dropdown */}
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Frekuensi Pemberian</label>
+                    <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Frekuensi Pemberian</label>
                     <select
                       value={customFreqLabel}
                       onChange={(e) => setCustomFreqLabel(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 bg-white text-[11px]"
+                      className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-teal-500 bg-white dark:bg-slate-950 text-[11px]"
                     >
                       {FREQUENCY_OPTIONS.map((f, idx) => (
                         <option key={idx} value={f.label}>{f.label}</option>
@@ -2110,11 +2115,11 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
 
                   {/* Waktu Minum Terhadap Makanan */}
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Waktu Minum Terhadap Makanan</label>
+                    <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Waktu Minum Terhadap Makanan</label>
                     <select
                       value={customTiming}
                       onChange={(e) => setCustomTiming(e.target.value as any)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200 font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 bg-white"
+                      className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-teal-500 bg-white dark:bg-slate-950"
                     >
                       <option value="Sesudah Makan">Sesudah Makan</option>
                       <option value="Sebelum Makan">Sebelum Makan (30-60 menit)</option>
@@ -2137,10 +2142,10 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
 
                 {/* Banner Rekomendasi Otomatis Klinis (Auto-Fill Insight) */}
                 {clinicalAutoHint && (
-                  <div className="p-2.5 rounded-xl bg-teal-50/80 border border-teal-200 text-[11px] text-teal-950 font-medium flex items-start gap-2">
-                    <Sparkles className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
+                  <div className="p-2.5 rounded-xl bg-teal-50/80 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800/80 text-[11px] text-teal-950 dark:text-teal-200 font-medium flex items-start gap-2">
+                    <Sparkles className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5" />
                     <div>
-                      <span className="font-bold text-teal-900">💡 Rekomendasi Otomatis Farmakoterapi: </span>
+                      <span className="font-bold text-teal-900 dark:text-teal-300">💡 Rekomendasi Otomatis Farmakoterapi: </span>
                       <span>{clinicalAutoHint}</span>
                     </div>
                   </div>
@@ -2150,25 +2155,25 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
               {/* List Resep Pasien */}
               <div className="space-y-2.5 text-xs">
                 {prescription.map((p, idx) => (
-                  <div key={p.id} className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-teal-300 flex items-center justify-between gap-3 shadow-2xs transition-all">
+                  <div key={p.id} className="p-3.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-teal-300 dark:hover:border-teal-500/50 flex items-center justify-between gap-3 shadow-2xs transition-all">
                     <div className="flex items-center gap-3">
-                      <span className="w-7 h-7 rounded-xl bg-teal-100 text-teal-800 font-black flex items-center justify-center text-xs shrink-0">
+                      <span className="w-7 h-7 rounded-xl bg-teal-100 dark:bg-teal-950 text-teal-800 dark:text-teal-300 font-black flex items-center justify-center text-xs shrink-0">
                         {idx + 1}
                       </span>
                       <div>
-                        <h4 className="font-extrabold text-slate-900 text-sm">{p.drug.name}</h4>
-                        <p className="text-slate-500 text-[11px]">
+                        <h4 className="font-extrabold text-slate-900 dark:text-white text-sm">{p.drug.name}</h4>
+                        <p className="text-slate-500 dark:text-slate-400 text-[11px]">
                           Generik: {p.drug.genericName} • Golongan: {p.drug.category}
                         </p>
                         <div className="flex flex-wrap items-center gap-2 pt-1">
-                          <span className="bg-slate-100 font-bold text-slate-700 px-2 py-0.5 rounded-md text-[10px]">
+                          <span className="bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-200 px-2 py-0.5 rounded-md text-[10px]">
                             Dosis: {p.dose}
                           </span>
-                          <span className="bg-teal-50 text-teal-800 border border-teal-200 font-bold px-2 py-0.5 rounded-md text-[10px]">
+                          <span className="bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-800 font-bold px-2 py-0.5 rounded-md text-[10px]">
                             {p.frequency}
                           </span>
-                          <span className="bg-amber-50 font-bold text-amber-800 border border-amber-200 px-2 py-0.5 rounded-md text-[10px] flex items-center gap-1">
-                            <Utensils className="w-3 h-3 text-amber-600" />
+                          <span className="bg-amber-50 dark:bg-amber-950/60 font-bold text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 px-2 py-0.5 rounded-md text-[10px] flex items-center gap-1">
+                            <Utensils className="w-3 h-3 text-amber-600 dark:text-amber-400" />
                             <span>{p.foodTiming}</span>
                           </span>
                         </div>
@@ -2177,7 +2182,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
 
                     <button
                       onClick={() => handleRemoveDrug(p.id)}
-                      className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors shrink-0 cursor-pointer"
+                      className="p-2 text-slate-400 dark:text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 rounded-xl transition-colors shrink-0 cursor-pointer"
                       title="Hapus dari resep"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -2192,28 +2197,28 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
         </div>
 
         {/* SECTION: Generator Jadwal & Waktu Pemberian Obat Harian */}
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-5">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-5">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
             <div>
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-base">
-                <Clock className="w-5 h-5 text-teal-600" />
+              <div className="flex items-center gap-2 text-slate-900 dark:text-white font-extrabold text-base">
+                <Clock className="w-5 h-5 text-teal-600 dark:text-teal-400" />
                 <span>Generator Jadwal & Waktu Pemberian Obat Harian (24 Jam Harmonized)</span>
               </div>
-              <p className="text-xs text-slate-500 font-medium mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
                 Harmonisasi jadwal minum obat presisi disesuaikan dengan waktu makan (Sebelum/Bersama/Sesudah Makan & Sebelum Tidur).
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
               {/* Tab Selector Mode Tampilan */}
-              <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
+              <div className="flex items-center bg-slate-100 dark:bg-slate-950 p-1 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-bold">
                 <button
                   type="button"
                   onClick={() => setScheduleViewMode('meal')}
                   className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
                     scheduleViewMode === 'meal'
                       ? 'bg-teal-700 text-white shadow-2xs'
-                      : 'text-slate-600 hover:text-slate-900'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   🍱 Waktu Makan (Paling Disukai Pasien)
@@ -2224,7 +2229,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                   className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
                     scheduleViewMode === 'timeline'
                       ? 'bg-teal-700 text-white shadow-2xs'
-                      : 'text-slate-600 hover:text-slate-900'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   ⏰ Garis Waktu 24 Jam
@@ -2235,7 +2240,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                   className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
                     scheduleViewMode === 'table'
                       ? 'bg-teal-700 text-white shadow-2xs'
-                      : 'text-slate-600 hover:text-slate-900'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   📋 Tabel Etiket
@@ -2283,10 +2288,10 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                   >
                     <div>
                       {/* Header Periode */}
-                      <div className="flex items-center justify-between border-b border-slate-200/80 pb-2.5">
-                        <div className="flex items-center gap-2 font-black text-slate-900 text-sm">
-                          <span className="p-1.5 rounded-xl bg-white shadow-2xs border border-slate-200">
-                            <IconComp className="w-4 h-4 text-teal-700" />
+                      <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-2.5">
+                        <div className="flex items-center gap-2 font-black text-slate-900 dark:text-white text-sm">
+                          <span className="p-1.5 rounded-xl bg-white dark:bg-slate-900 shadow-2xs border border-slate-200 dark:border-slate-800">
+                            <IconComp className="w-4 h-4 text-teal-700 dark:text-teal-400" />
                           </span>
                           <span className="truncate">{cluster.name.split(' ')[0]}</span>
                         </div>
@@ -2301,14 +2306,14 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                           cluster.drugs.map((d) => (
                             <div 
                               key={d.id} 
-                              className="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs space-y-1.5 hover:border-teal-400 transition-all"
+                              className="bg-white dark:bg-slate-900 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xs space-y-1.5 hover:border-teal-400 dark:hover:border-teal-500/50 transition-all"
                             >
                               <div className="flex items-start justify-between gap-1">
                                 <div>
-                                  <h4 className="font-extrabold text-slate-900 text-xs">{d.drug.name}</h4>
-                                  <p className="text-[10px] text-slate-500">{d.drug.genericName}</p>
+                                  <h4 className="font-extrabold text-slate-900 dark:text-white text-xs">{d.drug.name}</h4>
+                                  <p className="text-[10px] text-slate-500 dark:text-slate-400">{d.drug.genericName}</p>
                                 </div>
-                                <span className="bg-slate-100 font-black text-slate-800 text-[10px] px-1.5 py-0.5 rounded-md shrink-0">
+                                <span className="bg-slate-100 dark:bg-slate-800 font-black text-slate-800 dark:text-slate-200 text-[10px] px-1.5 py-0.5 rounded-md shrink-0">
                                   {d.dose}
                                 </span>
                               </div>
@@ -2316,22 +2321,22 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                               <div className="flex flex-wrap items-center gap-1.5 pt-1">
                                 <span className={`text-[9.5px] font-bold px-2 py-0.5 rounded-lg border ${
                                   d.foodTiming === 'Sebelum Makan' || d.foodTiming === 'Perut Kosong'
-                                    ? 'bg-amber-50 text-amber-900 border-amber-300'
+                                    ? 'bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 border-amber-300 dark:border-amber-800'
                                     : d.foodTiming === 'Bersama Makanan'
-                                    ? 'bg-emerald-50 text-emerald-900 border-emerald-300'
-                                    : 'bg-teal-50 text-teal-900 border-teal-200'
+                                    ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-900 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800'
+                                    : 'bg-teal-50 dark:bg-teal-950/60 text-teal-900 dark:text-teal-300 border-teal-200 dark:border-teal-800'
                                 }`}>
                                   🍽️ {d.foodTiming}
                                 </span>
 
-                                <span className="text-[9.5px] font-bold px-1.5 py-0.5 rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
+                                <span className="text-[9.5px] font-bold px-1.5 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                                   ⏰ Jam: {d.preferredTimes.join(', ')}
                                 </span>
                               </div>
                             </div>
                           ))
                         ) : (
-                          <div className="py-8 text-center text-slate-400 italic text-xs">
+                          <div className="py-8 text-center text-slate-400 dark:text-slate-500 italic text-xs">
                             <span className="block mb-1">🌿</span>
                             Tidak ada obat pada waktu ini
                           </div>
@@ -2339,9 +2344,9 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                       </div>
                     </div>
 
-                    <div className="pt-2 text-[10px] text-slate-500 font-semibold border-t border-slate-200/60 flex items-center justify-between">
+                    <div className="pt-2 text-[10px] text-slate-500 dark:text-slate-400 font-semibold border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between">
                       <span>Total Obat:</span>
-                      <span className="font-black text-slate-800">{cluster.drugs.length} Obat</span>
+                      <span className="font-black text-slate-800 dark:text-slate-200">{cluster.drugs.length} Obat</span>
                     </div>
                   </div>
                 );
@@ -2355,14 +2360,14 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
               {scheduleTimeline.map((slot, idx) => {
                 const IconComp = slot.icon;
                 return (
-                  <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2 flex flex-col justify-between">
+                  <div key={idx} className="bg-slate-50 dark:bg-slate-950/70 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2 flex flex-col justify-between">
                     <div>
-                      <div className="flex items-center justify-between pb-2 border-b border-slate-200/80">
-                        <div className="flex items-center gap-1.5 font-black text-slate-900 text-sm">
-                          <IconComp className="w-4 h-4 text-teal-600" />
+                      <div className="flex items-center justify-between pb-2 border-b border-slate-200/80 dark:border-slate-800">
+                        <div className="flex items-center gap-1.5 font-black text-slate-900 dark:text-white text-sm">
+                          <IconComp className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                           <span>{slot.time}</span>
                         </div>
-                        <span className="text-[10px] font-bold text-slate-500 truncate max-w-[120px]" title={slot.label}>
+                        <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 truncate max-w-[120px]" title={slot.label}>
                           {slot.label}
                         </span>
                       </div>
@@ -2370,16 +2375,16 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                       <div className="space-y-2 pt-2">
                         {slot.drugs.length > 0 ? (
                           slot.drugs.map((d) => (
-                            <div key={d.id} className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs space-y-1">
-                              <p className="font-extrabold text-slate-900">{d.drug.name}</p>
-                              <p className="text-[10px] font-semibold text-slate-600">{d.dose}</p>
-                              <span className="inline-block text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200">
+                            <div key={d.id} className="bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs space-y-1">
+                              <p className="font-extrabold text-slate-900 dark:text-white">{d.drug.name}</p>
+                              <p className="text-[10px] font-semibold text-slate-600 dark:text-slate-300">{d.dose}</p>
+                              <span className="inline-block text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                                 {d.foodTiming}
                               </span>
                             </div>
                           ))
                         ) : (
-                          <p className="text-[11px] text-slate-400 italic text-center py-4">
+                          <p className="text-[11px] text-slate-400 dark:text-slate-500 italic text-center py-4">
                             Bebas obat pada jam ini
                           </p>
                         )}
@@ -2393,20 +2398,20 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
 
           {/* TAMPILAN 3: TABEL ETIKET & JADWAL PASIEN */}
           {scheduleViewMode === 'table' && (
-            <div className="overflow-x-auto rounded-2xl border border-slate-200">
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
               <table className="w-full text-xs text-left border-collapse">
                 <thead>
-                  <tr className="bg-teal-700 text-white font-bold">
-                    <th className="p-3 border-r border-teal-800">Nama Obat</th>
-                    <th className="p-3 border-r border-teal-800 text-center">Dosis</th>
-                    <th className="p-3 border-r border-teal-800 text-center">Aturan Makan</th>
-                    <th className="p-3 border-r border-teal-800 text-center bg-amber-600/60">Pagi (07:00-08:00)</th>
-                    <th className="p-3 border-r border-teal-800 text-center bg-sky-600/60">Siang (12:00-13:00)</th>
-                    <th className="p-3 border-r border-teal-800 text-center bg-indigo-600/60">Malam (18:30-19:30)</th>
-                    <th className="p-3 text-center bg-purple-700">Sebelum Tidur (21:00)</th>
+                  <tr className="bg-teal-700 dark:bg-teal-900 text-white font-bold">
+                    <th className="p-3 border-r border-teal-800 dark:border-teal-950">Nama Obat</th>
+                    <th className="p-3 border-r border-teal-800 dark:border-teal-950 text-center">Dosis</th>
+                    <th className="p-3 border-r border-teal-800 dark:border-teal-950 text-center">Aturan Makan</th>
+                    <th className="p-3 border-r border-teal-800 dark:border-teal-950 text-center bg-amber-600/60 dark:bg-amber-900/60">Pagi (07:00-08:00)</th>
+                    <th className="p-3 border-r border-teal-800 dark:border-teal-950 text-center bg-sky-600/60 dark:bg-sky-900/60">Siang (12:00-13:00)</th>
+                    <th className="p-3 border-r border-teal-800 dark:border-teal-950 text-center bg-indigo-600/60 dark:bg-indigo-900/60">Malam (18:30-19:30)</th>
+                    <th className="p-3 text-center bg-purple-700 dark:bg-purple-900">Sebelum Tidur (21:00)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200 bg-white font-semibold">
+                <tbody className="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900 font-semibold">
                   {prescription.map((p) => {
                     const isPagi = p.preferredTimes.some(t => ['06:00', '06:30', '07:00', '08:00', '08:30'].includes(t));
                     const isSiang = p.preferredTimes.some(t => ['11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00'].includes(t));
@@ -2414,51 +2419,51 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                     const isTidur = p.preferredTimes.some(t => ['21:00', '21:30', '22:00', '22:30', '23:00', '24:00'].includes(t));
 
                     return (
-                      <tr key={p.id} className="hover:bg-teal-50/50">
-                        <td className="p-3 border-r border-slate-100">
-                          <span className="font-extrabold text-slate-900 block">{p.drug.name}</span>
-                          <span className="text-[10px] text-slate-500">{p.drug.genericName}</span>
+                      <tr key={p.id} className="hover:bg-teal-50/50 dark:hover:bg-slate-800/60">
+                        <td className="p-3 border-r border-slate-100 dark:border-slate-800">
+                          <span className="font-extrabold text-slate-900 dark:text-white block">{p.drug.name}</span>
+                          <span className="text-[10px] text-slate-500 dark:text-slate-400">{p.drug.genericName}</span>
                         </td>
-                        <td className="p-3 border-r border-slate-100 text-center font-bold text-slate-700">{p.dose}</td>
-                        <td className="p-3 border-r border-slate-100 text-center">
-                          <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200 text-[10px] font-bold">
+                        <td className="p-3 border-r border-slate-100 dark:border-slate-800 text-center font-bold text-slate-700 dark:text-slate-200">{p.dose}</td>
+                        <td className="p-3 border-r border-slate-100 dark:border-slate-800 text-center">
+                          <span className="px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-[10px] font-bold">
                             {p.foodTiming}
                           </span>
                         </td>
-                        <td className="p-3 border-r border-slate-100 text-center">
+                        <td className="p-3 border-r border-slate-100 dark:border-slate-800 text-center">
                           {isPagi ? (
-                            <span className="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 font-black text-xs">
+                            <span className="px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-900 dark:text-amber-200 font-black text-xs border border-amber-300 dark:border-amber-800">
                               ✅ Minum
                             </span>
                           ) : (
-                            <span className="text-slate-300">-</span>
+                            <span className="text-slate-300 dark:text-slate-600">-</span>
                           )}
                         </td>
-                        <td className="p-3 border-r border-slate-100 text-center">
+                        <td className="p-3 border-r border-slate-100 dark:border-slate-800 text-center">
                           {isSiang ? (
-                            <span className="px-2.5 py-1 rounded-full bg-sky-100 text-sky-900 font-black text-xs">
+                            <span className="px-2.5 py-1 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-900 dark:text-sky-200 font-black text-xs border border-sky-300 dark:border-sky-800">
                               ✅ Minum
                             </span>
                           ) : (
-                            <span className="text-slate-300">-</span>
+                            <span className="text-slate-300 dark:text-slate-600">-</span>
                           )}
                         </td>
-                        <td className="p-3 border-r border-slate-100 text-center">
+                        <td className="p-3 border-r border-slate-100 dark:border-slate-800 text-center">
                           {isMalam ? (
-                            <span className="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-900 font-black text-xs">
+                            <span className="px-2.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-900 dark:text-indigo-200 font-black text-xs border border-indigo-300 dark:border-indigo-800">
                               ✅ Minum
                             </span>
                           ) : (
-                            <span className="text-slate-300">-</span>
+                            <span className="text-slate-300 dark:text-slate-600">-</span>
                           )}
                         </td>
                         <td className="p-3 text-center">
                           {isTidur ? (
-                            <span className="px-2.5 py-1 rounded-full bg-purple-100 text-purple-900 font-black text-xs">
+                            <span className="px-2.5 py-1 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-900 dark:text-purple-200 font-black text-xs border border-purple-300 dark:border-purple-800">
                               ✅ Minum
                             </span>
                           ) : (
-                            <span className="text-slate-300">-</span>
+                            <span className="text-slate-300 dark:text-slate-600">-</span>
                           )}
                         </td>
                       </tr>
@@ -2471,13 +2476,13 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
         </div>
 
         {/* SECTION: Interaksi Obat dengan Makanan, Minuman & Gaya Hidup */}
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-            <div className="flex items-center gap-2 text-slate-900 font-extrabold text-sm">
-              <Utensils className="w-5 h-5 text-amber-600" />
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div className="flex items-center gap-2 text-slate-900 dark:text-white font-extrabold text-sm">
+              <Utensils className="w-5 h-5 text-amber-600 dark:text-amber-400" />
               <span>Interaksi Obat dengan Makanan, Minuman & Gaya Hidup</span>
             </div>
-            <span className="text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+            <span className="text-xs font-bold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-2.5 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
               Penyesuaian Nutrisi Pasien
             </span>
           </div>
@@ -2485,34 +2490,34 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
           {lifestyleInteractions.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
               {lifestyleInteractions.map((item, idx) => (
-                <div key={idx} className="bg-amber-50/60 p-4 rounded-2xl border border-amber-200 space-y-2">
+                <div key={idx} className="bg-amber-50/60 dark:bg-amber-950/40 p-4 rounded-2xl border border-amber-200 dark:border-amber-800/80 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-extrabold text-slate-900 text-sm">{item.drugName}</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200">
+                    <span className="font-extrabold text-slate-900 dark:text-white text-sm">{item.drugName}</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
                       Kategori: {item.category}
                     </span>
                   </div>
-                  <p className="text-amber-950 font-medium leading-relaxed">
+                  <p className="text-amber-950 dark:text-amber-200 font-medium leading-relaxed">
                     {item.note}
                   </p>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center text-slate-500 text-xs italic">
+            <div className="bg-slate-50 dark:bg-slate-950/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center text-slate-500 dark:text-slate-400 text-xs italic">
               Tidak ditemukan bahaya interaksi obat spesifik dengan makanan/minuman/rokok untuk resep saat ini.
             </div>
           )}
         </div>
 
         {/* SECTION: Interaksi Antar Obat (Drug-Drug Interactions) */}
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-            <div className="flex items-center gap-2 text-slate-900 font-extrabold text-sm">
-              <ShieldAlert className="w-5 h-5 text-rose-600" />
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div className="flex items-center gap-2 text-slate-900 dark:text-white font-extrabold text-sm">
+              <ShieldAlert className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               <span>Deteksi Interaksi Antar Obat (Drug-Drug Interactions)</span>
             </div>
-            <span className="text-xs font-bold text-rose-800 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200">
+            <span className="text-xs font-bold text-rose-800 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60 px-2.5 py-0.5 rounded-full border border-rose-200 dark:border-rose-800">
               {matchedDrugInteractions.length} Interaksi Terdeteksi
             </span>
           </div>
@@ -2520,23 +2525,23 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
           {matchedDrugInteractions.length > 0 ? (
             <div className="space-y-3 text-xs">
               {matchedDrugInteractions.map((inter, idx) => (
-                <div key={idx} className="p-4 bg-rose-50/60 rounded-2xl border border-rose-200 space-y-1.5">
+                <div key={idx} className="p-4 bg-rose-50/60 dark:bg-rose-950/40 rounded-2xl border border-rose-200 dark:border-rose-800/80 space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <div className="font-extrabold text-rose-950 text-sm">
+                    <div className="font-extrabold text-rose-950 dark:text-rose-200 text-sm">
                       {inter.drugA} ↔ {inter.drugB}
                     </div>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-200 text-rose-900">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-200 dark:bg-rose-900 text-rose-900 dark:text-rose-100">
                       Tingkat Keparahan: {inter.severity}
                     </span>
                   </div>
-                  <p className="text-rose-900 font-medium leading-relaxed">
+                  <p className="text-rose-900 dark:text-rose-300 font-medium leading-relaxed">
                     {inter.description}
                   </p>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center text-emerald-700 font-bold text-xs">
+            <div className="bg-slate-50 dark:bg-slate-950/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center text-emerald-700 dark:text-emerald-400 font-bold text-xs">
               ✅ Tidak terdeteksi kontraindikasi / interaksi obat berbahaya antar obat yang ada dalam resep ini.
             </div>
           )}

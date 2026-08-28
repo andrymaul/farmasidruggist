@@ -25,10 +25,10 @@ import {
   Stethoscope,
   RefreshCw, 
   ClipboardList, 
-  Scale,
-  HeartPulse,
-  Baby,
-  Syringe,
+  Scale, 
+  HeartPulse, 
+  Baby, 
+  Syringe, 
   MessageSquare
 } from 'lucide-react';
 
@@ -60,15 +60,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
     ? [
         { id: 'dashboard', label: 'Dashboard', icon: Sparkles },
         { id: 'drugs', label: 'Informasi Obat', icon: Pill },
-        { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman' },
-        { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru' },
-        { id: 'interactions', label: 'Cek Interaksi', icon: ShieldAlert, badge: 'Klinis' },
-        { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp', icon: MessageSquare, badge: 'Pasien' },
-        { id: 'iv-compatibility', label: 'Kompatibilitas Injeksi IV', icon: Syringe, badge: 'IV/ICU' },
-        { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer' },
-        { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap' },
-        { id: 'sop', label: 'SOP Farmasi', icon: ClipboardList, badge: 'Resmi' },
-        { id: 'regulations', label: 'Regulasi Farmasi', icon: Scale, badge: 'Hukum' },
+        { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman', badgeColor: 'bg-blue-600 text-white' },
+        { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru', badgeColor: 'bg-indigo-600 text-white' },
+        { id: 'interactions', label: 'Cek Interaksi', icon: ShieldAlert, badge: 'Klinis', badgeColor: 'bg-emerald-600 text-white' },
+        { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp', icon: MessageSquare, badge: 'Pasien', badgeColor: 'bg-teal-600 text-white' },
+        { id: 'iv-compatibility', label: 'Kompatibilitas Injeksi IV', icon: Syringe, badge: 'IV/ICU', badgeColor: 'bg-cyan-600 text-white' },
+        { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer', badgeColor: 'bg-rose-500 text-white' },
+        { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap', badgeColor: 'bg-violet-600 text-white' },
+        { id: 'sop', label: 'SOP Farmasi', icon: ClipboardList, badge: 'Resmi', badgeColor: 'bg-slate-700 dark:bg-slate-600 text-white' },
+        { id: 'regulations', label: 'Regulasi Farmasi', icon: Scale, badge: 'Hukum', badgeColor: 'bg-amber-600 text-white' },
         { id: 'usage', label: 'Penggunaan Obat', icon: BookOpen },
         { id: 'history', label: 'Riwayat Cek', icon: History },
         { id: 'pricing', label: 'Harga Layanan', icon: CreditCard },
@@ -76,14 +76,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
     : [
         { id: 'landing', label: 'Beranda', icon: Sparkles },
         { id: 'drugs', label: 'Katalog Obat', icon: Pill },
-        { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman' },
-        { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru' },
-        { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp', icon: MessageSquare, badge: 'Pasien' },
-        { id: 'iv-compatibility', label: 'Kompatibilitas Injeksi IV', icon: Syringe, badge: 'IV/ICU' },
-        { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer' },
-        { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap' },
-        { id: 'sop', label: 'SOP Farmasi', icon: ClipboardList, badge: 'Resmi' },
-        { id: 'regulations', label: 'Regulasi Farmasi', icon: Scale, badge: 'Hukum' },
+        { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman', badgeColor: 'bg-blue-600 text-white' },
+        { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru', badgeColor: 'bg-indigo-600 text-white' },
+        { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp', icon: MessageSquare, badge: 'Pasien', badgeColor: 'bg-teal-600 text-white' },
+        { id: 'iv-compatibility', label: 'Kompatibilitas Injeksi IV', icon: Syringe, badge: 'IV/ICU', badgeColor: 'bg-cyan-600 text-white' },
+        { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer', badgeColor: 'bg-rose-500 text-white' },
+        { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap', badgeColor: 'bg-violet-600 text-white' },
+        { id: 'sop', label: 'SOP Farmasi', icon: ClipboardList, badge: 'Resmi', badgeColor: 'bg-slate-700 dark:bg-slate-600 text-white' },
+        { id: 'regulations', label: 'Regulasi Farmasi', icon: Scale, badge: 'Hukum', badgeColor: 'bg-amber-600 text-white' },
         { id: 'usage', label: 'Penggunaan Obat', icon: BookOpen },
         { id: 'pricing', label: 'Harga Layanan', icon: CreditCard }
       ];
@@ -108,9 +108,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-white/95 dark:bg-[#071c21]/95 backdrop-blur-xl text-slate-800 dark:text-slate-200 border-r border-slate-200/80 dark:border-teal-500/20 shadow-xl transition-all duration-300">
+    <div className="flex flex-col h-full bg-white dark:bg-[#0b0f19] text-slate-800 dark:text-slate-200 border-r border-slate-200 dark:border-slate-800/90 shadow-sm transition-all duration-300">
       {/* Sidebar Header / Logo */}
-      <div className={`p-4 flex items-center justify-between border-b border-slate-100 dark:border-teal-500/20 bg-slate-50/80 dark:bg-[#051418]/80 ${collapsed ? 'px-3 justify-center' : 'px-5'}`}>
+      <div className={`p-4 flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 bg-slate-50/70 dark:bg-[#0e1320]/70 ${collapsed ? 'px-3 justify-center' : 'px-5'}`}>
         {!collapsed && (
           <button 
             onClick={() => handleTabClick(currentUser ? 'dashboard' : 'landing')}
@@ -132,7 +132,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Desktop Collapse Toggle Button */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="hidden md:flex items-center justify-center p-1.5 rounded-xl text-slate-400 dark:text-teal-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#0e3742] transition-colors cursor-pointer"
+          className="hidden md:flex items-center justify-center p-1.5 rounded-xl text-slate-400 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
           title={collapsed ? 'Perluas Sidebar' : 'Ciutkan Sidebar'}
         >
           {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
@@ -142,7 +142,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Main Navigation Links */}
       <div className="flex-1 overflow-y-auto py-4 px-3 space-y-4 custom-scrollbar">
         <div className="space-y-1">
-          <div className={`text-[10px] font-extrabold tracking-wider text-teal-700 dark:text-teal-400 uppercase mb-2 font-outfit ${collapsed ? 'text-center' : 'px-3'}`}>
+          <div className={`text-[10px] font-extrabold tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-2 font-outfit ${collapsed ? 'text-center' : 'px-3'}`}>
             {collapsed ? '•••' : 'Menu Utama & PIO'}
           </div>
           
@@ -157,12 +157,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 title={collapsed ? item.label : undefined}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all duration-150 group relative cursor-pointer font-outfit ${
                   isActive
-                    ? 'btn-teal-gradient shadow-[0_4px_18px_rgba(20,184,166,0.35)] border border-teal-300/40 scale-[1.02]'
-                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100/90 dark:hover:bg-[#0c2f37] hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-600 dark:to-cyan-600 text-white shadow-md shadow-teal-500/20 scale-[1.01]'
+                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white'
                 } ${collapsed ? 'justify-center px-2' : ''}`}
               >
                 <Icon className={`w-4 h-4 flex-shrink-0 transition-transform group-hover:scale-110 ${
-                  isActive ? 'text-white' : 'text-[#0f766e] dark:text-teal-400 group-hover:text-teal-600 dark:group-hover:text-teal-300'
+                  isActive ? 'text-white' : 'text-slate-400 dark:text-slate-400 group-hover:text-teal-600 dark:group-hover:text-teal-300'
                 }`} />
                 
                 {!collapsed && (
@@ -170,19 +170,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 )}
 
                 {!collapsed && item.badge && (
-                  <span className={`text-[9px] font-black px-1.5 py-0.5 rounded shadow-xs ${
-                    item.badge === 'Baru' ? 'bg-indigo-500 text-white' :
-                    item.badge === 'AI' ? 'bg-purple-500 text-white' :
-                    item.badge === 'Dosis' ? 'bg-amber-400 text-slate-950' :
-                    'bg-teal-400 text-slate-950'
-                  }`}>
+                  <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded shadow-2xs ${item.badgeColor || 'bg-teal-500 text-white'}`}>
                     {item.badge}
                   </span>
                 )}
 
                 {/* Tooltip on Collapsed Mode */}
                 {collapsed && (
-                  <div className="absolute left-full ml-2 px-2.5 py-1 bg-slate-900 dark:bg-[#061c21] text-white text-xs rounded-md border border-slate-700 dark:border-teal-500/30 shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity z-50 whitespace-nowrap">
+                  <div className="absolute left-full ml-2 px-2.5 py-1 bg-slate-900 text-white text-xs rounded-md border border-slate-700 shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity z-50 whitespace-nowrap">
                     {item.label}
                   </div>
                 )}
@@ -193,7 +188,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Admin Nav Section */}
         {adminNavItems.length > 0 && (
-          <div className="space-y-1 pt-3 border-t border-slate-100 dark:border-teal-500/20">
+          <div className="space-y-1 pt-3 border-t border-slate-100 dark:border-slate-800/80">
             <div className={`text-[10px] font-extrabold tracking-wider text-amber-600 dark:text-amber-400 uppercase mb-2 font-outfit ${collapsed ? 'text-center' : 'px-3'}`}>
               {collapsed ? '⚙️' : 'Panel Admin & Konfigurasi'}
             </div>
@@ -208,12 +203,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   title={collapsed ? item.label : undefined}
                   className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-150 group relative cursor-pointer font-outfit ${
                     isActive
-                      ? 'btn-amber-gradient shadow-[0_4px_18px_rgba(245,158,11,0.35)] border border-amber-300 scale-[1.02]'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-amber-50 dark:hover:bg-amber-950/40 hover:text-amber-900 dark:hover:text-amber-300'
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-md shadow-amber-500/20 scale-[1.01]'
+                      : 'text-slate-600 dark:text-slate-300 hover:bg-amber-50 dark:hover:bg-amber-950/30 hover:text-amber-900 dark:hover:text-amber-300'
                   } ${collapsed ? 'justify-center px-2' : ''}`}
                 >
                   <Icon className={`w-4 h-4 flex-shrink-0 transition-transform group-hover:scale-110 ${
-                    isActive ? 'text-slate-950' : 'text-amber-600 dark:text-amber-400 group-hover:text-amber-700 dark:group-hover:text-amber-300'
+                    isActive ? 'text-white' : 'text-amber-500 group-hover:text-amber-600'
                   }`} />
                   
                   {!collapsed && (
@@ -222,7 +217,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                   {/* Tooltip on Collapsed Mode */}
                   {collapsed && (
-                    <div className="absolute left-full ml-2 px-2.5 py-1 bg-slate-900 dark:bg-[#061c21] text-amber-300 text-xs rounded-md border border-amber-900/60 shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity z-50 whitespace-nowrap">
+                    <div className="absolute left-full ml-2 px-2.5 py-1 bg-slate-900 text-amber-300 text-xs rounded-md border border-amber-900/60 shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity z-50 whitespace-nowrap">
                       {item.label}
                     </div>
                   )}
@@ -234,9 +229,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Footer / User Profile Section */}
-      <div className="p-3 border-t border-slate-100 dark:border-teal-500/20 bg-slate-50/80 dark:bg-[#051418]/80">
+      <div className="p-3 border-t border-slate-100 dark:border-slate-800/80 bg-slate-50/70 dark:bg-[#0e1320]/70">
         {currentUser ? (
-          <div className={`flex items-center gap-3 p-2.5 rounded-2xl bg-white/90 dark:bg-[#0c2f37]/90 border border-slate-200/90 dark:border-teal-500/30 shadow-md ${collapsed ? 'justify-center p-2' : ''}`}>
+          <div className={`flex items-center gap-3 p-2.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs ${collapsed ? 'justify-center p-2' : ''}`}>
             <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-teal-600 to-cyan-500 text-white font-black font-outfit flex items-center justify-center flex-shrink-0 shadow-xs">
               {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U'}
             </div>
@@ -252,7 +247,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       Admin
                     </span>
                   ) : (
-                    <span className="bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300 text-[9px] px-1.5 py-0.5 rounded font-bold font-outfit">
+                    <span className="bg-teal-50 dark:bg-teal-950/50 text-teal-700 dark:text-teal-300 text-[9px] px-1.5 py-0.5 rounded font-bold font-outfit border border-teal-200/60 dark:border-teal-800/50">
                       {currentUser.subscriptionPlan || 'Customer'}
                     </span>
                   )}
@@ -263,8 +258,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {!collapsed && (
               <button
                 onClick={onLogout}
-                title="Keluar Akun"
-                className="text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl p-2 transition-colors cursor-pointer ml-auto"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+                title="Keluar / Logout"
               >
                 <LogOut className="w-4 h-4" />
               </button>
@@ -272,30 +267,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         ) : (
           <div className="space-y-2">
-            {!collapsed ? (
-              <>
-                <button
-                  onClick={onOpenAuthModal}
-                  className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-bold text-teal-900 dark:text-teal-200 bg-teal-50 dark:bg-[#0a2f38] rounded-xl border border-teal-200 dark:border-teal-700/60 hover:bg-teal-100 dark:hover:bg-[#0e3c47] transition-colors cursor-pointer font-outfit"
-                >
-                  <LogIn className="w-3.5 h-3.5" />
-                  Masuk Akun
-                </button>
-                <button
-                  onClick={onOpenPricingModal}
-                  className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl hover:from-amber-300 hover:to-amber-400 shadow-md transition-all cursor-pointer font-outfit"
-                >
-                  <Sparkles className="w-3.5 h-3.5 fill-slate-950" />
-                  Berlangganan
-                </button>
-              </>
-            ) : (
+            <button
+              onClick={onOpenAuthModal}
+              className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white shadow-md transition cursor-pointer font-outfit ${collapsed ? 'justify-center px-2' : ''}`}
+            >
+              <LogIn className="w-4 h-4" />
+              {!collapsed && <span>Masuk / Login</span>}
+            </button>
+            
+            {!collapsed && (
               <button
-                onClick={onOpenAuthModal}
-                className="w-full p-2.5 flex justify-center text-teal-600 dark:text-teal-400 hover:bg-slate-100 dark:hover:bg-[#0c2f37] rounded-xl cursor-pointer"
-                title="Masuk Akun"
+                onClick={onOpenPricingModal}
+                className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 hover:bg-amber-100 transition cursor-pointer font-outfit"
               >
-                <LogIn className="w-5 h-5" />
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                <span>Langganan Pro</span>
               </button>
             )}
           </div>
@@ -306,30 +292,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
-      {/* Desktop Sidebar (Fixed) */}
-      <aside className={`hidden md:block print:hidden h-screen sticky top-0 z-30 transition-all duration-300 flex-shrink-0 ${
-        collapsed ? 'w-20' : 'w-64'
-      }`}>
+      {/* Desktop Sidebar */}
+      <aside className={`hidden md:block flex-shrink-0 h-screen sticky top-0 z-30 transition-all duration-300 ${collapsed ? 'w-20' : 'w-64'}`}>
         {sidebarContent}
       </aside>
 
-      {/* Mobile Drawer Backdrop & Menu */}
+      {/* Mobile Drawer Overlay */}
       {mobileOpen && (
-        <div className="md:hidden print:hidden fixed inset-0 z-50 flex">
-          {/* Backdrop */}
+        <div className="fixed inset-0 z-50 md:hidden flex">
           <div 
-            className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs transition-opacity animate-in fade-in"
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileOpen(false)}
           />
-
-          {/* Drawer Content */}
-          <div className="relative flex-1 max-w-xs w-full h-full z-10 animate-in slide-in-from-left duration-200">
-            <button
-              onClick={() => setMobileOpen(false)}
-              className="absolute top-3 right-3 p-1.5 text-slate-400 hover:text-white bg-slate-800 dark:bg-[#061c21] rounded-full z-20 border border-slate-700 dark:border-[#143d47] cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
+          <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white dark:bg-[#0b0f19] z-50">
+            <div className="absolute top-2 right-2 z-50">
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-white bg-slate-100 dark:bg-slate-800"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
             {sidebarContent}
           </div>
         </div>

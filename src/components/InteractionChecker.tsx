@@ -244,6 +244,31 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       title: 'PDE-5 & Nitrat (Hipotensi Fatal)',
       desc: 'Sildenafil + Isosorbide Dinitrate',
       drugNames: ['Sildenafil', 'Isosorbide Dinitrate']
+    },
+    {
+      title: 'Clopidogrel & PPI (CYP2C19)',
+      desc: 'Clopidogrel + Lansoprazole',
+      drugNames: ['Clopidogrel', 'Lansoprazole']
+    },
+    {
+      title: 'Teofilin & Kuinolon (CYP1A2)',
+      desc: 'Theophylline + Ciprofloxacin',
+      drugNames: ['Theophylline', 'Ciprofloxacin']
+    },
+    {
+      title: 'Lithium & NSAID (Toksisitas Ginjal)',
+      desc: 'Lithium Carbonate + Diclofenac Sodium',
+      drugNames: ['Lithium Carbonate', 'Diclofenac Sodium']
+    },
+    {
+      title: 'Amlodipine & Makrolida (CYP3A4 AKI)',
+      desc: 'Amlodipine + Clarithromycin',
+      drugNames: ['Amlodipine', 'Clarithromycin']
+    },
+    {
+      title: 'Incretin & Sulfonilurea (Hipoglikemia)',
+      desc: 'Semaglutide + Glibenclamide',
+      drugNames: ['Semaglutide', 'Glibenclamide']
     }
   ];
 
@@ -274,18 +299,21 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   return (
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 print:hidden">
       
-      {/* Dark Teal Banner */}
-      <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-2xl p-6 sm:p-8 text-white shadow-xl border border-[#143d47]">
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-1.5 bg-[#0a2f38] px-3 py-1 rounded-full text-[11px] font-black text-amber-300 uppercase tracking-wider border border-teal-500/30">
+      {/* Dark Obsidian & Rose/Teal Banner */}
+      <div className="bg-gradient-to-r from-slate-900 via-[#1a0f1d] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-rose-500/20 relative overflow-hidden">
+        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
+          <ShieldAlert className="w-64 h-64 text-rose-400 -rotate-12" />
+        </div>
+        <div className="space-y-3 relative z-10 max-w-3xl">
+          <div className="inline-flex items-center gap-1.5 bg-rose-500/20 px-3.5 py-1 rounded-full text-xs font-bold text-rose-300 uppercase tracking-wider border border-rose-500/30">
             <ShieldAlert className="w-3.5 h-3.5" />
             <span>Multi-Drug & Food Interaction Engine</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-            Analisis Interaksi Obat <span className="text-teal-300">Terintegrasi</span>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+            Analisis Interaksi Obat <span className="text-rose-400">Terintegrasi</span>
           </h1>
-          <p className="text-teal-100/80 text-xs sm:text-sm leading-relaxed max-w-3xl font-medium">
+          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
             Pilih 2 obat atau lebih untuk menganalisis risiko interaksi obat-obat (DDI), interaksi makanan/minuman (DFI), serta duplikasi terapi berdasarkan database klinis terpercaya.
           </p>
         </div>

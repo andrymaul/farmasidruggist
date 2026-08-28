@@ -283,55 +283,60 @@ ${guideline.keyClinicalAlert || '-'}`;
   return (
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
-      {/* Header Banner - Dark Teal Gradient with Rich Aesthetics */}
-      <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#143d47] relative overflow-hidden">
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-        
-        <div className="relative z-10 space-y-3">
-          <div className="inline-flex items-center gap-2 bg-[#0a2f38] px-3.5 py-1.5 rounded-full text-xs font-black text-teal-300 uppercase tracking-wider border border-teal-500/30">
-            <BookOpen className="w-4 h-4 text-teal-400" />
+      {/* Header Banner - Modern Deep Obsidian & Clinical Blue/Teal Palette */}
+      <div className="bg-gradient-to-r from-slate-900 via-[#0e172a] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-slate-800 relative overflow-hidden space-y-5">
+        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
+          <HeartPulse className="w-64 h-64 text-teal-400 -rotate-12" />
+        </div>
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/3 -mb-16 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 space-y-3 max-w-4xl">
+          <div className="inline-flex items-center gap-2 bg-blue-500/20 px-3.5 py-1 rounded-full text-xs font-bold text-blue-300 border border-blue-500/30">
+            <BookOpen className="w-4 h-4 text-blue-400" />
             <span>Pedoman Nasional Pelayanan Kedokteran (PNPK) & Konsensus Spesialis RI</span>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white">
-                Panduan Terapi <span className="text-teal-300">Penyakit Klinis Indonesia</span>
-              </h1>
-              <p className="text-teal-100/80 text-xs sm:text-sm leading-relaxed max-w-3xl font-medium mt-1">
-                Database tatalaksana farmakoterapi resmi berbasis standar Kemenkes RI, PERKI, PERKENI, PAPDI, PDPI, IDAI, POGI, PERDOSSI, IRA, PERNEFRI, & PGI-PEGI. Terintegrasi dengan ketersediaan Formularium Nasional (FORNAS) BPJS Kesehatan dan uji interaksi obat otomatis.
-              </p>
-            </div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white font-outfit">
+            Panduan Terapi <span className="text-teal-300">Penyakit Klinis Indonesia</span>
+          </h1>
+          
+          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
+            Database tatalaksana farmakoterapi resmi berbasis standar Kemenkes RI, PERKI, PERKENI, PAPDI, PDPI, IDAI, POGI, PERDOSSI, IRA, PERNEFRI, & PGI-PEGI. Terintegrasi dengan ketersediaan Formularium Nasional (FORNAS) BPJS Kesehatan dan uji interaksi obat otomatis.
+          </p>
+        </div>
 
-            <div className="flex flex-wrap items-center gap-2 shrink-0">
-              <button
-                onClick={() => {
-                  setActivePathwayId('pathway-t2dm');
-                  setIsPathwaysModalOpen(true);
-                }}
-                className="px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black text-xs rounded-xl shadow-lg shadow-cyan-500/25 flex items-center gap-2 transition-all cursor-pointer transform hover:-translate-y-0.5"
-              >
-                <GitBranch className="w-4 h-4" />
-                <span>Alur Algoritma Terapi (Step-by-Step)</span>
-              </button>
-              <button
-                onClick={() => {
-                  setActiveCalculatorType('ascvd');
-                  setIsCalculatorModalOpen(true);
-                }}
-                className="px-4 py-2.5 bg-gradient-to-r from-teal-400 to-emerald-500 hover:from-teal-300 hover:to-emerald-400 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-teal-500/25 flex items-center gap-2 transition-all cursor-pointer transform hover:-translate-y-0.5"
-              >
-                <Calculator className="w-4 h-4" />
-                <span>Pusat Kalkulator Skor Medis</span>
-              </button>
-              <span className="bg-teal-900/70 border border-teal-500/40 text-teal-200 text-xs font-extrabold px-3 py-2 rounded-xl shadow-2xs">
-                {CLINICAL_GUIDELINES_DATABASE.length} Pedoman Nasional
-              </span>
-              <span className="bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-extrabold px-3 py-2 rounded-xl">
-                BPJS & FORNAS Ready
-              </span>
-            </div>
-          </div>
+        {/* Action and Stat Pills Bar */}
+        <div className="relative z-10 flex flex-wrap items-center gap-3 pt-3 border-t border-slate-800">
+          <button
+            onClick={() => {
+              setActivePathwayId('pathway-t2dm');
+              setIsPathwaysModalOpen(true);
+            }}
+            className="px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs rounded-xl shadow-md shadow-cyan-600/20 flex items-center gap-2 transition-all cursor-pointer transform hover:-translate-y-0.5"
+          >
+            <GitBranch className="w-4 h-4" />
+            <span>Alur Algoritma Terapi (Step-by-Step)</span>
+          </button>
+          
+          <button
+            onClick={() => {
+              setActiveCalculatorType('ascvd');
+              setIsCalculatorModalOpen(true);
+            }}
+            className="px-4 py-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold text-xs rounded-xl shadow-md shadow-teal-600/20 flex items-center gap-2 transition-all cursor-pointer transform hover:-translate-y-0.5"
+          >
+            <Calculator className="w-4 h-4" />
+            <span>Pusat Kalkulator Skor Medis</span>
+          </button>
+          
+          <span className="bg-slate-800/90 border border-slate-700 text-slate-300 text-xs font-bold px-3 py-2 rounded-xl shadow-2xs">
+            {CLINICAL_GUIDELINES_DATABASE.length} Pedoman Nasional Terverifikasi
+          </span>
+          
+          <span className="bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-bold px-3 py-2 rounded-xl">
+            BPJS & FORNAS Ready
+          </span>
         </div>
       </div>
 

@@ -72,17 +72,20 @@ export const PharmacyRegulationsManager: React.FC<PharmacyRegulationsManagerProp
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#143d47] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 print:hidden">
-        <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
-            <Gavel className="w-4 h-4 text-teal-400" />
+      <div className="bg-gradient-to-r from-slate-900 via-[#1e1710] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-amber-500/20 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 print:hidden">
+        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
+          <Scale className="w-64 h-64 text-amber-400 -rotate-12" />
+        </div>
+        <div className="space-y-2 max-w-2xl relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/30">
+            <Gavel className="w-4 h-4 text-amber-400" />
             <span>Kompilasi Hukum & Regulasi Kefarmasian Indonesia</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Regulasi & Kebijakan Farmasi Indonesia
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+            Regulasi & Kebijakan <span className="text-amber-400">Farmasi Indonesia</span>
           </h1>
-          <p className="text-teal-100/80 text-xs sm:text-sm leading-relaxed font-medium">
+          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
             Pusat referensi regulasi kefarmasian lengkap: UU No. 17/2023 (Kesehatan), UU Narkotika & Psikotropika, Permenkes No. 73/2016, Daftar Obat Wajib Apotek (DOWA), serta PerBPOM OOT & Pengawasan.
           </p>
         </div>
