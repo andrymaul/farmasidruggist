@@ -48,6 +48,11 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
                 </button>
               </li>
               <li>
+                <button onClick={() => onSelectTab('literature')} className="hover:text-teal-300 transition-colors cursor-pointer text-slate-300">
+                  Literatur & Bukti Ilmiah (EBM)
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onSelectTab('pricing')} className="hover:text-teal-300 transition-colors cursor-pointer text-slate-300">
                   Harga Layanan Apps
                 </button>

@@ -17,7 +17,8 @@ import {
   Stethoscope,
   Calculator,
   ShieldCheck,
-  Zap
+  Zap,
+  BookMarked
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -256,6 +257,48 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* Evidence-Based Medicine & Literature Trust Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-3xl bg-gradient-to-br from-[#071c21] via-[#092931] to-[#0c3742] text-white p-8 sm:p-10 border border-teal-500/30 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold border border-teal-500/30">
+              <BookMarked className="w-3.5 h-3.5 text-teal-400" />
+              <span>Transparansi & Akurasi 100% Evidence-Based Medicine</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-outfit text-white">
+              Divalidasi dari Pedoman Resmi Kemenkes RI & Standar Global
+            </h2>
+            <p className="text-xs sm:text-sm text-teal-100/80 leading-relaxed">
+              Kami menyajikan data yang dapat dipertanggungjawabkan: <strong>PNPK Kemenkes RI</strong>, konsensus PERKI & PERKENI, <strong>DDInter Database (Nature npj)</strong>, standar inkompatibilitas <strong>Trissel's™ 2024 / ASHP</strong>, serta regulasi Permenkes No. 73/2016.
+            </p>
+            <div className="flex flex-wrap gap-2 pt-2 text-[11px] font-bold text-teal-200">
+              <span className="bg-[#0b333c] px-3 py-1 rounded-lg border border-teal-600/40">✓ PNPK Kemenkes</span>
+              <span className="bg-[#0b333c] px-3 py-1 rounded-lg border border-teal-600/40">✓ ASHP Trissel's IV</span>
+              <span className="bg-[#0b333c] px-3 py-1 rounded-lg border border-teal-600/40">✓ DDInter Database</span>
+              <span className="bg-[#0b333c] px-3 py-1 rounded-lg border border-teal-600/40">✓ CekBPOM RI</span>
+              <span className="bg-[#0b333c] px-3 py-1 rounded-lg border border-teal-600/40">✓ KDIGO & Cockcroft-Gault</span>
+            </div>
+          </div>
+
+          <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto">
+            <button
+              onClick={() => onSelectTab('literature')}
+              className="px-6 py-3.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-black rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-xs cursor-pointer hover:scale-105"
+            >
+              <BookMarked className="w-4 h-4" />
+              <span>Buka Direktori Literatur & EBM</span>
+            </button>
+            <button
+              onClick={() => onSelectTab('guidelines')}
+              className="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl border border-white/20 transition-all flex items-center justify-center gap-2 text-xs cursor-pointer"
+            >
+              <span>Lihat Panduan Terapi PNPK</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </section>
 

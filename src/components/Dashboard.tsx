@@ -18,9 +18,10 @@ import {
   Baby,
   Syringe,
   MessageSquare,
-  Calculator,
-  Zap,
-  Stethoscope
+  Calculator, 
+  Zap, 
+  Stethoscope,
+  BookMarked
 } from 'lucide-react';
 
 interface DashboardProps {
@@ -66,7 +67,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
     { id: 'side-effects', title: 'Cek Efek Samping & Toksisitas', desc: 'Beban toksisitas organ, pelacak gejala & Naranjo', icon: Activity, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800/60' },
     { id: 'whatsapp-pio', title: 'Kartu PIO WhatsApp', desc: 'Kirim etiket & edukasi 1-klik ke pasien', icon: MessageSquare, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60' },
     { id: 'pediatric', title: 'Dosis Pediatrik & Puyer', desc: 'Kalkulator BB/BSA & racikan puyer anak', icon: Baby, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800/60' },
-    { id: 'iv-compatibility', title: 'Kompatibilitas Injeksi IV', desc: 'Skrining Y-Site & kompatibilitas pelarut ICU', icon: Syringe, color: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-50 dark:bg-cyan-950/40 border-cyan-200 dark:border-cyan-800/60' }
+    { id: 'iv-compatibility', title: 'Kompatibilitas Injeksi IV', desc: 'Skrining Y-Site & kompatibilitas pelarut ICU', icon: Syringe, color: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-50 dark:bg-cyan-950/40 border-cyan-200 dark:border-cyan-800/60' },
+    { id: 'literature', title: 'Literatur & Basis Ilmiah', desc: '8+ Sumber PNPK Kemenkes, ASHP & DDInter', icon: BookMarked, color: 'text-teal-600 dark:text-teal-400', bg: 'bg-teal-50 dark:bg-teal-950/40 border-teal-200 dark:border-teal-800/60' }
   ];
 
   return (

@@ -30,7 +30,8 @@ import {
   Baby, 
   Syringe, 
   MessageSquare,
-  Activity
+  Activity,
+  BookMarked
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -71,6 +72,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap', badgeColor: 'bg-violet-600 text-white' },
         { id: 'sop', label: 'SOP Farmasi', icon: ClipboardList, badge: 'Resmi', badgeColor: 'bg-slate-700 dark:bg-slate-600 text-white' },
         { id: 'regulations', label: 'Regulasi Farmasi', icon: Scale, badge: 'Hukum', badgeColor: 'bg-amber-600 text-white' },
+        { id: 'literature', label: 'Literatur & Basis Ilmiah', icon: BookMarked, badge: 'EBM', badgeColor: 'bg-teal-600 text-white' },
         { id: 'usage', label: 'Penggunaan Obat', icon: BookOpen },
         { id: 'history', label: 'Riwayat Cek', icon: History },
         { id: 'pricing', label: 'Harga Layanan', icon: CreditCard },
@@ -87,6 +89,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap', badgeColor: 'bg-violet-600 text-white' },
         { id: 'sop', label: 'SOP Farmasi', icon: ClipboardList, badge: 'Resmi', badgeColor: 'bg-slate-700 dark:bg-slate-600 text-white' },
         { id: 'regulations', label: 'Regulasi Farmasi', icon: Scale, badge: 'Hukum', badgeColor: 'bg-amber-600 text-white' },
+        { id: 'literature', label: 'Literatur & Basis Ilmiah', icon: BookMarked, badge: 'EBM', badgeColor: 'bg-teal-600 text-white' },
         { id: 'usage', label: 'Penggunaan Obat', icon: BookOpen },
         { id: 'pricing', label: 'Harga Layanan', icon: CreditCard }
       ];

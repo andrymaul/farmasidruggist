@@ -11,6 +11,7 @@ import { AdminPanel } from './components/AdminPanel';
 import { MedicationUsageGuide } from './components/MedicationUsageGuide';
 import { PharmacySopManager } from './components/PharmacySopManager';
 import { PharmacyRegulationsManager } from './components/PharmacyRegulationsManager';
+import { ClinicalLiterature } from './components/ClinicalLiterature';
 import { RenalDoseAdjuster } from './components/RenalDoseAdjuster';
 import { ClinicalPolypharmacyEvaluator } from './components/ClinicalPolypharmacyEvaluator';
 import { ClinicalTherapyGuidelines } from './components/ClinicalTherapyGuidelines';
@@ -985,6 +986,12 @@ export default function App() {
                     onOpenBrandingModal={() => handleSelectTab('admin-branding')}
                   />
                 )
+              )}
+
+              {activeTab === 'literature' && (
+                <ClinicalLiterature
+                  onSelectTab={handleSelectTab}
+                />
               )}
 
               {activeTab === 'whatsapp-pio' && (
