@@ -2,7 +2,7 @@ export interface LiteratureSource {
   id: string;
   title: string;
   institution: string;
-  category: 'guidelines' | 'interactions' | 'iv_sterile' | 'regulations' | 'formulary_bpom' | 'calculators';
+  category: 'guidelines' | 'interactions' | 'iv_sterile' | 'regulations' | 'formulary_bpom' | 'calculators' | 'pediatric_special';
   categoryLabel: string;
   documentCode?: string;
   releaseYear: string;
@@ -30,7 +30,9 @@ export interface LiteratureCategory {
 }
 
 export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
-  // 1. PANDUAN TERAPI & PNPK
+  // =========================================================================
+  // 1. PANDUAN TERAPI & PNPK SPESIALIS (10 SUMBER)
+  // =========================================================================
   {
     id: 'lit-pnpk-kemenkes',
     title: 'Pedoman Nasional Pelayanan Kedokteran (PNPK) Kemenkes RI',
@@ -140,11 +142,250 @@ export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
     badgeColor: 'bg-emerald-600 text-white'
   },
   {
+    id: 'lit-papdi-internal',
+    title: 'Buku Ajar & Panduan Praktik Klinis PAPDI (Penyakit Dalam)',
+    institution: 'Perhimpunan Dokter Spesialis Penyakit Dalam Indonesia (PAPDI)',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'PPK PAPDI Penyakit Dalam Edisi III',
+    releaseYear: '2023',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 2 (PNPK & Konsensus Spesialis)',
+    evidenceGrade: 'Grade A',
+    summary: 'Standar penanganan komprehensif spektrum penyakit dalam: Sepsis, GERD, Sirosis Hepatis, Gagal Ginjal Akut, Sindrom Metabolik, dan Infeksi Tropis di ruang rawat inap dan faskes rujukan.',
+    keyTopics: [
+      'Terapi PPI Dosis Ganda & Eradikasi H. pylori',
+      'Resusitasi Cairan & Antibiotik Empiris Sepsis 1 Jam Pertama',
+      'Manajemen Asites & Spontaneous Bacterial Peritonitis (SBP)',
+      'Koreksi Elektrolit Hipokalemia & Hiponatremia'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Pedoman terapi penyakit dalam, GERD, dan sepsis.'
+      },
+      {
+        tabId: 'polypharmacy',
+        featureName: 'Evaluasi & Polifarmasi',
+        description: 'Penyelarasan multi-terapi penyakit dalam kronis.'
+      }
+    ],
+    officialUrl: 'https://www.papdi.or.id',
+    officialUrlLabel: 'Publikasi Resmi PAPDI',
+    citation: 'PAPDI. Panduan Praktik Klinis Penyakit Dalam. Jakarta: Interna Publishing, 2023.',
+    badgeColor: 'bg-indigo-600 text-white'
+  },
+  {
+    id: 'lit-pdpi-paru',
+    title: 'Pedoman Diagnosis & Penatalaksanaan Asma & PPOK PDPI',
+    institution: 'Perhimpunan Dokter Paru Indonesia (PDPI) & GINA Guidelines',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'Konsensus PDPI PPOK & Asma 2023/2024',
+    releaseYear: '2023 / 2024',
+    lastUpdated: 'Desember 2024',
+    evidenceLevel: 'Level 2 (PNPK & Konsensus Spesialis)',
+    evidenceGrade: 'Grade A',
+    summary: 'Pedoman penatalaksanaan penyakit paru obstruktif: PPOK stabil dan eksaserbasi, Asma intermiten hingga persisten berat, serta terapi inhaler kombinasi ICS-LABA-LAMA sesuai stratifikasi GOLD.',
+    keyTopics: [
+      'Terapi Pemeliharaan & Pelega Asma (SMART / Inhaler Formoterol-Budesonide)',
+      'Bronkodilator Kombinasi LAMA/LABA pada PPOK Eksaserbasi Berulang',
+      'Kortikosteroid Sistemik Jangka Pendek pada Eksaserbasi Akut',
+      'Teknik Penggunaan MDI, DPI, dan Nebulisasi'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Protokol PPOK dan asma dengan pemilihan inhaler bertingkat.'
+      },
+      {
+        tabId: 'usage',
+        featureName: 'Penggunaan Obat',
+        description: 'Panduan langkah demi langkah cara pemakaian inhaler MDI & DPI.'
+      }
+    ],
+    officialUrl: 'https://klikpdpi.com',
+    officialUrlLabel: 'Publikasi Resmi PDPI',
+    citation: 'Perhimpunan Dokter Paru Indonesia. Pedoman Diagnosis & Penatalaksanaan PPOK dan Asma. Jakarta: PDPI, 2023.',
+    badgeColor: 'bg-sky-600 text-white'
+  },
+  {
+    id: 'lit-perdossi-stroke',
+    title: 'Panduan Tata Laksana Stroke Iskemik & Neurologi PERDOSSI',
+    institution: 'Perhimpunan Dokter Spesialis Neurologi Indonesia (PERDOSSI)',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'Guideline Stroke PERDOSSI Edisi Revisi',
+    releaseYear: '2023',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 2 (PNPK & Konsensus Spesialis)',
+    evidenceGrade: 'Grade A',
+    summary: 'Protokol penanganan kegawatdaruratan stroke fase akut: trombolisis intravena r-tPA, terapi antiplatelet ganda 21 hari pertama, kontrol tensi peri-stroke, serta profilaksis sekunder statin intensitas tinggi.',
+    keyTopics: [
+      'Manajemen Tekanan Darah Akut (< 180/105 pasca-trombolisis)',
+      'Dual Antiplatelet (Aspirin + Clopidogrel) pada Minor Stroke / TIA',
+      'Statin Intensitas Tinggi (Atorvastatin 40-80 mg)',
+      'Neuroprotektor & Terapi Pencegahan Edema Serebri'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Protokol stroke iskemik dan antiplatelet preventif.'
+      }
+    ],
+    officialUrl: 'https://perdossi.id',
+    officialUrlLabel: 'Portal Resmi PERDOSSI Neurologi',
+    citation: 'PERDOSSI. Panduan Tata Laksana Stroke Iskemik Akut. Jakarta: Badan Penerbit PERDOSSI, 2023.',
+    badgeColor: 'bg-violet-600 text-white'
+  },
+  {
+    id: 'lit-pernefri-kdigo',
+    title: 'Konsensus Tatalaksana Penyakit Ginjal Kronik PERNEFRI & KDIGO',
+    institution: 'Perhimpunan Nefrologi Indonesia (PERNEFRI) & KDIGO',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'Konsensus PERNEFRI CKD 2023 / KDIGO 2024',
+    releaseYear: '2023 / 2024',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Pedoman tata laksana CKD stadium 1 hingga 5: pencegahan progresi penurunan eGFR, pengendalian proteinuria dengan ACEi/ARB/SGLT2i, penanganan anemia defisiensi besi & ESA, dan tata laksana osteodistrofi renal.',
+    keyTopics: [
+      'Proteksi Glomerular SGLT-2 Inhibitor (Dapagliflozin/Empagliflozin)',
+      'Manajemen Hiperkalemia (Pemberian Resin Kalium / Kalsium Glukonat)',
+      'Koreksi Asidosis Metabolik dengan Natrium Bikarbonat Oral',
+      'Penyesuaian Dosis Obat Nefrotoksik (NSAID, Aminoglikosida, Kontras)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'renal-adjuster',
+        featureName: 'Kalkulator Medis & Dosis',
+        description: 'Perhitungan CrCl Cockcroft-Gault dan penyesuaian dosis obat ginjal.'
+      },
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Protokol CKD dan pencegahan nefrotoksisitas.'
+      }
+    ],
+    officialUrl: 'https://pernefri.org',
+    officialUrlLabel: 'Publikasi Resmi PERNEFRI',
+    citation: 'PERNEFRI. Konsensus Penatalaksanaan Penyakit Ginjal Kronik di Indonesia. 2023.',
+    badgeColor: 'bg-purple-600 text-white'
+  },
+  {
+    id: 'lit-pogi-obstetri',
+    title: 'Pedoman Nasional Preeklampsia & Terapi Kehamilan POGI',
+    institution: 'Perkumpulan Obstetri dan Ginekologi Indonesia (POGI)',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'PNPK Preeklampsia & Hipertensi Kehamilan POGI',
+    releaseYear: '2022 / 2023',
+    lastUpdated: 'November 2024',
+    evidenceLevel: 'Level 2 (PNPK & Konsensus Spesialis)',
+    evidenceGrade: 'Grade A',
+    summary: 'Pedoman keselamatan terapi pada wanita hamil dan menyusui: tata laksana preeklampsia dengan MgSO4, obat antihipertensi lini pertama kehamilan (Methyldopa, Nifedipine, Labetalol), serta profilaksis Aspirin dosis rendah.',
+    keyTopics: [
+      'Kontraindikasi Mutlak ACEi / ARB pada Trimester 2 & 3',
+      'Protokol MgSO4 Loading & Maintenance pada Preeklampsia Berat',
+      'Pencegahan Preeklampsia dengan Aspirin 80-150 mg Sejak Trimester 1',
+      'Klasifikasi Keamanan Obat Laktasi & Transfer ASI'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Protokol hipertensi gestasional dan preeklampsia.'
+      },
+      {
+        tabId: 'side-effects',
+        featureName: 'Cek Efek Samping & ADR',
+        description: 'Skrining keamanan obat kehamilan (FDA Kategori A, B, C, D, X & Teratogenik).'
+      }
+    ],
+    officialUrl: 'https://pogi.or.id',
+    officialUrlLabel: 'Publikasi Resmi PB POGI',
+    citation: 'POGI. Pedoman Nasional Pelayanan Kedokteran Preeklampsia. Jakarta: PB POGI, 2022.',
+    badgeColor: 'bg-pink-600 text-white'
+  },
+  {
+    id: 'lit-ira-reumatologi',
+    title: 'Pedoman Diagnosis & Pengelolaan Artritis Reumatoid & Gout IRA',
+    institution: 'Indonesian Rheumatology Association (IRA)',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'Rekomendasi IRA Gout & RA 2023',
+    releaseYear: '2023',
+    lastUpdated: 'Desember 2024',
+    evidenceLevel: 'Level 2 (PNPK & Konsensus Spesialis)',
+    evidenceGrade: 'Grade A',
+    summary: 'Rekomendasi terkini tata laksana Artritis Gout akut (Kolchisin, NSAID, Kortikosteroid), terapi penurun asam urat (Allopurinol, Febuxostat) berbasis target sUA < 6.0 mg/dL, dan DMARDs pada Artritis Reumatoid.',
+    keyTopics: [
+      'Inisiasi Allopurinol Dimulai Dosis Rendah (100 mg/hari) dengan Titrasi',
+      'Skrining HLA-B*5801 & Pencegahan Steven-Johnson Syndrome',
+      'Pemberian Profilaksis Kolchisin saat Inisiasi Urate-Lowering Therapy (ULT)',
+      'Methotrexate sebagai DMARD Lini Pertama pada Artritis Reumatoid'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Algoritma hiperurisemia, asam urat akut, dan target sUA.'
+      }
+    ],
+    officialUrl: 'https://reumatologi.or.id',
+    officialUrlLabel: 'Publikasi Resmi IRA Reumatologi',
+    citation: 'Indonesian Rheumatology Association. Pedoman Diagnosis dan Pengelolaan Artritis Gout & Reumatoid. 2023.',
+    badgeColor: 'bg-amber-600 text-white'
+  },
+  {
+    id: 'lit-tbc-kemenkes',
+    title: 'Pedoman Nasional Pelayanan Kedokteran Tata Laksana Tuberkulosis',
+    institution: 'Kementerian Kesehatan RI & Komite Ahli TB Nasional',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'Kepmenkes No. HK.01.07/MENKES/755/2023',
+    releaseYear: '2023 / 2024',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 2 (PNPK & Konsensus Spesialis)',
+    evidenceGrade: 'Grade A',
+    summary: 'Protokol baku terapi TB Sensitif Obat (Kombipak FDC 2RHZE/4RH) dan paduan jangka pendek TB Resisten Obat (TB-RO BPaL/BPaLM: Bedaquiline, Pretomanid, Linezolid, Moxifloxacin) serta pemantauan hepatotoksisitas (DILI).',
+    keyTopics: [
+      'Dosis Fixed-Dose Combination (FDC) Berbasis Berat Badan Pasien',
+      'Penatalaksanaan Drug-Induced Liver Injury (DILI) akibat OAT',
+      'Suplementasi Vitamin B6 (Piridoksin) untuk Mencegah Neuropati INH',
+      'Interaksi Enzimatis Rifampisin (Induser Kuat CYP3A4 & P-gp)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Protokol terapi TB paru, ekstra paru, dan dosis OAT FDC.'
+      },
+      {
+        tabId: 'interactions',
+        featureName: 'Cek Interaksi Obat',
+        description: 'Deteksi penurunan efektivitas obat lain akibat induksi Rifampisin.'
+      }
+    ],
+    officialUrl: 'https://tbindonesia.or.id',
+    officialUrlLabel: 'Portal Resmi TB Indonesia Kemenkes',
+    citation: 'Kemenkes RI. Petunjuk Teknis Penatalaksanaan Tuberkulosis di Fasilitas Pelayanan Kesehatan. 2023.',
+    badgeColor: 'bg-teal-700 text-white'
+  },
+
+  // =========================================================================
+  // 2. PEDIATRI & PERACIKAN PUYER (3 SUMBER)
+  // =========================================================================
+  {
     id: 'lit-idai-pediatrik',
     title: 'Panduan Dosis Terapi & Pedoman Pelayanan Medis Anak IDAI',
     institution: 'Ikatan Dokter Anak Indonesia (IDAI)',
-    category: 'guidelines',
-    categoryLabel: 'Pedoman Klinis & PNPK',
+    category: 'pediatric_special',
+    categoryLabel: 'Dosis Pediatrik & Puyer',
     documentCode: 'Pedoman Praktik Klinis IDAI',
     releaseYear: '2022 - 2024',
     lastUpdated: 'Januari 2025',
@@ -174,8 +415,170 @@ export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
     citation: 'Ikatan Dokter Anak Indonesia. Pedoman Pelayanan Medis & Dosis Pediatrik. Jakarta: Badan Penerbit IDAI.',
     badgeColor: 'bg-rose-500 text-white'
   },
+  {
+    id: 'lit-farmakope-puyer',
+    title: 'Farmakope Indonesia Edisi VI: Standar Sediaan Serbuk Bagi (Puyer)',
+    institution: 'Kementerian Kesehatan Republik Indonesia & Komite Farmakope',
+    category: 'pediatric_special',
+    categoryLabel: 'Dosis Pediatrik & Puyer',
+    documentCode: 'Kepmenkes RI No. HK.01.07/MENKES/420/2020 (FI VI)',
+    releaseYear: '2020 - 2024',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 3 (Monograf Baku & Regulasi Pemerintah)',
+    evidenceGrade: 'Grade A',
+    summary: 'Monograf resmi peracikan serbuk terbagi (*pulveres*): keseragaman bobot, batas maksimum bobot puyer (300-500 mg), pemilihan zat pengisi inert (Saccharum Lactis), serta penetapan Beyond-Use Date (BUD) racikan padat non-steril.',
+    keyTopics: [
+      'Kalkulasi Kebutuhan Zat Pengisi (Saccharum Lactis / Dextrose)',
+      'Penetapan Beyond-Use Date (BUD) Puyer Maksimal 25% Waktu Kedaluwarsa Asli atau 6 Bulan',
+      'Ketentuan Larangan Membuka Tablet Salut Enterik atau Sediaan Lepas Lambat (SR/ER)',
+      'Keseragaman Bobot Tiap Bungkus Serbuk Terbagi'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'pediatric',
+        featureName: 'Dosis Pediatrik & Puyer',
+        description: 'Kalkulator konversi tablet utuh ke jumlah bungkus puyer dan bobot pengisi SL.'
+      }
+    ],
+    officialUrl: 'https://farmakope.kemkes.go.id',
+    officialUrlLabel: 'Portal Resmi Farmakope Indonesia',
+    citation: 'Kemenkes RI. Farmakope Indonesia Edisi VI. Jakarta: Direktorat Jenderal Kefarmasian dan Alat Kesehatan, 2020.',
+    badgeColor: 'bg-slate-700 text-white'
+  },
+  {
+    id: 'lit-nelson-harriet',
+    title: "Harriet Lane Handbook & Nelson Textbook of Pediatrics (Dosing Standard)",
+    institution: "The Johns Hopkins Hospital & Elsevier Health Sciences",
+    category: 'pediatric_special',
+    categoryLabel: 'Dosis Pediatrik & Puyer',
+    documentCode: "The Harriet Lane Handbook 23rd Edition",
+    releaseYear: '2024',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Pedoman rujukan dunia (*World Standard Reference*) dalam penentuan dosis terapeutik, batas dosis toksik per hari, dan interval pemberian obat pediatrik serta neonatus di seluruh instalasi perawatan intensif anak (PICU/NICU).',
+    keyTopics: [
+      'Formula Mosteller & DuBois untuk Luas Permukaan Tubuh (BSA m²)',
+      'Batas Dosis Maksimal Anak Tidak Boleh Melampaui Dosis Dewasa',
+      'Penyesuaian Klirens Ginjal pada Bayi Kurang Bulan (Prematur)',
+      'Dosis Resusitasi Kedaruratan Anak & Titrasi Inotropik'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'pediatric',
+        featureName: 'Dosis Pediatrik & Puyer',
+        description: 'Validasi batas dosis maksimum harian pada kalkulator anak.'
+      }
+    ],
+    officialUrl: 'https://www.elsevier.com',
+    officialUrlLabel: 'Harriet Lane Pediatric Reference',
+    citation: "Johns Hopkins Hospital. The Harriet Lane Handbook: A Manual for Pediatric House Officers. 23rd ed. Philadelphia: Elsevier, 2024.",
+    badgeColor: 'bg-rose-600 text-white'
+  },
 
-  // 2. INTERAKSI OBAT & FARMAKOVIGILANS
+  // =========================================================================
+  // 3. INJEKSI PARENTERAL & STERIL (3 SUMBER)
+  // =========================================================================
+  {
+    id: 'lit-trissels-ashp',
+    title: "Trissel's™ 2024 Handbook on Injectable Drugs & ASHP Standards",
+    institution: 'American Society of Health-System Pharmacists (ASHP)',
+    category: 'iv_sterile',
+    categoryLabel: 'Injeksi & IV Steril',
+    documentCode: "Handbook on Injectable Drugs (Trissel's™ 2024)",
+    releaseYear: '2024',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Standar emas internasional (*Gold Standard*) untuk evaluasi kompatibilitas sediaan parenteral, pencampuran jalur infus Y-Site, presipitasi kimiawi asam-basa, kompatibilitas pelarut infus (NS, D5W, RL), serta stabilitas Beyond-Use Date (BUD).',
+    keyTopics: [
+      'Kompatibilitas Y-Site Co-Infusion (Kompatibel, Inkompatibel, Tidak Pasti)',
+      'Presipitasi Asam-Basa (pH Incompatibility misal Furosemide + Dobutamine)',
+      'Pelarut Rekonstitusi yang Sesuai (NaCl 0.9%, Dextrose 5%, Water for Injection)',
+      'Stabilitas Beyond-Use Date (BUD) Suhu Ruang vs Lemari Pendingin (USP <797>)',
+      'Kebutuhan Filter In-Line & Perlindungan dari Cahaya (Light Protection)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'iv-compatibility',
+        featureName: 'Kompatibilitas Injeksi IV',
+        description: 'Pemeriksaan multi-obat Y-Site ICU/Rawat Inap, pelarut infus, dan stabilitas rekonstitusi.'
+      }
+    ],
+    officialUrl: 'https://www.ashp.org',
+    officialUrlLabel: 'Portal Resmi ASHP Drug Information',
+    citation: "American Society of Health-System Pharmacists. ASHP's Handbook on Injectable Drugs (Trissel's Reference). 2024.",
+    badgeColor: 'bg-cyan-600 text-white'
+  },
+  {
+    id: 'lit-usp-797',
+    title: 'USP General Chapter <797>: Pharmaceutical Compounding – Sterile Preparations',
+    institution: 'United States Pharmacopeial Convention (USP)',
+    category: 'iv_sterile',
+    categoryLabel: 'Injeksi & IV Steril',
+    documentCode: 'USP-NF Chapter <797> Revised Standard',
+    releaseYear: '2023 / 2024',
+    lastUpdated: 'Februari 2025',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Standar global dalam penyiapan sediaan steril (IV Admixture): klasifikasi ruangan bersih (Cleanroom ISO Class 5/7/8), teknik aseptik, serta matriks penetapan Beyond-Use Date (BUD) sediaan suntik berdasarkan kategori risiko kontaminasi mikroba.',
+    keyTopics: [
+      'BUD Kategori 1 (Segera Pakai / Non-Cleanroom): 4 Jam Suhu Ruang',
+      'BUD Kategori 2 (Cleanroom Aseptis): 4 Hari Suhu Ruang / 10 Hari Suhu 2-8°C',
+      'Pencegahan Pembentukan Partikulat & Penanganan Obat Sitotoksik (USP <800>)',
+      'Persyaratan Alat Pelindung Diri (APD) dan Laminar Air Flow (LAF)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'iv-compatibility',
+        featureName: 'Kompatibilitas Injeksi IV',
+        description: 'Rekomendasi Beyond-Use Date (BUD) dan batas jam penyimpanan sediaan rekonstitusi.'
+      },
+      {
+        tabId: 'sop',
+        featureName: 'SOP Farmasi',
+        description: 'SOP Pencampuran Obat Suntik & Penanganan Obat Sitostatika.'
+      }
+    ],
+    officialUrl: 'https://www.usp.org',
+    officialUrlLabel: 'USP Sterile Compounding Standards',
+    citation: 'United States Pharmacopeial Convention. USP <797> Pharmaceutical Compounding - Sterile Preparations. Rockville: USP, 2023.',
+    badgeColor: 'bg-cyan-700 text-white'
+  },
+  {
+    id: 'lit-king-guide-iv',
+    title: 'King Guide to Parenteral Admixtures & Clinical Compatibility',
+    institution: 'King Guide Publications Inc.',
+    category: 'iv_sterile',
+    categoryLabel: 'Injeksi & IV Steril',
+    documentCode: 'King Guide Parenteral Reference 2024',
+    releaseYear: '2024',
+    lastUpdated: 'Desember 2024',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Database komprehensif stabilitas dan kompatibilitas obat suntik di rumah sakit, memuat lebih dari 500 zat parenteral dengan penekanan pada cairan infus elektrolit pekat (KCl, NaCl 3%, Kalsium Glukonat).',
+    keyTopics: [
+      'Inkompatibilitas Cairan Pembawa Ringer Laktat (Kandungan Kalsium)',
+      'Kompatibilitas Syringe Pump Jalur Tunggal pada Pasien Kritis ICU',
+      'Stabilitas Obat Inotropik (Norepinephrine, Dobutamine, Epinephrine)',
+      'Perubahan Warna & Oksidasi Molekul Terlarut'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'iv-compatibility',
+        featureName: 'Kompatibilitas Injeksi IV',
+        description: 'Pemeriksaan cairan pembawa infus yang kompatibel dan catatan khusus stabilitas.'
+      }
+    ],
+    officialUrl: 'https://kingguide.com',
+    officialUrlLabel: 'Portal King Guide Online',
+    citation: 'King Guide Publications. King Guide to Parenteral Admixtures. Napa, CA: King Guide Publications, 2024.',
+    badgeColor: 'bg-teal-600 text-white'
+  },
+
+  // =========================================================================
+  // 4. INTERAKSI OBAT, FARMAKOVIGILANS & ADR (4 SUMBER)
+  // =========================================================================
   {
     id: 'lit-ddinter-database',
     title: 'DDInter: Drug-Drug Interaction Database Platform',
@@ -246,41 +649,80 @@ export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
     citation: 'Drugs.com Clinical Team. Comprehensive Drug Information and Interaction Checker Database. 2025.',
     badgeColor: 'bg-teal-600 text-white'
   },
-
-  // 3. KOMPATIBILITAS IV & STERIL
   {
-    id: 'lit-trissels-ashp',
-    title: "Trissel's™ 2024 Handbook on Injectable Drugs & ASHP Standards",
-    institution: 'American Society of Health-System Pharmacists (ASHP)',
-    category: 'iv_sterile',
-    categoryLabel: 'Injeksi & IV Steril',
-    documentCode: "Handbook on Injectable Drugs (Trissel's™ 2024)",
-    releaseYear: '2024',
+    id: 'lit-naranjo-adverse',
+    title: 'Algoritma Skala Probabilitas Efek Samping Obat Naranjo (ADR)',
+    institution: 'World Health Organization (WHO) & Clinical Pharmacology',
+    category: 'interactions',
+    categoryLabel: 'Interaksi & Keamanan',
+    documentCode: 'Naranjo ADR Probability Scale Standard',
+    releaseYear: 'Standard Klinis Internasional',
     lastUpdated: 'Januari 2025',
     evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
     evidenceGrade: 'Grade A',
-    summary: 'Standar emas internasional (*Gold Standard*) untuk evaluasi kompatibilitas sediaan parenteral, pencampuran jalur infus Y-Site, presipitasi kimiawi asam-basa, kompatibilitas pelarut infus (NS, D5W, RL), serta stabilitas Beyond-Use Date (BUD).',
+    summary: 'Kuesioner standar baku internasional berisi 10 pertanyaan validasi kausalitas untuk menentukan apakah kejadian tidak diinginkan (KTD / ADR) pada pasien disebabkan oleh obat tertentu (Skor: Definite, Probable, Possible, Doubtful).',
     keyTopics: [
-      'Kompatibilitas Y-Site Co-Infusion (Kompatibel, Inkompatibel, Tidak Pasti)',
-      'Presipitasi Asam-Basa (pH Incompatibility misal Furosemide + Dobutamine)',
-      'Pelarut Rekonstitusi yang Sesuai (NaCl 0.9%, Dextrose 5%, Water for Injection)',
-      'Stabilitas Beyond-Use Date (BUD) Suhu Ruang vs Lemari Pendingin (USP <797>)',
-      'Kebutuhan Filter In-Line & Perlindungan dari Cahaya (Light Protection)'
+      'Hubungan Waktu Pemberian Obat dan Munculnya Gejala (De-challenge)',
+      'Efek Penghentian Obat & Reaksi Pemberian Ulang (Re-challenge)',
+      'Konfirmasi Kadar Obat dalam Darah / Bukti Objektif Laboratorium',
+      'Pelaporan MESO (Monitoring Efek Samping Obat) ke BPOM RI'
     ],
     appliedInFeatures: [
       {
-        tabId: 'iv-compatibility',
-        featureName: 'Kompatibilitas Injeksi IV',
-        description: 'Pemeriksaan multi-obat Y-Site ICU/Rawat Inap, pelarut infus, dan stabilitas rekonstitusi.'
+        tabId: 'side-effects',
+        featureName: 'Cek Efek Samping & ADR',
+        description: 'Kalkulator penilai kausalitas ADR Naranjo terintegrasi.'
+      },
+      {
+        tabId: 'sop',
+        featureName: 'SOP Farmasi',
+        description: 'SOP Pelaporan Efek Samping Obat (MESO / Formulir Kuning BPOM).'
       }
     ],
-    officialUrl: 'https://www.ashp.org',
-    officialUrlLabel: 'Portal Resmi ASHP Drug Information',
-    citation: "American Society of Health-System Pharmacists. ASHP's Handbook on Injectable Drugs (Trissel's Reference). 2024.",
-    badgeColor: 'bg-cyan-600 text-white'
+    officialUrl: 'https://www.who.int/teams/regulation-prequalification/pharmacovigilance',
+    officialUrlLabel: 'WHO Pharmacovigilance Program',
+    citation: 'Naranjo CA, et al. A method for estimating the probability of adverse drug reactions. Clin Pharmacol Ther. 1981;30(2):239-245.',
+    badgeColor: 'bg-amber-600 text-white'
+  },
+  {
+    id: 'lit-lexicomp-clinical',
+    title: 'Lexicomp Drug Information & Clinical Pharmacology Database',
+    institution: 'Wolters Kluwer Health Clinical Solutions',
+    category: 'interactions',
+    categoryLabel: 'Interaksi & Keamanan',
+    documentCode: 'Lexicomp Clinical Drug Reference',
+    releaseYear: '2024 / 2025',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Pangkalan data farmakologi klinis terpercaya untuk penentuan parameter farmakokinetik: ikatan protein plasma, waktu paruh eliminasi (t1/2), rute ekskresi renal vs biliar, dan indeks terapi sempit (*Narrow Therapeutic Index*).',
+    keyTopics: [
+      'Obat Indeks Terapi Sempit (Warfarin, Digoxin, Teofilin, Fenitoin, Litium, Siklosporin)',
+      'Manajemen Therapeutic Drug Monitoring (TDM)',
+      'Faktor Pemanjangan Interval QTc dan Risiko Torsades de Pointes',
+      'Penyesuaian Dosis Obesitas Berdasarkan IBW vs Adjusted Body Weight (ABW)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'interactions',
+        featureName: 'Cek Interaksi Obat',
+        description: 'Peringatan risiko aritmia pemanjangan QTc dan obat indeks terapi sempit.'
+      },
+      {
+        tabId: 'renal-adjuster',
+        featureName: 'Kalkulator Medis & Dosis',
+        description: 'Kalkulator Berat Badan Ideal (IBW) dan Klirens Ginjal terstandarisasi.'
+      }
+    ],
+    officialUrl: 'https://www.wolterskluwer.com/en/solutions/lexicomp',
+    officialUrlLabel: 'Lexicomp Clinical Drug Reference',
+    citation: 'Wolters Kluwer. Lexicomp Drug Information Handbook. Hudson, OH: Wolters Kluwer Clinical Drug Information, 2024.',
+    badgeColor: 'bg-emerald-600 text-white'
   },
 
-  // 4. FORNAS & BPOM RI
+  // =========================================================================
+  // 5. FORMASI, BPOM & REGULASI KEFARMASIAN (5 SUMBER)
+  // =========================================================================
   {
     id: 'lit-fornas-kemenkes',
     title: 'Formularium Nasional (FORNAS) & e-Katalog Obat Kemenkes RI',
@@ -351,8 +793,6 @@ export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
     citation: 'Badan Pengawas Obat dan Makanan RI. PIONAS & Database Registrasi Obat Indonesia. Jakarta: BPOM RI.',
     badgeColor: 'bg-emerald-600 text-white'
   },
-
-  // 5. REGULASI & STANDAR HUKUM
   {
     id: 'lit-uu-kesehatan',
     title: 'Undang-Undang Republik Indonesia Nomor 17 Tahun 2023 tentang Kesehatan',
@@ -418,8 +858,45 @@ export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
     citation: 'Kemenkes RI. Permenkes No. 73 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Apotek. Jakarta: Kemenkes RI.',
     badgeColor: 'bg-slate-700 text-white'
   },
+  {
+    id: 'lit-dowa-kemenkes',
+    title: 'Daftar Obat Wajib Apotek (DOWA 1, 2, dan 3) Kemenkes RI',
+    institution: 'Kementerian Kesehatan Republik Indonesia',
+    category: 'regulations',
+    categoryLabel: 'Regulasi & SOP',
+    documentCode: 'Kepmenkes No. 347/1990, No. 924/1993, & No. 1176/1999',
+    releaseYear: 'Standar Nasional Indonesia',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 3 (Monograf Baku & Regulasi Pemerintah)',
+    evidenceGrade: 'Grade A',
+    summary: 'Pedoman resmi daftar obat keras yang dapat diserahkan oleh Apoteker kepada pasien di apotek tanpa resep dokter, lengkap dengan batas maksimal jumlah penyerahan dan kewajiban pencatatan edukasi pasien.',
+    keyTopics: [
+      'DOWA 1: Kontrasepsi Oral, Obat Saluran Cerna (Antasida/Ranitidine), Analgetik',
+      'DOWA 2: Antiinflamasi Topikal, Antihistamin, Antiulkus',
+      'DOWA 3: Antiasma Inhalasi, Antibiotik Topikal Tertentu',
+      'Kewajiban Pelayanan Informasi Obat (PIO) Tertulis saat Penyerahan DOWA'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'regulations',
+        featureName: 'Regulasi Farmasi',
+        description: 'Daftar lengkap golongan obat DOWA 1, 2, dan 3 beserta batasan serah.'
+      },
+      {
+        tabId: 'whatsapp-pio',
+        featureName: 'Kartu PIO WhatsApp',
+        description: 'Penyusunan etiket edukasi penyerahan obat mandiri (swamedikasi).'
+      }
+    ],
+    officialUrl: 'https://peraturan.go.id',
+    officialUrlLabel: 'JDIH Peraturan DOWA Kemenkes',
+    citation: 'Kemenkes RI. Keputusan Menteri Kesehatan tentang Daftar Obat Wajib Apotek No. 1, 2, dan 3. Jakarta: Kemenkes RI.',
+    badgeColor: 'bg-amber-700 text-white'
+  },
 
-  // 6. KALKULATOR MEDIS & FARMAKOKINETIKA
+  // =========================================================================
+  // 6. KALKULATOR MEDIS & FARMAKOKINETIKA (3 SUMBER)
+  // =========================================================================
   {
     id: 'lit-calc-cockcroft-kdigo',
     title: 'Standar KDIGO & Formula Cockcroft-Gault / CKD-EPI (Klirens Ginjal)',
@@ -479,6 +956,36 @@ export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
     officialUrlLabel: 'AASLD Practice Guidelines',
     citation: 'AASLD. Practice Guideline: Management of Cirrhosis and Portal Hypertension. Hepatology 2023.',
     badgeColor: 'bg-purple-600 text-white'
+  },
+  {
+    id: 'lit-calc-mme-cdc',
+    title: 'CDC Clinical Practice Guideline for Prescribing Opioids & MME Conversion',
+    institution: 'Centers for Disease Control and Prevention (CDC)',
+    category: 'calculators',
+    categoryLabel: 'Kalkulator Farmakoterapi',
+    documentCode: 'CDC Opioid Prescribing Guideline 2022',
+    releaseYear: '2022 / 2024',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Standar konversi ekuivalen dosis opioid harian (*Morphine Milligram Equivalent / MME*) untuk mencegah overdosis depresi napas dan memfasilitasi rotasi opioid yang aman pada terapi nyeri paliatif & kanker.',
+    keyTopics: [
+      'Faktor Konversi Morfin Oral ke Fentanil Patch, Oksikodon, dan Kodein',
+      'Ambang Batas Keamanan: Dosis >= 50 MME/hari Memerlukan Pemantauan Ketat',
+      'Ambang Batas Bahaya: Dosis >= 90 MME/hari Harus Dihindari Tanpa Justifikasi Ahli',
+      'Pencegahan Interaksi Opioid + Benzodiazepin (Black Box Warning)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'renal-adjuster',
+        featureName: 'Kalkulator Medis & Dosis',
+        description: 'Kalkulator konversi MME opioid dan peringatan ambang batas keamanan.'
+      }
+    ],
+    officialUrl: 'https://www.cdc.gov/opioids',
+    officialUrlLabel: 'CDC Opioid Clinical Guidelines',
+    citation: 'Dowell D, et al. CDC Clinical Practice Guideline for Prescribing Opioids for Pain — United States, 2022. MMWR Recomm Rep 2022;71(No. RR-3):1–95.',
+    badgeColor: 'bg-rose-700 text-white'
   }
 ];
 
@@ -492,19 +999,25 @@ export const LITERATURE_CATEGORIES: LiteratureCategory[] = [
   {
     id: 'guidelines',
     label: 'Pedoman Klinis & PNPK',
-    description: 'PNPK Kemenkes RI dan Konsensus Organisasi Profesi (PERKI, PERKENI, IDAI)',
+    description: 'PNPK Kemenkes RI dan Konsensus Spesialis (PERKI, PERKENI, PAPDI, PDPI, PERDOSSI, POGI)',
     count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'guidelines').length
+  },
+  {
+    id: 'pediatric_special',
+    label: 'Pediatrik & Puyer',
+    description: 'IDAI, Farmakope Indonesia VI (Serbuk Bagi), dan Harriet Lane Handbook',
+    count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'pediatric_special').length
   },
   {
     id: 'interactions',
     label: 'Interaksi & Keamanan',
-    description: 'DDInter Database, Nature Digital Medicine, Drugs.com, dan Medscape',
+    description: 'DDInter Database, Nature Digital Medicine, Lexicomp, dan Skala Naranjo ADR',
     count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'interactions').length
   },
   {
     id: 'iv_sterile',
     label: 'Injeksi & IV Steril',
-    description: "Trissel's™ 2024 Handbook on Injectable Drugs & Standar ASHP",
+    description: "Trissel's™ 2024 Handbook on Injectable Drugs, USP <797>, dan King Guide",
     count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'iv_sterile').length
   },
   {
@@ -516,13 +1029,13 @@ export const LITERATURE_CATEGORIES: LiteratureCategory[] = [
   {
     id: 'regulations',
     label: 'Regulasi & SOP',
-    description: 'UU Kesehatan No. 17/2023, Permenkes 73/2016 Apotek, dan Permenkes 72 RS',
+    description: 'UU Kesehatan No. 17/2023, Permenkes 73/2016 Apotek, dan DOWA 1, 2, 3',
     count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'regulations').length
   },
   {
     id: 'calculators',
     label: 'Kalkulator Farmakoterapi',
-    description: 'KDIGO Cockcroft-Gault, CKD-EPI, Child-Pugh, dan CDC Opioid Conversion',
+    description: 'KDIGO Cockcroft-Gault, CKD-EPI, Child-Pugh, dan CDC Opioid MME',
     count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'calculators').length
   }
 ];
@@ -530,27 +1043,27 @@ export const LITERATURE_CATEGORIES: LiteratureCategory[] = [
 export const FEATURE_EVIDENCE_MAPPING = [
   {
     feature: 'Cek Interaksi Obat & Skrining Polifarmasi',
-    primarySource: 'DDInter (Zhejiang University / Nature Digital Medicine) & Drugs.com Interaction Engine',
-    standards: 'Tingkat Keparahan Major/Moderate/Minor, Mekanisme CYP450 & Farmakodinamik',
+    primarySource: 'DDInter (Zhejiang University / Nature npj), Drugs.com & Lexicomp Drug Interactions',
+    standards: 'Tingkat Keparahan Major/Moderate/Minor, Mekanisme CYP450, P-gp & Aritmia QTc',
     evidenceLevel: 'Level 1 (RCT & Clinical Trials)'
   },
   {
     feature: 'Kompatibilitas Injeksi IV (Y-Site & Stabilitas)',
-    primarySource: "Trissel's™ 2024 Handbook on Injectable Drugs (ASHP)",
-    standards: 'Pencampuran Y-Site, Presipitasi Asam-Basa, Rekonstitusi Pelarut, Stabilitas BUD (USP <797>)',
+    primarySource: "Trissel's™ 2024 Handbook on Injectable Drugs (ASHP), USP <797> & King Guide",
+    standards: 'Pencampuran Y-Site, Presipitasi Asam-Basa, Rekonstitusi Pelarut, Stabilitas BUD',
     evidenceLevel: 'Level 1 (Gold Standard ASHP)'
   },
   {
     feature: 'Panduan Terapi Klinis & Dosis Dewasa',
-    primarySource: 'PNPK Kemenkes RI, Konsensus PERKI (Jantung), PERKENI (Diabetes), PAPDI, IDAI',
-    standards: 'Algoritma Terapi Lini Pertama & Kedua, Target Klinis HbA1c/Tekanan Darah, FORNAS BPJS',
+    primarySource: 'PNPK Kemenkes RI, Konsensus PERKI, PERKENI, PAPDI, PDPI, PERDOSSI, PERNEFRI, POGI',
+    standards: 'Algoritma Terapi Lini Pertama & Kedua, Target Klinis HbA1c/Tensi, FORNAS BPJS',
     evidenceLevel: 'Level 2 (PNPK & Konsensus Spesialis)'
   },
   {
     feature: 'Dosis Pediatrik & Konversi Racikan Puyer',
-    primarySource: 'Panduan Praktik Klinis IDAI & Standar Farmakope Indonesia',
-    standards: 'Dosis Berbasis mg/kgBB dan BSA (m²), Kalkulasi Zat Pengisi SL / Bobot Kering',
-    evidenceLevel: 'Level 2 (IDAI / Farmakope)'
+    primarySource: 'Panduan Praktik Klinis IDAI, Farmakope Indonesia VI & Harriet Lane Handbook',
+    standards: 'Dosis Berbasis mg/kgBB dan BSA (m²), Kalkulasi Zat Pengisi SL / Bobot Puyer',
+    evidenceLevel: 'Level 2 (IDAI / Farmakope VI)'
   },
   {
     feature: 'Kalkulator Klirens Ginjal & Hepar',
@@ -566,7 +1079,7 @@ export const FEATURE_EVIDENCE_MAPPING = [
   },
   {
     feature: 'SOP Pelayanan Kefarmasian & Regulasi Hukum',
-    primarySource: 'UU No. 17 Tahun 2023, Permenkes No. 73/2016 (Apotek) & No. 72/2016 (RS)',
+    primarySource: 'UU No. 17 Tahun 2023, Permenkes No. 73/2016 (Apotek) & Daftar DOWA 1, 2, 3',
     standards: 'Skrining Resep, Dispensing, Edukasi PIO Pasien, Penyimpanan High-Alert & LASA',
     evidenceLevel: 'Level 3 (Standar Wajib Kemenkes)'
   }
