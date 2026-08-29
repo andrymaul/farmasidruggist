@@ -1477,15 +1477,17 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'pediatric' && (
         <div className="space-y-4">
-          <div className="p-4 bg-emerald-950/40 border border-emerald-800/60 rounded-2xl flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <Baby className="w-5 h-5 text-emerald-400" />
+          <div className="p-4.5 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 dark:from-emerald-950/40 dark:via-teal-950/40 dark:to-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 rounded-2xl flex items-center justify-between gap-3 shadow-xs">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700/60">
+                <Baby className="w-5 h-5" />
+              </div>
               <div>
-                <h3 className="text-sm font-bold text-white">Kalkulator Dosis Pediatrik & Sirup Terintegrasi</h3>
-                <p className="text-xs text-emerald-200/80">Perhitungan dosis anak akurat berbasis Berat Badan (mg/kgBB), Usia, Luas Permukaan Tubuh (BSA), dan takaran mL sirup.</p>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Kalkulator Dosis Pediatrik & Sirup Terintegrasi</h3>
+                <p className="text-xs text-slate-600 dark:text-emerald-200/80 font-medium">Perhitungan dosis anak akurat berbasis Berat Badan (mg/kgBB), Usia, Luas Permukaan Tubuh (BSA), dan takaran mL sirup.</p>
               </div>
             </div>
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shrink-0">
+            <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/40 shrink-0 shadow-2xs">
               Standar BPOM & IDAI
             </span>
           </div>
@@ -1503,15 +1505,17 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'compounding' && (
         <div className="space-y-4">
-          <div className="p-4 bg-cyan-950/40 border border-cyan-800/60 rounded-2xl flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <FlaskConical className="w-5 h-5 text-cyan-400" />
+          <div className="p-4.5 bg-gradient-to-r from-cyan-50 via-sky-50 to-cyan-50 dark:from-cyan-950/40 dark:via-sky-950/40 dark:to-cyan-950/40 border border-cyan-200 dark:border-cyan-800/60 rounded-2xl flex items-center justify-between gap-3 shadow-xs">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-cyan-100 dark:bg-cyan-900/50 text-cyan-700 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-700/60">
+                <FlaskConical className="w-5 h-5" />
+              </div>
               <div>
-                <h3 className="text-sm font-bold text-white">Kalkulator Peracikan Puyer & Serbuk Bagi Terintegrasi</h3>
-                <p className="text-xs text-cyan-200/80">Konversi tablet utuh ke puyer serbuk bagi, perhitungan bobot pengisi Saccharum Lactis (SL), etiket resep, dan rekonstitusi sirup kering.</p>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Kalkulator Peracikan Puyer & Serbuk Bagi Terintegrasi</h3>
+                <p className="text-xs text-slate-600 dark:text-cyan-200/80 font-medium">Konversi tablet utuh ke puyer serbuk bagi, perhitungan bobot pengisi Saccharum Lactis (SL), etiket resep, dan rekonstitusi sirup kering.</p>
               </div>
             </div>
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shrink-0">
+            <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-cyan-100 dark:bg-cyan-500/20 text-cyan-800 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-500/40 shrink-0 shadow-2xs">
               Farmakope & Dispensing
             </span>
           </div>
@@ -1529,23 +1533,25 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'syringe-pump' && (
         <div className="space-y-6">
-          <div className="p-4 bg-sky-950/40 border border-sky-800/60 rounded-2xl flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <Syringe className="w-5 h-5 text-sky-400" />
+          <div className="p-4.5 bg-gradient-to-r from-sky-50 via-blue-50 to-sky-50 dark:from-sky-950/40 dark:via-blue-950/40 dark:to-sky-950/40 border border-sky-200 dark:border-sky-800/60 rounded-2xl flex items-center justify-between gap-3 shadow-xs">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-700/60">
+                <Syringe className="w-5 h-5" />
+              </div>
               <div>
-                <h3 className="text-sm font-bold text-white">Kalkulator Kecepatan Syringe Pump & Tetesan Infus Drip</h3>
-                <p className="text-xs text-sky-200/80">Hitung laju infus titrasi kontinu (mcg/kg/menit, mcg/menit, mg/jam ke mL/jam) dan tetesan infus makro/mikro per menit.</p>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Kalkulator Kecepatan Syringe Pump & Tetesan Infus Drip</h3>
+                <p className="text-xs text-slate-600 dark:text-sky-200/80 font-medium">Hitung laju infus titrasi kontinu (mcg/kg/menit, mcg/menit, mg/jam ke mL/jam) dan tetesan infus makro/mikro per menit.</p>
               </div>
             </div>
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/40 shrink-0">
+            <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-sky-100 dark:bg-sky-500/20 text-sky-800 dark:text-sky-300 border border-sky-300 dark:border-sky-500/40 shrink-0 shadow-2xs">
               ICU & Emergensi
             </span>
           </div>
 
           {/* Quick Drug Presets for Syringe Pump */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
-            <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-              <Zap className="w-4 h-4 text-amber-400" />
+          <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
+            <span className="text-xs font-bold text-slate-800 dark:text-slate-300 flex items-center gap-1.5">
+              <Zap className="w-4 h-4 text-amber-500 dark:text-amber-400" />
               Pilih Preset Obat Titrasi ICU Sering Digunakan:
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -1564,12 +1570,12 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
                   onClick={() => handleApplySyringePreset(preset.id)}
                   className={`p-2.5 text-left rounded-xl border text-xs transition cursor-pointer ${
                     calcDrugPreset === preset.id
-                      ? 'bg-sky-950/90 border-sky-500 text-sky-200 shadow-sm'
-                      : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                      ? 'bg-sky-100 dark:bg-sky-950/90 border-sky-400 dark:border-sky-500 text-sky-950 dark:text-sky-200 shadow-xs'
+                      : 'bg-slate-50 dark:bg-slate-950/70 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
-                  <div className="font-bold text-white">{preset.name}</div>
-                  <div className="text-[10.5px] text-slate-400 mt-0.5">{preset.dose}</div>
+                  <div className="font-bold text-slate-900 dark:text-white">{preset.name}</div>
+                  <div className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">{preset.dose}</div>
                 </button>
               ))}
             </div>
@@ -1577,88 +1583,88 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Input Parameters */}
-            <div className="lg:col-span-5 bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
-              <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-sky-400" />
+            <div className="lg:col-span-5 bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+              <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-sky-600 dark:text-sky-400" />
                 Parameter Syringe Pump
               </h4>
 
               <div className="space-y-3 text-xs">
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Berat Badan Pasien (kg):</label>
+                  <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1">Berat Badan Pasien (kg):</label>
                   <input
                     type="number"
                     value={calcPatientWeightKg}
                     onChange={(e) => setCalcPatientWeightKg(Number(e.target.value))}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-sky-500"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-sky-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Target Dosis Titrasi (mcg / kgBB / menit):</label>
+                  <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1">Target Dosis Titrasi (mcg / kgBB / menit):</label>
                   <input
                     type="number"
                     step="0.01"
                     value={calcTargetDose}
                     onChange={(e) => setCalcTargetDose(Number(e.target.value))}
-                    className="w-full bg-sky-950/50 border border-sky-500/60 rounded-xl px-3 py-2 text-sky-300 font-black text-sm focus:outline-none"
+                    className="w-full bg-sky-50 dark:bg-sky-950/50 border border-sky-300 dark:border-sky-500/60 rounded-xl px-3 py-2 text-sky-950 dark:text-sky-300 font-black text-sm focus:outline-none"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-slate-400 font-medium mb-1">Total Obat (mg):</label>
+                    <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1">Total Obat (mg):</label>
                     <input
                       type="number"
                       value={calcDrugMgInSyringe}
                       onChange={(e) => setCalcDrugMgInSyringe(Number(e.target.value))}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-sky-500"
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-sky-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-400 font-medium mb-1">Volume Spuit (mL):</label>
+                    <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1">Volume Spuit (mL):</label>
                     <input
                       type="number"
                       value={calcSyringeVolumeMl}
                       onChange={(e) => setCalcSyringeVolumeMl(Number(e.target.value))}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-sky-500"
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-sky-500"
                     />
                   </div>
                 </div>
 
                 {/* Gravity Drip Inputs */}
-                <div className="pt-3 border-t border-slate-800 space-y-3">
-                  <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                    <Wind className="w-4 h-4 text-emerald-400" />
+                <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3">
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <Wind className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     Parameter Infus Gravitasi (Drip)
                   </h4>
 
                   <div className="grid grid-cols-3 gap-2">
                     <div>
-                      <label className="block text-[10.5px] text-slate-400 mb-1">Volume (mL):</label>
+                      <label className="block text-[10.5px] text-slate-700 dark:text-slate-400 font-bold mb-1">Volume (mL):</label>
                       <input
                         type="number"
                         value={dripVolumeMl}
                         onChange={(e) => setDripVolumeMl(Number(e.target.value))}
-                        className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white font-bold"
+                        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 dark:text-white font-bold"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10.5px] text-slate-400 mb-1">Durasi (Jam):</label>
+                      <label className="block text-[10.5px] text-slate-700 dark:text-slate-400 font-bold mb-1">Durasi (Jam):</label>
                       <input
                         type="number"
                         value={dripDurationHours}
                         onChange={(e) => setDripDurationHours(Number(e.target.value))}
-                        className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white font-bold"
+                        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 dark:text-white font-bold"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10.5px] text-slate-400 mb-1">Faktor Tetes:</label>
+                      <label className="block text-[10.5px] text-slate-700 dark:text-slate-400 font-bold mb-1">Faktor Tetes:</label>
                       <select
                         value={dripFactor}
                         onChange={(e) => setDripFactor(Number(e.target.value) as 20 | 60)}
-                        className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2 py-1.5 text-xs text-white font-bold"
+                        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-2 py-1.5 text-xs text-slate-900 dark:text-white font-bold"
                       >
                         <option value={20}>20 gtt (Makro)</option>
                         <option value={60}>60 gtt (Mikro)</option>
@@ -1671,7 +1677,7 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
             {/* Calculations Output */}
             <div className="lg:col-span-7 space-y-4">
-              <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+              <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5 text-white">
                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                   Hasil Perhitungan Setting Syringe Pump
                 </span>
@@ -1734,49 +1740,184 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'clinical-scores' && (
         <div className="space-y-6">
-          <div className="p-4 bg-fuchsia-950/40 border border-fuchsia-800/60 rounded-2xl flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <Stethoscope className="w-5 h-5 text-fuchsia-400" />
+          <div className="p-4.5 bg-gradient-to-r from-fuchsia-50 via-purple-50 to-pink-50 dark:from-fuchsia-950/40 dark:via-purple-950/40 dark:to-pink-950/40 border border-fuchsia-200 dark:border-fuchsia-800/60 rounded-2xl flex items-center justify-between gap-3 shadow-xs">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-fuchsia-100 dark:bg-fuchsia-900/50 text-fuchsia-700 dark:text-fuchsia-400 border border-fuchsia-200 dark:border-fuchsia-700/60">
+                <Stethoscope className="w-5 h-5" />
+              </div>
               <div>
-                <h3 className="text-sm font-bold text-white">Suite 13 Kalkulator Skor Klinis & Risiko Terpadu</h3>
-                <p className="text-xs text-fuchsia-200/80">Kalkulator stratifikasi risiko kardiovaskular, stroke, sepsis, dehidrasi, mortalitas, dan psikometri berbasis pedoman klinis internasional.</p>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Suite 13 Kalkulator Skor Klinis & Risiko Terpadu</h3>
+                <p className="text-xs text-slate-600 dark:text-fuchsia-200/80 font-medium">Kalkulator stratifikasi risiko kardiovaskular, stroke, sepsis, dehidrasi, mortalitas, dan psikometri berbasis pedoman klinis internasional.</p>
               </div>
             </div>
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/40 shrink-0">
+            <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-fuchsia-100 dark:bg-fuchsia-500/20 text-fuchsia-800 dark:text-fuchsia-300 border border-fuchsia-300 dark:border-fuchsia-500/40 shrink-0 shadow-2xs">
               13 Skor Valid
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { id: 'ascvd' as CalculatorType, name: '10-Year ASCVD Risk', org: 'AHA / ACC 2019', desc: 'Estimasi risiko aterosklerotik kardiovaskular 10 tahun untuk memulai terapi statin & aspirin.', badge: 'Kardiologi', color: 'border-blue-800/80 bg-blue-950/20' },
-              { id: 'cha2ds2vasc' as CalculatorType, name: 'CHA2DS2-VASc Score', org: 'ESC / AHA / ACC', desc: 'Stratifikasi risiko stroke tromboemboli pada Fibrilasi Atrium (AF) & indikasi antikoagulan oral (DOAC).', badge: 'Antikoagulasi', color: 'border-indigo-800/80 bg-indigo-950/20' },
-              { id: 'curb65' as CalculatorType, name: 'CURB-65 Pneumonia', org: 'BTS Standard', desc: 'Penilaian derajat keparahan pneumonia komunitas (CAP) & penentuan lokasi rawat (Rawat Jalan / Ruang Rawat / ICU).', badge: 'Respirasi', color: 'border-cyan-800/80 bg-cyan-950/20' },
-              { id: 'qsofa' as CalculatorType, name: 'qSOFA Sepsis Score', org: 'Sepsis-3 Guidelines', desc: 'Skrining cepat bedside kecurigaan sepsis di luar ICU (Laju napas ≥22, GCS <15, TDS ≤100 mmHg).', badge: 'Emergensi', color: 'border-rose-800/80 bg-rose-950/20' },
-              { id: 'map' as CalculatorType, name: 'Mean Arterial Pressure (MAP)', org: 'ICU Hemodinamik', desc: 'Penghitungan tekanan arteri rata-rata target perfusi organ (MAP ≥65 mmHg) pada syok & resusitasi.', badge: 'Hemodinamik', color: 'border-teal-800/80 bg-teal-950/20' },
-              { id: 'egfr' as CalculatorType, name: 'eGFR CKD-EPI 2021', org: 'KDIGO Standard', desc: 'Formula estimasi laju filtrasi glomerulus berbasis kreatinin serum terbaru tanpa faktor ras.', badge: 'Nefrologi', color: 'border-emerald-800/80 bg-emerald-950/20' },
-              { id: 'holliday-segar' as CalculatorType, name: 'Holliday-Segar Cairan', org: 'Pediatrik Standar', desc: 'Kalkulasi kebutuhan cairan rumatan harian (maintenance fluid) anak & laju tetesan mL/jam.', badge: 'Pediatrik', color: 'border-amber-800/80 bg-amber-950/20' },
-              { id: 'pediatric-dehydration' as CalculatorType, name: 'Derajat Dehidrasi WHO', org: 'WHO Guidelines', desc: 'Klasifikasi dehidrasi diare akut anak (Tanpa, Ringan-Sedang, Berat) & Rencana Terapi Cairan A/B/C.', badge: 'Gastro Pediatrik', color: 'border-orange-800/80 bg-orange-950/20' },
-              { id: 'hba1c-eag' as CalculatorType, name: 'HbA1c to eAG Converter', org: 'ADA / ADAG Study', desc: 'Konversi nilai HbA1c (%) menjadi perkiraan rata-rata glukosa darah harian (eAG mg/dL).', badge: 'Endokrin', color: 'border-purple-800/80 bg-purple-950/20' },
-              { id: 'act-asthma' as CalculatorType, name: 'Asthma Control Test (ACT)', org: 'GINA Standard', desc: 'Kuesioner evaluasi tingkat kendali asma 4 minggu (Terkontrol Penuh, Baik, Tidak Terkontrol).', badge: 'Asma / Paru', color: 'border-sky-800/80 bg-sky-950/20' },
-              { id: 'phq9' as CalculatorType, name: 'PHQ-9 Depression Scale', org: 'DSM-5 / APA', desc: 'Instrumen skrining tingkat keparahan depresi 9 kriteria dan evaluasi efikasi antidepresan.', badge: 'Psikiatri', color: 'border-fuchsia-800/80 bg-fuchsia-950/20' },
-              { id: 'bishop' as CalculatorType, name: 'Bishop Score Induksi', org: 'ACOG Obstetri', desc: 'Penilaian kematangan serviks untuk memprediksi keberhasilan induksi persalinan pervaginam.', badge: 'Obstetri', color: 'border-pink-800/80 bg-pink-950/20' }
+              {
+                id: 'ascvd' as CalculatorType,
+                name: '10-Year ASCVD Risk',
+                org: 'AHA / ACC 2019',
+                desc: 'Estimasi risiko aterosklerotik kardiovaskular 10 tahun untuk memulai terapi statin & aspirin.',
+                badge: 'Kardiologi',
+                cardBg: 'bg-blue-50/60 hover:bg-blue-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-blue-200 hover:border-blue-400 dark:border-blue-800/70 dark:hover:border-blue-500',
+                badgeStyle: 'bg-blue-100 text-blue-800 border-blue-300/70 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800',
+                orgStyle: 'text-blue-700 dark:text-blue-400'
+              },
+              {
+                id: 'cha2ds2vasc' as CalculatorType,
+                name: 'CHA2DS2-VASc Score',
+                org: 'ESC / AHA / ACC',
+                desc: 'Stratifikasi risiko stroke tromboemboli pada Fibrilasi Atrium (AF) & indikasi antikoagulan oral (DOAC).',
+                badge: 'Antikoagulasi',
+                cardBg: 'bg-indigo-50/60 hover:bg-indigo-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-indigo-200 hover:border-indigo-400 dark:border-indigo-800/70 dark:hover:border-indigo-500',
+                badgeStyle: 'bg-indigo-100 text-indigo-800 border-indigo-300/70 dark:bg-indigo-950 dark:text-indigo-300 dark:border-indigo-800',
+                orgStyle: 'text-indigo-700 dark:text-indigo-400'
+              },
+              {
+                id: 'curb65' as CalculatorType,
+                name: 'CURB-65 Pneumonia',
+                org: 'BTS Standard',
+                desc: 'Penilaian derajat keparahan pneumonia komunitas (CAP) & penentuan lokasi rawat (Rawat Jalan / Ruang Rawat / ICU).',
+                badge: 'Respirasi',
+                cardBg: 'bg-cyan-50/60 hover:bg-cyan-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-cyan-200 hover:border-cyan-400 dark:border-cyan-800/70 dark:hover:border-cyan-500',
+                badgeStyle: 'bg-cyan-100 text-cyan-800 border-cyan-300/70 dark:bg-cyan-950 dark:text-cyan-300 dark:border-cyan-800',
+                orgStyle: 'text-cyan-700 dark:text-cyan-400'
+              },
+              {
+                id: 'qsofa' as CalculatorType,
+                name: 'qSOFA Sepsis Score',
+                org: 'Sepsis-3 Guidelines',
+                desc: 'Skrining cepat bedside kecurigaan sepsis di luar ICU (Laju napas ≥22, GCS <15, TDS ≤100 mmHg).',
+                badge: 'Emergensi',
+                cardBg: 'bg-rose-50/60 hover:bg-rose-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-rose-200 hover:border-rose-400 dark:border-rose-800/70 dark:hover:border-rose-500',
+                badgeStyle: 'bg-rose-100 text-rose-800 border-rose-300/70 dark:bg-rose-950 dark:text-rose-300 dark:border-rose-800',
+                orgStyle: 'text-rose-700 dark:text-rose-400'
+              },
+              {
+                id: 'map' as CalculatorType,
+                name: 'Mean Arterial Pressure (MAP)',
+                org: 'ICU Hemodinamik',
+                desc: 'Penghitungan tekanan arteri rata-rata target perfusi organ (MAP ≥65 mmHg) pada syok & resusitasi.',
+                badge: 'Hemodinamik',
+                cardBg: 'bg-teal-50/60 hover:bg-teal-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-teal-200 hover:border-teal-400 dark:border-teal-800/70 dark:hover:border-teal-500',
+                badgeStyle: 'bg-teal-100 text-teal-800 border-teal-300/70 dark:bg-teal-950 dark:text-teal-300 dark:border-teal-800',
+                orgStyle: 'text-teal-700 dark:text-teal-400'
+              },
+              {
+                id: 'egfr' as CalculatorType,
+                name: 'eGFR CKD-EPI 2021',
+                org: 'KDIGO Standard',
+                desc: 'Formula estimasi laju filtrasi glomerulus berbasis kreatinin serum terbaru tanpa faktor ras.',
+                badge: 'Nefrologi',
+                cardBg: 'bg-emerald-50/60 hover:bg-emerald-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-emerald-200 hover:border-emerald-400 dark:border-emerald-800/70 dark:hover:border-emerald-500',
+                badgeStyle: 'bg-emerald-100 text-emerald-800 border-emerald-300/70 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800',
+                orgStyle: 'text-emerald-700 dark:text-emerald-400'
+              },
+              {
+                id: 'childpugh' as CalculatorType,
+                name: 'Child-Pugh & MELD Score',
+                org: 'UNOS / Mayo Clinic',
+                desc: 'Stratifikasi derajat keparahan sirosis hepatis, mortalitas bedah & risiko dekompensasi hepar.',
+                badge: 'Hepatologi',
+                cardBg: 'bg-amber-50/60 hover:bg-amber-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-amber-200 hover:border-amber-400 dark:border-amber-800/70 dark:hover:border-amber-500',
+                badgeStyle: 'bg-amber-100 text-amber-800 border-amber-300/70 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800',
+                orgStyle: 'text-amber-700 dark:text-amber-400'
+              },
+              {
+                id: 'holliday-segar' as CalculatorType,
+                name: 'Holliday-Segar Cairan',
+                org: 'Pediatrik Standar',
+                desc: 'Kalkulasi kebutuhan cairan rumatan harian (maintenance fluid) anak & laju tetesan mL/jam.',
+                badge: 'Pediatrik',
+                cardBg: 'bg-yellow-50/60 hover:bg-yellow-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-yellow-200 hover:border-yellow-400 dark:border-yellow-800/70 dark:hover:border-yellow-500',
+                badgeStyle: 'bg-yellow-100 text-yellow-800 border-yellow-300/70 dark:bg-yellow-950 dark:text-yellow-300 dark:border-yellow-800',
+                orgStyle: 'text-yellow-700 dark:text-yellow-400'
+              },
+              {
+                id: 'pediatric-dehydration' as CalculatorType,
+                name: 'Derajat Dehidrasi WHO',
+                org: 'WHO Guidelines',
+                desc: 'Klasifikasi dehidrasi diare akut anak (Tanpa, Ringan-Sedang, Berat) & Rencana Terapi Cairan A/B/C.',
+                badge: 'Gastro Pediatrik',
+                cardBg: 'bg-orange-50/60 hover:bg-orange-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-orange-200 hover:border-orange-400 dark:border-orange-800/70 dark:hover:border-orange-500',
+                badgeStyle: 'bg-orange-100 text-orange-800 border-orange-300/70 dark:bg-orange-950 dark:text-orange-300 dark:border-orange-800',
+                orgStyle: 'text-orange-700 dark:text-orange-400'
+              },
+              {
+                id: 'hba1c-eag' as CalculatorType,
+                name: 'HbA1c to eAG Converter',
+                org: 'ADA / ADAG Study',
+                desc: 'Konversi nilai HbA1c (%) menjadi perkiraan rata-rata glukosa darah harian (eAG mg/dL).',
+                badge: 'Endokrin',
+                cardBg: 'bg-purple-50/60 hover:bg-purple-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-purple-200 hover:border-purple-400 dark:border-purple-800/70 dark:hover:border-purple-500',
+                badgeStyle: 'bg-purple-100 text-purple-800 border-purple-300/70 dark:bg-purple-950 dark:text-purple-300 dark:border-purple-800',
+                orgStyle: 'text-purple-700 dark:text-purple-400'
+              },
+              {
+                id: 'act-asthma' as CalculatorType,
+                name: 'Asthma Control Test (ACT)',
+                org: 'GINA Standard',
+                desc: 'Kuesioner evaluasi tingkat kendali asma 4 minggu (Terkontrol Penuh, Baik, Tidak Terkontrol).',
+                badge: 'Asma / Paru',
+                cardBg: 'bg-sky-50/60 hover:bg-sky-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-sky-200 hover:border-sky-400 dark:border-sky-800/70 dark:hover:border-sky-500',
+                badgeStyle: 'bg-sky-100 text-sky-800 border-sky-300/70 dark:bg-sky-950 dark:text-sky-300 dark:border-sky-800',
+                orgStyle: 'text-sky-700 dark:text-sky-400'
+              },
+              {
+                id: 'phq9' as CalculatorType,
+                name: 'PHQ-9 Depression Scale',
+                org: 'DSM-5 / APA',
+                desc: 'Instrumen skrining tingkat keparahan depresi 9 kriteria dan evaluasi efikasi antidepresan.',
+                badge: 'Psikiatri',
+                cardBg: 'bg-fuchsia-50/60 hover:bg-fuchsia-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-fuchsia-200 hover:border-fuchsia-400 dark:border-fuchsia-800/70 dark:hover:border-fuchsia-500',
+                badgeStyle: 'bg-fuchsia-100 text-fuchsia-800 border-fuchsia-300/70 dark:bg-fuchsia-950 dark:text-fuchsia-300 dark:border-fuchsia-800',
+                orgStyle: 'text-fuchsia-700 dark:text-fuchsia-400'
+              },
+              {
+                id: 'bishop' as CalculatorType,
+                name: 'Bishop Score Induksi',
+                org: 'ACOG Obstetri',
+                desc: 'Penilaian kematangan serviks untuk memprediksi keberhasilan induksi persalinan pervaginam.',
+                badge: 'Obstetri',
+                cardBg: 'bg-pink-50/60 hover:bg-pink-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-pink-200 hover:border-pink-400 dark:border-pink-800/70 dark:hover:border-pink-500',
+                badgeStyle: 'bg-pink-100 text-pink-800 border-pink-300/70 dark:bg-pink-950 dark:text-pink-300 dark:border-pink-800',
+                orgStyle: 'text-pink-700 dark:text-pink-400'
+              }
             ].map(scoreItem => (
               <div
                 key={scoreItem.id}
-                className={`p-4.5 rounded-2xl border ${scoreItem.color} flex flex-col justify-between space-y-3 shadow-md hover:border-slate-600 transition group`}
+                className={`p-5 rounded-2xl border ${scoreItem.borderColor} ${scoreItem.cardBg} flex flex-col justify-between space-y-4 shadow-sm hover:shadow-md transition-all group duration-200`}
               >
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-900/90 text-slate-300 border border-slate-700">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border ${scoreItem.badgeStyle} shadow-2xs`}>
                       {scoreItem.badge}
                     </span>
-                    <span className="text-[10px] text-slate-500 font-medium">{scoreItem.org}</span>
+                    <span className={`text-[11px] font-bold ${scoreItem.orgStyle}`}>
+                      {scoreItem.org}
+                    </span>
                   </div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-teal-300 transition">
+                  <h4 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors">
                     {scoreItem.name}
                   </h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                     {scoreItem.desc}
                   </p>
                 </div>
@@ -1787,11 +1928,11 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
                     setSelectedClinicalScore(scoreItem.id);
                     setIsScoresModalOpen(true);
                   }}
-                  className="w-full py-2 px-3 rounded-xl text-xs font-bold bg-slate-900 hover:bg-teal-600 text-slate-200 hover:text-white border border-slate-700 hover:border-teal-500 transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                  className="w-full py-2.5 px-3.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-teal-600 dark:bg-slate-800 dark:hover:bg-teal-600 text-white border border-slate-800 dark:border-slate-700 hover:border-teal-500 dark:border-teal-500 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:shadow-md active:scale-[0.98]"
                 >
-                  <Calculator className="w-3.5 h-3.5" />
+                  <Calculator className="w-4 h-4 text-teal-400 dark:text-white" />
                   <span>Buka Kalkulator Skor</span>
-                  <ChevronRight className="w-3.5 h-3.5 ml-auto" />
+                  <ChevronRight className="w-4 h-4 ml-auto" />
                 </button>
               </div>
             ))}
