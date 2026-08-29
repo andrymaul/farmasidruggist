@@ -414,32 +414,53 @@ export const SideEffectChecker: React.FC<SideEffectCheckerProps> = ({
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto pb-16">
+    <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-16">
       
-      {/* 1. Header Banner & Intro */}
-      <div className="bg-gradient-to-r from-slate-900 via-[#0d1c24] to-[#122b33] rounded-3xl p-6 sm:p-8 text-white border border-teal-500/20 shadow-xl relative overflow-hidden print:hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none -z-0" />
+      {/* 1. Header Banner & Intro - Deep Obsidian & Teal Palette */}
+      <div className="bg-gradient-to-r from-slate-900 via-[#0d1f27] to-slate-900 rounded-3xl p-6 sm:p-8 text-white border border-teal-500/20 shadow-xl relative overflow-hidden print:hidden">
+        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
+          <HeartPulse className="w-64 h-64 text-teal-400 -rotate-12" />
+        </div>
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+
         <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-400/30 text-teal-300 text-xs font-semibold uppercase tracking-wider mb-3">
-              <ShieldAlert className="w-3.5 h-3.5" />
-              Pusat Farmakovigilans & Monitoring Efek Samping Obat (MESO)
+          <div className="space-y-3 max-w-3xl">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-500/30 text-teal-300 text-xs font-bold uppercase tracking-wider">
+                <ShieldAlert className="w-3.5 h-3.5 text-teal-400" />
+                <span>Pusat Farmakovigilans & Monitoring Efek Samping Obat (MESO)</span>
+              </div>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-white/10 text-teal-200 border border-white/20">
+                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                Standar Naranjo, WHO-UMC & BPOM RI
+              </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-outfit text-white">
-              Cek Efek Samping & Evaluasi Kausalitas MESO
+
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+              Cek Efek Samping & <span className="text-teal-300">Evaluasi Kausalitas MESO</span>
             </h1>
-            <p className="text-sm text-slate-300 max-w-3xl mt-2 leading-relaxed">
-              Suite komprehensif farmakovigilans: Analisis Toksisitas Organ Kumulatif, Pelacak Gejala Pasien, Kalkulator Naranjo & WHO-UMC, Skala Keparahan Hartwig, Skala Ketercegahan Schumock, dan Generator Formulir Kuning BPOM RI.
+
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+              Suite komprehensif farmakovigilans: Analisis Toksisitas Organ Kumulatif, Pelacak Gejala Pasien, Kalkulator Kausalitas Naranjo & WHO-UMC, Skala Keparahan Hartwig, Skala Ketercegahan Schumock, dan Generator Formulir Kuning BPOM RI.
             </p>
           </div>
 
-          <div className="flex items-center gap-3 self-start md:self-auto shrink-0">
+          <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto shrink-0">
+            {onOpenBrandingModal && (
+              <button
+                onClick={onOpenBrandingModal}
+                className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer backdrop-blur-xs shadow-xs active:scale-95"
+              >
+                <Building className="w-3.5 h-3.5 text-teal-300" />
+                <span>Kop & Stempel</span>
+              </button>
+            )}
             <button
               onClick={handlePrint}
-              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-all flex items-center gap-2 cursor-pointer backdrop-blur-md shadow-sm"
+              className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md active:scale-95"
             >
               <Printer className="w-4 h-4" />
-              Cetak / Ekspor PDF
+              <span>Cetak / Ekspor PDF</span>
             </button>
           </div>
         </div>
