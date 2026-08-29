@@ -18,6 +18,7 @@ import { PediatricCompoundingCalculator } from './components/PediatricCompoundin
 import { IvCompatibilityChecker } from './components/IvCompatibilityChecker';
 import { WhatsAppPatientCardManager } from './components/WhatsAppPatientCardManager';
 import { CustomerSubscriptionManager } from './components/CustomerSubscriptionManager';
+import { SideEffectChecker } from './components/SideEffectChecker';
 import { ProFeatureGate } from './components/ProFeatureGate';
 import { AuthModal } from './components/AuthModal';
 import { PricingModal } from './components/PricingModal';
@@ -60,6 +61,14 @@ export default function App() {
         if (parsed && parsed.isEmailVerified === false) {
           localStorage.setItem('farmasi_current_user', 'null_session');
           return null;
+        }
+        if (parsed) {
+          if (parsed.subscriptionPlan === 'Klinik' || parsed.subscriptionPlan === 'Elite' || (parsed.role === 'admin' && parsed.subscriptionPlan !== 'Pemula')) {
+            parsed.subscriptionPlan = 'Pro';
+            try {
+              localStorage.setItem('farmasi_current_user', JSON.stringify(parsed));
+            } catch (e) {}
+          }
         }
         return parsed;
       }
@@ -117,7 +126,7 @@ export default function App() {
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState<boolean>(false);
 
-  const APP_DB_VERSION = 'v2026_mims_drugs_medscape_offlabel_v12';
+  const APP_DB_VERSION = 'v2026_mims_drugs_medscape_offlabel_v14';
 
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>(PRICING_PLANS);
   const [drugs, setDrugs] = useState<Drug[]>(() => {
@@ -377,7 +386,7 @@ export default function App() {
 
   const isProUser = Boolean(
     currentUser?.role === 'admin' ||
-    ((currentUser?.subscriptionPlan === 'Pro' || currentUser?.subscriptionPlan === 'Elite' || currentUser?.subscriptionPlan === 'Klinik') && currentUser?.subscriptionStatus === 'active')
+    (currentUser?.subscriptionPlan === 'Pro' && currentUser?.subscriptionStatus === 'active')
   );
 
   // Sync currentUser & activeTab to localStorage
@@ -560,7 +569,7 @@ export default function App() {
             email: email,
             name: firebaseUser.displayName || email.split('@')[0] || 'User',
             role: isAdmin ? 'admin' : 'free',
-            subscriptionPlan: isAdmin ? 'Klinik' : 'Pemula',
+            subscriptionPlan: isAdmin ? 'Pro' : 'Pemula',
             subscriptionStatus: 'active',
             isEmailVerified: true,
             createdAt: new Date().toISOString(),
@@ -571,9 +580,15 @@ export default function App() {
           profile = {
             ...profile,
             role: 'admin',
-            subscriptionPlan: 'Klinik',
+            subscriptionPlan: 'Pro',
             subscriptionStatus: 'active',
             isEmailVerified: true
+          };
+          await saveUserProfileToFirestore(profile);
+        } else if (profile.subscriptionPlan === 'Klinik' || profile.subscriptionPlan === 'Elite') {
+          profile = {
+            ...profile,
+            subscriptionPlan: 'Pro'
           };
           await saveUserProfileToFirestore(profile);
         }
@@ -617,7 +632,7 @@ export default function App() {
     localStorage.setItem('farmasi_active_tab', 'landing');
   };
 
-  const handleSubscribeSuccess = (planName: 'Pro' | 'Elite' | 'Klinik') => {
+  const handleSubscribeSuccess = (planName: 'Pro' | string) => {
     if (currentUser) {
       const updatedUser: UserProfile = {
         ...currentUser,
@@ -916,6 +931,17 @@ export default function App() {
                   }
                   preselectedDrugName={preselectedDrugName}
                   preselectedDrugNames={preselectedDrugNames}
+                />
+              )}
+
+              {activeTab === 'side-effects' && (
+                <SideEffectChecker
+                  allDrugs={drugs}
+                  clinicBranding={clinicBranding}
+                  onOpenBrandingModal={() => handleSelectTab('admin-branding')}
+                  onSelectTab={handleSelectTab}
+                  isProUser={isProUser}
+                  onOpenPricingModal={() => setShowPricingModal(true)}
                 />
               )}
 

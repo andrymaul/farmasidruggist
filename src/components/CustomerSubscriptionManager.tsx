@@ -156,7 +156,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
 
   // Import from Firebase State
   const [importEmailsText, setImportEmailsText] = useState('');
-  const [importPlan, setImportPlan] = useState<'Pro' | 'Pemula' | 'Elite'>('Pro');
+  const [importPlan, setImportPlan] = useState<'Pro' | 'Pemula'>('Pro');
   const [importInstitution, setImportInstitution] = useState('');
 
   const handleImportEmailsFromFirebase = async (e: React.FormEvent) => {
@@ -171,22 +171,23 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       .filter(e => e.includes('@') && e.includes('.'));
 
     if (emailList.length === 0) {
-      alert('Tidak ada alamat email valid yang ditemukan.');
+      alert('Mohon masukkan minimal 1 alamat email yang valid.');
       return;
     }
 
     const expiryDate = new Date();
-    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+    expiryDate.setFullYear(expiryDate.getFullYear() + (importPlan === 'Pemula' ? 5 : 1));
 
     const newProfiles: UserProfile[] = [];
 
     for (const email of emailList) {
-      // Avoid duplicate
-      const existing = customers.find(c => c.email && c.email.toLowerCase() === email);
-      if (!existing) {
-        const displayName = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      // Check if email already exists in customers
+      const exists = customers.some(c => c.email && c.email.toLowerCase() === email);
+      if (!exists) {
+        const username = email.split('@')[0];
+        const displayName = username.charAt(0).toUpperCase() + username.slice(1);
         const profile: UserProfile = {
-          uid: 'auth-sync-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+          uid: 'fb-user-' + Math.random().toString(36).substring(2, 9),
           email,
           name: displayName,
           password: 'Pass#' + Math.floor(1000 + Math.random() * 9000),
@@ -231,7 +232,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
     phone: '',
     institution: '',
     licenseNumber: '',
-    subscriptionPlan: 'Pro' as 'Pemula' | 'Pro' | 'Elite' | 'Gratis' | 'Klinik',
+    subscriptionPlan: 'Pro' as 'Pemula' | 'Pro' | 'Gratis' | string,
     subscriptionStatus: 'active' as 'active' | 'expired' | 'trial',
     expiresAtDate: '',
     maxDrugsOverride: 20,
@@ -298,7 +299,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       const matchesPlan = selectedPlanFilter === 'Semua' || 
         cust.subscriptionPlan === selectedPlanFilter ||
         (selectedPlanFilter === 'Pemula' && cust.subscriptionPlan === 'Gratis') ||
-        (selectedPlanFilter === 'Pro' && (cust.subscriptionPlan === 'Elite' || cust.subscriptionPlan === 'Klinik'));
+        (selectedPlanFilter === 'Pro' && (cust.subscriptionPlan === 'Pro' || cust.subscriptionPlan === 'Elite' || cust.subscriptionPlan === 'Klinik'));
       
       const matchesStatus = selectedStatusFilter === 'Semua' || cust.subscriptionStatus === selectedStatusFilter;
 
@@ -765,13 +766,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
 
                       {/* Subscription Plan Badge */}
                       <td className="py-4 px-4">
-                        {(cust.subscriptionPlan === 'Elite' || cust.subscriptionPlan === 'Klinik') && (
-                          <span className="inline-flex items-center gap-1 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800 px-2.5 py-1 rounded-full text-xs font-extrabold font-outfit">
-                            <Building2 className="w-3.5 h-3.5" />
-                            Elite
-                          </span>
-                        )}
-                        {cust.subscriptionPlan === 'Pro' && (
+                        {(cust.subscriptionPlan === 'Pro' || cust.subscriptionPlan === 'Elite' || cust.subscriptionPlan === 'Klinik') && (
                           <span className="inline-flex items-center gap-1 bg-teal-50 dark:bg-[#156d67]/20 text-[#156d67] dark:text-[#5fd0df] border border-teal-200 dark:border-[#3dbfd1]/30 px-2.5 py-1 rounded-full text-xs font-extrabold font-outfit">
                             <Zap className="w-3.5 h-3.5" />
                             Pro
@@ -1552,7 +1547,6 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
                     className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#06191c] border border-slate-200 dark:border-[#184c53] rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-[#3dbfd1] focus:outline-none"
                   >
                     <option value="Pro">Pro (1 Tahun Akses Penuh)</option>
-                    <option value="Elite">Elite (Multi-Faskes / RS)</option>
                     <option value="Pemula">Pemula (Gratis Dasar)</option>
                   </select>
                 </div>

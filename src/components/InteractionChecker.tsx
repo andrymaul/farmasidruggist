@@ -81,7 +81,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
     }
   }, [preselectedDrugName, preselectedDrugNames, drugs]);
   const isFreePlan = !currentUser || currentUser.subscriptionPlan === 'Gratis' || currentUser.subscriptionPlan === 'Pemula';
-  const isProPlan = Boolean(currentUser && (currentUser.subscriptionPlan === 'Pro' || currentUser.subscriptionPlan === 'Elite' || currentUser.subscriptionPlan === 'Klinik' || currentUser.role === 'admin'));
+  const isProPlan = Boolean(currentUser && (currentUser.subscriptionPlan === 'Pro' || currentUser.role === 'admin'));
 
   const userPlanObj = pricingPlans?.find(p => 
     p.name.toLowerCase() === currentUser?.subscriptionPlan?.toLowerCase() || 
@@ -121,7 +121,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   // Handle adding drug to selector
   const handleAddDrug = (drugToAdd: Drug) => {
     if (selectedDrugs.length >= activePermissions.maxDrugsPerCheck) {
-      setLimitWarning(`Paket ${userPlanObj?.name || 'Gratis'} dibatasi maksimal ${activePermissions.maxDrugsPerCheck} obat per pemeriksaan. Tingkatkan ke paket Pro/Klinik untuk analisis multi-obat tak terbatas!`);
+      setLimitWarning(`Paket ${userPlanObj?.name || 'Gratis'} dibatasi maksimal ${activePermissions.maxDrugsPerCheck} obat per pemeriksaan. Tingkatkan ke paket Pro untuk analisis multi-obat tak terbatas!`);
       return;
     }
 
@@ -351,7 +351,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-xl shadow-xs transition-all shrink-0 flex items-center gap-1.5 cursor-pointer"
           >
             <Sparkles className="w-3.5 h-3.5 fill-slate-950" />
-            <span>Upgrade ke Pro / Klinik</span>
+            <span>Upgrade ke Pro</span>
           </button>
         </div>
       )}

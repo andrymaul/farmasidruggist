@@ -89,8 +89,8 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
 
   const handleApplyDiscountPreset = (percent: number) => {
     setPlans(plans.map(p => {
-      if (p.id === 'pro' || p.id === 'klinik') {
-        const basePrice = p.id === 'pro' ? 999000 : 249000;
+      if (p.id === 'pro') {
+        const basePrice = 999000;
         const discounted = Math.round(basePrice * (1 - percent / 100));
         return {
           ...p,
@@ -198,7 +198,7 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className={`text-xs font-extrabold uppercase tracking-wider ${
-                    plan.id === 'klinik' ? 'text-purple-600' : plan.id === 'pro' ? 'text-teal-600' : 'text-slate-500'
+                    plan.id === 'pro' ? 'text-teal-600' : 'text-slate-500'
                   }`}>
                     Paket {plan.id}
                   </span>
@@ -416,7 +416,7 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
                         canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
                         canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
                         maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'klinik'),
+                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
                         canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
                       }
                     } : p));
@@ -447,7 +447,7 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
                         canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
                         canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
                         maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'klinik'),
+                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
                         canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
                       }
                     } : p));
@@ -475,7 +475,7 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
                         canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
                         canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
                         maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'klinik'),
+                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
                         canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
                       }
                     } : p));
@@ -506,7 +506,7 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
                         canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
                         canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
                         maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'klinik'),
+                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
                         canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
                       }
                     } : p));
@@ -537,7 +537,7 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
                         canAccessTherapeuticDuplications: !current,
                         canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
                         maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'klinik'),
+                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
                         canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
                       }
                     } : p));
@@ -568,7 +568,7 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
                         canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
                         canSaveCloudHistory: !current,
                         maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'klinik'),
+                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
                         canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
                       }
                     } : p));
@@ -599,7 +599,7 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
                         canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
                         canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
                         maxHistoryRecords: val,
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'klinik'),
+                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
                         canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
                       }
                     } : p));
@@ -615,9 +615,9 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
               <label className="flex items-start gap-3 cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={currentPlan.permissions?.canAccessClinicBranding ?? (currentPlan.id === 'klinik')}
+                  checked={currentPlan.permissions?.canAccessClinicBranding ?? (currentPlan.id === 'pro')}
                   onChange={() => {
-                    const current = currentPlan.permissions?.canAccessClinicBranding ?? (currentPlan.id === 'klinik');
+                    const current = currentPlan.permissions?.canAccessClinicBranding ?? (currentPlan.id === 'pro');
                     setPlans(plans.map(p => p.id === activePlanId ? {
                       ...p,
                       permissions: {

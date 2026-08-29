@@ -118,7 +118,7 @@ export const HistoryList: React.FC<HistoryListProps> = ({
                 <Lock className="w-6 h-6 text-amber-600 shrink-0" />
                 <div>
                   <h4 className="text-sm font-bold text-amber-900">Arsip Riwayat Dibatasi ({historyRecords.length - 3} Catatan Lain Terkunci)</h4>
-                  <p className="text-xs text-amber-800">Paket Pemula hanya menampilkan 3 catatan pemeriksaan terakhir. Tingkatkan ke Pro atau Elite untuk akses arsip tak terbatas.</p>
+                  <p className="text-xs text-amber-800">Paket Pemula hanya menampilkan 3 catatan pemeriksaan terakhir. Tingkatkan ke Paket Pro untuk akses arsip tak terbatas.</p>
                 </div>
               </div>
               <button

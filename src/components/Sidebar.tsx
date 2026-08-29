@@ -29,7 +29,8 @@ import {
   HeartPulse, 
   Baby, 
   Syringe, 
-  MessageSquare
+  MessageSquare,
+  Activity
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -63,6 +64,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman', badgeColor: 'bg-blue-600 text-white' },
         { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru', badgeColor: 'bg-indigo-600 text-white' },
         { id: 'interactions', label: 'Cek Interaksi', icon: ShieldAlert, badge: 'Klinis', badgeColor: 'bg-emerald-600 text-white' },
+        { id: 'side-effects', label: 'Cek Efek Samping', icon: Activity, badge: 'ADR', badgeColor: 'bg-amber-500 text-white' },
         { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp', icon: MessageSquare, badge: 'Pasien', badgeColor: 'bg-teal-600 text-white' },
         { id: 'iv-compatibility', label: 'Kompatibilitas Injeksi IV', icon: Syringe, badge: 'IV/ICU', badgeColor: 'bg-cyan-600 text-white' },
         { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer', badgeColor: 'bg-rose-500 text-white' },
@@ -78,6 +80,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         { id: 'drugs', label: 'Katalog Obat', icon: Pill },
         { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman', badgeColor: 'bg-blue-600 text-white' },
         { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru', badgeColor: 'bg-indigo-600 text-white' },
+        { id: 'side-effects', label: 'Cek Efek Samping', icon: Activity, badge: 'ADR', badgeColor: 'bg-amber-500 text-white' },
         { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp', icon: MessageSquare, badge: 'Pasien', badgeColor: 'bg-teal-600 text-white' },
         { id: 'iv-compatibility', label: 'Kompatibilitas Injeksi IV', icon: Syringe, badge: 'IV/ICU', badgeColor: 'bg-cyan-600 text-white' },
         { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer', badgeColor: 'bg-rose-500 text-white' },

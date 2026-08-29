@@ -130,7 +130,7 @@ export interface UserProfile {
   licenseNumber?: string;
   notes?: string;
   role: UserRole;
-  subscriptionPlan: 'Pemula' | 'Pro' | 'Elite' | 'Gratis' | 'Klinik';
+  subscriptionPlan: 'Pemula' | 'Pro' | 'Gratis' | string;
   subscriptionStatus: 'active' | 'expired' | 'trial';
   maxDrugsOverride?: number;
   canExportPdf?: boolean;
@@ -168,7 +168,7 @@ export interface CustomerPlanPermissions {
 }
 
 export interface PricingPlan {
-  id: 'free' | 'pro' | 'elite' | 'klinik' | string;
+  id: 'free' | 'pro' | string;
   name: string;
   badge?: string;
   priceFormatted: string;

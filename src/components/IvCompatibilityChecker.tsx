@@ -317,6 +317,43 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                 </select>
               </div>
             </div>
+
+            {/* Quick Clinical Presets */}
+            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-2 text-2xs">
+              <span className="text-slate-500 font-bold flex items-center gap-1">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Contoh Kasus Injeksi Ruang Kritis:
+              </span>
+              <button
+                onClick={() => setSelectedYSiteDrugIds(['iv-norepinephrine', 'iv-dobutamine', 'iv-furosemide'])}
+                className="px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/40 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-800 hover:bg-teal-100 font-medium cursor-pointer"
+              >
+                🫀 Syok Kardiogenik (Norepinephrine + Dobutamine + Furosemide)
+              </button>
+              <button
+                onClick={() => setSelectedYSiteDrugIds(['iv-mannitol', 'iv-furosemide', 'iv-phenytoin'])}
+                className="px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 font-medium cursor-pointer"
+              >
+                🧠 Edema Serebral & Kejang (Mannitol 20% + Furosemide + Fenitoin)
+              </button>
+              <button
+                onClick={() => setSelectedYSiteDrugIds(['iv-thiopental', 'iv-atracurium', 'iv-midazolam'])}
+                className="px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800 hover:bg-rose-100 font-medium cursor-pointer"
+              >
+                ⚠️ Inkompatibilitas Fatal Anestesi (Thiopental + Atracurium + Midazolam)
+              </button>
+              <button
+                onClick={() => setSelectedYSiteDrugIds(['iv-calcium-gluconate', 'iv-potassium-phosphate', 'iv-sodium-bicarbonate'])}
+                className="px-2.5 py-1 rounded-lg bg-red-50 dark:bg-red-950/40 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800 hover:bg-red-100 font-medium cursor-pointer"
+              >
+                ⚡ Presipitasi Kapur Elektrolit (Kalsium + K-Phos + Bikarbonat)
+              </button>
+              <button
+                onClick={() => setSelectedYSiteDrugIds(['iv-oxytocin', 'iv-tranexamic-acid', 'iv-magnesium-sulfate'])}
+                className="px-2.5 py-1 rounded-lg bg-pink-50 dark:bg-pink-950/40 text-pink-800 dark:text-pink-300 border border-pink-200 dark:border-pink-800 hover:bg-pink-100 font-medium cursor-pointer"
+              >
+                🤰 Kebidanan & PPH (Oxytocin + Asam Traneksamat + MgSO4)
+              </button>
+            </div>
           </div>
 
           {/* Matrix Grid Overview (if >=2 drugs) */}

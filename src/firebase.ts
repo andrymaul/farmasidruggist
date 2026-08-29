@@ -199,7 +199,7 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
         name: matchedAdmin.name,
         phone: matchedAdmin.phone || '',
         role: 'admin',
-        subscriptionPlan: 'Klinik',
+        subscriptionPlan: 'Pro',
         subscriptionStatus: 'active',
         isEmailVerified: true,
         createdAt: matchedAdmin.createdAt || new Date().toISOString()
@@ -253,7 +253,7 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
         licenseNumber: '',
         notes: 'Terdaftar via Firebase Auth',
         role: isAdminUser ? 'admin' : (cleanEmail.includes('admin') ? 'admin' : 'free'),
-        subscriptionPlan: isAdminUser ? 'Klinik' : (cleanEmail.includes('admin') ? 'Klinik' : 'Pemula'),
+        subscriptionPlan: isAdminUser ? 'Pro' : (cleanEmail.includes('admin') ? 'Pro' : 'Pemula'),
         subscriptionStatus: 'active',
         maxDrugsOverride: cleanEmail.includes('admin') ? 99 : 20,
         canExportPdf: cleanEmail.includes('admin'),
@@ -266,9 +266,12 @@ export async function loginWithEmail(email: string, pass: string): Promise<Login
       await saveUserProfileToFirestore(userProfile);
     } else if (isAdminUser && userProfile.role !== 'admin') {
       userProfile.role = 'admin';
-      userProfile.subscriptionPlan = 'Klinik';
+      userProfile.subscriptionPlan = 'Pro';
       userProfile.subscriptionStatus = 'active';
       userProfile.isEmailVerified = true;
+      await saveUserProfileToFirestore(userProfile);
+    } else if (userProfile.subscriptionPlan === 'Klinik' || userProfile.subscriptionPlan === 'Elite') {
+      userProfile.subscriptionPlan = 'Pro';
       await saveUserProfileToFirestore(userProfile);
     } else {
       // Sinkronkan status emailVerified terbaru dan perbarui password jika dimasukkan

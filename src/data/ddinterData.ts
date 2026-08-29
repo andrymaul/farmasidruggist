@@ -212,10 +212,21 @@ const BASE_FOOD_INTERACTIONS: DrugFoodInteraction[] = [
   }
 ];
 
-export const SAMPLE_FOOD_INTERACTIONS: DrugFoodInteraction[] = [
+function deduplicateFoodInteractions(list: DrugFoodInteraction[]): DrugFoodInteraction[] {
+  const map = new Map<string, DrugFoodInteraction>();
+  list.forEach((item) => {
+    const key = (item.drugName.toLowerCase().trim() + '__' + item.foodName.toLowerCase().trim());
+    if (!map.has(key)) {
+      map.set(key, item);
+    }
+  });
+  return Array.from(map.values());
+}
+
+export const SAMPLE_FOOD_INTERACTIONS: DrugFoodInteraction[] = deduplicateFoodInteractions([
   ...BASE_FOOD_INTERACTIONS,
   ...DRUGSCOM_ADDITIONAL_FOOD_INTERACTIONS
-];
+]);
 
 const BASE_THERAPEUTIC_DUPLICATIONS: TherapeuticDuplication[] = [
   {
@@ -340,10 +351,21 @@ const BASE_THERAPEUTIC_DUPLICATIONS: TherapeuticDuplication[] = [
   }
 ];
 
-export const SAMPLE_THERAPEUTIC_DUPLICATIONS: TherapeuticDuplication[] = [
+function deduplicateDuplications(list: TherapeuticDuplication[]): TherapeuticDuplication[] {
+  const map = new Map<string, TherapeuticDuplication>();
+  list.forEach((item) => {
+    const key = [item.drugAName.toLowerCase().trim(), item.drugBName.toLowerCase().trim()].sort().join('__');
+    if (!map.has(key)) {
+      map.set(key, item);
+    }
+  });
+  return Array.from(map.values());
+}
+
+export const SAMPLE_THERAPEUTIC_DUPLICATIONS: TherapeuticDuplication[] = deduplicateDuplications([
   ...BASE_THERAPEUTIC_DUPLICATIONS,
   ...DRUGSCOM_ADDITIONAL_THERAPEUTIC_DUPLICATIONS
-];
+]);
 
 export const PRICING_PLANS: PricingPlan[] = [
   {

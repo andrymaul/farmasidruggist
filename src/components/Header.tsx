@@ -278,6 +278,7 @@ export const Header: React.FC<HeaderProps> = ({
       case 'guidelines': return { title: 'Panduan Terapi Klinis Indonesia', desc: 'Pedoman Nasional Pelayanan Kedokteran (PNPK) & Konsensus Organisasi Profesi Spesialis RI' };
       case 'polypharmacy': return { title: 'Evaluasi Klinis & Penapisan Polifarmasi', desc: 'Parameter klinis pasien, penapisan resep, generator jadwal harian & interaksi makanan' };
       case 'interactions': return { title: 'Deteksi Interaksi Obat (Evaluasi Klinis)', desc: 'Pemeriksaan potensi efek samping & tingkat keparahan' };
+      case 'side-effects': return { title: 'Pusat Analisis Efek Samping & Toksisitas Organ', desc: 'Evaluasi toksisitas kumulatif multi-obat, pelacak gejala KTD & algoritma farmakovigilans BPOM' };
       case 'usage': return { title: 'Panduan Penggunaan Obat', desc: 'Petunjuk langkah demi langkah tata cara penggunaan sediaan obat khusus' };
       case 'history': return { title: 'Riwayat Pemeriksaan', desc: 'Rekam jejak simulasi & penelusuran interaksi' };
       case 'renal-adjuster': return { title: 'Kalkulator Medis & Penyesuaian Dosis', desc: 'Suite kalkulator farmako-klinis terpadu: Dosis Ginjal, Hepar, Syringe Pump, Opioid, IBW, dan Skor Klinis' };
