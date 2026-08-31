@@ -410,6 +410,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     description: 'Akses lengkap ke seluruh modul klinis, database PNPK, kalkulator ginjal, dan ekspor PDF resmi.',
     features: [
       'Semua Fitur Paket Pemula (Monografi & Uji Interaksi Penuh)',
+      'Pusat Belajar Uji Kompetensi Farmasi (UKMPPAI CBT, OSCE & UKTVF)',
       'Pusat Analisis Efek Samping Obat & Evaluasi MESO/ADR Naranjo',
       'Direktori Literatur Klinis, Matriks Bukti & Basis Ilmiah EBM',
       'Deteksi Interaksi Obat-Makanan (DFI) & Duplikasi Terapi',
@@ -450,6 +451,7 @@ export const PRICING_FEATURE_COMPARISON: FeatureComparison[] = [
   { featureName: 'Pencarian Monografi Obat & Brand Indonesia', free: 'Akses Seluruhnya (Full)', pro: 'Akses Seluruhnya (Full)' },
   { featureName: 'Kapasitas Cek Interaksi Obat Sekaligus', free: 'Tanpa Batas (>10 Obat)', pro: 'Tanpa Batas (>10 Obat)' },
   { featureName: 'Modul Panduan Cara Pakai Obat & Edukasi', free: true, pro: true },
+  { featureName: 'Pusat Belajar Uji Kompetensi Farmasi (UKMPPAI/UKTVF)', free: false, pro: true },
   { featureName: 'Pusat Analisis Efek Samping Obat & Evaluasi MESO/ADR', free: false, pro: true },
   { featureName: 'Basis Data Literatur Klinis, Matriks Bukti & EBM', free: false, pro: true },
   { featureName: 'Cek Interaksi Makanan (DFI) & Duplikasi Terapi', free: false, pro: true },

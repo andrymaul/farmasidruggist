@@ -20,6 +20,7 @@ import { IvCompatibilityChecker } from './components/IvCompatibilityChecker';
 import { WhatsAppPatientCardManager } from './components/WhatsAppPatientCardManager';
 import { CustomerSubscriptionManager } from './components/CustomerSubscriptionManager';
 import { SideEffectChecker } from './components/SideEffectChecker';
+import { PharmacyCompetencyCenter } from './components/PharmacyCompetencyCenter';
 import { ProFeatureGate } from './components/ProFeatureGate';
 import { AuthModal } from './components/AuthModal';
 import { PricingModal } from './components/PricingModal';
@@ -873,6 +874,23 @@ export default function App() {
                   onAddToPioCard={handleAddToPioCard}
                   initialSearchQuery={searchQueryForDirectory}
                 />
+              )}
+
+              {activeTab === 'competency' && (
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Pusat Belajar Uji Kompetensi Farmasi (UKMPPAI CBT, OSCE & UKTVF)"
+                    featureDescription="Akses lengkap rangkuman 4 domain blueprint nasional KFN/IAI, bank soal kasus vignette interaktif, simulasi tryout CBT berwaktu, generator rumus hitungan cepat, dan panduan stasi OSCE."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <PharmacyCompetencyCenter
+                    onSelectTab={handleSelectTab}
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                  />
+                )
               )}
 
               {activeTab === 'guidelines' && (

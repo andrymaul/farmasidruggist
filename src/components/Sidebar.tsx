@@ -31,7 +31,8 @@ import {
   Syringe, 
   MessageSquare,
   Activity,
-  BookMarked
+  BookMarked,
+  GraduationCap
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -62,6 +63,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     ? [
         { id: 'dashboard', label: 'Dashboard', icon: Sparkles },
         { id: 'drugs', label: 'Informasi Obat', icon: Pill },
+        { id: 'competency', label: 'Pusat Belajar Uji Kompetensi', icon: GraduationCap, badge: 'UKMPPAI', badgeColor: 'bg-emerald-600 text-white' },
         { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman', badgeColor: 'bg-blue-600 text-white' },
         { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru', badgeColor: 'bg-indigo-600 text-white' },
         { id: 'interactions', label: 'Cek Interaksi', icon: ShieldAlert, badge: 'Klinis', badgeColor: 'bg-emerald-600 text-white' },
@@ -80,6 +82,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     : [
         { id: 'landing', label: 'Beranda', icon: Sparkles },
         { id: 'drugs', label: 'Katalog Obat', icon: Pill },
+        { id: 'competency', label: 'Pusat Belajar Uji Kompetensi', icon: GraduationCap, badge: 'UKMPPAI', badgeColor: 'bg-emerald-600 text-white' },
         { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman', badgeColor: 'bg-blue-600 text-white' },
         { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru', badgeColor: 'bg-indigo-600 text-white' },
         { id: 'side-effects', label: 'Cek Efek Samping', icon: Activity, badge: 'ADR', badgeColor: 'bg-amber-500 text-white' },
