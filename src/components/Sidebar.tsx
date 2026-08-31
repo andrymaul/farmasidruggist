@@ -32,7 +32,11 @@ import {
   MessageSquare,
   Activity,
   BookMarked,
-  GraduationCap
+  GraduationCap,
+  HeartHandshake,
+  FlaskConical,
+  CalendarClock,
+  Leaf
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -63,6 +67,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
     ? [
         { id: 'dashboard', label: 'Dashboard', icon: Sparkles },
         { id: 'drugs', label: 'Informasi Obat', icon: Pill },
+        { id: 'pregnancy', label: 'Keamanan Bumil & Busui', icon: HeartHandshake, badge: 'Bumil', badgeColor: 'bg-pink-600 text-white' },
+        { id: 'drug-lab', label: 'Interaksi Obat & Uji Lab', icon: FlaskConical, badge: 'Lab', badgeColor: 'bg-cyan-700 text-white' },
+        { id: 'herb-drug', label: 'Interaksi Herbal & Obat', icon: Leaf, badge: 'Jamu', badgeColor: 'bg-emerald-800 text-white' },
+        { id: 'bud', label: 'Stabilitas & BUD Racikan', icon: CalendarClock, badge: 'USP', badgeColor: 'bg-emerald-700 text-white' },
         { id: 'competency', label: 'Pusat Belajar Uji Kompetensi', icon: GraduationCap, badge: 'UKMPPAI', badgeColor: 'bg-emerald-600 text-white' },
         { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman', badgeColor: 'bg-blue-600 text-white' },
         { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru', badgeColor: 'bg-indigo-600 text-white' },
@@ -82,6 +90,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
     : [
         { id: 'landing', label: 'Beranda', icon: Sparkles },
         { id: 'drugs', label: 'Katalog Obat', icon: Pill },
+        { id: 'pregnancy', label: 'Keamanan Bumil & Busui', icon: HeartHandshake, badge: 'Bumil', badgeColor: 'bg-pink-600 text-white' },
+        { id: 'drug-lab', label: 'Interaksi Obat & Uji Lab', icon: FlaskConical, badge: 'Lab', badgeColor: 'bg-cyan-700 text-white' },
+        { id: 'herb-drug', label: 'Interaksi Herbal & Obat', icon: Leaf, badge: 'Jamu', badgeColor: 'bg-emerald-800 text-white' },
+        { id: 'bud', label: 'Stabilitas & BUD Racikan', icon: CalendarClock, badge: 'USP', badgeColor: 'bg-emerald-700 text-white' },
         { id: 'competency', label: 'Pusat Belajar Uji Kompetensi', icon: GraduationCap, badge: 'UKMPPAI', badgeColor: 'bg-emerald-600 text-white' },
         { id: 'guidelines', label: 'Panduan Terapi', icon: HeartPulse, badge: 'Pedoman', badgeColor: 'bg-blue-600 text-white' },
         { id: 'polypharmacy', label: 'Evaluasi & Polifarmasi', icon: Stethoscope, badge: 'Baru', badgeColor: 'bg-indigo-600 text-white' },

@@ -22,7 +22,11 @@ import {
   Zap, 
   Stethoscope,
   BookMarked,
-  GraduationCap
+  GraduationCap,
+  HeartHandshake,
+  FlaskConical,
+  CalendarClock,
+  Leaf
 } from 'lucide-react';
 
 interface DashboardProps {
@@ -64,6 +68,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
   ];
 
   const quickModules = [
+    { id: 'pregnancy', title: 'Keamanan Bumil & Busui', desc: 'Risiko Teratogenik FDA PLLR & Laktasi Hale’s L1-L5', icon: HeartHandshake, color: 'text-pink-600 dark:text-pink-400', bg: 'bg-pink-50 dark:bg-pink-950/40 border-pink-200 dark:border-pink-800/60' },
+    { id: 'drug-lab', title: 'Interaksi Obat & Uji Lab', desc: 'Deteksi Hasil Lab Palsu Troponin, Tiroid & Ginjal', icon: FlaskConical, color: 'text-cyan-700 dark:text-cyan-400', bg: 'bg-cyan-50 dark:bg-cyan-950/40 border-cyan-200 dark:border-cyan-800/60' },
+    { id: 'herb-drug', title: 'Interaksi Herbal & Obat', desc: 'Penapisan Jamu vs Obat Resep Sintetik FOHI', icon: Leaf, color: 'text-emerald-800 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60' },
+    { id: 'bud', title: 'Stabilitas & BUD Racikan', desc: 'Kalkulator Kadaluarsa Puyer, Sirup & Salep USP <795>', icon: CalendarClock, color: 'text-emerald-700 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60' },
     { id: 'competency', title: 'Pusat Belajar Uji Kompetensi', desc: 'UKMPPAI CBT, OSCE, Rangkuman 4 Domain & Kalkulator', icon: GraduationCap, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60' },
     { id: 'interactions', title: 'Cek Interaksi Obat', desc: 'Analisis DDI tervalidasi Drugs.com & DDInter', icon: ShieldAlert, color: 'text-rose-600 dark:text-rose-400', bg: 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800/60' },
     { id: 'side-effects', title: 'Cek Efek Samping & Toksisitas', desc: 'Beban toksisitas organ, pelacak gejala & Naranjo', icon: Activity, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800/60' },

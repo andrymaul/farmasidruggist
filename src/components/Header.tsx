@@ -27,7 +27,11 @@ import {
   ClipboardList,
   Scale,
   Database,
-  UserCheck
+  UserCheck,
+  HeartHandshake,
+  FlaskConical,
+  CalendarClock,
+  Leaf
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -305,6 +309,10 @@ export const Header: React.FC<HeaderProps> = ({
     switch (tab) {
       case 'dashboard': return { title: 'Dashboard Utama', desc: 'Ringkasan aktivitas & analisis obat klinis', icon: Sparkles, iconColor: 'text-amber-500 bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-800' };
       case 'drugs': return { title: 'Katalog Informasi Obat', desc: 'Direktori komprehensif indikasi, dosis & efek samping', icon: Pill, iconColor: 'text-blue-600 bg-blue-50 dark:bg-blue-950/50 border-blue-200 dark:border-blue-800' };
+      case 'pregnancy': return { title: 'Keamanan Obat Ibu Hamil & Menyusui (Pregnancy & Lactation)', desc: 'Penapisan risiko teratogenik FDA PLLR, profil laktasi Hale’s L1-L5, RID %, dan direktori alternatif obat aman', icon: HeartHandshake, iconColor: 'text-pink-600 bg-pink-50 dark:bg-pink-950/50 border-pink-200 dark:border-pink-800' };
+      case 'drug-lab': return { title: 'Interaksi Obat dengan Uji Laboratorium (DLI)', desc: 'Deteksi distorsi analit in vitro & hasil positif/negatif palsu pemeriksaan Troponin, Tiroid, Ginjal, Glukosa & Narkoba Urin', icon: FlaskConical, iconColor: 'text-cyan-700 bg-cyan-50 dark:bg-cyan-950/50 border-cyan-200 dark:border-cyan-800' };
+      case 'herb-drug': return { title: 'Interaksi Herbal & Obat Indonesia (Herb-Drug Interactions)', desc: 'Penapisan interaksi Jamu, OHT & Fitofarmaka (Kunyit, Temulawak, Sambiloto, Bawang Putih, Ginkgo) terhadap obat resep sintetik', icon: Leaf, iconColor: 'text-emerald-800 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800' };
+      case 'bud': return { title: 'Kalkulator Stabilitas & Beyond Use Date (BUD)', desc: 'Penetapan batas kadaluarsa sediaan racikan puyer, sirup oral, krim/gel, tetes mata, insulin & injeksi steril berstandar USP <795>, <797> & FI VI', icon: CalendarClock, iconColor: 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800' };
       case 'competency': return { title: 'Pusat Belajar Uji Kompetensi Farmasi (UKMPPAI & UKTVF)', desc: 'Rangkuman 4 domain blueprint nasional, bank soal kasus vignette, simulasi CBT, rumus hitungan cepat & panduan OSCE', icon: GraduationCap, iconColor: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800' };
       case 'guidelines': return { title: 'Panduan Terapi Klinis Indonesia', desc: 'Pedoman Nasional Pelayanan Kedokteran (PNPK) & Konsensus Organisasi Profesi Spesialis RI', icon: HeartPulse, iconColor: 'text-blue-600 bg-blue-50 dark:bg-blue-950/50 border-blue-200 dark:border-blue-800' };
       case 'polypharmacy': return { title: 'Evaluasi Klinis & Penapisan Polifarmasi', desc: 'Parameter klinis pasien, penapisan resep, generator jadwal harian & interaksi makanan', icon: Stethoscope, iconColor: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 border-indigo-200 dark:border-indigo-800' };

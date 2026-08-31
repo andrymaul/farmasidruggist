@@ -21,6 +21,10 @@ import { WhatsAppPatientCardManager } from './components/WhatsAppPatientCardMana
 import { CustomerSubscriptionManager } from './components/CustomerSubscriptionManager';
 import { SideEffectChecker } from './components/SideEffectChecker';
 import { PharmacyCompetencyCenter } from './components/PharmacyCompetencyCenter';
+import { PregnancyLactationChecker } from './components/PregnancyLactationChecker';
+import { DrugLabInteractionChecker } from './components/DrugLabInteractionChecker';
+import { BeyondUseDateCalculator } from './components/BeyondUseDateCalculator';
+import { HerbDrugInteractionChecker } from './components/HerbDrugInteractionChecker';
 import { ProFeatureGate } from './components/ProFeatureGate';
 import { AuthModal } from './components/AuthModal';
 import { PricingModal } from './components/PricingModal';
@@ -874,6 +878,74 @@ export default function App() {
                   onAddToPioCard={handleAddToPioCard}
                   initialSearchQuery={searchQueryForDirectory}
                 />
+              )}
+
+              {activeTab === 'pregnancy' && (
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Keamanan Obat Ibu Hamil & Menyusui (Pregnancy & Lactation Database)"
+                    featureDescription="Akses komprehensif penapisan risiko teratogenik FDA PLLR per trimester, profil ekskresi ASI (Hale’s L1–L5 & RID %), deteksi obat teratogenik Kategori X, serta direktori terapi lini pertama yang aman."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <PregnancyLactationChecker
+                    onSelectTab={handleSelectTab}
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                  />
+                )
+              )}
+
+              {activeTab === 'drug-lab' && (
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Interaksi Obat dengan Uji Laboratorium (Drug-Lab Interactions)"
+                    featureDescription="Akses lengkap deteksi gangguan analit in vitro, pencegahan hasil positif/negatif palsu pemeriksaan biomarker kardiologi (Troponin), tiroid (TSH/FT4), fungsi ginjal (Kreatinin), glukosa strip & toksikologi narkoba urin."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <DrugLabInteractionChecker
+                    onSelectTab={handleSelectTab}
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                  />
+                )
+              )}
+
+              {activeTab === 'bud' && (
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Kalkulator Stabilitas & Beyond Use Date (BUD Racikan)"
+                    featureDescription="Akses lengkap penetapan batas kadaluarsa sediaan racikan padat bebas air (puyer/kapsul), sirup oral berair, krim/gel topikal, sirup kering rekonstitusi, tetes mata multidose & minidose, serta injeksi steril berstandar USP <795>, <797> & Farmakope Indonesia VI."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <BeyondUseDateCalculator
+                    onSelectTab={handleSelectTab}
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                  />
+                )
+              )}
+
+              {activeTab === 'herb-drug' && (
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Interaksi Herbal & Obat Indonesia (Herb-Drug Interactions)"
+                    featureDescription="Akses lengkap evaluasi penapisan interaksi sediaan Jamu, OHT & Fitofarmaka (Kunyit, Temulawak, Sambiloto, Bawang Putih, Ginkgo, Ginseng, Kumis Kucing, Daun Sirsak, Meniran) terhadap obat resep dokter, protokol penghentian pra-bedah & modul farmakologi herbal asli Indonesia."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <HerbDrugInteractionChecker
+                    onSelectTab={handleSelectTab}
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                  />
+                )
               )}
 
               {activeTab === 'competency' && (
