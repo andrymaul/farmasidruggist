@@ -410,6 +410,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     description: 'Akses lengkap ke seluruh modul klinis, database PNPK, kalkulator ginjal, dan ekspor PDF resmi.',
     features: [
       'Semua Fitur Paket Pemula (Monografi & Uji Interaksi Penuh)',
+      'Pusat Analisis Efek Samping Obat & Evaluasi MESO/ADR Naranjo',
+      'Direktori Literatur Klinis, Matriks Bukti & Basis Ilmiah EBM',
       'Deteksi Interaksi Obat-Makanan (DFI) & Duplikasi Terapi',
       'Cetak & Ekspor Laporan PDF Interaksi Pasien Lengkap',
       'Kalkulator Penyesuaian Dosis Ginjal (CrCl & eGFR)',
@@ -448,6 +450,8 @@ export const PRICING_FEATURE_COMPARISON: FeatureComparison[] = [
   { featureName: 'Pencarian Monografi Obat & Brand Indonesia', free: 'Akses Seluruhnya (Full)', pro: 'Akses Seluruhnya (Full)' },
   { featureName: 'Kapasitas Cek Interaksi Obat Sekaligus', free: 'Tanpa Batas (>10 Obat)', pro: 'Tanpa Batas (>10 Obat)' },
   { featureName: 'Modul Panduan Cara Pakai Obat & Edukasi', free: true, pro: true },
+  { featureName: 'Pusat Analisis Efek Samping Obat & Evaluasi MESO/ADR', free: false, pro: true },
+  { featureName: 'Basis Data Literatur Klinis, Matriks Bukti & EBM', free: false, pro: true },
   { featureName: 'Cek Interaksi Makanan (DFI) & Duplikasi Terapi', free: false, pro: true },
   { featureName: 'Ekspor & Cetak Laporan PDF Pasien', free: false, pro: true },
   { featureName: 'Kalkulator Dosis Ginjal (CrCl & eGFR)', free: false, pro: true },
@@ -466,7 +470,7 @@ export const PRICING_FAQS = [
   },
   {
     q: 'Apa perbedaan mendasar antara Paket Pemula dan Paket Pro?',
-    a: 'Paket Pemula 100% gratis untuk pencarian seluruh monografi obat, cek interaksi obat tanpa batas, dan panduan cara pakai obat. Paket Pro membuka seluruh fitur lanjutan: deteksi interaksi makanan (DFI), duplikasi terapi, kalkulator ginjal, panduan terapi PNPK Kemenkes, cetak laporan PDF, kop surat klinik, dan ekspor data.'
+    a: 'Paket Pemula 100% gratis untuk pencarian seluruh monografi obat, cek interaksi obat tanpa batas, dan panduan cara pakai obat. Paket Pro membuka seluruh fitur lanjutan: pusat analisis efek samping obat (MESO/Naranjo), literatur klinis EBM, deteksi interaksi makanan (DFI), duplikasi terapi, kalkulator ginjal, panduan terapi PNPK Kemenkes, cetak laporan PDF, kop surat klinik, dan ekspor data.'
   },
   {
     q: 'Metode pembayaran apa saja yang didukung untuk Paket Pro?',

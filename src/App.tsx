@@ -936,14 +936,24 @@ export default function App() {
               )}
 
               {activeTab === 'side-effects' && (
-                <SideEffectChecker
-                  allDrugs={drugs}
-                  clinicBranding={clinicBranding}
-                  onOpenBrandingModal={() => handleSelectTab('admin-branding')}
-                  onSelectTab={handleSelectTab}
-                  isProUser={isProUser}
-                  onOpenPricingModal={() => setShowPricingModal(true)}
-                />
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Pusat Analisis Efek Samping Obat & Instrumen Farmakovigilans (MESO)"
+                    featureDescription="Evaluasi akumulasi beban toksisitas organ (Hepatotoksik, Nefrotoksik, Kardiotoksik, dll.), pelacak gejala KTD, algoritma kausalitas Naranjo & WHO-UMC, tingkat keparahan Hartwig, serta generator formulir kuning MESO BPOM."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <SideEffectChecker
+                    allDrugs={drugs}
+                    clinicBranding={clinicBranding}
+                    onOpenBrandingModal={() => handleSelectTab('admin-branding')}
+                    onSelectTab={handleSelectTab}
+                    isProUser={isProUser}
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                  />
+                )
               )}
 
               {activeTab === 'usage' && (
@@ -989,9 +999,19 @@ export default function App() {
               )}
 
               {activeTab === 'literature' && (
-                <ClinicalLiterature
-                  onSelectTab={handleSelectTab}
-                />
+                !isProUser ? (
+                  <ProFeatureGate
+                    featureTitle="Pusat Literatur Klinis, Matriks Bukti & Basis Ilmiah EBM"
+                    featureDescription="Akses komprehensif kepustakaan farmakologi klinis terakreditasi, basis data Evidence-Based Medicine (EBM), jurnal pedoman internasional, serta matriks pembuktian ilmiah untuk setiap parameter klinis obat."
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                    isLoggedIn={Boolean(currentUser)}
+                  />
+                ) : (
+                  <ClinicalLiterature
+                    onSelectTab={handleSelectTab}
+                  />
+                )
               )}
 
               {activeTab === 'whatsapp-pio' && (
