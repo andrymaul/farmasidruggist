@@ -177,12 +177,15 @@ export const BUD_DOSAGE_RULES: BudDosageRule[] = [
 ];
 
 export const COMMERCIAL_DRUG_RECONSTITUTIONS: CommercialDrugReconstitution[] = [
+  // =========================================================================
+  // SIRUP KERING (DRY SYRUP)
+  // =========================================================================
   {
     id: 'rec-amoxicillin-dry',
     drugName: 'Amoxicillin Dry Syrup 125 mg / 250 mg per 5 mL',
     genericName: 'Amoxicillin Trihydrate',
     formType: 'Dry Syrup',
-    brandNames: ['Amoxil', 'Amoxsan', 'Kalmoxillin', 'Yusimox'],
+    brandExamples: ['Amoxil', 'Amoxsan', 'Kalmoxillin', 'Yusimox', 'Amoxicillin Generik'],
     reconstitutionDiluent: 'Air minum matang / Aquades dingin',
     volumeOrInstruction: 'Tambahkan air bertahap hingga tanda batas volume botol (umumnya 60 mL), lalu kocok kuat hingga suspensi homogen.',
     budRoomTemp: '7 Hari (Suhu Ruang < 25°C)',
@@ -195,7 +198,7 @@ export const COMMERCIAL_DRUG_RECONSTITUTIONS: CommercialDrugReconstitution[] = [
     drugName: 'Co-Amoxiclav Dry Syrup (Amoxicillin + Clavulanate)',
     genericName: 'Amoxicillin + Potassium Clavulanate',
     formType: 'Dry Syrup',
-    brandNames: ['Augmentin', 'Clavamox', 'Claneksi'],
+    brandExamples: ['Augmentin', 'Clavamox', 'Claneksi', 'Co-Amoxiclav Generik'],
     reconstitutionDiluent: 'Aquades / Air matang dingin',
     volumeOrInstruction: 'Tambahkan air sesuai takaran tanda batas, kocok kuat.',
     budRoomTemp: 'TIDAK DISARANKAN (Asam klavulanat cepat rusak pada suhu ruang)',
@@ -208,7 +211,7 @@ export const COMMERCIAL_DRUG_RECONSTITUTIONS: CommercialDrugReconstitution[] = [
     drugName: 'Cefixime Dry Syrup 100 mg / 5 mL',
     genericName: 'Cefixime Trihydrate',
     formType: 'Dry Syrup',
-    brandNames: ['Cefspan', 'Cefila', 'Fixacep', 'Maxpro'],
+    brandExamples: ['Cefspan', 'Cefila', 'Fixacep', 'Maxpro', 'Cefixime Generik'],
     reconstitutionDiluent: 'Air minum matang / Aquades',
     volumeOrInstruction: 'Tambahkan air matang sekitar 30 mL dalam 2 tahap, kocok hingga merata.',
     budRoomTemp: '14 Hari (Suhu Ruang < 30°C)',
@@ -217,24 +220,54 @@ export const COMMERCIAL_DRUG_RECONSTITUTIONS: CommercialDrugReconstitution[] = [
     references: 'Brosur Pabrik Cefspan & Farmakope Indonesia VI'
   },
   {
+    id: 'rec-cefadroxil-dry',
+    drugName: 'Cefadroxil Dry Syrup 125 mg / 250 mg per 5 mL',
+    genericName: 'Cefadroxil Monohydrate',
+    formType: 'Dry Syrup',
+    brandExamples: ['Cefat', 'Lostacef', 'Droxal', 'Lapicef', 'Cefadroxil Generik'],
+    reconstitutionDiluent: 'Air minum matang / Aquades',
+    volumeOrInstruction: 'Tambahkan air hingga tanda batas botol (60 mL), kocok kuat hingga suspensi rata.',
+    budRoomTemp: '7 Hari (Suhu Ruang < 25°C)',
+    budRefrigerated: '14 Hari (Kulkas 2°C - 8°C)',
+    storageNotes: 'Simpan botol tertutup rapat. Kocok dahulu sebelum diminum.',
+    references: 'Farmakope Indonesia VI & Brosur Pabrik Sanbe Cefat'
+  },
+  {
     id: 'rec-azithromycin-dry',
     drugName: 'Azithromycin Dry Syrup 200 mg / 5 mL',
     genericName: 'Azithromycin Dihydrate',
     formType: 'Dry Syrup',
-    brandNames: ['Zithromax', 'Zithrolip', 'Azomax'],
+    brandExamples: ['Zithromax', 'Zithrolip', 'Azomax', 'Zistic', 'Azithromycin Generik'],
     reconstitutionDiluent: 'Air minum matang',
-    volumeOrInstruction: 'Tambahkan air sesuai petunjuk takaran kemasan, kocok kuat.',
+    volumeOrInstruction: 'Tambahkan air sesuai petunjuk takaran kemasan (umumnya 9 mL atau 12 mL), kocok kuat.',
     budRoomTemp: '10 HARI (Suhu Ruang 15°C - 30°C)',
     budRefrigerated: '10 Hari (Jangan dibekukan)',
     storageNotes: 'Simpan pada suhu ruang terkontrol.',
     references: 'Pfizer Zithromax Product Label'
   },
   {
+    id: 'rec-erythromycin-dry',
+    drugName: 'Erythromycin Ethylsuccinate Dry Syrup 200 mg / 5 mL',
+    genericName: 'Erythromycin Ethylsuccinate',
+    formType: 'Dry Syrup',
+    brandExamples: ['Erysanbe', 'Pharothrocin', 'Erythrocin'],
+    reconstitutionDiluent: 'Air minum matang',
+    volumeOrInstruction: 'Tambahkan air hingga batas volume botol (60 mL), kocok hingga terlarut.',
+    budRoomTemp: '7 Hari (Suhu Ruang)',
+    budRefrigerated: '14 Hari (Kulkas 2°C - 8°C)',
+    storageNotes: 'Eritromisin rentan terhadap hidrolisis asam; stabilitas lebih baik pada suhu dingin.',
+    references: 'AHFS Drug Information'
+  },
+
+  // =========================================================================
+  // SERBUK INJEKSI REKONSTITUSI STERIL
+  // =========================================================================
+  {
     id: 'rec-ceftriaxone-inj',
     drugName: 'Ceftriaxone Serbuk Injeksi 1 Gram',
     genericName: 'Ceftriaxone Sodium',
     formType: 'Injeksi IV/IM Powder',
-    brandNames: ['Rocephin', 'Broadced', 'Tericef', 'Ceftriaxone Generik'],
+    brandExamples: ['Rocephin', 'Broadced', 'Tericef', 'Ceftriaxone Generik'],
     reconstitutionDiluent: 'Water for Injection (WFI) untuk IV; Lidocain 1% untuk IM',
     volumeOrInstruction: 'Larutkan 1 g dengan 9.6 mL WFI (untuk IV) atau 3.5 mL Lidocain 1% (untuk IM).',
     budRoomTemp: '24 Jam (Suhu Ruang 25°C)',
@@ -243,11 +276,24 @@ export const COMMERCIAL_DRUG_RECONSTITUTIONS: CommercialDrugReconstitution[] = [
     references: 'AHFS Drug Information & Roche Rocephin Monograph'
   },
   {
+    id: 'rec-cefotaxime-inj',
+    drugName: 'Cefotaxime Serbuk Injeksi 1 Gram',
+    genericName: 'Cefotaxime Sodium',
+    formType: 'Injeksi IV/IM Powder',
+    brandExamples: ['Claforan', 'Taxegram', 'Cefotaxime Generik'],
+    reconstitutionDiluent: 'Water for Injection (WFI) 4 mL (IV/IM)',
+    volumeOrInstruction: 'Larutkan 1 g dengan 4 mL WFI, kocok hingga jernih.',
+    budRoomTemp: '12 Jam (Suhu Ruang 25°C)',
+    budRefrigerated: '24 Jam (Kulkas 2°C - 8°C)',
+    storageNotes: 'Lindungi dari paparan cahaya langsung. Jika larutan menggelap signifikan, buang.',
+    references: 'Sanofi Claforan Product Monograph'
+  },
+  {
     id: 'rec-meropenem-inj',
     drugName: 'Meropenem Serbuk Injeksi 1 Gram',
     genericName: 'Meropenem Trihydrate',
     formType: 'Injeksi IV/IM Powder',
-    brandNames: ['Meronem', 'Meropenem Generik'],
+    brandExamples: ['Meronem', 'Meropenem Generik', 'Ronem'],
     reconstitutionDiluent: 'WFI atau NaCl 0.9%',
     volumeOrInstruction: 'Larutkan 1 g dengan 20 mL WFI untuk bolus IV lambat (5 menit) atau larutkan dalam 100 mL NaCl 0.9% untuk infus (15-30 menit).',
     budRoomTemp: '3 Jam (pada NaCl 0.9% Suhu Ruang)',
@@ -256,11 +302,37 @@ export const COMMERCIAL_DRUG_RECONSTITUTIONS: CommercialDrugReconstitution[] = [
     references: 'AstraZeneca Meronem Product Insert & Trissel’s Handbook on Injectable Drugs'
   },
   {
+    id: 'rec-ampicillin-sulbactam',
+    drugName: 'Ampicillin + Sulbactam Serbuk Injeksi 1.5 Gram',
+    genericName: 'Ampicillin Sodium + Sulbactam Sodium',
+    formType: 'Injeksi IV/IM Powder',
+    brandExamples: ['Unasyn', 'Bactesyn', 'Viccillin-SX', 'Ampicillin-Sulbactam Generik'],
+    reconstitutionDiluent: 'WFI 3.2 mL atau NaCl 0.9%',
+    volumeOrInstruction: 'Larutkan vial 1.5 g dengan 3.2 mL WFI (konsentrasi 375 mg/mL) untuk IV lambat atau larutkan dalam 50-100 mL NaCl 0.9% untuk infus.',
+    budRoomTemp: '8 Jam (dalam NaCl 0.9% Suhu Ruang)',
+    budRefrigerated: '48 Jam (dalam NaCl 0.9% Kulkas 2°C - 8°C)',
+    storageNotes: 'JANGAN gunakan pelarut Dextrose/Glukosa karena ampicillin cepat terhidrolisis pada larutan karbohidrat.',
+    references: 'Pfizer Unasyn Package Insert & Trissel’s Handbook'
+  },
+  {
+    id: 'rec-vancomycin-inj',
+    drugName: 'Vancomycin Serbuk Injeksi 500 mg / 1 Gram',
+    genericName: 'Vancomycin Hydrochloride',
+    formType: 'Injeksi IV/IM Powder',
+    brandExamples: ['Vancocin', 'Vancep', 'Vancomycin Generik'],
+    reconstitutionDiluent: 'WFI 10 mL (untuk 500 mg) atau 20 mL (untuk 1 g)',
+    volumeOrInstruction: 'Rekonstitusi dengan WFI, kemudian WAJIB diencerkan lebih lanjut dalam minimal 100 mL - 200 mL NaCl 0.9% atau D5W untuk infus lambat minimal 60 menit.',
+    budRoomTemp: '24 Jam (Vial rekonstitusi)',
+    budRefrigerated: '14 Hari (Kulkas 2°C - 8°C)',
+    storageNotes: 'Infus terlalu cepat (<60 menit) memicu Red Man Syndrome (pelepasan histamin masif).',
+    references: 'Eli Lilly Vancocin Prescribing Information & ASHP Therapeutic Guidelines'
+  },
+  {
     id: 'rec-omeprazole-inj',
     drugName: 'Omeprazole Serbuk Injeksi 40 mg',
     genericName: 'Omeprazole Sodium',
     formType: 'Injeksi IV/IM Powder',
-    brandNames: ['Losec Injeksi', 'Ozid IV', 'Omeprazole Generik'],
+    brandExamples: ['Losec Injeksi', 'Ozid IV', 'Omeprazole Generik', 'Inhipump IV'],
     reconstitutionDiluent: 'Pelarut Khusus Bawaan Pabrik (10 mL) atau Dextrose 5% / NaCl 0.9%',
     volumeOrInstruction: 'Larutkan dengan 10 mL pelarut khusus untuk injeksi IV lambat (minimal 2.5-4 menit).',
     budRoomTemp: '4 Jam (setelah dilarutkan dengan pelarut khusus)',
@@ -269,11 +341,28 @@ export const COMMERCIAL_DRUG_RECONSTITUTIONS: CommercialDrugReconstitution[] = [
     references: 'AstraZeneca Losec IV Monograph'
   },
   {
+    id: 'rec-pantoprazole-inj',
+    drugName: 'Pantoprazole Serbuk Injeksi 40 mg',
+    genericName: 'Pantoprazole Sodium',
+    formType: 'Injeksi IV/IM Powder',
+    brandExamples: ['Pantozol IV', 'Panloc IV', 'Pantoprazole Generik'],
+    reconstitutionDiluent: 'NaCl 0.9% 10 mL',
+    volumeOrInstruction: 'Rekonstitusi vial dengan 10 mL NaCl 0.9%, injeksikan bolus IV pelan selama minimal 2 menit atau encerkan dalam 100 mL infus.',
+    budRoomTemp: '12 Jam (pada suhu ruang)',
+    budRefrigerated: '24 Jam (Kulkas 2°C - 8°C)',
+    storageNotes: 'Hindari pencampuran dengan larutan asam atau obat lain pada jalur infus yang sama.',
+    references: 'Takeda Pantozol IV Package Insert'
+  },
+
+  // =========================================================================
+  // SEDIAAN INSULIN STERIL
+  // =========================================================================
+  {
     id: 'rec-insulin-novorapid',
     drugName: 'Insulin Aspart (Novorapid FlexPen / Penfill)',
     genericName: 'Insulin Aspart Rapid-Acting',
     formType: 'Injeksi Insulin',
-    brandNames: ['Novorapid FlexPen', 'Novorapid PumpCart'],
+    brandExamples: ['Novorapid FlexPen', 'Novorapid PumpCart', 'NovoMix 30'],
     reconstitutionDiluent: 'Tidak perlu rekonstitusi (Larutan siap pakai)',
     volumeOrInstruction: 'Pasang jarum pen baru setiap kali penyuntikan subkutan.',
     budRoomTemp: '28 HARI (Suhu Ruang < 30°C untuk Pen yang sedang dipakai)',
@@ -286,12 +375,25 @@ export const COMMERCIAL_DRUG_RECONSTITUTIONS: CommercialDrugReconstitution[] = [
     drugName: 'Insulin Glargine (Lantus SoloStar 100 IU/mL)',
     genericName: 'Insulin Glargine Long-Acting',
     formType: 'Injeksi Insulin',
-    brandNames: ['Lantus SoloStar', 'Lantus Cartridge'],
+    brandExamples: ['Lantus SoloStar', 'Lantus Cartridge', 'Basaglar KwikPen'],
     reconstitutionDiluent: 'Tidak perlu rekonstitusi (Solutio bening)',
     volumeOrInstruction: 'Injeksi subkutan satu kali sehari pada waktu yang sama.',
     budRoomTemp: '28 HARI (Suhu Ruang < 30°C setelah dibuka)',
     budRefrigerated: 'Sesuai Tanggal ED Pabrik (sebelum dibuka pada 2°C - 8°C)',
     storageNotes: 'Lindungi dari panas langsung dan sinar matahari.',
     references: 'Sanofi-Aventis Lantus Prescribing Information'
+  },
+  {
+    id: 'rec-insulin-tresiba',
+    drugName: 'Insulin Degludec (Tresiba FlexTouch 100 U/mL)',
+    genericName: 'Insulin Degludec Ultra-Long Acting',
+    formType: 'Injeksi Insulin',
+    brandExamples: ['Tresiba FlexTouch', 'Ryzodeg FlexTouch'],
+    reconstitutionDiluent: 'Tidak perlu rekonstitusi (Solutio siap pakai)',
+    volumeOrInstruction: 'Injeksi subkutan satu kali sehari dengan durasi kerja hingga 42 jam.',
+    budRoomTemp: '56 HARI / 8 MINGGU (Suhu Ruang < 30°C setelah dibuka)',
+    budRefrigerated: 'Sesuai Tanggal ED Pabrik (sebelum dibuka pada 2°C - 8°C)',
+    storageNotes: 'Tresiba memiliki stabilitas suhu ruang lebih lama (hingga 56 hari) dibanding insulin konvensional.',
+    references: 'Novo Nordisk Tresiba Prescribing Information'
   }
 ];

@@ -186,7 +186,7 @@ export const BeyondUseDateCalculator: React.FC<BeyondUseDateCalculatorProps> = (
       return (
         item.drugName.toLowerCase().includes(q) ||
         item.genericName.toLowerCase().includes(q) ||
-        item.brandExamples.some(b => b.toLowerCase().includes(q))
+        (item.brandExamples || []).some(b => b.toLowerCase().includes(q))
       );
     });
   }, [dirSearchQuery, dirFormTypeFilter]);
@@ -565,7 +565,7 @@ export const BeyondUseDateCalculator: React.FC<BeyondUseDateCalculatorProps> = (
                 </div>
 
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                  <span className="text-[10px] text-slate-400">Contoh: {item.brandExamples.slice(0, 2).join(', ')}</span>
+                  <span className="text-[10px] text-slate-400">Contoh: {(item.brandExamples || []).slice(0, 2).join(', ')}</span>
                   <button
                     onClick={() => setSelectedReconstitutionModal(item)}
                     className="font-bold text-teal-600 dark:text-teal-400 hover:underline flex items-center gap-1 cursor-pointer"
