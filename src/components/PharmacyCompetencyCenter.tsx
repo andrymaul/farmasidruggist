@@ -41,6 +41,7 @@ import {
   FORMULA_GUIDES,
   OSCE_STATIONS,
   FLASHCARD_DECK,
+  CALCULATION_FORMULA_DETAILS,
   HighYieldTopic,
   ExamQuestion,
   FormulaCalculatorGuide,
@@ -1462,6 +1463,165 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
                 })()}
               </div>
             )}
+
+            {/* ========================================================================= */}
+            {/* EDUKASI MATERI, PENJELASAN RUMUS & CONTOH KASUS CBT UKMPPAI & UKTVF     */}
+            {/* ========================================================================= */}
+            {(() => {
+              const currentFormulaDetail = CALCULATION_FORMULA_DETAILS[selectedCalcCategory];
+              if (!currentFormulaDetail) return null;
+
+              return (
+                <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800 space-y-6 animate-fade-in">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-2xl bg-teal-500/15 text-teal-700 dark:text-teal-300 flex items-center justify-center font-bold">
+                        <BookOpen className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-[10px] uppercase tracking-wider font-extrabold text-teal-700 dark:text-teal-400 font-outfit">
+                          Modul Pembelajaran Resmi • {currentFormulaDetail.categoryName}
+                        </span>
+                        <h4 className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-outfit">
+                          Penjelasan Rumus & Teori: {currentFormulaDetail.title}
+                        </h4>
+                      </div>
+                    </div>
+                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 font-outfit">
+                      {currentFormulaDetail.badgeDomain}
+                    </span>
+                  </div>
+
+                  {/* 1. Rumus Matematika Resmi & Notasi */}
+                  <div className="p-5 rounded-3xl bg-slate-900 text-white shadow-md space-y-3">
+                    <div className="flex items-center gap-2 text-xs font-bold text-teal-300 font-outfit uppercase tracking-wider">
+                      <Calculator className="w-4 h-4 text-teal-400" />
+                      <span>Formula Matematis Baku:</span>
+                    </div>
+                    <div className="space-y-1.5 font-mono text-xs sm:text-sm bg-slate-950/80 p-4 rounded-2xl border border-slate-800 text-emerald-300">
+                      {currentFormulaDetail.mathFormula.map((formula, idx) => (
+                        <div key={idx} className="flex items-start gap-2">
+                          <span className="text-slate-500 select-none">▶</span>
+                          <span className="font-bold">{formula}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Penjelasan Notasi / Variabel */}
+                    <div className="pt-2 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                      {currentFormulaDetail.variableExplanations.map((v, idx) => (
+                        <div key={idx} className="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60">
+                          <span className="font-bold text-teal-200 font-outfit">{v.symbol}</span>: <span className="text-slate-300">{v.meaning}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 2. Konsep Dasar & Alur Langkah Kerja */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {/* Konsep */}
+                    <div className="p-5 rounded-3xl bg-teal-50/60 dark:bg-teal-950/20 border border-teal-200 dark:border-teal-900/50 space-y-2.5">
+                      <div className="flex items-center gap-2 text-xs font-bold text-teal-900 dark:text-teal-300 font-outfit uppercase tracking-wider">
+                        <Info className="w-4 h-4 text-teal-600" />
+                        <span>Konsep Dasar & Teori Farmasetika:</span>
+                      </div>
+                      <p className="text-xs text-teal-950 dark:text-teal-100/90 leading-relaxed font-medium">
+                        {currentFormulaDetail.conceptExplanation}
+                      </p>
+                    </div>
+
+                    {/* Langkah Kerja */}
+                    <div className="p-5 rounded-3xl bg-indigo-50/60 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-900/50 space-y-2.5">
+                      <div className="flex items-center gap-2 text-xs font-bold text-indigo-900 dark:text-indigo-300 font-outfit uppercase tracking-wider">
+                        <TrendingUp className="w-4 h-4 text-indigo-600" />
+                        <span>Alur Langkah Perhitungan Manual:</span>
+                      </div>
+                      <ul className="space-y-1.5 text-xs text-indigo-950 dark:text-indigo-100/90 font-medium">
+                        {currentFormulaDetail.stepByStepGuide.map((step, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <span className="w-4 h-4 rounded-full bg-indigo-200 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 flex items-center justify-center text-[10px] font-black shrink-0 mt-0.5">
+                              {idx + 1}
+                            </span>
+                            <span>{step}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* 3. Contoh Kasus Nyata Soal CBT UKMPPAI & Langkah Hitung Manual */}
+                  <div className="p-6 rounded-3xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 space-y-4">
+                    <div className="flex items-center justify-between border-b border-amber-200/80 dark:border-amber-900/60 pb-3">
+                      <div className="flex items-center gap-2 text-xs font-black text-amber-950 dark:text-amber-300 font-outfit uppercase tracking-wider">
+                        <Trophy className="w-4 h-4 text-amber-600" />
+                        <span>Contoh Kasus Soal CBT Vignette & Pembahasan Lengkap:</span>
+                      </div>
+                      <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-200 dark:bg-amber-900 text-amber-900 dark:text-amber-200">
+                        Standar Ujian
+                      </span>
+                    </div>
+
+                    <div className="space-y-2 text-xs">
+                      <p className="text-amber-950 dark:text-amber-200 leading-relaxed font-semibold italic">
+                        "{currentFormulaDetail.exampleCase.vignette}"
+                      </p>
+                      <p className="text-slate-900 dark:text-white font-black font-outfit">
+                        Pertanyaan: {currentFormulaDetail.exampleCase.question}
+                      </p>
+                    </div>
+
+                    {/* Langkah Pembahasan */}
+                    <div className="p-4 rounded-2xl bg-white dark:bg-[#0c141d] border border-amber-200 dark:border-amber-900/60 space-y-2 text-xs">
+                      <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                        <span>Langkah Penyelesaian Matematis Manual:</span>
+                      </div>
+                      <div className="space-y-1 text-slate-700 dark:text-slate-300 font-mono text-[11px] leading-relaxed">
+                        {currentFormulaDetail.exampleCase.stepByStepCalculation.map((calc, idx) => (
+                          <div key={idx} className="p-1 rounded bg-slate-50 dark:bg-slate-800/60">
+                            {calc}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="pt-2 border-t border-slate-100 dark:border-slate-800 font-bold text-emerald-700 dark:text-emerald-400">
+                        🎯 Kesimpulan Jawaban: {currentFormulaDetail.exampleCase.finalAnswer}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 4. Tips Kritis Ujian & Rujukan Resmi */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="p-4 rounded-2xl bg-rose-50/70 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/50 space-y-2">
+                      <div className="flex items-center gap-2 text-xs font-bold text-rose-950 dark:text-rose-300 font-outfit">
+                        <AlertTriangle className="w-4 h-4 text-rose-600" />
+                        <span>Poin Kritis & Jebakan Ujian (Exam Key Pearls):</span>
+                      </div>
+                      <ul className="list-disc list-inside text-xs text-rose-950 dark:text-rose-200 space-y-1 font-medium leading-relaxed">
+                        {currentFormulaDetail.examKeyPearls.map((pearl, idx) => (
+                          <li key={idx}>{pearl}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center gap-2 text-xs font-bold text-slate-900 dark:text-white font-outfit">
+                          <BookMarked className="w-4 h-4 text-teal-600" />
+                          <span>Sumber Kepustakaan & Rujukan Baku:</span>
+                        </div>
+                        <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                          {currentFormulaDetail.referenceStandard}
+                        </p>
+                      </div>
+                      <div className="text-[11px] text-teal-700 dark:text-teal-400 font-bold pt-2 border-t border-slate-200 dark:border-slate-700 flex items-center gap-1">
+                        <Check className="w-3.5 h-3.5" />
+                        <span>Tervalidasi sesuai Blueprint Uji Kompetensi Apoteker & TTK Indonesia</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         </div>
       )}

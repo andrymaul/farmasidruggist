@@ -1370,3 +1370,402 @@ export const FLASHCARD_DECK: FlashcardItem[] = [
     hint: 'Persentase kehilangan bobot tablet'
   }
 ];
+
+// ==========================================
+// EDUKASI & PENJELASAN RUMUS LENGKAP UKMPPAI & UKTVF
+// ==========================================
+
+export interface CalculationFormulaDetail {
+  id: 'alligation' | 'hlb' | 'tonicity' | 'pk' | 'hja' | 'icer' | 'consumption' | 'friability' | 'bsa';
+  title: string;
+  categoryName: string;
+  badgeDomain: string;
+  mathFormula: string[];
+  variableExplanations: { symbol: string; meaning: string }[];
+  conceptExplanation: string;
+  stepByStepGuide: string[];
+  exampleCase: {
+    vignette: string;
+    question: string;
+    stepByStepCalculation: string[];
+    finalAnswer: string;
+  };
+  examKeyPearls: string[];
+  referenceStandard: string;
+}
+
+export const CALCULATION_FORMULA_DETAILS: Record<string, CalculationFormulaDetail> = {
+  alligation: {
+    id: 'alligation',
+    title: 'Aligasi Silang (Alligation Alternate Method)',
+    categoryName: 'Teknologi & Farmasetika Dasar',
+    badgeDomain: 'Farmasetika',
+    mathFormula: [
+      'Bagian Larutan Konsentrasi Tinggi (A) = |Konsentrasi Tinggi - Konsentrasi Target|',
+      'Bagian Larutan Konsentrasi Rendah / Pelarut (B) = |Konsentrasi Target - Konsentrasi Rendah|',
+      'Total Bagian Campuran = Bagian A + Bagian B',
+      'Volume Larutan A yang Diambil = (Bagian A / Total Bagian) × Volume Akhir Target',
+      'Volume Larutan B yang Diambil = (Bagian B / Total Bagian) × Volume Akhir Target'
+    ],
+    variableExplanations: [
+      { symbol: 'Konsentrasi Tinggi (A)', meaning: 'Kadar larutan stok pekat yang tersedia di instalasi/apotek (misal: Alkohol 96%).' },
+      { symbol: 'Konsentrasi Rendah (B)', meaning: 'Kadar larutan encer atau pelarut murni seperti Aquades (dihitung 0%).' },
+      { symbol: 'Konsentrasi Target (C)', meaning: 'Kadar larutan akhir yang diinginkan pada resep/formulasi (misal: Alkohol 70%).' },
+      { symbol: 'Volume Akhir Target (V)', meaning: 'Jumlah total volume sediaan yang diminta (misal: 500 mL).' }
+    ],
+    conceptExplanation: 'Metode Aligasi Silang adalah teknik matematika farmasetika cepat untuk menentukan perbandingan proporsi pencampuran dua atau lebih sediaan berkonsentrasi berbeda untuk memperoleh konsentrasi campuran tertentu tanpa memerlukan persamaan aljabar bertingkat.',
+    stepByStepGuide: [
+      'Langkah 1: Tuliskan Konsentrasi Target tepat di posisi tengah skema aligasi.',
+      'Langkah 2: Tuliskan Konsentrasi Tinggi di kiri atas, dan Konsentrasi Rendah (atau 0% untuk pelarut) di kiri bawah.',
+      'Langkah 3: Kurangkan secara diagonal (silang) dengan nilai mutlak positif untuk mendapatkan jumlah bagian masing-masing komponen.',
+      'Langkah 4: Jumlahkan seluruh bagian untuk mendapatkan Total Bagian campuran.',
+      'Langkah 5: Kalikan fraksi tiap bagian dengan Volume Total sediaan yang akan dibuat.'
+    ],
+    exampleCase: {
+      vignette: 'Seorang apoteker di rumah sakit diminta menyiapkan 500 mL larutan Alkohol 70% untuk kebutuhan desinfeksi ruang steril. Di gudang farmasi hanya tersedia stok Alkohol 96% dan Aquades steril (0%).',
+      question: 'Berapakah volume Alkohol 96% dan Aquades yang harus diambil dan dicampurkan?',
+      stepByStepCalculation: [
+        '1. Bagian Alkohol 96% = |70% - 0%| = 70 bagian',
+        '2. Bagian Aquades 0% = |96% - 70%| = 26 bagian',
+        '3. Total Bagian Campuran = 70 + 26 = 96 bagian',
+        '4. Volume Alkohol 96% yang diambil = (70 / 96) × 500 mL = 364,58 mL',
+        '5. Volume Aquades yang diambil = (26 / 96) × 500 mL = 135,42 mL'
+      ],
+      finalAnswer: 'Ambil 364,58 mL Alkohol 96% dan tambahkan Aquades steril sebanyak 135,42 mL (atau ad 500 mL).'
+    },
+    examKeyPearls: [
+      'Jika pelarut yang digunakan adalah air murni/aquades/basis salep putih polos, konsentrasinya selalu bernilai 0%.',
+      'Untuk pengenceran sederhana dengan air tanpa zat aktif lain, rumus V1 × C1 = V2 × C2 juga dapat digunakan dan menghasilkan nilai yang identik.',
+      'Metode aligasi juga berlaku untuk sediaan semi-padat (salep/krim) dalam satuan gram.'
+    ],
+    referenceStandard: 'Ansel’s Pharmaceutical Calculations & Farmakope Indonesia VI'
+  },
+  hlb: {
+    id: 'hlb',
+    title: 'Penentuan Nilai HLB Campuran Emulgator Surfaktan',
+    categoryName: 'Teknologi Sediaan Cair & Semisolid',
+    badgeDomain: 'Teknologi Farmasi',
+    mathFormula: [
+      'RHLB Campuran = (Fraksi A × HLB A) + (Fraksi B × HLB B)',
+      'Bobot Surfaktan A = [(RHLB Target - HLB B) / (HLB A - HLB B)] × Bobot Total Emulgator',
+      'Bobot Surfaktan B = Bobot Total Emulgator - Bobot Surfaktan A'
+    ],
+    variableExplanations: [
+      { symbol: 'RHLB Target', meaning: 'Required HLB dari fase minyak yang akan diemulsikan (misal: Parafin cair RHLB = 12).' },
+      { symbol: 'HLB A', meaning: 'Nilai HLB dari surfaktan pertama yang lebih hidrofilik (misal: Tween 80 dengan HLB 15).' },
+      { symbol: 'HLB B', meaning: 'Nilai HLB dari surfaktan kedua yang lebih lipofilik (misal: Span 80 dengan HLB 4,3).' },
+      { symbol: 'Bobot Total Emulgator', meaning: 'Total gram kombinasi surfaktan yang tertulis pada formula resep (misal: 5 gram).' }
+    ],
+    conceptExplanation: 'Sistem Griffin (skala 1–20) mengukur keseimbangan gugus hidrofilik (suka air) dan lipofilik (suka minyak) pada molekul surfaktan. Menggabungkan surfaktan hidrofilik (Tween) dan lipofilik (Span) menghasilkan lapisan film monomolekular yang jauh lebih elastis dan kokoh pada antarmuka fase minyak-air dibandingkan surfaktan tunggal.',
+    stepByStepGuide: [
+      'Langkah 1: Identifikasi nilai RHLB dari minyak yang akan diemulsikan.',
+      'Langkah 2: Tentukan nilai HLB dari masing-masing surfaktan yang digunakan (misal Tween dan Span).',
+      'Langkah 3: Gunakan rumus alokasi fraksi aljabar atau aligasi untuk menghitung fraksi bobot surfaktan A.',
+      'Langkah 4: Kalikan fraksi tersebut dengan total bobot campuran emulgator pada resep untuk mendapatkan gram penimbangan riil.'
+    ],
+    exampleCase: {
+      vignette: 'R/ Parafin Cair 20 g, Emulgator Campuran 5 g (Kombinasi Tween 80 HLB 15 dan Span 80 HLB 4,3), Aquades ad 100 mL. Nilai RHLB Parafin cair adalah 12.',
+      question: 'Berapakah gram Tween 80 dan Span 80 yang harus ditimbang oleh apoteker?',
+      stepByStepCalculation: [
+        '1. Selisih nilai HLB kedua surfaktan = 15 - 4,3 = 10,7',
+        '2. Bobot Tween 80 = [(12 - 4,3) / 10,7] × 5 g = (7,7 / 10,7) × 5 g = 3,60 gram',
+        '3. Bobot Span 80 = 5 g - 3,60 g = 1,40 gram'
+      ],
+      finalAnswer: 'Ditimbang Tween 80 sebanyak 3,60 gram dan Span 80 sebanyak 1,40 gram.'
+    },
+    examKeyPearls: [
+      'TWEEN selalu bersifat HIDROFILIK (larut air, HLB tinggi > 10, contoh Tween 80 = 15).',
+      'SPAN selalu bersifat LIPOFILIK (larut minyak, HLB rendah < 10, contoh Span 80 = 4,3).',
+      'Emulsi tipe M/A (Minyak dalam Air) membutuhkan RHLB tinggi (8–16), sedangkan emulsi A/M (Air dalam Minyak) butuh RHLB rendah (3–6).'
+    ],
+    referenceStandard: 'Martin’s Physical Pharmacy & Pharmaceutical Sciences & Ansel'
+  },
+  tonicity: {
+    id: 'tonicity',
+    title: 'Tonisitas & Ekivalensi NaCl (Metode E-NaCl Sprowls)',
+    categoryName: 'Teknologi Sediaan Steril (Injeksi & Tetes Mata)',
+    badgeDomain: 'Farmasi Steril',
+    mathFormula: [
+      'Kebutuhan NaCl Isotonis Murni = (0,9 / 100) × Volume Sediaan (mL) = 0,009 × V',
+      'Kontribusi Tonisitas Zat Aktif (Setara NaCl) = Bobot Zat Aktif (gram) × Nilai E',
+      'Kekurangan NaCl yang Wajib Ditambahkan = Kebutuhan NaCl Murni - ∑(Bobot Zat Aktif × E)',
+      'Jika Pengisotonis Menggunakan Dekstrosa = Kekurangan NaCl / E Dekstrosa (E Dekstrosa = 0,18)'
+    ],
+    variableExplanations: [
+      { symbol: 'V', meaning: 'Volume total larutan steril yang akan dibuat dalam satuan mililiter (mL).' },
+      { symbol: 'Nilai E (Ekivalensi NaCl)', meaning: 'Jumlah gram NaCl yang memiliki efek osmotik setara dengan 1 gram zat aktif tersebut.' },
+      { symbol: '0,9%', meaning: 'Konsentrasi larutan NaCl fisiologis isotonis terhadap cairan tubuh dan plasma darah manusia.' }
+    ],
+    conceptExplanation: 'Sediaan injeksi, infus, dan tetes mata (oftalmik) wajib memiliki tekanan osmosis yang setara dengan larutan NaCl 0,9% b/v (penurunan titik beku ΔTf = -0,52°C). Larutan hipotonis dapat menyebabkan hemolisis sel darah merah atau rasa perih menyengat pada mukosa mata, sehingga kekurangan tonisitas harus digenapi dengan penambahan NaCl atau Dekstrosa.',
+    stepByStepGuide: [
+      'Langkah 1: Hitung total bobot NaCl murni yang dibutuhkan agar volume sediaan isotonis (0,9 g per 100 mL).',
+      'Langkah 2: Hitung bobot masing-masing zat aktif dalam gram, lalu kalikan dengan nilai ekivalensi NaCl (E) masing-masing zat.',
+      'Langkah 3: Kurangkan total kebutuhan NaCl dengan jumlah tonisitas yang telah disumbangkan oleh zat aktif.',
+      'Langkah 4: Selisih positif adalah bobot NaCl yang wajib ditambahkan ke dalam formula.'
+    ],
+    exampleCase: {
+      vignette: 'R/ Ranitidin HCl 1% (Nilai E = 0,16), m.f. sol. isot. ad 100 mL. Apoteker diminta menambahkan pengisotonis NaCl.',
+      question: 'Berapa gram NaCl yang harus ditambahkan ke dalam larutan tersebut?',
+      stepByStepCalculation: [
+        '1. Kebutuhan NaCl isotonis 100 mL = (0,9 / 100) × 100 mL = 0,90 gram',
+        '2. Bobot Ranitidin HCl = 1% × 100 mL = 1,00 gram',
+        '3. Kontribusi tonisitas Ranitidin = 1,00 g × 0,16 = 0,16 gram setara NaCl',
+        '4. Kekurangan NaCl = 0,90 g - 0,16 g = 0,74 gram'
+      ],
+      finalAnswer: 'Ditambahkan NaCl murni sebanyak 0,74 gram ke dalam sediaan.'
+    },
+    examKeyPearls: [
+      'Jika hasil pengurangan bernilai negatif atau nol, sediaan tersebut telah HIPERTONIS (tidak boleh ditambahkan NaCl lagi).',
+      'Jika soal meminta zat pengisotonis berupa Glukosa/Dekstrosa, bagi kekurangan NaCl dengan E-Glukosa (0,18) -> 0,74 / 0,18 = 4,11 gram Dekstrosa.',
+      'Metode penurunan titik beku (ΔTf): Larutan isotonis memiliki ΔTf = 0,52°C.'
+    ],
+    referenceStandard: 'Farmakope Indonesia Edisi VI & Remington: The Science and Practice of Pharmacy'
+  },
+  pk: {
+    id: 'pk',
+    title: 'Farmakokinetika Klinis (Loading Dose, Maintenance Dose, Kel, t½)',
+    categoryName: 'Farmakokinetika Klinis & TDM',
+    badgeDomain: 'Farmasi Klinis',
+    mathFormula: [
+      'Loading Dose (LD) = (Css × Vd) / F',
+      'Maintenance Dose (MD) = (Css × Cl) / F = [Css × (Kel × Vd)] / F',
+      'Konstanta Eliminasi (Kel) = Cl / Vd = ln(2) / t½ = 0,693 / t½',
+      'Waktu Paruh Eliminasi (t½) = 0,693 / Kel'
+    ],
+    variableExplanations: [
+      { symbol: 'Css', meaning: 'Target kadar tunak obat dalam plasma darah pada rentang terapeutik (mg/L atau mcg/mL).' },
+      { symbol: 'Vd', meaning: 'Volume distribusi obat semu di dalam tubuh pasien (Liter atau L/kg).' },
+      { symbol: 'Cl', meaning: 'Klirens total pembersihan obat dari tubuh oleh organ ginjal dan hepar (L/jam atau mL/menit).' },
+      { symbol: 'Kel', meaning: 'Konstanta laju eliminasi fraksi obat per satuan waktu (jam⁻¹).' },
+      { symbol: 'F', meaning: 'Fraksi bioavailabilitas sediaan (F = 1,0 untuk rute Intravena / IV).' }
+    ],
+    conceptExplanation: 'Loading Dose (Dosis Muatan) diberikan untuk mempercepat tercapainya konsentrasi terapeutik efektif (Css) sesegera mungkin pada kondisi darurat klinis. Maintenance Dose (Dosis Pemeliharaan) diberikan secara berkala atau infus kontinu untuk mengimbangi laju eliminasi obat sehingga kadar tunak stabil tidak fluktuatif.',
+    stepByStepGuide: [
+      'Langkah 1: Tentukan target konsentrasi plasma terapeutik (Css) dan volume distribusi (Vd) pasien.',
+      'Langkah 2: Hitung Loading Dose (LD) dengan mengalikan Css × Vd.',
+      'Langkah 3: Hitung Maintenance Dose (MD) dengan mengalikan Css × Klirens total (Cl).',
+      'Langkah 4: Hitung konstanta eliminasi Kel = Cl / Vd, lalu cari waktu paruh t½ = 0,693 / Kel.'
+    ],
+    exampleCase: {
+      vignette: 'Seorang pasien pria 60 kg di ICU mengalami serangan asma akut berat dan membutuhkan terapi infus Aminofilin. Parameter klinis: Target Css = 10 mg/L, Vd = 30 Liter, dan Klirens total = 2 L/jam (Bioavailabilitas IV F = 1).',
+      question: 'Berapakah Dosis Muatan (LD) dan Dosis Pemeliharaan (MD) Aminofilin yang harus diberikan?',
+      stepByStepCalculation: [
+        '1. Loading Dose (LD) = Css × Vd = 10 mg/L × 30 L = 300 mg (diberikan bolus IV lambat)',
+        '2. Maintenance Dose (MD) = Css × Cl = 10 mg/L × 2 L/jam = 20 mg/jam (laju infus syringe pump)',
+        '3. Kel = Cl / Vd = 2 L/jam / 30 L = 0,0667 jam⁻¹',
+        '4. Waktu paruh t½ = 0,693 / 0,0667 = 10,39 jam'
+      ],
+      finalAnswer: 'Loading Dose = 300 mg bolus IV, Maintenance Dose = 20 mg/jam infus kontinu.'
+    },
+    examKeyPearls: [
+      'Waktu untuk mencapai kondisi tunak (Steady State) dari awal infus tanpa Loading Dose adalah 4 - 5 kali waktu paruh (4–5 × t½).',
+      'Jika obat diberikan per oral, JANGAN LUPA membagi hasil perhitungan dengan bioavailabilitas oral F (Dosis Oral = Dosis IV / F).',
+      'Aminofilin mengandung sekitar 80–85% Teofilin anhidrat aktif (faktor konversi S = 0,8–0,85).'
+    ],
+    referenceStandard: 'Shargel Applied Biopharmaceutics & Pharmacokinetics 8th Ed & Winter’s Basic Clinical Pharmacokinetics'
+  },
+  hja: {
+    id: 'hja',
+    title: 'Harga Jual Apotek (HJA), Margin, Mark-Up, & Pajak PPN',
+    categoryName: 'Manajemen Farmasi & Akuntansi Apotek',
+    badgeDomain: 'Manajemen & Farmakoekonomi',
+    mathFormula: [
+      'HPP Termasuk PPN = Harga Netto Faktur PBF × (1 + Tarif PPN%)',
+      'HJA (Berdasarkan Target Margin Laba) = HPP Termasuk PPN / (1 - Margin%)',
+      'HJA (Berdasarkan Mark-Up Factor) = HPP Termasuk PPN × (1 + Mark-Up%)',
+      'Laba Kotor (Gross Profit) = HJA - HPP Termasuk PPN'
+    ],
+    variableExplanations: [
+      { symbol: 'HPP Netto PBF', meaning: 'Harga beli bersih obat dari Pedagang Besar Farmasi sebelum pajak/diskon.' },
+      { symbol: 'Tarif PPN', meaning: 'Pajak Pertambahan Nilai sesuai ketentuan perpajakan resmi Indonesia (11% atau 12%).' },
+      { symbol: 'Margin Laba (%)', meaning: 'Persentase keuntungan dihitung dari HARGA JUAL (HJA) sebagai penyebut: (Laba / HJA) × 100%.' },
+      { symbol: 'Mark-Up (%)', meaning: 'Persentase kenaikan harga dihitung dari HARGA POKOK (HPP) sebagai penyebut: (Laba / HPP) × 100%.' }
+    ],
+    conceptExplanation: 'Perhitungan HJA adalah kompetensi esensial manajerial apoteker untuk menjamin keberlanjutan finansial apotek dengan memperhitungkan biaya pokok perolehan (HPP), kewajiban pajak PPN negara, biaya operasional, dan target profitabilitas yang sehat.',
+    stepByStepGuide: [
+      'Langkah 1: Hitung HPP riil dengan menambahkan tarif PPN (misal dikali 1,11).',
+      'Langkah 2: Cermati apakah soal menggunakan istilah "Margin" atau "Mark-Up".',
+      'Langkah 3: Jika menggunakan target MARGIN X%, bagi HPP dengan (1 - X/100).',
+      'Langkah 4: Jika menggunakan faktor MARK-UP Y%, kalikan HPP dengan (1 + Y/100).'
+    ],
+    exampleCase: {
+      vignette: 'Apoteker memesan 1 box Cefixime 100 mg (isi 30 kapsul) dari PBF dengan harga netto Rp 90.000. Faktur dikenakan PPN 11%. Apoteker menetapkan target margin keuntungan sebesar 20% dari harga jual.',
+      question: 'Berapakah Harga Jual Apotek (HJA) untuk 1 box dan per kapsul Cefixime tersebut?',
+      stepByStepCalculation: [
+        '1. HPP termasuk PPN = Rp 90.000 × 1,11 = Rp 99.900 per box',
+        '2. HJA per box (Margin 20%) = Rp 99.900 / (1 - 0,20) = Rp 99.900 / 0,80 = Rp 124.875 per box',
+        '3. HJA per kapsul = Rp 124.875 / 30 kapsul = Rp 4.162,50 (dibulatkan Rp 4.200 per kapsul)',
+        '4. Laba kotor per box = Rp 124.875 - Rp 99.900 = Rp 24.975 (tepat 20% dari HJA)'
+      ],
+      finalAnswer: 'HJA 1 Box = Rp 124.875, HJA per Kapsul = Rp 4.163.'
+    },
+    examKeyPearls: [
+      'JANGAN TERTUKAR: Margin 20% BUKAN dikali 1,20! Margin 20% berarti dibagi 0,80.',
+      'Jika soal menyebutkan "faktor pengali / mark-up 1,25x", barulah HPP dikalikan 1,25.',
+      'Jika pada faktur PBF tertulis harga "sudah termasuk PPN", jangan dikalikan PPN lagi.'
+    ],
+    referenceStandard: 'Modul Manajemen Farmasi Komunitas IAI & Asosiasi Pendidikan Farmasi Indonesia (APFI)'
+  },
+  icer: {
+    id: 'icer',
+    title: 'Farmakoekonomi (Incremental Cost-Effectiveness Ratio / ICER)',
+    categoryName: 'Farmakoekonomi & Penilaian Teknologi Kesehatan (HTA)',
+    badgeDomain: 'Farmakoekonomi',
+    mathFormula: [
+      'ICER = ΔCost / ΔEffect = (Biaya Terapi Baru B - Biaya Terapi Standar A) / (Efektivitas Terapi B - Efektivitas Terapi A)',
+      'Threshold WTP (Willingness-to-Pay) Kemenkes RI = 1 s.d. 3 × Produk Domestik Bruto (PDB) per Kapita Indonesia'
+    ],
+    variableExplanations: [
+      { symbol: 'ΔCost (Selisih Biaya)', meaning: 'Tambahan biaya moneter langsung pengobatan terapi baru dibandingkan komparator (Rp).' },
+      { symbol: 'ΔEffect (Selisih Efektivitas)', meaning: 'Tambahan luaran klinis yang diperoleh (misal: per % HbA1c, per mmHg tensi turun, per tahun usia hidup QALY).' },
+      { symbol: 'WTP Threshold', meaning: 'Batas maksimal dana yang bersedia dibayarkan negara/pembayar untuk 1 unit efektivitas tambahan.' }
+    ],
+    conceptExplanation: 'ICER adalah parameter kuantitatif utama dalam analisis Cost-Effectiveness Analysis (CEA) dan Cost-Utility Analysis (CUA) untuk membantu pengambil kebijakan obat nasional (Kemenkes/BPJS) memutuskan apakah obat baru yang lebih mahal layak masuk Formularium Nasional (FORNAS) karena memberikan efektivitas ekstra yang sebanding.',
+    stepByStepGuide: [
+      'Langkah 1: Hitung selisih biaya antara kelompok terapi baru (B) dan terapi pembanding standar (A).',
+      'Langkah 2: Hitung selisih luaran efektivitas antara kelompok terapi B dan A.',
+      'Langkah 3: Bagi selisih biaya (ΔCost) dengan selisih efektivitas (ΔEffect).',
+      'Langkah 4: Bandingkan nilai ICER dengan ambang batas WTP (1–3x PDB per kapita nasional).'
+    ],
+    exampleCase: {
+      vignette: 'Dalam studi farmakoekonomi antihipertensi, Regimen A (Standar) berbiaya Rp 1.500.000 dengan persentase pasien mencapai target tensi 60%. Regimen B (Kombinasi Baru) berbiaya Rp 4.000.000 dengan capaian target tensi 85%.',
+      question: 'Berapakah nilai rasio inkremental biaya-efektivitas (ICER) Regimen B terhadap Regimen A?',
+      stepByStepCalculation: [
+        '1. ΔCost = Rp 4.000.000 - Rp 1.500.000 = Rp 2.500.000',
+        '2. ΔEffect = 85% - 60% = 25% (atau 0,25)',
+        '3. ICER = Rp 2.500.000 / 25% = Rp 100.000 per 1% kenaikan efektivitas (atau Rp 10.000.000 per penambahan 1 pasien terkontrol penuh)'
+      ],
+      finalAnswer: 'Nilai ICER = Rp 100.000 per 1% peningkatan efektivitas klinis.'
+    },
+    examKeyPearls: [
+      '4 Tipe Evaluasi Farmakoekonomi:',
+      '• CMA (Cost-Minimization): Efektivitas sama persis, hanya pilih biaya terendah.',
+      '• CBA (Cost-Benefit): Biaya dan hasil diukur dalam satuan moneter (Rupiah/Dolar).',
+      '• CEA (Cost-Effectiveness): Hasil diukur dalam unit klinis alami (mmHg, HbA1c).',
+      '• CUA (Cost-Utility): Hasil diukur dalam QALY (Quality Adjusted Life Years).'
+    ],
+    referenceStandard: 'Pedoman Penerapan Farmakoekonomi Kementerian Kesehatan Republik Indonesia'
+  },
+  consumption: {
+    id: 'consumption',
+    title: 'Perencanaan Pengadaan Obat: Metode Konsumsi Terkoreksi',
+    categoryName: 'Manajemen Pengadaan & Rantai Pasok Farmasi',
+    badgeDomain: 'Manajemen Farmasi',
+    mathFormula: [
+      'Kebutuhan Total = (Konsumsi Rata-Rata × Periode Rencana) + (Konsumsi Rata-Rata × Lead Time) + Safety Stock',
+      'Kuantitas Surat Pesanan (SP) = Kebutuhan Total - Sisa Stok Gudang - Stok Sedang Dipesan (Open Order)',
+      'Reorder Point (ROP) = (Konsumsi Rata-Rata × Lead Time) + Safety Stock'
+    ],
+    variableExplanations: [
+      { symbol: 'Konsumsi Rata-Rata (CA)', meaning: 'Rerata pemakaian obat riil per bulan (atau per hari) pada periode sebelumnya.' },
+      { symbol: 'Periode Rencana (T)', meaning: 'Berapa bulan kebutuhan obat yang akan diadakan pada siklus pengadaan ini.' },
+      { symbol: 'Lead Time (LT)', meaning: 'Waktu tunggu dari SP diterbitkan hingga barang fisik tiba di gudang farmasi (dalam bulan/hari).' },
+      { symbol: 'Safety Stock (SS)', meaning: 'Stok pengaman/penyangga untuk mengantisipasi lonjakan kasus penyakit atau keterlambatan PBF.' },
+      { symbol: 'Sisa Stok (Sisa)', meaning: 'Stok fisik riil yang masih ada di gudang saat perhitungan perencanaan dilakukan.' }
+    ],
+    conceptExplanation: 'Metode konsumsi adalah metode perencanaan pengadaan obat paling umum di Rumah Sakit, Puskesmas, dan Apotek karena berbasis data pemakaian riil historis. Perhitungan yang tepat mencegah terjadinya stock-out (kekosongan obat berbahaya bagi pasien) maupun over-stock (penumpukan stok yang memicu obat kadaluwarsa/ED).',
+    stepByStepGuide: [
+      'Langkah 1: Hitung kebutuhan selama periode rencana (Konsumsi/bln × Jumlah bln rencana).',
+      'Langkah 2: Hitung kebutuhan selama lead time (Konsumsi/bln × Lead time dlm bln).',
+      'Langkah 3: Jumlahkan kebutuhan periode + kebutuhan lead time + safety stock.',
+      'Langkah 4: Kurangkan dengan sisa stok yang masih ada di gudang untuk mendapatkan jumlah riil yang harus dipesan.'
+    ],
+    exampleCase: {
+      vignette: 'Instalasi Farmasi Rumah Sakit mencatat rata-rata pemakaian Amoxicillin 500 mg sebanyak 2.000 strip per bulan. Waktu tunggu PBF (lead time) adalah 0,5 bulan. Buffer stock ditetapkan 500 strip. Sisa persediaan saat ini 300 strip.',
+      question: 'Berapa strip Amoxicillin yang harus dipesan dalam Surat Pesanan untuk periode 6 bulan ke depan?',
+      stepByStepCalculation: [
+        '1. Kebutuhan 6 bulan = 2.000 strip × 6 bulan = 12.000 strip',
+        '2. Kebutuhan lead time = 2.000 strip × 0,5 bulan = 1.000 strip',
+        '3. Safety stock = 500 strip',
+        '4. Total Kebutuhan Pengadaan = 12.000 + 1.000 + 500 = 13.500 strip',
+        '5. Jumlah yang dipesan = 13.500 strip - 300 strip (sisa stok) = 13.200 strip'
+      ],
+      finalAnswer: 'Jumlah Amoxicillin yang harus dipesan pada Surat Pesanan adalah 13.200 strip.'
+    },
+    examKeyPearls: [
+      'Samakan selalu satuan waktu antara Lead Time dan Konsumsi Rata-Rata (jika konsumsi per bulan dan lead time 6 hari, maka LT = 6/30 = 0,2 bulan).',
+      'Reorder Point (ROP) adalah titik batas minimum stok di mana apoteker harus segera membuat pesanan ulang ke PBF.',
+      'Jika ada hari kekosongan obat (stock-out days), hitung dulu konsumsi terkoreksi = (Konsumsi Riil × Total Hari Sebulan) / (Total Hari Sebulan - Hari Kosong).'
+    ],
+    referenceStandard: 'Pedoman Pengelolaan Obat Publik dan Perbekalan Kesehatan Kemenkes RI & Permenkes 73/2016'
+  },
+  friability: {
+    id: 'friability',
+    title: 'Uji Kerapuhan Tablet (Friability Test) Farmakope Indonesia',
+    categoryName: 'Kendali Mutu Fisik Sediaan Padat (QC Industri)',
+    badgeDomain: 'Teknologi & Industri CPOB',
+    mathFormula: [
+      '% Kerapuhan Tablet (% F) = [(W1 - W2) / W1] × 100%',
+      'Syarat Penerimaan Resmi FI VI = Nilai Kerapuhan (% F) HARUS < 1,0%'
+    ],
+    variableExplanations: [
+      { symbol: 'W1 (Bobot Awal)', meaning: 'Bobot gabungan seluruh tablet sampel uji sebelum dimasukkan ke alat friabilator (gram).' },
+      { symbol: 'W2 (Bobot Akhir)', meaning: 'Bobot gabungan tablet setelah diputar 100 kali dan dibersihkan dari debu tergerus (gram).' },
+      { symbol: 'Standar Putaran', meaning: '25 putaran per menit (rpm) selama 4 menit = total 100 putaran pada drum Roche Friabilator.' }
+    ],
+    conceptExplanation: 'Uji kerapuhan (friabilitas) mengukur ketahanan permukaan tablet terhadap gesekan mekanis dan bantingan selama proses penyalutan (coating), pengemasan blister/strip, serta distribusi transportasi logistik. Tablet yang rapuh akan menghasilkan banyak serbuk debu dan dosis zat aktif yang tidak seragam.',
+    stepByStepGuide: [
+      'Langkah 1: Ambil sampel 20 tablet (atau tablet dengan bobot total minimal 6,5 gram jika bobot satuan tablet < 650 mg).',
+      'Langkah 2: Bersihkan tablet dari debu awal dan timbang dengan seksama (W1).',
+      'Langkah 3: Masukkan tablet ke dalam drum alat friabilator, setel 100 putaran (25 rpm selama 4 menit).',
+      'Langkah 4: Keluarkan tablet, bersihkan kembali sisa debu halus dengan kuas atau hembusan udara, lalu timbang bobot akhir (W2).',
+      'Langkah 5: Hitung persentase kehilangan bobot. Pastikan tidak ada tablet yang pecah/retak.'
+    ],
+    exampleCase: {
+      vignette: 'Bagian Quality Control (QC) industri farmasi menguji kerapuhan 20 tablet Paracetamol 500 mg. Bobot awal tablet bersih sebelum uji adalah 6,520 gram. Setelah 100 putaran pada alat friabilator dan dibebasdebukan, bobot akhir tablet adalah 6,465 gram.',
+      question: 'Berapakah persentase kerapuhan tablet tersebut dan bagaimana status kelulusannya menurut Farmakope Indonesia?',
+      stepByStepCalculation: [
+        '1. Selisih bobot hilang (W1 - W2) = 6,520 g - 6,465 g = 0,055 gram',
+        '2. % Kerapuhan = (0,055 g / 6,520 g) × 100% = 0,8435% (atau 0,84%)',
+        '3. Evaluasi syarat: 0,84% < 1,0% dan tidak ada tablet yang terbelah/patah'
+      ],
+      finalAnswer: 'Kerapuhan = 0,84% -> Status: MEMENUHI SYARAT / LULUS UJI Kerapuhan FI VI.'
+    },
+    examKeyPearls: [
+      'Batas maksimal kerapuhan tablet menurut Farmakope Indonesia VI dan USP adalah KURANG DARI 1,0% (< 1,0%).',
+      'Jika tablet terbelah (capping) atau patah selama uji, tablet otomatis TIDAK LULUS terlepas dari berapa pun persentase bobot hilangnya.',
+      'Solusi formulasi jika tablet terlalu rapuh: Tingkatkan konsentrasi pengikat (binder) atau tingkatkan gaya kompresi mesin cetak tablet.'
+    ],
+    referenceStandard: 'Farmakope Indonesia Edisi VI (Lampiran <1216> Uji Kerapuhan Tablet) & United States Pharmacopeia (USP)'
+  },
+  bsa: {
+    id: 'bsa',
+    title: 'Luas Permukaan Tubuh (Body Surface Area / BSA Formula Mosteller)',
+    categoryName: 'Dosis Onkologi, Sitostatika & Pediatrik Kritis',
+    badgeDomain: 'Farmasi Klinis & Onkologi',
+    mathFormula: [
+      'BSA (m²) = √ [ (Tinggi Badan dlm cm × Berat Badan dlm kg) / 3600 ]',
+      'Dosis Individual Pasien (mg) = BSA Pasien (m²) × Dosis Standar Protokol (mg/m²)'
+    ],
+    variableExplanations: [
+      { symbol: 'Tinggi Badan (cm)', meaning: 'Tinggi badan aktual pasien dalam sentimeter.' },
+      { symbol: 'Berat Badan (kg)', meaning: 'Berat badan aktual pasien dalam kilogram.' },
+      { symbol: '3600', meaning: 'Konstanta pembagi matematis baku formula Mosteller.' },
+      { symbol: 'BSA Rata-Rata Normal', meaning: 'Nilai BSA standar acuan orang dewasa fisiologis normal adalah 1,73 m².' }
+    ],
+    conceptExplanation: 'Luas Permukaan Tubuh (BSA) adalah metode kalkulasi dosis paling akurat dan berkorelasi langsung dengan laju metabolisme basal, curah jantung, dan laju filtrasi glomerulus ginjal. Digunakan secara wajib pada regimen obat sitostatika kemoterapi kanker dan obat-obat toksik indeks terapi sempit.',
+    stepByStepGuide: [
+      'Langkah 1: Kalikan Tinggi Badan (cm) dengan Berat Badan (kg).',
+      'Langkah 2: Bagi hasil perkalian tersebut dengan angka 3600.',
+      'Langkah 3: Tarik akar kuadrat (√) dari hasil pembagian untuk memperoleh nilai BSA dalam satuan meter persegi (m²).',
+      'Langkah 4: Kalikan nilai BSA dengan dosis standar protokol kemoterapi (mg/m²).'
+    ],
+    exampleCase: {
+      vignette: 'Seorang pasien wanita penderita kanker payudara dengan Tinggi Badan 155 cm dan Berat Badan 50 kg diresepkan kemoterapi Siklofosfamid dengan dosis protokol 500 mg/m².',
+      question: 'Berapakah Luas Permukaan Tubuh (BSA) pasien dan dosis total Siklofosfamid yang harus disiapkan apoteker?',
+      stepByStepCalculation: [
+        '1. (Tinggi × Berat) / 3600 = (155 × 50) / 3600 = 7.750 / 3600 = 2,1528',
+        '2. BSA = √2,1528 = 1,467 m²',
+        '3. Dosis Siklofosfamid = 1,467 m² × 500 mg/m² = 733,5 mg'
+      ],
+      finalAnswer: 'BSA Pasien = 1,47 m², Dosis Siklofosfamid yang disiapkan = 733,5 mg.'
+    },
+    examKeyPearls: [
+      'Rumus Mosteller adalah rumus resmi yang paling sering diujikan di UKMPPAI karena paling praktis dihitung secara manual.',
+      'Pembagi di bawah akar selalu bernilai 3600 (jika tinggi dalam cm dan berat dalam kg).',
+      'Pada pasien obesitas ekstrem (BMI > 30), beberapa protokol onkologi menggunakan Berat Badan Disesuaikan (Adjusted Body Weight) untuk menghitung BSA.'
+    ],
+    referenceStandard: 'Mosteller RD. Simplified Calculation of Body-Surface Area. N Engl J Med & Panduan Kemoterapi Kemenkes RI'
+  }
+};
+
