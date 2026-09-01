@@ -132,15 +132,24 @@ export function deduplicateDrugs(drugs: Drug[]): Drug[] {
  * Deduplicate array of DrugInteractions by pair key or ID
  */
 export function deduplicateInteractions(interactions: DrugInteraction[]): DrugInteraction[] {
-  const map = new Map<string, DrugInteraction>();
+  const seenPairNames = new Set<string>();
+  const seenPairIds = new Set<string>();
+  const seenInterIds = new Set<string>();
+  const result: DrugInteraction[] = [];
+
   interactions.forEach((inter) => {
-    const pairKey = [inter.drugAName.toLowerCase().trim(), inter.drugBName.toLowerCase().trim()].sort().join('__');
-    const idKey = inter.id.toLowerCase().trim();
-    if (!map.has(pairKey) && !map.has(idKey)) {
-      map.set(pairKey, inter);
+    const pairNameKey = [inter.drugAName.toLowerCase().trim(), inter.drugBName.toLowerCase().trim()].sort().join('__');
+    const pairIdKey = [inter.drugAId.toLowerCase().trim(), inter.drugBId.toLowerCase().trim()].sort().join('__');
+    const interIdKey = inter.id.toLowerCase().trim();
+
+    if (!seenPairNames.has(pairNameKey) && !seenPairIds.has(pairIdKey) && !seenInterIds.has(interIdKey)) {
+      seenPairNames.add(pairNameKey);
+      seenPairIds.add(pairIdKey);
+      seenInterIds.add(interIdKey);
+      result.push(inter);
     }
   });
-  return Array.from(map.values());
+  return result;
 }
 
 // Common Drug Knowledge Base mapping for dynamic generation of unlisted drugs
