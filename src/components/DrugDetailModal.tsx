@@ -18,9 +18,11 @@ import {
   ExternalLink, 
   ShieldCheck, 
   CheckCircle2,
-  Smartphone
+  Smartphone,
+  HeartHandshake
 } from 'lucide-react';
 import { getBpomBadge } from '../utils/bpomHelper';
+import { getPregnancySafetyProfile, getFdaCategoryBadgeStyle, getHaleBadgeStyle } from '../utils/pregnancySyncHelper';
 
 interface DrugDetailModalProps {
   drug: Drug | null;
@@ -29,6 +31,7 @@ interface DrugDetailModalProps {
   onClose: () => void;
   onCheckInteractionWith: (targetDrugName: string) => void;
   onAddToPioCard?: (drug: Drug) => void;
+  onOpenPregnancyChecker?: (drugName: string) => void;
 }
 
 export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
@@ -37,11 +40,15 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
   allDrugs,
   onClose,
   onCheckInteractionWith,
-  onAddToPioCard
+  onAddToPioCard,
+  onOpenPregnancyChecker
 }) => {
   if (!drug) return null;
 
   const bpomBadge = getBpomBadge(drug);
+  const pregProfile = getPregnancySafetyProfile(drug);
+  const fdaStyle = getFdaCategoryBadgeStyle(pregProfile?.fdaCategory || drug.pregnancyCategory);
+  const haleStyle = pregProfile ? getHaleBadgeStyle(pregProfile.halesLactationRating) : null;
 
   const relatedInteractions = allInteractions.filter(
     (i) => i.drugAId === drug.id || i.drugBId === drug.id || 
@@ -271,27 +278,126 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
             </div>
           )}
 
-          {/* Waktu Terhadap Makanan & Keamanan Laktasi */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-amber-50 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 space-y-1.5 shadow-2xs">
-              <div className="flex items-center gap-1.5 text-amber-900 dark:text-amber-300 font-bold">
-                <span className="text-base">🍽️</span>
-                <span>Waktu Terhadap Makanan & Gaya Hidup</span>
+          {/* Waktu Terhadap Makanan & Gaya Hidup */}
+          <div className="bg-amber-50 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 space-y-1.5 shadow-2xs">
+            <div className="flex items-center gap-1.5 text-amber-900 dark:text-amber-300 font-bold">
+              <span className="text-base">🍽️</span>
+              <span>Waktu Terhadap Makanan & Gaya Hidup</span>
+            </div>
+            <p className="text-amber-950 dark:text-amber-200 font-medium leading-relaxed">
+              {drug.foodInteraction || 'Dapat diminum dengan atau tanpa makanan. Konsultasikan dengan Apoteker bila ada keluhan lambung.'}
+            </p>
+          </div>
+
+          {/* Profil Keamanan Maternal & Laktasi (Synchronized with Pregnancy & Lactation Hub) */}
+          <div className="bg-gradient-to-br from-purple-50/90 via-pink-50/60 to-purple-50/90 dark:from-purple-950/40 dark:via-pink-950/20 dark:to-purple-950/40 p-5 rounded-2xl border border-purple-200 dark:border-purple-800/60 space-y-3.5 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-purple-200/80 dark:border-purple-800/60 pb-3">
+              <div className="flex items-center gap-2">
+                <div className="p-1.5 rounded-lg bg-purple-200 dark:bg-purple-900 text-purple-800 dark:text-purple-200">
+                  <Baby className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-black text-purple-950 dark:text-purple-100 flex items-center gap-1.5">
+                    <span>Keamanan Ibu Hamil & Menyusui (FDA PLLR & Hale's Scale)</span>
+                  </h4>
+                  <p className="text-[11px] text-purple-800/80 dark:text-purple-300/80 font-medium">
+                    Sinkronisasi Terpadu dengan Database Keamanan Bumil & Busui
+                  </p>
+                </div>
               </div>
-              <p className="text-amber-950 dark:text-amber-200 font-medium leading-relaxed">
-                {drug.foodInteraction || 'Dapat diminum dengan atau tanpa makanan. Konsultasikan dengan Apoteker bila ada keluhan lambung.'}
-              </p>
+
+              {/* Action: Skrining Cepat */}
+              {onOpenPregnancyChecker && (
+                <button
+                  onClick={() => onOpenPregnancyChecker(drug.name)}
+                  className="bg-purple-700 hover:bg-purple-800 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl shadow-xs flex items-center gap-1.5 transition-all cursor-pointer self-start sm:self-auto hover:scale-[1.02]"
+                >
+                  <Sparkles className="w-3 h-3 text-purple-200" />
+                  <span>Buka di Skrining Bumil</span>
+                </button>
+              )}
             </div>
 
-            <div className="bg-purple-50/70 dark:bg-purple-950/30 p-4 rounded-xl border border-purple-200 dark:border-purple-900/50 space-y-1.5 shadow-2xs">
-              <div className="flex items-center gap-1.5 text-purple-900 dark:text-purple-300 font-extrabold">
-                <span className="text-sm">🤰</span>
-                <span>Keamanan Kehamilan & Laktasi (ASI)</span>
+            {/* Badges Overview */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className={`text-[11px] font-black px-2.5 py-1 rounded-lg border flex items-center gap-1 shadow-2xs ${fdaStyle.bg} ${fdaStyle.text} ${fdaStyle.border}`}>
+                <span>🤰 {fdaStyle.badgeLabel}</span>
+              </span>
+
+              {haleStyle && (
+                <span className={`text-[11px] font-black px-2.5 py-1 rounded-lg border flex items-center gap-1 shadow-2xs ${haleStyle.bg} ${haleStyle.text} ${haleStyle.border}`}>
+                  <span>🍼 {haleStyle.badgeLabel}</span>
+                </span>
+              )}
+
+              {pregProfile && pregProfile.relativeInfantDosePercent !== undefined && (
+                <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg border bg-sky-50 dark:bg-sky-950/70 text-sky-900 dark:text-sky-200 border-sky-300 dark:border-sky-700 flex items-center gap-1 shadow-2xs">
+                  <span>💧 RID: {pregProfile.relativeInfantDosePercent}{typeof pregProfile.relativeInfantDosePercent === 'number' ? '%' : ''}</span>
+                </span>
+              )}
+            </div>
+
+            {/* Teratogenic Alert Callout (If Any) */}
+            {pregProfile?.teratogenicAlert && (
+              <div className="p-3.5 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-950 dark:text-rose-100 border border-rose-300 dark:border-rose-800 space-y-1 shadow-2xs">
+                <div className="flex items-center gap-1.5 text-rose-800 dark:text-rose-300 font-black text-xs uppercase tracking-wide">
+                  <AlertTriangle className="w-4 h-4 text-rose-600 flex-shrink-0 animate-bounce" />
+                  <span>PERINGATAN RISIKO TERATOGENIK:</span>
+                </div>
+                <p className="text-xs font-semibold leading-relaxed pl-5">
+                  {pregProfile.teratogenicAlert}
+                </p>
               </div>
-              <p className="text-purple-950 dark:text-purple-200 leading-relaxed font-medium">
-                <strong>Kategori Kehamilan:</strong> <span className="bg-purple-100 dark:bg-purple-900/70 px-2 py-0.5 rounded text-purple-900 dark:text-purple-200 font-black">Kategori {drug.pregnancyCategory || 'Belum ditentukan'}</span><br />
-                <span className="text-xs pt-1 inline-block"><strong>Keamanan Laktasi:</strong> {drug.lactationWarning || 'Diskusikan rasio manfaat vs risiko dengan dokter atau apoteker.'}</span>
+            )}
+
+            {/* PLLR & Clinical Summary */}
+            <div className="text-xs text-purple-950 dark:text-purple-200 space-y-2">
+              <p className="leading-relaxed">
+                <strong>FDA PLLR Summary:</strong> {pregProfile?.pllrSummary || fdaStyle.riskDescription}
               </p>
+
+              {/* Trimester Risks Grid (If Synchronized Profile Exists) */}
+              {pregProfile?.trimesterRisks && (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+                  <div className="bg-white/80 dark:bg-slate-900/80 p-2.5 rounded-xl border border-purple-200/70 dark:border-purple-800/50 space-y-1 shadow-2xs">
+                    <p className="text-[11px] font-black text-purple-900 dark:text-purple-300">Trimester 1 (Organogenesis):</p>
+                    <p className="text-[11px] text-slate-700 dark:text-slate-300 leading-snug">{pregProfile.trimesterRisks.trimester1}</p>
+                  </div>
+                  <div className="bg-white/80 dark:bg-slate-900/80 p-2.5 rounded-xl border border-purple-200/70 dark:border-purple-800/50 space-y-1 shadow-2xs">
+                    <p className="text-[11px] font-black text-purple-900 dark:text-purple-300">Trimester 2 (Pertumbuhan):</p>
+                    <p className="text-[11px] text-slate-700 dark:text-slate-300 leading-snug">{pregProfile.trimesterRisks.trimester2}</p>
+                  </div>
+                  <div className="bg-white/80 dark:bg-slate-900/80 p-2.5 rounded-xl border border-purple-200/70 dark:border-purple-800/50 space-y-1 shadow-2xs">
+                    <p className="text-[11px] font-black text-purple-900 dark:text-purple-300">Trimester 3 (Perinatal):</p>
+                    <p className="text-[11px] text-slate-700 dark:text-slate-300 leading-snug">{pregProfile.trimesterRisks.trimester3}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Lactation / ASI Summary */}
+              <div className="bg-white/80 dark:bg-slate-900/80 p-3 rounded-xl border border-purple-200/70 dark:border-purple-800/50 space-y-1 text-xs">
+                <p className="font-bold text-purple-900 dark:text-purple-300 flex items-center gap-1.5">
+                  <span>🍼 Evaluasi Keamanan Menyusui & ASI:</span>
+                </p>
+                <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                  {pregProfile?.breastfeedingSummary || drug.lactationWarning || 'Diskusikan rasio manfaat vs risiko laktasi dengan dokter spesialis atau apoteker.'}
+                </p>
+              </div>
+
+              {/* Safe Alternatives (If Available) */}
+              {pregProfile?.safeAlternatives && pregProfile.safeAlternatives.length > 0 && (
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-[11px] font-bold text-purple-900 dark:text-purple-300">Alternatif Lebih Aman:</span>
+                  {pregProfile.safeAlternatives.map((alt, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-emerald-100 dark:bg-emerald-950/70 text-emerald-900 dark:text-emerald-200 text-[11px] font-semibold px-2 py-0.5 rounded-md border border-emerald-300 dark:border-emerald-700"
+                    >
+                      {alt}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 

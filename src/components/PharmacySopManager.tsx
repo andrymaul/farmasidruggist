@@ -24,12 +24,10 @@ import { ClinicBrandingSettings } from '../types';
 
 interface PharmacySopManagerProps {
   clinicBranding: ClinicBrandingSettings;
-  onOpenBrandingModal?: () => void;
 }
 
 export const PharmacySopManager: React.FC<PharmacySopManagerProps> = ({
-  clinicBranding,
-  onOpenBrandingModal
+  clinicBranding
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -90,16 +88,6 @@ export const PharmacySopManager: React.FC<PharmacySopManagerProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-3 shrink-0">
-          {onOpenBrandingModal && (
-            <button
-              onClick={onOpenBrandingModal}
-              className="px-4 py-2.5 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-teal-200 text-xs font-bold border border-teal-500/30 flex items-center gap-2 transition-all cursor-pointer shadow-sm"
-            >
-              <Building2 className="w-4 h-4 text-teal-400" />
-              <span>Atur Kop & Stempel</span>
-            </button>
-          )}
-
           <button
             onClick={handlePrint}
             className="px-5 py-2.5 rounded-2xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-black shadow-md flex items-center gap-2 transition-all cursor-pointer border border-teal-400/40 hover:scale-105"

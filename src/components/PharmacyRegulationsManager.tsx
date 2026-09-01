@@ -23,12 +23,10 @@ import { ClinicBrandingSettings } from '../types';
 
 interface PharmacyRegulationsManagerProps {
   clinicBranding: ClinicBrandingSettings;
-  onOpenBrandingModal?: () => void;
 }
 
 export const PharmacyRegulationsManager: React.FC<PharmacyRegulationsManagerProps> = ({
-  clinicBranding,
-  onOpenBrandingModal
+  clinicBranding
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedType, setSelectedType] = useState<string>('all');

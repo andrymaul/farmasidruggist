@@ -230,9 +230,10 @@ export interface MedicationStep {
 export interface MedicationGuide {
   id: string;
   title: string;
-  category: 'Mata & Telinga' | 'Inhalasi & Respirasi' | 'Injeksi' | 'Suppositoria & Vaginal';
+  category: 'Mata & Telinga' | 'Inhalasi & Respirasi' | 'Injeksi' | 'Suppositoria & Vaginal' | 'Topikal & Oral Khusus';
   iconName: string;
   shortDesc: string;
+  popularBrands?: string[];
   preparationSteps: string[];
   steps: MedicationStep[];
   importantWarnings: string[];
@@ -242,6 +243,7 @@ export interface MedicationGuide {
   };
   storageAdvice: string;
   commonMistakes: string[];
+  clinicalPearls?: string[];
 }
 export interface QrisSettings {
   merchantName: string;

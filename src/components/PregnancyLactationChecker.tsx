@@ -36,11 +36,13 @@ import {
 interface PregnancyLactationCheckerProps {
   onSelectTab?: (tabId: string) => void;
   onOpenPricingModal?: () => void;
+  onOpenDrugDetail?: (drugName: string) => void;
 }
 
 export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps> = ({
   onSelectTab,
-  onOpenPricingModal
+  onOpenPricingModal,
+  onOpenDrugDetail
 }) => {
   // Main Tab State
   const [activeTab, setActiveTab] = useState<'screening' | 'directory' | 'conditions' | 'teratogens'>('screening');
@@ -897,9 +899,24 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
                 </div>
               </div>
 
-              {/* References */}
-              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 text-slate-400 text-[11px]">
-                <strong>Rujukan Resmi:</strong> {selectedDrugModal.references}
+              {/* References & Monograph CTA */}
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px]">
+                <div className="text-slate-400">
+                  <strong>Rujukan Resmi:</strong> {selectedDrugModal.references}
+                </div>
+                {onOpenDrugDetail && (
+                  <button
+                    onClick={() => {
+                      const drugName = selectedDrugModal.name;
+                      setSelectedDrugModal(null);
+                      onOpenDrugDetail(drugName);
+                    }}
+                    className="bg-[#0f766e] hover:bg-[#115e59] text-white font-bold px-4 py-2 rounded-xl flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer self-end sm:self-auto hover:scale-[1.02]"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>Lihat Monografi Lengkap</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>

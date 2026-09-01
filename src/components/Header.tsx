@@ -41,7 +41,6 @@ interface HeaderProps {
   onOpenAuthModal: () => void;
   onLogout: () => void;
   onOpenPricingModal: () => void;
-  onOpenBrandingModal?: () => void;
   onToggleMobileSidebar?: () => void;
   theme?: 'light' | 'dark';
   onToggleTheme?: () => void;

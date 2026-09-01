@@ -15,7 +15,7 @@ export interface PregnancyLactationDrug {
     trimester3: string;
   };
   halesLactationRating: HalesLactationRating;
-  relativeInfantDosePercent: number | string; // RID % (<10% is typically considered compatible)
+  relativeInfantDosePercent: number | string; // RID % (<10% is considered compatible)
   breastfeedingSummary: string;
   teratogenicAlert: string | null;
   isContraindicatedInPregnancy: boolean;
@@ -49,25 +49,25 @@ export interface SafePregnancyConditionGuide {
 }
 
 export const PREGNANCY_LACTATION_DATABASE: PregnancyLactationDrug[] = [
-  // ==========================================
-  // KARDIOVASKULAR & ANTIHIPERTENSI
-  // ==========================================
+  // =========================================================================
+  // 1. KARDIOVASKULAR & ANTIHIPERTENSI
+  // =========================================================================
   {
     id: 'preg-methyldopa',
     name: 'Methyldopa',
     genericName: 'Methyldopa',
-    category: 'Kardiovaskular (Antihipertensi)',
+    category: 'Kardiovaskular (Antihipertensi Sentral)',
     brandNames: ['Dopamet', 'Methyldopa Generik'],
     fdaCategory: 'B',
-    pllrSummary: 'Obat pilihan lini pertama (first-line) untuk hipertensi kronis dan hipertensi gestasional pada kehamilan dengan riwayat keamanan klinis terlama.',
+    pllrSummary: 'Obat pilihan lini pertama (first-line) untuk hipertensi kronis dan hipertensi gestasional pada kehamilan dengan rekam jejak keamanan klinis terlama.',
     trimesterRisks: {
-      trimester1: 'Aman, tidak ditemukan peningkatan risiko malformasi kongenital.',
-      trimester2: 'Aman, mempertahankan perfusi uteroplasenta secara adekuat.',
-      trimester3: 'Aman, dapat digunakan hingga persalinan.'
+      trimester1: 'Aman, tidak ditemukan peningkatan risiko malformasi kongenital pada studi kohort prospektif.',
+      trimester2: 'Aman, mempertahankan aliran darah dan perfusi uteroplasenta secara adekuat.',
+      trimester3: 'Aman, dapat digunakan hingga persalinan tanpa efek merugikan pada neonatus.'
     },
     halesLactationRating: 'L2',
     relativeInfantDosePercent: 1.5,
-    breastfeedingSummary: 'Terekskresi dalam ASI dalam jumlah sangat minimal (<2% RID). Kompatibel dengan menyusui.',
+    breastfeedingSummary: 'Terekskresi dalam ASI dalam jumlah sangat minimal (<2% RID). Sangat kompatibel dengan menyusui.',
     teratogenicAlert: null,
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
@@ -82,10 +82,10 @@ export const PREGNANCY_LACTATION_DATABASE: PregnancyLactationDrug[] = [
     category: 'Kardiovaskular (Calcium Channel Blocker)',
     brandNames: ['Adalat OROS', 'Nifecard', 'Cordalat'],
     fdaCategory: 'C',
-    pllrSummary: 'Calcium Channel Blocker (CCB) dihidropiridin yang efektif sebagai antihipertensi lini pertama dan tokolitik (penunda persalinan prematur).',
+    pllrSummary: 'Calcium Channel Blocker (CCB) dihidropiridin yang sangat efektif sebagai antihipertensi lini pertama dan agen tokolitik (penunda persalinan prematur).',
     trimesterRisks: {
-      trimester1: 'Data manusia menunjukkan tidak ada peningkatan risiko teratogenisitas signifikan.',
-      trimester2: 'Aman dan efektif mengontrol tekanan darah.',
+      trimester1: 'Data manusia menunjukkan tidak ada peningkatan risiko teratogenisitas mayor.',
+      trimester2: 'Aman dan efektif mengontrol tekanan darah maternal.',
       trimester3: 'Aman. Bermanfaat sebagai tokolitik penekan kontraksi uterus prematur.'
     },
     halesLactationRating: 'L2',
@@ -95,8 +95,31 @@ export const PREGNANCY_LACTATION_DATABASE: PregnancyLactationDrug[] = [
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
     safeAlternatives: ['Methyldopa', 'Labetalol'],
-    clinicalRecommendations: 'Gunakan sediaan lepas lambat (Adalat OROS 30-60 mg/hari). Hindari sediaan sublingual short-acting karena memicu hipotensi mendadak dan hipoksia janin.',
+    clinicalRecommendations: 'Gunakan sediaan lepas lambat (Adalat OROS 30-60 mg/hari). HINDARI sediaan sublingual short-acting karena memicu hipotensi mendadak dan hipoksia janin.',
     references: 'Briggs Drugs in Pregnancy and Lactation & Konsensus PERKI/POGI Hipertensi Kehamilan'
+  },
+  {
+    id: 'preg-labetalol',
+    name: 'Labetalol',
+    genericName: 'Labetalol Hydrochloride',
+    category: 'Kardiovaskular (Alfa & Beta Blocker)',
+    brandNames: ['Trandate', 'Labetalol Generik'],
+    fdaCategory: 'C',
+    pllrSummary: 'Pilihan lini pertama antihipertensi kehamilan standar internasional (ACOG/NICE). Menurunkan resistensi perifer tanpa menurunkan curah jantung atau aliran darah plasenta.',
+    trimesterRisks: {
+      trimester1: 'Tidak ditemukan bukti peningkatan malformasi kongenital mayor.',
+      trimester2: 'Aman, efektif mengontrol tekanan darah dan mencegah krisis hipertensi.',
+      trimester3: 'Aman. Pantau neonatus 48 jam pasca lahir terhadap potensi bradikardia transien atau hipoglikemia.'
+    },
+    halesLactationRating: 'L2',
+    relativeInfantDosePercent: 0.8,
+    breastfeedingSummary: 'Kadar dalam ASI sangat rendah (<1% RID). Pilihan beta-blocker paling aman saat menyusui.',
+    teratogenicAlert: null,
+    isContraindicatedInPregnancy: false,
+    isContraindicatedInLactation: false,
+    safeAlternatives: ['Methyldopa', 'Nifedipine ER'],
+    clinicalRecommendations: 'Dosis oral: 100-400 mg 2 kali sehari. Pada krisis hipertensi preeklampsia di IGD, berikan secara bolus IV bertahap 20 mg, 40 mg, lalu 80 mg.',
+    references: 'ACOG Practice Bulletin No. 222 & NICE Clinical Guideline [NG133]'
   },
   {
     id: 'preg-captopril',
@@ -105,10 +128,10 @@ export const PREGNANCY_LACTATION_DATABASE: PregnancyLactationDrug[] = [
     category: 'Kardiovaskular (ACE Inhibitor)',
     brandNames: ['Capoten', 'Captopril Generik', 'Tensobon'],
     fdaCategory: 'D',
-    pllrSummary: 'KONTRAINDIKASI MUTLAK pada Trimester 2 & 3 Kehamilan. Menyebabkan fetotoksisitas berat, oligohidramnion, gagal ginjal janin, dan kematian perinatal.',
+    pllrSummary: 'KONTRAINDIKASI MUTLAK pada Trimester 2 & 3 Kehamilan. Menyebabkan fetotoksisitas berat, oligohidramnion, anuria/gagal ginjal janin, hipoplasia paru, dan kematian perinatal.',
     trimesterRisks: {
       trimester1: 'Kategori C/D: Potensi peningkatan risiko defek kardiovaskular dan susunan saraf pusat.',
-      trimester2: 'KATEGORI D: Menyebabkan oligohidramnion, hipoplasia paru janin, gagal ginjal janin anuria.',
+      trimester2: 'KATEGORI D: Menyebabkan oligohidramnion berat, hipoplasia paru janin, gagal ginjal janin anuria.',
       trimester3: 'KATEGORI D: Menyebabkan gagal ginjal neonatal persisten, deformitas kraniofasial, kontraktur sendi, kematian intrauterin.'
     },
     halesLactationRating: 'L2',
@@ -145,681 +168,593 @@ export const PREGNANCY_LACTATION_DATABASE: PregnancyLactationDrug[] = [
     references: 'FDA Boxed Warning on ARBs in Pregnancy & Briggs'
   },
   {
-    id: 'preg-furosemide',
-    name: 'Furosemide',
-    genericName: 'Furosemide',
-    category: 'Kardiovaskular (Diuretik Loop)',
-    brandNames: ['Lasix', 'Farsix', 'Uresix'],
-    fdaCategory: 'C',
-    pllrSummary: 'Diuretik dapat menurunkan volume plasma maternal dan menurunkan perfusi darah ke plasenta janin. Hanya digunakan jika ada indikasi edema paru akut maternal.',
-    trimesterRisks: {
-      trimester1: 'Studi hewan menunjukkan potensi toksisitas skeletal; data manusia terbatas.',
-      trimester2: 'Dapat menurunkan aliran darah uteroplasenta.',
-      trimester3: 'Dapat menurunkan volume cairan amnion (oligohidramnion) dan dehidrasi maternal.'
-    },
-    halesLactationRating: 'L3',
-    relativeInfantDosePercent: 2.0,
-    breastfeedingSummary: 'Dapat menekan produksi ASI (laktasi) karena efek diuretik deplesi cairan. Gunakan dosis terendah.',
-    teratogenicAlert: null,
-    isContraindicatedInPregnancy: false,
-    isContraindicatedInLactation: false,
-    safeAlternatives: ['Retriksi garam non-farmakologis', 'Posisi miring ke kiri (Left lateral tilt)'],
-    clinicalRecommendations: 'Jangan digunakan untuk edema fisiologis kehamilan. Batasi penggunaan hanya untuk gagal jantung kongestif atau edema paru akut.',
-    references: 'ACOG Practice Bulletin & Briggs Drugs in Pregnancy'
-  },
-  {
     id: 'preg-spironolactone',
     name: 'Spironolactone',
     genericName: 'Spironolactone',
-    category: 'Kardiovaskular (Antagonis Aldosteron / Diuretik Hemat Kalium)',
+    category: 'Kardiovaskular (Antagonis Aldosteron)',
     brandNames: ['Aldactone', 'Spirolacton', 'Carpiaton'],
     fdaCategory: 'C',
-    pllrSummary: 'Memiliki efek antiandrogenik. Berpotensi menyebabkan feminisasi genitalia eksterna pada janin laki-laki.',
+    pllrSummary: 'Memiliki efek antiandrogenik potensial yang dapat menyebabkan feminisasi genitalia eksterna pada janin laki-laki.',
     trimesterRisks: {
-      trimester1: 'Risiko feminisasi janin laki-laki (hipospadia, ambiguitas genital).',
+      trimester1: 'Risiko feminisasi janin laki-laki (hipospadia, ambiguitas genital) akibat blokade reseptor androgen.',
       trimester2: 'Risiko gangguan endokrin janin dan penurunan perfusi plasenta.',
-      trimester3: 'Risiko deplesi volume plasma dan gangguan elektrolit neonatal.'
+      trimester3: 'Dapat mengganggu elektrolit janin dan menekan volume cairan amnion.'
     },
     halesLactationRating: 'L2',
     relativeInfantDosePercent: 0.7,
-    breastfeedingSummary: 'Kadar metabolit canrenone dalam ASI sangat rendah. Kompatibel dengan menyusui.',
-    teratogenicAlert: 'Feminisasi genital pada janin laki-laki akibat blokade reseptor androgen.',
+    breastfeedingSummary: 'Metabolit aktif canrenone diekskresikan dalam ASI dalam jumlah sangat kecil. Kompatibel dengan menyusui pasca melahirkan.',
+    teratogenicAlert: 'Feminisasi fetus laki-laki (hipospadia, mikropenis).',
     isContraindicatedInPregnancy: true,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Methyldopa', 'Nifedipine ER', 'Labetalol'],
-    clinicalRecommendations: 'Hindari penggunaannya selama kehamilan, terutama pada trimester pertama.',
-    references: 'Briggs Drugs in Pregnancy & Hale’s Medications and Mothers’ Milk'
+    safeAlternatives: ['Nifedipine ER', 'Labetalol'],
+    clinicalRecommendations: 'Hindari pada kehamilan kecuali pada kondisi sindrom Bartter/Gitelman yang sangat refrakter.',
+    references: 'Briggs Drugs in Pregnancy and Lactation & LactMed'
   },
   {
     id: 'preg-simvastatin',
     name: 'Simvastatin',
     genericName: 'Simvastatin',
-    category: 'Kardiovaskular (Statin / HMG-CoA Reduktase Inhibitor)',
-    brandNames: ['Zocor', 'Simvask', 'Selvim'],
+    category: 'Kardiovaskular (Inhibitor HMG-CoA Reduktase / Statin)',
+    brandNames: ['Zocor', 'Simvastatin Generik', 'Vytorin'],
     fdaCategory: 'X',
-    pllrSummary: 'KONTRAINDIKASI MUTLAK pada Kehamilan (FDA Kategori X). Kolesterol sangat krusial untuk perkembangan membran sel, mielinisasi saraf, dan sintesis steroid janin.',
+    pllrSummary: 'KONTRAINDIKASI PADA KEHAMILAN. Kolesterol dan produk biosintesis jalur mevalonat sangat esensial untuk perkembangan membran sel janin dan organogenesis otak.',
     trimesterRisks: {
-      trimester1: 'KATEGORI X: Peningkatan risiko anomali kongenital VACTERL (Vertebral, Anal, Cardiac, Tracheoesophageal, Renal, Limb).',
-      trimester2: 'KATEGORI X: Gangguan sintesis hormon steroid dan perkembangan otak janin.',
-      trimester3: 'KATEGORI X: Penurunan kolesterol plasma janin yang merugikan.'
+      trimester1: 'KATEGORI X: Potensi defek kongenital VACTERL (vertebra, anus, jantung, trakea, esofagus, ginjal, tungkai).',
+      trimester2: 'KATEGORI X: Gangguan sintesis steroid janin dan myelinisasi saraf pusat.',
+      trimester3: 'KATEGORI X: Gangguan pertumbuhan janin intrauterin (IUGR).'
     },
     halesLactationRating: 'L4',
-    relativeInfantDosePercent: 'Tidak diketahui',
-    breastfeedingSummary: 'Potensi mengganggu metabolisme lipid bayi. Kontraindikasi selama masa menyusui.',
-    teratogenicAlert: 'Asosiasi malformasi kongenital VACTERL dan holoprosensefali.',
+    relativeInfantDosePercent: 'Potensial Berbahaya',
+    breastfeedingSummary: 'Dapat mengganggu metabolisme lipid esensial bayi menyusui. HINDARI saat menyusui.',
+    teratogenicAlert: 'Sindrom VACTERL & Malformasi SSP janin akibat deplesi kolesterol embrionik.',
     isContraindicatedInPregnancy: true,
     isContraindicatedInLactation: true,
-    safeAlternatives: ['Diet rendah lemak & modifikasi gaya hidup', 'Bile acid sequestrant (Kolesevelam / Kolestiramin) jika dislipidemia familial ekstrem'],
-    clinicalRecommendations: 'Hentikan statin minimal 1-2 bulan sebelum merencanakan kehamilan. Terapi statin dapat ditunda sementara selama kehamilan karena risiko aterosklerosis maternal jangka pendek sangat rendah.',
-    references: 'FDA Drug Safety Communication on Statins in Pregnancy & Briggs'
+    safeAlternatives: ['Diet rendah lemak', 'Bile Acid Sequestrant (Cholestyramine) jika hiperlipidemia familial berat'],
+    clinicalRecommendations: 'Hentikan statin minimal 1-2 bulan sebelum merencanakan konsepsi. Hiperlipidemia maternal sementara selama 9 bulan kehamilan bersifat fisiologis.',
+    references: 'FDA Drug Safety Communication on Statins & Briggs'
+  },
+
+  // =========================================================================
+  // 2. ANTITROMBOTIK & ANTIKOAGULAN
+  // =========================================================================
+  {
+    id: 'preg-enoxaparin',
+    name: 'Enoxaparin (LMWH)',
+    genericName: 'Enoxaparin Sodium',
+    category: 'Hematologi (Low Molecular Weight Heparin / LMWH)',
+    brandNames: ['Lovenox', 'Inviclot LMWH'],
+    fdaCategory: 'B',
+    pllrSummary: 'ANTIKOAGULAN PILIHAN UTAMA (GOLD STANDARD) pada kehamilan dan menyusui. Molekul berukuran besar tidak dapat menembus barier plasenta dan tidak masuk ke ASI.',
+    trimesterRisks: {
+      trimester1: 'Aman, tidak menembus plasenta, tidak ada risiko teratogenik.',
+      trimester2: 'Aman, pilihan lini 1 untuk trombofilia maternal, DVT, atau katup jantung mekanik.',
+      trimester3: 'Aman. Hentikan 12-24 jam sebelum rencana persalinan/anestesi epidural untuk mencegah hematoma spinal.'
+    },
+    halesLactationRating: 'L2',
+    relativeInfantDosePercent: 0.1,
+    breastfeedingSummary: 'Tidak diserap secara oral oleh saluran cerna bayi karena berat molekul tinggi. 100% aman untuk ibu menyusui.',
+    teratogenicAlert: null,
+    isContraindicatedInPregnancy: false,
+    isContraindicatedInLactation: false,
+    safeAlternatives: ['Heparin Tak Terfraksi (UFH)'],
+    clinicalRecommendations: 'Dosis profilaksis: 20-40 mg SC sekali sehari. Dosis terapeutik DVT/PE: 1 mg/kg SC tiap 12 jam. Tidak memerlukan pemantauan rutin aPTT kecuali anti-Xa pada kasus khusus.',
+    references: 'ASH Guideline on VTE in Pregnancy & ACOG Practice Bulletin No. 196'
   },
   {
     id: 'preg-warfarin',
     name: 'Warfarin',
     genericName: 'Warfarin Sodium',
-    category: 'Kardiovaskular (Antikoagulan Antagonis Vitamin K)',
-    brandNames: ['Coumadin', 'Simarc-2', 'Warfarin Generik'],
+    category: 'Hematologi (Antagonis Vitamin K)',
+    brandNames: ['Coumadin', 'Simarc-2'],
     fdaCategory: 'X',
-    pllrSummary: 'KONTRAINDIKASI pada Trimester 1 Kehamilan (Sindrom Warfarin Fetal). Menembus sawar plasenta dan menyebabkan perdarahan janin serta malformasi tulang rawan.',
+    pllrSummary: 'TERATOGENIK KUAT (Kategori X). Menembus plasenta dengan bebas dan menyebabkan Fetal Warfarin Syndrome serta perdarahan intrakranial janin fatal.',
     trimesterRisks: {
-      trimester1: 'KATEGORI X (Minggu 6-12): Sindrom Warfarin Janin (Fetal Warfarin Syndrome) berupa hipoplasia hidung dan stippled epiphyses (kondrodisplasia punktata).',
-      trimester2: 'Kategori D: Risiko kelainan susunan saraf pusat, atrofi optik, mikrosefali.',
-      trimester3: 'KATEGORI X: Risiko perdarahan intrakranial janin fatal saat persalinan.'
+      trimester1: 'KATEGORI X (Minggu 6-12): Warfarin Embryopathy (hipoplasia nasal berat, stippled epiphyses, agenesis korpus kalosum).',
+      trimester2: 'KATEGORI D/X: Mikrosefali, hidrosefalus, atrofi optik, kebutaan, retardasi mental.',
+      trimester3: 'KATEGORI X: Perdarahan intrakranial janin masif saat persalinan dan kematian perinatal.'
     },
     halesLactationRating: 'L1',
     relativeInfantDosePercent: 0.1,
-    breastfeedingSummary: 'TIDAK TERDETEKSI dalam ASI. Sangat aman (L1) untuk ibu menyusui pasca persalinan.',
-    teratogenicAlert: 'Fetal Warfarin Syndrome: Hipoplasia nasal, kelainan tulang epifisis (stippled epiphyses), mikrosefali, retardasi mental, atrofi saraf mata.',
+    breastfeedingSummary: 'Berikatan protein 99% dan tidak diekskresikan dalam ASI dalam jumlah aktif. AMAN untuk ibu menyusui pasca persalinan.',
+    teratogenicAlert: 'Fetal Warfarin Syndrome (Kondrodisplasia punctata, hidung pelana hipoplastik, mikrosefali, atrofi optik, kebutaan, retardasi mental berat).',
     isContraindicatedInPregnancy: true,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Low Molecular Weight Heparin / LMWH (Enoxaparin)', 'Unfractionated Heparin (UFH)'],
-    clinicalRecommendations: 'Ganti warfarin ke LMWH (Enoxaparin) sebelum konsepsi atau segera saat tes kehamilan positif. LMWH tidak menembus plasenta sehingga aman.',
-    references: 'ACOG Practice Bulletin on Thromboembolism in Pregnancy & Chest Guidelines'
+    safeAlternatives: ['LMWH (Enoxaparin)', 'Heparin UFH'],
+    clinicalRecommendations: 'Ganti segera ke Enoxaparin (LMWH) sebelum minggu ke-6 kehamilan. Pengecualian khusus hanya pada wanita dengan katup jantung mekanik risiko sangat tinggi (dosis <5 mg/hari).',
+    references: 'ACC/AHA Guidelines for the Management of Patients With Valvular Heart Disease & Briggs'
   },
   {
-    id: 'preg-enoxaparin',
-    name: 'Enoxaparin',
-    genericName: 'Enoxaparin Sodium',
-    category: 'Kardiovaskular (LMWH / Antikoagulan)',
-    brandNames: ['Lovenox', 'Inviclot', 'Enoxaparin Generik'],
-    fdaCategory: 'B',
-    pllrSummary: 'Antikoagulan pilihan utama (Gold Standard) selama kehamilan. Molekul besar tidak menembus sawar plasenta sehingga aman bagi janin.',
+    id: 'preg-aspirin-low-dose',
+    name: 'Aspirin (Dosis Rendah / 80-150 mg)',
+    genericName: 'Acetylsalicylic Acid (Low Dose)',
+    category: 'Hematologi (Antiplatelet / Prevensi Preeklampsia)',
+    brandNames: ['Aspilets', 'Miniaspi', 'Thrombo Aspilets'],
+    fdaCategory: 'C',
+    pllrSummary: 'STANDAR EMAS PENCEGAHAN PREEKLAMPSIA pada ibu hamil risiko tinggi. Dosis rendah (80-150 mg) aman dan tidak menyebabkan penutupan dini duktus arteriosus.',
     trimesterRisks: {
-      trimester1: 'Aman, tidak teratogenik.',
-      trimester2: 'Aman, tidak menembus plasenta.',
-      trimester3: 'Aman. Hentikan 12-24 jam sebelum rencana persalinan atau anestesi epidural untuk mencegah hematoma spinal.'
+      trimester1: 'Aman jika dimulai pada akhir trimester 1 (minggu ke-12) untuk prevensi preeklampsia.',
+      trimester2: 'Aman, meningkatkan perfusi arteri uterina dan mencegah vasospasme plasenta.',
+      trimester3: 'Aman pada dosis rendah. Hentikan pada minggu ke-36 kehamilan menjelang persalinan.'
     },
     halesLactationRating: 'L2',
-    relativeInfantDosePercent: 0.05,
-    breastfeedingSummary: 'Molekul besar tidak diserap secara oral oleh saluran cerna bayi. Sangat aman saat menyusui.',
+    relativeInfantDosePercent: 2.5,
+    breastfeedingSummary: 'Dosis rendah (<150 mg/hari) aman untuk ibu menyusui. Hindari aspirin dosis analgesik tinggi (>1000 mg/hari) karena risiko Sindrom Reye.',
     teratogenicAlert: null,
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Heparin Standar / UFH'],
-    clinicalRecommendations: 'Pilihan utama profilaksis & terapi DVT/PE pada kehamilan atau pasien dengan katup jantung mekanik.',
-    references: 'RCOG Green-top Guideline on Thromboembolism in Pregnancy & Briggs'
+    safeAlternatives: ['Diberikan khusus untuk indikasi prevensi preeklampsia'],
+    clinicalRecommendations: 'POGI 2023 & USPSTF: Berikan 80-150 mg malam hari dimulai usia kehamilan 12-16 minggu hingga minggu ke-36 pada ibu dengan faktor risiko preeklampsia tinggi/sedang.',
+    references: 'POGI Panduan Preeklampsia 2023 & USPSTF Aspirin for Preeclampsia Prevention'
   },
 
-  // ==========================================
-  // ANALGESIK, ANTIPIRETIK & NSAID
-  // ==========================================
+  // =========================================================================
+  // 3. ANALGESIK, ANTIPIRETIK & NSAID
+  // =========================================================================
   {
     id: 'preg-paracetamol',
-    name: 'Paracetamol (Acetaminophen)',
-    genericName: 'Paracetamol',
+    name: 'Paracetamol',
+    genericName: 'Paracetamol / Acetaminophen',
     category: 'Analgesik & Antipiretik',
-    brandNames: ['Panadol', 'Sanmol', 'Pamol', 'Biogesic', 'Dumin'],
+    brandNames: ['Panadol', 'Sanmol', 'Pamol', 'Dumin'],
     fdaCategory: 'B',
-    pllrSummary: 'Analgesik dan antipiretik lini pertama paling aman di seluruh trimester kehamilan dan selama masa menyusui.',
+    pllrSummary: 'ANALGESIK & ANTIPIRETIK PILIHAN PERTAMA (LINI 1) TERAMAN di seluruh trimester kehamilan dan selama masa menyusui.',
     trimesterRisks: {
-      trimester1: 'Aman pada dosis terapeutik lazim (500-1000 mg tiap 4-6 jam, maks 4 g/hari).',
-      trimester2: 'Aman.',
-      trimester3: 'Aman. Tidak mempengaruhi ductus arteriosus atau fungsi ginjal janin.'
+      trimester1: 'Aman, tidak teratogenik pada dosis terapi.',
+      trimester2: 'Aman, pilihan utama untuk sakit kepala, nyeri gigi, dan demam.',
+      trimester3: 'Aman, tidak mempengaruhi duktus arteriosus atau kontraksi persalinan.'
     },
     halesLactationRating: 'L1',
-    relativeInfantDosePercent: 2.0,
-    breastfeedingSummary: 'Ekskresi ke ASI sangat rendah. Sangat aman dan menjadi pilihan utama analgesik saat menyusui.',
+    relativeInfantDosePercent: 1.8,
+    breastfeedingSummary: 'Kadar dalam ASI sangat minimal (<2% RID). Pilihan analgesik nomor 1 untuk ibu menyusui.',
     teratogenicAlert: null,
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Paracetamol adalah lini 1'],
-    clinicalRecommendations: 'Gunakan dosis efektif terendah dengan durasi sesingkat mungkin. Hindari kombinasi dengan kafein dosis tinggi.',
-    references: 'FDA Drug Safety Communication & Briggs Drugs in Pregnancy'
+    safeAlternatives: ['Paracetamol adalah pilihan lini 1'],
+    clinicalRecommendations: 'Gunakan dosis efektif terendah (500-1000 mg tiap 6-8 jam bila perlu, maksimal 3-4 g/hari). Mengobati demam tinggi pada trimester 1 sangat penting untuk mencegah neural tube defect akibat hipertermia maternal.',
+    references: 'ACOG Practice Advisory on Acetaminophen & Briggs Drugs in Pregnancy'
   },
   {
     id: 'preg-ibuprofen',
     name: 'Ibuprofen',
     genericName: 'Ibuprofen',
-    category: 'Analgesik & Antiinflamasi (NSAID)',
-    brandNames: ['Proris', 'Brufen', 'Bufect', 'Farsifen'],
-    fdaCategory: 'C',
-    pllrSummary: 'Kategori C pada Trimester 1 & 2. KONTRAINDIKASI MUTLAK pada Trimester 3 (≥20-30 minggu kehamilan) karena risiko penutupan prematur ductus arteriosus dan oligohidramnion.',
+    category: 'Analgesik (Antiinflamasi Non-Steroid / NSAID)',
+    brandNames: ['Proris', 'Brufen', 'Ibuprofen Generik'],
+    fdaCategory: 'D',
+    pllrSummary: 'KONTRAINDIKASI MUTLAK pada usia kehamilan >= 20 MINGGU (Trimester 2 akhir & Trimester 3). Menyebabkan penutupan dini duktus arteriosus janin dan oligohidramnion nefrotoksik.',
     trimesterRisks: {
-      trimester1: 'Kategori C: Penggunaan terus-menerus dikaitkan dengan sedikit peningkatan risiko keguguran spontan.',
-      trimester2: 'Kategori C: Gunakan hanya jika sangat diperlukan dan hindari setelah usia kehamilan 20 minggu.',
-      trimester3: 'KATEGORI D (Kontraindikasi): Penutupan prematur duktus arteriosus janin, hipertensi pulmonal neonatal, oligohidramnion, perpanjangan masa persalinan.'
+      trimester1: 'Kategori B/C: Beberapa studi mengindikasikan potensi peningkatan risiko keguguran dan defek septum ventrikel.',
+      trimester2: 'KATEGORI D (>=20 minggu): Menyebabkan disfungsi ginjal janin yang memicu oligohidramnion (penurunan cairan ketuban).',
+      trimester3: 'KATEGORI D (>=28 minggu): KONTRAINDIKASI MUTLAK. Penutupan dini duktus arteriosus botalli janin, hipertensi pulmonal persisten pada neonatus (PPHN), serta penundaan persalinan dan perdarahan postpartum.'
     },
     halesLactationRating: 'L1',
-    relativeInfantDosePercent: 0.38,
-    breastfeedingSummary: 'Kadar dalam ASI sangat rendah (<0.5% RID). Pilihan NSAID paling aman untuk ibu menyusui pasca melahirkan.',
-    teratogenicAlert: 'Penutupan prematur Ductus Arteriosus janin dan disfungsi ginjal janin (Oligohidramnion) pada trimester 3.',
-    isContraindicatedInPregnancy: false,
+    relativeInfantDosePercent: 0.6,
+    breastfeedingSummary: 'Ekskresi ke ASI sangat rendah (<1% RID). Merupakan NSAID PILIHAN UTAMA untuk ibu menyusui pasca salin.',
+    teratogenicAlert: 'Penutupan dini duktus arteriosus janin intrauterin, hipertensi pulmonal persisten neonatus (PPHN), dan oligohidramnion berat.',
+    isContraindicatedInPregnancy: true,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Paracetamol (Lini 1 Kehamilan)'],
-    clinicalRecommendations: 'Hindari NSAID pada usia kehamilan ≥20 minggu (FDA Warning 2020). Jika membutuhkan analgesik saat hamil, selalu utamakan Paracetamol.',
-    references: 'FDA Warning on NSAIDs in Pregnancy from 20 Weeks & Briggs'
+    safeAlternatives: ['Paracetamol (seluruh trimester)'],
+    clinicalRecommendations: 'Hindari penggunaan seluruh NSAID sejak usia kehamilan 20 minggu ke atas (FDA Drug Safety Warning 2020).',
+    references: 'FDA Drug Safety Warning on NSAIDs in Pregnancy & Briggs'
   },
   {
-    id: 'preg-asam-mefenamat',
+    id: 'preg-mefenamic-acid',
     name: 'Asam Mefenamat',
     genericName: 'Mefenamic Acid',
-    category: 'Analgesik & Antiinflamasi (NSAID)',
+    category: 'Analgesik (Antiinflamasi Non-Steroid / NSAID)',
     brandNames: ['Ponstan', 'Mefinal', 'Asmef Generik'],
-    fdaCategory: 'C',
-    pllrSummary: 'NSAID dengan sifat inhibisi prostaglandin perifer. Kontraindikasi pada trimester ketiga kehamilan.',
+    fdaCategory: 'D',
+    pllrSummary: 'KONTRAINDIKASI pada usia kehamilan >= 20 minggu. Efek samping identik dengan ibuprofen pada duktus arteriosus dan fungsi ginjal janin.',
     trimesterRisks: {
-      trimester1: 'Kategori C: Potensi peningkatan risiko keguguran.',
-      trimester2: 'Kategori C: Potensi oligohidramnion jika digunakan >48 jam.',
-      trimester3: 'KATEGORI D (Kontraindikasi): Penutupan prematur ductus arteriosus dan perdarahan postpartum.'
+      trimester1: 'Hindari penggunaan rutin.',
+      trimester2: 'Kategori D (>=20 minggu): Risiko oligohidramnion dan gagal ginjal janin.',
+      trimester3: 'Kategori D: Penutupan prematur duktus arteriosus janin dan komplikasi perdarahan perinatal.'
     },
     halesLactationRating: 'L2',
-    relativeInfantDosePercent: 0.8,
-    breastfeedingSummary: 'Jumlah minimal terekskresi ke ASI. Kompatibel untuk masa menyusui singkat.',
-    teratogenicAlert: 'Penutupan dini duktus arteriosus dan gangguan hemostasis neonatal.',
-    isContraindicatedInPregnancy: false,
+    relativeInfantDosePercent: 1.2,
+    breastfeedingSummary: 'Terekskresi dalam ASI dalam jumlah kecil. Dapat digunakan jangka pendek pasca salin, namun Ibuprofen lebih disukai.',
+    teratogenicAlert: 'Penutupan prematur duktus arteriosus dan oligohidramnion.',
+    isContraindicatedInPregnancy: true,
     isContraindicatedInLactation: false,
     safeAlternatives: ['Paracetamol'],
-    clinicalRecommendations: 'Hindari pada trimester ketiga kehamilan. Ganti dengan Paracetamol.',
-    references: 'Briggs Drugs in Pregnancy and Lactation'
-  },
-  {
-    id: 'preg-aspirin-low',
-    name: 'Aspirin Dosis Rendah (Low-Dose Aspirin)',
-    genericName: 'Acetylsalicylic Acid (80-150 mg/hari)',
-    category: 'Antiplatelet & Profilaksis Preeklampsia',
-    brandNames: ['Aspilets', 'Cardio Aspirin', 'Miniaspi', 'Thrombo Aspilets'],
-    fdaCategory: 'C',
-    pllrSummary: 'Dosis rendah (80-150 mg/hari) DIREKOMENDASIKAN oleh POGI, ACOG, dan WHO untuk pencegahan preeklampsia pada ibu hamil risiko tinggi.',
-    trimesterRisks: {
-      trimester1: 'Aman jika dimulai pada akhir trimester 1 (minggu ke-12 s.d. 16) untuk profilaksis preeklampsia.',
-      trimester2: 'Aman dan efektif meningkatkan aliran vaskular plasenta.',
-      trimester3: 'Aman pada dosis rendah (<150 mg). Hentikan pada usia kehamilan 36-37 minggu untuk mencegah risiko perdarahan persalinan.'
-    },
-    halesLactationRating: 'L2',
-    relativeInfantDosePercent: 2.5,
-    breastfeedingSummary: 'Dosis rendah (antiplatelet) kompatibel dengan menyusui. Hindari aspirin dosis analgesik tinggi (>1000 mg/hari) karena risiko Sindrom Reye.',
-    teratogenicAlert: null,
-    isContraindicatedInPregnancy: false,
-    isContraindicatedInLactation: false,
-    safeAlternatives: ['Calcium suplementasi 1.5-2 g/hari'],
-    clinicalRecommendations: 'Diresepkan mulai usia kehamilan 12-16 minggu hingga minggu ke-36 bagi wanita dengan riwayat preeklampsia, hipertensi kronis, diabetes pregestasional, atau penyakit ginjal.',
-    references: 'USPSTF 2021 & POGI Guideline on Low-Dose Aspirin for Preeclampsia Prevention'
+    clinicalRecommendations: 'Ganti ke Paracetamol untuk sakit kepala atau nyeri gigi pada ibu hamil.',
+    references: 'FDA Drug Safety Communication & Briggs Drugs in Pregnancy'
   },
 
-  // ==========================================
-  // ANTIMIKROBA & ANTIBIOTIK
-  // ==========================================
+  // =========================================================================
+  // 4. ANTIBIOTIK & ANTIMIKROBA
+  // =========================================================================
   {
-    id: 'preg-amoxicillin',
-    name: 'Amoxicillin',
-    genericName: 'Amoxicillin Trihydrate',
-    category: 'Antimikroba (Beta-Laktam Penicillin)',
-    brandNames: ['Amoxil', 'Amoxsan', 'Kalmoxillin', 'Yusimox'],
+    id: 'preg-amoxicillin-clavulanate',
+    name: 'Amoxicillin-Clavulanate',
+    genericName: 'Amoxicillin + Clavulanic Acid',
+    category: 'Anti-infeksi (Penisilin Spektrum Luas)',
+    brandNames: ['Augmentin', 'Clavamox', 'Amoxiclav'],
     fdaCategory: 'B',
-    pllrSummary: 'Antibiotik lini pertama paling aman untuk ISPA, infeksi saluran kemih (ISK), dan infeksi gigi selama kehamilan dan menyusui.',
+    pllrSummary: 'Antibiotik lini pertama yang aman dan sangat efektif untuk infeksi bakteri saluran kemih (ISK), sinusitis, dan ISPA pada kehamilan.',
     trimesterRisks: {
-      trimester1: 'Aman, data surveilans ribuan kehamilan tidak menunjukkan efek teratogenik.',
-      trimester2: 'Aman.',
-      trimester3: 'Aman.'
+      trimester1: 'Aman, tidak ditemukan peningkatan malformasi kongenital.',
+      trimester2: 'Aman dan efektif.',
+      trimester3: 'Aman. Hindari penggunaan profilaksis rutin pada Ketuban Pecah Dini (KPD) preterm karena potensi peningkatan risiko Necrotizing Enterocolitis (NEC) neonatal.'
     },
     halesLactationRating: 'L1',
-    relativeInfantDosePercent: 0.5,
-    breastfeedingSummary: 'Kadar dalam ASI sangat kecil. Pantau potensi diare ringan atau kandidiasis oral pada bayi.',
+    relativeInfantDosePercent: 1.0,
+    breastfeedingSummary: 'Ekskresi ke ASI minimal. Kompatibel dengan menyusui (pantau potensi diare ringan pada bayi).',
     teratogenicAlert: null,
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Cefalexin', 'Cefixime', 'Erythromycin'],
-    clinicalRecommendations: 'Antibiotik pilihan utama untuk infeksi bakteri umum pada kehamilan. Dosis lazim 500 mg tiap 8 jam.',
-    references: 'CDC Guidelines for Perinatal Infections & Briggs'
+    safeAlternatives: ['Cephalexin', 'Cefixime', 'Erythromycin (bila alergi penisilin)'],
+    clinicalRecommendations: 'Dosis lazim: 625 mg (500/125) tiap 8 jam atau 1000 mg (875/125) tiap 12 jam selama 5-7 hari.',
+    references: 'ACOG Practice Bulletin on Antimicrobial Therapy in Pregnancy & Briggs'
   },
   {
     id: 'preg-cefixime',
     name: 'Cefixime',
     genericName: 'Cefixime Trihydrate',
-    category: 'Antimikroba (Sefalosporin Generasi ke-3)',
-    brandNames: ['Cefspan', 'Cefila', 'Fixacep', 'Cefixime Generik'],
+    category: 'Anti-infeksi (Sefalosporin Generasi ke-3)',
+    brandNames: ['Cefspan', 'Fixacep', 'Cefixime Generik'],
     fdaCategory: 'B',
-    pllrSummary: 'Sefalosporin oral generasi ke-3 yang sangat aman dan efektif untuk infeksi saluran kemih (ISK), bakteriuria asimtomatik, dan gonore pada kehamilan.',
+    pllrSummary: 'Pilihan utama (first-line) terapi oral untuk Bakteriuria Asimtomatik dan Infeksi Saluran Kemih (ISK) akut pada ibu hamil.',
     trimesterRisks: {
-      trimester1: 'Aman, tidak teratogenik.',
-      trimester2: 'Aman.',
-      trimester3: 'Aman.'
+      trimester1: 'Aman, rekam jejak keamanan luas tanpa efek teratogenik.',
+      trimester2: 'Aman dan sangat efektif membasmi E. coli resisten.',
+      trimester3: 'Aman hingga persalinan.'
     },
     halesLactationRating: 'L2',
-    relativeInfantDosePercent: 1.0,
-    breastfeedingSummary: 'Ekskresi ke ASI minimal. Aman untuk ibu menyusui.',
+    relativeInfantDosePercent: 1.4,
+    breastfeedingSummary: 'Konsentrasi dalam ASI sangat rendah. Sangat aman untuk ibu menyusui.',
     teratogenicAlert: null,
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Amoxicillin-Clavulanate', 'Cephalexin'],
-    clinicalRecommendations: 'Pilihan utama terapi ISK kehamilan (100-200 mg 2 kali sehari selama 5-7 hari) untuk mencegah pielonefritis dan persalinan prematur.',
-    references: 'ACOG Practice Bulletin on Antimicrobial Therapy in Pregnancy'
-  },
-  {
-    id: 'preg-ciprofloxacin',
-    name: 'Ciprofloxacin',
-    genericName: 'Ciprofloxacin Hydrochloride',
-    category: 'Antimikroba (Fluoroquinolone)',
-    brandNames: ['Ciproxin', 'Baquinor', 'Ciflox'],
-    fdaCategory: 'C',
-    pllrSummary: 'Golongan Quinolone berikatan dengan tulang rawan dan memicu artropati sendi serta erosi kartilago pada sendi penopang berat badan janin.',
-    trimesterRisks: {
-      trimester1: 'Kategori C: Potensi artropati kartilago dan toksisitas skeletal janin.',
-      trimester2: 'Kategori C: Risiko kerusakan kartilago sendi janin.',
-      trimester3: 'Kategori C: Risiko artropati sendi neonatal dan tendinopati.'
-    },
-    halesLactationRating: 'L3',
-    relativeInfantDosePercent: 2.1,
-    breastfeedingSummary: 'Dapat diekskresikan dalam ASI. Jika ada alternatif (Sefalosporin/Makrolida), hindari quinolone saat menyusui.',
-    teratogenicAlert: 'Artropati dan kerusakan kartilago sendi pada studi hewan muda.',
-    isContraindicatedInPregnancy: true,
-    isContraindicatedInLactation: false,
-    safeAlternatives: ['Cefixime', 'Ceftriaxone', 'Amoxicillin-Clavulanate', 'Nitrofurantoin (Trimester 2)'],
-    clinicalRecommendations: 'HINDARI selama kehamilan kecuali tidak ada alternatif antibiotik lain untuk infeksi resisten berat yang mengancam jiwa.',
-    references: 'FDA Drug Information on Fluoroquinolones & Briggs'
+    safeAlternatives: ['Amoxicillin-Clavulanate', 'Fosfomycin'],
+    clinicalRecommendations: 'Dosis: 100-200 mg 2 kali sehari selama 5-7 hari. Bakteriuria asimtomatik pada ibu hamil WAJIB diobati tuntas untuk mencegah Pielonefritis.',
+    references: 'POGI ISK Panduan 2023 & IDSA Guidelines'
   },
   {
     id: 'preg-doxycycline',
     name: 'Doxycycline',
     genericName: 'Doxycycline Hyclate',
-    category: 'Antimikroba (Tetrasiklin)',
-    brandNames: ['Vibramycin', 'Dohixat', 'Interdoxin'],
+    category: 'Anti-infeksi (Tetrasiklin)',
+    brandNames: ['Vibramycin', 'Dohixat', 'Doxycycline Generik'],
     fdaCategory: 'D',
-    pllrSummary: 'KONTRAINDIKASI MUTLAK pada Trimester 2 & 3. Berikatan dengan kalsium memicu diskolorasi permanen gigi janin (kuning-kecoklatan) dan hipoplasia enamel serta retardasi pertumbuhan tulang.',
+    pllrSummary: 'KONTRAINDIKASI MUTLAK pada Trimester 2 & 3 Kehamilan. Berikatan dengan kalsium pada jaringan tulang dan gigi janin yang sedang berkembang.',
     trimesterRisks: {
-      trimester1: 'Kategori D: Penggunaan singkat (<14 hari) memiliki risiko minimal, namun tetap dihindari.',
-      trimester2: 'KATEGORI D: Pewarnaan kuning-coklat permanen pada gigi sulung janin dan hambatan osteogenesis tulang.',
-      trimester3: 'KATEGORI D: Diskolorasi gigi permanen, hipoplasia email gigi, depresi pertumbuhan tulang fibula.'
+      trimester1: 'Kategori D: Potensi efek pada tulang; penggunaan jangka pendek darurat (misal scrub typhus) dapat dipertimbangkan jika tidak ada alternatif.',
+      trimester2: 'KATEGORI D (>16 minggu): Diskolorasi permanen gigi sulung dan permanen janin (kuning-abu-coklat) dan hipoplasia enamel gigi.',
+      trimester3: 'KATEGORI D: Hambatan pertumbuhan tulang panjang janin dan pewarnaan gigi permanen.'
+    },
+    halesLactationRating: 'L3',
+    relativeInfantDosePercent: 4.5,
+    breastfeedingSummary: 'Penggunaan jangka pendek (<=14 hari) kompatibel karena kalsium dalam ASI mengikat doksisiklin dan menghambat absorpsi bayi. Hindari penggunaan kronis.',
+    teratogenicAlert: 'Diskolorasi permanen gigi janin (Yellow-Brown Tooth Staining) dan Hipoplasia Enamel Gigi.',
+    isContraindicatedInPregnancy: true,
+    isContraindicatedInLactation: false,
+    safeAlternatives: ['Azithromycin', 'Amoxicillin', 'Erythromycin'],
+    clinicalRecommendations: 'Ganti segera ke Azithromycin atau Sefalosporin pada wanita hamil.',
+    references: 'FDA Drug Safety Warning & AAP Committee on Drugs'
+  },
+  {
+    id: 'preg-ciprofloxacin',
+    name: 'Ciprofloxacin',
+    genericName: 'Ciprofloxacin Hydrochloride',
+    category: 'Anti-infeksi (Fluoroquinolone)',
+    brandNames: ['Ciproxin', 'Baquinor', 'Ciprofloxacin Generik'],
+    fdaCategory: 'C',
+    pllrSummary: 'Hindari penggunaan lini pertama pada kehamilan karena potensi toksisitas kartilago dan artropati sendi janin pada studi hewan primata.',
+    trimesterRisks: {
+      trimester1: 'Hindari; studi hewan menunjukkan artropati kartilago sendi penopang berat badan.',
+      trimester2: 'Gunakan hanya jika tidak ada alternatif antibiotik lain yang sensitif.',
+      trimester3: 'Hindari penggunaan rutin.'
     },
     halesLactationRating: 'L3',
     relativeInfantDosePercent: 3.5,
-    breastfeedingSummary: 'Penggunaan jangka pendek (<= 14 hari) relatif aman karena kalsium dalam ASI mengikat doksisiklin dan menghambat absorpsi di saluran cerna bayi.',
-    teratogenicAlert: 'Pewarnaan permanen gigi (yellow-gray-brown discoloration) dan hipoplasia email gigi janin.',
+    breastfeedingSummary: 'Terekskresi dalam ASI. Lebih disukai antibiotik alternatif (seperti Sefalosporin) saat menyusui.',
+    teratogenicAlert: 'Artropati tulang rawan sendi dan erosi kartilago (data hewan).',
     isContraindicatedInPregnancy: true,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Azithromycin', 'Erythromycin', 'Amoxicillin'],
-    clinicalRecommendations: 'Ganti dengan Azithromycin atau Eritromisin untuk infeksi Chlamydia atau infeksi saluran napas pada kehamilan.',
-    references: 'CDC STI Treatment Guidelines & Briggs Drugs in Pregnancy'
+    safeAlternatives: ['Cefixime', 'Ceftriaxone', 'Amoxicillin-Clavulanate', 'Fosfomycin'],
+    clinicalRecommendations: 'Batasi hanya untuk infeksi resisten berat yang tidak respons terhadap beta-laktam.',
+    references: 'Briggs Drugs in Pregnancy and Lactation & LactMed'
   },
   {
     id: 'preg-cotrimoxazole',
-    name: 'Cotrimoxazole (Trimethoprim + Sulfamethoxazole)',
+    name: 'Cotrimoxazole',
     genericName: 'Sulfamethoxazole + Trimethoprim',
-    category: 'Antimikroba (Sulfonamida & Antifolat)',
-    brandNames: ['Bactrim', 'Sanprim', 'Bactrizol', 'Cotrimoxazole Generik'],
+    category: 'Anti-infeksi (Sulfonamida & Antifolat)',
+    brandNames: ['Bactrim', 'Sanprima', 'Cotrimoxazole Generik'],
     fdaCategory: 'D',
-    pllrSummary: 'Hindari pada Trimester 1 (Trimethoprim adalah antagonis asam folat -> risiko Neural Tube Defect) dan Hindari pada Akhir Trimester 3 (Sulfonamida mendesak bilirubin -> risiko Kernikterus neonatal).',
+    pllrSummary: 'KONTRAINDIKASI pada Trimester 1 (antagonis asam folat) dan Trimester 3 Aterm (risiko Kernikterus otak janin).',
     trimesterRisks: {
-      trimester1: 'KATEGORI D: Antagonis asam folat meningkatkan risiko cacat tabung saraf (spina bifida), celah bibir, dan defek jantung.',
-      trimester2: 'Kategori C: Relatif lebih aman jika tidak ada alternatif, namun pantau ketat.',
-      trimester3: 'KATEGORI D: Sulfonamida menggeser ikatan bilirubin dari albumin memicu Hiperbilirubinemia & Kernikterus (kerusakan otak) pada neonatus.'
+      trimester1: 'KATEGORI D: Trimethoprim adalah inhibitor folat yang melipatgandakan risiko Neural Tube Defects (Spina Bifida), celah bibir, dan defek kardiovaskular.',
+      trimester2: 'Kategori C: Dapat digunakan hati-hati dengan suplementasi asam folat dosis tinggi jika mutlak diperlukan.',
+      trimester3: 'KATEGORI D (Aterm / Menjelang Persalinan): Sulfamethoxazole mendesak ikatan bilirubin pada albumin neonatal, memicu KERNEKTERUS OTAK FATAL dan hiperbilirubinemia berat.'
     },
     halesLactationRating: 'L3',
-    relativeInfantDosePercent: 3.0,
-    breastfeedingSummary: 'Hindari pada ibu yang menyusui bayi prematur, bayi sakit kuning (ikterus), atau bayi defisiensi enzim G6PD.',
-    teratogenicAlert: 'Neural Tube Defect (Trimester 1) dan Kernikterus Neonatal (Trimester 3).',
+    relativeInfantDosePercent: 4.0,
+    breastfeedingSummary: 'Kompatibel pada bayi sehat aterm usia >2 bulan. KONTRAINDIKASI pada bayi prematur, hiperbilirubinemia, atau defisiensi enzim G6PD (memicu hemolisis).',
+    teratogenicAlert: 'Neural Tube Defects (Spina Bifida) pada Trimester 1; Kernikterus Ensefalopati Bilirubin pada Trimester 3 akhir.',
     isContraindicatedInPregnancy: true,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Cefixime', 'Amoxicillin-Clavulanate', 'Fosfomycin'],
-    clinicalRecommendations: 'Kontraindikasi pada trimester 1 dan minggu-minggu menjelang persalinan. Jika terpaksa digunakan di trimester 1, berikan suplementasi Asam Folat dosis tinggi (4-5 mg/hari).',
-    references: 'ACOG Practice Bulletin & Briggs Drugs in Pregnancy'
+    safeAlternatives: ['Cefixime', 'Amoxicillin-Clavulanate', 'Nitrofurantoin (Trimester 2)'],
+    clinicalRecommendations: 'Hindari pada trimester 1 dan minggu ke-32 ke atas.',
+    references: 'ACOG Practice Bulletin & CDC Guidelines on Antibiotics in Pregnancy'
   },
+
+  // =========================================================================
+  // 5. GASTROINTESTINAL, MUAL & MUNTAH
+  // =========================================================================
   {
-    id: 'preg-metronidazole',
-    name: 'Metronidazole',
-    genericName: 'Metronidazole',
-    category: 'Antimikroba & Antiprotozoa (Nitroimidazole)',
-    brandNames: ['Flagyl', 'Trichodazol', 'Metronidazole Generik'],
-    fdaCategory: 'B',
-    pllrSummary: 'Aman untuk tatalaksana Trikomoniasis, Vaginosis Bakterial (BV), dan infeksi anaerob. Pengobatan BV pada kehamilan mencegah persalinan prematur.',
+    id: 'preg-pyridoxine',
+    name: 'Vitamin B6 (Pyridoxine)',
+    genericName: 'Pyridoxine Hydrochloride',
+    category: 'Vitamin & Antiemetik Maternal',
+    brandNames: ['Vitamin B6 Generik', 'Anvomer B6', 'Premesis'],
+    fdaCategory: 'A',
+    pllrSummary: 'TERAPI LINI PERTAMA (GOLD STANDARD) Kategori A FDA untuk Mual Muntah Kehamilan (Nausea & Vomiting of Pregnancy / Morning Sickness).',
     trimesterRisks: {
-      trimester1: 'Data meta-analisis terbaru menunjukkan tidak ada peningkatan risiko teratogenisitas.',
+      trimester1: 'Aman, kategori A FDA, sangat terbukti mengurangi mual tanpa risiko teratogenik.',
       trimester2: 'Aman.',
       trimester3: 'Aman.'
     },
-    halesLactationRating: 'L2',
-    relativeInfantDosePercent: 8.5,
-    breastfeedingSummary: 'Dapat memberikan rasa pahit pada ASI. Pada dosis tinggi oral tunggal 2 g, dapat jeda menyusui 12-24 jam.',
+    halesLactationRating: 'L1',
+    relativeInfantDosePercent: 1.0,
+    breastfeedingSummary: 'Vitamin esensial normal dalam ASI. Sangat aman untuk ibu menyusui.',
     teratogenicAlert: null,
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Clindamycin oral/topikal'],
-    clinicalRecommendations: 'Pilihan utama untuk Trichomonas vaginalis dan Bacterial Vaginosis simtomatik pada wanita hamil.',
-    references: 'CDC STI Treatment Guidelines & ACOG'
+    safeAlternatives: ['Pilihan lini pertama'],
+    clinicalRecommendations: 'ACOG & POGI: Berikan 10-25 mg per oral 3-4 kali sehari. Dapat dikombinasikan dengan Doxylamine 10-12.5 mg malam hari untuk efikasi maksimal.',
+    references: 'ACOG Practice Bulletin No. 189 (Nausea and Vomiting of Pregnancy)'
   },
-
-  // ==========================================
-  // SALURAN CERNA & ANTIEMETIK
-  // ==========================================
   {
     id: 'preg-ondansetron',
     name: 'Ondansetron',
     genericName: 'Ondansetron Hydrochloride',
-    category: 'Antiemetik (Antagonis Reseptor 5-HT3)',
-    brandNames: ['Zofran', 'Narfoz', 'Cendansetron', 'Ondansetron Generik'],
+    category: 'Gastrointestinal (Antagonis Reseptor 5-HT3)',
+    brandNames: ['Zofran', 'Narfoz', 'Ondansetron Generik'],
     fdaCategory: 'B',
-    pllrSummary: 'Antiemetik pilihan kedua/ketiga yang sangat efektif untuk Hiperemesis Gravidarum berat yang refrakter terhadap Vitamin B6 dan antihistamin.',
+    pllrSummary: 'Pilihan kedua untuk Hiperemesis Gravidarum berat yang refrakter terhadap vitamin B6 dan antihistamin. Paling aman diberikan pasca minggu ke-10 kehamilan.',
     trimesterRisks: {
-      trimester1: 'Data besar menunjukkan profil keamanan baik, sedikit asosiasi celah bibir/palatum pada studi lama namun tidak terbukti konsisten.',
-      trimester2: 'Aman.',
+      trimester1: 'Kategori B/C: Studi kohort besar menunjukkan risiko absolut celah bibir/langit-langit (cleft palate) sangat kecil (~3 per 10.000 kehamilan). Utamakan inisiasi pasca minggu ke-10.',
+      trimester2: 'Aman dan sangat efektif mengatasi muntah hebat dan dehidrasi.',
       trimester3: 'Aman.'
     },
     halesLactationRating: 'L2',
-    relativeInfantDosePercent: 1.2,
-    breastfeedingSummary: 'Ekskresi ke ASI minimal. Kompatibel dengan menyusui.',
-    teratogenicAlert: null,
+    relativeInfantDosePercent: 2.0,
+    breastfeedingSummary: 'Ekskresi ke ASI rendah. Kompatibel dengan menyusui.',
+    teratogenicAlert: 'Potensi risiko minimal celah bibir/langit-langit bila diberikan sebelum usia kehamilan 10 minggu.',
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Pyridoxine (Vitamin B6 - Lini 1)', 'Doxylamine', 'Metoclopramide'],
-    clinicalRecommendations: 'Gunakan jika mual-muntah kehamilan berat (NVP / Hiperemesis Gravidarum) gagal diatasi dengan Vitamin B6 10-25 mg 3-4x/hari.',
-    references: 'ACOG Practice Bulletin No. 189 (Nausea and Vomiting of Pregnancy)'
-  },
-  {
-    id: 'preg-pyridoxine',
-    name: 'Pyridoxine (Vitamin B6)',
-    genericName: 'Pyridoxine Hydrochloride',
-    category: 'Vitamin & Antiemetik Lini Pertama',
-    brandNames: ['Vitamin B6 Generik', 'Anvomer B6', 'Mediamer B6'],
-    fdaCategory: 'A',
-    pllrSummary: 'Terapi lini pertama (Gold Standard) paling aman untuk mengatasi mual dan muntah pada kehamilan (Morning Sickness).',
-    trimesterRisks: {
-      trimester1: 'KATEGORI A: Sangat aman, tidak ada risiko janin.',
-      trimester2: 'Kategori A: Sangat aman.',
-      trimester3: 'Kategori A: Sangat aman.'
-    },
-    halesLactationRating: 'L1',
-    relativeInfantDosePercent: 0.1,
-    breastfeedingSummary: 'Komponen vitamin alami ASI. Sangat aman.',
-    teratogenicAlert: null,
-    isContraindicatedInPregnancy: false,
-    isContraindicatedInLactation: false,
-    safeAlternatives: ['Pyridoxine adalah Lini 1'],
-    clinicalRecommendations: 'Dosis 10-25 mg per oral 3-4 kali sehari. Dapat dikombinasikan dengan antihistamin Doxylamine 10-12.5 mg.',
-    references: 'ACOG Practice Bulletin on Nausea and Vomiting of Pregnancy & PNPK Kemenkes'
-  },
-  {
-    id: 'preg-omeprazole',
-    name: 'Omeprazole',
-    genericName: 'Omeprazole Magnesium',
-    category: 'Saluran Cerna (Proton Pump Inhibitor / PPI)',
-    brandNames: ['Prilosec', 'Ozid', 'Pumpitor', 'Omeprazole Generik'],
-    fdaCategory: 'C',
-    pllrSummary: 'PPI yang paling banyak diteliti pada kehamilan. Aman digunakan untuk GERD refrakter dan tukak peptikum pada ibu hamil.',
-    trimesterRisks: {
-      trimester1: 'Data meta-analisis tidak menunjukkan peningkatan risiko malformasi kongenital.',
-      trimester2: 'Aman.',
-      trimester3: 'Aman.'
-    },
-    halesLactationRating: 'L2',
-    relativeInfantDosePercent: 1.1,
-    breastfeedingSummary: 'Sebagian besar terdegradasi oleh asam lambung bayi. Kompatibel dengan menyusui.',
-    teratogenicAlert: null,
-    isContraindicatedInPregnancy: false,
-    isContraindicatedInLactation: false,
-    safeAlternatives: ['Antasida (Aluminium/Magnesium Hidroksida - Lini 1)', 'Famotidine / Ranitidine (H2RA)'],
-    clinicalRecommendations: 'Lini pertama GERD kehamilan adalah modifikasi diet & Antasida. Jika gejala persisten, PPI Omeprazole 20 mg/hari aman diberikan.',
-    references: 'ACG Guidelines for the Management of GERD in Pregnancy & Briggs'
+    safeAlternatives: ['Vitamin B6 (Pyridoxine)', 'Doxylamine', 'Metoclopramide'],
+    clinicalRecommendations: 'Dosis: 4-8 mg oral/IV tiap 8 jam untuk Hiperemesis Gravidarum yang tidak membaik dengan terapi lini pertama.',
+    references: 'ACOG Practice Bulletin No. 189 & UpToDate Management of Nausea and Vomiting of Pregnancy'
   },
   {
     id: 'preg-misoprostol',
     name: 'Misoprostol',
     genericName: 'Misoprostol',
-    category: 'Saluran Cerna (Analog Prostaglandin E1) / Uterotonika',
-    brandNames: ['Cytotec', 'Gastrul', 'Invitec', 'Misotab'],
+    category: 'Gastrointestinal & Uterotonik (Analog Prostaglandin E1)',
+    brandNames: ['Cytotec', 'Gastrul', 'Misotab', 'Invotec'],
     fdaCategory: 'X',
-    pllrSummary: 'KONTRAINDIKASI MUTLAK pada Kehamilan (kecuali untuk indikasi terminasi medis/induksi persalinan resmi). Memicu kontraksi uterus kuat, aborsi, dan Sindrom Moebius.',
+    pllrSummary: 'KONTRAINDIKASI MUTLAK SEBAGAI OBAT LAMBUNG PADA KEHAMILAN. Merupakan uterotonik kuat yang memicu kontraksi miometrium, aborsi janin, dan cacat lahir parah.',
     trimesterRisks: {
-      trimester1: 'KATEGORI X: Memicu keguguran spontan, perdarahan hebat, dan Sindrom Moebius (kelumpuhan saraf kranial VI & VII pada janin).',
-      trimester2: 'KATEGORI X: Ruptur uteri dan kematian janin.',
-      trimester3: 'Kategori X untuk ulkus lambung. Digunakan secara medis khusus di RS untuk induksi persalinan aterm / penanganan perdarahan postpartum.'
+      trimester1: 'KATEGORI X EKSTREM: Abortus spontan, perdarahan masif maternal, dan Sindrom Moebius (kelumpuhan saraf kranial VI & VII janin, dismorfisme wajah, defek reduksi tungkai/jari).',
+      trimester2: 'KATEGORI X: Kematian janin dan ruptur uteri.',
+      trimester3: 'KATEGORI X: Ruptur uteri, asfiksia janin berat, gawat janin.'
     },
     halesLactationRating: 'L2',
     relativeInfantDosePercent: 0.2,
-    breastfeedingSummary: 'Waktu paruh sangat singkat (<30 menit). Aman untuk pendarahan pasca salin saat laktasi.',
-    teratogenicAlert: 'Sindrom Moebius (kelumpuhan saraf fasialis & abdusen bilateral janin, ekspresi wajah topeng), kelainan reduksi tungkai (arthrogryposis).',
+    breastfeedingSummary: 'Waktu paruh sangat singkat (<30 menit). Kompatibel jika digunakan pasca persalinan untuk penanganan perdarahan postpartum (HPP).',
+    teratogenicAlert: 'Sindrom Moebius (Paralisis fasialis bilateral, strabismus, mikrotia, artrogriposis ekstremitas).',
     isContraindicatedInPregnancy: true,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Antasida', 'Sucralfate', 'Omeprazole'],
-    clinicalRecommendations: 'DILARANG KERAS digunakan sebagai obat maag pada wanita hamil karena efek uterotonik aborsi dan teratogenik berat.',
-    references: 'FDA Black Box Warning on Misoprostol & POGI Guideline'
+    safeAlternatives: ['Antasida (Al/Mg)', 'Sukralfat', 'Famotidine', 'Omeprazole'],
+    clinicalRecommendations: 'JANGAN PERNAH meresepkan misoprostol untuk terapi tukak lambung/gastritis pada wanita hamil atau usia subur tanpa kontrasepsi.',
+    references: 'FDA Black Box Warning on Misoprostol & WHO Medical Abortion Protocols'
   },
-
-  // ==========================================
-  // ENDOKRIN & DIABETES
-  // ==========================================
   {
-    id: 'preg-insulin-regular',
-    name: 'Insulin Human (Reguler / NPH)',
-    genericName: 'Recombinant Human Insulin',
-    category: 'Endokrin (Insulin Lini Pertama Kehamilan)',
-    brandNames: ['Actrapid', 'Humulin R', 'Humulin N', 'Insulatard'],
+    id: 'preg-sucralfate',
+    name: 'Sukralfat',
+    genericName: 'Sucralfate',
+    category: 'Gastrointestinal (Mukoprotektor Lambung)',
+    brandNames: ['Inpepsa', 'Ulsafate', 'Episan'],
     fdaCategory: 'B',
-    pllrSummary: 'PILIHAN EMAS UTAMA (Gold Standard) untuk Diabetes Melitus Gestasional (GDM) dan Diabetes Pregestasional selama kehamilan.',
+    pllrSummary: 'Pilihan lini pertama paling aman untuk gastritis, GERD, dan tukak lambung pada kehamilan karena bekerja lokal di mukosa lambung dan tidak diserap secara sistemik (<1-3%).',
     trimesterRisks: {
-      trimester1: 'Aman, tidak menembus sawar plasenta. Mengontrol glukosa mencegah malformasi jantung kongenital janin.',
-      trimester2: 'Aman, titrasi dosis sesuai kenaikan resistensi insulin kehamilan.',
-      trimester3: 'Aman, mencegah makrosomia (bayi besar >4 kg) dan hipoglikemia neonatal pasca lahir.'
+      trimester1: 'Aman, absorpsi sistemik minimal sehingga tidak mencapai janin.',
+      trimester2: 'Aman.',
+      trimester3: 'Aman.'
     },
     halesLactationRating: 'L1',
-    relativeInfantDosePercent: 0.0,
-    breastfeedingSummary: 'Molekul protein besar terdegradasi di saluran cerna bayi. Sangat aman dan merupakan hormon alami tubuh.',
+    relativeInfantDosePercent: 0.1,
+    breastfeedingSummary: 'Tidak masuk ke ASI dalam jumlah bermakna. Sangat aman untuk ibu menyusui.',
     teratogenicAlert: null,
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Insulin Human adalah lini 1'],
-    clinicalRecommendations: 'Target gula darah puasa pada bumil <95 mg/dL, 1 jam postprandial <140 mg/dL, 2 jam postprandial <120 mg/dL (PERKENI / ADA 2024).',
-    references: 'ADA Standards of Care in Pregnancy 2024 & Konsensus PERKENI GDM'
+    safeAlternatives: ['Antasida (Aluminium & Magnesium Hidroksida)'],
+    clinicalRecommendations: 'Dosis: 1 gram (suspensi) 3-4 kali sehari saat perut kosong (1 jam sebelum makan atau 2 jam sesudah makan).',
+    references: 'ACG Guidelines for the Management of GERD in Pregnancy & Briggs'
+  },
+
+  // =========================================================================
+  // 6. ENDOKRIN, DIABETES & TIROID
+  // =========================================================================
+  {
+    id: 'preg-insulin-human',
+    name: 'Insulin Human / Analog (Aspart, Lispro, Detemir)',
+    genericName: 'Insulin Human / Insulin Aspart / Insulin Lispro / Insulin Detemir',
+    category: 'Endokrin (Antidiabetes Hormonal)',
+    brandNames: ['Actrapid', 'Novorapid', 'Humalog', 'Levemir', 'Lantus'],
+    fdaCategory: 'B',
+    pllrSummary: 'STANDAR EMAS NOMOR 1 DI SELURUH DUNIA untuk Diabetes Melitus Gestasional (GDM) dan DM Pre-gestasional. Molekul protein besar yang 100% TIDAK MENEMBUS PLASENTA.',
+    trimesterRisks: {
+      trimester1: 'Aman, kontrol glikemik ketat mencegah malformasi jantung kongenital janin dan anomali kaudal.',
+      trimester2: 'Aman, mencegah makrosomia janin (>4 kg) dan polihidramnion.',
+      trimester3: 'Aman, mencegah distosia bahu saat partus dan hipoglikemia neonatal pasca lahir.'
+    },
+    halesLactationRating: 'L1',
+    relativeInfantDosePercent: 0.1,
+    breastfeedingSummary: 'Merupakan komponen protein alami. Molekul insulin yang masuk ke ASI akan terdegradasi di saluran cerna bayi. 100% aman untuk menyusui.',
+    teratogenicAlert: null,
+    isContraindicatedInPregnancy: false,
+    isContraindicatedInLactation: false,
+    safeAlternatives: ['Insulin adalah terapi standar emas lini 1'],
+    clinicalRecommendations: 'Target glikemik GDM (ADA 2024 / POGI): Glukosa puasa <95 mg/dL, 1 jam postprandial <140 mg/dL, 2 jam postprandial <120 mg/dL.',
+    references: 'ADA Standards of Care in Diabetes 2024 & POGI Konsensus GDM'
   },
   {
     id: 'preg-metformin',
     name: 'Metformin',
     genericName: 'Metformin Hydrochloride',
-    category: 'Endokrin (Antidiabetes Oral Biguanide)',
-    brandNames: ['Glucophage', 'Formin', 'Metformin Generik'],
+    category: 'Endokrin (Biguanid Antidiabetes)',
+    brandNames: ['Glucophage', 'Glumin', 'Metformin Generik'],
     fdaCategory: 'B',
-    pllrSummary: 'Alternatif oral lini kedua untuk Diabetes Gestasional atau sindrom ovarium polikistik (PCOS). Menembus plasenta namun tidak teratogenik.',
+    pllrSummary: 'Dapat digunakan sebagai alternatif pada GDM jika pasien menolak atau kesulitan injeksi insulin, namun metformin menembus plasenta dan 30-40% pasien tetap membutuhkan insulin tambahan.',
     trimesterRisks: {
-      trimester1: 'Aman, sering dilanjutkan pada pasien PCOS untuk mencegah keguguran awal.',
-      trimester2: 'Aman, namun sekitar 30-40% pasien tetap membutuhkan tambahan insulin.',
-      trimester3: 'Aman.'
+      trimester1: 'Aman pada wanita dengan Sindrom Ovarium Polikistik (PCOS) untuk mencegah abortus dini.',
+      trimester2: 'Aman, membantu kontrol glikemik.',
+      trimester3: 'Aman, namun efikasi lebih rendah dibanding insulin dalam mencegah komplikasi makrosomia.'
     },
     halesLactationRating: 'L1',
-    relativeInfantDosePercent: 0.4,
-    breastfeedingSummary: 'Kadar dalam ASI sangat rendah (<0.5% RID). Kompatibel dan aman untuk ibu menyusui.',
+    relativeInfantDosePercent: 0.6,
+    breastfeedingSummary: 'Kadar dalam ASI sangat rendah (<1% RID). Aman untuk ibu menyusui.',
     teratogenicAlert: null,
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Insulin Human (Lini 1 Utama)'],
-    clinicalRecommendations: 'Dapat digunakan jika pasien menolak terapi insulin atau kesulitan akses penyimpanan rantai dingin insulin.',
-    references: 'NICE Guidelines on Diabetes in Pregnancy & ADA 2024'
+    safeAlternatives: ['Insulin Human (Pilihan Lini 1)'],
+    clinicalRecommendations: 'Dosis: 500-1000 mg 2 kali sehari bersama makanan. Jika target gula darah tidak tercapai dalam 1-2 minggu, tambahkan terapi insulin.',
+    references: 'ADA Standards of Care in Diabetes 2024 & NICE Guideline [NG3]'
   },
   {
-    id: 'preg-glibenclamide',
-    name: 'Glibenclamide (Glyburide)',
-    genericName: 'Glibenclamide',
-    category: 'Endokrin (Antidiabetes Sulfonilurea)',
-    brandNames: ['Daonil', 'Glucovance', 'Glibenclamide Generik'],
-    fdaCategory: 'C',
-    pllrSummary: 'Menembus plasenta dalam jumlah signifikan dan memicu hiperinsulinemia janin, makrosomia janin, serta hipoglikemia neonatal berat.',
+    id: 'preg-levothyroxine',
+    name: 'Levothyroxine',
+    genericName: 'Levothyroxine Sodium (T4)',
+    category: 'Endokrin (Hormon Tiroid)',
+    brandNames: ['Euthyrox', 'Thyrax Duotab'],
+    fdaCategory: 'A',
+    pllrSummary: 'KATEGORI A FDA (SANGAT AMAN & MUTLAK DIBUTUHKAN). Hormon tiroid maternal sangat krusial untuk perkembangan otak dan mielinisasi susunan saraf janin pada trimester 1.',
     trimesterRisks: {
-      trimester1: 'Kategori C: Risiko fluktuasi glikemik.',
-      trimester2: 'Kategori C: Risiko makrosomia janin lebih tinggi dibanding Insulin/Metformin.',
-      trimester3: 'Kategori C: Risiko hipoglikemia berat berkepanjangan pada neonatus pasca lahir.'
+      trimester1: 'KATEGORI A: Sangat esensial. Janin belum memiliki kelenjar tiroid mandiri dan 100% bergantung pada hormon T4 ibu.',
+      trimester2: 'KATEGORI A: Mendukung perkembangan kognitif dan pertumbuhan janin.',
+      trimester3: 'KATEGORI A: Menjaga metabolisme maternal-fetal normal.'
     },
-    halesLactationRating: 'L2',
-    relativeInfantDosePercent: 1.5,
-    breastfeedingSummary: 'Kompatibel saat laktasi, namun pantau tanda hipoglikemia pada bayi.',
-    teratogenicAlert: 'Makrosomia janin dan hipoglikemia neonatal refrakter.',
-    isContraindicatedInPregnancy: true,
+    halesLactationRating: 'L1',
+    relativeInfantDosePercent: 0.1,
+    breastfeedingSummary: 'Komponen alami ASI. Wajib dilanjutkan selama menyusui.',
+    teratogenicAlert: null,
+    isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Insulin Human (Actrapid/Humulin)', 'Metformin'],
-    clinicalRecommendations: 'TIDAK DIREKOMENDASIKAN untuk Diabetes Gestasional oleh ADA dan POGI karena luaran neonatal lebih buruk dibanding Insulin.',
-    references: 'ADA Guidelines & ACOG Practice Bulletin on Gestational Diabetes'
+    safeAlternatives: ['Levothyroxine adalah terapi esensial Kategori A'],
+    clinicalRecommendations: 'Kebutuhan levotiroksin MENINGKAT 30-50% segera setelah terjadi kehamilan. Lakukan skrining TSH serum setiap 4-6 minggu dengan target TSH < 2.5 mIU/L pada Trimester 1.',
+    references: 'ATA (American Thyroid Association) Guidelines on Thyroid Disease in Pregnancy'
   },
   {
     id: 'preg-propylthiouracil',
     name: 'Propylthiouracil (PTU)',
     genericName: 'Propylthiouracil',
-    category: 'Endokrin (Antitiroid Tiourea)',
+    category: 'Endokrin (Antitiroid Tionamid)',
     brandNames: ['PTU Generik', 'Propiltiourasil'],
     fdaCategory: 'D',
-    pllrSummary: 'Obat antitiroid pilihan pertama (Lini 1) pada TRIMESTER PERTAMA Kehamilan karena risiko malformasi kongenital jauh lebih rendah dibanding Methimazole.',
+    pllrSummary: 'PILIHAN PERTAMA UNTUK HIPERTIROIDISME PADA TRIMESTER 1 KEHAMILAN karena transfer plasenta dan risiko teratogenik embrionik lebih rendah dibanding Methimazole.',
     trimesterRisks: {
-      trimester1: 'PILIHAN UTAMA untuk Hipertiroidisme Trimester 1.',
-      trimester2: 'Dapat diganti ke Methimazole untuk menghindari risiko hepatotoksisitas maternal PTU.',
-      trimester3: 'Dapat digunakan pada dosis minimal untuk mencegah hipotiroidisme dan goiter janin.'
+      trimester1: 'PILIHAN UTAMA TRIMESTER 1. Risiko malformasi kongenital jauh lebih rendah dibanding Methimazole.',
+      trimester2: 'Pertimbangkan beralih ke Methimazole untuk mencegah risiko hepatotoksisitas maternal berat PTU.',
+      trimester3: 'Pertahankan dosis terendah yang efektif untuk mencegah hipotiroidisme janin dan goiter kongenital.'
     },
     halesLactationRating: 'L2',
-    relativeInfantDosePercent: 1.8,
-    breastfeedingSummary: 'Ekskresi ke ASI minimal karena ikatan protein tinggi. Pilihan utama antitiroid saat menyusui.',
-    teratogenicAlert: 'Goiter janin dan hipotiroidisme neonatal jika dosis berlebihan (target FT4 pada batas atas normal).',
+    relativeInfantDosePercent: 1.5,
+    breastfeedingSummary: 'Berikatan protein 80% dan sedikit diekskresikan dalam ASI. Aman untuk ibu menyusui pada dosis <=300 mg/hari.',
+    teratogenicAlert: 'Struma / Goiter tiroid janin dan hipotiroidisme janin bila dosis berlebih.',
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Methimazole (Hanya pada Trimester 2 & 3)'],
-    clinicalRecommendations: 'Gunakan PTU pada Trimester 1 (minggu 1-12), lalu pertimbangkan beralih ke Methimazole pada Trimester 2 & 3 untuk mengurangi risiko hepatitis maternal (American Thyroid Association).',
-    references: 'ATA Guidelines for the Management of Thyroid Disease During Pregnancy'
+    safeAlternatives: ['Methimazole (pada Trimester 2 & 3)'],
+    clinicalRecommendations: 'Gunakan PTU pada Trimester 1, lalu beralih ke Methimazole pada Trimester 2 & 3 (ATA Guidelines). Targetkan kadar Free T4 pada batas atas rentang normal.',
+    references: 'ATA Thyroid Guidelines & Endocrine Society Clinical Practice Guideline'
   },
   {
     id: 'preg-methimazole',
     name: 'Methimazole (Thiamazole)',
-    genericName: 'Thiamazole / Methimazole',
-    category: 'Endokrin (Antitiroid)',
+    genericName: 'Methimazole / Thiamazole',
+    category: 'Endokrin (Antitiroid Tionamid)',
     brandNames: ['Thyrozol', 'Tapazole'],
     fdaCategory: 'D',
-    pllrSummary: 'KONTRAINDIKASI pada Trimester Pertama Kehamilan karena menyebabkan Embriopati Methimazole (Aplasia Cutis Congenita & Atresia Koana). Pilihan utama pada Trimester 2 & 3.',
+    pllrSummary: 'PILIHAN UTAMA PADA TRIMESTER 2 & 3 KEHAMILAN. Hindari pada Trimester 1 karena risiko Embriopati Methimazole (Aplasia Cutis Congenita & Atresia Koana).',
     trimesterRisks: {
-      trimester1: 'KATEGORI D (Kontraindikasi): Embriopati Methimazole (Aplasia Cutis, Atresia Esofagus/Koana, dismorfisme wajah).',
-      trimester2: 'Pilihan utama (lebih aman bagi hepar ibu dibanding PTU).',
-      trimester3: 'Pilihan utama pada dosis terendah.'
+      trimester1: 'KATEGORI D: Methimazole Embryopathy (Aplasia Cutis / tidak terbentuknya kulit kepala, atresia esofagus/koana, dismorfisme wajah).',
+      trimester2: 'PILIHAN UTAMA TRIMESTER 2 (profil keamanan hepar lebih baik dibanding PTU).',
+      trimester3: 'PILIHAN UTAMA TRIMESTER 3.'
     },
-    halesLactationRating: 'L3',
-    relativeInfantDosePercent: 6.0,
-    breastfeedingSummary: 'Dapat digunakan dengan dosis moderat (maks 20 mg/hari). Pantau fungsi tiroid bayi.',
-    teratogenicAlert: 'Embriopati Methimazole: Aplasia Cutis Congenita (kulit kepala tidak terbentuk), Atresia Koana, Atresia Esofagus.',
-    isContraindicatedInPregnancy: true,
+    halesLactationRating: 'L2',
+    relativeInfantDosePercent: 2.0,
+    breastfeedingSummary: 'Aman pada dosis pemeliharaan (<=20 mg/hari). Kompatibel dengan menyusui.',
+    teratogenicAlert: 'Methimazole Embryopathy: Aplasia Cutis Congenita (defek kulit kepala), Atresia Koana, Atresia Esofagus.',
+    isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Propylthiouracil / PTU (Lini 1 Trimester 1)'],
-    clinicalRecommendations: 'Gunakan PTU pada Trimester 1. Methimazole digunakan mulai Trimester 2 ke atas.',
-    references: 'American Thyroid Association (ATA) Guidelines on Pregnancy & Briggs'
+    safeAlternatives: ['PTU (pada Trimester 1)'],
+    clinicalRecommendations: 'Ganti dari PTU ke Methimazole saat memasuki Trimester 2 untuk meminimalkan risiko gagal hati maternal akibat PTU.',
+    references: 'ATA Guidelines & ACOG Committee Opinion on Thyroid Disease'
   },
 
-  // ==========================================
-  // SISTEM SARAF PUSAT & PSIKIATRI
-  // ==========================================
+  // =========================================================================
+  // 7. SISTEM SARAF PUSAT, PSIKIATRI & EPILEPSI
+  // =========================================================================
   {
-    id: 'preg-asam-valproat',
-    name: 'Asam Valproat (Valproic Acid / Divalproex)',
-    genericName: 'Sodium Valproate / Valproic Acid',
-    category: 'Sistem Saraf (Antiepilepsi & Mood Stabilizer)',
-    brandNames: ['Depakote', 'Depakene', 'Ikalep', 'Divalproex Generik'],
+    id: 'preg-valproic-acid',
+    name: 'Asam Valproat (Valproate)',
+    genericName: 'Valproic Acid / Divalproex Sodium',
+    category: 'Sistem Saraf (Antikonvulsan & Mood Stabilizer)',
+    brandNames: ['Depakene', 'Depakote', 'Divalproex', 'Ikalep'],
     fdaCategory: 'X',
-    pllrSummary: 'KONTRAINDIKASI TERTINGGI untuk Epilepsi/Bipolar pada Kehamilan (FDA Boxed Warning). Menyebabkan risiko malformasi mayor tertinggi (10%) dan penurunan skor IQ anak 8-11 poin.',
+    pllrSummary: 'TERATOGENIK PALING BERBAHAYA DI BIDANG NEUROLOGI (Kategori X untuk migrain, Kategori D untuk epilepsi refrakter). Memicu Neural Tube Defects (Spina Bifida) dan penurunan IQ kognitif anak.',
     trimesterRisks: {
-      trimester1: 'KATEGORI X: Neural Tube Defect (Spina Bifida) 1-2%, kelainan jantung kraniofasial, hipospadia, limb defect.',
-      trimester2: 'KATEGORI X: Gangguan perkembangan neurokognitif, spektrum autisme (ASD), penurunan skor IQ.',
-      trimester3: 'KATEGORI X: Gangguan koagulopati dan hipoglikemia neonatal.'
+      trimester1: 'KATEGORI X EKSTREM: Neural Tube Defects (Spina Bifida 1-2%), Fetal Valproate Syndrome, kelainan jantung kongenital, celah bibir, hipospadia.',
+      trimester2: 'KATEGORI X: Penurunan IQ anak sebesar 8-11 poin pada usia sekolah, peningkatan risiko spektrum autisme (ASD) hingga 3-5 kali lipat.',
+      trimester3: 'KATEGORI X: Keterlambatan perkembangan motorik saraf dan supresi sumsum tulang neonatal.'
     },
     halesLactationRating: 'L2',
     relativeInfantDosePercent: 1.5,
-    breastfeedingSummary: 'Ekskresi ke ASI rendah karena ikatan protein tinggi. Kompatibel saat menyusui dengan pemantauan hepar bayi.',
-    teratogenicAlert: 'Fetal Valproate Syndrome: Spina Bifida (Neural Tube Defect), Cleft Lip/Palate, Craniosynostosis, Autisme, Penurunan IQ permanen.',
+    breastfeedingSummary: 'Berikatan protein 90% dan ekskresi ke ASI rendah (<2% RID). Aman untuk ibu menyusui pasca persalinan.',
+    teratogenicAlert: 'Fetal Valproate Syndrome: Spina Bifida, Meningomielokel, Craniosynostosis, Cleft Lip/Palate, Autisme, Defisit IQ Permanen.',
     isContraindicatedInPregnancy: true,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Lamotrigine (Lini 1 Epilepsi Bumil)', 'Levetiracetam (Lini 1)', 'Suplementasi Asam Folat 4-5 mg/hari'],
-    clinicalRecommendations: 'Dilarang keras diresepkan untuk wanita usia subur tanpa kontrasepsi efektif. Ganti ke Lamotrigine atau Levetiracetam sebelum konsepsi.',
-    references: 'FDA Safety Alert on Valproate in Pregnancy & ILAE Guidelines'
+    safeAlternatives: ['Lamotrigine', 'Levetiracetam (Keppra)'],
+    clinicalRecommendations: 'KONTRAINDIKASI MUTLAK pada wanita usia subur tanpa kontrasepsi efektif ganda. Jika terpaksa digunakan untuk epilepsi refrakter, berikan asam folat dosis tinggi (4-5 mg/hari).',
+    references: 'FDA Boxed Warning on Valproate & ILAE (International League Against Epilepsy) Guidelines'
   },
   {
     id: 'preg-lamotrigine',
     name: 'Lamotrigine',
     genericName: 'Lamotrigine',
-    category: 'Sistem Saraf (Antiepilepsi Lini Pertama Kehamilan)',
+    category: 'Sistem Saraf (Antiepilepsi Spektrum Luas)',
     brandNames: ['Lamictal', 'Lamiros'],
     fdaCategory: 'C',
-    pllrSummary: 'Antiepilepsi pilihan lini pertama paling aman pada kehamilan dengan angka kejadian malformasi terendah di register kehamilan internasional.',
+    pllrSummary: 'ANTIEPILEPSI LINI PERTAMA TERAMAN PADA KEHAMILAN bersama Levetiracetam. Angka kejadian malformasi kongenital terendah di antara seluruh antikonvulsan.',
     trimesterRisks: {
-      trimester1: 'Profil teratogenisitas terendah di antara semua antiepilepsi (<2-3% sebanding baseline populasi normal).',
-      trimester2: 'Klirens obat meningkat 50-100% akibat induksi glukuronidasi estrogen kehamilan -> monitor kadar darah dan naikkan dosis.',
-      trimester3: 'Titrasi dosis meningkat, lalu turunkan kembali pasca persalinan untuk mencegah toksisitas.'
+      trimester1: 'Profil keamanan teratogenik terbaik di antara antikonvulsan (risiko malformasi setara populasi umum ~2%).',
+      trimester2: 'Klirens lamotrigine meningkat drastis akibat induksi glukuronidasi estrogen kehamilan (kadar darah turun 50%).',
+      trimester3: 'Wajib penyesuaian dosis naik untuk mencegah kejang berulang.'
     },
     halesLactationRating: 'L2',
     relativeInfantDosePercent: 9.0,
-    breastfeedingSummary: 'Kadar dalam ASI moderat (RID ~9%). Aman untuk ibu menyusui dengan pemantauan ruam kulit dan sedasi pada bayi.',
+    breastfeedingSummary: 'Kadar dalam ASI sedikit lebih tinggi dibanding antiepilepsi lain (~9% RID). Kompatibel dengan menyusui (pantau bayi terhadap sedasi atau ruam kulit).',
     teratogenicAlert: null,
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
     safeAlternatives: ['Levetiracetam (Keppra)'],
-    clinicalRecommendations: 'Antiepilepsi pilihan utama untuk wanita hamil. Wajib disertai suplementasi Asam Folat 4 mg/hari.',
-    references: 'ILAE Guidelines on Epilepsy in Pregnancy & Briggs'
-  },
-  {
-    id: 'preg-phenytoin',
-    name: 'Phenytoin',
-    genericName: 'Phenytoin Sodium',
-    category: 'Sistem Saraf (Antiepilepsi Hidantoin)',
-    brandNames: ['Dilantin', 'Kutoin', 'Phenytoin Generik'],
-    fdaCategory: 'D',
-    pllrSummary: 'KONTRAINDIKASI RELATIF. Menyebabkan Fetal Hydantoin Syndrome (kelainan bentuk kraniofasial dan hipoplasia kuku jari).',
-    trimesterRisks: {
-      trimester1: 'KATEGORI D: Fetal Hydantoin Syndrome (hipoplasia jari & kuku, celah bibir/langit-langit, mikrosefali).',
-      trimester2: 'Kategori D: Gangguan pertumbuhan janin.',
-      trimester3: 'Kategori D: Perdarahan neonatal akibat defisiensi vitamin K dependent clotting factor.'
-    },
-    halesLactationRating: 'L2',
-    relativeInfantDosePercent: 3.5,
-    breastfeedingSummary: 'Ekskresi ke ASI rendah. Kompatibel untuk ibu menyusui.',
-    teratogenicAlert: 'Fetal Hydantoin Syndrome: Hipoplasia falang distal & kuku jari tangan/kaki, celah bibir/palatum, jembatan hidung datar, mikrosefali.',
-    isContraindicatedInPregnancy: true,
-    isContraindicatedInLactation: false,
-    safeAlternatives: ['Lamotrigine', 'Levetiracetam'],
-    clinicalRecommendations: 'Jika terpaksa digunakan, berikan Vitamin K1 10 mg/hari oral pada ibu di bulan terakhir kehamilan dan 1 mg IM pada bayi baru lahir.',
-    references: 'ACOG Practice Bulletin on Epilepsy in Pregnancy & Briggs'
-  },
-  {
-    id: 'preg-diazepam',
-    name: 'Diazepam',
-    genericName: 'Diazepam',
-    category: 'Sistem Saraf (Benzodiazepin / Ansiolitik)',
-    brandNames: ['Valium', 'Valisanbe', 'Stesolid'],
-    fdaCategory: 'D',
-    pllrSummary: 'Penggunaan jangka panjang atau dosis tinggi menjelang persalinan memicu Floppy Infant Syndrome (hipotonia, depresi pernapasan, hipotermia, gejala putus obat neonatal).',
-    trimesterRisks: {
-      trimester1: 'Kategori D: Asosiasi dengan celah bibir dan langit-langit (cleft palate) pada penggunaan trimester awal.',
-      trimester2: 'Kategori D: Depresi SSP janin.',
-      trimester3: 'KATEGORI D: Floppy Infant Syndrome (lemas lunglai, hipotermia, refleks hisap buruk, apneu, withdrawal neonatus).'
-    },
-    halesLactationRating: 'L3',
-    relativeInfantDosePercent: 7.0,
-    breastfeedingSummary: 'Metabolit aktif (desmethyldiazepam) memiliki waktu paruh panjang dan dapat terakumulasi pada bayi (sedasi berlebih). Hindari penggunaan rutin.',
-    teratogenicAlert: 'Floppy Infant Syndrome dan Cleft Palate.',
-    isContraindicatedInPregnancy: true,
-    isContraindicatedInLactation: false,
-    safeAlternatives: ['Sertraline (untuk ansietas/depresi)', 'Konseling psikoterapi non-farmakologis'],
-    clinicalRecommendations: 'Hindari benzodiazepin kerja panjang. Jika sangat mendesak untuk kejang akut/status epileptikus, gunakan dosis tunggal darurat terendah.',
-    references: 'FDA Drug Information on Benzodiazepines in Pregnancy & Briggs'
+    clinicalRecommendations: 'Pantau kadar plasma lamotrigine setiap bulan selama kehamilan; dosis seringkali perlu ditingkatkan 50-100% dan segera diturunkan kembali pasca melahirkan.',
+    references: 'AAN (American Academy of Neurology) & ILAE Pregnancy Guidelines'
   },
   {
     id: 'preg-sertraline',
     name: 'Sertraline',
     genericName: 'Sertraline Hydrochloride',
     category: 'Sistem Saraf (Antidepresan SSRI)',
-    brandNames: ['Zoloft', 'Fridep', 'Nudep'],
+    brandNames: ['Zoloft', 'Fridep', 'Nudep', 'Sertraline Generik'],
     fdaCategory: 'C',
-    pllrSummary: 'Antidepresan SSRI pilihan pertama (Lini 1) paling aman pada kehamilan dan masa menyusui dengan tingkat transfer ASI paling rendah.',
+    pllrSummary: 'ANTIDEPRESAN SSRI PILIHAN NOMOR 1 PALING AMAN pada kehamilan dan selama masa menyusui. Tingkat transfer ke ASI paling rendah di antara seluruh SSRI.',
     trimesterRisks: {
       trimester1: 'Profil keamanan teratogenisitas organogenesis terbaik di antara seluruh SSRI.',
-      trimester2: 'Aman.',
-      trimester3: 'Risiko ringan Neonatal Adaptation Syndrome (iritabilitas transien 24-48 jam pasca lahir yang sembuh spontan).'
+      trimester2: 'Aman, mengobati depresi perinatal sangat krusial untuk mencegah depresi postpartum.',
+      trimester3: 'Risiko ringan Neonatal Behavioral Adaptation Syndrome (iritabilitas transien 24-48 jam yang sembuh spontan).'
     },
     halesLactationRating: 'L1',
     relativeInfantDosePercent: 0.5,
@@ -827,14 +762,133 @@ export const PREGNANCY_LACTATION_DATABASE: PregnancyLactationDrug[] = [
     teratogenicAlert: null,
     isContraindicatedInPregnancy: false,
     isContraindicatedInLactation: false,
-    safeAlternatives: ['Sertraline adalah Lini 1 SSRI', 'Fluoxetine'],
-    clinicalRecommendations: 'Pilihan utama depresi mayor & gangguan kecemasan maternal. Mengobati depresi perinatal sangat krusial untuk mencegah depresi postpartum dan morbiditas bayi.',
-    references: 'APA & ACOG Guidelines on Perinatal Depression & Briggs'
+    safeAlternatives: ['Sertraline adalah pilihan lini 1 SSRI'],
+    clinicalRecommendations: 'Dosis awal: 25-50 mg sekali sehari. Mengobati depresi maternal sangat penting untuk luaran kehamilan yang sehat.',
+    references: 'ACOG Practice Bulletin on Perinatal Depression & LactMed'
+  },
+  {
+    id: 'preg-alprazolam',
+    name: 'Alprazolam',
+    genericName: 'Alprazolam',
+    category: 'Sistem Saraf (Benzodiazepine Ansiolitik)',
+    brandNames: ['Xanax', 'Alganax', 'Zypraz', 'Alprazolam Generik'],
+    fdaCategory: 'D',
+    pllrSummary: 'KONTRAINDIKASI PADA KEHAMILAN. Menembus plasenta dan memicu sindrom penarikan obat neonatal (Neonatal Withdrawal Syndrome) dan Floppy Infant Syndrome.',
+    trimesterRisks: {
+      trimester1: 'Kategori D: Potensi peningkatan risiko celah bibir dan langit-langit (cleft lip/palate).',
+      trimester2: 'Kategori D: Depresi sistem saraf pusat janin.',
+      trimester3: 'KATEGORI D: Floppy Infant Syndrome (hipotonia berat, hipotermia, refleks hisap buruk) dan gejala putus obat neonatal (tremor, iritabilitas).'
+    },
+    halesLactationRating: 'L3',
+    relativeInfantDosePercent: 3.5,
+    breastfeedingSummary: 'Dapat menyebabkan sedasi berlebih dan kesulitan menyusu pada bayi. Hindari penggunaan rutin saat menyusui.',
+    teratogenicAlert: 'Floppy Infant Syndrome dan Neonatal Drug Withdrawal Syndrome.',
+    isContraindicatedInPregnancy: true,
+    isContraindicatedInLactation: false,
+    safeAlternatives: ['Sertraline (untuk ansietas kronis)', 'Psikoterapi CBT non-farmakologis'],
+    clinicalRecommendations: 'Hindari benzodiazepin pada kehamilan. Lakukan penghentian bertahap (tapering off) sebelum konsepsi.',
+    references: 'FDA Drug Information on Benzodiazepines & Briggs'
   },
 
-  // ==========================================
-  // DERMATOLOGI & RETINOID
-  // ==========================================
+  // =========================================================================
+  // 8. RESPIRASI, ASMA & ALERGI
+  // =========================================================================
+  {
+    id: 'preg-budesonide-inhaler',
+    name: 'Budesonide (Inhaler & Nasal)',
+    genericName: 'Budesonide',
+    category: 'Respirasi (Kortikosteroid Inhalasi)',
+    brandNames: ['Pulmicort Turbuhaler', 'Pulmicort Respules', 'Rhinocort Aqua'],
+    fdaCategory: 'B',
+    pllrSummary: 'KORTIKOSTEROID INHALASI PILIHAN NOMOR 1 (GOLD STANDARD) untuk Asma dan Rinitis Alergi pada Kehamilan. Bekerja lokal di bronkus dengan absorpsi sistemik minimal.',
+    trimesterRisks: {
+      trimester1: 'Kategori B FDA, data register kehamilan Swedia (>2000 kehamilan) membuktikan 100% aman tanpa peningkatan risiko teratogenik.',
+      trimester2: 'Aman, mempertahankan oksigenasi darah maternal-fetal secara optimal.',
+      trimester3: 'Aman, mencegah serangan asma akut saat persalinan.'
+    },
+    halesLactationRating: 'L1',
+    relativeInfantDosePercent: 0.3,
+    breastfeedingSummary: 'Absorpsi sistemik minimal; kadar dalam ASI hampir tidak terdeteksi. Sangat aman untuk menyusui.',
+    teratogenicAlert: null,
+    isContraindicatedInPregnancy: false,
+    isContraindicatedInLactation: false,
+    safeAlternatives: ['Pilihan lini 1 asma kehamilan'],
+    clinicalRecommendations: 'GINA (Global Initiative for Asthma): Kontrol asma maternal sangat krusial karena hipoksia akibat serangan asma jauh lebih berbahaya bagi janin dibanding obat inhalasi.',
+    references: 'GINA Guidelines on Asthma in Pregnancy & Briggs'
+  },
+  {
+    id: 'preg-salbutamol-inhaler',
+    name: 'Salbutamol (Inhaler MDI)',
+    genericName: 'Salbutamol / Albuterol Sulfate',
+    category: 'Respirasi (Beta-2 Agonis Kerja Singkat / SABA)',
+    brandNames: ['Ventolin Inhaler', 'Astharol MDI', 'Salbuven'],
+    fdaCategory: 'C',
+    pllrSummary: 'BRONKODILATOR RELIEVER PILIHAN UTAMA untuk pereda sesak nafas akut pada asma kehamilan.',
+    trimesterRisks: {
+      trimester1: 'Aman untuk pereda sesak akut.',
+      trimester2: 'Aman.',
+      trimester3: 'Aman pada dosis inhalasi standar. (Dosis IV tinggi dapat menghambat kontraksi uterus).'
+    },
+    halesLactationRating: 'L1',
+    relativeInfantDosePercent: 0.5,
+    breastfeedingSummary: 'Kadar dalam ASI sangat minimal setelah inhalasi. Aman untuk ibu menyusui.',
+    teratogenicAlert: null,
+    isContraindicatedInPregnancy: false,
+    isContraindicatedInLactation: false,
+    safeAlternatives: ['Pilihan lini 1 pelega asma'],
+    clinicalRecommendations: 'Gunakan 1-2 semprotan saat sesak nafas. Jika membutuhkan >2 kali per minggu, tambahkan pengontrol Budesonide inhaler.',
+    references: 'GINA 2024 & British Thoracic Society Guidelines on Asthma in Pregnancy'
+  },
+  {
+    id: 'preg-cetirizine',
+    name: 'Cetirizine',
+    genericName: 'Cetirizine Hydrochloride',
+    category: 'Alergi (Antihistamin H1 Generasi ke-2)',
+    brandNames: ['Ryvel', 'Incidal-OD', 'Cetirizine Generik'],
+    fdaCategory: 'B',
+    pllrSummary: 'Antihistamin generasi kedua pilihan utama untuk alergi, rinitis, dan urtikaria pada kehamilan dengan efek kantuk minimal.',
+    trimesterRisks: {
+      trimester1: 'Aman, studi meta-analisis kohort tidak menunjukkan peningkatan risiko anomali kongenital.',
+      trimester2: 'Aman.',
+      trimester3: 'Aman.'
+    },
+    halesLactationRating: 'L2',
+    relativeInfantDosePercent: 1.8,
+    breastfeedingSummary: 'Ekskresi ke ASI rendah. Aman untuk ibu menyusui.',
+    teratogenicAlert: null,
+    isContraindicatedInPregnancy: false,
+    isContraindicatedInLactation: false,
+    safeAlternatives: ['Loratadine (Kategori B, L1)'],
+    clinicalRecommendations: 'Dosis: 10 mg sekali sehari pada malam hari.',
+    references: 'EAACI Guidelines & Briggs Drugs in Pregnancy'
+  },
+  {
+    id: 'preg-loratadine',
+    name: 'Loratadine',
+    genericName: 'Loratadine',
+    category: 'Alergi (Antihistamin H1 Generasi ke-2 Non-Sedatif)',
+    brandNames: ['Claritin', 'Cronitin', 'Loratadine Generik'],
+    fdaCategory: 'B',
+    pllrSummary: 'Antihistamin non-sedatif pilihan nomor 1 bersama Cetirizine untuk rinitis alergi dan gatal-gatal pada kehamilan dan menyusui.',
+    trimesterRisks: {
+      trimester1: 'Aman, data register prospektif membuktikan tidak ada risiko teratogenik.',
+      trimester2: 'Aman.',
+      trimester3: 'Aman.'
+    },
+    halesLactationRating: 'L1',
+    relativeInfantDosePercent: 0.4,
+    breastfeedingSummary: 'Ekskresi ke ASI sangat rendah (<0.5% RID). Pilihan antihistamin terbaik untuk ibu menyusui.',
+    teratogenicAlert: null,
+    isContraindicatedInPregnancy: false,
+    isContraindicatedInLactation: false,
+    safeAlternatives: ['Cetirizine'],
+    clinicalRecommendations: 'Dosis: 10 mg sekali sehari.',
+    references: 'Briggs Drugs in Pregnancy and Lactation & LactMed'
+  },
+
+  // =========================================================================
+  // 9. DERMATOLOGI & RETINOID
+  // =========================================================================
   {
     id: 'preg-isotretinoin',
     name: 'Isotretinoin (Oral)',
@@ -844,8 +898,8 @@ export const PREGNANCY_LACTATION_DATABASE: PregnancyLactationDrug[] = [
     fdaCategory: 'X',
     pllrSummary: 'TERATOGEN PALING KUAT DALAM SEJARAH MEDIS (Kategori X Ekstrem). Menyebabkan malformasi kraniofasial, jantung, dan otak berat pada >35% janin yang terpapar.',
     trimesterRisks: {
-      trimester1: 'KATEGORI X EKSTREM: Sindrom Embriopati Retinoid (anotia/mikrotia, kelainan jantung konotrunkal, hidrosefalus, mikrosefali).',
-      trimester2: 'KATEGORI X EKSTREM: Kerusakan susunan saraf pusat dan retardasi mental berat.',
+      trimester1: 'KATEGORI X EKSTREM: Sindrom Embriopati Retinoid (anotia/mikrotia, kelainan jantung konotrunkal, hidrosefalus, mikrosefali, celah langit-langit).',
+      trimester2: 'KATEGORI X EKSTREM: Kerusakan susunan saraf pusat dan retardasi mental berat permanen.',
       trimester3: 'KATEGORI X EKSTREM: Abortus spontan dan kematian janin.'
     },
     halesLactationRating: 'L5',
@@ -854,14 +908,14 @@ export const PREGNANCY_LACTATION_DATABASE: PregnancyLactationDrug[] = [
     teratogenicAlert: 'Retinoid Embryopathy Syndrome: Anotia/Mikrotia (telinga tidak terbentuk), Cleft Palate, Truncus Arteriosus, Tetralogy of Fallot, Hidrosefalus, Hipoplasia Timus.',
     isContraindicatedInPregnancy: true,
     isContraindicatedInLactation: true,
-    safeAlternatives: ['Erythromycin topikal', 'Benzoyl Peroxide topikal', 'Clindamycin topikal', 'Azelaic Acid'],
+    safeAlternatives: ['Erythromycin topikal', 'Benzoyl Peroxide topikal', 'Clindamycin topikal', 'Azelaic Acid topikal'],
     clinicalRecommendations: 'Wajib program pencegahan kehamilan iPLEDGE (tes kehamilan negatif ganda dan 2 metode kontrasepsi efektif minimal 1 bulan sebelum, selama, dan 1 bulan setelah terapi).',
     references: 'FDA Boxed Warning on Isotretinoin & iPLEDGE Pregnancy Prevention Program'
   },
 
-  // ==========================================
-  // ONKOLOGI & IMUNOSUPRESAN
-  // ==========================================
+  // =========================================================================
+  // 10. ONKOLOGI & IMUNOSUPRESAN
+  // =========================================================================
   {
     id: 'preg-methotrexate',
     name: 'Methotrexate',
@@ -871,7 +925,7 @@ export const PREGNANCY_LACTATION_DATABASE: PregnancyLactationDrug[] = [
     fdaCategory: 'X',
     pllrSummary: 'KONTRAINDIKASI MUTLAK pada Kehamilan. Merupakan agen teratogenik kuat dan abortifasien yang menghambat sintesis DNA purin janin.',
     trimesterRisks: {
-      trimester1: 'KATEGORI X: Fetal Methotrexate Syndrome (kraniofasial abnormal, kraniosinostosis, hipoplasia paru dan tungkai).',
+      trimester1: 'KATEGORI X: Fetal Methotrexate Syndrome (kraniosinostosis, dismorfisme kraniofasial, hipoplasia paru dan tungkai).',
       trimester2: 'KATEGORI X: Aborsi janin dan supresi sumsum tulang janin.',
       trimester3: 'KATEGORI X: Kematian intrauterin dan anomali kongenital multipel.'
     },
@@ -895,9 +949,9 @@ export const SAFE_PREGNANCY_CONDITIONS: SafePregnancyConditionGuide[] = [
     firstLineSafeDrugs: [
       {
         drugName: 'Methyldopa (Dopamet)',
-        fdaCategory: 'B (Aman)',
-        dosageNote: '250-500 mg 2-3x/hari (Maks 3 g/hari)',
-        safetyProfile: 'Obat lini pertama terlama dengan rekam jejak keamanan janin paling luas.'
+        fdaCategory: 'B (Aman Lini 1)',
+        dosageNote: '250-500 mg 2-3x/hari (Maksimal 2-3 g/hari)',
+        safetyProfile: 'Obat lini pertama terlama dengan rekam jejak keamanan janin paling luas di dunia.'
       },
       {
         drugName: 'Nifedipine Extended Release (Adalat OROS)',
@@ -908,16 +962,16 @@ export const SAFE_PREGNANCY_CONDITIONS: SafePregnancyConditionGuide[] = [
       {
         drugName: 'Labetalol',
         fdaCategory: 'C (Aman Lini 1)',
-        dosageNote: '100-400 mg 2x/hari',
-        safetyProfile: 'Kombinasi alfa & beta blocker pilihan utama di standar internasional.'
+        dosageNote: '100-400 mg 2x/hari oral (atau IV untuk krisis)',
+        safetyProfile: 'Kombinasi alfa & beta blocker pilihan utama di standar internasional (ACOG/NICE).'
       }
     ],
     secondLineAlternativeDrugs: [
       {
         drugName: 'Hydralazine',
         fdaCategory: 'C',
-        dosageNote: '5-10 mg IV bolus lambat untuk krisis hipertensi',
-        safetyProfile: 'Digunakan khusus untuk kedaruratan hipertensi maternal di IGD/VK.'
+        dosageNote: '5-10 mg IV bolus lambat untuk krisis hipertensi di IGD',
+        safetyProfile: 'Digunakan khusus untuk kedaruratan hipertensi maternal di kamar bersalin/VK.'
       }
     ],
     strictlyContraindicatedDrugs: [
@@ -927,7 +981,7 @@ export const SAFE_PREGNANCY_CONDITIONS: SafePregnancyConditionGuide[] = [
       },
       {
         drugName: 'Angiotensin Receptor Blocker / ARB (Losartan, Candesartan, Valsartan)',
-        riskReason: 'Sama seperti ACEI: Gagal ginjal neonatal dan deformitas tengkorak janin.'
+        riskReason: 'Sama seperti ACEI: Gagal ginjal neonatal dan deformitas tengkorak kranium janin.'
       },
       {
         drugName: 'Spironolactone',
@@ -945,7 +999,7 @@ export const SAFE_PREGNANCY_CONDITIONS: SafePregnancyConditionGuide[] = [
     category: 'Endokrin',
     firstLineSafeDrugs: [
       {
-        drugName: 'Insulin Human (Reguler Actrapid / NPH Insulatard)',
+        drugName: 'Insulin Human / Analog (Reguler Actrapid, NPH, Aspart, Lispro, Detemir)',
         fdaCategory: 'B (Gold Standard)',
         dosageNote: 'Sesuai profil glukosa darah (Titrasi basal-bolus)',
         safetyProfile: 'Pilihan nomor 1 di seluruh dunia. Tidak menembus plasenta sehingga 100% aman untuk janin.'
@@ -967,10 +1021,14 @@ export const SAFE_PREGNANCY_CONDITIONS: SafePregnancyConditionGuide[] = [
       {
         drugName: 'SGLT2 Inhibitor (Empagliflozin, Dapagliflozin)',
         riskReason: 'Toksisitas perkembangan ginjal janin pada studi praklinis.'
+      },
+      {
+        drugName: 'GLP-1 RA (Semaglutide, Tirzepatide)',
+        riskReason: 'Hentikan minimal 2 bulan sebelum kehamilan; data keamanan janin belum memadai.'
       }
     ],
     clinicalPearls: [
-      'Target glukosa darah GDM (ADA 2024): Puasa <95 mg/dL, 1 jam postprandial <140 mg/dL, 2 jam postprandial <120 mg/dL.',
+      'Target glukosa darah GDM (ADA 2024 / POGI): Puasa <95 mg/dL, 1 jam postprandial <140 mg/dL, 2 jam postprandial <120 mg/dL.',
       'Kontrol glikemik yang ketat mencegah malformasi jantung kongenital janin dan distosia bahu saat persalinan.'
     ]
   },
@@ -980,15 +1038,15 @@ export const SAFE_PREGNANCY_CONDITIONS: SafePregnancyConditionGuide[] = [
     category: 'Infeksi',
     firstLineSafeDrugs: [
       {
-        drugName: 'Amoxicillin & Amoxicillin-Clavulanate',
+        drugName: 'Amoxicillin-Clavulanate (Augmentin)',
         fdaCategory: 'B (Lini 1)',
-        dosageNote: '500 mg tiap 8 jam selama 5-7 hari',
+        dosageNote: '625 mg tiap 8 jam selama 5-7 hari',
         safetyProfile: 'Sangat aman, teruji pada puluhan ribu kehamilan tanpa risiko teratogenik.'
       },
       {
         drugName: 'Cefixime / Cephalexin',
         fdaCategory: 'B (Lini 1 ISK)',
-        dosageNote: '100-200 mg 2x/hari selama 5-7 hari',
+        dosageNote: 'Cefixime 100-200 mg 2x/hari selama 5-7 hari',
         safetyProfile: 'Sefalosporin generasi ke-3 sangat ampuh untuk bakteriuria asimtomatik dan ISK bumil.'
       },
       {
@@ -1000,7 +1058,7 @@ export const SAFE_PREGNANCY_CONDITIONS: SafePregnancyConditionGuide[] = [
     ],
     secondLineAlternativeDrugs: [
       {
-        drugName: 'Erythromycin / Azithromycin',
+        drugName: 'Azithromycin / Erythromycin',
         fdaCategory: 'B (Untuk Alergi Penicillin)',
         dosageNote: 'Azithromycin 500 mg hari ke-1, 250 mg hari 2-5',
         safetyProfile: 'Pilihan aman untuk infeksi Chlamydia atau ISPA pada bumil dengan alergi beta-laktam.'
@@ -1031,7 +1089,7 @@ export const SAFE_PREGNANCY_CONDITIONS: SafePregnancyConditionGuide[] = [
     firstLineSafeDrugs: [
       {
         drugName: 'Pyridoxine (Vitamin B6)',
-        fdaCategory: 'A (Lini 1)',
+        fdaCategory: 'A (Lini 1 Gold Standard)',
         dosageNote: '10-25 mg 3-4x/hari',
         safetyProfile: 'Kategori A FDA. Pilihan lini pertama paling aman untuk morning sickness.'
       },
@@ -1051,9 +1109,9 @@ export const SAFE_PREGNANCY_CONDITIONS: SafePregnancyConditionGuide[] = [
       },
       {
         drugName: 'Ondansetron',
-        fdaCategory: 'B',
+        fdaCategory: 'B (Pasca TM 1)',
         dosageNote: '4-8 mg 2-3x/hari (Oral/IV)',
-        safetyProfile: 'Pilihan untuk Hiperemesis Gravidarum berat yang refrakter.'
+        safetyProfile: 'Pilihan untuk Hiperemesis Gravidarum berat yang refrakter pasca minggu ke-10.'
       }
     ],
     strictlyContraindicatedDrugs: [
@@ -1064,6 +1122,204 @@ export const SAFE_PREGNANCY_CONDITIONS: SafePregnancyConditionGuide[] = [
     ],
     clinicalPearls: [
       'Anjurkan makan porsi kecil tapi sering (small frequent meals) dan hindari makanan berminyak/berbau tajam.'
+    ]
+  },
+  {
+    id: 'cond-nyeri-demam',
+    conditionName: 'Demam, Nyeri Akut & Sakit Kepala',
+    category: 'Analgesik & Antipiretik',
+    firstLineSafeDrugs: [
+      {
+        drugName: 'Paracetamol (Acetaminophen)',
+        fdaCategory: 'B (Lini 1 Teraman)',
+        dosageNote: '500-1000 mg tiap 6-8 jam bila perlu (Maks 3-4 g/hari)',
+        safetyProfile: 'Pilihan teraman di seluruh trimester kehamilan dan selama masa menyusui.'
+      }
+    ],
+    secondLineAlternativeDrugs: [
+      {
+        drugName: 'Kompres hangat & Hidrasi cairan adekuat',
+        fdaCategory: 'Non-Farmakologis',
+        dosageNote: 'Minum air putih 2-3 liter/hari',
+        safetyProfile: 'Membantu menurunkan suhu tubuh secara alami.'
+      }
+    ],
+    strictlyContraindicatedDrugs: [
+      {
+        drugName: 'NSAID (Ibuprofen, Asam Mefenamat, Ketorolac, Diklofenak) pada Usia Kehamilan >=20 Minggu',
+        riskReason: 'Penutupan prematur duktus arteriosus janin, hipertensi pulmonal neonatal (PPHN), dan oligohidramnion.'
+      },
+      {
+        drugName: 'Aspirin Dosis Tinggi (>300 mg)',
+        riskReason: 'Pendarahan intrakranial perinatal dan penutupan duktus arteriosus.'
+      }
+    ],
+    clinicalPearls: [
+      'Demam tinggi maternal (>38.5°C) pada trimester 1 harus segera diturunkan dengan parasetamol karena hipertermia memicu defek tabung saraf janin.'
+    ]
+  },
+  {
+    id: 'cond-asma',
+    conditionName: 'Asma Bronkial Maternal',
+    category: 'Respirasi',
+    firstLineSafeDrugs: [
+      {
+        drugName: 'Budesonide Inhaler (Pulmicort Turbuhaler)',
+        fdaCategory: 'B (Lini 1 Pengontrol)',
+        dosageNote: '200-400 mcg dihirup 2x/hari',
+        safetyProfile: 'Steroid inhalasi teraman dengan data registri kehamilan paling luas di dunia.'
+      },
+      {
+        drugName: 'Salbutamol Inhaler (Ventolin MDI)',
+        fdaCategory: 'C (Lini 1 Pelega Akut)',
+        dosageNote: '1-2 semprotan saat sesak nafas kambuh',
+        safetyProfile: 'Pelega bronkodilator SABA pilihan utama saat serangan asma akut.'
+      }
+    ],
+    secondLineAlternativeDrugs: [
+      {
+        drugName: 'Ipratropium Inhaler',
+        fdaCategory: 'B',
+        dosageNote: '2 semprotan 3-4x/hari',
+        safetyProfile: 'Antikolinergik inhalasi aman sebagai tambahan jika SABA belum optimal.'
+      }
+    ],
+    strictlyContraindicatedDrugs: [
+      {
+        drugName: 'Dekongestan Oral (Pseudoephedrine) pada Trimester 1',
+        riskReason: 'Vasokonstriksi pembuluh darah memicu Gastroschisis (dinding perut janin terbuka).'
+      }
+    ],
+    clinicalPearls: [
+      'Aturan 1/3 pada asma kehamilan: 1/3 pasien membaik, 1/3 menetap, dan 1/3 memburuk. Mencegah hipoksia janin jauh lebih penting dibanding risiko obat inhalasi.'
+    ]
+  },
+  {
+    id: 'cond-gerd-dispepsia',
+    conditionName: 'GERD, Heartburn & Dispepsia Kehamilan',
+    category: 'Gastrointestinal',
+    firstLineSafeDrugs: [
+      {
+        drugName: 'Antasida (Aluminium & Magnesium Hidroksida)',
+        fdaCategory: 'B (Lini 1 Cepat)',
+        dosageNote: '1-2 sendok takar sesudah makan dan sebelum tidur',
+        safetyProfile: 'Bekerja lokal menetralkan asam lambung dengan penyerapan sistemik minimal.'
+      },
+      {
+        drugName: 'Sukralfat (Inpepsa)',
+        fdaCategory: 'B (Lini 1 Mukoprotektor)',
+        dosageNote: '1 gram (1 sendok) 3-4x/hari saat perut kosong',
+        safetyProfile: 'Melapisi dinding lambung yang teriritasi; tidak diserap ke dalam darah.'
+      }
+    ],
+    secondLineAlternativeDrugs: [
+      {
+        drugName: 'Famotidine / Ranitidine',
+        fdaCategory: 'B (Antagonis H2)',
+        dosageNote: '20-40 mg 2x/hari',
+        safetyProfile: 'Aman jika antasida dan sukralfat belum mencukupi.'
+      },
+      {
+        drugName: 'Omeprazole',
+        fdaCategory: 'C (PPI)',
+        dosageNote: '20 mg sekali sehari pagi hari',
+        safetyProfile: 'Digunakan untuk esofagitis erosif refrakter.'
+      }
+    ],
+    strictlyContraindicatedDrugs: [
+      {
+        drugName: 'Sodium Bikarbonat (Baking Soda / Antasida Basa Natrium)',
+        riskReason: 'Memicu alkalosis metabolik maternal dan retensi cairan / edema preeklampsia.'
+      },
+      {
+        drugName: 'Misoprostol',
+        riskReason: 'Memicu kontraksi uterus dan keguguran spontan.'
+      }
+    ],
+    clinicalPearls: [
+      'Heartburn pada trimester 3 dipicu oleh relaksasi sfingter esofagus bawah akibat hormon progesteron dan penekanan mekanik rahim.'
+    ]
+  },
+  {
+    id: 'cond-tiroid',
+    conditionName: 'Gangguan Tiroid Gestasional (Hipotiroid & Hipertiroid)',
+    category: 'Endokrin',
+    firstLineSafeDrugs: [
+      {
+        drugName: 'Levothyroxine (Euthyrox)',
+        fdaCategory: 'A (Untuk Hipotiroidisme)',
+        dosageNote: 'Titrasi sesuai TSH (target TSH <2.5 mIU/L pada TM 1)',
+        safetyProfile: 'Kategori A FDA. Mutlak wajib diberikan untuk perkembangan IQ dan otak janin.'
+      },
+      {
+        drugName: 'Propylthiouracil / PTU (Trimester 1)',
+        fdaCategory: 'D (Untuk Hipertiroidisme TM 1)',
+        dosageNote: '50-100 mg 3x/hari pada Trimester 1',
+        safetyProfile: 'Pilihan lini pertama pada Trimester 1 (risiko teratogenik lebih rendah dibanding Methimazole).'
+      },
+      {
+        drugName: 'Methimazole / Thiamazole (Trimester 2 & 3)',
+        fdaCategory: 'D (Untuk Hipertiroidisme TM 2 & 3)',
+        dosageNote: '5-15 mg/hari pada Trimester 2 & 3',
+        safetyProfile: 'Pilihan lini pertama pada Trimester 2 & 3 (profil hepar lebih aman dibanding PTU).'
+      }
+    ],
+    secondLineAlternativeDrugs: [
+      {
+        drugName: 'Propranolol',
+        fdaCategory: 'C',
+        dosageNote: '10-20 mg 2-3x/hari jangka pendek',
+        safetyProfile: 'Untuk mengontrol gejala palpitasi tirotoksikosis akut maternal.'
+      }
+    ],
+    strictlyContraindicatedDrugs: [
+      {
+        drugName: 'Radioiodine (Iodium Radioaktif I-131)',
+        riskReason: 'KONTRAINDIKASI MUTLAK. Merusak dan mengablasi permanen kelenjar tiroid janin.'
+      }
+    ],
+    clinicalPearls: [
+      'Kebutuhan Levotiroksin meningkat 30-50% saat hamil; lakukan pemeriksaan TSH berkala tiap 4-6 minggu.'
+    ]
+  },
+  {
+    id: 'cond-tromboembolisme',
+    conditionName: 'Tromboembolisme Vena (DVT & Emboli Paru)',
+    category: 'Hematologi',
+    firstLineSafeDrugs: [
+      {
+        drugName: 'Enoxaparin (LMWH / Lovenox)',
+        fdaCategory: 'B (Gold Standard)',
+        dosageNote: 'Profilaksis: 40 mg SC q24h; Terapi DVT: 1 mg/kg SC q12h',
+        safetyProfile: 'Molekul besar 100% tidak menembus barier plasenta. Standar emas dunia.'
+      },
+      {
+        drugName: 'Heparin Tak Terfraksi (UFH)',
+        fdaCategory: 'C',
+        dosageNote: 'Titrasi infus IV dengan target aPTT 1.5-2.5 kali kontrol',
+        safetyProfile: 'Pilihan saat persalinan aterm karena waktu paruh singkat dan reversibel dengan Protamin.'
+      }
+    ],
+    secondLineAlternativeDrugs: [
+      {
+        drugName: 'Stoking Kompresi Elastis Gradien (GCS)',
+        fdaCategory: 'Non-Farmakologis',
+        dosageNote: 'Dipakai sepanjang hari saat beraktivitas',
+        safetyProfile: 'Membantu venous return tanpa efek samping sistemik.'
+      }
+    ],
+    strictlyContraindicatedDrugs: [
+      {
+        drugName: 'Warfarin',
+        riskReason: 'Fetal Warfarin Syndrome (Kondrodisplasia punctata, mikrosefali, atrofi optik).'
+      },
+      {
+        drugName: 'DOAC (Rivaroxaban, Apixaban, Dabigatran)',
+        riskReason: 'Menembus plasenta; data keamanan manusia belum ada; risiko perdarahan janin.'
+      }
+    ],
+    clinicalPearls: [
+      'Ibu hamil memiliki risiko DVT 4-5 kali lipat lebih tinggi dibanding wanita tidak hamil akibat status hiperkoagulabilitas fisiologis.'
     ]
   }
 ];

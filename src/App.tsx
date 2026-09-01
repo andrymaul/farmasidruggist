@@ -529,6 +529,21 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleOpenDrugDetailByName = (drugName: string) => {
+    if (!drugName) return;
+    const q = drugName.toLowerCase().trim();
+    const found = drugs.find(d => 
+      d.name.toLowerCase() === q ||
+      d.genericName.toLowerCase() === q ||
+      d.name.toLowerCase().includes(q) ||
+      d.genericName.toLowerCase().includes(q) ||
+      d.brandNames?.some(b => b.toLowerCase() === q)
+    );
+    if (found) {
+      setSelectedDrugForDetail(found);
+    }
+  };
+
   const handleHeroSearchDrug = (query: string) => {
     if (!currentUser) {
       setShowAuthModal(true);
@@ -837,7 +852,6 @@ export default function App() {
           onOpenAuthModal={() => setShowAuthModal(true)}
           onLogout={handleLogout}
           onOpenPricingModal={() => setShowPricingModal(true)}
-          onOpenBrandingModal={() => handleSelectTab('admin-branding')}
           onToggleMobileSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
           theme={theme}
           onToggleTheme={handleToggleTheme}
@@ -893,6 +907,7 @@ export default function App() {
                   <PregnancyLactationChecker
                     onSelectTab={handleSelectTab}
                     onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenDrugDetail={handleOpenDrugDetailByName}
                   />
                 )
               )}
@@ -1002,7 +1017,6 @@ export default function App() {
                     allDrugs={drugs}
                     allInteractions={interactions}
                     clinicBranding={clinicBranding}
-                    onOpenBrandingModal={() => handleSelectTab('admin-branding')}
                     onSelectTab={handleSelectTab}
                   />
                 )
@@ -1038,7 +1052,6 @@ export default function App() {
                   <SideEffectChecker
                     allDrugs={drugs}
                     clinicBranding={clinicBranding}
-                    onOpenBrandingModal={() => handleSelectTab('admin-branding')}
                     onSelectTab={handleSelectTab}
                     isProUser={isProUser}
                     onOpenPricingModal={() => setShowPricingModal(true)}
@@ -1049,7 +1062,6 @@ export default function App() {
               {activeTab === 'usage' && (
                 <MedicationUsageGuide
                   clinicBranding={clinicBranding}
-                  onOpenBrandingModal={() => handleSelectTab('admin-branding')}
                   onSelectTab={handleSelectTab}
                 />
               )}
@@ -1066,7 +1078,6 @@ export default function App() {
                 ) : (
                   <PharmacySopManager
                     clinicBranding={clinicBranding}
-                    onOpenBrandingModal={() => handleSelectTab('admin-branding')}
                   />
                 )
               )}
@@ -1083,7 +1094,6 @@ export default function App() {
                 ) : (
                   <PharmacyRegulationsManager
                     clinicBranding={clinicBranding}
-                    onOpenBrandingModal={() => handleSelectTab('admin-branding')}
                   />
                 )
               )}
@@ -1116,7 +1126,6 @@ export default function App() {
                 ) : (
                   <WhatsAppPatientCardManager
                     clinicBranding={clinicBranding}
-                    onOpenBrandingModal={() => handleSelectTab('admin-branding')}
                     drugs={drugs}
                     onSelectDrugForDetail={(drug) => setSelectedDrugForDetail(drug)}
                     preselectedDrug={preselectedPioDrug}
@@ -1198,7 +1207,6 @@ export default function App() {
                   duplicationRules={duplicationRules}
                   auditLogs={auditLogs}
                   adminUsers={adminUsers}
-                  clinicBranding={clinicBranding}
                   customers={customerList}
                   onUpdateCustomers={handleUpdateCustomers}
                   initialSubTab={
@@ -1206,7 +1214,6 @@ export default function App() {
                     activeTab === 'admin-firebase' ? 'firebase-sync' :
                     activeTab === 'admin-editor' ? 'advanced-editor' :
                     activeTab === 'admin-pricing' ? 'pricing-settings' :
-                    activeTab === 'admin-branding' ? 'clinic-branding' :
                     activeTab === 'admin-users' ? 'team-admin' :
                     activeTab === 'admin-logs' ? 'audit-log' :
                     activeTab === 'admin-subscriptions' ? 'customers' : 'drugs'
@@ -1223,7 +1230,6 @@ export default function App() {
                   onDeleteDuplicationRule={handleDeleteDuplicationRule}
                   onSaveAdminUser={handleSaveAdminUser}
                   onDeleteAdminUser={handleDeleteAdminUser}
-                  onSaveBranding={handleSaveBranding}
                 />
               )}
 
@@ -1233,6 +1239,36 @@ export default function App() {
                   customers={customerList}
                   onUpdateCustomers={handleUpdateCustomers}
                 />
+              )}
+
+              {/* Safe Fallback for unrecognized tab or stale localStorage */}
+              {![
+                'landing', 'dashboard', 'drugs', 'directory', 'pregnancy', 'drug-lab', 'bud', 'herb-drug',
+                'competency', 'guidelines', 'polypharmacy', 'interactions', 'side-effects', 'usage',
+                'sop', 'regulations', 'literature', 'whatsapp-pio', 'iv-compatibility', 'pediatric',
+                'renal-adjuster', 'history', 'subscriptions'
+              ].includes(activeTab) && !activeTab.startsWith('admin') && (
+                currentUser ? (
+                  <Dashboard
+                    drugs={drugs}
+                    interactions={interactions}
+                    historyRecords={historyRecords}
+                    currentUser={currentUser}
+                    onSelectTab={handleSelectTab}
+                    onSearchDrug={handleHeroSearchDrug}
+                    onCheckInteractionWith={handleCheckInteractionWith}
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                  />
+                ) : (
+                  <LandingPage
+                    drugs={drugs}
+                    interactions={interactions}
+                    onSelectTab={handleSelectTab}
+                    currentUser={currentUser}
+                    onOpenPricingModal={() => setShowPricingModal(true)}
+                    onOpenAuthModal={() => setShowAuthModal(true)}
+                  />
+                )
               )}
             </>
           )}
@@ -1270,6 +1306,10 @@ export default function App() {
           onClose={() => setSelectedDrugForDetail(null)}
           onCheckInteractionWith={handleCheckInteractionWith}
           onAddToPioCard={handleAddToPioCard}
+          onOpenPregnancyChecker={(drugName) => {
+            setSelectedDrugForDetail(null);
+            handleSelectTab('pregnancy');
+          }}
         />
       )}
 
@@ -1278,10 +1318,6 @@ export default function App() {
           selectedDrugs={reportModalData.selectedDrugs}
           interactions={reportModalData.interactions}
           clinicBranding={clinicBranding}
-          onOpenBrandingModal={() => {
-            setReportModalData(null);
-            handleSelectTab('admin-branding');
-          }}
           onClose={() => setReportModalData(null)}
         />
       )}

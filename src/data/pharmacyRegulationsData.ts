@@ -637,6 +637,457 @@ export const PHARMACY_REGULATIONS_DATA: RegulationItem[] = [
       'Sanksi administratif kepegawaian bagi tenaga medis yang menolak meresepkan generik tanpa alasan ilmiah.'
     ],
     notes: 'Obat generik wajib memenuhi standar Cara Pembuatan Obat yang Baik (CPOB) dan uji Bioekivalensi (BE) BPOM yang setara dengan obat inovator/paten.'
+  },
+  {
+    id: 'reg-pp-28-2024',
+    regNumber: 'PP No. 28 Tahun 2024',
+    title: 'Peraturan Pemerintah RI Nomor 28 Tahun 2024 tentang Peraturan Pelaksanaan UU No. 17 Tahun 2023 tentang Kesehatan',
+    type: 'pp',
+    typeLabel: 'Peraturan Pemerintah (PP)',
+    year: 2024,
+    issuingAuthority: 'Presiden Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Peraturan pelaksana komprehensif dari Omnibus Law UU Kesehatan No. 17/2023, memuat ketentuan detail terkait tata kelola ketahanan kefarmasian nasional, kemandirian bahan baku obat (BBO), tata cara registrasi STR seumur hidup, penerbitan SIP tenaga medis & kefarmasian, dan sistem pengawasan terintegrasi.',
+    scope: 'Seluruh fasyankes, industri farmasi, PBF distributor, apotek, klinik, puskesmas, dan organisasi profesi kesehatan di Indonesia.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 312 - 325',
+        topic: 'Kemandirian & Ketahanan Sediaan Farmasi',
+        content: 'Pemerintah memprioritaskan penggunaan bahan baku obat dalam negeri dan produk farmasi hasil riset domestik dalam katalog pengadaan barang pemerintah.',
+        clinicalImplication: 'Fasyankes diwajibkan memprioritaskan obat produksi dalam negeri yang telah memiliki sertifikat Tingkat Komponen Dalam Negeri (TKDN).'
+      },
+      {
+        articleNumber: 'Pasal 680 - 695',
+        topic: 'Tata Cara Penerbitan SIP & Registrasi Tenaga Kesehatan',
+        content: 'Surat Izin Praktik (SIP) diterbitkan oleh Pemerintah Daerah Kabupaten/Kota berdasarkan STR yang masih aktif dan surat keterangan tempat praktik (maksimal 3 tempat praktik untuk dokter dan Apoteker).',
+        clinicalImplication: 'Apoteker wajib memiliki SIPA aktif di setiap sarana tempat menjalankan pekerjaan kefarmasian (maksimal 3 sarana).'
+      },
+      {
+        articleNumber: 'Pasal 1040 - 1055',
+        topic: 'Sanksi Administratif Berjenjang',
+        content: 'Pelanggaran terhadap standar pelayanan kefarmasian dikenakan sanksi administratif berupa: teguran tertulis, denda administratif, penghentian sementara kegiatan, hingga pencabutan izin berusaha.',
+        clinicalImplication: 'Kewajiban kepatuhan penuh terhadap SOP pelayanan kefarmasian dan standar akreditasi fasilitas kesehatan.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Peringatan tertulis dan denda administratif.',
+      'Penghentian sementara operasional sarana farmasi.',
+      'Pencabutan izin berusaha (SIA/SIFRS) dan pembekuan SIPA Apoteker.'
+    ],
+    notes: 'PP No. 28/2024 mengintegrasikan puluhan peraturan pemerintah sektor kesehatan sebelumnya menjadi satu kesatuan regulasi tunggal.'
+  },
+  {
+    id: 'reg-pmk-74-2016-puskesmas',
+    regNumber: 'Permenkes No. 74/2016 & PMK No. 26/2020',
+    title: 'Permenkes RI tentang Standar Pelayanan Kefarmasian di Pusat Kesehatan Masyarakat (Puskesmas)',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2016,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Mengatur standar manajerial pengelolaan sediaan farmasi & BMHP serta pelayanan farmasi klinis di Puskesmas rawat jalan, Puskesmas rawat inap, Puskesmas Pembantu (Pustu), dan Posyandu.',
+    scope: 'Seluruh Pusat Kesehatan Masyarakat (Puskesmas) dan jaringannya di seluruh Indonesia.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 3 Ayat (1) - (2)',
+        topic: 'Pengelolaan Obat Publik & LPLPO',
+        content: 'Pengelolaan sediaan farmasi dan BMHP di Puskesmas meliputi perencanaan, permintaan melalui Laporan Pemakaian dan Lembar Permintaan Obat (LPLPO) ke Dinas Kesehatan, penerimaan, penyimpanan, pendistribusian ke sub-unit (Pustu/Polindes), dan pengendalian.',
+        clinicalImplication: 'LPLPO wajib disusun secara tertib setiap bulan berdasarkan metode konsumsi dan morbiditas pola penyakit.'
+      },
+      {
+        articleNumber: 'Pasal 3 Ayat (3)',
+        topic: 'Pelayanan Farmasi Klinis di Puskesmas',
+        content: 'Pelayanan farmasi klinis meliputi: pengkajian resep, penyerahan obat dan pemberian informasi, Pelayanan Informasi Obat (PIO), konseling, ronde/visite pasien (pada Puskesmas rawat inap), pemantauan terapi obat (PTO), dan Monitoring Efek Samping Obat (MESO).',
+        clinicalImplication: 'Apoteker Puskesmas wajib hadir memberikan konseling langsung pada pasien kronis (Program Pengelolaan Penyakit Kronis / Prolanis).'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Penurunan skor akreditasi Puskesmas oleh Lembaga Penyelenggara Akreditasi Pelayanan Kesehatan Primer (LPA PKP).',
+      'Teguran administratif dari Kepala Dinas Kesehatan Kabupaten/Kota.'
+    ],
+    notes: 'Permenkes No. 26 Tahun 2020 mempertegas kewajiban penempatan minimal 1 orang Apoteker di setiap Puskesmas di Indonesia.'
+  },
+  {
+    id: 'reg-pmk-34-2021-klinik',
+    regNumber: 'Permenkes No. 34 Tahun 2021',
+    title: 'Permenkes RI tentang Standar Pelayanan Kefarmasian di Klinik',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2021,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Menetapkan standar baku penyelenggaraan ruang farmasi di Klinik Pratama dan Klinik Utama, kewajiban penanggung jawab teknis kefarmasian, serta batasan pengelolaan obat.',
+    scope: 'Seluruh Klinik Pratama (rawat jalan/inap) dan Klinik Utama di wilayah Indonesia.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 3 - 5',
+        topic: 'Penyelenggaraan Pelayanan Farmasi di Klinik',
+        content: 'Klinik rawat inap wajib memiliki Instalasi/Ruang Farmasi yang dipimpin oleh seorang Apoteker yang memiliki SIPA. Klinik Pratama rawat jalan dapat menyelenggarakan pelayanan farmasi jika memiliki Apoteker penanggung jawab.',
+        clinicalImplication: 'Klinik rawat inap dilarang beroperasi tanpa penanggung jawab Apoteker.'
+      },
+      {
+        articleNumber: 'Pasal 6',
+        topic: 'Pengelolaan Sediaan Farmasi & Darurat Medis',
+        content: 'Klinik yang tidak memiliki ruang farmasi mandiri hanya dapat mengelola obat emergensi medis dalam jumlah terbatas dan wajib bekerjasama dengan Apotek terdekat.',
+        clinicalImplication: 'Dilarang menyimpan stok obat bebas dan obat keras dalam jumlah besar di klinik tanpa adanya ruang farmasi berizin.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Peringatan tertulis dan pembekuan izin operasional klinik oleh Dinas Kesehatan.',
+      'Pencabutan izin operasional klinik.'
+    ],
+    notes: 'Klinik wajib mematuhi Formularium Nasional dan Formularium Klinik yang ditetapkan oleh penanggung jawab medis bersama Apoteker.'
+  },
+  {
+    id: 'reg-pmk-3-2015-narkotika',
+    regNumber: 'Permenkes No. 3 Tahun 2015',
+    title: 'Permenkes RI tentang Peredaran, Penyimpanan, Pemusnahan, dan Pelaporan Narkotika, Psikotropika, dan Prekursor Farmasi',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2015,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Regulasi teknis operasional paling krusial bagi Apoteker mengenai tata cara pemesanan dengan SP khusus, spesifikasi lemari penyimpanan berkunci ganda, tata cara pemusnahan bersama saksi resmi, dan pelaporan bulanan.',
+    scope: 'Industri Farmasi, PBF Distributor, Instalasi Farmasi RS, Apotek, Klinik, dan Puskesmas.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 9 - 14',
+        topic: 'Ketentuan Surat Pesanan (SP) Narkotika & Psikotropika',
+        content: 'Surat Pesanan Narkotika hanya boleh memuat 1 (satu) jenis obat narkotika per lembar SP (Form N-9) dan dibuat dalam rangkap 4. Surat Pesanan Psikotropika dibuat minimal rangkap 3 dan boleh memuat lebih dari 1 jenis obat psikotropika.',
+        clinicalImplication: 'Larangan mutlak mencampur pesanan narkotika dengan obat lain dalam satu lembar SP.'
+      },
+      {
+        articleNumber: 'Pasal 25 - 30',
+        topic: 'Spesifikasi Lemari Khusus Penyimpanan Narkotika',
+        content: 'Lemari penyimpanan narkotika wajib: 1) Terbuat dari bahan kuat/kayu tebal atau besi, 2) Memiliki 2 (dua) buah kunci yang berbeda, 3) Diletakkan di tempat aman dan tidak terlihat umum, 4) Menempel permanen pada dinding atau lantai (dibaut/ditanam).',
+        clinicalImplication: 'Anak kunci lemari narkotika dipegang oleh Apoteker Penanggung Jawab dan pegawai lain yang dikuasakan secara tertulis.'
+      },
+      {
+        articleNumber: 'Pasal 37 - 42',
+        topic: 'Tata Cara Pemusnahan Narkotika & Psikotropika',
+        content: 'Pemusnahan narkotika/psikotropika wajib disaksikan oleh petugas Dinas Kesehatan Kabupaten/Kota dan/atau Balai Besar POM setempat, serta dibuatkan Berita Acara Pemusnahan Narkotika rangkap 4.',
+        clinicalImplication: 'Dilarang membuang sisa atau sediaan narkotika kedaluwarsa ke saluran pembuangan umum tanpa prosedur pemusnahan resmi.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Peringatan tertulis dan penghentian sementara kegiatan sarana.',
+      'Pencabutan izin sarana kefarmasian dan rekomendasi sanksi pidana narkotika.'
+    ],
+    notes: 'Kewajiban pelaporan SIPNAP elektronik paling lambat tanggal 10 setiap bulan diatur secara mengikat pada peraturan ini.'
+  },
+  {
+    id: 'reg-perbpom-cpob-2024',
+    regNumber: 'Peraturan BPOM No. 13 Tahun 2024',
+    title: 'Peraturan BPOM tentang Standar Cara Pembuatan Obat yang Baik (CPOB 2024 / Annex 1 Produk Steril)',
+    type: 'perbpom',
+    typeLabel: 'Peraturan BPOM (PerBPOM)',
+    year: 2024,
+    issuingAuthority: 'Kepala Badan Pengawas Obat dan Makanan RI',
+    status: 'Berlaku',
+    summary: 'Pedoman standar mutu industri farmasi yang mengadopsi standar internasional PIC/S GMP terkini, khususnya revisi komprehensif Annex 1 mengenai pembuatan produk steril, strategi pengendalian kontaminasi (CCS), klasifikasi ruang bersih (Cleanroom Grade A-D), dan manajemen risiko mutu (QRM).',
+    scope: 'Seluruh Industri Farmasi, Fasilitas Produksi Radiofarmaka, dan Unit Produksi Steril di Indonesia.',
+    keyArticles: [
+      {
+        articleNumber: 'Annex 1 Butir 4.1 - 4.10',
+        topic: 'Klasifikasi Ruang Bersih Steril (Kelas A, B, C, D)',
+        content: 'Zona Kelas A (LAF/RABS/Isolator) memiliki batas partikel >= 0.5 μm maksimal 3.520 partikel/m³ baik kondisi non-operasional (at rest) maupun operasional (in operation). Kelas B merupakan latar belakang Kelas A untuk pengisian aseptis.',
+        clinicalImplication: 'Penyiapan sediaan steril intravena dan rekonstitusi sitostatika di RS wajib mengacu pada prinsip ruang bersih CPOB.'
+      },
+      {
+        articleNumber: 'Annex 1 Butir 8.1 - 8.25',
+        topic: 'Sistem Pengolahan Air Farmasi (Water for Injection / WFI)',
+        content: 'Water for Injection (WFI) wajib diproduksi melalui proses destilasi uap multi-efek dari Purified Water (PW) dan disirkulasikan secara kontinu pada suhu loop >= 80°C untuk mencegah pembentukan biofilm bakteri dan endotoksin.',
+        clinicalImplication: 'Pelarut injeksi wajib bebas pirogen (< 0.25 EU/mL) dan teruji sterilitasnya.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Pemberian sanksi Peringatan Keras (Warning Letter) BPOM.',
+      'Pembekuan sementara Izin Edar dan Sertifikat CPOB (Suspension of GMP Certificate).',
+      'Penarikan produk dari seluruh peredaran (Mandatory Recall) dan penghentian produksi.'
+    ],
+    notes: 'Industri farmasi wajib menyusun dokumen Contamination Control Strategy (CCS) yang mencakup evaluasi berkala terhadap personel, fasilitas, utilitas, dan bahan baku.'
+  },
+  {
+    id: 'reg-perbpom-obat-tradisional-2022',
+    regNumber: 'Peraturan BPOM No. 32 Tahun 2022',
+    title: 'Peraturan BPOM tentang Kriteria dan Tata Laksana Registrasi Obat Bahan Alam (Jamu, OHT, Fitofarmaka)',
+    type: 'perbpom',
+    typeLabel: 'Peraturan BPOM (PerBPOM)',
+    year: 2022,
+    issuingAuthority: 'Kepala Badan Pengawas Obat dan Makanan RI',
+    status: 'Berlaku',
+    summary: 'Mengatur persyaratan teknis registrasi, pembuktian klaim khasiat, standardisasi mutu simplisia dan ekstrak, serta logo resmi kategori Jamu, Obat Herbal Terstandar (OHT), dan Fitofarmaka.',
+    scope: 'Industri Obat Tradisional (IOT), Industri Ekstrak Bahan Alam (IEBA), Usaha Kecil Obat Tradisional (UKOT), dan Usaha Mikro Obat Tradisional (UMOT).',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 6 - 9',
+        topic: 'Kategori Obat Bahan Alam & Pembuktian Khasiat',
+        content: '1) Jamu: Klaim khasiat berdasarkan data empiris turun-temurun (logo ranting daun hijau). 2) OHT: Telah dibuktikan keamanan dan khasiatnya melalui uji pra-klinis pada hewan dan bahan baku terstandar (logo 3 bintang hijau). 3) Fitofarmaka: Telah dibuktikan melalui uji klinis pada manusia (Fase I-III) dan bahan baku terstandar (logo kristal es hijau).',
+        clinicalImplication: 'Apoteker wajib mengedukasi masyarakat bahwa hanya Fitofarmaka yang telah teruji klinis setara obat konvensional.'
+      },
+      {
+        articleNumber: 'Pasal 18',
+        topic: 'Larangan Mutlak Penambahan Bahan Kimia Obat (BKO)',
+        content: 'Obat bahan alam dilarang keras mengandung Bahan Kimia Obat (BKO) seperti Deksametason, Fenilbutazon, Paracetamol, Sildenafil, atau zat aktif sintetik lainnya.',
+        clinicalImplication: 'Produk jamu yang mengandung BKO berstatus ILEGAL dan wajib segera ditarik dari etalase apotek.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Pembatalan dan pencabutan Nomor Izin Edar (NIE) produk (TR/HT/FF).',
+      'Pemberian Peringatan Publik (Public Warning) resmi oleh BPOM.',
+      'Sanksi pidana penjara bagi produsen yang sengaja mencampur BKO.'
+    ],
+    notes: 'Klaim khasiat jamu dilarang menggunakan istilah medis penyakit berat (misal: "Mengobati Kanker/Diabetes/Gagal Ginjal") dan hanya boleh mencantumkan klaim promotif/preventif.'
+  },
+  {
+    id: 'reg-perbpom-farmakovigilans-2022',
+    regNumber: 'Peraturan BPOM No. 15 Tahun 2022',
+    title: 'Peraturan BPOM tentang Penerapan Farmakovigilans bagi Industri Farmasi dan Fasilitas Pelayanan Kesehatan',
+    type: 'perbpom',
+    typeLabel: 'Peraturan BPOM (PerBPOM)',
+    year: 2022,
+    issuingAuthority: 'Kepala Badan Pengawas Obat dan Makanan RI',
+    status: 'Berlaku',
+    summary: 'Mewajibkan pemantauan keamanan obat pasca-pemasaran (post-market safety surveillance), deteksi Kejadian Tidak Diinginkan (KTD) / Reaksi Obat yang Tidak Diinginkan (ROTD), analisis kausalitas Naranjo, dan pelaporan elektronik ke Pusat Farmakovigilans Nasional BPOM.',
+    scope: 'Industri Farmasi, Rumah Sakit, Apotek, Klinik, Puskesmas, dan Tenaga Kesehatan di seluruh Indonesia.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 4 - 8',
+        topic: 'Kewajiban Pelaporan KTD Serius',
+        content: 'Setiap KTD Serius (menyebabkan kematian, mengancam jiwa, cacat permanen, kelainan kongenital janin, atau rawat inap diperpanjang) WAJIB dilaporkan ke BPOM selambat-lambatnya dalam waktu 15 (lima belas) HARI KALENDER sejak informasi diterima.',
+        clinicalImplication: 'Apoteker wajib mendokumentasikan ROTD pasien pada formulir Kuning MESO dan mengirimkannya ke BPOM via portal e-MESO.'
+      },
+      {
+        articleNumber: 'Pasal 12',
+        topic: 'Analisis Kausalitas Hubungan Kausal Obat-KTD',
+        content: 'Penetapan tingkat kemungkinan hubungan kausal antara obat yang dicurigai dengan gejala KTD menggunakan Algoritma Naranjo atau Kategori Kausalitas WHO-UMC (Certain, Probable, Possible, Unlikely, Conditional, Unassessable).',
+        clinicalImplication: 'Apoteker melakukan asesmen re-challenge dan de-challenge obat sebelum menyimpulkan efek samping obat.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Peringatan tertulis dari BPOM.',
+      'Kewajiban revisi informasi keamanan pada brosur/leaflet obat.',
+      'Pembatasan indikasi obat atau pencabutan izin edar produk yang terbukti memiliki profil keamanan buruk.'
+    ],
+    notes: 'Pelaporan MESO secara sukarela oleh Apoteker sangat dilindungi dan menjadi kontribusi vital bagi keselamatan pasien nasional.'
+  },
+  {
+    id: 'reg-perbpom-penandaan-etiket-2021',
+    regNumber: 'Peraturan BPOM No. 31 Tahun 2021',
+    title: 'Peraturan BPOM tentang Pengawasan Informasi Produk, Penandaan, dan Label Obat',
+    type: 'perbpom',
+    typeLabel: 'Peraturan BPOM (PerBPOM)',
+    year: 2021,
+    issuingAuthority: 'Kepala Badan Pengawas Obat dan Makanan RI',
+    status: 'Berlaku',
+    summary: 'Menetapkan standar logo lingkaran golongan obat, batas peringatan khusus (P.No. 1 s/d P.No. 6) pada obat bebas terbatas, format informasi etiket kemasan primer/sekunder, dan leaflet informasi pasien.',
+    scope: 'Industri Farmasi, Distributor PBF, Apotek, Rumah Sakit, dan Toko Obat Berizin.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 5 - 12',
+        topic: 'Logo Golongan Obat & Penandaan Visual',
+        content: '1) Obat Keras: Lingkaran bulat merah bergaris tepi hitam dengan huruf K hitam di tengah. 2) Obat Bebas Terbatas: Lingkaran biru bergaris tepi hitam. 3) Obat Bebas: Lingkaran hijau bergaris tepi hitam. 4) Narkotika: Lingkaran palang medali merah.',
+        clinicalImplication: 'Apoteker memastikan seluruh obat yang diserahkan memiliki penandaan visual golongan yang jelas dan benar.'
+      },
+      {
+        articleNumber: 'Pasal 15',
+        topic: 'Tanda Peringatan Khusus Obat Bebas Terbatas (P.No. 1 - P.No. 6)',
+        content: 'Kotak persegi panjang hitam dengan tulisan putih: P.No. 1 (Awas! Obat Keras. Bacalah aturan memakainya), P.No. 2 (Awas! Obat Keras. Hanya untuk kumur, jangan ditelan), P.No. 3 (Awas! Obat Keras. Hanya untuk bagian luar badan), P.No. 4 (Awas! Obat Keras. Hanya untuk dibakar), P.No. 5 (Awas! Obat Keras. Tidak boleh ditelan), P.No. 6 (Awas! Obat Keras. Obat wasir, jangan ditelan).',
+        clinicalImplication: 'Wajib memberikan edukasi khusus pada obat dengan tanda peringatan P.No. 2 dan P.No. 3 agar pasien tidak salah menelan sediaan luar.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Peringatan tertulis dan perintah penarikan kemasan yang salah cetak.',
+      'Penghentian sementara kegiatan peredaran produk obat.'
+    ],
+    notes: 'Kemasan obat di Indonesia wajib memuat 2D Barcode (QR Code) BPOM untuk verifikasi keaslian produk melalui aplikasi BPOM Mobile.'
+  },
+  {
+    id: 'reg-pmk-24-2022-rme',
+    regNumber: 'Permenkes No. 24 Tahun 2022',
+    title: 'Permenkes RI tentang Rekam Medis Elektronik (RME) & Resep Elektronik Terintegrasi SatuSehat',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2022,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Mewajibkan seluruh fasilitas pelayanan kesehatan menyelenggarakan Rekam Medis Elektronik (RME), mengatur keabsahan resep elektronik (e-Prescribing), dan integrasi data kefarmasian dengan platform SatuSehat Kemenkes RI.',
+    scope: 'Seluruh Rumah Sakit, Puskesmas, Klinik, Apotek, dan Praktik Mandiri Nakes di Indonesia.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 15 - 20',
+        topic: 'Keabsahan Resep Elektronik & Tanda Tangan Digital',
+        content: 'Resep elektronik yang diterbitkan melalui sistem RME terverifikasi memiliki kekuatan hukum yang sah setara dengan resep kertas, asalkan memuat identitas dokter ber-SIP dan Tanda Tangan Elektronik (TTE) tersertifikasi.',
+        clinicalImplication: 'Apoteker berhak memproses dan menyerahkan obat berdasarkan resep elektronik yang sah tanpa meminta resep kertas fisik.'
+      },
+      {
+        articleNumber: 'Pasal 28 - 32',
+        topic: 'Kerahasiaan & Keamanan Data Medis Pasien',
+        content: 'Tenaga kefarmasian wajib menjaga kerahasiaan data resep dan riwayat pengobatan pasien dalam sistem elektronik. Pembukaan data hanya untuk kepentingan pengobatan, rujukan, atau penegakan hukum.',
+        clinicalImplication: 'Dilarang menyebarluaskan foto resep atau data identitas pengobatan pasien ke media sosial tanpa izin tertulis.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Teguran tertulis dan pembekuan integrasi platform SatuSehat.',
+      'Sanksi administratif dan hukum pelanggaran Undang-Undang Perlindungan Data Pribadi (UU PDP).'
+    ],
+    notes: 'Kewajiban penyelenggaraan RME bagi seluruh sarana kefarmasian berlaku efektif sejak 31 Desember 2023.'
+  },
+  {
+    id: 'reg-pmk-28-2014-jkn-bpjs',
+    regNumber: 'Permenkes No. 28 Tahun 2014 & Permenkes No. 3 Tahun 2023',
+    title: 'Permenkes RI tentang Pedoman Pelaksanaan Program Jaminan Kesehatan Nasional (JKN / BPJS Kesehatan & PRB)',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2014,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Mengatur tata laksana klaim paket INA-CBGs di Rumah Sakit, tarif kapitasi FKTP, restriksi peresepan Formularium Nasional (Fornas), serta Program Rujuk Balik (PRB) obat kronis 30 hari untuk peserta BPJS Kesehatan.',
+    scope: 'Seluruh Fasilitas Kesehatan Tingkat Pertama (FKTP), Fasilitas Kesehatan Rujukan Tingkat Lanjutan (FKRTL), dan Apotek Jejaring PRB BPJS.',
+    keyArticles: [
+      {
+        articleNumber: 'Bab IV Butir 3',
+        topic: 'Pelayanan Program Rujuk Balik (PRB) Obat Kronis 30 Hari',
+        content: 'Peserta BPJS dengan 9 penyakit kronis stabil (Diabetes Mellitus, Hipertensi, Jantung Koroner, PPOK, Asma Bronkial, Stroke, Epilepsi, Skizofrenia, dan Lupus SLE) dilayani di Apotek PRB/FKTP dengan pemberian obat kronis untuk durasi 30 (tiga puluh) hari.',
+        clinicalImplication: 'Apoteker Apotek PRB wajib memastikan obat kronis diberikan tepat dosis 30 hari dan melakukan monitoring kepatuhan minum obat.'
+      },
+      {
+        articleNumber: 'Bab IV Butir 5',
+        topic: 'Kepatuhan Restriksi Formularium Nasional (Fornas)',
+        content: 'Pemberian obat untuk peserta JKN wajib mengacu pada restriksi kuantitas dan kriteria diagnosis spesifik yang tercantum dalam Formularium Nasional (misal: Statin hanya untuk LDL > 130 mg/dL, Insulin analog hanya untuk HbA1c > 7.5%).',
+        clinicalImplication: 'Apoteker bertugas menapis resep agar klaim obat BPJS tidak ditolak (verifikasi kesesuaian restriksi Fornas).'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Penolakan klaim (Unclaimable / Dispute) pembiayaan obat oleh verifikator BPJS Kesehatan.',
+      'Sanksi pemutusan kerjasama fasilitas kesehatan rujukan dengan BPJS Kesehatan.'
+    ],
+    notes: 'Obat di luar Formularium Nasional hanya dapat disetujui melalui mekanisme persetujuan khusus Komite Medis / Tim Pembina Farmasi RS.'
+  },
+  {
+    id: 'reg-perbpom-recall-obat-2021',
+    regNumber: 'Peraturan BPOM No. 14 Tahun 2021',
+    title: 'Peraturan BPOM tentang Penarikan (Recall) dan Pemusnahan Obat yang Tidak Memenuhi Standar Mutu',
+    type: 'perbpom',
+    typeLabel: 'Peraturan BPOM (PerBPOM)',
+    year: 2021,
+    issuingAuthority: 'Kepala Badan Pengawas Obat dan Makanan RI',
+    status: 'Berlaku',
+    summary: 'Mengatur klasifikasi penarikan obat (Kelas I, II, dan III), batas waktu eksekusi karantina stok, alur penarikan dari distributor/apotek, dan pelaporan pemusnahan obat yang tidak memenuhi syarat (TMS).',
+    scope: 'Industri Farmasi, Pedagang Besar Farmasi (PBF), Instalasi Farmasi RS, Apotek, Klinik, dan Toko Obat.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 4 - 8',
+        topic: 'Klasifikasi Derajat Penarikan Obat (Recall Class)',
+        content: '1) Penarikan Kelas I: Obat berpotensi besar menimbulkan efek samping serius yang mengancam jiwa atau kematian (misal: kontaminasi cemaran etilen glikol/dietilen glikol beracun, salah zat aktif, sediaan steril terkontaminasi mikroba patogen) - Wajib ditarik dalam waktu 1x24 JAM hingga tingkat konsumen. 2) Penarikan Kelas II: Obat berpotensi menimbulkan efek samping temporer/reversibel - Ditarik dalam 72 JAM. 3) Penarikan Kelas III: Cacat mutu teknis non-kritis (label pudar/volume kurang).',
+        clinicalImplication: 'Saat menerima surat edaran Recall Kelas I, Apoteker SEGERA menghentikan penyerahan obat, menarik seluruh stok dari etalase, memindahkannya ke lemari karantina berstiker merah, dan mengembalikan ke PBF.'
+      },
+      {
+        articleNumber: 'Pasal 15',
+        topic: 'Pemisahan & Karantina Fisik Obat Recall',
+        content: 'Fasilitas farmasi wajib memisahkan obat yang ditarik di lemari/ruang karantina khusus bertanda jelas "OBAT KARANTINA / DITARIK - JANGAN DIJUAL" agar tidak terambil secara tidak sengaja oleh petugas.',
+        clinicalImplication: 'Mengunci akses fisik stok obat recall di sistem komputer SIMRS/Apotek.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Pemberian sanksi penutupan fasilitas bagi distributor/apotek yang sengaja tetap menjual obat recall.',
+      'Sanksi pidana kejahatan perlindungan konsumen dan kesehatan.'
+    ],
+    notes: 'Industri Farmasi wajib menyampaikan Laporan Kemajuan Penarikan Produk (Recall Progress Report) secara berkala kepada BPOM.'
+  },
+  {
+    id: 'reg-pmk-7-2019-limbah-b3',
+    regNumber: 'Permenkes No. 7 Tahun 2019',
+    title: 'Permenkes RI tentang Kesehatan Lingkungan Rumah Sakit & Pengelolaan Limbah Farmasi B3',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2019,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Mengatur standar baku mutu kesehatan lingkungan, pemilahan limbah medis padat/cair, pengelolaan limbah sitotoksik/sitostatika berkode warna ungu, dan metode pemusnahan limbah B3 farmasi.',
+    scope: 'Seluruh Rumah Sakit, Puskesmas, Laboratorium Kesehatan, dan Klinik di Indonesia.',
+    keyArticles: [
+      {
+        articleNumber: 'Lampiran Bab V',
+        topic: 'Pemilahan Limbah Farmasi & Pengkodean Warna Kantong',
+        content: '1) Limbah Sitotoksik/Kanker: Kantong plastik tebal warna UNGU dengan simbol limbah sitotoksik. 2) Limbah Farmasi Kedaluwarsa/Terkontaminasi: Kantong plastik warna COKELAT. 3) Limbah Infeksius: Kantong warna KUNING. 4) Limbah Benda Tajam (jarum/spuit/ampul pecah): Safety Box tahan tusukan warna kuning.',
+        clinicalImplication: 'Petugas farmasi dan perawat wajib membuang spuit sitostatika ke safety box dan kantong ungu khusus.'
+      },
+      {
+        articleNumber: 'Lampiran Bab V Butir 4',
+        topic: 'Metode Pengolahan Akhir Limbah Farmasi',
+        content: 'Limbah sitostatika dan antibiotik wajib diolah melalui Insinerator suhu tinggi (> 1000°C - 1200°C) atau diserahkan kepada pihak ketiga pengolah limbah B3 berizin resmi KLHK. Obat cair tidak boleh dibuang langsung ke saluran pembuangan domestik.',
+        clinicalImplication: 'Pemusnahan limbah farmasi wajib disertai dokumen Manifest Pengangkutan Limbah B3 resmi.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Sanksi pidana pencemaran lingkungan hidup menurut UU No. 32 Tahun 2009.',
+      'Pencabutan izin operasional pengolahan limbah dan denda administratif.'
+    ],
+    notes: 'Sisa vial sitostatika tergolong limbah sangat berbahaya dan dilarang dicampur dengan limbah medis umum.'
+  },
+  {
+    id: 'reg-perbpom-oot-19-2023',
+    regNumber: 'Peraturan BPOM No. 19 Tahun 2023',
+    title: 'Peraturan BPOM tentang Pedoman Pengelolaan Obat-Obat Tertentu (OOT) yang Sering Disalahgunakan',
+    type: 'perbpom',
+    typeLabel: 'Peraturan BPOM (PerBPOM)',
+    year: 2023,
+    issuingAuthority: 'Kepala Badan Pengawas Obat dan Makanan RI',
+    status: 'Berlaku',
+    summary: 'Pembaruan regulasi pengawasan ketat terhadap obat-obat tertentu yang sering disalahgunakan (Tramadol, Triheksifenidil, Klorpromazin, Amitriptilin, Haloperidol, dan Dekstrometorfan tunggal), pembatasan peresepan, dan larangan iterasi resep.',
+    scope: 'Industri Farmasi, PBF Distributor, Instalasi Farmasi RS, Apotek, dan Klinik.',
+    keyArticles: [
+      {
+        articleNumber: 'Pasal 3 - 6',
+        topic: 'Daftar Bahan Aktif Obat-Obat Tertentu (OOT)',
+        content: 'OOT yang diawasi ketat mencakup sediaan tunggal maupun kombinasi: 1) Tramadol, 2) Triheksifenidil, 3) Klorpromazin, 4) Amitriptilin, 5) Haloperidol, dan 6) Dekstrometorfan sediaan tunggal.',
+        clinicalImplication: 'Seluruh penerimaan dan penyerahan obat OOT wajib dicatat secara tertib pada kartu stok tersendiri.'
+      },
+      {
+        articleNumber: 'Pasal 14 - 18',
+        topic: 'Larangan Salinan Resep (Iterasi) Obat OOT',
+        content: 'Penyerahan OOT kepada pasien hanya boleh dilayani berdasarkan RESEP ASLI DOKTER. DILARANG MENYERAHKAN OBAT OOT BERDASARKAN SALINAN RESEP (COPY RESEP) ATAU RESEP DENGAN TANDA ITERASI (PENGULANGAN).',
+        clinicalImplication: 'Apoteker wajib menolak penyerahan Tramadol/Triheksifenidil jika pasien membawa copy resep dari sarana lain.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Penghentian sementara kegiatan pelayanan obat OOT.',
+      'Rekomendasi pencabutan izin sarana apotek/klinik ke Dinas Kesehatan.',
+      'Sanksi pidana peredaran obat keras tanpa keahlian.'
+    ],
+    notes: 'Surat Pesanan (SP) OOT dibuat terpisah dari obat biasa dan ditandatangani oleh Apoteker Penanggung Jawab dengan nomor SIPA dan stempel resmi.'
+  },
+  {
+    id: 'reg-kmk-ppk-antibiotik-aware',
+    regNumber: 'Kepmenkes No. HK.01.07/MENKES/2021',
+    title: 'Kepmenkes RI tentang Panduan Praktik Klinis Penggunaan Antibiotik Rasional (Kategori AWaRe WHO)',
+    type: 'permenkes',
+    typeLabel: 'Peraturan Menteri Kesehatan (Permenkes)',
+    year: 2021,
+    issuingAuthority: 'Menteri Kesehatan Republik Indonesia',
+    status: 'Berlaku',
+    summary: 'Menetapkan pedoman pengendalian resistensi antimikroba (PPRA), restriksi peresepan antibiotik berbasis bukti, dan klasifikasi AWaRe WHO (Access, Watch, Reserve) di fasilitas pelayanan kesehatan.',
+    scope: 'Seluruh Dokter, Apoteker, Komite Pengendalian Resistensi Antimikroba (KPRA), dan Fasyankes di Indonesia.',
+    keyArticles: [
+      {
+        articleNumber: 'Lampiran Bab II',
+        topic: 'Klasifikasi Antibiotik AWaRe (Access, Watch, Reserve)',
+        content: '1) Kelompok ACCESS: Antibiotik lini pertama untuk infeksi umum dengan potensi resistensi rendah (Amoksisilin, Doksisiklin, Kotrimoksazol). 2) Kelompok WATCH: Antibiotik dengan risiko resistensi tinggi, hanya untuk indikasi spesifik (Siprofloksasin, Seftriakson, Meropenem). 3) Kelompok RESERVE: Pilihan terakhir untuk kuman MDR (Kolistin, Linezolid, Tigesiklin, Ceftazidime-Avibactam) yang memerlukan persetujuan Tim KPRA.',
+        clinicalImplication: 'Apoteker melakukan evaluasi restriksi form Automatic Stop Order (ASO) dan kaji uji kepekaan kultur kuman sebelum dispensing antibiotik Reserve.'
+      },
+      {
+        articleNumber: 'Lampiran Bab III',
+        topic: 'Kriteria Evaluasi Kerasionalan Antibiotik (Metode Gyssens)',
+        content: 'Audit penggunaan antibiotik dilakukan secara berkala menggunakan Alur Gyssens: Kategori 0 (Tepat/Rasional), Kategori I (Tidak tepat waktu), Kategori II (Tidak tepat dosis/interval), Kategori III (Tidak tepat durasi), Kategori IV (Ada alternatif lebih efektif/kurang toksik/lebih murah), Kategori V (Tidak ada indikasi antibiotik), Kategori VI (Data rekam medis tidak lengkap).',
+        clinicalImplication: 'Apoteker melaporkan profil kuantitatif DDD (Defined Daily Dose) dan kualitas Gyssens kepada Komite Medik.'
+      }
+    ],
+    sanctionsOrPenalties: [
+      'Pembatasan wewenang peresepan antibiotik cadangan bagi dokter yang tidak patuh panduan klinis.',
+      'Penurunan penilaian akreditasi rumah sakit pada bab Program Nasional (Prognas PPRA).'
+    ],
+    notes: 'Durasi pemberian antibiotik profilaksis bedah dibatasi maksimal 24 jam pasca-operasi untuk mencegah resistensi kuman rumah sakit.'
   }
 ];
 

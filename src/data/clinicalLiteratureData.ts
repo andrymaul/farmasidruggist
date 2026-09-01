@@ -986,6 +986,498 @@ export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
     officialUrlLabel: 'CDC Opioid Clinical Guidelines',
     citation: 'Dowell D, et al. CDC Clinical Practice Guideline for Prescribing Opioids for Pain — United States, 2022. MMWR Recomm Rep 2022;71(No. RR-3):1–95.',
     badgeColor: 'bg-rose-700 text-white'
+  },
+  {
+    id: 'lit-gold-copd-2024',
+    title: 'GOLD 2024: Global Strategy for Prevention, Diagnosis and Management of COPD',
+    institution: 'Global Initiative for Chronic Obstructive Lung Disease (GOLD)',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'GOLD Report 2024',
+    releaseYear: '2024',
+    lastUpdated: 'November 2024',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Rekomendasi standar emas internasional tatalaksana PPOK dengan klasifikasi kelompok A, B, dan E; memprioritaskan inisiasi bronkodilator ganda LABA + LAMA sebagai lini pertama, serta restriksi penggunaan steroid inhalasi (ICS) hanya pada pasien dengan riwayat eksaserbasi dan hitung eosinofil darah >= 300 sel/uL.',
+    keyTopics: [
+      'Klasifikasi Baru PPOK ABE (Menghapus C dan D Menjadi Grup E Eksaserbasi)',
+      'Terapi Lini Pertama Bronkodilator Ganda LABA/LAMA (Indakaterol/Glikopironium, Olodaterol/Tiotropium)',
+      'Kriteria Ketat Penambahan ICS Berbasis Eosinofil Darah (>= 300 sel/uL)',
+      'Tatalaksana Eksaserbasi Akut PPOK dengan Kortikosteroid Oral Pendek (Prednison 40 mg 5 Hari)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Algoritma terapi PPOK stabil dan penanganan eksaserbasi akut.'
+      },
+      {
+        tabId: 'polypharmacy',
+        featureName: 'Evaluasi & Polifarmasi',
+        description: 'Penapisan ketepatan indikasi inhaler kombinasi steroid pada PPOK.'
+      }
+    ],
+    officialUrl: 'https://goldcopd.org',
+    officialUrlLabel: 'GOLD COPD Official Guidelines',
+    citation: 'Global Initiative for Chronic Obstructive Lung Disease (GOLD). Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease (2024 Report).',
+    badgeColor: 'bg-teal-700 text-white'
+  },
+  {
+    id: 'lit-gina-asthma-2024',
+    title: 'GINA 2024: Global Strategy for Asthma Management and Prevention',
+    institution: 'Global Initiative for Asthma (GINA)',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'GINA Executive Report 2024',
+    releaseYear: '2024',
+    lastUpdated: 'Mei 2024',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Strategi pencegahan serangan asma fatal dan penurunan mortalitas global dengan menetapkan Track 1 (Inhaled Corticosteroid / Formoterol dosis rendah sebagai pereda anti-inflamasi dan pengontrol) sebagai jalur pilihan utama untuk seluruh tingkat keparahan asma dewasa & remaja.',
+    keyTopics: [
+      'Track 1 Pilihan Utama: ICS-Formoterol Anti-Inflammatory Reliever (AIR / MART)',
+      'Track 2 Alternatif: SABA Reliever + ICS Pemeliharaan Rutin Harian',
+      'Bahaya Penggunaan SABA Tunggal Tanpa ICS (Meningkatkan Risiko Eksaserbasi & Kematian)',
+      'Teknik Penggunaan Inhaler MDI + Spacer & Turbuhaler yang Benar'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Tahapan Step 1-5 terapi asma GINA Track 1 & Track 2.'
+      },
+      {
+        tabId: 'usage-guide',
+        featureName: 'Panduan Penggunaan Obat',
+        description: 'Panduan edukasi teknik inhalasi dan kumur pasca-steroid inhalasi.'
+      }
+    ],
+    officialUrl: 'https://ginasthma.org',
+    officialUrlLabel: 'GINA Asthma Guidelines Portal',
+    citation: 'Global Initiative for Asthma (GINA). Global Strategy for Asthma Management and Prevention (2024 Update). Fontana, WI: GINA, 2024.',
+    badgeColor: 'bg-emerald-700 text-white'
+  },
+  {
+    id: 'lit-surviving-sepsis-2023',
+    title: 'Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock',
+    institution: 'Society of Critical Care Medicine (SCCM) & European Society of Intensive Care Medicine (ESICM)',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'Surviving Sepsis Campaign 2023/2024',
+    releaseYear: '2023 / 2024',
+    lastUpdated: 'Desember 2024',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Protokol darurat penanganan sepsis dan syok septik: Bundel 1 Jam (Hour-1 Bundle), resusitasi cairan kristaloid cepat 30 mL/kgBB dalam 3 jam pertama, inisiasi antibiotik intravena spektrum luas dalam waktu < 1 jam, dan vasopresor pilihan utama Norepinefrin.',
+    keyTopics: [
+      'Hour-1 Bundle: Ukur Laktat, Kultur Darah, Antibiotik Spektrum Luas, Resusitasi Cairan',
+      'Resusitasi Cairan Awal: Kristaloid Isotonik 30 mL/kgBB dalam 3 Jam',
+      'Vasopresor Lini Pertama: Norepinefrin Target Mean Arterial Pressure (MAP) >= 65 mmHg',
+      'Vasopresor Lini Kedua: Vasopresin 0.03 unit/menit untuk Menurunkan Dosis Norepinefrin'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Protokol resusitasi cairan sepsis dan antibiotik empiris gawat darurat.'
+      },
+      {
+        tabId: 'iv-compatibility',
+        featureName: 'Kompatibilitas Injeksi IV',
+        description: 'Kompatibilitas Y-Site vasopresor Norepinefrin dan antibiotik sepsis.'
+      }
+    ],
+    officialUrl: 'https://www.sccm.org/SurvivingSepsisCampaign/Home',
+    officialUrlLabel: 'Surviving Sepsis Campaign Portal',
+    citation: 'Evans L, et al. Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021/2023. Crit Care Med 2021;49(11):e1063–e1143.',
+    badgeColor: 'bg-red-700 text-white'
+  },
+  {
+    id: 'lit-nccn-esmo-oncology',
+    title: 'NCCN & ESMO Clinical Practice Guidelines: Antiemetic & Supportive Care in Cancer',
+    institution: 'National Comprehensive Cancer Network (NCCN) & ESMO',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'NCCN Antiemesis Version 2.2024',
+    releaseYear: '2024',
+    lastUpdated: 'Oktober 2024',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Rekomendasi terapi profilaksis dan tatalaksana mual-muntah terinduksi kemoterapi (CINV), penanganan ekstravasasi obat sitostatika, dan pencegahan mukositis oral pada pasien onkologi.',
+    keyTopics: [
+      'Protokol 4 Obat Kemoterapi Emetogenik Tinggi (HEC: Sisplatin/Doksorubisin): NK1 Antagonist + 5HT3 Antagonist + Deksametason + Olanzapin',
+      'Pencegahan Emesis Akut (0-24 Jam) vs Emesis Tertunda / Delayed (Hari 2-4)',
+      'Penanganan Ekstravasasi: Vinkristin (Kompres Hangat + Hialuronidase) vs Antrasiklin (Kompres Dingin + Deksrazoksan)',
+      'Profilaksis Neutropenia Demam dengan G-CSF (Filgrastim / Pegfilgrastim)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Protokol antiemetik kemoterapi kanker dan penanganan efek samping onkologi.'
+      },
+      {
+        tabId: 'renal-adjuster',
+        featureName: 'Kalkulator Medis & Dosis',
+        description: 'Perhitungan Luas Permukaan Tubuh (BSA) Mosteller untuk dosis sitostatika.'
+      }
+    ],
+    officialUrl: 'https://www.nccn.org/guidelines',
+    officialUrlLabel: 'NCCN Antiemesis Guidelines Portal',
+    citation: 'NCCN Clinical Practice Guidelines in Oncology (NCCN Guidelines®) Antiemesis Version 2.2024. National Comprehensive Cancer Network, 2024.',
+    badgeColor: 'bg-purple-700 text-white'
+  },
+  {
+    id: 'lit-idsa-antimicrobial',
+    title: 'IDSA Guidance on the Treatment of Antimicrobial-Resistant Gram-Negative Infections & MRSA',
+    institution: 'Infectious Diseases Society of America (IDSA)',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'IDSA AMR Guidance 2024',
+    releaseYear: '2024',
+    lastUpdated: 'Juni 2024',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Pedoman terapi terkini untuk bakteri resisten antimikroba: ESBL-producing Enterobacterales, Carbapenem-Resistant Enterobacterales (CRE), Pseudomonas aeruginosa dengan resistensi sulit (DTR-P. aeruginosa), dan MRSA.',
+    keyTopics: [
+      'ESBL: Pilihan Utama Karbapenem (Meropenem / Ertapenem) Dibandingkan Piperasilin-Tazobaktam pada Infeksi Berat',
+      'CRE / KPC: Seftazidim-Avibaktam, Meropenem-Vaborbaktam, atau Tigesiklin Dosis Tinggi',
+      'Therapeutic Drug Monitoring (TDM) Vankomisin Berbasis Area Under Curve (AUC24/MIC 400-600) Menggantikan Trough Level',
+      'Prinsip Short-Course Antimicrobial Therapy untuk Mencegah Resistensi Sekunder'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Rekomendasi pemilihan antibiotik pada kuman multiresisten (MDR).'
+      },
+      {
+        tabId: 'renal-adjuster',
+        featureName: 'Kalkulator Medis & Dosis',
+        description: 'Penyesuaian dosis antibiotik indeks terapi sempit (Vankomisin & Aminoglikosida).'
+      }
+    ],
+    officialUrl: 'https://www.idsociety.org/practice-guideline',
+    officialUrlLabel: 'IDSA Practice Guidelines Portal',
+    citation: 'Tamma PD, et al. Infectious Diseases Society of America 2024 Guidance on the Treatment of Antimicrobial-Resistant Gram-Negative Infections. Clin Infect Dis 2024;79(2):e1–e34.',
+    badgeColor: 'bg-cyan-700 text-white'
+  },
+  {
+    id: 'lit-stockleys-drug-interactions',
+    title: 'Stockley’s Drug Interactions: A Source Book of Adverse Interactions, Their Mechanisms, Clinical Importance and Management',
+    institution: 'Royal Pharmaceutical Society (RPS) & MedicinesComplete',
+    category: 'interactions',
+    categoryLabel: 'Interaksi & Keamanan',
+    documentCode: 'Stockley’s 13th Edition / Online',
+    releaseYear: '2023 / 2024',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Standar emas referensi interaksi obat paling otoritatif dan komprehensif di dunia, memuat evaluasi mendalam mekanisme molekuler, signifikansi klinis terbukti, bukti uji klinis manusia, dan rekomendasi langkah penanganan klinis praktis di apotek dan rumah sakit.',
+    keyTopics: [
+      'Interaksi Farmakokinetik (CYP450, P-Glikoprotein, Ikatan Protein Plasma, Ekskresi Ginjal)',
+      'Interaksi Farmakodinamik (Sinergisme Toksisitas, Antagonisme Reseptor, Pemanjangan Interval QTc)',
+      'Interaksi Obat dengan Makanan, Nutrisi Enteral, Herbal, dan Alkohol',
+      'Strategi Penyesuaian Dosis dan Interval Pemberian (Dosing Interval Staggering)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'interactions',
+        featureName: 'Cek Interaksi Obat',
+        description: 'Penjelasan mekanisme interaksi klinis dan rekomendasi pencegahan bahaya obat.'
+      },
+      {
+        tabId: 'polypharmacy',
+        featureName: 'Evaluasi & Polifarmasi',
+        description: 'Skrining bahaya interaksi obat mayor pada pasien geriatri polifarmasi.'
+      }
+    ],
+    officialUrl: 'https://www.medicinescomplete.com',
+    officialUrlLabel: 'MedicinesComplete - Stockley’s Portal',
+    citation: 'Preston CL (Ed.). Stockley’s Drug Interactions (13th Edition). London: Pharmaceutical Press / Royal Pharmaceutical Society, 2023.',
+    badgeColor: 'bg-indigo-700 text-white'
+  },
+  {
+    id: 'lit-cpic-pharmacogenomics',
+    title: 'CPIC Clinical Guidelines: Gene-Drug Dosing Guidelines',
+    institution: 'Clinical Pharmacogenetics Implementation Consortium (CPIC)',
+    category: 'interactions',
+    categoryLabel: 'Interaksi & Keamanan',
+    documentCode: 'CPIC Guidelines Database',
+    releaseYear: '2023 / 2024',
+    lastUpdated: 'November 2024',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Pedoman dosis obat berbasis profil genetik pasien: Klopidogrel pada CYP2C19 Poor Metabolizer, Warfarin pada varian CYP2C9/VKORC1, Simvastatin pada varian SLCO1B1 (risiko miopati tinggi), Allopurinol pada alel HLA-B*5801 (risiko Sindrom Stevens-Johnson), dan Karbamazepin pada HLA-B*1502.',
+    keyTopics: [
+      'Klopidogrel + CYP2C19: Rekomendasi Beralih ke Tikagrelor / Prasugrel pada Alel *2/*3',
+      'Allopurinol + HLA-B*58:01: Skrining Sebelum Inisiasi pada Pasien Asia untuk Mencegah SCAR/SJS',
+      'Simvastatin + SLCO1B1: Pembatasan Dosis Maksimal 20 mg atau Ganti ke Rosuvastatin',
+      'Kodein / Tramadol + CYP2D6 Ultra-Rapid Metabolizer: Risiko Toksisitas Overdosis Fatal pada Anak'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'interactions',
+        featureName: 'Cek Interaksi Obat',
+        description: 'Peringatan variasi genetik metabolisme enzim CYP2C19 dan CYP2D6.'
+      },
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Penyesuaian antiplatelet dan statin berbasis farmakogenomik.'
+      }
+    ],
+    officialUrl: 'https://cpicpgx.org/guidelines',
+    officialUrlLabel: 'CPIC Pharmacogenetics Portal',
+    citation: 'Relling MV, et al. Clinical Pharmacogenetics Implementation Consortium (CPIC) Guidelines for Gene-Drug Associations. Clin Pharmacol Ther 2023;114(4):760–769.',
+    badgeColor: 'bg-violet-700 text-white'
+  },
+  {
+    id: 'lit-flockhart-cyp450',
+    title: 'The Flockhart Cytochrome P450 Drug Interaction Table',
+    institution: 'Indiana University School of Medicine (Division of Clinical Pharmacology)',
+    category: 'interactions',
+    categoryLabel: 'Interaksi & Keamanan',
+    documentCode: 'Indiana University Drug Interaction Table',
+    releaseYear: '2024',
+    lastUpdated: 'Januari 2025',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Klasifikasi baku enzim metabolisme obat hepatik Sitokrom P450 (CYP1A2, CYP2B6, CYP2C8, CYP2C9, CYP2C19, CYP2D6, CYP3A4/5) yang memetakan substrat sensitif, inhibitor kuat/sedang/lemah, dan inducer kuat.',
+    keyTopics: [
+      'Inhibitor Kuat CYP3A4: Klaritromisin, Itrakonazol, Ketokonazol, Ritonavir, Jus Grapefruit',
+      'Inducer Kuat CYP3A4 & P-gp: Rifampisin, Karbamazepin, Fenitoin, St. John’s Wort',
+      'Inhibitor Kuat CYP2D6: Fluoksetin, Paroksetin, Bupropion (Menghambat Aktivasi Tamoksifen & Tramadol)',
+      'Inhibitor Kuat CYP2C9: Flukonazol, Amiodaron (Meningkatkan Konsentrasi Warfarin & Fenitoin)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'interactions',
+        featureName: 'Cek Interaksi Obat',
+        description: 'Database pemetaan inhibitor dan inducer CYP450 real-time.'
+      },
+      {
+        tabId: 'polypharmacy',
+        featureName: 'Evaluasi & Polifarmasi',
+        description: 'Deteksi bahaya akumulasi obat akibat inhibisi kompetitif enzim hati.'
+      }
+    ],
+    officialUrl: 'https://drug-interactions.medicine.iu.edu',
+    officialUrlLabel: 'Flockhart P450 Table Portal',
+    citation: 'Flockhart DA, et al. The Flockhart Cytochrome P450 Drug Interaction Table. Division of Clinical Pharmacology, Indiana University School of Medicine, 2024.',
+    badgeColor: 'bg-pink-700 text-white'
+  },
+  {
+    id: 'lit-ashp-extended-stability',
+    title: 'ASHP Extended Stability for Parenteral Drugs Handbook',
+    institution: 'American Society of Health-System Pharmacists (ASHP)',
+    category: 'iv_sterile',
+    categoryLabel: 'Injeksi & IV Steril',
+    documentCode: 'ASHP Extended Stability Handbook 6th Ed',
+    releaseYear: '2023',
+    lastUpdated: 'Desember 2024',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Kompilasi data ilmiah stabilitas fisik dan kimia sediaan injeksi/infus di luar batas waktu konvensional 24 jam berbasis uji stabilitas validasi kromatografi HPLC, mencakup penyimpanan suhu ruang, lemari pendingin (2-8°C), dan pembekuan.',
+    keyTopics: [
+      'Stabilitas Obat Injeksi dalam Elastomeric Infusion Pumps & CADD Cassettes',
+      'Stabilitas Antibiotik IV (Seftriakson, Vankomisin, Meropenem) Pasca-Rekonstitusi',
+      'Pengaruh Wadah Penyimpanan: Kantong Bebas PVC, Polyolefin, Kaca vs Plastik Standar',
+      'Penetapan Beyond Use Date (BUD) Panjang Sesuai Uji Stabilitas Kimia HPLC'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'iv-compatibility',
+        featureName: 'Kompatibilitas Injeksi IV',
+        description: 'Data stabilitas jam penyimpanan larutan injeksi pasca-rekonstitusi.'
+      },
+      {
+        tabId: 'sop-pharmacy',
+        featureName: 'SOP Pelayanan Farmasi',
+        description: 'SOP Pencampuran Obat Suntik dan Penetapan BUD Steril Rumah Sakit.'
+      }
+    ],
+    officialUrl: 'https://www.ashp.org',
+    officialUrlLabel: 'ASHP Publications Portal',
+    citation: 'Bing C, et al. Extended Stability for Parenteral Drugs (6th Edition). Bethesda, MD: American Society of Health-System Pharmacists (ASHP), 2023.',
+    badgeColor: 'bg-emerald-800 text-white'
+  },
+  {
+    id: 'lit-usp-795-nonsterile',
+    title: 'USP General Chapter <795> Pharmaceutical Compounding - Nonsterile Preparations (2023 Revision)',
+    institution: 'United States Pharmacopeial Convention (USP)',
+    category: 'pediatric_special',
+    categoryLabel: 'Pediatrik & Puyer',
+    documentCode: 'USP <795> Official Standard 2023',
+    releaseYear: '2023',
+    lastUpdated: 'November 2023 (Official)',
+    evidenceLevel: 'Level 3 (Monograf Baku & Regulasi Pemerintah)',
+    evidenceGrade: 'Grade A',
+    summary: 'Standar baku internasional penyiapan sediaan racikan non-steril (puyer, kapsul, sirup/suspensi, salep/krim) dan aturan penetapan Beyond-Use Date (BUD) baku tanpa uji stabilitas: sediaan padat (180 hari), larutan oral berair (14 hari di kulkas), dan sediaan topikal dermal (90 hari).',
+    keyTopics: [
+      'Aturan Baku Penetapan Beyond Use Date (BUD) Racikan Non-Steril',
+      'Sediaan Bebas Air (Puyer / Kapsul): BUD Maksimal 180 Hari Suhu Ruang Terkontrol',
+      'Sediaan Oral Berair (Suspensi / Larutan Sirup): BUD Maksimal 14 Hari di Kulkas (2-8°C)',
+      'Sediaan Topikal Berair (Krim / Gel): BUD Maksimal 30 Hari Suhu Ruang Terkontrol',
+      'Sediaan Topikal Bebas Air (Salep Hidrofobik): BUD Maksimal 90 Hari Suhu Ruang Terkontrol'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'pediatric-dosing',
+        featureName: 'Dosis Pediatrik & Puyer',
+        description: 'Penetapan label Beyond Use Date (BUD) otomatis pada etiket racikan puyer dan sirup anak.'
+      },
+      {
+        tabId: 'sop-pharmacy',
+        featureName: 'SOP Pelayanan Farmasi',
+        description: 'SOP Peracikan Sediaan Non-Steril & Higiene Mortir Stamper.'
+      }
+    ],
+    officialUrl: 'https://www.usp.org/compounding/general-chapter-795',
+    officialUrlLabel: 'USP <795> Official Portal',
+    citation: 'United States Pharmacopeial Convention. USP General Chapter <795> Pharmaceutical Compounding—Nonsterile Preparations. USP-NF 2023.',
+    badgeColor: 'bg-amber-700 text-white'
+  },
+  {
+    id: 'lit-usp-800-hazardous',
+    title: 'USP General Chapter <800> Hazardous Drugs — Handling in Healthcare Settings',
+    institution: 'United States Pharmacopeial Convention (USP) & NIOSH',
+    category: 'iv_sterile',
+    categoryLabel: 'Injeksi & IV Steril',
+    documentCode: 'USP <800> Official Standard',
+    releaseYear: '2023',
+    lastUpdated: 'Januari 2024',
+    evidenceLevel: 'Level 3 (Monograf Baku & Regulasi Pemerintah)',
+    evidenceGrade: 'Grade A',
+    summary: 'Standar keselamatan penanganan obat berbahaya dan sitostatika kemoterapi kanker di rumah sakit: persyaratan ruang rekonstitusi bertekanan negatif (Negative Pressure Cleanroom), Biological Safety Cabinet (BSC Kelas II Tipe B2 / C-PEC), penggunaan Closed System Drug-Transfer Devices (CSTD), dan spill kit.',
+    keyTopics: [
+      'Daftar Obat Berbahaya NIOSH (Karsinogenik, Teratogenik, Genotoksik, Toksisitas Organ)',
+      'Spesifikasi Ruang Penyiapan Sitostatika: Tekanan Negatif -0.01 hingga -0.03 inci kolom air',
+      'Penggunaan Alat Pelindung Diri (APD) Khusus Kemoterapi (Double Gloves Nitril Bebas Bedak & Gaun Anti-Permeabel)',
+      'Protokol Penanganan Tumpahan Sitostatika (Spill Kit) dan Pembuangan Limbah Ungu'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'iv-compatibility',
+        featureName: 'Kompatibilitas Injeksi IV',
+        description: 'Pedoman penanganan dan kompatibilitas pelarut sediaan sitostatika onkologi.'
+      },
+      {
+        tabId: 'sop-pharmacy',
+        featureName: 'SOP Pelayanan Farmasi',
+        description: 'SOP Penanganan Tumpahan Bahan Berbahaya & Sitostatika Rumah Sakit.'
+      }
+    ],
+    officialUrl: 'https://www.usp.org/compounding/general-chapter-hazardous-drugs-handling-healthcare',
+    officialUrlLabel: 'USP <800> Official Portal',
+    citation: 'United States Pharmacopeial Convention. USP General Chapter <800> Hazardous Drugs—Handling in Healthcare Settings. USP-NF 2023.',
+    badgeColor: 'bg-purple-800 text-white'
+  },
+  {
+    id: 'lit-beers-criteria-ags-2023',
+    title: '2023 American Geriatrics Society Beers Criteria® for Potentially Inappropriate Medication Use in Older Adults',
+    institution: 'American Geriatrics Society (AGS)',
+    category: 'guidelines',
+    categoryLabel: 'Pedoman Klinis & PNPK',
+    documentCode: 'AGS Beers Criteria 2023 Update',
+    releaseYear: '2023',
+    lastUpdated: 'Mei 2023',
+    evidenceLevel: 'Level 1 (Meta-Analisis / RCT)',
+    evidenceGrade: 'Grade A',
+    summary: 'Pedoman komprehensif obat yang berpotensi tidak tepat (Potentially Inappropriate Medications / PIM) pada populasi lanjut usia (usia >= 65 tahun) untuk mencegah efek samping fatal, risiko jatuh/fraktur tulang, delirium, perburukan demensia, dan perdarahan lambung.',
+    keyTopics: [
+      'Obat yang Harus Dihindari pada Lansia: Antikolinergik Kuat, Benzodiazepin, Sedatif Hipnotik Z-Drugs',
+      'Sulfonilurea Long-Acting (Glibenklamid): Hindari Mutlak Karena Risiko Hipoglikemia Berkepanjangan',
+      'NSAID Non-Selektif Penggunaan Kronis: Risiko Perdarahan Saluran Cerna dan Gagal Ginjal Akut',
+      'Antipsikotik pada Pasien Demensia: Peningkatan Mortalitas Stroke dan Kematian Kardiovaskular'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'polypharmacy',
+        featureName: 'Evaluasi & Polifarmasi',
+        description: 'Skrining otomatis Kriteria Beers 2023 pada penapisan resep geriatri lansia.'
+      },
+      {
+        tabId: 'guidelines',
+        featureName: 'Panduan Terapi Klinis',
+        description: 'Pilihan obat aman lini pertama pada pasien usia lanjut.'
+      }
+    ],
+    officialUrl: 'https://geriatricscareonline.org',
+    officialUrlLabel: 'AGS Beers Criteria Portal',
+    citation: '2023 American Geriatrics Society Beers Criteria® Update Expert Panel. American Geriatrics Society 2023 updated AGS Beers Criteria® for potentially inappropriate medication use in older adults. J Am Geriatr Soc 2023;71(7):2052–2081.',
+    badgeColor: 'bg-amber-800 text-white'
+  },
+  {
+    id: 'lit-neofax-micromedex',
+    title: 'Neofax® Manual of Drugs Used in Neonatal Care',
+    institution: 'Merative Micromedex & American Academy of Pediatrics (AAP)',
+    category: 'pediatric_special',
+    categoryLabel: 'Pediatrik & Puyer',
+    documentCode: 'Neofax Essentials / Micromedex Online',
+    releaseYear: '2023 / 2024',
+    lastUpdated: 'Oktober 2024',
+    evidenceLevel: 'Level 2 (PNPK & Konsensus Spesialis)',
+    evidenceGrade: 'Grade A',
+    summary: 'Standar emas referensi dosis, indikasi, farmakokinetik, dan kompatibilitas obat khusus neonatus aterm dan bayi prematur (berat lahir sangat rendah / VLBW) berbasis Post-Menstrual Age (PMA) dan berat badan aktual.',
+    keyTopics: [
+      'Dosis Antibiotik Neonatus Berbasis Usia Gestasi & Usia Kronologis (Gentamisin, Ampisilin, Meropenem)',
+      'Tatalaksana Apnea Prematuritas dengan Kafein Sitrat (Caffeine Citrate)',
+      'Penutupan Duktus Arteriosus Paten (PDA) dengan Ibuprofen IV / Paracetamol IV',
+      'Pemantauan Toksisitas Eksipien Benzil Alkohol & Propilen Glikol pada Neonatus'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'pediatric-dosing',
+        featureName: 'Dosis Pediatrik & Puyer',
+        description: 'Kalkulasi presisi dosis neonatus dan bayi baru lahir.'
+      },
+      {
+        tabId: 'renal-adjuster',
+        featureName: 'Kalkulator Medis & Dosis',
+        description: 'Rumus Bedside Schwartz eGFR untuk evaluasi fungsi ginjal anak/neonatus.'
+      }
+    ],
+    officialUrl: 'https://www.micromedexsolutions.com',
+    officialUrlLabel: 'Micromedex Neofax Portal',
+    citation: 'Young TE, Mangum B. Neofax: A Manual of Drugs Used in Neonatal Care (Edition 24 / Online). Greenwood Village, CO: Merative Micromedex, 2024.',
+    badgeColor: 'bg-blue-800 text-white'
+  },
+  {
+    id: 'lit-farmakope-herbal-ii',
+    title: 'Farmakope Herbal Indonesia (FHI) Edisi II',
+    institution: 'Kementerian Kesehatan Republik Indonesia',
+    category: 'formulary_bpom',
+    categoryLabel: 'Formularium & BPOM',
+    documentCode: 'Kepmenkes RI No. HK.01.07/MENKES/187/2017 & Suplemen FHI',
+    releaseYear: '2017 - 2023',
+    lastUpdated: 'Agustus 2023',
+    evidenceLevel: 'Level 3 (Monograf Baku & Regulasi Pemerintah)',
+    evidenceGrade: 'Grade A',
+    summary: 'Buku standar resmi kemurnian, keamanan, dan standardisasi mutu simplisia serta ekstrak tanaman obat asli Indonesia, menetapkan persyaratan kadar senyawa penanda (marker), kadar abu total, kadar abu tidak larut asam, susut pengeringan, serta batas cemaran logam berat dan mikotoksin aflatoksin.',
+    keyTopics: [
+      'Monograf Standardisasi Rimpang Temulawak (Xanthorrhizol & Kurkumin)',
+      'Monograf Herba Meniran (Filantin & Hipofilantin)',
+      'Monograf Daun Sambiloto (Andrografolid)',
+      'Parameter Non-Spesifik: Kadar Abu Tidak Larut Asam (Cemaran Pasir/Silikat Tanah) & Susut Pengeringan',
+      'Batas Maksimal Cemaran Logam Berat (Pb <= 10 ppm, Cd <= 0.3 ppm, As <= 5 ppm, Hg <= 0.5 ppm) & Aflatoksin Total (<= 20 ug/kg)'
+    ],
+    appliedInFeatures: [
+      {
+        tabId: 'competency-center',
+        featureName: 'Pusat Belajar Uji Kompetensi',
+        description: 'Rangkuman materi bahan alam dan fitofarmaka Domain 4 UKMPPAI.'
+      },
+      {
+        tabId: 'regulations',
+        featureName: 'Regulasi & UU Farmasi',
+        description: 'Standar mutu simplisia obat tradisional BPOM RI.'
+      }
+    ],
+    officialUrl: 'https://farmalkes.kemkes.go.id',
+    officialUrlLabel: 'Portal Ditjen Farmalkes Kemenkes RI',
+    citation: 'Kementerian Kesehatan Republik Indonesia. Farmakope Herbal Indonesia Edisi II. Jakarta: Kemenkes RI, 2017 (dan Suplemen Terpadu).',
+    badgeColor: 'bg-emerald-800 text-white'
   }
 ];
 

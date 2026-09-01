@@ -50,7 +50,6 @@ import {
 interface SideEffectCheckerProps {
   allDrugs: Drug[];
   clinicBranding?: ClinicBrandingSettings;
-  onOpenBrandingModal?: () => void;
   onSelectTab?: (tab: string) => void;
   isProUser?: boolean;
   onOpenPricingModal?: () => void;
@@ -59,7 +58,6 @@ interface SideEffectCheckerProps {
 export const SideEffectChecker: React.FC<SideEffectCheckerProps> = ({
   allDrugs,
   clinicBranding,
-  onOpenBrandingModal,
   isProUser = true,
   onOpenPricingModal
 }) => {
@@ -446,15 +444,6 @@ export const SideEffectChecker: React.FC<SideEffectCheckerProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto shrink-0">
-            {onOpenBrandingModal && (
-              <button
-                onClick={onOpenBrandingModal}
-                className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer backdrop-blur-xs shadow-xs active:scale-95"
-              >
-                <Building className="w-3.5 h-3.5 text-teal-300" />
-                <span>Kop & Stempel</span>
-              </button>
-            )}
             <button
               onClick={handlePrint}
               className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md active:scale-95"

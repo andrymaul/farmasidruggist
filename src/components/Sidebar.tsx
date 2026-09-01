@@ -178,7 +178,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           { id: 'admin-firebase', label: 'Sinkronisasi Firebase', icon: RefreshCw },
           { id: 'admin-editor', label: 'Editor DFI & Duplikasi', icon: Utensils },
           { id: 'admin-pricing', label: 'Tarif & Hak Akses', icon: Tag },
-          { id: 'admin-branding', label: 'Kop Surat & Stempel', icon: Building2 },
           { id: 'admin-users', label: 'Kelola Tim Admin', icon: Users },
           { id: 'admin-logs', label: 'Log Audit Sistem', icon: FileSpreadsheet },
           { id: 'admin-subscriptions', label: 'Subskripsi Customer', icon: UserCheck }

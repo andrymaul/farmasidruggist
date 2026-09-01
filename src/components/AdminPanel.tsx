@@ -22,8 +22,7 @@ import {
   Activity,
   UserCheck,
   Printer,
-  RotateCcw,
-  Building2
+  RotateCcw
 } from 'lucide-react';
 import { resolveDrugFromDDInter } from '../utils/ddinterEngine';
 import { CustomerSubscriptionManager } from './CustomerSubscriptionManager';
@@ -31,10 +30,9 @@ import { PricingManager } from './PricingManager';
 import { AdvancedDataEditor } from './AdvancedDataEditor';
 import { AuditLogManager } from './AuditLogManager';
 import { AdminTeamManager } from './AdminTeamManager';
-import { ClinicBrandingManager } from './ClinicBrandingManager';
 import { FirebaseSyncManager } from './FirebaseSyncManager';
 
-type AdminSubTab = 'drugs' | 'interactions' | 'customers' | 'pricing-settings' | 'advanced-editor' | 'audit-log' | 'team-admin' | 'clinic-branding' | 'firebase-sync' | 'status';
+type AdminSubTab = 'drugs' | 'interactions' | 'customers' | 'pricing-settings' | 'advanced-editor' | 'audit-log' | 'team-admin' | 'firebase-sync' | 'status';
 
 interface AdminPanelProps {
   drugs: Drug[];
@@ -46,7 +44,6 @@ interface AdminPanelProps {
   duplicationRules: TherapeuticDuplication[];
   auditLogs: SystemAuditLog[];
   adminUsers: AdminUser[];
-  clinicBranding: ClinicBrandingSettings;
   customers?: UserProfile[];
   onUpdateCustomers?: (customers: UserProfile[]) => void;
   initialSubTab?: AdminSubTab;
@@ -62,7 +59,6 @@ interface AdminPanelProps {
   onDeleteDuplicationRule: (id: string) => Promise<void>;
   onSaveAdminUser: (admin: AdminUser) => void;
   onDeleteAdminUser: (adminId: string) => void;
-  onSaveBranding: (updated: ClinicBrandingSettings) => void;
 }
 
 export const AdminPanel: React.FC<AdminPanelProps> = ({
@@ -75,7 +71,6 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   duplicationRules,
   auditLogs,
   adminUsers,
-  clinicBranding,
   customers,
   onUpdateCustomers,
   initialSubTab = 'drugs',
@@ -90,8 +85,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   onSaveDuplicationRule,
   onDeleteDuplicationRule,
   onSaveAdminUser,
-  onDeleteAdminUser,
-  onSaveBranding
+  onDeleteAdminUser
 }) => {
   const [activeSubTab, setActiveSubTab] = useState<AdminSubTab>(initialSubTab);
 
@@ -688,14 +682,6 @@ DDInter-PAIR-00105,"Tacrolimus","Fluconazole","Major","Fluconazole menghambat CY
           adminUsers={adminUsers}
           onSaveAdminUser={onSaveAdminUser}
           onDeleteAdminUser={onDeleteAdminUser}
-        />
-      )}
-
-      {/* TAB: KUSTOMISASI KOP & BRANDING CETAK LAPORAN */}
-      {activeSubTab === 'clinic-branding' && (
-        <ClinicBrandingManager
-          branding={clinicBranding}
-          onSaveBranding={onSaveBranding}
         />
       )}
 

@@ -1043,6 +1043,778 @@ export const PHARMACY_SOP_LIST: PharmacySopItem[] = [
     ],
     relatedForms: ['Kartu Pengobatan Pasien TB (TB.01)', 'Lembar Register Penyerahan ARV', 'Form Laporan Bulanan Logistik SITB & SIHA', 'Formulir Pelacakan Pasien Mangkir (Lost to Follow Up)'],
     notes: 'Bila pasien tidak datang mengambil obat lebih dari 2 hari dari tanggal jadwal, Tim Farmasi segera berkoordinasi dengan petugas puskesmas untuk pelacakan kontak (*contact tracing*).'
+  },
+  {
+    id: 'sop-pto-visite-rawat-inap',
+    docNumber: 'SOP/FAR-KLIN/019/2026',
+    title: 'SOP Pemantauan Terapi Obat (PTO) & Visite Farmasi Pasien Rawat Inap (Metode SOAP / FARM)',
+    category: 'klinis',
+    categoryLabel: 'Pelayanan Farmasi Klinis',
+    effectiveDate: '01 Januari 2026',
+    revision: '02',
+    legalBasis: [
+      'Permenkes RI No. 72 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Rumah Sakit',
+      'Standar Akreditasi Rumah Sakit Kemenkes RI (STARKES) - Pokja Pelayanan Kefarmasian dan Penggunaan Obat (PKPO)',
+      'Pedoman Pelayanan Farmasi Klinik Kemenkes RI'
+    ],
+    purpose: 'Memastikan efikasi dan keamanan terapi obat yang diterima pasien rawat inap, mendeteksi dan mencegah Drug Related Problems (DRP) secara dini, meminimalkan risiko reaksi obat yang tidak diinginkan (ROTD), serta memberikan rekomendasi terapi berbasis bukti kepada tim medis melalui Catatan Perkembangan Pasien Terintegrasi (CPPT).',
+    scope: 'Seluruh bangsal rawat inap (Intensif ICU/ICCU, Bedah, Penyakit Dalam, Pediatrik, Kebidanan) dan Instalasi Farmasi.',
+    policy: 'Pemantauan Terapi Obat (PTO) dan Visite dilakukan secara mandiri atau kolaboratif oleh Apoteker Klinis yang kompeten pada pasien dengan kriteria prioritas (ICU, polifarmasi > 5 obat, gangguan ginjal/hepar, geriatri/pediatrik, indeks terapi sempit).',
+    responsiblePersons: ['Apoteker Klinis Penanggung Jawab Bangsal', 'Dokter Penanggung Jawab Pelayanan (DPJP)', 'Perawat Ruangan'],
+    equipmentNeeded: ['Rekam Medis Pasien (RME / Manual)', 'Lembar Catatan Perkembangan Pasien Terintegrasi (CPPT)', 'Lembar Profil Pengobatan Pasien (Form PTO/FARM)', 'Aplikasi Referensi Interaksi Obat Klinis & Panduan Dosis Ginjal'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Seleksi Pasien Prioritas Pemantauan Terapi Obat',
+        description: 'Setiap pagi hari, Apoteker menyeleksi pasien di bangsal dengan kriteria: menerima obat indeks terapi sempit (Digoksin, Teofilin, Vankomisin, Fenitoin, Warfarin), polifarmasi (>= 5 jenis obat), gangguan fungsi ginjal (eGFR < 50 mL/min) atau hepar berat, pediatrik, geriatri, serta pasien di ruang perawatan intensif (ICU/ICCU/HCU).'
+      },
+      {
+        stepNumber: 2,
+        title: 'Pengumpulan Data Klinis & Riwayat Pengobatan',
+        description: 'Kumpulkan data subjektif pasien (keluhan utama, alergi, riwayat obat di rumah) dan data objektif (tanda vital, hasil lab darah lengkap, fungsi ginjal serum kreatinin, fungsi hati SGOT/SGPT, kultur mikrobiologi, hasil EKG/radiologi).'
+      },
+      {
+        stepNumber: 3,
+        title: 'Analisis Terapi & Identifikasi Drug Related Problems (DRP)',
+        description: 'Lakukan kajian sistematis menggunakan kerangka kerja SOAP (Subjective, Objective, Assessment, Plan) atau FARM (Findings, Assessment, Resolution, Monitoring). Evaluasi: indikasi tanpa obat, obat tanpa indikasi, ketepatan pemilihan obat, ketidaktepatan dosis (underdose/overdose), interaksi obat berbahaya, dan efek samping potensial.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Visite ke Pasien & Komunikasi Interprofesional DPJP',
+        description: 'Lakukan kunjungan (visite) ke samping tempat tidur pasien untuk wawancara respon terapi dan kepatuhan. Diskusikan temuan DRP dan rekomendasi solusi alternatif terapi kepada DPJP secara langsung saat visite bersama atau melalui telepon/komunikasi SBAR.'
+      },
+      {
+        stepNumber: 5,
+        title: 'Dokumentasi Rekomendasi Farmasi di Lembar CPPT',
+        description: 'Tuliskan hasil kajian pemantauan, asesmen klinis, dan rekomendasi farmasi secara ringkas dan terstruktur pada lembar Catatan Perkembangan Pasien Terintegrasi (CPPT) rekam medis dengan cap stempel profesi dan tanda tangan Apoteker.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah pasien berisiko tinggi (ICU, polifarmasi, gangguan ginjal) telah teridentifikasi untuk PTO harian?',
+      'Apakah asesmen terdokumentasi rapi di lembar CPPT sesuai kaidah SOAP/FARM?',
+      'Apakah rekomendasi penyesuaian dosis telah dikonfirmasikan kepada DPJP?'
+    ],
+    relatedForms: ['Formulir Pemantauan Terapi Obat (PTO)', 'Lembar CPPT Rekam Medis', 'Formulir Pelaporan Intervensi Apoteker', 'Lembar Profil Pengobatan Pasien (P3)'],
+    notes: 'Rekomendasi perubahan dosis atau penghentian obat akibat toksisitas/interaksi mayor harus selalu diverifikasi kembali penerapannya pada lembar instruksi pengobatan dokter (CPO / e-Prescribing).'
+  },
+  {
+    id: 'sop-farmasi-ugd-cito',
+    docNumber: 'SOP/FAR-KLIN/020/2026',
+    title: 'SOP Pelayanan Farmasi di Unit Gawat Darurat (UGD) & Penyiapan Resep Cito',
+    category: 'klinis',
+    categoryLabel: 'Pelayanan Farmasi Klinis',
+    effectiveDate: '01 Januari 2026',
+    revision: '03',
+    legalBasis: [
+      'Permenkes RI No. 72 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Rumah Sakit',
+      'Kepmenkes RI tentang Standar Pelayanan Gawat Darurat',
+      'Standar Akreditasi STARKES - Bab Akses dan Kesinambungan Pelayanan (AKP)'
+    ],
+    purpose: 'Menjamin kecepatan, ketepatan, dan keselamatan penyediaan perbekalan farmasi, antidotum keracunan, dan obat resusitasi kritis untuk pasien gawat darurat dengan waktu tunggu pelayanan resep CITO maksimal <= 15 menit.',
+    scope: 'Depo Farmasi UGD, Ruang Triase, Ruang Resusitasi, dan Ruang Tindakan Gawat Darurat.',
+    policy: 'Resep berlabel CITO / EMERGENCY mendapat prioritas mutlak di atas seluruh antrean resep reguler. Stok obat emergensi di UGD wajib selalu terisi penuh, terkunci dengan segel bernomor, dan siap pakai 24 jam.',
+    responsiblePersons: ['Apoteker Depo Farmasi UGD', 'Tenaga Vokasi Farmasi (TTK) Jaga UGD', 'Dokter Jaga UGD', 'Perawat Triase'],
+    equipmentNeeded: ['Troli Emergensi UGD Tersegel', 'Lemari Penyimpanan Khusus Antidotum', 'Sistem Komputer e-Prescribing Cito Alert', 'Lemari Pendingin Obat Emergensi Suhu 2-8°C'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Penerimaan & Triase Resep CITO',
+        description: 'Saat resep bertanda CITO / URGENT diterima di depo farmasi UGD, petugas farmasi segera menghentikan sementara penyiapan resep non-darurat dan memprioritaskan resep CITO tersebut secara instan.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Skrining Cepat & Verifikasi Alergi Akut',
+        description: 'Lakukan telaah resep cepat (indikasi gawat, rute pemberian IV/injeksi, dosis emergensi, kompatibilitas pelarut infus, dan riwayat syok anafilaksis/alergi obat) dalam waktu < 2 menit.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Penyiapan Cepat Obat Emergensi & Pelarut Sesuai Protokol',
+        description: 'Ambil obat dari rak fast-moving atau troli emergensi (misal: Epinefrin 1:1000, Amiodaron, Norepinefrin, Dextrose 40%, Atropin, Furosemid injeksi). Sertakan pelarut infus kompatibel (NaCl 0.9% atau D5W) dan spuit jarum suntik steril yang sesuai.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Double-Check Keamanan & Pemberian Label Cito Jelas',
+        description: 'Lakukan verifikasi ganda (double-check) oleh dua staf farmasi untuk memastikan kebenaran: nama obat, konsentrasi sediaan, volume, dan tanggal kedaluwarsa. Tempelkan etiket darurat bertuliskan dosis dan kecepatan tetesan infus bila diperlukan.'
+      },
+      {
+        stepNumber: 5,
+        title: 'Serah Terima Langsung ke Tim Resusitasi UGD',
+        description: 'Serahkan obat langsung kepada perawat/dokter resusitasi dengan konfirmasi verbal metode Read-Back (Baca Ulang). Catat waktu penyerahan untuk audit Standar Pelayanan Minimal (SPM waktu tunggu resep Cito <= 15 menit).'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah waktu tunggu penyiapan resep Cito tidak melebihi 15 menit?',
+      'Apakah verifikasi ganda nama dan konsentrasi obat telah dilakukan sebelum diserahkan?',
+      'Apakah stok troli emergensi yang terpakai langsung diganti dan disegel ulang?'
+    ],
+    relatedForms: ['Formulir Pemakaian Obat Emergensi UGD', 'Buku Register Resep Cito', 'Log Indikator Waktu Tunggu Pelayanan Farmasi UGD'],
+    notes: 'Dalam kondisi henti jantung (Cardiac Arrest / Code Blue), obat emergensi di troli resusitasi dapat langsung digunakan terlebih dahulu oleh dokter/perawat, dan peresepan administratif disusulkan setelah resusitasi selesai.'
+  },
+  {
+    id: 'sop-konseling-khusus-geriatri-pediatrik',
+    docNumber: 'SOP/FAR-KLIN/021/2026',
+    title: 'SOP Konseling & Edukasi Khusus Pasien Pediatrik, Geriatri, dan Pasien Polifarmasi Kronis',
+    category: 'klinis',
+    categoryLabel: 'Pelayanan Farmasi Klinis',
+    effectiveDate: '01 Januari 2026',
+    revision: '02',
+    legalBasis: [
+      'Permenkes RI No. 73 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Apotek',
+      'Permenkes RI No. 72 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Rumah Sakit',
+      'Pedoman Konseling Pelayanan Kefarmasian Kemenkes RI'
+    ],
+    purpose: 'Meningkatkan kepatuhan terapi, mencegah kesalahan pemberian dosis obat pada anak (pediatrik), meminimalkan risiko jatuh dan kebingungan minum obat pada lansia (geriatri), serta mencegah interaksi merugikan pada pasien polifarmasi.',
+    scope: 'Ruang Konseling Khusus Farmasi Rawat Jalan, Poli Geriatri, Poli Anak, dan Bangsal Rawat Inap.',
+    policy: 'Konseling kefarmasian intensif wajib diberikan oleh Apoteker kepada: pasien geriatri usia >= 60 tahun dengan >= 5 obat, orang tua pasien pediatrik dengan obat racikan/alat bantu dosis khusus, serta pasien dengan regimen obat indeks terapi sempit.',
+    responsiblePersons: ['Apoteker Konseling', 'Pasien / Keluarga Pasien / Pendamping Pengasuh (Caregiver)'],
+    equipmentNeeded: ['Ruang Konseling Farmasi Privat Nyaman', 'Alat Peraga Edukasi (Inhaler Dummy, Pen Insulin Trainer, Spuit Oral, Sendok Takar Obat)', 'Brosur & Lembar Informasi Obat (LIO)', 'Pillbox / Kotak Pengatur Obat Mingguan'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Identifikasi Pasien Kriteria Wajib Konseling',
+        description: 'Petugas farmasi memanggil pasien rawat jalan dengan kriteria khusus dan mempersilakan masuk ke ruang konseling farmasi yang tenang dan tertutup.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Penerapan Three Prime Questions & Bina Hubungan',
+        description: 'Buka sesi dengan salam, perkenalan diri, dan ajukan 3 Pertanyaan Utama: 1) Apa yang dokter sampaikan tentang obat Anda?, 2) Bagaimana cara dokter menjelaskan cara minum obat ini?, 3) Apa harapan yang dokter sampaikan setelah minum obat ini?'
+      },
+      {
+        stepNumber: 3,
+        title: 'Konseling Khusus Pediatrik (Orang Tua / Pengasuh)',
+        description: 'Edukasi cara pengukuran dosis cair menggunakan spuit oral mililiter (bukan sendok makan rumah tangga), cara rekonstitusi antibiotik kering dengan air matang dingin, kestabilan sirup pasca-buka (BUD), dan trik memberikan obat pada anak tanpa memicu muntah.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Konseling Khusus Geriatri & Polifarmasi',
+        description: 'Susun jadwal minum obat harian bergambar/warna yang mudah dibaca, pisahkan obat pagi/siang/malam, edukasi efek samping hipotensi ortostatik (bangun perlahan dari tidur), dan berikan rekomendasi penggunaan kotak obat bersekat (pillbox).'
+      },
+      {
+        stepNumber: 5,
+        title: 'Verifikasi Pemahaman dengan Metode Teach-Back & Show-and-Tell',
+        description: 'Minta pasien atau orang tua untuk mengulang kembali instruksi utama cara minum obat, dosis, dan mendemonstrasikan cara pemakaian alat khusus (inhaler/insulin) hingga benar-benar fasih.'
+      },
+      {
+        stepNumber: 6,
+        title: 'Dokumentasi Konseling & Kontak Layanan Konsultasi',
+        description: 'Catat kegiatan konseling pada Formulir Dokumentasi Konseling Farmasi dan berikan nomor kontak WhatsApp Apotek/RS untuk konsultasi obat lanjutan bila timbul keluhan di rumah.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah Three Prime Questions diajukan pada awal konseling?',
+      'Apakah orang tua pasien pediatrik diedukasi menggunakan alat takar mililiter yang presisi?',
+      'Apakah pemahaman pasien telah diverifikasi dengan metode Teach-Back?'
+    ],
+    relatedForms: ['Formulir Dokumentasi Konseling Farmasi', 'Kartu Jadwal Minum Obat Pasien', 'Lembar Kuesioner Kepuasan Konseling'],
+    notes: 'Hindari penggunaan istilah medis asing (jargon). Gunakan bahasa yang sederhana, ramah, empatik, dan mudah dimengerti oleh pasien lansia dan keluarga.'
+  },
+  {
+    id: 'sop-tpn-nutrisi-parenteral',
+    docNumber: 'SOP/FAR-KLIN/022/2026',
+    title: 'SOP Penyiapan Nutrisi Parenteral Total (TPN / Total Parenteral Nutrition) Aseptis',
+    category: 'klinis',
+    categoryLabel: 'Pelayanan Farmasi Klinis',
+    effectiveDate: '01 Januari 2026',
+    revision: '02',
+    legalBasis: [
+      'Permenkes RI No. 72 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Rumah Sakit',
+      'Pedoman Dasar Dispensing Sediaan Steril Kemenkes RI',
+      'USP General Chapter <797> Pharmaceutical Compounding - Sterile Preparations'
+    ],
+    purpose: 'Menjamin sediaan nutrisi parenteral total (TPN) disiapkan secara aseptis bebas pirogen dan mikroba, mencegah presipitasi kalsium-fosfat yang mematikan, serta memenuhi kebutuhan makronutrien dan mikronutrien individual pasien yang tidak dapat menerima nutrisi enteral.',
+    scope: 'Ruang Bersih Steril (Cleanroom Kelas A/B) Instalasi Farmasi Rumah Sakit dan Bangsal ICU/NICU/PICU.',
+    policy: 'Pencampuran TPN wajib dilakukan di dalam Laminar Air Flow (LAF) horizontal/vertikal oleh Apoteker dan TTK yang telah tersertifikasi pelatihan Aseptic Dispensing resmi.',
+    responsiblePersons: ['Apoteker Spesialis Nutrisi Parenteral / Steril', 'Tenaga Teknis Kefarmasian Terlatih Dispensing Steril', 'Dokter Spesialis Tim Terapi Nutrisi (KTGN)'],
+    equipmentNeeded: ['Laminar Air Flow (LAF) ISO Class 5', 'Kantong TPN Khusus Bebas DEHP (EVA Bag)', 'Automated TPN Compounder / Spuit Dispensing Steril', 'Filter In-line 1.2 mikron (untuk emulsi lipid) & 0.22 mikron (larutan 2-in-1)', 'Bahan Baku Asam Amino, Dextrose Konsentrat, Emulsi Lipid, Elektrolit & Trace Elements'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Kajian Regimen Nutrisi & Kalkulasi Kompatibilitas Kimia',
+        description: 'Apoteker menghitung total kalori harian, rasio kalori:nitrogen, osmolaritas larutan (jalur perifer < 900 mOsm/L; jalur sentral > 900 mOsm/L), serta mengevaluasi kurva kelarutan presipitasi Kalsium Glukonat dan Kalium Fosfat sebelum pencampuran.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Preparasi Petugas & Cuci Tangan Aseptis',
+        description: 'Petugas memakai baju steril terusan bebas serat (overall bunny suit), penutup kepala, masker bedah, kacamata goggle, penutup sepatu, dan sarung tangan steril bebas bedak di ruang antara (anteroom) setelah cuci tangan bedah 6 langkah.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Desinfeksi LAF & Pengaturan Urutan Pencampuran Bahan',
+        description: 'Bersihkan meja LAF dengan Alkohol 70% steril dari arah atas ke bawah dan belakang ke depan. Urutan pencampuran larutan 3-in-1 (All-in-One): 1) Masukkan Asam Amino dan Dextrose ke kantong EVA, 2) Tambahkan Fosfat terlebih dahulu ke asam amino lalu campur merata, 3) Tambahkan Kalsium di akhir dengan volume larutan maksimal untuk mencegah presipitasi, 4) Masukkan Emulsi Lipid di tahap paling akhir.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Inspeksi Visual Partikel, Emulsi & Kebocoran',
+        description: 'Lakukan inspeksi visual di bawah latar belakang hitam dan putih untuk mendeteksi adanya partikel asing, kristal presipitasi kalsium-fosfat, retakan emulsi (cracking/oiling out), dan periksa kekedapan segel kantong TPN.'
+      },
+      {
+        stepNumber: 5,
+        title: 'Pelabelan Lengkap, BUD & Penyimpanan Terlindung Cahaya',
+        description: 'Tempelkan etiket steril memuat: nama pasien, nomor RM, komposisi lengkap tiap mikronutrien, osmolaritas, rute (Vena Sentral/Perifer), kecepatan infus (mL/jam), tanggal racik dan Beyond Use Date (BUD 24 jam pada suhu ruang atau 48-72 jam pada suhu 2-8°C). Bungkus kantong TPN dengan kantong pelindung UV kuning/amber.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah kompatibilitas kalsium-fosfat telah diverifikasi dengan kurva kelarutan?',
+      'Apakah rute akses (Vena Sentral vs Perifer) sesuai dengan osmolaritas larutan?',
+      'Apakah kantong TPN dibungkus penutup anti-cahaya (light-resistant bag)?'
+    ],
+    relatedForms: ['Lembar Permintaan & Perhitungan Nutrisi Parenteral (TPN Order Form)', 'Log Harian Pembersihan & Uji Partikel LAF', 'Form Kontrol Mutu Visual Sediaan Steril TPN'],
+    notes: 'Jika terlihat tanda ketidakstabilan emulsi lipid berupa tetesan minyak mengapung di permukaan kantong (*phase separation/cracking*), TPN KONTRAINDIKASI MUTLAK DIBERIKAN KARENA DAPAT MEMICU EMBOLI PARU FATAL.'
+  },
+  {
+    id: 'sop-perencanaan-pengadaan-ven-abc',
+    docNumber: 'SOP/FAR-LOG/023/2026',
+    title: 'SOP Perencanaan & Pengadaan Perbekalan Farmasi (Metode Konsumsi, Morbiditas & Analisis VEN-ABC)',
+    category: 'logistik',
+    categoryLabel: 'Pengelolaan & Logistik Farmasi',
+    effectiveDate: '01 Januari 2026',
+    revision: '03',
+    legalBasis: [
+      'Permenkes RI No. 72 Tahun 2016 & Permenkes No. 73 Tahun 2016 tentang Standar Pelayanan Kefarmasian',
+      'Pedoman Pengelolaan Obat Publik dan Perbekalan Kesehatan Kemenkes RI',
+      'Petunjuk Teknis Standar Pelayanan Kefarmasian di Puskesmas & RS'
+    ],
+    purpose: 'Menjamin ketersediaan obat dan alat kesehatan yang bermutu tinggi, aman, rasional, dan terjangkau; mencegah kekosongan stok obat vital; serta mengoptimalkan efisiensi anggaran belanja farmasi melalui perencanaan terstruktur berbasis data historis dan epidemiologi.',
+    scope: 'Gudang Farmasi, Instalasi Farmasi, Tim Komite Farmasi & Terapi (KFT), dan Bagian Keuangan/Pengadaan.',
+    policy: 'Perencanaan pengadaan obat dilakukan secara periodik mengacu pada Formularium Nasional (Fornas) dan Formularium Rumah Sakit/Apotek dengan mengombinasikan Metode Konsumsi, Metode Morbiditas (Pola Penyakit), serta Analisis Matriks Matriks Gabungan VEN-ABC.',
+    responsiblePersons: ['Apoteker Penanggung Jawab Pengadaan', 'Apoteker Kepala Gudang Farmasi', 'Pejabat Pembuat Komitmen (PPK) / Pemilik Sarana'],
+    equipmentNeeded: ['Sistem Informasi Manajemen Rumah Sakit (SIMRS) / Software Farmasi Apotek', 'Data Laporan Mutasi Stok dan Laporan Pemakaian Obat Tahunan', 'Data 10 Besar Penyakit Terbanyak dari Rekam Medis', 'Formularium Rumah Sakit & Buku Daftar Harga Netto Apotek (HNA) PBF'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Rekapitulasi Data Pemakaian Riil (Metode Konsumsi)',
+        description: 'Tarik data konsumsi rata-rata bulanan (Consumption Rate / CA) dari SIMRS selama periode 12 bulan terakhir. Bersihkan data dari bias kekosongan stok (*stock-out days*) untuk mendapatkan konsumsi riil normal.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Penghitungan Stok Pengaman (Safety Stock) & Waktu Tunggu (Lead Time)',
+        description: 'Hitung stok pengaman (Safety Stock = Lead Time × Konsumsi Rata-rata Harian) dan tentukan Titik Pemesanan Kembali (Reorder Point / ROP = [Lead Time × Konsumsi Harian] + Safety Stock) untuk setiap item obat.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Integrasi Pola Epidemiologi Penyakit (Metode Morbiditas)',
+        description: 'Lakukan penyesuaian kebutuhan terhadap potensi lonjakan kasus musiman (misal: Demam Berdarah Dengue pada musim hujan, ISPA, Diare) berdasarkan pedoman pengobatan baku klinis.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Klasifikasi Matriks Gabungan VEN - ABC',
+        description: 'Petakan perbekalan farmasi ke dalam 9 kuadran matriks VEN-ABC: Kategori V (Vital: Adrenalin, Insulin, Oksigen, Vaksin), E (Esensial: Antibiotik, Antihipertensi, Antidiabetes), N (Non-Esensial: Vitamin suplemen). Kategori A (Serapan dana 70%), B (20%), C (10%).'
+      },
+      {
+        stepNumber: 5,
+        title: 'Rasionalisasi & Penyesuaian Anggaran',
+        description: 'Jika anggaran terbatas, terapkan prioritas alokasi: Pertahankan kelompok VA, VB, VC, EA, EB. Lakukan efisiensi atau eliminasi bertahap pada kelompok NA (Non-Esensial nilai investasi tinggi) dan NB.'
+      },
+      {
+        stepNumber: 6,
+        title: 'Penerbitan Rencana Kebutuhan Obat (RKO) & Surat Pesanan',
+        description: 'Buat dokumen Rencana Anggaran Belanja (RAB) / Rencana Kebutuhan Obat (RKO) untuk disahkan oleh Pimpinan/KFT sebelum diterbitkan Surat Pesanan resmi ke PBF berizin CDOB.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah perhitungan konsumsi telah disesuaikan dengan stok pengaman dan lead time PBF?',
+      'Apakah obat yang dipesan tercantum dalam Formularium resmi?',
+      'Apakah analisis matriks VEN-ABC telah diterapkan dalam rasionalisasi anggaran?'
+    ],
+    relatedForms: ['Dokumen Rencana Kebutuhan Obat (RKO)', 'Lembar Matriks Analisis VEN-ABC', 'Formulir Evaluasi Usulan Obat Baru KFT'],
+    notes: 'Evaluasi akurasi perencanaan pengadaan dilakukan setiap triwulan dengan membandingkan nilai *Turn Over Ratio* (TOR) dan persentase obat mati (*death stock* < 1%).'
+  },
+  {
+    id: 'sop-penerimaan-faktur-pbf',
+    docNumber: 'SOP/FAR-LOG/024/2026',
+    title: 'SOP Penerimaan Barang, Pemeriksaan Fisik & Verifikasi Faktur PBF Berizin CDOB',
+    category: 'logistik',
+    categoryLabel: 'Pengelolaan & Logistik Farmasi',
+    effectiveDate: '01 Januari 2026',
+    revision: '03',
+    legalBasis: [
+      'Permenkes RI No. 72/2016, Permenkes No. 73/2016, Permenkes No. 74/2016',
+      'Peraturan BPOM tentang Penerapan Pedoman Cara Distribusi Obat yang Baik (CDOB)',
+      'Permenkes RI No. 3 Tahun 2015 tentang Peredaran, Penyimpanan, Pemusnahan, dan Pelaporan Narkotika, Psikotropika, dan Prekursor Farmasi'
+    ],
+    purpose: 'Memastikan seluruh perbekalan farmasi yang diterima dari Pedagang Besar Farmasi (PBF) resmi sesuai dengan Surat Pesanan (SP), memiliki keutuhan fisik kemasan bermutu baik, nomor izin edar BPOM valid, nomor batch terverifikasi, tanggal kedaluwarsa (ED) aman, serta terbebas dari peredaran obat palsu/ilegal.',
+    scope: 'Area Penerimaan Barang Gudang Farmasi, Apotek, Klinik, Puskesmas, dan Rumah Sakit.',
+    policy: 'Penerimaan barang wajib dilakukan dan diverifikasi langsung oleh Apoteker Penanggung Jawab (APJ) atau Tenaga Teknis Kefarmasian (TTK) yang memiliki surat delegasi resmi.',
+    responsiblePersons: ['Apoteker Penanggung Jawab Gudang/Apotek', 'Tenaga Teknis Kefarmasian Bagian Logistik', 'Kurir / Petugas Pengantar PBF'],
+    equipmentNeeded: ['Arsip Surat Pesanan (SP) Asli / Salinan', 'Termometer Inframerah Digital / Calibrated Data Logger', 'Cutter & Meja Pemeriksaan Bersih', 'Cap Stempel Penerimaan Farmasi Resmi & Pulpen'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Verifikasi Legalitas Pengirim & Kecocokan Surat Pesanan (SP)',
+        description: 'Periksa keabsahan identitas kurir dan legalitas PBF pengirim. Cocokkan Faktur / Surat Pengantar Barang (SPB) dengan arsip Surat Pesanan (SP) meliputi: nama sarana pemesan, jenis obat, bentuk sediaan, kekuatan dosis, dan jumlah kuantitas.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Pemeriksaan Integritas Fisik Kemasan & Izin Edar BPOM',
+        description: 'Periksa segel kemasan primer dan sekunder, pastikan tidak ada kebocoran, botol pecah, strip rusak, blister sobek, label pudar, atau perubahan warna/bentuk sediaan. Periksa keaslian Nomor Izin Edar (NIE) BPOM (misal: DKL/GKL untuk obat keras, DTL untuk bebas terbatas).'
+      },
+      {
+        stepNumber: 3,
+        title: 'Pemeriksaan Khusus Produk Rantai Dingin (Cold Chain)',
+        description: 'Untuk vaksin, insulin, dan sediaan termolabil: SEGERA periksa suhu cool box sebelum kurir pergi. Pastikan es pendingin (ice pack) masih beku, indikator termometer berada pada rentang 2°C - 8°C (atau <= -20°C untuk vaksin beku), periksa Vaccine Vial Monitor (VVM kondisi A/B), dan lakukan uji kocok (shake test) jika dicurigai beku.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Pemeriksaan Nomor Batch & Masa Kedaluwarsa (Expired Date)',
+        description: 'Cocokkan nomor batch pada fisik sediaan dengan nomor batch yang tercetak di lembar faktur. Pastikan masa kedaluwarsa obat minimal 2 TAHUN (atau disetujui perjanjian khusus untuk sediaan fast moving / radiofarmaka).'
+      },
+      {
+        stepNumber: 5,
+        title: 'Penandatanganan Faktur & Legalisasi Stempel',
+        description: 'Bila seluruh parameter sesuai, Apoteker menandatangani faktur asli dan salinan, mencantumkan nama lengkap, nomor SIPA, tanggal dan jam penerimaan, serta membubuhkan stempel resmi apotek/instansi farmasi. Berikan lembar faktur kembali kepada kurir dan simpan arsip faktur farmasi.'
+      },
+      {
+        stepNumber: 6,
+        title: 'Input Data Kartu Stok & Penyimpanan Cepat',
+        description: 'Input data penerimaan barang ke dalam SIMRS/Sistem Kartu Stok Digital (nama obat, PBF, nomor batch, ED, jumlah masuk, harga beli). Segera pindahkan obat ke rak penyimpanan sesuai prinsip FIFO/FEFO dan regulasi khusus (LASA/Narkotika).'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah penerimaan dilakukan langsung oleh Apoteker / TTK ber-SIPA?',
+      'Apakah nomor batch dan ED pada fisik barang identik dengan faktur?',
+      'Apakah produk rantai dingin (vaksin/insulin) suhunya diukur dan langsung disimpan di kulkas 2-8°C?'
+    ],
+    relatedForms: ['Buku Ekspedisi Penerimaan Barang Farmasi', 'Lembar Faktur Asli & Surat Pengantar Barang (SPB)', 'Formulir Berita Acara Ketidaksesuaian / Retur Barang'],
+    notes: 'Jika barang rusak, suhu cold chain > 8°C, nomor batch tidak cocok, atau masa ED terlalu pendek, APOTEKER BERHAK DAN WAJIB MENOLAK PENERIMAAN BARANG dan menuliskan Berita Acara Retur Pengembalian.'
+  },
+  {
+    id: 'sop-distribusi-udd-floorstock',
+    docNumber: 'SOP/FAR-LOG/025/2026',
+    title: 'SOP Distribusi Obat Sistem Unit Dose Dispensing (UDD) & Floor Stock Terbatas Rawat Inap',
+    category: 'logistik',
+    categoryLabel: 'Pengelolaan & Logistik Farmasi',
+    effectiveDate: '01 Januari 2026',
+    revision: '02',
+    legalBasis: [
+      'Permenkes RI No. 72 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Rumah Sakit',
+      'Standar Akreditasi Rumah Sakit STARKES - Pokja PKPO Distribusi Obat',
+      'Pedoman Sistem Distribusi Obat di Rumah Sakit Kemenkes RI'
+    ],
+    purpose: 'Meningkatkan keselamatan pasien (patient safety), mencegah kesalahan pemberian obat oleh perawat di bangsal rawat inap (wrong drug, wrong dose, wrong time), meminimalkan sisa obat retur yang terbuang, serta memastikan pencatatan pemakaian obat akurat dan transparan secara per-dosis minum.',
+    scope: 'Depo Farmasi Rawat Inap, Ruang Peracikan UDD, dan Seluruh Ruang Perawatan Rawat Inap.',
+    policy: 'Distribusi obat untuk pasien rawat inap dilaksanakan dengan Sistem Unit Dose Dispensing (UDD) untuk kebutuhan 24 jam yang dibagi per waktu konsumsi. Sistem Floor Stock (Persediaan Ruangan) hanya diperbolehkan sangat terbatas untuk cairan infus dasar dan obat emergensi resusitasi.',
+    responsiblePersons: ['Apoteker Depo Farmasi Rawat Inap', 'Tenaga Teknis Kefarmasian Dispensing UDD', 'Perawat Penanggung Jawab Pasien (PPJP)'],
+    equipmentNeeded: ['Troli Distribusi Obat UDD dengan Laci Berlabel Nama Pasien & No. Bed', 'Plastik Klip / Kemasan Strip UDD Khusus Bersekat', 'Mesin Pengemas Otomatis Unit Dose (Blister Sealer / Unit Dose Sachet)', 'Lembar Instruksi Pengobatan Elektronik (e-MAR / CPO)'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Skrining & Verifikasi Instruksi Obat Harian (CPO / e-Prescribing)',
+        description: 'Apoteker menelaah lembar Catatan Pemberian Obat (CPO) harian pasien yang divalidasi dokter. Pastikan tidak ada duplikasi terapi, interaksi obat baru, atau perubahan dosis akibat hasil laboratorium terkini.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Penyiapan & Pengemasan Obat Per-Dosis Waktu Minum',
+        description: 'Petugas farmasi mengambil obat dari rak penyimpanan dan mengemas obat ke dalam kantong unit dose tersendiri untuk setiap waktu minum spesifik: Pagi (07.00), Siang (12.00), Sore (18.00), dan Malam (21.00).'
+      },
+      {
+        stepNumber: 3,
+        title: 'Pemberian Labeling Etiket Lengkap pada Tiap Kantong Dosis',
+        description: 'Tiap kantong dosis tunggal wajib memuat etiket: Nama Pasien, Nomor RM, Tanggal Lahir, Nama Bangsal/No. Bed, Nama Obat, Kekuatan Dosis, Rute, Jadwal Jam Minum, dan Tanggal Penyiapan.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Penataan ke Dalam Laci Troli UDD Pasien',
+        description: 'Masukkan paket obat unit dose 24 jam ke dalam laci troli UDD yang bertuliskan nama pasien dan nomor tempat tidur yang bersangkutan.'
+      },
+      {
+        stepNumber: 5,
+        title: 'Serah Terima & Verifikasi Ganda Bersama Perawat Ruangan',
+        description: 'Petugas farmasi mengantar troli UDD ke bangsal perawatan. Lakukan serah terima dan *Double-Check* bersama perawat ruangan dengan mencocokkan fisik obat terhadap lembar CPO/e-MAR. Kedua pihak menandatangani buku serah terima UDD.'
+      },
+      {
+        stepNumber: 6,
+        title: 'Pengembalian & Rekonsiliasi Obat Sisa / Stop Terapi',
+        description: 'Jika ada obat yang dihentikan (discontinue) oleh DPJP atau pasien pulang/meninggal, sisa obat unit dose yang belum terbuka diambil kembali oleh farmasi dan dilakukan retur mutasi pada sistem SIMRS.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah setiap kantong unit dose memiliki etiket identitas pasien dan jam minum yang jelas?',
+      'Apakah serah terima troli UDD dilakukan verifikasi ganda bersama perawat ruangan?',
+      'Apakah obat yang distop dokter langsung diretur ke farmasi?'
+    ],
+    relatedForms: ['Lembar Catatan Pemberian Obat (CPO / e-MAR)', 'Buku Ekspedisi Serah Terima Obat UDD', 'Formulir Retur Obat Rawat Inap'],
+    notes: 'Sediaan sirup dan tetes mata/telinga diserahkan dalam kemasan botol utuh bertuliskan Beyond Use Date (BUD) dan tetap disimpan di laci pasien hingga terapi selesai.'
+  },
+  {
+    id: 'sop-pengelolaan-gas-medis-oksigen',
+    docNumber: 'SOP/FAR-LOG/026/2026',
+    title: 'SOP Pengelolaan Tabung Gas Medis (Oksigen) & Sistem Instalasi Gas Medis Sentral',
+    category: 'logistik',
+    categoryLabel: 'Pengelolaan & Logistik Farmasi',
+    effectiveDate: '01 Januari 2026',
+    revision: '02',
+    legalBasis: [
+      'Permenkes RI No. 4 Tahun 2016 tentang Penggunaan Gas Medik dan Vakum Medik pada Fasilitas Pelayanan Kesehatan',
+      'Permenkes RI No. 72 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Rumah Sakit',
+      'Pedoman K3 Rumah Sakit & Standar Keselamatan Pasien'
+    ],
+    purpose: 'Menjamin ketersediaan gas medis (Oksigen O2, Nitrogen Oksida N2O, Udara Tekan Medis) yang berkesinambungan dengan kemurnian medis standar Farmakope (kemurnian O2 >= 99.5%), mencegah bahaya kebakaran dan ledakan tabung gas bertekanan tinggi, serta memastikan sistem alarm gas sentral berfungsi optimal.',
+    scope: 'Gudang Tabung Gas Medis, Ruang Manifold Sentral Gas, Ruang Perawatan, UGD, OK Kamar Bedah, dan ICU.',
+    policy: 'Gas medis adalah sediaan farmasi yang pengelolaannya berada di bawah pengawasan Instalasi Farmasi bekerjasama dengan Instalasi Pemeliharaan Sarana Rumah Sakit (IPSRS). Tabung gas medis wajib dipisahkan antara tabung isi dan tabung kosong, diberi rantai pengaman, dan dicatat tekanannya secara harian.',
+    responsiblePersons: ['Apoteker Penanggung Jawab Logistik Gas Medis', 'Teknisi IPSRS / Petugas Gas Medis', 'Perawat Penanggung Jawab Ruangan'],
+    equipmentNeeded: ['Ruang Manifold Gas Medis Berventilasi Terbuka', 'Rantai Pengikat Tabung / Rak Tabung Gas Anti-Roboh', 'Troli Pengangkut Tabung Khusus', 'Regulator Gas Medis & Flowmeter Oksigen', 'Alat Pemadam Api Ringan (APAR) CO2/Powder'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Penerimaan & Pemeriksaan Kualitas Tabung dari Distributor',
+        description: 'Periksa sertifikat analisis kemurnian gas (Certificate of Analysis), warna standar tabung (Oksigen Medis = PUTIH atau HIJAU; N2O = BIRU), tutup pengaman katup (cap valve), masa uji hidrostatis tabung (Hydrotest tidak boleh kedaluwarsa), dan periksa tidak adanya bau/kebocoran pada katup menggunakan busa sabun.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Penyimpanan Aman Sesuai Standar Keselamatan K3',
+        description: 'Simpan tabung di ruangan khusus berventilasi baik, berlantai rata, terlindung dari panas sinar matahari langsung dan sumber api. PISAHKAN SECARA TEGAS DENGAN ZONA BERTANDA: 1) "TABUNG ISI" dan 2) "TABUNG KOSONG". Pasang rantai pengaman anti-roboh pada seluruh tabung yang berdiri.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Pemantauan Tekanan Manifold Sistem Gas Sentral Harian',
+        description: 'Petugas memeriksa dan mencatat tekanan manometer manifold sentral minimal 2 kali sehari (pagi dan sore). Pastikan tekanan kerja berada pada rentang standar (Oksigen: 4.0 - 5.0 bar atau 55-60 psi). Lakukan pergantian otomatis ke bank tabung cadangan bila tekanan turun di bawah batas kritis.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Distribusi & Transportasi Tabung Gas ke Ruangan',
+        description: 'Gunakan troli khusus tabung gas yang memiliki rantai pengikat saat memindahkan tabung ke bangsal atau UGD. DILARANG MENYERET, MENGGELINDINGKAN SECARA HORIZONTAL, ATAU MEMBANTING TABUNG GAS.'
+      },
+      {
+        stepNumber: 5,
+        title: 'Pemasangan Regulator & Humidifier Steril di Pasien',
+        description: 'Pasang regulator dan flowmeter dengan tangan bersih bebas minyak/oli (pelumas minyak pada katup oksigen murni dapat memicu percikan api ledakan spontan). Isi botol humidifier dengan Water for Irrigation / Aquades steril hingga batas garis dan ganti cairan setiap 24 jam.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah seluruh tabung gas medis diikat dengan rantai pengaman?',
+      'Apakah area tabung isi dan tabung kosong terpisah secara jelas?',
+      'Apakah regulator oksigen bebas dari kontaminasi minyak/gemuk/oli?'
+    ],
+    relatedForms: ['Log Harian Tekanan Gas Medis Sentral', 'Kartu Kontrol Inventaris Tabung Oksigen', 'Formulir Pemeliharaan dan Uji Kebocoran Instalasi Gas'],
+    notes: 'DILARANG KERAS merokok atau menyalakan sumber api di radius minimal 10 meter dari area penyimpanan gas medis. Pasang rambu "DILARANG MEROKOK - GAS MEDIS MUDAH TERBAKAR".'
+  },
+  {
+    id: 'sop-pelaporan-sipnap-kemenkes',
+    docNumber: 'SOP/FAR-REG/027/2026',
+    title: 'SOP Pelaporan Narkotika, Psikotropika & Prekursor Elektronik Melalui SIPNAP Kemenkes RI',
+    category: 'khusus',
+    categoryLabel: 'Regulasi & Penanganan Khusus',
+    effectiveDate: '01 Januari 2026',
+    revision: '03',
+    legalBasis: [
+      'Undang-Undang RI No. 35 Tahun 2009 tentang Narkotika',
+      'Permenkes RI No. 3 Tahun 2015 tentang Peredaran, Penyimpanan, Pemusnahan, dan Pelaporan Narkotika, Psikotropika, dan Prekursor Farmasi',
+      'Petunjuk Teknis Penggunaan Sistem Informasi Pelaporan Narkotika dan Psikotropika (SIPNAP) Kemenkes RI'
+    ],
+    purpose: 'Menjamin kepatuhan regulasi hukum pelaporan peredaran obat golongan Narkotika, Psikotropika, dan Prekursor Farmasi secara transparan, mencegah potensi penyalahgunaan dan diversi obat, serta menyinkronkan data pemakaian riil sarana farmasi dengan Kementerian Kesehatan dan BPOM.',
+    scope: 'Instalasi Farmasi Rumah Sakit, Apotek, Klinik, dan Puskesmas.',
+    policy: 'Pelaporan SIPNAP wajib dilakukan secara elektronik oleh Apoteker Penanggung Jawab (APJ) setiap 1 (satu) bulan sekali paling lambat tanggal 10 pada bulan berikutnya, termasuk pelaporan nihil jika tidak ada transaksi.',
+    responsiblePersons: ['Apoteker Penanggung Jawab Sarana (APJ)', 'Dinas Kesehatan Kabupaten/Kota', 'Balai Besar POM Setempat'],
+    equipmentNeeded: ['Komputer Terhubung Internet', 'Akun & Password Resmi Portal SIPNAP Kemenkes (sipnap.kemkes.go.id)', 'Buku Register Resep Narkotika/Psikotropika', 'Kartu Stok Fisik & Data SIMRS / Software Apotek'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Tutup Buku & Rekapitulasi Mutasi Stok Akhir Bulan',
+        description: 'Pada hari terakhir setiap akhir bulan (tanggal 30/31), Apoteker melakukan tutup buku stok narkotika, psikotropika, dan prekursor. Hitung saldo awal, total penerimaan dari PBF (berdasarkan nomor faktur), total pengeluaran resep dokter, dan saldo akhir fisik.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Stock Opname Fisik & Penyesuaian Selisih',
+        description: 'Lakukan pemeriksaan fisik langsung ke dalam lemari khusus narkotika/psikotropika berpintu ganda terkunci. Pastikan jumlah fisik obat (tablet, ampul, patch, botol) sama persis dengan kartu stok. Jika ada selisih, telusuri resep dokter yang belum tercatat sebelum membuat laporan.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Login ke Portal SIPNAP Kemenkes',
+        description: 'Akses website resmi https://sipnap.kemkes.go.id menggunakan username nomor izin sarana (SIA/SIFRS) dan kata sandi resmi APJ.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Input Data Penerimaan & Pengeluaran Perbekalan Farmasi',
+        description: 'Input data transaksi bulanan: 1) Penerimaan: Masukkan nama PBF distributor, nomor faktur, tanggal faktur, nomor batch, dan jumlah masuk. 2) Pengeluaran: Masukkan jumlah obat yang diserahkan berdasarkan resep dokter, nama dokter peresep, dan data pasien (atau upload file Excel template SIPNAP).'
+      },
+      {
+        stepNumber: 5,
+        title: 'Verifikasi Validasi Data & Pengiriman Laporan (Submit)',
+        description: 'Periksa kembali rekapitulasi data saldo akhir pada sistem SIPNAP untuk memastikan tidak ada kesalahan input angka atau satuan sediaan. Klik tombol "KIRIM / SUBMIT LAPORAN" selambat-lambatnya tanggal 10.'
+      },
+      {
+        stepNumber: 6,
+        title: 'Pencetakan Bukti Tanda Terima Laporan & Pengarsipan',
+        description: 'Unduh dan cetak Lembar Bukti Tanda Terima Laporan SIPNAP yang memiliki barcode resmi Kemenkes. Simpan berkas bukti lapor bersama arsip resep narkotika/psikotropika selama minimal 3-5 tahun.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah laporan SIPNAP disubmit paling lambat tanggal 10 setiap bulan?',
+      'Apakah saldo akhir pada laporan SIPNAP sama persis dengan stok fisik lemari narkotika?',
+      'Apakah bukti tanda terima lapor elektronik telah dicetak dan diarsipkan?'
+    ],
+    relatedForms: ['Lembar Rekapitulasi Kartu Stok Narkotika & Psikotropika', 'Bukti Tanda Terima Lapor SIPNAP Elektronik Kemenkes', 'Buku Register Catatan Peresepan Narkotika'],
+    notes: 'Keterlambatan atau kelalaian pelaporan SIPNAP dapat dikenakan sanksi administratif berupa peringatan tertulis, penghentian sementara kegiatan, hingga pencabutan izin sarana oleh Dinas Kesehatan / BPOM.'
+  },
+  {
+    id: 'sop-elektrolit-konsentrat-tinggi',
+    docNumber: 'SOP/FAR-REG/028/2026',
+    title: 'SOP Pengelolaan Elektrolit Konsentrat Tinggi (High Alert Concentrated Electrolytes)',
+    category: 'khusus',
+    categoryLabel: 'Regulasi & Penanganan Khusus',
+    effectiveDate: '01 Januari 2026',
+    revision: '03',
+    legalBasis: [
+      'Permenkes RI No. 72 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Rumah Sakit',
+      'Standar Akreditasi Rumah Sakit STARKES - Sasaran Keselamatan Pasien (SKP 3: Peningkatan Keamanan Obat High Alert)',
+      'Institute for Safe Medication Practices (ISMP) Guidelines on High-Alert Medications'
+    ],
+    purpose: 'Mencegah insiden kematian (sentinel event) dan henti jantung mendadak akibat kesalahan fatal penyuntikan elektrolit konsentrat pekat secara langsung (bolus IV tanpa pengenceran), membatasi akses penyimpanan hanya di unit kritis, serta memastikan verifikasi ganda (double-check) ketat sebelum pemberian.',
+    scope: 'Instalasi Farmasi, Depo Farmasi Rawat Inap, ICU, ICCU, NICU, PICU, Kamar Operasi, dan UGD.',
+    policy: 'Elektrolit konsentrat pekat (KCl 7.46%, NaCl 3%, MgSO4 20% & 40%, Natrium Bikarbonat 8.4%, Dextrose 40%) DILARANG DISIMPAN DI RUANG RAWAT INAP UMUM. Penyimpanan hanya diizinkan di Farmasi dan Unit Perawatan Intensif terkunci dengan penandaan stiker merah menyala.',
+    responsiblePersons: ['Apoteker Penanggung Jawab High Alert', 'Perawat Ruang Intensif (ICU/NICU)', 'Dokter Spesialis Anestesi / Intensivis'],
+    equipmentNeeded: ['Stiker Merah Menyala Bertuliskan "HIGH ALERT - ELEKTROLIT KONSENTRAT - HARUS DIENCERKAN SEBELUM DIGUNAKAN"', 'Lemari Terkunci Khusus High Alert', 'Syringe Pump / Infusion Pump Presisi', 'Pelarut Pengencer Steril (NaCl 0.9% / D5W)'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Restriksi Lokasi Penyimpanan di Rumah Sakit',
+        description: 'Terapkan kebijakan pembatasan: Elektrolit konsentrat tinggi TIDAK BOLEH berada di troli bangsal rawat inap biasa. Sediaan ini hanya disimpan di Instalasi Farmasi, ICU/ICCU, dan Kamar Operasi dalam lemari khusus bersegel/terkunci.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Penempelan Label Peringatan Khusus High Alert',
+        description: 'Setiap ampul/vial/flakon elektrolit pekat (KCl 7.46%, NaCl 3%, MgSO4 40%, D40%) WAJIB ditempeli stiker warna MERAH kontras dengan tulisan tebal: "HIGH ALERT - HARUS DIENCERKAN - TIDAK BOLEH BOLUS LANGSUNG".'
+      },
+      {
+        stepNumber: 3,
+        title: 'Skrining Peresepan & Perhitungan Kecepatan Infus Maksimal',
+        description: 'Apoteker menelaah resep dokter: Verifikasi kadar kalium/natrium serum awal pasien, hitung volume pengenceran (misal: KCl maksimal 20-40 mEq dalam 500-1000 mL cairan infus), dan pastikan kecepatan infus tidak melebihi 10-20 mEq/jam melalui syringe pump atau vena sentral.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Proses Pengenceran Homogen di Ruang Farmasi',
+        description: 'Campurkan elektrolit pekat ke dalam kantong cairan infus secara aseptis, bolak-balik kantong infus minimal 5 kali agar larutan terdistribusi homogen sempurna (mencegah pooling kalium pekat di dasar kantong).'
+      },
+      {
+        stepNumber: 5,
+        title: 'Prosedur Verifikasi Ganda Independen (Independent Double-Check)',
+        description: 'Sebelum diserahkan dan sebelum diinjeksikan ke pasien, dua petugas kesehatan (Apoteker-TTK atau 2 Perawat) melakukan double-check independen: mencocokkan identitas pasien, jenis obat, volume pengencer, kecepatan pompa syringe pump, dan rute pemberian.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah seluruh ampul/flakon elektrolit pekat memiliki label High Alert merah?',
+      'Apakah sediaan KCl pekat dipastikan tidak berada di bangsal rawat inap umum?',
+      'Apakah verifikasi ganda independen (independent double-check) dilakukan oleh 2 petugas?'
+    ],
+    relatedForms: ['Daftar Obat High Alert & Elektrolit Konsentrat Rumah Sakit', 'Lembar Verifikasi Double-Check Pemberian Obat High Alert', 'Formulir Pelaporan Kesalahan Obat (Medication Error)'],
+    notes: 'Pemberian Injeksi Kalium Klorida (KCl) secara bolus intravena langsung KONTRAINDIKASI MUTLAK KARENA MENYEBABKAN ASISTOL / HENTI JANTUNG SEKETIKA DAN KEMATIAN.'
+  },
+  {
+    id: 'sop-telefarmasi-pengantaran-obat',
+    docNumber: 'SOP/FAR-REG/029/2026',
+    title: 'SOP Pelayanan Resep Telefarmasi, Telemedicine & Pengantaran Obat ke Rumah Pasien',
+    category: 'khusus',
+    categoryLabel: 'Regulasi & Penanganan Khusus',
+    effectiveDate: '01 Januari 2026',
+    revision: '02',
+    legalBasis: [
+      'Permenkes RI No. 24 Tahun 2022 tentang Rekam Medis (Rekam Medis Elektronik)',
+      'Permenkes RI No. 73 Tahun 2016 tentang Standar Pelayanan Kefarmasian di Apotek',
+      'Peraturan BPOM No. 8 Tahun 2020 tentang Pengawasan Obat dan Makanan yang Diedarkan Secara Daring (Online)'
+    ],
+    purpose: 'Menjamin pelayanan kefarmasian jarak jauh (Telefarmasi) dan pengantaran obat ke alamat pasien terlaksana secara legal, aman, tepat pasien, menjaga stabilitas mutu fisik sediaan selama perjalanan, serta memastikan pasien menerima konseling dan informasi penggunaan obat yang memadai.',
+    scope: 'Pelayanan Farmasi Rawat Jalan, Apotek Daring/Telemedicine, dan Tim Ekspedisi Pengantaran Obat.',
+    policy: 'Pelayanan resep telefarmasi hanya melayani resep elektronik dari dokter yang sah ber-SIP. Obat golongan Narkotika, Psikotropika, dan OOT terlarang keras dilayani melalui platform daring. Pengantaran obat wajib menggunakan kemasan tertutup bersegel aman.',
+    responsiblePersons: ['Apoteker Pengelola Apotek (APA) / Apoteker Telefarmasi', 'Tenaga Teknis Kefarmasian', 'Kurir Khusus Pengantar Obat Farmasi'],
+    equipmentNeeded: ['Sistem Informasi Telemedicine / Portal e-Prescription Terverifikasi', 'Aplikasi Chat & Video Call Konseling Telefarmasi Resmi', 'Kantong Pengemas Kedap Air & Segel Berstiker Pengaman (Security Seal)', 'Coolbox Pengantar Khusus Suhu 2-8°C dengan Ice Pack'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Verifikasi Keaslian Resep Elektronik & Identitas Pasien',
+        description: 'Apoteker memeriksa validitas resep elektronik dari platform telemedicine resmi (nama dokter, nomor SIP, tanda tangan digital, tanggal resep, nama pasien, NIK, alamat lengkap, dan nomor WhatsApp aktif pasien).'
+      },
+      {
+        stepNumber: 2,
+        title: 'Skrining Farmasetik & Penapisan Obat Terlarang Daring',
+        description: 'Lakukan pengkajian klinis. Pastikan resep TIDAK MENGANDUNG NARKOTIKA, PSIKOTROPIKA, ATAU OBAT GOLONGAN OOT (Tramadol/Triheksifenidil) yang dilarang diedarkan secara daring menurut PerBPOM.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Penyiapan Obat & Pengemasan Tertutup Bersegel Keamanan',
+        description: 'Siapkan obat dengan etiket jelas. Masukkan obat ke dalam kantong pengemas kedap air dan tempelkan Stiker Segel Pengaman (Security Seal) yang tidak dapat dibuka tanpa merusak segel. Untuk obat cold chain (misal: insulin), gunakan coolbox ber-icepack dengan termometer pemantau.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Konseling Telefarmasi via Telepon / Video Call',
+        description: 'Apoteker menghubungi pasien melalui panggilan suara/video call sebelum obat dikirimkan untuk menjelaskan: indikasi obat, aturan minum, cara pemakaian sediaan khusus, penyimpanan, serta konfirmasi alamat penerimaan.'
+      },
+      {
+        stepNumber: 5,
+        title: 'Pengantaran & Serah Terima dengan Bukti Foto / Tanda Tangan',
+        description: 'Kurir mengantar paket obat ke alamat pasien, meminta penerima (pasien/keluarga serumah) menandatangani lembar serah terima, memeriksa keutuhan segel di depan kurir, dan mengambil foto bukti serah terima paket.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah resep telemedicine diverifikasi bebas dari Narkotika/Psikotropika/OOT?',
+      'Apakah paket obat dikemas tertutup rapat dengan stiker segel pengaman?',
+      'Apakah Apoteker telah melakukan konseling langsung kepada pasien via telepon/video?'
+    ],
+    relatedForms: ['Log Transaksi Resep Telefarmasi / Telemedicine', 'Lembar Bukti Serah Terima Pengantaran Obat ke Rumah', 'Formulir Catatan Konseling Telefarmasi'],
+    notes: 'Pasien wajib diinstruksikan untuk menolak paket obat jika segel pengaman telah rusak atau robek saat diserahkan oleh kurir.'
+  },
+  {
+    id: 'sop-higiene-sanitasi-cuci-tangan-apd',
+    docNumber: 'SOP/FAR-SAF/030/2026',
+    title: 'SOP Higiene Sanitasi, Kebersihan Tangan 6 Langkah WHO & Pemakaian APD Farmasi',
+    category: 'safety',
+    categoryLabel: 'Keselamatan Pasien & Mutu Farmasi',
+    effectiveDate: '01 Januari 2026',
+    revision: '02',
+    legalBasis: [
+      'Permenkes RI No. 27 Tahun 2017 tentang Pedoman Pencegahan dan Pengendalian Infeksi (PPI) di Fasilitas Pelayanan Kesehatan',
+      'Pedoman Hand Hygiene World Health Organization (WHO)',
+      'Standar Keselamatan dan Kesehatan Kerja (K3) Fasilitas Farmasi'
+    ],
+    purpose: 'Mencegah kontaminasi silang mikroorganisme pada sediaan obat racikan, melindungi tenaga kefarmasian dari paparan debu zat aktif farmasi kimia beracun, serta memutus rantai transmisi infeksi nosokomial di lingkungan pelayanan farmasi.',
+    scope: 'Seluruh area Instalasi Farmasi, Ruang Peracikan Puyer, Ruang Aseptic Dispensing, Gudang Farmasi, dan Loket Penyerahan Obat.',
+    policy: 'Seluruh staf farmasi wajib mematuhi kebersihan tangan 6 langkah WHO pada 5 momen cuci tangan (5 Moments of Hand Hygiene) dan mengenakan Alat Pelindung Diri (APD) yang sesuai dengan tingkat risiko tugas.',
+    responsiblePersons: ['Apoteker Penanggung Jawab K3 & PPI Farmasi', 'Seluruh Staf Tenaga Teknis Kefarmasian', 'Petugas Kebersihan (Cleaning Service)'],
+    equipmentNeeded: ['Wastafel Cuci Tangan dengan Kran Sensor / Siku', 'Sabun Antiseptik Cair (Chlorhexidine 2-4%) & Handrub Berbasis Alkohol 70%', 'Tisu Pengering Sekali Pakai (Paper Towel)', 'Alat Pelindung Diri (Jas Lab Farmasi, Masker Bedah, Sarung Tangan Nitril Bebas Bedak, Penutup Kepala, Kacamata Goggle)'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Penerapan 5 Momen Kebersihan Tangan (5 Moments)',
+        description: 'Staf farmasi wajib mencuci tangan: 1) Sebelum menyentuh bahan baku obat / peracikan, 2) Sebelum melakukan prosedur aseptis, 3) Setelah kontak dengan cairan tubuh/sediaan terkontaminasi, 4) Setelah menyentuh lingkungan kerja/peralatan farmasi, dan 5) Sebelum dan sesudah memakai sarung tangan.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Prosedur Kebersihan Tangan 6 Langkah Standar WHO',
+        description: 'Lakukan 6 langkah selama 20-30 detik (handrub) atau 40-60 detik (air mengalir & sabun): 1) Gosok telapak tangan, 2) Gosok punggung tangan bergantian, 3) Gosok sela-sela jari, 4) Gosok punggung jari dengan posisi mengunci, 5) Putar ibu jari dalam genggaman, 6) Putar ujung jari di telapak tangan.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Pemakaian APD Standar Ruang Peracikan Non-Steril',
+        description: 'Sebelum meracik puyer, kapsul, atau salep: Petugas wajib mengenakan jas lab bersih lengan panjang, penutup kepala, masker bedah (mencegah inhalasi debu obat), dan sarung tangan nitril bersih bebas bedak.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Sanitasi Meja Racik & Alat Mortir-Stamper',
+        description: 'Sebelum dan sesudah digunakan, bersihkan mortir dan stamper dengan air hangat dan deterjen, keringkan, lalu seka dengan Alkohol 70%. Bersihkan permukaan meja kerja racik dengan cairan disinfektan minimal 2 kali sehari.'
+      },
+      {
+        stepNumber: 5,
+        title: 'Pelepasan & Pembuangan APD Bekas Pakai',
+        description: 'Lepaskan sarung tangan dari arah dalam ke luar tanpa menyentuh bagian luar yang terkontaminasi, lepaskan masker dengan memegang talinya, buang ke tempat sampah medis berplastik kuning, dan segera lakukan hand hygiene.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah seluruh staf menerapkan 6 langkah cuci tangan WHO secara benar?',
+      'Apakah masker dan sarung tangan selalu digunakan saat peracikan puyer?',
+      'Apakah mortir dan stamper didisinfeksi dengan alkohol 70% sebelum meracik obat berikutnya?'
+    ],
+    relatedForms: ['Log Harian Audit Kepatuhan Hand Hygiene Staf Farmasi', 'Jadwal Sanitasi & Disinfeksi Ruang Peracikan', 'Kartu Kontrol Stok APD Farmasi'],
+    notes: 'Dilarang menggunakan perhiasan cincin, gelang, atau cat kuku saat bertugas meracik sediaan obat karena menjadi tempat persembunyian koloni bakteri.'
+  },
+  {
+    id: 'sop-kesiapsiagaan-bencana-klb',
+    docNumber: 'SOP/FAR-SAF/031/2026',
+    title: 'SOP Kesiapsiagaan Penanganan Bencana Alam, Keracunan Massal & Kejadian Luar Biasa (KLB)',
+    category: 'safety',
+    categoryLabel: 'Keselamatan Pasien & Mutu Farmasi',
+    effectiveDate: '01 Januari 2026',
+    revision: '02',
+    legalBasis: [
+      'Undang-Undang RI No. 24 Tahun 2007 tentang Penanggulangan Bencana',
+      'Permenkes RI No. 72/2016 & Permenkes No. 74/2016 tentang Standar Pelayanan Kefarmasian',
+      'Pedoman Kesiapsiagaan Krisis Kesehatan Kemenkes RI'
+    ],
+    purpose: 'Menjamin ketersediaan obat-obatan penyelamat nyawa (life-saving drugs), cairan rehidrasi massal, dan antidotum toksikologi secara cepat dan terorganisir saat terjadi bencana alam (gempa bumi, banjir), keracunan pangan massal, atau wabah Kejadian Luar Biasa (KLB).',
+    scope: 'Instalasi Farmasi, Tim Tanggap Darurat Bencana Rumah Sakit (Hospital Disaster Plan), Posko Triase Lapangan, dan UGD.',
+    policy: 'Farmasi wajib memiliki Paket Bencana (Disaster Kit) dan Paket Keracunan Massal yang selalu terisi lengkap dan diperbarui secara berkala, serta siap dimobilisasi dalam waktu kurang dari 30 menit.',
+    responsiblePersons: ['Apoteker Koordinator Logistik Tim Bencana', 'Kepala Instalasi Farmasi', 'Ketua Komite K3 & Disaster RS'],
+    equipmentNeeded: ['Kotak / Peti Logistik Bencana (Disaster Box) Tahan Air & Portabel', 'Stok Cairan Infus Kristaloid (RL, NaCl 0.9%) dan Set Infus Makro', 'Paket Antidotum Keracunan Massal (Atropin, Norit, Pralidoksim, NAC)', 'Genset Cadangan Khusus Cold Chain Kulkas Vaksin / Obat Termolabil', 'Megafon / HT Radio Komunikasi Darurat'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Aktivasi Status Siaga Bencana Farmasi',
+        description: 'Saat status Bencana / KLB diumumkan oleh Pimpinan RS / Dinkes (Code Yellow / Code Orange), Apoteker Koordinator segera mengaktifkan Tim Logistik Farmasi Bencana dan membuka Posko Logistik Obat Darurat.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Mobilisasi Paket Obat Bencana (Disaster Kit) ke Area Triase',
+        description: 'Mobilisasi kotak logistik darurat ke zona triase gawat darurat berisi: cairan infus kristaloid dalam jumlah besar, analgesik injeksi, antibiotik gawat darurat, ATS/Serum Anti Tetanus, kasa steril, perban elastis, spuit jarum suntik, dan obat resusitasi.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Penanganan Kasus Keracunan Massal',
+        description: 'Siapkan paket antidotum toksikologi: Atropin Sulfat dosis tinggi (untuk insektisida/organofosfat), Karbo Adsorben / Norit oral (keracunan makanan/toksin), N-Asetilsistein, dan cairan rehidrasi elektrolit cepat.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Pengamanan Cold Chain Saat Pemadaman Listrik Masif',
+        description: 'Bila terjadi pemadaman listrik akibat bencana, pastikan genset darurat otomatis menyala untuk kulkas vaksin. Jika genset gagal, segera pindahkan vaksin dan insulin ke Cold Box yang telah diisi Ice Pack beku dengan pemantau termometer.'
+      },
+      {
+        stepNumber: 5,
+        title: 'Pencatatan Cepat & Koordinasi Permintaan Bantuan Logistik Dinkes',
+        description: 'Gunakan sistem pencatatan manual darurat cepat untuk pemakaian obat korban bencana. Apoteker segera berkoordinasi dengan Dinas Kesehatan / BPBD untuk mengajukan tambahan pasokan obat bantuan darurat nasional (Buffer Stock Bencana).'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah paket Disaster Kit terisi lengkap dan diperiksa masa kedaluwarsanya tiap bulan?',
+      'Apakah genset darurat dan cold box siap siaga untuk pengamanan obat rantai dingin?',
+      'Apakah jalur koordinasi darurat dengan Dinas Kesehatan / BPBD aktif?'
+    ],
+    relatedForms: ['Daftar Inventaris Paket Obat Bencana (Disaster Kit)', 'Formulir Penerimaan & Pengeluaran Obat Darurat Bencana', 'Berita Acara Kejadian Luar Biasa (KLB)'],
+    notes: 'Seluruh perbekalan farmasi untuk korban bencana pada fase tanggap darurat diserahkan secara cuma-cuma (gratis) sesuai instruksi komandan penanggulangan bencana.'
+  },
+  {
+    id: 'sop-audit-mutu-kepuasan-pasien',
+    docNumber: 'SOP/FAR-SAF/032/2026',
+    title: 'SOP Audit Internal Mutu Pelayanan Farmasi, Indikator Kinerja Utama (IKU) & Kepuasan Pasien',
+    category: 'safety',
+    categoryLabel: 'Keselamatan Pasien & Mutu Farmasi',
+    effectiveDate: '01 Januari 2026',
+    revision: '02',
+    legalBasis: [
+      'Permenkes RI No. 72/2016 & Permenkes No. 73/2016 tentang Standar Pelayanan Kefarmasian',
+      'Permenkes RI No. 30 Tahun 2022 tentang Indikator Nasional Mutu Pelayanan Kesehatan',
+      'Standar Akreditasi Rumah Sakit STARKES - Peningkatan Mutu dan Keselamatan Pasien (PMKP)'
+    ],
+    purpose: 'Mengevaluasi pencapaian standar pelayanan kefarmasian secara berkelanjutan (Continuous Quality Improvement), memastikan kepatuhan terhadap indikator mutu nasional (Indikator Nasional Mutu / INM), menekan angka kesalahan obat (zero medication error), serta meningkatkan indeks kepuasan pasien terhadap layanan farmasi.',
+    scope: 'Seluruh Unit Pelayanan Farmasi (Rawat Jalan, Rawat Inap, UGD, Gudang Farmasi, Ruang Konseling).',
+    policy: 'Audit internal mutu pelayanan farmasi dilakukan secara periodik setiap bulan oleh Tim Mutu Farmasi. Hasil audit dan Indikator Kinerja Utama (IKU) dilaporkan kepada Direktur/Kepala Instansi dan dibahas dalam rapat evaluasi mutu.',
+    responsiblePersons: ['Apoteker Ketua Tim Mutu & Keselamatan Farmasi', 'Kepala Instalasi Farmasi / Pengelola Apotek', 'Seluruh Staf Tenaga Farmasi'],
+    equipmentNeeded: ['Formulir Indikator Mutu Waktu Tunggu Pelayanan Obat', 'Kuesioner Survei Kepuasan Pasien (Kertas / QR Code Digital)', 'Software Pengolah Data Statistik Mutu (Excel / SIMRS Dashboard)', 'Format Laporan Audit Klinis & Penggunaan Obat (EPO)'],
+    procedureSteps: [
+      {
+        stepNumber: 1,
+        title: 'Pengumpulan Data Indikator Nasional Mutu (INM) Harian',
+        description: 'Kumpulkan data harian indikator mutu pelayanan: 1) Waktu Tunggu Pelayanan Obat Jadi (Standar <= 30 menit), 2) Waktu Tunggu Pelayanan Obat Racikan (Standar <= 60 menit), 3) Kepatuhan terhadap Formularium Nasional / RS (Standar >= 80%), 4) Angka Kejadian Kesalahan Pemberian Obat (Target 0%).'
+      },
+      {
+        stepNumber: 2,
+        title: 'Pengukuran Indeks Kepuasan Pasien / Pelanggan',
+        description: 'Sebarkan kuesioner survei kepuasan pelanggan secara acak (minimal 50 responden per bulan) melalui form kertas di ruang tunggu atau scan QR-Code digital. Evaluasi parameter: keramahan petugas, kejelasan informasi obat dari apoteker, kenyamanan ruang tunggu, dan kecepatan layanan.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Audit Klinis Evaluasi Penggunaan Obat (EPO)',
+        description: 'Lakukan audit sampling rekam medis (minimal 30 resep per bulan) untuk mengevaluasi kerasionalan peresepan antibiotik (metode Gyssens), kesesuaian dosis pada geriatri/pediatrik, dan kelengkapan dokumentasi pengkajian resep.'
+      },
+      {
+        stepNumber: 4,
+        title: 'Analisis Data & Identifikasi Akar Masalah (RCA / Fishbone)',
+        description: 'Jika ditemukan indikator mutu yang tidak mencapai target (misal: waktu tunggu obat racikan melebihi 60 menit), Tim Mutu melakukan analisis akar masalah menggunakan diagram tulang ikan (Fishbone Diagram) atau metode 5-Why.'
+      },
+      {
+        stepNumber: 5,
+        title: 'Penyusunan Rencana Tindak Lanjut (Plan-Do-Check-Action / PDCA)',
+        description: 'Susun Rencana Tindak Lanjut (RTL) perbaikan proses (misal: penambahan blender puyer otomatis, perbaikan alur antrean e-Prescribing). Pantau efektivitas perbaikan pada siklus audit bulan berikutnya.'
+      },
+      {
+        stepNumber: 6,
+        title: 'Publikasi Dashboard Mutu & Rapat Evaluasi',
+        description: 'Tampilkan grafik pencapaian indikator mutu pada papan informasi staf farmasi dan sampaikan laporan resmi kepada Komite Mutu RS / Dinas Kesehatan.'
+      }
+    ],
+    criticalChecklist: [
+      'Apakah waktu tunggu obat jadi (<= 30 mnt) dan racikan (<= 60 mnt) tercapai?',
+      'Apakah persentase kepatuhan formularium mencapai minimal 80%?',
+      'Apakah survei kepuasan pelanggan dilakukan dan ditindaklanjuti secara berkala?'
+    ],
+    relatedForms: ['Lembar Pencatatan Waktu Tunggu Resep Harian', 'Kuesioner Indeks Kepuasan Pelanggan Farmasi', 'Laporan Bulanan Indikator Mutu & Keselamatan Pasien Farmasi'],
+    notes: 'Setiap staf yang berhasil mempertahankan rekor zero medication error dan kepuasan pasien tertinggi berhak mendapatkan apresiasi bintang mutu dari manajemen.'
   }
 ];
 

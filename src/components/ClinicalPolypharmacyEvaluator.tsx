@@ -79,7 +79,6 @@ interface ClinicalPolypharmacyEvaluatorProps {
   allDrugs: Drug[];
   allInteractions: DrugInteraction[];
   clinicBranding?: ClinicBrandingSettings;
-  onOpenBrandingModal?: () => void;
   onSelectTab?: (tab: string) => void;
 }
 
@@ -179,7 +178,6 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
   allDrugs,
   allInteractions,
   clinicBranding,
-  onOpenBrandingModal,
   onSelectTab
 }) => {
   // 1. Patient Parameters State
@@ -1230,15 +1228,6 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
             </div>
 
             <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-              {onOpenBrandingModal && (
-                <button
-                  onClick={onOpenBrandingModal}
-                  className="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs border border-slate-700 shadow-lg transition-colors flex items-center gap-2"
-                >
-                  <Edit3 className="w-4 h-4 text-amber-400" />
-                  <span>Kop & Stempel</span>
-                </button>
-              )}
               <button
                 onClick={handlePrintReport}
                 className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs shadow-lg transition-colors flex items-center gap-2"

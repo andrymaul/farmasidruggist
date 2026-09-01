@@ -28,10 +28,11 @@ import {
   Layers,
   ArrowRight,
   ChevronRight,
-  ExternalLink,
-  Flame,
   Zap,
-  SlidersHorizontal
+  SlidersHorizontal,
+  ChevronDown,
+  ChevronUp,
+  Lightbulb
 } from 'lucide-react';
 import { PediatricCompoundingCalculator } from './PediatricCompoundingCalculator';
 import { ClinicalScoreCalculatorsModal, CalculatorType } from './ClinicalScoreCalculatorsModal';
@@ -61,6 +62,245 @@ interface RenalDrugRule {
   }[];
   clinicalPearls: string;
 }
+
+interface FormulaVariable {
+  symbol: string;
+  name: string;
+  description: string;
+  unit?: string;
+}
+
+interface MedicalFormulaCardProps {
+  title: string;
+  badge?: string;
+  category?: string;
+  formulaDisplay: React.ReactNode;
+  secondaryFormulaDisplay?: React.ReactNode;
+  variables: FormulaVariable[];
+  decisionRules?: string[];
+  clinicalPearls: string[];
+  reference: string;
+  defaultExpanded?: boolean;
+  theme?: 'teal' | 'emerald' | 'cyan' | 'sky' | 'indigo' | 'amber' | 'violet' | 'rose' | 'blue';
+}
+
+const MedicalFormulaCard: React.FC<MedicalFormulaCardProps> = ({
+  title,
+  badge,
+  category,
+  formulaDisplay,
+  secondaryFormulaDisplay,
+  variables,
+  decisionRules,
+  clinicalPearls,
+  reference,
+  defaultExpanded = true,
+  theme = 'teal'
+}) => {
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+
+  const themeClasses = {
+    teal: {
+      border: 'border-teal-500/30 dark:border-teal-500/40',
+      badgeBg: 'bg-teal-500/20 text-teal-300 border-teal-500/40',
+      headerBg: 'bg-gradient-to-r from-[#062429] via-[#0a3842] to-[#062429]',
+      accentText: 'text-teal-300',
+      boxBg: 'bg-[#04191d]/90 border-teal-500/30'
+    },
+    emerald: {
+      border: 'border-emerald-500/30 dark:border-emerald-500/40',
+      badgeBg: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+      headerBg: 'bg-gradient-to-r from-[#05281e] via-[#094232] to-[#05281e]',
+      accentText: 'text-emerald-300',
+      boxBg: 'bg-[#031d16]/90 border-emerald-500/30'
+    },
+    cyan: {
+      border: 'border-cyan-500/30 dark:border-cyan-500/40',
+      badgeBg: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+      headerBg: 'bg-gradient-to-r from-[#072530] via-[#0b3c4f] to-[#072530]',
+      accentText: 'text-cyan-300',
+      boxBg: 'bg-[#041c24]/90 border-cyan-500/30'
+    },
+    sky: {
+      border: 'border-sky-500/30 dark:border-sky-500/40',
+      badgeBg: 'bg-sky-500/20 text-sky-300 border-sky-500/40',
+      headerBg: 'bg-gradient-to-r from-[#062238] via-[#0b385c] to-[#062238]',
+      accentText: 'text-sky-300',
+      boxBg: 'bg-[#04192b]/90 border-sky-500/30'
+    },
+    blue: {
+      border: 'border-blue-500/30 dark:border-blue-500/40',
+      badgeBg: 'bg-blue-500/20 text-blue-300 border-blue-500/40',
+      headerBg: 'bg-gradient-to-r from-[#081e3d] via-[#0f3161] to-[#081e3d]',
+      accentText: 'text-blue-300',
+      boxBg: 'bg-[#05152b]/90 border-blue-500/30'
+    },
+    indigo: {
+      border: 'border-indigo-500/30 dark:border-indigo-500/40',
+      badgeBg: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40',
+      headerBg: 'bg-gradient-to-r from-[#121636] via-[#1d2357] to-[#121636]',
+      accentText: 'text-indigo-300',
+      boxBg: 'bg-[#0c0e24]/90 border-indigo-500/30'
+    },
+    amber: {
+      border: 'border-amber-500/30 dark:border-amber-500/40',
+      badgeBg: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+      headerBg: 'bg-gradient-to-r from-[#291e06] via-[#45320a] to-[#291e06]',
+      accentText: 'text-amber-300',
+      boxBg: 'bg-[#1c1404]/90 border-amber-500/30'
+    },
+    violet: {
+      border: 'border-violet-500/30 dark:border-violet-500/40',
+      badgeBg: 'bg-violet-500/20 text-violet-300 border-violet-500/40',
+      headerBg: 'bg-gradient-to-r from-[#1f0e38] via-[#35195e] to-[#1f0e38]',
+      accentText: 'text-violet-300',
+      boxBg: 'bg-[#150a26]/90 border-violet-500/30'
+    },
+    rose: {
+      border: 'border-rose-500/30 dark:border-rose-500/40',
+      badgeBg: 'bg-rose-500/20 text-rose-300 border-rose-500/40',
+      headerBg: 'bg-gradient-to-r from-[#2e0915] via-[#4d1024] to-[#2e0915]',
+      accentText: 'text-rose-300',
+      boxBg: 'bg-[#20060e]/90 border-rose-500/30'
+    }
+  }[theme];
+
+  return (
+    <div className={`rounded-2xl border ${themeClasses.border} overflow-hidden shadow-lg transition-all`}>
+      <div 
+        onClick={() => setIsExpanded(!isExpanded)}
+        className={`${themeClasses.headerBg} p-4 sm:p-4.5 cursor-pointer select-none flex items-center justify-between gap-3 text-white`}
+      >
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-xl bg-white/10 border border-white/20">
+            <Calculator className={`w-4 h-4 ${themeClasses.accentText}`} />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${themeClasses.badgeBg}`}>
+                {badge || 'Landasan Matematis & Klinis'}
+              </span>
+              {category && (
+                <span className="text-[11px] text-slate-300 font-medium hidden sm:inline">
+                  • {category}
+                </span>
+              )}
+            </div>
+            <h3 className="text-sm font-bold text-white mt-0.5 flex items-center gap-1.5">
+              {title}
+            </h3>
+          </div>
+        </div>
+        <button 
+          type="button"
+          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition shrink-0"
+        >
+          <span>{isExpanded ? 'Tutup Rumus' : 'Buka Rumus'}</span>
+          {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        </button>
+      </div>
+
+      {isExpanded && (
+        <div className="bg-slate-900/95 p-4 sm:p-5 text-slate-200 border-t border-slate-800 space-y-4 text-xs">
+          {/* Formula Display Box */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className={`p-4 rounded-xl border ${themeClasses.boxBg} space-y-2`}>
+              <div className="flex items-center justify-between">
+                <span className={`text-[11px] font-bold uppercase tracking-wider ${themeClasses.accentText}`}>
+                  📐 Rumus Utama
+                </span>
+              </div>
+              <div className="font-mono text-xs sm:text-sm text-white font-semibold py-1">
+                {formulaDisplay}
+              </div>
+            </div>
+
+            {secondaryFormulaDisplay ? (
+              <div className={`p-4 rounded-xl border ${themeClasses.boxBg} space-y-2`}>
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300">
+                    ⚖️ Rumus Penyesuaian Khusus
+                  </span>
+                </div>
+                <div className="font-mono text-xs sm:text-sm text-white font-semibold py-1">
+                  {secondaryFormulaDisplay}
+                </div>
+              </div>
+            ) : (
+              <div className="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-teal-300">
+                  📚 Standar Acuan Klinis
+                </span>
+                <p className="text-[11px] text-slate-300 font-medium leading-relaxed">
+                  {reference}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Variables Dictionary */}
+          {variables && variables.length > 0 && (
+            <div className="space-y-2">
+              <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider block">
+                📋 Keterangan Variabel & Satuan:
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                {variables.map((v, i) => (
+                  <div key={i} className="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700/60 flex items-start gap-2">
+                    <span className="font-mono font-bold text-teal-300 text-xs bg-slate-900 px-1.5 py-0.5 rounded border border-slate-700 shrink-0">
+                      {v.symbol}
+                    </span>
+                    <div className="text-[11px] leading-tight">
+                      <p className="font-bold text-white">{v.name} {v.unit && <span className="text-slate-400 font-normal">({v.unit})</span>}</p>
+                      <p className="text-slate-400 text-[10px] mt-0.5">{v.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Decision Rules / Criteria */}
+          {decisionRules && decisionRules.length > 0 && (
+            <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl space-y-1.5 text-amber-200">
+              <span className="text-[11px] font-bold text-amber-300 flex items-center gap-1.5">
+                <Sliders className="w-3.5 h-3.5 text-amber-400" />
+                Kriteria Pemilihan Rumus & Penyesuaian Klinis:
+              </span>
+              <ul className="list-disc list-inside space-y-1 text-[11px] text-amber-100/90 pl-1">
+                {decisionRules.map((rule, idx) => (
+                  <li key={idx} className="leading-relaxed">{rule}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Clinical Pearls */}
+          {clinicalPearls && clinicalPearls.length > 0 && (
+            <div className="p-3 bg-teal-500/10 border border-teal-500/30 rounded-xl space-y-1.5 text-teal-200">
+              <span className="text-[11px] font-bold text-teal-300 flex items-center gap-1.5">
+                <Lightbulb className="w-3.5 h-3.5 text-teal-400" />
+                Mutiara Klinis Apoteker (*Clinical Pearls*):
+              </span>
+              <ul className="list-disc list-inside space-y-1 text-[11px] text-teal-100/90 pl-1">
+                {clinicalPearls.map((pearl, idx) => (
+                  <li key={idx} className="leading-relaxed">{pearl}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {secondaryFormulaDisplay && reference && (
+            <div className="text-[10px] text-slate-400 font-medium flex items-center gap-1.5 pt-1 border-t border-slate-800">
+              <BookOpen className="w-3.5 h-3.5 text-slate-500" />
+              <span>Sumber: {reference}</span>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const RENAL_DRUG_RULES: RenalDrugRule[] = [
   {
@@ -805,6 +1045,43 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'renal' && (
         <div className="space-y-6">
+          {/* Formula & Clinical Guide Card */}
+          <MedicalFormulaCard
+            title="Rumus Cockcroft-Gault (CrCl) & Bedside Schwartz (Pediatrik)"
+            badge="Klirens Ginjal"
+            category="Penyesuaian Dosis Renal"
+            theme="teal"
+            formulaDisplay={
+              <div className="space-y-1">
+                <p className="text-teal-300 font-bold text-xs">CrCl (mL/min) = [(140 - Usia) × Berat Badan (kg)] / [72 × Serum Kreatinin (mg/dL)]</p>
+                <p className="text-slate-300 text-[11px]">* Kalikan faktor 0.85 untuk pasien Wanita (massa otot lebih rendah)</p>
+              </div>
+            }
+            secondaryFormulaDisplay={
+              <div className="space-y-1">
+                <p className="text-amber-300 font-bold text-xs">ABW (kg) = IBW + 0.4 × (BB Aktual - IBW)</p>
+                <p className="text-slate-300 text-[11px]">Bedside Schwartz (Anak): eGFR = (0.413 × Tinggi cm) / Scr</p>
+              </div>
+            }
+            variables={[
+              { symbol: 'CrCl', name: 'Creatinine Clearance', description: 'Laju pembersihan kreatinin ginjal terestimasi', unit: 'mL/menit' },
+              { symbol: 'Scr', name: 'Serum Creatinine', description: 'Kadar kreatinin dalam serum darah (Normal 0.6 - 1.2)', unit: 'mg/dL' },
+              { symbol: 'IBW', name: 'Ideal Body Weight', description: 'Berat Badan Ideal Devine (L: 50 + 2.3/inci; P: 45.5 + 2.3/inci)', unit: 'kg' },
+              { symbol: 'ABW', name: 'Adjusted Body Weight', description: 'Bobot terkoreksi untuk pasien obesitas', unit: 'kg' }
+            ]}
+            decisionRules={[
+              'Pasien Normal (BB Aktual ≤ 120% IBW): Gunakan Berat Badan Aktual (TBW) atau IBW.',
+              'Pasien Obesitas (BB Aktual > 120% IBW atau BMI ≥ 30): WAJIB gunakan ABW (Adjusted Body Weight) untuk menghitung klirens antibiotik hidrofilik (Aminoglikosida, Vankomisin) guna mencegah overdosis nefrotoksik.',
+              'Pasien Geriatri (Usia ≥ 65 th) dengan Scr rendah (<0.8 mg/dL akibat sarkopenia/atrofi massa otot): Bulatkan Scr ke 0.8 - 1.0 mg/dL agar estimasi CrCl tidak overestimate.'
+            ]}
+            clinicalPearls={[
+              'Stadium Gagal Ginjal KDIGO: G1 (≥90 Normal), G2 (60-89 Ringan), G3a (45-59 Ringan-Sedang), G3b (30-44 Sedang-Berat), G4 (15-29 Berat), G5 (<15 Gagal Ginjal Terminal / ESRD).',
+              'Metformin KONTRAINDIKASI MUTLAK pada eGFR < 30 mL/min karena risiko fatal Asidosis Laktat.',
+              'Allopurinol memerlukan penurunan dosis drastis pada CrCl < 20 mL/min untuk mencegah Sindrom Hipersensitivitas Allopurinol (AHS/DRESS).'
+            ]}
+            reference="KDIGO Clinical Practice Guideline for CKD 2023 & Cockcroft DW, Gault MH (Nephron 1976)"
+          />
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-5 bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
               <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
@@ -952,6 +1229,43 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'hepatic' && (
         <div className="space-y-6">
+          {/* Formula & Clinical Guide Card */}
+          <MedicalFormulaCard
+            title="Klasifikasi Skor Child-Pugh & Model for End-Stage Liver Disease (MELD)"
+            badge="Fungsi Hepar"
+            category="Penyesuaian Dosis Sirosis & Penyakit Hati"
+            theme="rose"
+            formulaDisplay={
+              <div className="space-y-1">
+                <p className="text-rose-300 font-bold text-xs">Skor Child-Pugh = Total Poin 5 Parameter (Skor 5 - 15)</p>
+                <p className="text-slate-300 text-[11px]">Kelas A (5-6 pt), Kelas B (7-9 pt), Kelas C (10-15 pt)</p>
+              </div>
+            }
+            secondaryFormulaDisplay={
+              <div className="space-y-1">
+                <p className="text-amber-300 font-bold text-xs">MELD = 9.57 ln(Cr) + 3.78 ln(Bilirubin) + 11.2 ln(INR) + 6.43</p>
+                <p className="text-slate-300 text-[11px]">Rentang Skor MELD: 6 hingga 40 (Prediktor mortalitas 90 hari)</p>
+              </div>
+            }
+            variables={[
+              { symbol: 'Enceph', name: 'Ensefalopati Hepatik', description: 'Grade 0 (1 pt), Grade 1-2 (2 pt), Grade 3-4 (3 pt)' },
+              { symbol: 'Ascites', name: 'Derajat Asites', description: 'Nihil (1 pt), Ringan/Terkontrol (2 pt), Sedang-Berat (3 pt)' },
+              { symbol: 'Bilirubin', name: 'Bilirubin Total', description: '<2.0 mg/dL (1 pt), 2.0-3.0 mg/dL (2 pt), >3.0 mg/dL (3 pt)', unit: 'mg/dL' },
+              { symbol: 'Albumin', name: 'Albumin Serum', description: '>3.5 g/dL (1 pt), 2.8-3.5 g/dL (2 pt), <2.8 g/dL (3 pt)', unit: 'g/dL' },
+              { symbol: 'INR', name: 'International Normalized Ratio', description: '<1.7 (1 pt), 1.7-2.3 (2 pt), >2.3 (3 pt)' }
+            ]}
+            decisionRules={[
+              'Child-Pugh Kelas A (5-6 poin, Kompensasi Baik): Penyesuaian dosis obat metabolit hepar biasanya tidak diperlukan.',
+              'Child-Pugh Kelas B (7-9 poin, Gangguan Sedang): Turunkan dosis awal sebesar 25% - 50% untuk obat dengan first-pass metabolism tinggi atau clearance hepar tinggi.',
+              'Child-Pugh Kelas C (10-15 poin, Dekompensasi Berat): Hindari obat dengan metabolisme hepar ekstensif, sedatif (risiko presipitasi koma hepatik), dan obat hepatotoksik (Paracetamol dosis tinggi, OAINS, Statin).'
+            ]}
+            clinicalPearls={[
+              'OAINS (Asam Mefenamat, Ibuprofen, Ketorolac) KONTRAINDIKASI pada sirosis hepatis karena memicu perdarahan varises esofagus dan Sindrom Hepatorenal (HRS).',
+              'Paracetamol pada sirosis tetap dapat digunakan sebagai lini pertama nyeri/demam namun dibatasi maksimal 2 gram/24 jam.'
+            ]}
+            reference="Child CG, Turcotte JG (1964) / Pugh RN et al. (Br J Surg 1973) & UNOS MELD Criteria"
+          />
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Input Panel */}
             <div className="lg:col-span-5 bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
@@ -1162,6 +1476,44 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'opioid' && (
         <div className="space-y-6">
+          {/* Formula & Clinical Guide Card */}
+          <MedicalFormulaCard
+            title="Pedoman Konversi Opioid CDC & Oral Morphine Equivalent (OME / MME)"
+            badge="Paliatif & Nyeri Kanker"
+            category="Manajemen Nyeri & Rotasi Opioid"
+            theme="amber"
+            formulaDisplay={
+              <div className="space-y-1">
+                <p className="text-amber-300 font-bold text-xs">Total 24h MME = Dosis Harian Opioid (mg) × Faktor Konversi Morfin Oral</p>
+                <p className="text-slate-300 text-[11px]">Target Opioid Baru = (Total MME × [1 - % Reduksi Toleransi Silang]) / Faktor Konversi Baru</p>
+              </div>
+            }
+            secondaryFormulaDisplay={
+              <div className="space-y-1">
+                <p className="text-rose-300 font-bold text-xs">Dosis Penyelamat (Breakthrough / PRN) = 10% - 15% dari Total Dosis 24 Jam</p>
+                <p className="text-slate-300 text-[11px]">Diberikan tiap 2-4 jam jika timbul nyeri tembus (*breakthrough pain*)</p>
+              </div>
+            }
+            variables={[
+              { symbol: 'MME', name: 'Morphine Milligram Equivalent', description: 'Standar baku pembanding kekuatan analgetik opioid terhadap morfin oral', unit: 'mg/hari' },
+              { symbol: 'Morfin Oral', name: 'Faktor 1.0', description: 'Baseline acuan equianalgesic', unit: 'mg' },
+              { symbol: 'Oksikodon Oral', name: 'Faktor 1.5', description: '10 mg Oksikodon = 15 mg Morfin Oral', unit: 'mg' },
+              { symbol: 'Hidromorfon Oral', name: 'Faktor 4.0', description: '2 mg Hidromorfon = 8 mg Morfin Oral', unit: 'mg' },
+              { symbol: 'Fentanil Patch', name: 'Faktor 2.4 / mcg/jam', description: '25 mcg/jam patch = 60 MME/hari', unit: 'mcg/jam' },
+              { symbol: 'Morfin IV', name: 'Faktor 3.0', description: '10 mg Morfin IV = 30 mg Morfin Oral', unit: 'mg' }
+            ]}
+            decisionRules={[
+              'Reduksi Toleransi Silang (Incomplete Cross-Tolerance): Saat rotasi ke opioid baru, kurangi dosis ekuivalen sebesar 25% - 50% untuk mencegah toksisitas fatal akibat reseptor opioid yang belum tersensitisasi.',
+              'Ambang Batas Waspada CDC (≥ 50 MME/hari): Gandakan pemantauan dan pertimbangkan resep sedia antidotum Nalokson.',
+              'Ambang Batas Bahaya CDC (≥ 90 MME/hari): Risiko overdosis dan depresi napas meningkat drastis; hindari kenaikan dosis tanpa konsultasi konsultan manajemen nyeri.'
+            ]}
+            clinicalPearls={[
+              'Fentanil patch transdermal TIDAK BOLEH digunakan untuk nyeri akut atau pasien yang belum toleran terhadap opioid (*opioid-naive*).',
+              'Selalu resepkan laksatif stimulan (Bisacodyl / Senna) bersamaan dengan inisiasi opioid jangka panjang untuk mencegah konstipasi terinduksi opioid.'
+            ]}
+            reference="CDC Clinical Practice Guideline for Prescribing Opioids for Pain (2022)"
+          />
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Input Opioid Source */}
             <div className="lg:col-span-5 bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
@@ -1317,7 +1669,44 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* TAB 4: IBW & BMI CALCULATOR */}
       {/* ========================================================================= */}
       {activeTab === 'ibw-bmi' && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
+        <div className="space-y-6">
+          {/* Formula & Clinical Guide Card */}
+          <MedicalFormulaCard
+            title="Rumus Berat Badan Ideal Devine (IBW), Terkoreksi (ABW) & BMI WHO Asia-Pasifik"
+            badge="Antropometri Medis"
+            category="Penyesuaian Farmakokinetik Obesitas"
+            theme="indigo"
+            formulaDisplay={
+              <div className="space-y-1">
+                <p className="text-indigo-300 font-bold text-xs">Laki-Laki: IBW (kg) = 50 + 2.3 × (Tinggi Badan dalam Inci - 60)</p>
+                <p className="text-indigo-300 font-bold text-xs">Perempuan: IBW (kg) = 45.5 + 2.3 × (Tinggi Badan dalam Inci - 60)</p>
+              </div>
+            }
+            secondaryFormulaDisplay={
+              <div className="space-y-1">
+                <p className="text-amber-300 font-bold text-xs">ABW (kg) = IBW + 0.4 × (Berat Aktual - IBW)</p>
+                <p className="text-slate-300 text-[11px]">BMI = Berat Badan (kg) / [Tinggi Badan (m)]²</p>
+              </div>
+            }
+            variables={[
+              { symbol: 'IBW', name: 'Ideal Body Weight (Devine 1974)', description: 'Estimasi massa tubuh tanpa lemak berdasarkan tinggi badan', unit: 'kg' },
+              { symbol: 'ABW', name: 'Adjusted Body Weight (40%)', description: 'Memperhitungkan 40% penetrasi obat hidrofilik ke jaringan adiposa', unit: 'kg' },
+              { symbol: 'BMI', name: 'Body Mass Index', description: 'Indeks massa tubuh rasio berat terhadap kuadrat tinggi', unit: 'kg/m²' },
+              { symbol: '1 Inci', name: 'Konversi Metrik', description: '1 Inci = 2.54 cm (60 Inci = 152.4 cm)', unit: 'cm' }
+            ]}
+            decisionRules={[
+              'Dosis Berdasarkan IBW: Digoxin, Teofilin/Aminofilin, Suksinilkolin (obat dengan volume distribusi rendah pada lemak).',
+              'Dosis Berdasarkan ABW (Adjusted): Aminoglikosida (Gentamisin, Amikasin), Vankomisin, Daptomisin pada pasien obesitas (Actual > 120% IBW).',
+              'Dosis Berdasarkan Total Weight (Aktual): Enoxaparin LMWH, Heparin, Sefalosporin.'
+            ]}
+            clinicalPearls={[
+              'Klasifikasi BMI Standar Asia-Pasifik (WHO WPRO): Underweight (<18.5), Normal (18.5 - 22.9), Overweight / At Risk (23.0 - 24.9), Obesitas I (25.0 - 29.9), Obesitas II (≥30.0 kg/m²).',
+              'Batas ambang obesitas populasi Asia lebih rendah (25.0 kg/m²) dibandingkan Kaukasia (30.0 kg/m²) karena tingginya persentase lemak viseral dan risiko kardio-metabolik.'
+            ]}
+            reference="Devine BJ (Drug Intell Clin Pharm 1974) & WHO Western Pacific Region Obesity Criteria"
+          />
+
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
             <Scale className="w-6 h-6 text-teal-600" />
             <div>
@@ -1382,13 +1771,53 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
             </div>
           </div>
         </div>
-      )}
+      </div>
+    )}
 
       {/* ========================================================================= */}
       {/* TAB 5: OXYGEN MEDIS CALCULATOR */}
       {/* ========================================================================= */}
       {activeTab === 'oxygen' && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
+        <div className="space-y-6">
+          {/* Formula & Clinical Guide Card */}
+          <MedicalFormulaCard
+            title="Rumus Durasi Tabung Oksigen Medis & Estimasi Fraksi FiO2"
+            badge="Emergensi & Respirasi"
+            category="Manajemen Pasokan Gas Medis"
+            theme="blue"
+            formulaDisplay={
+              <div className="space-y-1">
+                <p className="text-blue-300 font-bold text-xs">Durasi Tabung (menit) = [(Tekanan Manometer psi - 200 psi batas aman) × Faktor Tabung] / Laju Aliran (LPM)</p>
+                <p className="text-slate-300 text-[11px]">Sisa Volume Oksigen (Liter) = (Tekanan psi - 200) × Faktor Tabung</p>
+              </div>
+            }
+            secondaryFormulaDisplay={
+              <div className="space-y-1">
+                <p className="text-amber-300 font-bold text-xs">Estimasi FiO2 Nasal Kanul = 20% + (4% × Laju LPM)</p>
+                <p className="text-slate-300 text-[11px]">1 LPM = 24%, 2 LPM = 28%, 3 LPM = 32%, 4 LPM = 36%, 6 LPM = 44%</p>
+              </div>
+            }
+            variables={[
+              { symbol: 'psi', name: 'Tekanan Manometer', description: 'Tekanan regulator tabung gas oksigen (Penuh ~2000-2200 psi)', unit: 'psi' },
+              { symbol: 'LPM', name: 'Laju Alir (Flowmeter)', description: 'Kecepatan aliran gas oksigen ke pasien', unit: 'Liter/menit' },
+              { symbol: 'Tipe D', name: 'Faktor Silinder 0.16', description: 'Tabung portabel kecil (~350-400 Liter)', unit: 'L/psi' },
+              { symbol: 'Tipe E', name: 'Faktor Silinder 0.28', description: 'Tabung emergency trolley standar RS (~680 Liter)', unit: 'L/psi' },
+              { symbol: 'Tipe M / H', name: 'Faktor Silinder 1.56 / 3.14', description: 'Tabung sentral stasioner besar (~3000 - 6900 Liter)', unit: 'L/psi' }
+            ]}
+            decisionRules={[
+              'Nasal Cannula (1 - 6 LPM): Memberikan FiO2 24% - 44%. Cocok untuk hipoksia ringan tanpa distress pernapasan berat.',
+              'Simple Face Mask (5 - 8 LPM): Memberikan FiO2 40% - 60%. Aliran minimal 5 LPM wajib dijaga untuk mencegah rebreathing CO2.',
+              'Non-Rebreathing Mask / NRM (10 - 15 LPM): Memberikan FiO2 80% - 95%. Pastikan kantong reservoir terisi penuh sebelum dipasangkan ke wajah pasien.',
+              'Venturi Mask: Memberikan FiO2 tetap dan presisi (24%, 28%, 35%, 40%, 50%). Alat pilihan untuk pasien PPOK / COPD dengan retensi CO2.'
+            ]}
+            clinicalPearls={[
+              'Batas Aman Manometer (Safe Margin): Selalu sisakan 200 psi sebagai batas aman penggantian tabung untuk mencegah dekompresi mendadak.',
+              'Target Saturasi Oksigen (SpO2): 94% - 98% pada pasien umum, dan 88% - 92% pada pasien PPOK kronik dengan risiko hiperkapnia.'
+            ]}
+            reference="American Association for Respiratory Care (AARC) Clinical Practice Guidelines & BTS Oxygen Guideline"
+          />
+
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
             <Wind className="w-6 h-6 text-teal-600" />
             <div>
@@ -1469,7 +1898,8 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
             </div>
           </div>
         </div>
-      )}
+      </div>
+    )}
 
 
       {/* ========================================================================= */}
@@ -1477,6 +1907,42 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'pediatric' && (
         <div className="space-y-4">
+          {/* Formula & Clinical Guide Card */}
+          <MedicalFormulaCard
+            title="Rumus Luas Permukaan Tubuh Mosteller (BSA) & Konversi Dosis Anak"
+            badge="Dosis Pediatrik"
+            category="Penyesuaian Farmakoterapi Anak & Bayi"
+            theme="emerald"
+            formulaDisplay={
+              <div className="space-y-1">
+                <p className="text-emerald-300 font-bold text-xs">Mosteller BSA (m²) = √[(Tinggi Badan cm × Berat Badan kg) / 3600]</p>
+                <p className="text-slate-300 text-[11px]">Dosis Anak (mg) = BSA Anak (m²) / 1.73 m² × Dosis Dewasa</p>
+              </div>
+            }
+            secondaryFormulaDisplay={
+              <div className="space-y-1">
+                <p className="text-amber-300 font-bold text-xs">Rumus Clark (BB): Dosis = (BB kg / 70) × Dosis Dewasa</p>
+                <p className="text-slate-300 text-[11px]">Young (&lt;8 th): [Usia / (Usia + 12)] × Dosis • Dilling (≥8 th): (Usia / 20) × Dosis</p>
+              </div>
+            }
+            variables={[
+              { symbol: 'BSA', name: 'Body Surface Area (Mosteller)', description: 'Luas permukaan tubuh terestimasi (Rata-rata dewasa = 1.73 m²)', unit: 'm²' },
+              { symbol: 'mg/kgBB', name: 'Dosis Berbasis Bobot', description: 'Standar emas penentuan dosis obat pediatrik', unit: 'mg/kg/kali atau hari' },
+              { symbol: 'Clark', name: 'Rumus Clark', description: 'Konversi berdasarkan berat badan anak (kg) terhadap 70 kg dewasa' },
+              { symbol: 'Young', name: 'Rumus Young', description: 'Konversi berdasarkan usia anak di bawah 8 tahun' }
+            ]}
+            decisionRules={[
+              'Metode Dosis Berbasis BB (mg/kgBB): Merupakan standar emas rekomendasi IDAI dan WHO untuk sebagian besar antibiotik dan antipiretik anak.',
+              'Metode Dosis Berbasis BSA (mg/m²): Wajib digunakan untuk obat dengan indeks terapi sempit seperti sitostatika kemoterapi, kortikosteroid sistemik, dan obat imunomodulator.',
+              'Batas Maksimal: Dosis kalkulasi pediatrik TIDAK BOLEH melebihi dosis maksimal orang dewasa normal.'
+            ]}
+            clinicalPearls={[
+              'Aspirin (Asam Asetilsalisilat) KONTRAINDIKASI MUTLAK pada anak < 12 tahun yang demam akibat infeksi virus karena risiko Reye Syndrome fatal.',
+              'Kuinolon (Siprofloksasin) dan Tetrasiklin (Doksisiklin) dihindari pada anak < 8-12 tahun karena risiko artropati kartilago dan diskolorisasi gigi permanen.'
+            ]}
+            reference="IDAI Pedoman Dosis Anak & Mosteller RD (N Engl J Med 1987)"
+          />
+
           <div className="p-4.5 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 dark:from-emerald-950/40 dark:via-teal-950/40 dark:to-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 rounded-2xl flex items-center justify-between gap-3 shadow-xs">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700/60">
@@ -1505,6 +1971,42 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'compounding' && (
         <div className="space-y-4">
+          {/* Formula & Clinical Guide Card */}
+          <MedicalFormulaCard
+            title="Metode Peracikan Puyer (d.t.d vs S.L.) & Stabilitas Beyond-Use Date (USP <795>)"
+            badge="Peracikan Non-Steril"
+            category="Teknologi Farmasi & Dispensing"
+            theme="cyan"
+            formulaDisplay={
+              <div className="space-y-1">
+                <p className="text-cyan-300 font-bold text-xs">Metode d.t.d (da tales doses): Total Bahan Aktif = Dosis per Bungkus × Jumlah Bungkus (N)</p>
+                <p className="text-slate-300 text-[11px]">Metode Non-d.t.d: Dosis per Bungkus = Dosis Total Tertulis / Jumlah Bungkus (N)</p>
+              </div>
+            }
+            secondaryFormulaDisplay={
+              <div className="space-y-1">
+                <p className="text-amber-300 font-bold text-xs">Bobot S.L. Pengisi (mg) = (Target Bobot Bungkus × N) - Total Bobot Tablet Aktif</p>
+                <p className="text-slate-300 text-[11px]">Bobot standar 1 bungkus puyer anak = 200 - 300 mg (Maks 500 mg)</p>
+              </div>
+            }
+            variables={[
+              { symbol: 'd.t.d', name: 'Da Tales Doses', description: 'Instruksi resep: "Berikan dengan dosis sebanyak itu untuk setiap bungkus"' },
+              { symbol: 'N', name: 'Numero (Jumlah)', description: 'Jumlah total bungkus puyer yang diracik', unit: 'Bungkus' },
+              { symbol: 'S.L.', name: 'Saccharum Lactis', description: 'Gula susu pengisi inert untuk menyeragamkan bobot serbuk puyer', unit: 'mg / gram' },
+              { symbol: 'BUD', name: 'Beyond-Use Date', description: 'Batas kedaluwarsa sediaan racikan setelah dibuka/digerus', unit: 'Hari / Bulan' }
+            ]}
+            decisionRules={[
+              'Metode d.t.d: Selalu kalikan kekuatan obat dengan N. Misal: Paracetamol 100 mg d.t.d No. X -> Butuh 1000 mg (2 tablet 500 mg).',
+              'Metode Non-d.t.d: Dosis tertulis adalah untuk seluruh racikan. Misal: Paracetamol 500 mg divide in partes aequales No. X -> Tiap bungkus berisi 50 mg.',
+              'Pencegahan Inkompatibilitas: Jangan mencampur obat higroskopis atau garam effervescent dalam kertas perkamen standar tanpa wadah kedap udara.'
+            ]}
+            clinicalPearls={[
+              'Beyond-Use Date (BUD) Puyer USP <795>: 25% dari sisa masa kedaluwarsa terpendek bahan obat atau maksimal 6 bulan (pada suhu ruang kering terlindung cahaya).',
+              'Rekonstitusi Sirup Kering Antibiotik (Amoksisilin, Sefadroksil): BUD maksimal 7 - 14 hari pada suhu kulkas (2-8°C).'
+            ]}
+            reference="USP <795> Pharmaceutical Compounding Nonsterile Preparations & Farmakope Indonesia Ed. VI"
+          />
+
           <div className="p-4.5 bg-gradient-to-r from-cyan-50 via-sky-50 to-cyan-50 dark:from-cyan-950/40 dark:via-sky-950/40 dark:to-cyan-950/40 border border-cyan-200 dark:border-cyan-800/60 rounded-2xl flex items-center justify-between gap-3 shadow-xs">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-xl bg-cyan-100 dark:bg-cyan-900/50 text-cyan-700 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-700/60">
@@ -1533,6 +2035,42 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'syringe-pump' && (
         <div className="space-y-6">
+          {/* Formula & Clinical Guide Card */}
+          <MedicalFormulaCard
+            title="Rumus Laju Titrasi Syringe Pump & Kecepatan Tetesan Infus Gravitasi"
+            badge="ICU & Emergensi"
+            category="Titrasi Vasoaktif & Infus Kontinu"
+            theme="sky"
+            formulaDisplay={
+              <div className="space-y-1">
+                <p className="text-sky-300 font-bold text-xs">Laju Syringe Pump (mL/jam) = [Dosis (mcg/kg/menit) × BB (kg) × 60] / Konsentrasi (mcg/mL)</p>
+                <p className="text-slate-300 text-[11px]">Konsentrasi Spuit (mcg/mL) = [Total Obat dalam Spuit (mg) × 1000] / Total Volume Spuit (mL)</p>
+              </div>
+            }
+            secondaryFormulaDisplay={
+              <div className="space-y-1">
+                <p className="text-amber-300 font-bold text-xs">Tetesan Infus (gtt/menit) = [Total Volume (mL) × Faktor Tetes] / [Durasi (menit)]</p>
+                <p className="text-slate-300 text-[11px]">Makro Dewasa: 20 gtt/mL (1 mL/jam ≈ 1/3 gtt/min) • Mikro Pediatrik: 60 gtt/mL (1 mL/jam = 1 mikro-gtt/min)</p>
+              </div>
+            }
+            variables={[
+              { symbol: 'mcg/kg/min', name: 'Target Titrasi Dosis', description: 'Kecepatan pemberian obat inotropik per kgBB per menit' },
+              { symbol: 'BB (kg)', name: 'Berat Badan Pasien', description: 'Berat aktual pasien untuk titrasi obat ICU', unit: 'kg' },
+              { symbol: 'Spuit 50 mL', name: 'Volume Pelarutan', description: 'Volume standar syringe pump ICU (biasanya 50 mL NS/D5W)', unit: 'mL' },
+              { symbol: 'Faktor Tetes', name: 'Drop Factor', description: 'Makro standar = 20 gtt/mL (Baxter = 15); Mikro = 60 gtt/mL', unit: 'gtt/mL' }
+            ]}
+            decisionRules={[
+              'Norepinephrine: Sediaan standar 4 mg dalam 50 mL D5W (Konsentrasi = 80 mcg/mL). Dosis awal 0.01 - 0.05 mcg/kg/min, titrasi hingga target MAP ≥ 65 mmHg.',
+              'Dobutamine & Dopamine: Sediaan standar 250 mg / 200 mg dalam 50 mL (Konsentrasi = 5000 mcg/mL / 4000 mcg/mL). Dosis titrasi 2.5 - 20 mcg/kg/min.',
+              'Nicardipine: Sediaan 10 mg dalam 50 mL (Konsentrasi = 200 mcg/mL). Dosis awal 0.5 - 5 mg/jam via syringe pump.'
+            ]}
+            clinicalPearls={[
+              'Jalur Vena Sentral (CVC) WAJIB digunakan untuk vasopresor konsentrasi tinggi (Norepinephrine, Epinephrine, Dopamine) untuk mencegah nekrosis jaringan akibat ekstravasasi.',
+              'Gunakan in-line filter dan spuit pelindung cahaya hitam untuk obat yang fotosensitif seperti Nitroprusside dan Norepinephrine.'
+            ]}
+            reference="ASHP Guidelines on Injectable Drug Administration & Trissel's 2024"
+          />
+
           <div className="p-4.5 bg-gradient-to-r from-sky-50 via-blue-50 to-sky-50 dark:from-sky-950/40 dark:via-blue-950/40 dark:to-sky-950/40 border border-sky-200 dark:border-sky-800/60 rounded-2xl flex items-center justify-between gap-3 shadow-xs">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-xl bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-700/60">

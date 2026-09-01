@@ -20,34 +20,34 @@ import {
   ChevronRight, 
   X, 
   Printer, 
-  Clock,
-  HelpCircle,
-  Check,
-  Droplets,
-  ArrowUpRight,
-  ShieldCheck,
-  Smile,
-  PackageCheck,
-  Activity
+  Clock, 
+  HelpCircle, 
+  Droplets, 
+  ArrowUpRight, 
+  ShieldCheck, 
+  Smile, 
+  PackageCheck, 
+  Activity, 
+  MessageSquare, 
+  Copy, 
+  CheckCheck, 
+  Tag,
+  Edit3
 } from 'lucide-react';
-
 import { ClinicBrandingSettings } from '../types';
-import { Edit3 } from 'lucide-react';
 
 interface MedicationUsageGuideProps {
   clinicBranding?: ClinicBrandingSettings;
-  onOpenBrandingModal?: () => void;
   onSelectTab?: (tab: string) => void;
 }
 
 export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({ 
-  clinicBranding,
-  onOpenBrandingModal,
-  onSelectTab 
+  clinicBranding
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('Semua');
   const [activeGuideModal, setActiveGuideModal] = useState<MedicationGuide | null>(null);
+  const [copiedGuideId, setCopiedGuideId] = useState<string | null>(null);
 
   // Icon mapping helper for main cards
   const renderIcon = (iconName: string, sizeClass = 'w-6 h-6') => {
@@ -59,6 +59,7 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
       case 'Wind': return <Wind className={sizeClass} />;
       case 'CircleDot': return <CircleDot className={sizeClass} />;
       case 'Disc': return <Disc className={sizeClass} />;
+      case 'Activity': return <Activity className={sizeClass} />;
       case 'ShieldAlert': default: return <ShieldAlert className={sizeClass} />;
     }
   };
@@ -69,83 +70,83 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
 
     if (text.includes('cuci') || text.includes('tangan') || text.includes('bersih')) {
       return {
-        icon: <Sparkles className="w-5 h-5 text-emerald-600" />,
-        bg: 'bg-emerald-50 border-emerald-200 text-emerald-700',
+        icon: <Sparkles className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
+        bg: 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300',
         badge: 'Persiapan Higienis'
       };
     }
-    if (text.includes('kepala') || text.includes('tengadahkan') || text.includes('duduk') || text.includes('miring') || text.includes('berbaring')) {
+    if (text.includes('kepala') || text.includes('tengadahkan') || text.includes('duduk') || text.includes('miring') || text.includes('berbaring') || text.includes('menunduk')) {
       return {
-        icon: <ArrowUpRight className="w-5 h-5 text-indigo-600" />,
-        bg: 'bg-indigo-50 border-indigo-200 text-indigo-700',
+        icon: <ArrowUpRight className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />,
+        bg: 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300',
         badge: 'Posisi Tubuh'
       };
     }
     if (text.includes('kelopak') || text.includes('mata') || text.includes('kantung')) {
       return {
-        icon: <Eye className="w-5 h-5 text-sky-600" />,
-        bg: 'bg-sky-50 border-sky-200 text-sky-700',
-        badge: 'Area Pengaplikasian'
+        icon: <Eye className="w-5 h-5 text-sky-600 dark:text-sky-400" />,
+        bg: 'bg-sky-50 dark:bg-sky-950/60 border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300',
+        badge: 'Area Mata'
       };
     }
     if (text.includes('telinga') || text.includes('daun telinga')) {
       return {
-        icon: <Ear className="w-5 h-5 text-amber-600" />,
-        bg: 'bg-amber-50 border-amber-200 text-amber-700',
+        icon: <Ear className="w-5 h-5 text-amber-600 dark:text-amber-400" />,
+        bg: 'bg-amber-50 dark:bg-amber-950/60 border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300',
         badge: 'Area Telinga'
       };
     }
     if (text.includes('tetes') || text.includes('cairan') || text.includes('penetesan')) {
       return {
-        icon: <Droplets className="w-5 h-5 text-blue-600" />,
-        bg: 'bg-blue-50 border-blue-200 text-blue-700',
+        icon: <Droplets className="w-5 h-5 text-blue-600 dark:text-blue-400" />,
+        bg: 'bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300',
         badge: 'Dosis & Penetesan'
       };
     }
-    if (text.includes('inhaler') || text.includes('turbuhaler') || text.includes('diskus') || text.includes('napas') || text.includes('hisap') || text.includes('semprot')) {
+    if (text.includes('inhaler') || text.includes('turbuhaler') || text.includes('diskus') || text.includes('napas') || text.includes('hisap') || text.includes('semprot') || text.includes('nebul')) {
       return {
-        icon: <Wind className="w-5 h-5 text-teal-600" />,
-        bg: 'bg-teal-50 border-teal-200 text-teal-700',
+        icon: <Wind className="w-5 h-5 text-teal-600 dark:text-teal-400" />,
+        bg: 'bg-teal-50 dark:bg-teal-950/60 border-teal-200 dark:border-teal-800 text-teal-700 dark:text-teal-300',
         badge: 'Inhalasi & Respirasi'
       };
     }
-    if (text.includes('jarum') || text.includes('injeksi') || text.includes('pen insulin') || text.includes('dosis unit') || text.includes('cubit')) {
+    if (text.includes('jarum') || text.includes('injeksi') || text.includes('pen insulin') || text.includes('dosis unit') || text.includes('cubit') || text.includes('suntik')) {
       return {
-        icon: <Syringe className="w-5 h-5 text-rose-600" />,
-        bg: 'bg-rose-50 border-rose-200 text-rose-700',
+        icon: <Syringe className="w-5 h-5 text-rose-600 dark:text-rose-400" />,
+        bg: 'bg-rose-50 dark:bg-rose-950/60 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300',
         badge: 'Teknik Injeksi'
       };
     }
-    if (text.includes('tutup') || text.includes('tekan') || text.includes('sudut') || text.includes('tahan')) {
+    if (text.includes('tutup') || text.includes('tekan') || text.includes('sudut') || text.includes('tahan') || text.includes('kunci')) {
       return {
-        icon: <ShieldCheck className="w-5 h-5 text-emerald-600" />,
-        bg: 'bg-emerald-50 border-emerald-200 text-emerald-700',
-        badge: 'Penguncian Obat'
+        icon: <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
+        bg: 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300',
+        badge: 'Retensi Obat'
       };
     }
     if (text.includes('kumur') || text.includes('bersihkan') || text.includes('lap')) {
       return {
-        icon: <Smile className="w-5 h-5 text-purple-600" />,
-        bg: 'bg-purple-50 border-purple-200 text-purple-700',
+        icon: <Smile className="w-5 h-5 text-purple-600 dark:text-purple-400" />,
+        bg: 'bg-purple-50 dark:bg-purple-950/60 border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300',
         badge: 'Pembersihan Akhir'
       };
     }
     if (text.includes('simpan') || text.includes('kulkas') || text.includes('wadah')) {
       return {
-        icon: <PackageCheck className="w-5 h-5 text-amber-600" />,
-        bg: 'bg-amber-50 border-amber-200 text-amber-700',
+        icon: <PackageCheck className="w-5 h-5 text-amber-600 dark:text-amber-400" />,
+        bg: 'bg-amber-50 dark:bg-amber-950/60 border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300',
         badge: 'Penyimpanan'
       };
     }
 
     return {
-      icon: <Activity className="w-5 h-5 text-teal-600" />,
-      bg: 'bg-teal-50 border-teal-200 text-teal-700',
+      icon: <Activity className="w-5 h-5 text-teal-600 dark:text-teal-400" />,
+      bg: 'bg-teal-50 dark:bg-teal-950/60 border-teal-200 dark:border-teal-800 text-teal-700 dark:text-teal-300',
       badge: `Langkah ${stepNumber}`
     };
   };
 
-  const categories = ['Semua', 'Mata & Telinga', 'Inhalasi & Respirasi', 'Injeksi', 'Suppositoria & Vaginal'];
+  const categories = ['Semua', 'Inhalasi & Respirasi', 'Mata & Telinga', 'Injeksi', 'Suppositoria & Vaginal', 'Topikal & Oral Khusus'];
 
   // Deduplicated clean guides array
   const cleanGuides = useMemo(() => deduplicateMedicationGuides(MEDICATION_GUIDES), []);
@@ -158,6 +159,8 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
       const matchesSearch = !q || 
         guide.title.toLowerCase().includes(q) || 
         guide.shortDesc.toLowerCase().includes(q) ||
+        (guide.popularBrands && guide.popularBrands.some(b => b.toLowerCase().includes(q))) ||
+        guide.steps.some(s => s.title.toLowerCase().includes(q) || s.description.toLowerCase().includes(q)) ||
         guide.commonMistakes.some(m => m.toLowerCase().includes(q));
       return matchesCategory && matchesSearch;
     });
@@ -167,11 +170,29 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
     window.print();
   };
 
+  const handleCopyWhatsAppGuide = (guide: MedicationGuide, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+
+    const clinicHeader = clinicBranding?.clinicName 
+      ? `*${clinicBranding.clinicName.toUpperCase()}*\n`
+      : `*PANDUAN EDUKASI PENGGUNAAN OBAT*\n`;
+
+    const stepsText = guide.steps.map((s) => `${s.stepNumber}. *${s.title}*: ${s.description}${s.importantNote ? ` _(⚠️ ${s.importantNote})_` : ''}`).join('\n');
+    const warningsText = guide.importantWarnings.map((w) => `• ${w}`).join('\n');
+
+    const formattedText = `${clinicHeader}*PANDUAN CARA PAKAI: ${guide.title.toUpperCase()}*\n----------------------------------------\n*Deskripsi:* ${guide.shortDesc}\n\n*LANGKAH PENGGUNAAN:*\n${stepsText}\n\n*PERINGATAN PENTING:*\n${warningsText}\n\n*PENYIMPANAN:* ${guide.storageAdvice}\n\n_Semoga lekas sembuh! Untuk konsultasi obat lebih lanjut, hubungi Apoteker kami._`;
+
+    navigator.clipboard.writeText(formattedText);
+    setCopiedGuideId(guide.id);
+    setTimeout(() => setCopiedGuideId(null), 2500);
+  };
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto animate-in fade-in duration-200 print:max-w-none print:w-full print:m-0 print:p-0">
       
       {/* SCREEN UI WRAPPER */}
       <div className="space-y-6 print:hidden">
+        
         {/* Header Banner */}
         <div className="bg-gradient-to-r from-slate-900 via-[#0c1c24] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 relative overflow-hidden">
           <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
@@ -180,148 +201,196 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
           <div className="relative z-10 max-w-3xl space-y-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold border border-teal-500/30">
               <BookOpen className="w-3.5 h-3.5" />
-              <span>Panduan Edukasi Pasien & Apoteker</span>
+              <span>Panduan Pelayanan Informasi Obat (PIO) &amp; Edukasi Pasien</span>
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white font-outfit">
-              Panduan Tata Cara <span className="text-teal-400">Penggunaan Obat</span>
+              Panduan Tata Cara <span className="text-teal-400">Penggunaan Obat Khusus</span>
             </h1>
             <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-              Edukasi langkah demi langkah cara penggunaan bentuk sediaan khusus (Tetes mata, Tetes telinga, Salep mata, Pen Insulin, Inhaler, Turbuhaler, Diskus, Suppositoria, dan Ovula) untuk efektifitas terapi maksimal.
+              Database komprehensif <strong>26 sediaan khusus</strong> (Inhaler MDI/Spacer, Turbuhaler, Diskus, Respimat, Pen Insulin, Ozempic, Enoxaparin, EpiPen, Suppositoria, Ovula, Koyo Fentanyl, FTU Salep Steroid, hingga ISDN Sublingual) dilengkapi instruksi langkah demi langkah dan lembar cetak edukasi ber-KOP resmi.
             </p>
           </div>
         </div>
 
-      {/* Filter & Search Bar */}
-      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm space-y-4">
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-          {/* Search Bar */}
-          <div className="relative flex-1">
-            <Search className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari sediaan (misal: tetes mata, insulin, inhaler, suppositoria)..."
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-
-          {/* Result Count Badge */}
-          <div className="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-2 rounded-xl self-start sm:self-auto flex items-center gap-1.5">
-            <Info className="w-3.5 h-3.5 text-teal-600" />
-            <span>Menampilkan {filteredGuides.length} dari {MEDICATION_GUIDES.length} Panduan</span>
-          </div>
-        </div>
-
-        {/* Category Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-          {categories.map((cat) => {
-            const isActive = selectedCategory === cat;
-            return (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
-                  isActive
-                    ? 'bg-teal-600 text-white shadow-xs font-bold'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800'
-                }`}
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Guide Cards Grid */}
-      {filteredGuides.length === 0 ? (
-        <div className="bg-white rounded-2xl p-12 text-center border border-slate-200 space-y-3">
-          <HelpCircle className="w-12 h-12 text-slate-300 mx-auto" />
-          <h3 className="text-base font-bold text-slate-700">Panduan Obat Tidak Ditemukan</h3>
-          <p className="text-xs text-slate-500 max-w-md mx-auto">
-            Tidak ada panduan penggunaan yang cocok dengan kata kunci "{searchQuery}". Coba kata kunci lain seperti tetes mata, insulin, atau inhaler.
-          </p>
-          <button
-            onClick={() => { setSearchQuery(''); setSelectedCategory('Semua'); }}
-            className="px-4 py-2 text-xs font-semibold text-teal-700 bg-teal-50 rounded-xl hover:bg-teal-100 transition-colors"
-          >
-            Reset Pencarian
-          </button>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredGuides.map((guide) => (
-            <div
-              key={guide.id}
-              onClick={() => setActiveGuideModal(guide)}
-              className="bg-white rounded-2xl p-5 border border-slate-200 hover:border-teal-500/50 hover:shadow-lg transition-all duration-200 cursor-pointer flex flex-col justify-between group relative overflow-hidden"
-            >
-              <div className="space-y-3">
-                {/* Card Top: Icon & Category */}
-                <div className="flex items-start justify-between gap-3">
-                  <div className="p-3 rounded-2xl bg-teal-50 text-teal-600 border border-teal-100 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-200 shadow-2xs">
-                    {renderIcon(guide.iconName, 'w-6 h-6')}
-                  </div>
-                  <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border shadow-2xs ${
-                    guide.category === 'Injeksi'
-                      ? 'bg-pink-50 text-pink-700 border-pink-300'
-                      : guide.category === 'Inhalasi & Respirasi'
-                      ? 'bg-purple-50 text-purple-700 border-purple-300'
-                      : guide.category === 'Suppositoria & Vaginal'
-                      ? 'bg-rose-50 text-rose-700 border-rose-300'
-                      : 'bg-sky-50 text-sky-700 border-sky-300'
-                  }`}>
-                    {guide.category}
-                  </span>
-                </div>
-
-                {/* Title & Short Description */}
-                <div>
-                  <h3 className="text-base font-bold text-slate-800 group-hover:text-teal-700 transition-colors flex items-center gap-1.5">
-                    {guide.title}
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
-                    {guide.shortDesc}
-                  </p>
-                </div>
-
-                {/* Quick Info Badges */}
-                <div className="pt-2 flex items-center gap-3 text-[11px] text-slate-500 border-t border-slate-100">
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-teal-500" />
-                    {guide.steps.length} Langkah Utama
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Thermometer className="w-3.5 h-3.5 text-amber-500" />
-                    Simpan Terawat
-                  </span>
-                </div>
-              </div>
-
-              {/* Action Link Footer */}
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-teal-600 group-hover:text-teal-700">
-                <span>Buka Panduan Lengkap</span>
-                <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-              </div>
+        {/* Filter & Search Bar */}
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            
+            {/* Search Bar */}
+            <div className="relative flex-1">
+              <Search className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Cari sediaan atau merk obat (misal: Symbicort, Ventolin, Ozempic, Lovenox, Spiriva, Microlax)..."
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all font-medium"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
             </div>
-          ))}
+
+            {/* Result Count Badge */}
+            <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded-xl self-start sm:self-auto flex items-center gap-1.5 shrink-0">
+              <Info className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+              <span>Menampilkan {filteredGuides.length} dari {cleanGuides.length} Panduan</span>
+            </div>
+          </div>
+
+          {/* Category Tabs */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {categories.map((cat) => {
+              const isActive = selectedCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer font-outfit ${
+                    isActive
+                      ? 'bg-teal-600 text-white shadow-xs'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      )}
+
+        {/* Guide Cards Grid */}
+        {filteredGuides.length === 0 ? (
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-12 text-center border border-slate-200 dark:border-slate-800 space-y-3">
+            <HelpCircle className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto" />
+            <h3 className="text-base font-bold text-slate-700 dark:text-slate-200">Panduan Obat Tidak Ditemukan</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+              Tidak ada panduan penggunaan yang cocok dengan kata kunci "{searchQuery}". Coba gunakan nama obat umum seperti Symbicort, Insulin, Inhaler, atau Suppositoria.
+            </p>
+            <button
+              onClick={() => { setSearchQuery(''); setSelectedCategory('Semua'); }}
+              className="px-4 py-2 text-xs font-bold text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/60 rounded-xl hover:bg-teal-100 border border-teal-200 dark:border-teal-800 transition-colors cursor-pointer"
+            >
+              Reset Pencarian
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filteredGuides.map((guide) => (
+              <div
+                key={guide.id}
+                onClick={() => setActiveGuideModal(guide)}
+                className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 hover:border-teal-500/50 hover:shadow-lg transition-all duration-200 cursor-pointer flex flex-col justify-between group relative overflow-hidden"
+              >
+                <div className="space-y-3">
+                  {/* Card Top: Icon & Category */}
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="p-3 rounded-2xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border border-teal-100 dark:border-teal-800 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-200 shadow-2xs">
+                      {renderIcon(guide.iconName, 'w-6 h-6')}
+                    </div>
+                    <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border shadow-2xs font-outfit ${
+                      guide.category === 'Injeksi'
+                        ? 'bg-pink-50 dark:bg-pink-950/60 text-pink-700 dark:text-pink-300 border-pink-300 dark:border-pink-800'
+                        : guide.category === 'Inhalasi & Respirasi'
+                        ? 'bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border-purple-300 dark:border-purple-800'
+                        : guide.category === 'Suppositoria & Vaginal'
+                        ? 'bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800'
+                        : guide.category === 'Topikal & Oral Khusus'
+                        ? 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-800'
+                        : 'bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border-sky-300 dark:border-sky-800'
+                    }`}>
+                      {guide.category}
+                    </span>
+                  </div>
+
+                  {/* Title & Short Description */}
+                  <div>
+                    <h3 className="text-base font-black text-slate-800 dark:text-slate-100 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors font-outfit">
+                      {guide.title}
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed font-medium">
+                      {guide.shortDesc}
+                    </p>
+                  </div>
+
+                  {/* Popular Brand Tags */}
+                  {guide.popularBrands && guide.popularBrands.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-1 pt-1">
+                      <span className="text-[10px] text-slate-400 font-bold flex items-center gap-0.5">
+                        <Tag className="w-2.5 h-2.5" />
+                      </span>
+                      {guide.popularBrands.slice(0, 3).map((brand, bIdx) => (
+                        <span
+                          key={bIdx}
+                          className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold border border-slate-200 dark:border-slate-700"
+                        >
+                          {brand}
+                        </span>
+                      ))}
+                      {guide.popularBrands.length > 3 && (
+                        <span className="text-[10px] text-slate-400 font-bold">
+                          +{guide.popularBrands.length - 3} lainnya
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Quick Info Badges */}
+                  <div className="pt-2 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-teal-500" />
+                      {guide.steps.length} Langkah Utama
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Thermometer className="w-3.5 h-3.5 text-amber-500" />
+                      Simpan Terstandar
+                    </span>
+                  </div>
+                </div>
+
+                {/* Action Link Footer with WhatsApp Share */}
+                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold">
+                  <span className="text-teal-600 dark:text-teal-400 group-hover:underline flex items-center gap-1">
+                    <span>Buka Panduan</span>
+                    <ChevronRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={(e) => handleCopyWhatsAppGuide(guide, e)}
+                    className="p-1.5 text-teal-700 dark:text-teal-300 hover:bg-teal-50 dark:hover:bg-teal-950 rounded-lg transition-colors flex items-center gap-1 text-[11px]"
+                    title="Salin Teks Format WhatsApp untuk Pasien"
+                  >
+                    {copiedGuideId === guide.id ? (
+                      <>
+                        <CheckCheck className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="text-emerald-600 font-bold">Tersalin!</span>
+                      </>
+                    ) : (
+                      <>
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        <span>Kirim WA</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* INTERACTIVE MODAL (SCREEN ONLY) */}
+      {/* =========================================================================
+          INTERACTIVE DETAIL MODAL
+          ========================================================================= */}
       {activeGuideModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs animate-in fade-in print:hidden">
-          <div className="bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in print:hidden">
+          <div className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-150 border border-slate-200 dark:border-slate-800">
             
             {/* Modal Header */}
             <div className="p-5 sm:p-6 bg-slate-900 text-white flex items-start justify-between border-b border-slate-800">
@@ -331,11 +400,11 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                    <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30 uppercase tracking-wider font-outfit">
                       {activeGuideModal.category}
                     </span>
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mt-1">
+                  <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white mt-1 font-outfit">
                     {activeGuideModal.title}
                   </h2>
                 </div>
@@ -343,8 +412,17 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
 
               <div className="flex items-center gap-2">
                 <button
+                  onClick={() => handleCopyWhatsAppGuide(activeGuideModal)}
+                  className="px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl transition-colors flex items-center gap-1.5 text-xs font-bold shadow-xs cursor-pointer"
+                  title="Salin Pesan Format WhatsApp Pasien"
+                >
+                  {copiedGuideId === activeGuideModal.id ? <CheckCheck className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  <span>{copiedGuideId === activeGuideModal.id ? 'Tersalin!' : 'Salin WA'}</span>
+                </button>
+
+                <button
                   onClick={handlePrint}
-                  className="px-3.5 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded-xl transition-colors flex items-center gap-1.5 text-xs font-bold shadow-xs"
+                  className="px-3.5 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded-xl transition-colors flex items-center gap-1.5 text-xs font-bold shadow-xs cursor-pointer"
                   title="Cetak Panduan Pasien (1 Lembar A4)"
                 >
                   <Printer className="w-4 h-4" />
@@ -353,7 +431,7 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
 
                 <button
                   onClick={() => setActiveGuideModal(null)}
-                  className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-full transition-colors"
+                  className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-full transition-colors cursor-pointer"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -361,67 +439,78 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
             </div>
 
             {/* Modal Scrollable Body */}
-            <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-8 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-8 custom-scrollbar text-slate-900 dark:text-slate-100">
               
-              {/* Short Desc & Storage Alert */}
+              {/* Short Desc, Storage & Popular Brands */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="md:col-span-2 bg-teal-50/70 border border-teal-100 rounded-2xl p-4 text-xs text-teal-900 space-y-1">
-                  <span className="font-bold flex items-center gap-1 text-teal-800 text-sm">
+                <div className="md:col-span-2 bg-teal-50/80 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800 rounded-2xl p-4 text-xs text-teal-950 dark:text-teal-200 space-y-2">
+                  <span className="font-extrabold flex items-center gap-1 text-teal-900 dark:text-teal-300 text-sm font-outfit">
                     <Info className="w-4 h-4 text-teal-600" />
-                    Deskripsi Ringkas
+                    Deskripsi Ringkas &amp; Indikasi
                   </span>
-                  <p className="leading-relaxed">{activeGuideModal.shortDesc}</p>
+                  <p className="leading-relaxed font-medium">{activeGuideModal.shortDesc}</p>
+
+                  {activeGuideModal.popularBrands && activeGuideModal.popularBrands.length > 0 && (
+                    <div className="pt-2 border-t border-teal-200/60 dark:border-teal-800/60 flex flex-wrap items-center gap-1">
+                      <span className="font-bold text-teal-800 dark:text-teal-300 text-[11px]">Contoh Merk Terkenal:</span>
+                      {activeGuideModal.popularBrands.map((b, i) => (
+                        <span key={i} className="bg-white dark:bg-slate-900 text-teal-900 dark:text-teal-300 font-bold px-2 py-0.5 rounded-md border border-teal-300 dark:border-teal-700 text-[10px]">
+                          {b}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                <div className="bg-amber-50/80 border border-amber-200/80 rounded-2xl p-4 text-xs text-amber-900 space-y-1">
-                  <span className="font-bold flex items-center gap-1 text-amber-800 text-sm">
+                <div className="bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-2xl p-4 text-xs text-amber-950 dark:text-amber-200 space-y-1">
+                  <span className="font-extrabold flex items-center gap-1 text-amber-900 dark:text-amber-300 text-sm font-outfit">
                     <Thermometer className="w-4 h-4 text-amber-600" />
-                    Saran Penyimpanan
+                    Saran Penyimpanan &amp; BUD
                   </span>
-                  <p className="leading-relaxed">{activeGuideModal.storageAdvice}</p>
+                  <p className="leading-relaxed font-medium">{activeGuideModal.storageAdvice}</p>
                 </div>
               </div>
 
               {/* Persiapan Awal */}
               <div className="space-y-3">
-                <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2 font-outfit">
                   <CheckCircle2 className="w-4 h-4 text-teal-600" />
                   Langkah Persiapan Sebelum Penggunaan
                 </h3>
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2">
+                <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-2">
                   {activeGuideModal.preparationSteps.map((prep, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700">
-                      <div className="w-5 h-5 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
+                    <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300">
+                      <div className="w-5 h-5 rounded-full bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
                         ✓
                       </div>
-                      <span className="leading-relaxed">{prep}</span>
+                      <span className="leading-relaxed font-medium">{prep}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Step-by-Step Instructions */}
+              {/* Step-by-Step Visual Flow */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                  <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2 font-outfit">
                     <BookOpen className="w-4 h-4 text-teal-600" />
                     Tata Cara Langkah demi Langkah (Visual Flow)
                   </h3>
-                  <span className="text-[11px] font-semibold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-100">
+                  <span className="text-[11px] font-bold text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950 px-2.5 py-0.5 rounded-full border border-teal-200 dark:border-teal-800">
                     {activeGuideModal.steps.length} Langkah Utama
                   </span>
                 </div>
 
                 <div className="space-y-4 relative">
-                  {/* Visual Stepper Timeline Line */}
-                  <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gradient-to-b from-teal-500 via-teal-300 to-slate-200 hidden sm:block z-0" />
+                  {/* Stepper Timeline Line */}
+                  <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gradient-to-b from-teal-500 via-teal-300 to-slate-200 dark:to-slate-800 hidden sm:block z-0" />
 
                   {activeGuideModal.steps.map((step) => {
                     const visual = getStepVisualConfig(step.stepNumber, step.title, step.description);
                     return (
                       <div 
                         key={step.stepNumber}
-                        className="bg-white border border-slate-200 hover:border-teal-400 rounded-2xl p-5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col sm:flex-row items-start gap-4 relative z-10 group"
+                        className="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-teal-400 rounded-2xl p-5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col sm:flex-row items-start gap-4 relative z-10 group"
                       >
                         {/* Step Icon Badge Box */}
                         <div className="flex items-center gap-3 shrink-0">
@@ -429,7 +518,7 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
                             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border shadow-xs transition-transform group-hover:scale-105 ${visual.bg}`}>
                               {visual.icon}
                             </div>
-                            <span className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-slate-900 text-white font-extrabold text-[11px] flex items-center justify-center shadow-md border-2 border-white">
+                            <span className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-slate-900 text-white font-extrabold text-[11px] flex items-center justify-center shadow-md border-2 border-white dark:border-slate-800">
                               {step.stepNumber}
                             </span>
                           </div>
@@ -438,7 +527,7 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
                         {/* Step Description & Content */}
                         <div className="flex-1 space-y-2">
                           <div className="flex flex-wrap items-center justify-between gap-2">
-                            <h4 className="text-base font-bold text-slate-900 group-hover:text-teal-700 transition-colors">
+                            <h4 className="text-base font-black text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors font-outfit">
                               {step.title}
                             </h4>
                             <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${visual.bg}`}>
@@ -446,15 +535,15 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
                             </span>
                           </div>
 
-                          <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                          <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
                             {step.description}
                           </p>
                           
                           {step.importantNote && (
-                            <div className="mt-3 p-3 rounded-xl bg-amber-50/90 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5 shadow-2xs">
+                            <div className="mt-3 p-3 rounded-xl bg-amber-50/90 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-950 dark:text-amber-200 text-xs flex items-start gap-2.5 shadow-2xs">
                               <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                              <div className="leading-relaxed">
-                                <strong className="text-amber-800">Catatan Penting:</strong> {step.importantNote}
+                              <div className="leading-relaxed font-medium">
+                                <strong className="text-amber-900 dark:text-amber-300">Catatan Penting:</strong> {step.importantNote}
                               </div>
                             </div>
                           )}
@@ -467,21 +556,21 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
 
               {/* Do's & Don'ts Comparison Table */}
               <div className="space-y-3">
-                <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2 font-outfit">
                   <Sparkles className="w-4 h-4 text-teal-600" />
-                  Hal yang Boleh & Tidak Boleh Dilakukan (Do's & Don'ts)
+                  Hal yang Boleh &amp; Tidak Boleh Dilakukan (Do's &amp; Don'ts)
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* DO'S */}
-                  <div className="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-5 space-y-3">
-                    <div className="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                  <div className="bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-2xl p-5 space-y-3">
+                    <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-bold text-sm font-outfit">
                       <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                       <span>HAL YANG DISARANKAN (DO'S)</span>
                     </div>
                     <ul className="space-y-2">
                       {activeGuideModal.dosAndDonts.dos.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-emerald-900 leading-relaxed">
+                        <li key={idx} className="flex items-start gap-2 text-xs text-emerald-950 dark:text-emerald-200 leading-relaxed font-medium">
                           <span className="text-emerald-600 font-bold">✓</span>
                           <span>{item}</span>
                         </li>
@@ -490,14 +579,14 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
                   </div>
 
                   {/* DONT'S */}
-                  <div className="bg-rose-50/60 border border-rose-200 rounded-2xl p-5 space-y-3">
-                    <div className="flex items-center gap-2 text-rose-800 font-bold text-sm">
+                  <div className="bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 rounded-2xl p-5 space-y-3">
+                    <div className="flex items-center gap-2 text-rose-800 dark:text-rose-300 font-bold text-sm font-outfit">
                       <XCircle className="w-5 h-5 text-rose-600" />
                       <span>HAL YANG DILARANG (DON'TS)</span>
                     </div>
                     <ul className="space-y-2">
                       {activeGuideModal.dosAndDonts.donts.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-rose-900 leading-relaxed">
+                        <li key={idx} className="flex items-start gap-2 text-xs text-rose-950 dark:text-rose-200 leading-relaxed font-medium">
                           <span className="text-rose-600 font-bold">✕</span>
                           <span>{item}</span>
                         </li>
@@ -508,14 +597,14 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
               </div>
 
               {/* Kesalahan Umum yang Sering Terjadi */}
-              <div className="bg-slate-900 text-white rounded-2xl p-5 space-y-3 shadow-md">
-                <h4 className="text-sm font-bold text-teal-300 flex items-center gap-2">
+              <div className="bg-slate-900 text-white rounded-2xl p-5 space-y-3 shadow-md border border-slate-800">
+                <h4 className="text-sm font-bold text-teal-300 flex items-center gap-2 font-outfit">
                   <AlertTriangle className="w-4 h-4 text-amber-400" />
                   Kesalahan Umum Pasien yang Sering Terjadi
                 </h4>
                 <ul className="space-y-2 text-xs text-slate-300">
                   {activeGuideModal.commonMistakes.map((mistake, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
+                    <li key={idx} className="flex items-start gap-2 leading-relaxed">
                       <span className="text-amber-400 font-bold">•</span>
                       <span>{mistake}</span>
                     </li>
@@ -526,30 +615,21 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+            <div className="p-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
               <span className="text-xs text-slate-500">
-                Panduan Edukasi Pasien • Selalu ikuti petunjuk apoteker atau dokter Anda.
+                Panduan Edukasi Pasien • Selalu ikuti petunjuk Apoteker atau Dokter Anda.
               </span>
               <div className="flex items-center gap-2">
-                {onOpenBrandingModal && (
-                  <button
-                    onClick={onOpenBrandingModal}
-                    className="px-3.5 py-2 text-xs font-bold text-amber-900 bg-amber-100 hover:bg-amber-200 rounded-xl border border-amber-300 transition-colors flex items-center gap-1.5"
-                  >
-                    <Edit3 className="w-3.5 h-3.5 text-amber-700" />
-                    <span>Kop & Stempel</span>
-                  </button>
-                )}
                 <button
                   onClick={handlePrint}
-                  className="px-4 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-xs transition-colors flex items-center gap-1.5"
+                  className="px-4 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <Printer className="w-3.5 h-3.5 text-teal-400" />
-                  <span>Cetak Panduan (1 Halaman)</span>
+                  <span>Cetak (1 Lembar)</span>
                 </button>
                 <button
                   onClick={() => setActiveGuideModal(null)}
-                  className="px-4 py-2 text-xs font-bold text-white bg-teal-600 rounded-xl hover:bg-teal-700 shadow-xs transition-colors"
+                  className="px-4 py-2 text-xs font-bold text-white bg-teal-600 rounded-xl hover:bg-teal-700 shadow-xs transition-colors cursor-pointer"
                 >
                   Tutup
                 </button>
@@ -560,7 +640,9 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
         </div>
       )}
 
-      {/* PRINT-ONLY 1-PAGE A4 PATIENT GUIDE SHEET */}
+      {/* =========================================================================
+          PRINT-ONLY 1-PAGE A4 PATIENT GUIDE SHEET
+          ========================================================================= */}
       {activeGuideModal && (
         <div className="hidden print:block print:fixed print:inset-0 print:z-[999999] print:bg-white print:p-0 print:m-0 font-sans text-slate-900 space-y-2">
           <style>{`
@@ -634,7 +716,7 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
             </div>
           </div>
 
-          {/* Step-by-Step Grid (2 Columns x 2 Rows) */}
+          {/* Step-by-Step Grid (2 Columns) */}
           <div className="space-y-1">
             <h3 className="text-[9.5px] font-extrabold text-teal-900 uppercase tracking-wide border-b border-teal-100 pb-0.5">
               Tata Cara Langkah demi Langkah Penggunaan:
@@ -720,7 +802,7 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
               <p className="font-medium text-[7.5px]">Jakarta, {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
               <p className="font-bold text-slate-900 text-[8.5px]">Apoteker Penanggung Jawab</p>
               <div className="h-6 flex items-center justify-center italic text-slate-400 text-[7.5px]">
-                ( Tanda Tangan & Stempel Resmi )
+                ( Tanda Tangan &amp; Stempel Resmi )
               </div>
               <p className="font-bold underline text-slate-900 border-t border-slate-800 pt-0.5 text-[8.5px]">
                 {clinicBranding?.pharmacistName || '( apt. Penanggung Jawab, S.Farm. )'}

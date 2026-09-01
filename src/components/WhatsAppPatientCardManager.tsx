@@ -508,7 +508,6 @@ export const generatePioAutoFill = (
 
 interface WhatsAppPatientCardManagerProps {
   clinicBranding: ClinicBrandingSettings;
-  onOpenBrandingModal: () => void;
   drugs?: Drug[];
   onSelectDrugForDetail?: (drug: Drug) => void;
   preselectedDrug?: Drug | null;
@@ -516,7 +515,6 @@ interface WhatsAppPatientCardManagerProps {
 
 export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProps> = ({
   clinicBranding,
-  onOpenBrandingModal,
   drugs = [],
   onSelectDrugForDetail,
   preselectedDrug
@@ -1023,12 +1021,6 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
                   <span className="text-slate-500 block text-[11px]">{clinicBranding.pharmacistName || 'Apoteker Penanggung Jawab'} ({clinicBranding.pharmacistSipa || clinicBranding.sipNumber || 'SIPA'})</span>
                 </div>
               </div>
-              <button
-                onClick={onOpenBrandingModal}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-sky-400 transition cursor-pointer"
-              >
-                Ubah Kop
-              </button>
             </div>
           </div>
 

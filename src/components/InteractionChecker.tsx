@@ -266,6 +266,31 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       drugNames: ['Amlodipine', 'Clarithromycin']
     },
     {
+      title: 'DOAC & Azole (Perdarahan Akut)',
+      desc: 'Rivaroxaban + Ketoconazole',
+      drugNames: ['Rivaroxaban', 'Ketoconazole']
+    },
+    {
+      title: 'Pemanjangan QTc (Torsades de Pointes)',
+      desc: 'Levofloxacin + Ondansetron',
+      drugNames: ['Levofloxacin', 'Ondansetron']
+    },
+    {
+      title: 'Dual RAAS Blockade (AKI & Hipotensi)',
+      desc: 'Captopril + Candesartan',
+      drugNames: ['Captopril', 'Candesartan']
+    },
+    {
+      title: 'Litium & Diuretik Tiazid',
+      desc: 'Lithium + Hydrochlorothiazide',
+      drugNames: ['Lithium', 'Hydrochlorothiazide']
+    },
+    {
+      title: 'Methotrexate & NSAID (Supresi Sumsum)',
+      desc: 'Methotrexate + Ibuprofen',
+      drugNames: ['Methotrexate', 'Ibuprofen']
+    },
+    {
       title: 'Incretin & Sulfonilurea (Hipoglikemia)',
       desc: 'Semaglutide + Glibenclamide',
       drugNames: ['Semaglutide', 'Glibenclamide']
@@ -307,14 +332,14 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
         <div className="space-y-3 relative z-10 max-w-3xl">
           <div className="inline-flex items-center gap-1.5 bg-rose-500/20 px-3.5 py-1 rounded-full text-xs font-bold text-rose-300 uppercase tracking-wider border border-rose-500/30">
             <ShieldAlert className="w-3.5 h-3.5" />
-            <span>Multi-Drug & Food Interaction Engine</span>
+            <span>Multi-Consensus Drug & Food Interaction Engine</span>
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
-            Analisis Interaksi Obat <span className="text-rose-400">Terintegrasi</span>
+            Analisis Interaksi Obat <span className="text-rose-400">Terverifikasi 6 Database Global</span>
           </h1>
           <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-            Pilih 2 obat atau lebih untuk menganalisis risiko interaksi obat-obat (DDI), interaksi makanan/minuman (DFI), serta duplikasi terapi berdasarkan database klinis terpercaya.
+            Evaluasi komprehensif risiko interaksi obat-obat (DDI), interaksi makanan/minuman (DFI), dan duplikasi terapi tervalidasi berdasarkan <strong>Drugs.com, Medscape Reference, Stockley’s Drug Interactions, DrugBank Online, WebMD, dan RxList</strong>.
           </p>
         </div>
       </div>

@@ -610,37 +610,6 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
               </div>
             </div>
 
-            {/* Checklist: Kustomisasi Branding & Kop Surat */}
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-teal-300 transition-colors">
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={currentPlan.permissions?.canAccessClinicBranding ?? (currentPlan.id === 'pro')}
-                  onChange={() => {
-                    const current = currentPlan.permissions?.canAccessClinicBranding ?? (currentPlan.id === 'pro');
-                    setPlans(plans.map(p => p.id === activePlanId ? {
-                      ...p,
-                      permissions: {
-                        maxDrugsPerCheck: p.permissions?.maxDrugsPerCheck ?? (p.id === 'free' ? 2 : 99),
-                        canPrintPdfReport: p.permissions?.canPrintPdfReport ?? (p.id !== 'free'),
-                        canAccessFoodInteractions: p.permissions?.canAccessFoodInteractions ?? (p.id !== 'free'),
-                        canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
-                        canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
-                        maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: !current,
-                        canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
-                      }
-                    } : p));
-                  }}
-                  className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4"
-                />
-                <div>
-                  <p className="text-xs font-extrabold text-slate-900">Kop Surat, SIPA & Branding Instansi</p>
-                  <p className="text-[11px] text-slate-500">Mencetak laporan PDF dengan logo klinik, SIPA apoteker, & stempel resmi instansi.</p>
-                </div>
-              </label>
-            </div>
-
           </div>
         </div>
 

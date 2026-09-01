@@ -7,7 +7,6 @@ interface InteractionReportModalProps {
   selectedDrugs: Drug[];
   interactions: DrugInteraction[];
   clinicBranding?: ClinicBrandingSettings;
-  onOpenBrandingModal?: () => void;
   onClose: () => void;
 }
 
@@ -15,7 +14,6 @@ export const InteractionReportModal: React.FC<InteractionReportModalProps> = ({
   selectedDrugs = [],
   interactions = [],
   clinicBranding,
-  onOpenBrandingModal,
   onClose
 }) => {
   const [facilityName, setFacilityName] = useState(clinicBranding ? clinicBranding.clinicName : 'Apotek / Klinik Sehat Medika');
@@ -108,16 +106,6 @@ ${notes || 'Diminum secara teratur sesuai aturan dosis dokter. Segera hubungi ap
                 {copiedWa ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copiedWa ? 'Tersalin!' : 'Salin Teks WhatsApp'}</span>
               </button>
-
-              {onOpenBrandingModal && (
-                <button
-                  onClick={onOpenBrandingModal}
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30 transition-colors flex items-center gap-1.5"
-                >
-                  <Edit3 className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Kop & Stempel</span>
-                </button>
-              )}
 
               <button
                 onClick={handlePrint}
