@@ -88,14 +88,14 @@ export const PharmacyRegulationsManager: React.FC<PharmacyRegulationsManagerProp
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 shrink-0 relative z-10">
-          <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+        <div className="flex flex-col items-stretch sm:items-end gap-2.5 shrink-0 relative z-10">
+          <div className="bg-slate-950/80 px-4 py-2 rounded-2xl border border-slate-800 text-left sm:text-right shadow-md">
             <span className="text-[11px] text-slate-400 block font-medium">Total Regulasi Terdaftar:</span>
-            <span className="text-lg font-black text-amber-400">{PHARMACY_REGULATIONS_DATA.length} Peraturan &amp; DOWA</span>
+            <span className="text-base sm:text-lg font-black text-amber-400">{PHARMACY_REGULATIONS_DATA.length} Peraturan &amp; DOWA</span>
           </div>
           <button
             onClick={handlePrint}
-            className="px-5 py-2.5 rounded-2xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-black shadow-md flex items-center gap-2 transition-all cursor-pointer border border-teal-400/40 hover:scale-105"
+            className="px-5 py-2.5 rounded-2xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-black shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer border border-teal-400/40 hover:scale-105 active:scale-95"
           >
             <Printer className="w-4 h-4" />
             <span>Cetak Intisari Regulasi</span>
