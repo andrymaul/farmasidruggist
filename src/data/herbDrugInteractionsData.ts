@@ -650,6 +650,77 @@ export const HERB_DRUG_INTERACTIONS_DATABASE: HerbDrugInteraction[] = [
     clinicalRecommendation: 'Jangan mengonsumsi jamu beras kencur kental sesaat sebelum berkendara jarak jauh bila sedang mengonsumsi obat penenang.',
     references: 'Materia Medika Indonesia & Journal of Ethnopharmacology'
   }
+,
+  {
+      "id": "hdi-garlic-anticoagulant",
+      "herbName": "Ekstrak Bawang Putih (Garlic)",
+      "latinName": "Allium sativum",
+      "herbActiveCompounds": "Allicin, Ajoene, S-allyl-L-cysteine",
+      "drugName": "Warfarin, DOAC (Rivaroxaban, Apixaban), Aspirin",
+      "drugClass": "Antikoagulan & Antiplatelet",
+      "interactionType": "Farmakodinamik (Sinergis)",
+      "severity": "Mayor (Tinggi)",
+      "clinicalEffect": "Peningkatan Drastis Risiko Perdarahan Spontan, Hematoma Luas, Epistaksis, dan Perdarahan Saluran Cerna.",
+      "mechanism": "Ajoene dalam bawang putih menghambat agregasi trombosit via penghambatan sintetase tromboksan A2 dan mengantagonisasi reseptor fibrinogen GPIIb/IIIa secara irreversibel.",
+      "clinicalRecommendation": "HENTIKAN konsumsi suplemen ekstrak bawang putih dosis tinggi minimal 7-10 hari sebelum tindakan operasi elektif. Batasi konsumsi suplemen garlic pada pasien yang mendapat terapi antikoagulan/antiplatelet.",
+      "references": "Formularium Obat Herbal Asli Indonesia (FOHI) Kemenkes RI & Natural Medicines Comprehensive Database"
+  },
+  {
+      "id": "hdi-ginkgo-antiplatelet",
+      "herbName": "Ginkgo Biloba",
+      "latinName": "Ginkgo biloba",
+      "herbActiveCompounds": "Ginkgolide B, Bilobalide, Flavonol Glikosida",
+      "drugName": "Aspirin, Clopidogrel, Cilostazol, Warfarin",
+      "drugClass": "Antiplatelet & Antikoagulan",
+      "interactionType": "Farmakodinamik (Sinergis)",
+      "severity": "Mayor (Tinggi)",
+      "clinicalEffect": "Perdarahan Spontan Berbahaya: Kasus Hematoma Subdural Spontan, Hifema Perdarahan Bilik Depan Mata, dan Perdarahan Pasca-Operasi.",
+      "mechanism": "Ginkgolide B adalah antagonis poten Platelet-Activating Factor (PAF) yang memblokade agregasi trombosit yang diinduksi PAF.",
+      "clinicalRecommendation": "KONTRAINDIKASI BERSAMAAN pada pasien dengan riwayat perdarahan aktif. Hentikan suplemen ginkgo minimal 14 hari sebelum pembedahan atau tindakan invasif.",
+      "references": "WHO Monographs on Selected Medicinal Plants & CPIC Guidelines"
+  },
+  {
+      "id": "hdi-ginseng-antidiabetic",
+      "herbName": "Ginseng Korea / Ginseng Asia",
+      "latinName": "Panax ginseng",
+      "herbActiveCompounds": "Ginsenoside (Rb1, Rg1, Re)",
+      "drugName": "Glibenclamide, Glimepiride, Metformin, Insulin",
+      "drugClass": "Antidiabetes Oral & Insulin",
+      "interactionType": "Farmakodinamik (Sinergis)",
+      "severity": "Moderat (Sedang)",
+      "clinicalEffect": "Hipoglikemia Akut Simtomatik (Keringat Dingin, Palpitasi, Tremor, Pusing Berputar hingga Penurunan Kesadaran).",
+      "mechanism": "Ginsenosida meningkatkan sekresi insulin dari sel beta pankreas dan meningkatkan ekspresi transporter glukosa GLUT4 di otot rangka.",
+      "clinicalRecommendation": "Pantau kadar glukosa darah mandiri (SMBG) secara lebih sering saat mengonsumsi ginseng. Sesuaikan dosis obat antidiabetes jika terjadi tren penurunan gula darah berlebih.",
+      "references": "Formularium Obat Herbal Asli Indonesia Kemenkes RI"
+  },
+  {
+      "id": "hdi-mengkudu-raas",
+      "herbName": "Jus Buah Mengkudu / Noni",
+      "latinName": "Morinda citrifolia",
+      "herbActiveCompounds": "Scopoletin, Asam Kaprilat, Kalium Konsentrasi Tinggi (56 mEq/L)",
+      "drugName": "Captopril, Ramipril, Candesartan, Spironolactone",
+      "drugClass": "Antihipertensi Golongan ACEi, ARB & Diuretik Hemat Kalium",
+      "interactionType": "Farmakodinamik (Sinergis)",
+      "severity": "Mayor (Tinggi)",
+      "clinicalEffect": "HIPERKALEMIA FATAL (K+ > 6.5 mEq/L), Blok Jantung, Aritmia Ventrikel, dan Asistol Jantung pada Pasien Gangguan Ginjal.",
+      "mechanism": "Jus mengkudu mengandung konsentrasi kalium alami yang sangat tinggi yang bila dikombinasikan dengan obat penahan kalium memicu akumulasi kalium serum toksik.",
+      "clinicalRecommendation": "KONTRAINDIKASI MUTLAK pada pasien gagal ginjal kronis (CKD) atau pengguna ACEi/ARB/Spironolactone. Hindari konsumsi jus mengkudu pekat.",
+      "references": "American Journal of Kidney Diseases & Badan POM RI"
+  },
+  {
+      "id": "hdi-meniran-immunosuppressant",
+      "herbName": "Ekstrak Meniran Hijau",
+      "latinName": "Phyllanthus niruri",
+      "herbActiveCompounds": "Phyllanthin, Hypophyllanthin, Flavonoid Rutin",
+      "drugName": "Tacrolimus, Cyclosporine, Mycophenolate Mofetil, Kortikosteroid",
+      "drugClass": "Imunosupresan Pasca Transplantasi Organ & Autoimun",
+      "interactionType": "Farmakodinamik (Antagonis)",
+      "severity": "Mayor (Tinggi)",
+      "clinicalEffect": "Kegagalan Imunosupresi, Presipitasi Rejeksi Allograft Transplantasi Organ, dan Kekambuhan Flare Penyakit Autoimun (Lupus).",
+      "mechanism": "Ekstrak meniran adalah imunostimulan poten yang meningkatkan proliferasi sel T helper, sitokin IL-2/IFN-gamma, dan fagositosis makrofag yang menentang langsung kerja obat imunosupresif.",
+      "clinicalRecommendation": "KONTRAINDIKASI MUTLAK bagi pasien penerima transplantasi organ atau pasien penyakit autoimun aktif yang sedang menjalani terapi imunosupresi.",
+      "references": "Formularium Obat Herbal Asli Indonesia (FOHI) Kemenkes RI"
+  }
 ];
 
 export const INDONESIAN_HERB_PROFILES: HerbProfile[] = [

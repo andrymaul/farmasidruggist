@@ -61,23 +61,20 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => {
     try {
       const savedUser = localStorage.getItem('farmasi_current_user');
-      if (savedUser === 'null_session') return null;
-      if (savedUser) {
-        const parsed = JSON.parse(savedUser);
-        if (parsed && parsed.isEmailVerified === false) {
-          localStorage.setItem('farmasi_current_user', 'null_session');
-          return null;
-        }
-        if (parsed) {
-          if (parsed.subscriptionPlan === 'Klinik' || parsed.subscriptionPlan === 'Elite' || (parsed.role === 'admin' && parsed.subscriptionPlan !== 'Pemula')) {
-            parsed.subscriptionPlan = 'Pro';
-            try {
-              localStorage.setItem('farmasi_current_user', JSON.stringify(parsed));
-            } catch (e) {}
-          }
-        }
-        return parsed;
+      if (!savedUser || savedUser === 'null_session' || savedUser === 'null' || savedUser === 'undefined') return null;
+      const parsed = JSON.parse(savedUser);
+      if (!parsed || typeof parsed !== 'object') return null;
+      if (parsed.isEmailVerified === false) {
+        localStorage.setItem('farmasi_current_user', 'null_session');
+        return null;
       }
+      if (parsed.subscriptionPlan === 'Klinik' || parsed.subscriptionPlan === 'Elite' || (parsed.role === 'admin' && parsed.subscriptionPlan !== 'Pemula')) {
+        parsed.subscriptionPlan = 'Pro';
+        try {
+          localStorage.setItem('farmasi_current_user', JSON.stringify(parsed));
+        } catch (e) {}
+      }
+      return parsed;
     } catch (e) {
       console.error('Failed to parse saved user session:', e);
     }
@@ -87,15 +84,18 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>(() => {
     try {
       const savedUser = localStorage.getItem('farmasi_current_user');
-      const hasUser = savedUser && savedUser !== 'null_session';
+      const hasUser = savedUser && savedUser !== 'null_session' && savedUser !== 'null' && savedUser !== 'undefined';
       if (!hasUser) {
         localStorage.setItem('farmasi_active_tab', 'landing');
         return 'landing';
       }
-      const parsedUser = JSON.parse(savedUser);
+      let parsedUser: any = null;
+      try {
+        parsedUser = JSON.parse(savedUser);
+      } catch (e) {}
       const savedTab = localStorage.getItem('farmasi_active_tab');
       if (savedTab) {
-        if (savedTab.startsWith('admin') && parsedUser.role !== 'admin') {
+        if (savedTab.startsWith('admin') && (!parsedUser || parsedUser.role !== 'admin')) {
           localStorage.setItem('farmasi_active_tab', 'landing');
           return 'landing';
         }
@@ -132,20 +132,25 @@ export default function App() {
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState<boolean>(false);
 
-  const APP_DB_VERSION = 'v2026_mims_drugs_medscape_offlabel_v14';
+  const APP_DB_VERSION = 'v2026_ddinter_disease_v15';
+
+  // Atomic database version migration and cache invalidation
+  try {
+    const dbVer = localStorage.getItem('farmasi_db_version');
+    if (dbVer !== APP_DB_VERSION) {
+      localStorage.setItem('farmasi_db_version', APP_DB_VERSION);
+      localStorage.removeItem('farmasi_custom_drugs');
+      localStorage.removeItem('farmasi_custom_interactions');
+      localStorage.removeItem('farmasi_food_interactions');
+      localStorage.removeItem('farmasi_duplication_rules');
+    }
+  } catch (e) {
+    console.error('Failed to sync DB version in localStorage:', e);
+  }
 
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>(PRICING_PLANS);
   const [drugs, setDrugs] = useState<Drug[]>(() => {
     try {
-      const dbVer = localStorage.getItem('farmasi_db_version');
-      if (dbVer !== APP_DB_VERSION) {
-        localStorage.setItem('farmasi_db_version', APP_DB_VERSION);
-        localStorage.removeItem('farmasi_custom_drugs');
-        localStorage.removeItem('farmasi_custom_interactions');
-        localStorage.removeItem('farmasi_food_interactions');
-        localStorage.removeItem('farmasi_duplication_rules');
-        return deduplicateDrugs(INITIAL_DRUGS);
-      }
       const saved = localStorage.getItem('farmasi_custom_drugs');
       if (saved) return deduplicateDrugs(JSON.parse(saved));
     } catch (e) {}
@@ -154,10 +159,6 @@ export default function App() {
 
   const [interactions, setInteractions] = useState<DrugInteraction[]>(() => {
     try {
-      const dbVer = localStorage.getItem('farmasi_db_version');
-      if (dbVer !== APP_DB_VERSION) {
-        return deduplicateInteractions(INITIAL_INTERACTIONS);
-      }
       const saved = localStorage.getItem('farmasi_custom_interactions');
       if (saved) return deduplicateInteractions(JSON.parse(saved));
     } catch (e) {}
@@ -166,10 +167,6 @@ export default function App() {
 
   const [foodInteractions, setFoodInteractions] = useState<DrugFoodInteraction[]>(() => {
     try {
-      const dbVer = localStorage.getItem('farmasi_db_version');
-      if (dbVer !== APP_DB_VERSION) {
-        return SAMPLE_FOOD_INTERACTIONS;
-      }
       const saved = localStorage.getItem('farmasi_food_interactions');
       if (saved) return JSON.parse(saved);
     } catch (e) {}
@@ -178,10 +175,6 @@ export default function App() {
 
   const [duplicationRules, setDuplicationRules] = useState<TherapeuticDuplication[]>(() => {
     try {
-      const dbVer = localStorage.getItem('farmasi_db_version');
-      if (dbVer !== APP_DB_VERSION) {
-        return SAMPLE_THERAPEUTIC_DUPLICATIONS;
-      }
       const saved = localStorage.getItem('farmasi_duplication_rules');
       if (saved) return JSON.parse(saved);
     } catch (e) {}

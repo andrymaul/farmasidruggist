@@ -31,7 +31,8 @@ import {
   HeartHandshake,
   FlaskConical,
   CalendarClock,
-  Leaf
+  Leaf,
+  Send
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -172,6 +173,18 @@ export const Header: React.FC<HeaderProps> = ({
                   )}
                 </button>
               )}
+
+              {/* Telegram Community Button on Landing Header */}
+              <a
+                href="https://t.me/+lHiIMC_TdoM2NTk1"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Gabung Komunitas Telegram Apoteker & Dokter"
+                className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#229ED9]/15 hover:bg-[#229ED9]/25 text-[#1b8bc2] dark:text-sky-300 border border-[#229ED9]/40 hover:border-[#229ED9]/70 rounded-full text-xs font-bold transition-all shadow-2xs hover:scale-105 font-outfit"
+              >
+                <Send className="w-3.5 h-3.5 fill-[#229ED9] dark:fill-sky-300" />
+                <span>Komunitas Telegram</span>
+              </a>
 
               {!currentUser ? (
                 <>
@@ -395,6 +408,19 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </button>
           )}
+
+          {/* Telegram Community Join Button */}
+          <a
+            href="https://t.me/+lHiIMC_TdoM2NTk1"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Gabung Komunitas Telegram Apoteker & Dokter FarmasiDruggist"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#229ED9]/15 hover:bg-[#229ED9]/25 text-[#1b8bc2] dark:text-sky-300 border border-[#229ED9]/40 hover:border-[#229ED9]/70 rounded-full text-xs font-bold transition-all shadow-2xs hover:scale-105 font-outfit"
+          >
+            <Send className="w-3.5 h-3.5 fill-[#229ED9] dark:fill-sky-300" />
+            <span className="hidden sm:inline">Komunitas Telegram</span>
+            <span className="sm:hidden">Telegram</span>
+          </a>
 
           {/* Quick Pricing Badge */}
           {currentUser && (currentUser.subscriptionPlan === 'Gratis' || currentUser.subscriptionPlan === 'Pemula') && (

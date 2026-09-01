@@ -203,6 +203,34 @@ export interface TherapeuticDuplication {
   recommendation: string;
 }
 
+export type DiseaseCategory =
+  | 'Kardiovaskular'
+  | 'Ginjal & Saluran Kemih'
+  | 'Gastrointestinal & Hepar'
+  | 'Respirasi & Paru'
+  | 'Endokrin & Metabolik'
+  | 'Neurologi & Psikiatri'
+  | 'Oftalmologi'
+  | 'Lainnya';
+
+export type ContraindicationLevel =
+  | 'Kontraindikasi Mutlak (Absolute)'
+  | 'Peringatan Ketat (Black Box / Relative)'
+  | 'Gunakan dengan Kehati-hatian (Caution)';
+
+export interface DrugDiseaseInteraction {
+  id: string;
+  drugName: string;
+  diseaseName: string;
+  diseaseCategory: DiseaseCategory;
+  severity: SeverityLevel;
+  contraindicationLevel: ContraindicationLevel;
+  mechanism: string;
+  clinicalRisk: string;
+  recommendation: string;
+  references?: string;
+}
+
 export interface DDInterDatasetInfo {
   version: string;
   totalDDI: number;

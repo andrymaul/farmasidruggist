@@ -1,4 +1,4 @@
-import { Drug, DrugInteraction, SeverityLevel, TherapeuticDuplication, DrugFoodInteraction } from '../types';
+import { Drug, DrugInteraction, SeverityLevel, TherapeuticDuplication, DrugFoodInteraction, DrugDiseaseInteraction } from '../types';
 import { DRUGSCOM_DOSAGE_MAP } from '../data/drugsComDosageDatabase';
 
 function findDosageMonograph(drug: Drug) {
@@ -885,11 +885,11 @@ export function evaluateTherapeuticDuplications(
       }
 
       // Dynamic class duplication detection
-      const catA = dA.category.toLowerCase();
-      const catB = dB.category.toLowerCase();
+      const catA = (dA.category || '').toLowerCase();
+      const catB = (dB.category || '').toLowerCase();
 
       // Same category (e.g. both statin, both NSAID, both PPI, both ACEi, both Beta Blocker)
-      if (catA === catB || (catA.includes('statin') && catB.includes('statin')) ||
+      if ((catA && catB && catA === catB) || (catA.includes('statin') && catB.includes('statin')) ||
           (catA.includes('nsaid') && catB.includes('nsaid')) ||
           (catA.includes('pompa proton') && catB.includes('pompa proton')) ||
           (catA.includes('benzodiazepine') && catB.includes('benzodiazepine'))) {
@@ -898,9 +898,9 @@ export function evaluateTherapeuticDuplications(
           id: `dup-${pairKey}`,
           drugAName: dA.name,
           drugBName: dB.name,
-          therapeuticClass: dA.category,
+          therapeuticClass: dA.category || 'Kelas Terapi Sejenis',
           riskDescription: `Penggunaan dua obat dari kelas terapi yang sama (${dA.name} & ${dB.name}) dapat menyebabkan duplikasi efek farmakologi dan melipatgandakan risiko efek samping tanpa peningkatan manfaat klinis.`,
-          recommendation: `Tinjau kembali indikasi resep. Direkomendasikan untuk menggunakan hanya satu obat utama dalam kelas terapi ${dA.category}.`
+          recommendation: `Tinjau kembali indikasi resep. Direkomendasikan untuk menggunakan hanya satu obat utama dalam kelas terapi ${dA.category || 'terkait'}.`
         });
       }
     }
@@ -982,4 +982,74 @@ function createDynamicInteraction(
     ddinterPairId: 'DDInter-PAIR-' + Math.floor(1000 + Math.random() * 8999)
   };
 }
+
+/**
+ * Evaluates potential Drug-Disease Interactions (Contraindications) based on selected drugs and patient comorbidities
+ */
+export function evaluateDrugDiseaseInteractions(
+  selectedDrugs: Drug[],
+  selectedDiseaseNames: string[],
+  diseaseDatabase: DrugDiseaseInteraction[] = []
+): DrugDiseaseInteraction[] {
+  const results: DrugDiseaseInteraction[] = [];
+  const seenKeys = new Set<string>();
+
+  for (const drug of selectedDrugs) {
+    const drugNameLower = (drug.name || '').toLowerCase().trim();
+    const genericNameLower = (drug.genericName || '').toLowerCase().trim();
+    const categoryLower = (drug.category || '').toLowerCase().trim();
+
+    for (const rule of diseaseDatabase) {
+      const ruleDiseaseLower = rule.diseaseName.toLowerCase();
+      const ruleDrugLower = rule.drugName.toLowerCase();
+
+      // Check if this disease is active in patient's selected list (or all if none filtered)
+      const isDiseaseSelected =
+        selectedDiseaseNames.length === 0
+          ? false
+          : selectedDiseaseNames.some((dis) => {
+              const dLower = dis.toLowerCase().trim();
+              return (
+                ruleDiseaseLower.includes(dLower) ||
+                dLower.includes(ruleDiseaseLower.split(' ')[0]) ||
+                rule.id.includes(dLower.replace(/[^a-z0-9]/g, ''))
+              );
+            });
+
+      if (!isDiseaseSelected && selectedDiseaseNames.length > 0) {
+        continue;
+      }
+
+      // Check if drug matches rule tokens
+      const ruleDrugTokens = ruleDrugLower.split(/[/,&()]/).map((t) => t.trim()).filter(Boolean);
+      const isDrugMatch = ruleDrugTokens.some((token) => {
+        if (token.length < 3) return false;
+        return (
+          drugNameLower.includes(token) ||
+          genericNameLower.includes(token) ||
+          token.includes(drugNameLower) ||
+          (token.includes('nsaid') && (categoryLower.includes('nsaid') || categoryLower.includes('antiinflamasi non-steroid'))) ||
+          (token.includes('beta-blocker') && categoryLower.includes('beta blocker')) ||
+          (token.includes('statin') && categoryLower.includes('statin')) ||
+          (token.includes('kortikosteroid') && categoryLower.includes('kortikosteroid'))
+        );
+      });
+
+      if (isDrugMatch) {
+        const uniqueKey = `${drug.id}__${rule.id}`;
+        if (!seenKeys.has(uniqueKey)) {
+          seenKeys.add(uniqueKey);
+          results.push({
+            ...rule,
+            id: `ddsi-eval-${uniqueKey}`,
+            drugName: `${drug.name} (${drug.genericName || drug.name})`
+          });
+        }
+      }
+    }
+  }
+
+  return results;
+}
+
 

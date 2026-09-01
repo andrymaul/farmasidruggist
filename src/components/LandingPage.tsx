@@ -37,7 +37,8 @@ import {
   Copy,
   CheckCheck,
   Building2,
-  Smartphone
+  Smartphone,
+  Send
 } from 'lucide-react';
 import { resolveDrugFromDDInter, resolveInteractionPair } from '../utils/ddinterEngine';
 
@@ -534,6 +535,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <ShieldCheck className="w-4 h-4 text-teal-300" />
                 <span>Masuk / Login Akun</span>
               </button>
+
+              <a
+                href="https://t.me/+lHiIMC_TdoM2NTk1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3.5 bg-[#229ED9] hover:bg-[#1b8bc2] text-white font-black rounded-xl shadow-lg transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02] border border-sky-300/40"
+              >
+                <Send className="w-4 h-4 fill-white" />
+                <span>Gabung Komunitas Telegram</span>
+              </a>
 
               <button
                 onClick={onOpenPricingModal}
@@ -1522,6 +1533,70 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </section>
 
       {/* =========================================================================
+          TELEGRAM COMMUNITY SECTION: Ruang Diskusi Apoteker & Dokter Indonesia
+          ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#07252f] via-[#0c3947] to-[#0f4758] p-8 sm:p-12 text-white border-2 border-[#229ED9]/50 shadow-2xl">
+          {/* Ambient Glows */}
+          <div className="absolute -top-20 -right-20 w-96 h-96 bg-[#229ED9]/25 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-teal-500/20 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-8 space-y-4 text-left">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#229ED9]/20 border border-[#229ED9]/60 text-sky-200 text-xs font-black shadow-inner">
+                <Send className="w-3.5 h-3.5 text-sky-300 fill-sky-300" />
+                <span>Komunitas Telegram Resmi FarmasiDruggist • Akses Diskusi Gratis</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-4xl font-black font-outfit text-white tracking-tight leading-snug">
+                Gabung Forum Diskusi Kasus Klinis &amp; Farmasi Indonesia
+              </h2>
+
+              <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed max-w-2xl">
+                Wadah kolaborasi interaktif ribuan Apoteker, Dokter, Tenaga Vokasi Farmasi, dan Mahasiswa Farmasi seluruh Indonesia. Diskusikan kasus interaksi obat polifarmasi kompleks, telaah resep dokter, update PNPK Kemenkes, kupas tuntas soal latihan UKMPPAI (CBT &amp; OSCE), hingga tips manajerial apotek klinis modern.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs text-sky-100">
+                <div className="flex items-center gap-2 bg-[#051c24]/80 p-3 rounded-xl border border-sky-400/30">
+                  <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0" />
+                  <span className="font-semibold">Diskusi Kasus Interaksi Obat</span>
+                </div>
+                <div className="flex items-center gap-2 bg-[#051c24]/80 p-3 rounded-xl border border-sky-400/30">
+                  <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+                  <span className="font-semibold">Bedah Soal UKMPPAI &amp; UKTTK</span>
+                </div>
+                <div className="flex items-center gap-2 bg-[#051c24]/80 p-3 rounded-xl border border-sky-400/30">
+                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span className="font-semibold">Jejaring Karir &amp; SOP Apotek</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 flex flex-col items-center lg:items-end justify-center">
+              <div className="bg-[#051b22]/95 p-6 rounded-2xl border-2 border-sky-400/40 text-center w-full max-w-sm space-y-4 shadow-2xl">
+                <div className="w-16 h-16 rounded-2xl bg-[#229ED9] text-white flex items-center justify-center mx-auto shadow-lg shadow-[#229ED9]/40">
+                  <Send className="w-8 h-8 fill-white ml-0.5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white font-outfit">Grup Telegram Apoteker &amp; Dokter</h3>
+                  <p className="text-[11px] text-teal-200/80 mt-1">Gabung sekarang &amp; bangun jejaring profesional Anda</p>
+                </div>
+                <a
+                  href="https://t.me/+lHiIMC_TdoM2NTk1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 px-4 bg-[#229ED9] hover:bg-[#1b8bc2] text-white font-black text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.03] border border-sky-200/40"
+                >
+                  <Send className="w-4 h-4 fill-white" />
+                  <span>Join Komunitas Telegram →</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
           BOTTOM CONVERTING CTA BANNER
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1542,6 +1617,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             >
               Mulai Daftar Akun Sekarang
             </button>
+            <a
+              href="https://t.me/+lHiIMC_TdoM2NTk1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-[#229ED9] hover:bg-[#1b8bc2] text-white font-black rounded-2xl shadow-xl transition-all text-xs sm:text-sm cursor-pointer hover:scale-105 flex items-center gap-2 border border-sky-300/40"
+            >
+              <Send className="w-4 h-4 fill-white" />
+              <span>Gabung Komunitas Telegram</span>
+            </a>
             <button
               onClick={onOpenPricingModal}
               className="px-8 py-4 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-2xl shadow-xl transition-all text-xs sm:text-sm cursor-pointer hover:scale-105"

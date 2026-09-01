@@ -1,6 +1,6 @@
 import React from 'react';
 import { Logo } from './Logo';
-import { ShieldAlert, Database, Stethoscope, Sparkles } from 'lucide-react';
+import { ShieldAlert, Database, Stethoscope, Sparkles, Send } from 'lucide-react';
 
 interface FooterProps {
   onSelectTab: (tab: string) => void;
@@ -18,9 +18,20 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
             <p className="text-xs text-teal-100/70 leading-relaxed max-w-sm">
               FARMASIDRUGGIST adalah platform database informasi obat, evaluasi polifarmasi, dan pemeriksa interaksi obat terpercaya untuk Apoteker, Dokter, Klinik, dan Fasilitas Pelayanan Kesehatan Indonesia.
             </p>
-            <div className="flex items-center gap-2 text-xs text-teal-400 font-bold">
-              <Database className="w-4 h-4 text-teal-400" />
-              <span>Database Interaksi Klinis Terintegrasi</span>
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <div className="flex items-center gap-2 text-xs text-teal-400 font-bold">
+                <Database className="w-4 h-4 text-teal-400" />
+                <span>Database Interaksi Klinis Terintegrasi</span>
+              </div>
+              <a
+                href="https://t.me/+lHiIMC_TdoM2NTk1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#229ED9]/20 hover:bg-[#229ED9]/30 border border-[#229ED9]/50 text-sky-300 text-xs font-bold rounded-lg transition-all"
+              >
+                <Send className="w-3.5 h-3.5 fill-sky-300" />
+                <span>Grup Telegram Resmi</span>
+              </a>
             </div>
           </div>
 
@@ -48,9 +59,15 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
                 </button>
               </li>
               <li>
-                <button onClick={() => onSelectTab('literature')} className="hover:text-teal-300 transition-colors cursor-pointer text-slate-300">
-                  Literatur & Bukti Ilmiah (EBM)
-                </button>
+                <a
+                  href="https://t.me/+lHiIMC_TdoM2NTk1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-sky-300 transition-colors cursor-pointer text-sky-400 font-bold flex items-center gap-1"
+                >
+                  <Send className="w-3 h-3 fill-sky-400" />
+                  <span>Komunitas Telegram Apoteker</span>
+                </a>
               </li>
               <li>
                 <button onClick={() => onSelectTab('pricing')} className="hover:text-teal-300 transition-colors cursor-pointer text-slate-300">

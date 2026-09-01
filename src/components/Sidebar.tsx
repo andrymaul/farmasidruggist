@@ -38,7 +38,8 @@ import {
   FlaskConical,
   CalendarClock,
   Leaf,
-  Search
+  Search,
+  Send
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -391,6 +392,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
             );
           })
         )}
+      </div>
+
+      {/* Telegram Community Quick Link in Sidebar */}
+      <div className="px-3 pt-2 pb-1">
+        <a
+          href="https://t.me/+lHiIMC_TdoM2NTk1"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Gabung Grup Telegram Komunitas Farmasi"
+          className={`flex items-center gap-2 p-2 rounded-xl bg-[#229ED9]/10 hover:bg-[#229ED9]/20 text-[#1b8bc2] dark:text-sky-300 border border-[#229ED9]/30 hover:border-[#229ED9]/60 transition-all font-outfit text-xs font-bold ${collapsed ? 'justify-center' : ''}`}
+        >
+          <Send className="w-4 h-4 fill-[#229ED9] dark:fill-sky-300 shrink-0" />
+          {!collapsed && <span className="truncate">Komunitas Telegram</span>}
+        </a>
       </div>
 
       {/* Footer / User Profile Section */}

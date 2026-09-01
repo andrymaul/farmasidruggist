@@ -28,6 +28,14 @@ export class ErrorBoundary extends Component<Props, State> {
     window.location.reload();
   };
 
+  public handleResetCacheAndReload = () => {
+    try {
+      localStorage.clear();
+      sessionStorage.clear();
+    } catch (e) {}
+    window.location.href = '/';
+  };
+
   public render() {
     if (this.state.hasError) {
       return (
@@ -40,7 +48,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="space-y-1">
               <h2 className="text-xl font-bold text-white">Tampilan Mengalami Kendala</h2>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Terjadi kesalahan teknis kecil saat memuat komponen UI. Anda dapat memuat ulang aplikasi di bawah ini.
+                Terjadi kendala saat memuat komponen UI atau cache browser lama. Anda dapat memuat ulang atau mereset cache lokal aplikasi di bawah ini.
               </p>
             </div>
 
@@ -50,13 +58,22 @@ export class ErrorBoundary extends Component<Props, State> {
               </div>
             )}
 
-            <button
-              onClick={this.handleReload}
-              className="w-full py-3 px-4 bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
-            >
-              <RefreshCw className="w-4 h-4" />
-              Muat Ulang Halaman
-            </button>
+            <div className="space-y-2 pt-2">
+              <button
+                onClick={this.handleReload}
+                className="w-full py-3 px-4 bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <RefreshCw className="w-4 h-4" />
+                Muat Ulang Halaman
+              </button>
+
+              <button
+                onClick={this.handleResetCacheAndReload}
+                className="w-full py-2.5 px-4 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold text-xs rounded-xl transition-all cursor-pointer"
+              >
+                Bersihkan Cache Lokal & Buka Halaman Utama
+              </button>
+            </div>
           </div>
         </div>
       );

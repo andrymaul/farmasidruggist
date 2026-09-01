@@ -323,6 +323,52 @@ export const DRUG_LAB_INTERACTIONS_DATABASE: DrugLabInteraction[] = [
     severity: 'Moderat (Moderate)',
     references: 'Journal of Analytical Toxicology'
   }
+,
+  {
+      "id": "dli-fluoroquinolone-opiate-screen",
+      "drugName": "Levofloxacin & Ciprofloxacin (Florokuinolon)",
+      "genericName": "Levofloxacin / Ciprofloxacin",
+      "drugClass": "Antibiotik Florokuinolon",
+      "labTestName": "Opiate Urine Drug Screen (UDS Narkoba Urin)",
+      "labCategory": "Toksikologi & Narkoba Urin",
+      "effectType": "False Positive / Falsely High",
+      "distortionDescription": "Hasil Skrining Narkoba Urin Menjadi POSITIF PALSU OPIAT / OPIOID pada Pasien yang Tidak Mengonsumsi Narkotika.",
+      "biochemicalMechanism": "Struktur cincin kuinolon florokuinolon memiliki reaktivitas silang (cross-reactivity) dengan antibodi immunoassay opiat pada strip uji skrining urin.",
+      "clinicalImpact": "Tuduhan salah penyalahgunaan narkotika pada uji skrining kerja atau medikolegal.",
+      "managementRecommendation": "Konfirmasi hasil positif skrining urin menggunakan metode kromatografi gas spektrometri massa (GC-MS) atau LC-MS konfirmatori yang spesifik dan tidak dipengaruhi antibiotik.",
+      "severity": "Signifikan (Significant)",
+      "references": "Clinical Chemistry Journal & Mayo Clinic Laboratories Drug Interference Guide"
+  },
+  {
+      "id": "dli-vitaminc-glucose",
+      "drugName": "Vitamin C Dosis Tinggi (Asam Askorbat >= 1000 mg/hari)",
+      "genericName": "Ascorbic Acid (Injeksi IV / Oral Megadose)",
+      "drugClass": "Vitamin & Antioksidan",
+      "labTestName": "Glukosa Darah Strip Point-of-Care & Glukosa Urin (Dipstick)",
+      "labCategory": "Glukosa & Metabolik",
+      "effectType": "False Negative / Falsely Low",
+      "distortionDescription": "Hasil Glukosa Urin dan Strip Darah Glukosa Oksidase Menjadi NEGATIF PALSU / RENDAH PALSU pada Pasien Diabetes.",
+      "biochemicalMechanism": "Asam askorbat konsentrasi tinggi adalah agen pereduksi kuat yang berkompetisi dengan kromogen, mereduksi hidrogen peroksida (H2O2) yang dihasilkan oleh reaksi enzim glukosa oksidase, mencegah perubahan warna strip uji.",
+      "clinicalImpact": "Kegagalan deteksi hiperglikemia berat atau ketoasidosis diabetik pada pasien rawat intensif.",
+      "managementRecommendation": "Gunakan metode uji laboratorium enzimatik heksokinase di laboratorium sentral (yang tidak dipengaruhi vitamin C) untuk evaluasi glikemik akurat.",
+      "severity": "Kritis (Critical)",
+      "references": "FDA Safety Communication & Clinical Chemistry"
+  },
+  {
+      "id": "dli-rifampicin-bilirubin",
+      "drugName": "Rifampicin (OAT / Tuberkulosis)",
+      "genericName": "Rifampicin",
+      "drugClass": "Antibiotik Rifamisin",
+      "labTestName": "Total Bilirubin & Direct Bilirubin Serum",
+      "labCategory": "Gastrointestinal & Urinalisis",
+      "effectType": "False Positive / Falsely High",
+      "distortionDescription": "Peningkatan PALSU Signifikan Kadar Bilirubin Total dan Direk Serum.",
+      "biochemicalMechanism": "Warna oranye-merah terang rifampisin dan metabolitnya mengganggu spektrofotometri pada panjang gelombang pembacaan uji diazo bilirubin serta berkompetisi sementara pada transporter serapan hepar OATP1B1.",
+      "clinicalImpact": "Kekhawatiran keliru terjadinya hepatotoksisitas ikterik berat yang memicu penghentian OAT yang tidak perlu.",
+      "managementRecommendation": "Ambil sampel darah sebelum dosis harian rifampisin diminum (saat kadar palung obat), dan evaluasi enzim transaminase SGOT/SGPT sebagai indikator kerusakan hepar sejati.",
+      "severity": "Signifikan (Significant)",
+      "references": "Sanford Guide to Antimicrobial Therapy & Tietz Textbook of Clinical Chemistry"
+  }
 ];
 
 export const LAB_PANEL_GUIDES: LabPanelGuide[] = [

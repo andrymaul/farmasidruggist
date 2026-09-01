@@ -250,6 +250,37 @@ const BASE_FOOD_INTERACTIONS: DrugFoodInteraction[] = [
     "clinicalOutcome": "Hipokalemia meningkatkan afinitas pengikatan Digoxin pada Na+/K+ ATPase miokardium, memicu Aritmia Ventrikel Fatal dan intoksikasi digitalis.",
     "recommendation": "HINDARI teh pencahar stimulan herbal saat mengonsumsi Digoxin. Gunakan pencahar osmotik (Laktulosa/PEG) dan pantau kadar kalium darah."
   }
+,
+  {
+      "id": "dfi-levothyroxine-coffee",
+      "drugName": "Levothyroxine",
+      "foodName": "Kopi Hitam / Kopi Susu (Espresso, Latte)",
+      "foodCategory": "Kafein / Kopi",
+      "severity": "Major",
+      "mechanism": "Senyawa tanin, asam klorogenat, dan kafein dalam kopi mengadsorpsi molekul tiroksin di saluran cerna dan meningkatkan motilitas usus, memangkas bioavailabilitas levotiroksin hingga 35-50%.",
+      "clinicalOutcome": "Kegagalan kontrol hipotiroidisme, fluktuasi peningkatan hormon TSH serum, kelelahan kronis, dan kenaikan berat badan meski patuh minum obat.",
+      "recommendation": "WAJIB diminum saat perut kosong dengan segelas penuh air putih minimal 60 MENIT SEBELUM sarapan pagi atau minum kopi."
+  },
+  {
+      "id": "dfi-alendronate-breakfast",
+      "drugName": "Alendronate / Risedronate",
+      "foodName": "Makanan Sarapan, Susu, Kalsium & Jus Buah",
+      "foodCategory": "Susu / Kalsium",
+      "severity": "Major",
+      "mechanism": "Makanan atau minuman selain air putih murni menurunkan bioavailabilitas oral bifosfonat hingga <0.5% (hampir nol).",
+      "clinicalOutcome": "Kegagalan total pencegahan fraktur tulang dan osteoporosis.",
+      "recommendation": "Minum segera saat bangun tidur pagi dengan 200 mL air putih murni, tetap dalam posisi tegak (duduk/berdiri) minimal 30 menit, dan JANGAN makan/minum apa pun selama 30 menit."
+  },
+  {
+      "id": "dfi-spironolactone-potassium-salts",
+      "drugName": "Spironolactone / ACE Inhibitor / ARB",
+      "foodName": "Garam Pengganti Rendah Natrium Kaya Kalium (Potassium Salt Substitutes / KCl Diet Salt)",
+      "foodCategory": "Suplemen / Mineral",
+      "severity": "Major",
+      "mechanism": "Kombinasi asupan ion kalium eksogen tinggi dari garam diet dengan penahanan ekskresi kalium ginjal oleh spironolakton/ACEi.",
+      "clinicalOutcome": "HIPERKALEMIA MEMATIKAN (>6.5 - 7.0 mEq/L) dengan henti jantung mendadak.",
+      "recommendation": "KONTRAINDIKASI MUTLAK. Edukasi pasien hipertensi/gagal jantung pengguna ACEi/ARB/Spironolactone untuk TIDAK menggunakan garam diet pengganti berbasis kalium klorida."
+  }
 ];
 
 function deduplicateFoodInteractions(list: DrugFoodInteraction[]): DrugFoodInteraction[] {

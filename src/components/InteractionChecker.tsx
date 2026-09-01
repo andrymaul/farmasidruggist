@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Drug, DrugInteraction, UserProfile, SeverityLevel, PricingPlan } from '../types';
+import { Drug, DrugInteraction, UserProfile, SeverityLevel, PricingPlan, DrugDiseaseInteraction } from '../types';
 import { 
   ShieldAlert, 
   Plus, 
@@ -16,10 +16,22 @@ import {
   Utensils,
   CopyX,
   Download,
-  Database
+  Database,
+  Activity,
+  HeartPulse,
+  Stethoscope,
+  Flame,
+  UserCheck
 } from 'lucide-react';
-import { resolveDrugFromDDInter, resolveInteractionPair, evaluateTherapeuticDuplications, evaluateFoodInteractions } from '../utils/ddinterEngine';
+import { 
+  resolveDrugFromDDInter, 
+  resolveInteractionPair, 
+  evaluateTherapeuticDuplications, 
+  evaluateFoodInteractions,
+  evaluateDrugDiseaseInteractions
+} from '../utils/ddinterEngine';
 import { SAMPLE_FOOD_INTERACTIONS, SAMPLE_THERAPEUTIC_DUPLICATIONS, DDINTER_DATASET_INFO } from '../data/ddinterData';
+import { DRUG_DISEASE_INTERACTIONS_DATABASE, COMMON_CLINICAL_DISEASES } from '../data/drugDiseaseInteractionsData';
 
 interface InteractionCheckerProps {
   drugs: Drug[];
@@ -47,6 +59,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   preselectedDrugNames = []
 }) => {
   const [selectedDrugs, setSelectedDrugs] = useState<Drug[]>([]);
+  const [selectedDiseases, setSelectedDiseases] = useState<string[]>([]);
   const [searchInput, setSearchInput] = useState('');
   const [isSaved, setIsSaved] = useState(false);
   const [showDatasetDetails, setShowDatasetDetails] = useState(false);
@@ -162,11 +175,24 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   const searchResults = searchInput.trim()
     ? drugs.filter(
         (d) =>
-          d.name.toLowerCase().includes(searchInput.toLowerCase().trim()) ||
-          d.genericName.toLowerCase().includes(searchInput.toLowerCase().trim()) ||
-          d.brandNames?.some((b) => b.toLowerCase().includes(searchInput.toLowerCase().trim()))
+          d?.name?.toLowerCase().includes(searchInput.toLowerCase().trim()) ||
+          d?.genericName?.toLowerCase().includes(searchInput.toLowerCase().trim()) ||
+          d?.brandNames?.some((b) => b?.toLowerCase().includes(searchInput.toLowerCase().trim()))
       ).slice(0, 8)
     : [];
+
+  // Handle toggle disease selection
+  const handleToggleDisease = (diseaseName: string) => {
+    setSelectedDiseases((prev) =>
+      prev.includes(diseaseName) ? prev.filter((d) => d !== diseaseName) : [...prev, diseaseName]
+    );
+    setIsSaved(false);
+  };
+
+  const handleClearDiseases = () => {
+    setSelectedDiseases([]);
+    setIsSaved(false);
+  };
 
   // Match Interactions using resolution matrix
   const matchedInteractions: DrugInteraction[] = [];
@@ -184,16 +210,33 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   // Therapeutic Duplications evaluation
   const matchedDuplications = evaluateTherapeuticDuplications(selectedDrugs, SAMPLE_THERAPEUTIC_DUPLICATIONS);
 
-  // Food Interactions evaluation
+  // Food & Lifestyle Interactions evaluation
   const matchedFoodInteractions = evaluateFoodInteractions(selectedDrugs, SAMPLE_FOOD_INTERACTIONS);
+
+  // Drug-Disease Interactions (Contraindications) evaluation
+  const matchedDiseaseInteractions = evaluateDrugDiseaseInteractions(
+    selectedDrugs,
+    selectedDiseases,
+    DRUG_DISEASE_INTERACTIONS_DATABASE
+  );
 
   // Determine highest severity
   let highestSeverity: SeverityLevel | 'None' = 'None';
-  if (matchedInteractions.some((i) => i.severity === 'Major') || matchedDuplications.length > 0) {
+  if (
+    matchedInteractions.some((i) => i.severity === 'Major') ||
+    matchedDuplications.length > 0 ||
+    matchedDiseaseInteractions.some((d) => d.severity === 'Major')
+  ) {
     highestSeverity = 'Major';
-  } else if (matchedInteractions.some((i) => i.severity === 'Moderate')) {
+  } else if (
+    matchedInteractions.some((i) => i.severity === 'Moderate') ||
+    matchedDiseaseInteractions.some((d) => d.severity === 'Moderate')
+  ) {
     highestSeverity = 'Moderate';
-  } else if (matchedInteractions.some((i) => i.severity === 'Minor')) {
+  } else if (
+    matchedInteractions.some((i) => i.severity === 'Minor') ||
+    matchedDiseaseInteractions.some((d) => d.severity === 'Minor')
+  ) {
     highestSeverity = 'Minor';
   }
 
@@ -346,7 +389,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
         <div className="flex items-center gap-3 shrink-0 relative z-10">
           <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
             <span className="text-[11px] text-slate-400 block font-medium">Basis Data Terverifikasi:</span>
-            <span className="text-lg font-black text-rose-400">{drugs.length.toLocaleString('id-ID')} Obat &amp; 2.000+ Interaksi</span>
+            <span className="text-lg font-black text-rose-400">{drugs.length.toLocaleString('id-ID')} Obat &amp; {interactions.length.toLocaleString('id-ID')} Interaksi</span>
           </div>
         </div>
       </div>
@@ -512,6 +555,60 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             </div>
           )}
         </div>
+
+        {/* Comorbidity / Patient Disease Conditions Selector */}
+        <div className="bg-slate-50 dark:bg-slate-900/60 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <span className="p-1.5 rounded-lg bg-teal-100 dark:bg-teal-900/60 text-teal-800 dark:text-teal-200">
+                <Stethoscope className="w-4 h-4" />
+              </span>
+              <div>
+                <h4 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <span>Riwayat Komorbiditas & Penyakit Pasien</span>
+                  <span className="text-[10px] text-teal-700 dark:text-teal-300 font-bold bg-teal-50 dark:bg-teal-950 px-2 py-0.5 rounded-md border border-teal-200 dark:border-teal-800">
+                    Opsional / Skrining Kontraindikasi
+                  </span>
+                </h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                  Klik kondisi pasien untuk mendeteksi kontraindikasi obat terhadap penyakit (Drug-Disease Interactions & Beers Criteria).
+                </p>
+              </div>
+            </div>
+
+            {selectedDiseases.length > 0 && (
+              <button
+                onClick={handleClearDiseases}
+                className="text-[11px] font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+                <span>Reset ({selectedDiseases.length})</span>
+              </button>
+            )}
+          </div>
+
+          {/* Quick Disease Chips */}
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {COMMON_CLINICAL_DISEASES.map((dis) => {
+              const isSelected = selectedDiseases.includes(dis.name);
+              return (
+                <button
+                  key={dis.id}
+                  onClick={() => handleToggleDisease(dis.name)}
+                  className={`text-xs font-bold px-3 py-1.5 rounded-xl border transition-all flex items-center gap-1.5 cursor-pointer ${
+                    isSelected
+                      ? 'bg-rose-600 text-white border-rose-700 shadow-xs scale-[1.02]'
+                      : 'bg-white dark:bg-[#071c21] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-teal-500 hover:text-teal-700'
+                  }`}
+                >
+                  <span>{dis.icon}</span>
+                  <span>{dis.name}</span>
+                  {isSelected && <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">✓</span>}
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       {/* Analysis Output */}
@@ -532,14 +629,14 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               <div className="flex items-center gap-2">
                 <AlertTriangle className="w-5 h-5 text-white" />
                 <h3 className="text-base font-black tracking-tight">
-                  {highestSeverity === 'Major' && 'RISIKO TINGGI (MAJOR INTERACTION / DUPLICATION DETECTED)'}
-                  {highestSeverity === 'Moderate' && 'RISIKO SEDANG (MODERATE INTERACTION)'}
+                  {highestSeverity === 'Major' && 'RISIKO TINGGI (KONTRAINDIKASI / MAJOR INTERACTION DETECTED)'}
+                  {highestSeverity === 'Moderate' && 'RISIKO SEDANG (MODERATE RISK / CAUTION)'}
                   {highestSeverity === 'Minor' && 'RISIKO RINGAN (MINOR MONITORING)'}
-                  {highestSeverity === 'None' && 'TIDAK DITEMUKAN INTERAKSI KONTRAINDIKASI'}
+                  {highestSeverity === 'None' && 'TIDAK DITEMUKAN KONTRAINDIKASI ATAU INTERAKSI BERBAHAYA'}
                 </h3>
               </div>
               <p className="text-xs text-white/90 font-medium">
-                Ditemukan <strong>{matchedInteractions.length} pasangan DDI</strong>, <strong>{matchedDuplications.length} duplikasi terapi</strong>, dan <strong>{matchedFoodInteractions.length} interaksi makanan (DFI)</strong>.
+                Ditemukan: <strong>{matchedInteractions.length} pasangan DDI</strong>, <strong>{matchedDiseaseInteractions.length} kontraindikasi penyakit</strong>, <strong>{matchedDuplications.length} duplikasi terapi</strong>, dan <strong>{matchedFoodInteractions.length} interaksi makanan/lifestyle</strong>.
               </p>
             </div>
 
@@ -567,6 +664,72 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               </button>
             </div>
           </div>
+
+          {/* Drug-Disease Interactions (Contraindications) Section - Bold Amber/Rose Danger Styling */}
+          {matchedDiseaseInteractions.length > 0 && (
+            <div className="bg-gradient-to-r from-red-50/95 via-rose-50/95 to-amber-50/95 dark:from-rose-950/40 dark:via-red-950/40 dark:to-amber-950/40 border-2 border-rose-400 dark:border-rose-700 rounded-2xl p-5 space-y-4 shadow-sm">
+              <div className="flex items-center justify-between gap-2 flex-wrap border-b border-rose-200 dark:border-rose-800/80 pb-3">
+                <div className="flex items-center gap-2 text-rose-950 dark:text-rose-200 font-black text-sm">
+                  <span className="p-1.5 rounded-lg bg-rose-200 dark:bg-rose-900 text-rose-800 dark:text-rose-100">
+                    <HeartPulse className="w-4 h-4" />
+                  </span>
+                  <span>Peringatan Kontraindikasi Obat terhadap Penyakit (Drug-Disease Interactions)</span>
+                </div>
+                <span className="text-[11px] font-black px-2.5 py-0.5 rounded-full bg-rose-600 text-white shadow-xs">
+                  {matchedDiseaseInteractions.length} Kontraindikasi Ditemukan
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                {matchedDiseaseInteractions.map((item) => {
+                  const isAbsolute = item.contraindicationLevel.includes('Absolute');
+                  return (
+                    <div
+                      key={item.id}
+                      className="bg-white dark:bg-[#071c21] rounded-xl p-4 sm:p-5 border border-rose-200 dark:border-rose-800/60 shadow-xs space-y-3"
+                    >
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-rose-100 dark:border-rose-900/40 pb-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-black text-slate-900 dark:text-white text-sm">💊 {item.drugName}</span>
+                          <span className="text-rose-600 font-black">❌ BERTENTANGAN DENGAN</span>
+                          <span className="bg-rose-100 dark:bg-rose-950 text-rose-900 dark:text-rose-200 text-xs font-black px-2.5 py-0.5 rounded-lg border border-rose-300 dark:border-rose-800">
+                            🩺 {item.diseaseName}
+                          </span>
+                        </div>
+                        <span className={`text-[10px] font-black px-2.5 py-1 rounded-md text-white uppercase ${
+                          isAbsolute ? 'bg-rose-700' : 'bg-amber-600'
+                        }`}>
+                          {item.contraindicationLevel}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs">
+                        <div className="bg-slate-50 dark:bg-slate-900/60 p-3 rounded-lg border border-slate-200/80 dark:border-slate-800 space-y-0.5">
+                          <p className="font-black text-slate-900 dark:text-white">Mekanisme Patologis:</p>
+                          <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.mechanism}</p>
+                        </div>
+
+                        <div className="bg-rose-50/60 dark:bg-rose-950/30 p-3 rounded-lg border border-rose-200/80 dark:border-rose-900/50 space-y-0.5">
+                          <p className="font-black text-rose-950 dark:text-rose-200">Bahaya & Risiko Klinis:</p>
+                          <p className="text-rose-900 dark:text-rose-300 leading-relaxed font-bold">{item.clinicalRisk}</p>
+                        </div>
+                      </div>
+
+                      <div className="bg-teal-50/80 dark:bg-teal-950/40 p-3.5 rounded-lg border border-teal-200/80 dark:border-teal-900 text-xs space-y-0.5">
+                        <div className="flex items-center gap-1.5 text-teal-900 dark:text-teal-200 font-black">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-teal-700 dark:text-teal-400" />
+                          <span>Rekomendasi Tindakan Klinis:</span>
+                        </div>
+                        <p className="text-teal-950 dark:text-teal-100 font-medium leading-relaxed">
+                          {item.recommendation}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Therapeutic Duplications Section - Cute Berry/Pink Styling */}
           {matchedDuplications.length > 0 && (
@@ -602,8 +765,8 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
           {/* Individual DDI Pairs (Drug-Drug Interactions) */}
           {selectedDrugs.length >= 2 && matchedInteractions.length > 0 ? (
             <div className="space-y-4">
-              <h3 className="text-base font-black text-[#082a24]">
-                Detail Hasil Analisis Interaksi Obat ({matchedInteractions.length})
+              <h3 className="text-base font-black text-[#082a24] dark:text-teal-200">
+                Detail Hasil Analisis Interaksi Antar Obat ({matchedInteractions.length})
               </h3>
 
               {matchedInteractions.map((item) => {
@@ -617,44 +780,44 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                 return (
                   <div
                     key={item.id}
-                    className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm space-y-4"
+                    className="bg-white dark:bg-[#071c21] rounded-2xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-4"
                   >
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
                       <div className="flex items-center gap-2">
-                        <span className="text-lg font-black text-slate-900">{item.drugAName}</span>
+                        <span className="text-lg font-black text-slate-900 dark:text-white">{item.drugAName}</span>
                         <span className="text-amber-500 font-black">⚡</span>
-                        <span className="text-lg font-black text-slate-900">{item.drugBName}</span>
+                        <span className="text-lg font-black text-slate-900 dark:text-white">{item.drugBName}</span>
                       </div>
 
                       <div className="flex items-center gap-2">
                         <span className={`text-xs font-black px-3 py-0.5 rounded-full ${badgeColor}`}>
                           {item.severity}
                         </span>
-                        <span className="bg-slate-100 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded">
+                        <span className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded">
                           Bukti: {item.evidenceLevel}
                         </span>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                      <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-1">
-                        <p className="font-black text-slate-900">Mekanisme Interaksi:</p>
-                        <p className="text-slate-600 leading-relaxed font-medium">{item.mechanism}</p>
+                      <div className="bg-slate-50 dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
+                        <p className="font-black text-slate-900 dark:text-white">Mekanisme Interaksi:</p>
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.mechanism}</p>
                       </div>
 
-                      <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-1">
-                        <p className="font-black text-slate-900">Dampak Klinis Pasien:</p>
-                        <p className="text-slate-600 leading-relaxed font-medium">{item.clinicalOutcome}</p>
+                      <div className="bg-slate-50 dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
+                        <p className="font-black text-slate-900 dark:text-white">Dampak Klinis Pasien:</p>
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.clinicalOutcome}</p>
                       </div>
                     </div>
 
                     {/* Management Box */}
-                    <div className="bg-teal-50 p-4 rounded-xl border border-teal-200/80 space-y-1">
-                      <div className="flex items-center gap-1.5 text-teal-900 font-bold text-xs">
-                        <CheckCircle2 className="w-4 h-4 text-teal-700" />
+                    <div className="bg-teal-50 dark:bg-teal-950/40 p-4 rounded-xl border border-teal-200/80 dark:border-teal-900 space-y-1">
+                      <div className="flex items-center gap-1.5 text-teal-900 dark:text-teal-200 font-bold text-xs">
+                        <CheckCircle2 className="w-4 h-4 text-teal-700 dark:text-teal-400" />
                         <span>Solusi & Manajemen Praktik Klinis:</span>
                       </div>
-                      <p className="text-xs text-teal-950 leading-relaxed font-medium">
+                      <p className="text-xs text-teal-950 dark:text-teal-100 leading-relaxed font-medium">
                         {item.management}
                       </p>
                     </div>
@@ -667,23 +830,23 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               })}
             </div>
           ) : selectedDrugs.length >= 2 ? (
-            <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-2 shadow-xs">
+            <div className="bg-white dark:bg-[#071c21] p-8 rounded-2xl border border-slate-200 dark:border-slate-800 text-center space-y-2 shadow-xs">
               <ShieldCheck className="w-10 h-10 text-emerald-600 mx-auto" />
-              <h3 className="text-base font-black text-[#082a24]">Aman! Tidak Ditemukan Interaksi Signifikan Antar Obat</h3>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto font-medium">
+              <h3 className="text-base font-black text-[#082a24] dark:text-teal-200">Aman! Tidak Ditemukan Interaksi Signifikan Antar Obat</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto font-medium">
                 Kombinasi obat yang Anda pilih tidak menunjukkan efek interaksi obat-dengan-obat yang berbahaya pada analisis standar database.
               </p>
             </div>
           ) : null}
 
-          {/* Drug-Food Interactions (DFI) Section - Sweet Lavender Styling */}
+          {/* Drug-Food & Lifestyle Interactions (DFI) Section - Sweet Lavender Styling */}
           {matchedFoodInteractions.length > 0 && (
             <div className="bg-gradient-to-r from-purple-50/90 via-fuchsia-50/90 to-purple-50/90 dark:from-purple-950/30 dark:via-fuchsia-950/30 dark:to-purple-950/30 border border-purple-300 dark:border-purple-800/80 rounded-2xl p-5 space-y-3 shadow-xs">
               <div className="flex items-center gap-2 text-purple-950 dark:text-purple-200 font-black text-sm">
                 <span className="p-1 rounded-lg bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300">
                   <Utensils className="w-4 h-4" />
                 </span>
-                <span>Interaksi Makanan & Minuman (Drug-Food Interactions / DFI)</span>
+                <span>Interaksi Makanan, Minuman & Gaya Hidup (Food & Lifestyle / DFI)</span>
                 <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-200 dark:bg-purple-900 text-purple-900 dark:text-purple-200">
                   {matchedFoodInteractions.length} Interaksi
                 </span>
