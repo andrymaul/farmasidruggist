@@ -444,6 +444,10 @@ export const SideEffectChecker: React.FC<SideEffectCheckerProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto shrink-0">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Database Toksisitas &amp; MESO:</span>
+              <span className="text-lg font-black text-amber-400">{DRUG_TOXICITY_PROFILES.length}+ Profil &amp; Naranjo</span>
+            </div>
             <button
               onClick={handlePrint}
               className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md active:scale-95"

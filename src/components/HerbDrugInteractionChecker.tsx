@@ -181,6 +181,13 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
               </div>
             </div>
           </div>
+
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Total Herbal Terdaftar:</span>
+              <span className="text-lg font-black text-emerald-400">{INDONESIAN_HERB_PROFILES.length} Herbal &amp; {HERB_DRUG_INTERACTIONS_DATABASE.length} Interaksi</span>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -440,7 +440,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
     <div className="space-y-6 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* HEADER BANNER - Modern Deep Obsidian & Rose/Pink Palette */}
       {!hideHeader && (
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-[#181120] to-slate-900 p-6 sm:p-8 text-white border border-rose-500/20 shadow-xl">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-[#181120] to-slate-900 p-6 sm:p-8 text-white border border-rose-500/20 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
             <Baby className="w-64 h-64 text-rose-400 -rotate-12" />
           </div>
@@ -460,6 +460,13 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
             <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
               Hitung dosis anak berbasis berat badan/BSA, konversi racikan tablet utuh ke puyer dengan penambahan zat pengisi (<em>Saccharum Lactis</em>), perhitungan takaran sirup/drops, dan skrining batas dosis toksik.
             </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Total Obat Pediatrik:</span>
+              <span className="text-lg font-black text-rose-400">{PEDIATRIC_DRUGS_DATABASE.length} Formula Dosis Anak</span>
+            </div>
           </div>
         </div>
       )}

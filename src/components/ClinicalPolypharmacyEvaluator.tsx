@@ -1228,6 +1228,10 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
             </div>
 
             <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+                <span className="text-[11px] text-slate-400 block font-medium">Kriteria Geriatri &amp; Beers:</span>
+                <span className="text-lg font-black text-indigo-300">60+ Obat Beers 2023 &amp; STOPP</span>
+              </div>
               <button
                 onClick={handlePrintReport}
                 className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs shadow-lg transition-colors flex items-center gap-2"

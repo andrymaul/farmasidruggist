@@ -87,7 +87,11 @@ export const PharmacySopManager: React.FC<PharmacySopManagerProps> = ({
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 shrink-0">
+        <div className="flex flex-wrap items-center gap-3 shrink-0 relative z-10">
+          <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <span className="text-[11px] text-slate-400 block font-medium">Total SOP Terakreditasi:</span>
+            <span className="text-lg font-black text-teal-400">{PHARMACY_SOP_LIST.length} Dokumen Resmi</span>
+          </div>
           <button
             onClick={handlePrint}
             className="px-5 py-2.5 rounded-2xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-black shadow-md flex items-center gap-2 transition-all cursor-pointer border border-teal-400/40 hover:scale-105"

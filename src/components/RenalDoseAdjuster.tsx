@@ -912,18 +912,27 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
         <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
           <Calculator className="w-64 h-64 text-violet-400 -rotate-12" />
         </div>
-        <div className="space-y-2 max-w-3xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-bold border border-violet-500/30">
-            <Activity className="w-4 h-4 text-violet-400" />
-            <span>Kalkulator Farmakoterapi Klinis Terpadu</span>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div className="space-y-2 max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-bold border border-violet-500/30">
+              <Activity className="w-4 h-4 text-violet-400" />
+              <span>Kalkulator Farmakoterapi Klinis Terpadu</span>
+            </div>
+
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+              Kalkulator Medis &amp; <span className="text-violet-400">Penyesuaian Dosis</span>
+            </h1>
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
+              Suite kalkulator farmako-klinis terpadu: Dosis Ginjal (CrCl/eGFR), Dosis Hepar (Child-Pugh &amp; MELD), Dosis Pediatrik &amp; Bayi, Racikan Puyer (SL &amp; DTD), Titrasi Syringe Pump &amp; Infus Drip, Konversi Opioid (CDC MME), IBW/BMI, Oksigen Medis, serta 13 Kalkulator Skor Klinis Terintegrasi.
+            </p>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
-            Kalkulator Medis & <span className="text-violet-400">Penyesuaian Dosis</span>
-          </h1>
-          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-            Suite kalkulator farmako-klinis terpadu: Dosis Ginjal (CrCl/eGFR), Dosis Hepar (Child-Pugh & MELD), Dosis Pediatrik & Bayi, Racikan Puyer (SL & DTD), Titrasi Syringe Pump & Infus Drip, Konversi Opioid (CDC MME), IBW/BMI, Oksigen Medis, serta 13 Kalkulator Skor Klinis Terintegrasi.
-          </p>
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Total Formula Terintegrasi:</span>
+              <span className="text-lg font-black text-violet-400">12+ Formula &amp; Skor Medis</span>
+            </div>
+          </div>
         </div>
 
         {/* Full-width Responsive 9-Tab Switcher Menu */}

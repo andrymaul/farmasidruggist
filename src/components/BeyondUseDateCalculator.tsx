@@ -262,6 +262,13 @@ export const BeyondUseDateCalculator: React.FC<BeyondUseDateCalculatorProps> = (
               </div>
             </div>
           </div>
+
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Standar Baku BUD:</span>
+              <span className="text-lg font-black text-emerald-400">USP &lt;795&gt;/&lt;797&gt; &amp; {COMMERCIAL_DRUG_RECONSTITUTIONS.length} Monografi</span>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -291,19 +291,28 @@ ${guideline.keyClinicalAlert || '-'}`;
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-1/3 -mb-16 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 space-y-3 max-w-4xl">
-          <div className="inline-flex items-center gap-2 bg-blue-500/20 px-3.5 py-1 rounded-full text-xs font-bold text-blue-300 border border-blue-500/30">
-            <BookOpen className="w-4 h-4 text-blue-400" />
-            <span>Pedoman Nasional Pelayanan Kedokteran (PNPK) & Konsensus Spesialis RI</span>
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-3 max-w-4xl">
+            <div className="inline-flex items-center gap-2 bg-blue-500/20 px-3.5 py-1 rounded-full text-xs font-bold text-blue-300 border border-blue-500/30">
+              <BookOpen className="w-4 h-4 text-blue-400" />
+              <span>Pedoman Nasional Pelayanan Kedokteran (PNPK) &amp; Konsensus Spesialis RI</span>
+            </div>
+
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white font-outfit">
+              Panduan Terapi <span className="text-teal-300">Penyakit Klinis Indonesia</span>
+            </h1>
+            
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
+              Database tatalaksana farmakoterapi resmi berbasis standar Kemenkes RI, PERKI, PERKENI, PAPDI, PDPI, IDAI, POGI, PERDOSSI, IRA, PERNEFRI, &amp; PGI-PEGI. Terintegrasi dengan ketersediaan Formularium Nasional (FORNAS) BPJS Kesehatan dan uji interaksi obat otomatis.
+            </p>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white font-outfit">
-            Panduan Terapi <span className="text-teal-300">Penyakit Klinis Indonesia</span>
-          </h1>
-          
-          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-            Database tatalaksana farmakoterapi resmi berbasis standar Kemenkes RI, PERKI, PERKENI, PAPDI, PDPI, IDAI, POGI, PERDOSSI, IRA, PERNEFRI, & PGI-PEGI. Terintegrasi dengan ketersediaan Formularium Nasional (FORNAS) BPJS Kesehatan dan uji interaksi obat otomatis.
-          </p>
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Total PNPK &amp; Konsensus:</span>
+              <span className="text-lg font-black text-teal-300">{CLINICAL_GUIDELINES_DATABASE.length} Pedoman Terapi</span>
+            </div>
+          </div>
         </div>
 
         {/* Action and Stat Pills Bar */}

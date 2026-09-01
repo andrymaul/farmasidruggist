@@ -166,7 +166,7 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
   return (
     <div className="space-y-6 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* HEADER BANNER - DARK TEAL PALETTE */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] p-6 sm:p-7 text-white border border-[#143d47] shadow-xl">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] p-6 sm:p-7 text-white border border-[#143d47] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
           <Syringe className="w-64 h-64 text-white" />
         </div>
@@ -186,6 +186,13 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
           <p className="text-xs sm:text-sm text-teal-100/80 font-medium leading-relaxed">
             Evaluasi kompatibilitas percabangan jalur infus bersama (<em>Y-Site Co-Infusion</em>), skrining presipitasi asam-basa, kompatibilitas pelarut infus (NS, D5W, RL), stabilitas <em>Beyond Use Date</em> (BUD), dan kalkulator titrasi syringe pump.
           </p>
+        </div>
+
+        <div className="flex items-center gap-3 shrink-0 relative z-10">
+          <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <span className="text-[11px] text-slate-400 block font-medium">Total Obat Injeksi:</span>
+            <span className="text-lg font-black text-cyan-400">{IV_DRUGS_DATABASE.length} Sediaan IV &amp; ICU</span>
+          </div>
         </div>
       </div>
 

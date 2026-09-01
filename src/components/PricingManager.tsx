@@ -133,13 +133,20 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
           </p>
         </div>
 
-        <button
-          onClick={handleSaveAll}
-          className="px-6 py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 shrink-0 border border-teal-500/40"
-        >
-          <Save className="w-5 h-5" />
-          <span>Simpan Semua Perubahan</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <span className="text-[11px] text-slate-400 block font-medium">Tingkat Akses Lisensi:</span>
+            <span className="text-lg font-black text-teal-400">{plans.length} Paket Layanan</span>
+          </div>
+
+          <button
+            onClick={handleSaveAll}
+            className="px-6 py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 border border-teal-500/40"
+          >
+            <Save className="w-5 h-5" />
+            <span>Simpan Semua Perubahan</span>
+          </button>
+        </div>
       </div>
 
       {message && (

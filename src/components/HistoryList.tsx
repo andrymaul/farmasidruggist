@@ -55,9 +55,10 @@ export const HistoryList: React.FC<HistoryListProps> = ({
             Catatan pemeriksaan interaksi tersimpan {currentUser?.email ? `di akun ${currentUser.email}` : 'pada sesi lokal'}.
           </p>
         </div>
-        <span className="bg-purple-500/20 text-purple-300 text-xs font-bold px-3.5 py-1.5 rounded-xl border border-purple-500/30 shrink-0 relative z-10">
-          {historyRecords.length} Catatan Tersimpan
-        </span>
+        <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md shrink-0 relative z-10">
+          <span className="text-[11px] text-slate-400 block font-medium">Total Arsip Resep:</span>
+          <span className="text-lg font-black text-purple-400">{historyRecords.length} Riwayat Tersimpan</span>
+        </div>
       </div>
 
       {historyRecords.length > 0 ? (

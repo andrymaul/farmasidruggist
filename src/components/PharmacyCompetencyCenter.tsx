@@ -254,7 +254,7 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/10 text-cyan-200 border border-white/20">
                 <BookMarked className="w-3.5 h-3.5 text-cyan-300" />
-                4 Domain • 20 Soal CBT • 9 Rumus • 6 Stasi OSCE
+                4 Domain • {EXAM_QUESTION_BANK.length} Soal CBT • {OSCE_STATIONS.length} Stase OSCE • {FLASHCARD_DECK.length} Flashcards
               </span>
             </div>
             
@@ -267,18 +267,23 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
                   Pusat Belajar <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300">Uji Kompetensi Farmasi</span>
                 </h1>
                 <p className="text-xs text-emerald-200/90 font-semibold font-outfit mt-0.5">
-                  Platform Akselerasi & Simulasi Terpadu UKMPPAI (CBT & OSCE) serta UKTVF
+                  Platform Akselerasi &amp; Simulasi Terpadu UKMPPAI (CBT &amp; OSCE) serta UKTVF
                 </p>
               </div>
             </div>
             
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-              Platform akselerasi kelulusan Uji Kompetensi Mahasiswa Program Profesi Apoteker Indonesia (UKMPPAI CBT & OSCE) serta Uji Kompetensi Tenaga Vokasi Farmasi (UKTVF). Dilengkapi rangkuman 4 blueprint nasional, bank soal kasus vignette, simulasi CBT, rumus hitungan cepat, dan panduan stasi OSCE.
+              Platform akselerasi kelulusan Uji Kompetensi Mahasiswa Program Profesi Apoteker Indonesia (UKMPPAI CBT &amp; OSCE) serta Uji Kompetensi Tenaga Vokasi Farmasi (UKTVF). Dilengkapi rangkuman 4 blueprint nasional, bank soal kasus vignette, simulasi CBT, rumus hitungan cepat, dan panduan stasi OSCE.
             </p>
           </div>
 
           {/* Quick Stats Badges */}
           <div className="flex flex-wrap md:flex-col gap-2.5 shrink-0">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-left shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Total Bank Materi Ukom:</span>
+              <span className="text-sm font-black text-emerald-400">{EXAM_QUESTION_BANK.length} CBT • {OSCE_STATIONS.length} OSCE • {FLASHCARD_DECK.length} Flashcards</span>
+            </div>
+
             <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 text-left hover:bg-white/10 transition-all">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center font-black font-outfit">
                 <Layers className="w-5 h-5 text-emerald-400" />
@@ -294,8 +299,8 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
                 <CheckCircle2 className="w-5 h-5 text-teal-400" />
               </div>
               <div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase font-outfit">Terintegrasi PNPK & FI VI</p>
-                <p className="text-xs font-black text-white">Pembahasan Rasional & EBM</p>
+                <p className="text-[10px] text-slate-400 font-bold uppercase font-outfit">Terintegrasi PNPK &amp; FI VI</p>
+                <p className="text-xs font-black text-white">Pembahasan Rasional &amp; EBM</p>
               </div>
             </div>
 

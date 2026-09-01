@@ -194,7 +194,7 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
       <div className="space-y-6 print:hidden">
         
         {/* Header Banner */}
-        <div className="bg-gradient-to-r from-slate-900 via-[#0c1c24] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-slate-900 via-[#0c1c24] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
             <BookOpen className="w-64 h-64 text-teal-400 -rotate-12" />
           </div>
@@ -207,8 +207,15 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
               Panduan Tata Cara <span className="text-teal-400">Penggunaan Obat Khusus</span>
             </h1>
             <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-              Database komprehensif <strong>26 sediaan khusus</strong> (Inhaler MDI/Spacer, Turbuhaler, Diskus, Respimat, Pen Insulin, Ozempic, Enoxaparin, EpiPen, Suppositoria, Ovula, Koyo Fentanyl, FTU Salep Steroid, hingga ISDN Sublingual) dilengkapi instruksi langkah demi langkah dan lembar cetak edukasi ber-KOP resmi.
+              Database komprehensif sediaan khusus (Inhaler MDI/Spacer, Turbuhaler, Diskus, Respimat, Pen Insulin, Ozempic, Enoxaparin, EpiPen, Suppositoria, Ovula, Koyo Fentanyl, FTU Salep Steroid, hingga ISDN Sublingual) dilengkapi instruksi langkah demi langkah dan lembar cetak edukasi.
             </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Total Sediaan Terdaftar:</span>
+              <span className="text-lg font-black text-teal-400">{cleanGuides.length} Panduan Khusus</span>
+            </div>
           </div>
         </div>
 

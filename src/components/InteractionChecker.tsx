@@ -325,7 +325,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 print:hidden">
       
       {/* Dark Obsidian & Rose/Teal Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-[#1a0f1d] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-rose-500/20 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-slate-900 via-[#1a0f1d] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-rose-500/20 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
           <ShieldAlert className="w-64 h-64 text-rose-400 -rotate-12" />
         </div>
@@ -341,6 +341,13 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
           <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
             Evaluasi komprehensif risiko interaksi obat-obat (DDI), interaksi makanan/minuman (DFI), dan duplikasi terapi tervalidasi berdasarkan <strong>Drugs.com, Medscape Reference, Stockley’s Drug Interactions, DrugBank Online, WebMD, dan RxList</strong>.
           </p>
+        </div>
+
+        <div className="flex items-center gap-3 shrink-0 relative z-10">
+          <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <span className="text-[11px] text-slate-400 block font-medium">Basis Data Terverifikasi:</span>
+            <span className="text-lg font-black text-rose-400">{drugs.length.toLocaleString('id-ID')} Obat &amp; 2.000+ Interaksi</span>
+          </div>
         </div>
       </div>
 

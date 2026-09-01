@@ -205,6 +205,13 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
               </div>
             </div>
           </div>
+
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Total Parameter Terdaftar:</span>
+              <span className="text-lg font-black text-cyan-400">{DRUG_LAB_INTERACTIONS_DATABASE.length} Pasangan Uji Lab</span>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -909,7 +909,7 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
   return (
     <div className="space-y-6 pb-12">
       {/* HEADER BANNER - Modern Obsidian Deep Emerald */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-[#06241e] to-slate-900 p-6 md:p-8 text-white shadow-xl border border-emerald-500/20">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-[#06241e] to-slate-900 p-6 md:p-8 text-white shadow-xl border border-emerald-500/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
           <MessageSquare className="w-64 h-64 text-emerald-400" />
         </div>
@@ -917,7 +917,7 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
           <div className="flex items-center gap-2 flex-wrap">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
               <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
-              Pelayanan Informasi Obat (PIO) & Edukasi Digital
+              Pelayanan Informasi Obat (PIO) &amp; Edukasi Digital
             </span>
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/10 text-slate-200 border border-white/10">
               Standar Permenkes 73/2016
@@ -929,6 +929,13 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
           <p className="text-slate-300 text-xs md:text-sm leading-relaxed font-medium">
             Buat ringkasan jadwal aturan minum obat yang rapi, pantangan makanan, dan instruksi penyimpanan, lalu kirimkan langsung ke WhatsApp pasien hanya dengan 1 kali klik!
           </p>
+        </div>
+
+        <div className="flex items-center gap-3 shrink-0 relative z-10">
+          <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <span className="text-[11px] text-slate-400 block font-medium">Format Edukasi PIO:</span>
+            <span className="text-lg font-black text-teal-400">WhatsApp &amp; Kartu Cetak Pasien</span>
+          </div>
         </div>
       </div>
 

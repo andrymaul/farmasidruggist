@@ -231,7 +231,7 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
             <div className="flex flex-wrap gap-2 pt-2">
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
                 <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
-                <span>120+ Monografi Klinis</span>
+                <span>{PREGNANCY_LACTATION_DATABASE.length} Monografi Klinis</span>
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-pink-200">
                 <ShieldAlert className="w-3.5 h-3.5 text-pink-300" />
@@ -241,6 +241,13 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Alternatif Aman Lini 1</span>
               </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Total Obat Terverifikasi:</span>
+              <span className="text-lg font-black text-pink-400">{PREGNANCY_LACTATION_DATABASE.length} Obat Bumil &amp; Busui</span>
             </div>
           </div>
         </div>
