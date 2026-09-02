@@ -116,6 +116,15 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
   // BSA Mosteller Inputs
   const [bsaHeight, setBsaHeight] = useState<number>(120);
   const [bsaWeight, setBsaWeight] = useState<number>(25);
+  // CrCl Cockcroft-Gault Inputs
+  const [crclAge, setCrclAge] = useState<number>(65);
+  const [crclWeight, setCrclWeight] = useState<number>(54);
+  const [crclScr, setCrclScr] = useState<number>(1.6);
+  const [crclGender, setCrclGender] = useState<'male' | 'female'>('female');
+  // Reorder Point (ROP) Inputs
+  const [ropLeadTime, setRopLeadTime] = useState<number>(3);
+  const [ropDailyUsage, setRopDailyUsage] = useState<number>(30);
+  const [ropSafetyStock, setRopSafetyStock] = useState<number>(60);
 
   // 4. OSCE State
   const [selectedOsceId, setSelectedOsceId] = useState<string>(OSCE_STATIONS[0]?.id || '');
@@ -847,15 +856,17 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
       {activeMainTab === 'calc' && (
         <div className="space-y-6">
           {/* Category Selector */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
             {[
               { id: 'alligation', label: 'Aligasi Silang', icon: FlaskConical },
               { id: 'hlb', label: 'HLB Campuran', icon: Layers },
               { id: 'tonicity', label: 'Tonisitas E-NaCl', icon: Sparkles },
               { id: 'pk', label: 'Farmakokinetika (LD/MD)', icon: Calculator },
+              { id: 'crcl', label: 'Klirens Kreatinin (CrCl)', icon: Stethoscope },
               { id: 'hja', label: 'HJA, Margin & PPN', icon: Briefcase },
               { id: 'icer', label: 'Farmakoekonomi (ICER)', icon: TrendingUp },
               { id: 'consumption', label: 'Metode Konsumsi', icon: ClipboardList },
+              { id: 'rop', label: 'Reorder Point (ROP)', icon: RotateCcw },
               { id: 'friability', label: 'Kerapuhan Tablet (%)', icon: Zap },
               { id: 'bsa', label: 'BSA Mosteller (m²)', icon: Baby }
             ].map(cat => (
@@ -1469,6 +1480,178 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
               </div>
             )}
 
+            {/* 10. CrCl Cockcroft-Gault Calculator */}
+            {selectedCalcCategory === 'crcl' && (
+              <div className="space-y-5">
+                <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
+                  <h3 className="text-base font-black text-slate-900 dark:text-white font-outfit">
+                    Kalkulator Klirens Kreatinin (Cockcroft-Gault) & Penyesuaian Dosis Ginjal
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    Estimasi Klirens Kreatinin (CrCl) berbasis usia, berat badan, serum kreatinin, dan jenis kelamin.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-semibold">
+                  <div>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1">Usia Pasien (Tahun):</label>
+                    <input
+                      type="number"
+                      value={crclAge}
+                      onChange={(e) => setCrclAge(Number(e.target.value))}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1">Berat Badan (kg):</label>
+                    <input
+                      type="number"
+                      value={crclWeight}
+                      onChange={(e) => setCrclWeight(Number(e.target.value))}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1">Serum Kreatinin (mg/dL):</label>
+                    <input
+                      type="number"
+                      step="0.1"
+                      value={crclScr}
+                      onChange={(e) => setCrclScr(Number(e.target.value))}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1">Jenis Kelamin:</label>
+                    <select
+                      value={crclGender}
+                      onChange={(e) => setCrclGender(e.target.value as 'male' | 'female')}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    >
+                      <option value="male">Laki-laki (Faktor = 1,00)</option>
+                      <option value="female">Perempuan (Faktor = 0,85)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {(() => {
+                  const baseCrCl = crclScr > 0 ? ((140 - crclAge) * crclWeight) / (72 * crclScr) : 0;
+                  const finalCrCl = crclGender === 'female' ? baseCrCl * 0.85 : baseCrCl;
+                  
+                  let stageText = 'Normal / Minimal (Stage 1)';
+                  let stageColor = 'text-emerald-600 dark:text-emerald-400';
+                  let recText = 'Dosis obat standar normal. Pantau fungsi ginjal berkala.';
+
+                  if (finalCrCl < 15) {
+                    stageText = 'Gagal Ginjal Terminal / End-Stage (Stage 5)';
+                    stageColor = 'text-rose-600 dark:text-rose-400';
+                    recText = 'Dosis obat harus diturunkan drastis (75-80%) atau interval diperpanjang. Hentikan obat nefrotoksik & Metformin.';
+                  } else if (finalCrCl < 30) {
+                    stageText = 'Gangguan Ginjal Berat (Stage 4)';
+                    stageColor = 'text-orange-600 dark:text-orange-400';
+                    recText = 'KONTRAINDIKASI Metformin (risiko Asidosis Laktat). Dosis antibiotik (Cefepime, Meropenem) diturunkan 50%.';
+                  } else if (finalCrCl < 60) {
+                    stageText = 'Gangguan Ginjal Sedang (Stage 3)';
+                    stageColor = 'text-amber-600 dark:text-amber-400';
+                    recText = 'Pertimbangkan penyesuaian dosis obat dengan eliminasi ginjal tinggi. Metformin maksimal 1000 mg/hari jika eGFR 30-44.';
+                  } else if (finalCrCl < 90) {
+                    stageText = 'Gangguan Ginjal Ringan (Stage 2)';
+                    stageColor = 'text-teal-600 dark:text-teal-400';
+                    recText = 'Fungsi ginjal sedikit menurun, umumnya dosis obat standar masih dapat ditoleransi.';
+                  }
+
+                  return (
+                    <div className="p-4 rounded-2xl bg-teal-50 dark:bg-teal-950/40 border border-teal-300 dark:border-teal-800 text-xs space-y-2 font-medium text-teal-950 dark:text-teal-200">
+                      <div className="font-bold text-teal-900 dark:text-teal-300 text-sm">Hasil Estimasi Klirens Kreatinin (CrCl):</div>
+                      <div className="text-base font-black font-outfit text-teal-700 dark:text-teal-300">
+                        CrCl = {finalCrCl > 0 ? finalCrCl.toFixed(2) : 0} mL/min
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-teal-200/60 dark:border-teal-800/60">
+                        <div>
+                          • Klasifikasi Fungsi: <strong className={stageColor}>{stageText}</strong>
+                        </div>
+                        <div>
+                          • Jenis Kelamin: <strong>{crclGender === 'female' ? 'Perempuan (x 0,85)' : 'Laki-laki (x 1,00)'}</strong>
+                        </div>
+                      </div>
+                      <div className="text-[11px] text-slate-600 dark:text-slate-300 pt-1">
+                        <strong>Rekomendasi Farmasi Klinis:</strong> {recText}
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
+            {/* 11. Reorder Point (ROP) Calculator */}
+            {selectedCalcCategory === 'rop' && (
+              <div className="space-y-5">
+                <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
+                  <h3 className="text-base font-black text-slate-900 dark:text-white font-outfit">
+                    Kalkulator Titik Pemesanan Kembali (Reorder Point / ROP)
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    Kalkulasi batas kuantitas minimum untuk menerbitkan Surat Pesanan (SP) baru ke distributor PBF.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-semibold">
+                  <div>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1">Waktu Tunggu / Lead Time (Hari):</label>
+                    <input
+                      type="number"
+                      value={ropLeadTime}
+                      onChange={(e) => setRopLeadTime(Number(e.target.value))}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1">Rata-Rata Pemakaian Harian (Unit/Hari):</label>
+                    <input
+                      type="number"
+                      value={ropDailyUsage}
+                      onChange={(e) => setRopDailyUsage(Number(e.target.value))}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1">Stok Pengaman / Safety Stock (Unit):</label>
+                    <input
+                      type="number"
+                      value={ropSafetyStock}
+                      onChange={(e) => setRopSafetyStock(Number(e.target.value))}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                {(() => {
+                  const leadTimeStock = ropLeadTime * ropDailyUsage;
+                  const totalRop = leadTimeStock + ropSafetyStock;
+
+                  return (
+                    <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 text-xs space-y-2 font-medium text-amber-950 dark:text-amber-200">
+                      <div className="font-bold text-amber-900 dark:text-amber-300 text-sm">Hasil Perhitungan Reorder Point:</div>
+                      <div className="text-base font-black font-outfit text-amber-700 dark:text-amber-300">
+                        Titik Reorder (ROP) = {totalRop} Unit
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-amber-200/60 dark:border-amber-800/60">
+                        <div>
+                          • Kebutuhan Selama Lead Time: <strong>{leadTimeStock} Unit</strong> ({ropLeadTime} hari × {ropDailyUsage} unit)
+                        </div>
+                        <div>
+                          • Cadangan Pengaman (Safety Stock): <strong>{ropSafetyStock} Unit</strong>
+                        </div>
+                      </div>
+                      <div className="text-[11px] text-slate-600 dark:text-slate-300 pt-1">
+                        <strong>Instruksi Pengadaan Apotek:</strong> Segera terbitkan Surat Pesanan (SP) baru ke PBF ketika sisa fisik obat di rak apotek telah menyentuh angka <strong>{totalRop} Unit</strong>.
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
             {/* ========================================================================= */}
             {/* EDUKASI MATERI, PENJELASAN RUMUS & CONTOH KASUS CBT UKMPPAI & UKTVF     */}
             {/* ========================================================================= */}
@@ -1795,7 +1978,7 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
           {/* Category Filter */}
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap gap-2">
-              {['all', 'Antidotum', 'Efek Samping Khas', 'Nilai Normal Lab', 'Mekanisme Obat (MoA)', 'Interaksi Kritis', 'Regulasi & DOWA'].map(cat => (
+              {['all', 'Antidotum', 'Efek Samping Khas', 'Nilai Normal Lab', 'Mekanisme Obat (MoA)', 'Interaksi Kritis', 'Regulasi & DOWA', 'Singkatan Latin & BUD'].map(cat => (
                 <button
                   key={cat}
                   onClick={() => {

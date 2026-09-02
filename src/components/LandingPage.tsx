@@ -38,7 +38,9 @@ import {
   CheckCheck,
   Building2,
   Smartphone,
-  Send
+  Send,
+  Brain,
+  RotateCcw
 } from 'lucide-react';
 import { resolveDrugFromDDInter, resolveInteractionPair } from '../utils/ddinterEngine';
 
@@ -320,10 +322,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         },
         {
           id: 'renal-adjuster',
-          title: 'Kalkulator Dosis Ginjal & Skor Medis',
-          desc: 'Perhitungan CrCl (Cockcroft-Gault), eGFR CKD-EPI, penyesuaian dosis obat ginjal + Kalkulator Skor Klinis (CHA2DS2-VASc, HAS-BLED, CURB-65).',
+          title: 'Kalkulator Medis & Penyesuaian Dosis',
+          desc: 'Suite kalkulator farmako-klinis terpadu: Dosis Ginjal (CrCl/eGFR), Hepar, Syringe Pump, Opioid, IBW, serta 14 Kalkulator Skor Klinis (termasuk SRQ-20).',
           icon: Calculator,
-          badge: 'Cockcroft & Skor',
+          badge: '14+ Skor & Dosis',
           badgeColor: 'bg-violet-600 text-white',
           color: 'text-violet-600 dark:text-violet-400',
           bg: 'bg-violet-50 dark:bg-violet-950/40 border-violet-200 dark:border-violet-800/60'
@@ -436,6 +438,94 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     }
   ];
 
+  // =========================================================================
+  // SRQ-20 PUBLIC HEALTH SELF-ASSESSMENT STATE & HANDLERS
+  // =========================================================================
+  const [publicSrqScores, setPublicSrqScores] = useState<number[]>(Array(20).fill(0));
+  const [isSrqCopied, setIsSrqCopied] = useState(false);
+
+  const calculatePublicSrq = () => {
+    const totalScore = publicSrqScores.reduce((a, b) => a + b, 0);
+    const hasSuicidalIdeation = publicSrqScores[16] === 1; // Item 17 (0-indexed 16)
+
+    if (totalScore >= 12) {
+      return {
+        score: totalScore,
+        category: 'Distres Psikologis Berat / GME Signifikan',
+        badgeColor: 'bg-rose-500/20 text-rose-300 border-rose-500/40',
+        textColor: 'text-rose-400',
+        recommendation:
+          'Skor Anda (>= 12 dari 20) mengindikasikan beban psikologis dan emosional yang cukup berat dalam 30 hari terakhir. Kondisi ini sangat wajar terjadi pada situasi penuh tekanan, namun memerlukan bantuan profesional. Sangat disarankan untuk berkonsultasi langsung ke Dokter Spesialis Kedokteran Jiwa (Psikiater) atau Psikolog Klinis di Puskesmas / Rumah Sakit terdekat untuk evaluasi dan pendampingan yang tepat.',
+        hasSuicidalIdeation
+      };
+    } else if (totalScore >= 6) {
+      return {
+        score: totalScore,
+        category: 'Terindikasi Gangguan Mental Emosional (GME)',
+        badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+        textColor: 'text-amber-400',
+        recommendation:
+          'Skor Anda mencapai batas ambang Kemenkes RI (>= 6 poin). Anda kemungkinan mengalami distres emosional bermakna (seperti rasa cemas, murung berlarut, atau keluhan fisik akibat stres/psikosomatis). Lakukan teknik relaksasi pernapasan, bicarakan beban pikiran dengan orang terpercaya, dan jangan ragu untuk berkonsultasi ke dokter di faskes primer/Puskesmas jika keluhan menetap lebih dari 2 minggu.',
+        hasSuicidalIdeation
+      };
+    } else {
+      return {
+        score: totalScore,
+        category: 'Dalam Batas Normal (Kondisi Adaptif)',
+        badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+        textColor: 'text-emerald-400',
+        recommendation:
+          'Skor Anda (< 6 poin) menunjukkan bahwa kondisi kesehatan mental dan emosional Anda dalam 30 hari terakhir berada dalam batas adaptif normal. Pertahankan pola hidup sehat, waktu istirahat yang cukup, olahraga teratur, dan koping stres harian yang positif.',
+        hasSuicidalIdeation
+      };
+    }
+  };
+
+  const handleCopySrqResult = () => {
+    const res = calculatePublicSrq();
+    const text = `[HASIL SKRINING KESEHATAN MENTAL MANDIRI (SRQ-20 KEMENKES RI / WHO)]
+Tanggal Pemeriksaan: ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+Total Skor: ${res.score} dari 20 (Jawaban "Ya")
+Klasifikasi: ${res.category}
+Status Butir 17 (Pikiran Mengakhiri Hidup): ${res.hasSuicidalIdeation ? 'POSITIF / RED FLAG (Wajib Bantuan Darurat Segera)' : 'Negatif'}
+
+Rekomendasi:
+${res.recommendation}
+
+Catatan Penting:
+Skrining ini bersifat indikatif awal mandiri dan tidak menggantikan diagnosis klinis oleh psikiater/psikolog.
+Layanan Bantuan Darurat Kemenkes RI: SEJIWA (119 ext 8) | Halo Kemenkes (1500-567)
+Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      setIsSrqCopied(true);
+      setTimeout(() => setIsSrqCopied(false), 3000);
+    });
+  };
+
+  const publicSrqQuestions = [
+    '1. Apakah Anda sering menderita sakit kepala?',
+    '2. Apakah Anda tidak nafsu makan?',
+    '3. Apakah Anda sulit tidur nyenyak?',
+    '4. Apakah Anda mudah merasa takut?',
+    '5. Apakah Anda merasa cemas, tegang, atau khawatir?',
+    '6. Apakah tangan Anda gemetar?',
+    '7. Apakah pencernaan Anda terganggu atau perut sering kembung?',
+    '8. Apakah Anda merasa sulit untuk berpikir jernih?',
+    '9. Apakah Anda merasa tidak bahagia, murung, atau sedih?',
+    '10. Apakah Anda lebih sering menangis daripada biasanya?',
+    '11. Apakah Anda merasa sulit untuk menikmati kegiatan sehari-hari?',
+    '12. Apakah Anda merasa sulit untuk mengambil keputusan?',
+    '13. Apakah pekerjaan atau aktivitas sehari-hari Anda terganggu?',
+    '14. Apakah Anda merasa tidak mampu berperan aktif dalam kehidupan?',
+    '15. Apakah Anda kehilangan minat pada hal-hal yang biasanya Anda sukai?',
+    '16. Apakah Anda merasa diri Anda tidak berharga?',
+    '17. Pernahkah Anda mempunyai pikiran untuk mengakhiri hidup Anda? (Red Flag Kritis)',
+    '18. Apakah Anda merasa lelah sepanjang waktu?',
+    '19. Apakah Anda mengalami rasa tidak enak atau perih di lambung/perut?',
+    '20. Apakah Anda mudah merasa lelah atau lesu?'
+  ];
+
   return (
     <div className="space-y-16 pb-24 bg-[#f4f8f8] dark:bg-[#051418] text-slate-900 dark:text-slate-100 transition-colors duration-300">
       
@@ -526,6 +616,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               >
                 <Zap className="w-4 h-4 fill-slate-950" />
                 <span>Coba Uji Klinis Langsung (Gratis)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById('skrining-srq20');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-6 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold rounded-xl shadow-lg transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02] border border-emerald-400/30"
+              >
+                <Brain className="w-4 h-4 text-emerald-200" />
+                <span>Cek Kesehatan Jiwa (SRQ-20 Gratis)</span>
               </button>
 
               <button
@@ -659,6 +761,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             >
               <GraduationCap className="w-3.5 h-3.5" />
               <span>Kuis UKMPPAI</span>
+            </button>
+
+            <button
+              onClick={() => {
+                const el = document.getElementById('skrining-srq20');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit text-teal-700 dark:text-teal-300 bg-teal-500/10 hover:bg-teal-500/20 border border-teal-500/30"
+            >
+              <Brain className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+              <span>Cek Jiwa SRQ-20</span>
             </button>
           </div>
         </div>
@@ -1359,6 +1472,223 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 Pusat belajar UKMPPAI CBT &amp; OSCE 4 domain, rangkuman materi high-yield, SOP pelayanan kefarmasian &amp; regulasi UU Kesehatan.
               </p>
             </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          STANDALONE PUBLIC HEALTH SECTION: SRQ-20 MENTAL HEALTH SCREENING
+          ========================================================================= */}
+      <section id="skrining-srq20" className="py-20 relative bg-slate-900/95 dark:bg-[#061016] text-white border-y border-slate-800 overflow-hidden">
+        {/* Ambient Glows */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-10">
+          {/* Section Header */}
+          <div className="text-center space-y-4 max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold border border-teal-500/30 shadow-xs">
+              <Brain className="w-4 h-4 text-teal-300" />
+              <span>Layanan Terbuka untuk Umum • Standar Baku WHO &amp; Kemenkes RI</span>
+            </div>
+            
+            <h2 className="text-2xl sm:text-4xl font-black font-outfit tracking-tight text-white">
+              Cek Kesehatan Mental Mandiri <span className="bg-gradient-to-r from-teal-300 via-emerald-300 to-cyan-300 bg-clip-text text-transparent">(SRQ-20)</span>
+            </h2>
+
+            <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
+              Kuesioner 20 pertanyaan resmi Kementerian Kesehatan RI untuk mendeteksi dini Gangguan Mental Emosional (kecemasan, depresi, dan distres somatik) dalam kurun waktu <strong>30 hari terakhir</strong>.
+            </p>
+
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700/80 text-xs text-slate-300 font-semibold shadow-inner">
+              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>100% Anonim, Rahasia &amp; Gratis — Jawaban Anda hanya diproses di peramban ini dan tidak pernah disimpan ke server.</span>
+            </div>
+          </div>
+
+          {/* Interactive Card */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-slate-800/60 dark:bg-slate-900/80 border border-slate-700/80 shadow-2xl backdrop-blur-md space-y-8">
+            
+            {/* Top Toolbar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-700/70">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-teal-500/20 text-teal-300 flex items-center justify-center font-black">
+                  <Activity className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-white">Panduan Pengisian:</h4>
+                  <p className="text-xs text-slate-400">Pilihlah <strong>"Ya"</strong> jika keluhan tersebut Anda rasakan dalam 30 hari terakhir.</p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPublicSrqScores(Array(20).fill(0))}
+                  className="px-3.5 py-2 rounded-xl bg-slate-700/70 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-600 transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Reset Semua "Tidak"</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleCopySrqResult}
+                  className="px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-teal-900/30"
+                >
+                  {isSrqCopied ? (
+                    <>
+                      <CheckCheck className="w-3.5 h-3.5 text-emerald-300" />
+                      <span>Hasil Tersalin!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Salin Ringkasan Hasil</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* 20 Questions Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[560px] overflow-y-auto pr-1 sm:pr-2">
+              {publicSrqQuestions.map((questionText, idx) => {
+                const isSelectedYes = publicSrqScores[idx] === 1;
+                const isRedFlagItem = idx === 16;
+
+                return (
+                  <div
+                    key={idx}
+                    className={`p-3.5 rounded-2xl border transition-all duration-200 flex flex-col justify-between gap-3 ${
+                      isRedFlagItem && isSelectedYes
+                        ? 'bg-rose-950/40 border-rose-500/80 shadow-md shadow-rose-950/40'
+                        : isSelectedYes
+                        ? 'bg-teal-950/40 border-teal-500/60 shadow-xs'
+                        : 'bg-slate-800/40 border-slate-700/50 hover:border-slate-600'
+                    }`}
+                  >
+                    <div className="space-y-1">
+                      <span className={`text-xs leading-relaxed font-semibold block ${
+                        isRedFlagItem ? 'text-rose-300 font-bold' : 'text-slate-200'
+                      }`}>
+                        {questionText}
+                      </span>
+                      {isRedFlagItem && (
+                        <span className="text-[10px] text-rose-400/90 font-medium block">
+                          *Butir kritis evaluasi keselamatan diri
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center justify-end gap-2 pt-1 border-t border-slate-700/40">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = [...publicSrqScores];
+                          next[idx] = 0;
+                          setPublicSrqScores(next);
+                        }}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                          !isSelectedYes
+                            ? 'bg-slate-700 text-white border-slate-500 shadow-2xs'
+                            : 'bg-slate-800/80 text-slate-400 border-slate-700 hover:bg-slate-750'
+                        }`}
+                      >
+                        Tidak (0)
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = [...publicSrqScores];
+                          next[idx] = 1;
+                          setPublicSrqScores(next);
+                        }}
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-black border transition-all cursor-pointer ${
+                          isSelectedYes
+                            ? isRedFlagItem
+                              ? 'bg-rose-600 text-white border-rose-500 shadow-md shadow-rose-900/40'
+                              : 'bg-teal-600 text-white border-teal-500 shadow-md shadow-teal-900/40'
+                            : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-teal-900/30 hover:border-teal-600/50'
+                        }`}
+                      >
+                        Ya (1)
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Live Result Evaluation Box */}
+            {(() => {
+              const res = calculatePublicSrq();
+
+              return (
+                <div className={`p-6 rounded-2xl border ${res.badgeColor} bg-slate-900/90 space-y-4 shadow-xl`}>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                        Hasil Evaluasi Mandiri Kemenkes RI
+                      </span>
+                      <h3 className={`text-xl sm:text-2xl font-black font-outfit mt-0.5 ${res.textColor}`}>
+                        {res.category}
+                      </h3>
+                    </div>
+
+                    <div className="text-left sm:text-right">
+                      <span className={`text-3xl sm:text-4xl font-black font-outfit ${res.textColor}`}>
+                        {res.score} / 20
+                      </span>
+                      <span className="block text-xs text-slate-400 font-semibold">Skor Jawaban "Ya"</span>
+                    </div>
+                  </div>
+
+                  {/* Red Flag Alert Banner */}
+                  {res.hasSuicidalIdeation && (
+                    <div className="p-4 rounded-2xl bg-rose-600 text-white text-xs font-medium space-y-2 shadow-lg shadow-rose-950/60 border border-rose-400 animate-pulse">
+                      <div className="flex items-center gap-2 font-black text-sm text-rose-100">
+                        <AlertTriangle className="w-5 h-5 shrink-0 text-white" />
+                        <span>PERINGATAN KRITIS KESEHATAN JIWA (BUTIR 17):</span>
+                      </div>
+                      <p className="leading-relaxed">
+                        Anda menandai <strong>"Ya"</strong> pada pertanyaan mengenai pikiran untuk mengakhiri hidup. Perasaan ini sangat berat dan tidak boleh dipikul sendirian. Bantuan dan harapan selalu ada. Silakan segera hubungi orang terdekat atau akses layanan bantuan darurat 24 jam bebas pulsa:
+                      </p>
+                      <div className="flex flex-wrap items-center gap-2 pt-1 font-bold">
+                        <span className="px-3 py-1 rounded-lg bg-black/30 border border-white/20">
+                          📞 Layanan SEJIWA: <strong>119 ext 8</strong>
+                        </span>
+                        <span className="px-3 py-1 rounded-lg bg-black/30 border border-white/20">
+                          🏥 Halo Kemenkes: <strong>1500-567</strong>
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Clinical Recommendation Text */}
+                  <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
+                    <strong className="text-teal-300">💡 Penjelasan &amp; Rekomendasi:</strong> {res.recommendation}
+                  </div>
+
+                  {/* Score Reference Table Footnote */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-2 text-[11px] text-slate-400 border-t border-slate-800">
+                    <div>
+                      <strong>Standar Cut-Off Kemenkes RI:</strong> Skor 0–5 (Normal) | Skor &ge; 6 (Indikasi Gangguan Mental Emosional) | Skor &ge; 12 (Distres Berat).
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleCopySrqResult}
+                      className="inline-flex items-center gap-1.5 text-teal-400 hover:text-teal-300 font-bold transition-colors cursor-pointer"
+                    >
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>{isSrqCopied ? 'Tersalin ke Clipboard!' : 'Salin Hasil Ini'}</span>
+                    </button>
+                  </div>
+                </div>
+              );
+            })()}
 
           </div>
         </div>

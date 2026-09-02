@@ -14,7 +14,8 @@ import {
   Search,
   Pill,
   Zap,
-  RotateCcw
+  RotateCcw,
+  Brain
 } from 'lucide-react';
 import { Drug } from '../types';
 
@@ -31,7 +32,8 @@ export type CalculatorType =
   | 'holliday-segar'
   | 'act-asthma'
   | 'phq9'
-  | 'bishop';
+  | 'bishop'
+  | 'srq20';
 
 interface ClinicalScoreCalculatorsModalProps {
   isOpen: boolean;
@@ -128,6 +130,9 @@ export const ClinicalScoreCalculatorsModal: React.FC<ClinicalScoreCalculatorsMod
   const [bishopStation, setBishopStation] = useState<number>(1);
   const [bishopConsistency, setBishopConsistency] = useState<number>(1);
   const [bishopPosition, setBishopPosition] = useState<number>(1);
+
+  // 14. SRQ-20 State
+  const [srqScores, setSrqScores] = useState<number[]>(Array(20).fill(0));
 
   if (!isOpen) return null;
 
@@ -239,6 +244,15 @@ export const ClinicalScoreCalculatorsModal: React.FC<ClinicalScoreCalculatorsMod
       icon: Heart,
       color: 'from-indigo-500 to-purple-600',
       description: 'Skrining keparahan depresi 9 item untuk memandu inisiasi antidepresan SSRI.'
+    },
+    {
+      id: 'srq20',
+      name: 'Kuesioner Kesehatan Jiwa (SRQ-20)',
+      category: 'Kesehatan Jiwa',
+      badge: 'WHO / Kemenkes RI',
+      icon: Brain,
+      color: 'from-teal-500 to-emerald-600',
+      description: 'Skrining Gangguan Mental Emosional (GME: cemas, depresi, somatisasi 30 hari terakhir) standar Kemenkes RI.'
     },
     {
       id: 'bishop',
@@ -643,6 +657,41 @@ export const ClinicalScoreCalculatorsModal: React.FC<ClinicalScoreCalculatorsMod
     }
   };
 
+  // 14. SRQ-20 Calculation
+  const calculateSrq20 = () => {
+    const totalScore = srqScores.reduce((a, b) => a + b, 0);
+    const hasSuicidalIdeation = srqScores[16] === 1; // Pertanyaan No. 17 (0-indexed 16)
+
+    if (totalScore >= 12) {
+      return {
+        score: totalScore,
+        category: 'Distres Psikologis Berat / GME Signifikan',
+        badgeColor: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
+        recommendation:
+          'Skor sangat tinggi (>= 12 dari 20). Menandakan adanya distres psikologis berat yang berpotensi mengganggu fungsi okupasi dan sosial sehari-hari. Sangat dianjurkan rujukan segera ke Dokter Spesialis Kedokteran Jiwa (Psikiater) atau Psikolog Klinis untuk pemeriksaan diagnostik komprehensif, psikoterapi, dan pertimbangan intervensi farmakoterapi (antidepresan/ansiolitik).',
+        hasSuicidalIdeation
+      };
+    } else if (totalScore >= 6) {
+      return {
+        score: totalScore,
+        category: 'Terindikasi Gangguan Mental Emosional (GME)',
+        badgeColor: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
+        recommendation:
+          'Skor mencapai batas ambang resmi Kemenkes RI (>= 6 poin). Mengindikasikan adanya distres emosional bermakna (gejala cemas, depresi, atau somatisasi). Lakukan konseling suportif, eksplorasi faktor pemicu stres, berikan edukasi koping stres adaptif, dan rencanakan rujukan ke layanan kesehatan jiwa di faskes jika keluhan menetap lebih dari 2 minggu.',
+        hasSuicidalIdeation
+      };
+    } else {
+      return {
+        score: totalScore,
+        category: 'Dalam Batas Normal (Tidak Terindikasi GME Bermakna)',
+        badgeColor: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
+        recommendation:
+          'Skor di bawah batas ambang (< 6 poin). Tidak mengindikasikan adanya gangguan mental emosional yang bermakna dalam kurun 30 hari terakhir. Berikan edukasi kesehatan jiwa preventif, istirahat cukup, relaksasi, dan koping stres adaptif.',
+        hasSuicidalIdeation
+      };
+    }
+  };
+
   const ascvdRes = calculateAscvd();
   const chaRes = calculateCha2ds2Vasc();
   const curbRes = calculateCurb65();
@@ -656,6 +705,7 @@ export const ClinicalScoreCalculatorsModal: React.FC<ClinicalScoreCalculatorsMod
   const actRes = calculateAct();
   const phqRes = calculatePhq9();
   const bishopRes = calculateBishop();
+  const srqRes = calculateSrq20();
 
   const handleApplyDrugs = (drugs: string[]) => {
     if (onCheckInteractionsWithRegimen) {
@@ -2137,6 +2187,162 @@ export const ClinicalScoreCalculatorsModal: React.FC<ClinicalScoreCalculatorsMod
                   <div className="p-3.5 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-current/20 text-xs font-semibold leading-relaxed">
                     📋 <strong>Rekomendasi Tindakan:</strong> {bishopRes.recommendation}
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* ============================================================== */}
+            {/* 14. SRQ-20 (SELF-REPORTING QUESTIONNAIRE-20) */}
+            {/* ============================================================== */}
+            {activeTab === 'srq20' && (
+              <div className="space-y-6">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <span className="px-2.5 py-1 rounded-md text-xs font-bold bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20">
+                      Standar Baku WHO / Kemenkes RI (Pedoman Faskes Primer)
+                    </span>
+                    <h3 className="text-xl font-black text-slate-900 dark:text-white mt-1">
+                      Kuesioner Kesehatan Jiwa (SRQ-20 — Self-Reporting Questionnaire)
+                    </h3>
+                    <p className="text-xs text-slate-600 dark:text-slate-400">
+                      Instrumen skrining 20 pertanyaan untuk mendeteksi dini Gangguan Mental Emosional (GME: cemas, depresi, dan gejala somatik) dalam kurun waktu <strong>30 hari terakhir</strong>.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setSrqScores(Array(20).fill(0))}
+                      className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold hover:bg-slate-200 transition-all cursor-pointer flex items-center gap-1.5"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5 text-teal-600" />
+                      <span>Reset Semua "Tidak"</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-2.5 max-h-[480px] overflow-y-auto pr-1">
+                  {[
+                    '1. Apakah Anda sering menderita sakit kepala?',
+                    '2. Apakah Anda tidak nafsu makan?',
+                    '3. Apakah Anda sulit tidur nyenyak?',
+                    '4. Apakah Anda mudah merasa takut?',
+                    '5. Apakah Anda merasa cemas, tegang, atau khawatir?',
+                    '6. Apakah tangan Anda gemetar?',
+                    '7. Apakah pencernaan Anda terganggu atau perut sering kembung?',
+                    '8. Apakah Anda merasa sulit untuk berpikir jernih?',
+                    '9. Apakah Anda merasa tidak bahagia, murung, atau sedih?',
+                    '10. Apakah Anda lebih sering menangis daripada biasanya?',
+                    '11. Apakah Anda merasa sulit untuk menikmati kegiatan sehari-hari?',
+                    '12. Apakah Anda merasa sulit untuk mengambil keputusan?',
+                    '13. Apakah pekerjaan atau aktivitas sehari-hari Anda terganggu?',
+                    '14. Apakah Anda merasa tidak mampu berperan aktif dalam kehidupan?',
+                    '15. Apakah Anda kehilangan minat pada hal-hal yang biasanya Anda sukai?',
+                    '16. Apakah Anda merasa diri Anda tidak berharga?',
+                    '17. Pernahkah Anda mempunyai pikiran untuk mengakhiri hidup Anda? (Red Flag Kritis)',
+                    '18. Apakah Anda merasa lelah sepanjang waktu?',
+                    '19. Apakah Anda mengalami rasa tidak enak atau perih di lambung/perut?',
+                    '20. Apakah Anda mudah merasa lelah atau lesu?'
+                  ].map((questionText, idx) => (
+                    <div
+                      key={idx}
+                      className={`p-3 rounded-2xl border transition-all ${
+                        idx === 16 && srqScores[idx] === 1
+                          ? 'border-rose-500 bg-rose-50/70 dark:bg-rose-950/40'
+                          : srqScores[idx] === 1
+                          ? 'border-teal-400 bg-teal-50/50 dark:bg-teal-950/30'
+                          : 'border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-800/30'
+                      }`}
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                        <span className={`text-xs font-bold leading-relaxed ${
+                          idx === 16 ? 'text-rose-600 dark:text-rose-400 font-black' : 'text-slate-800 dark:text-slate-200'
+                        }`}>
+                          {questionText}
+                        </span>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const next = [...srqScores];
+                              next[idx] = 0;
+                              setSrqScores(next);
+                            }}
+                            className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                              srqScores[idx] === 0
+                                ? 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white border-slate-300 dark:border-slate-600 shadow-2xs'
+                                : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100'
+                            }`}
+                          >
+                            Tidak (0)
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const next = [...srqScores];
+                              next[idx] = 1;
+                              setSrqScores(next);
+                            }}
+                            className={`px-3.5 py-1.5 rounded-xl text-xs font-black border transition-all cursor-pointer ${
+                              srqScores[idx] === 1
+                                ? idx === 16
+                                  ? 'bg-rose-600 text-white border-rose-600 shadow-sm'
+                                  : 'bg-teal-600 text-white border-teal-600 shadow-sm'
+                                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-teal-50'
+                            }`}
+                          >
+                            Ya (1)
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* SRQ-20 Result Box */}
+                <div className={`p-5 rounded-2xl border ${srqRes.badgeColor} space-y-3`}>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-xs uppercase font-bold tracking-wider opacity-80">
+                        Hasil Evaluasi Kesehatan Mental (Cut-off Kemenkes RI: &ge; 6)
+                      </span>
+                      <h4 className="text-2xl font-black">{srqRes.category}</h4>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-3xl font-black">{srqRes.score} / 20</span>
+                      <span className="block text-[11px] opacity-75 font-semibold">Jawaban "Ya"</span>
+                    </div>
+                  </div>
+
+                  {srqRes.hasSuicidalIdeation && (
+                    <div className="p-3.5 rounded-xl bg-rose-600 text-white text-xs font-bold flex items-start gap-2.5 shadow-md">
+                      <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
+                      <div className="space-y-1">
+                        <div className="text-sm font-black">PERINGATAN KRITIS (RED FLAG KESEHATAN JIWA):</div>
+                        <div>
+                          Pasien menjawab <strong>"Ya"</strong> pada pertanyaan No. 17 (Pikiran untuk mengakhiri hidup). Wajib diberikan pendampingan segera, pengawasan ketat, dan rujukan darurat ke Dokter Spesialis Kedokteran Jiwa (Psikiater) / IGD Rumah Sakit atau Hotline Krisis Kesehatan Jiwa Kemenkes (Halo Kemenkes 1500-567)!
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="p-3.5 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-current/20 text-xs font-semibold leading-relaxed">
+                    📋 <strong>Rekomendasi Klinis & Konseling:</strong> {srqRes.recommendation}
+                  </div>
+
+                  {srqRes.score >= 6 && (
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                        *Skor &ge; 6 mengindikasikan gejala Gangguan Mental Emosional (GME) bermakna menurut pedoman Kemenkes RI.
+                      </div>
+                      <button
+                        onClick={() => handleApplyDrugs(['Sertraline', 'Fluoxetine', 'Escitalopram'])}
+                        className="px-4 py-2 text-xs font-bold bg-teal-600 text-white rounded-xl hover:bg-teal-700 transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                      >
+                        <Pill className="w-3.5 h-3.5" />
+                        <span>Kaji Terapi Farmakoterapi Lini 1 (SSRI)</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

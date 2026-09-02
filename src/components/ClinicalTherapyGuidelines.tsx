@@ -256,6 +256,8 @@ ${guideline.keyClinicalAlert || '-'}`;
         return { type: 'act-asthma', label: 'Hitung Skor ACT Kendali Asma' };
       case 'guideline-mdd':
         return { type: 'phq9', label: 'Skrining Kuesioner PHQ-9 Depresi' };
+      case 'guideline-gad-panic':
+        return { type: 'srq20', label: 'Skrining Kuesioner SRQ-20 (Cemas & GME)' };
       case 'guideline-prom-pprom':
         return { type: 'bishop', label: 'Hitung Bishop Score Kematangan Serviks' };
       default:

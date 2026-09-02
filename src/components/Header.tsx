@@ -200,7 +200,7 @@ export const Header: React.FC<HeaderProps> = ({
                     className="text-xs font-black text-white bg-gradient-to-r from-teal-600 via-teal-500 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 px-4 py-2 rounded-xl shadow-sm hover:shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:scale-105"
                   >
                     <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                    <span>Coba Pro Gratis</span>
+                    <span>Paket Langganan</span>
                   </button>
                 </>
               ) : (

@@ -923,7 +923,7 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
               Kalkulator Medis &amp; <span className="text-violet-400">Penyesuaian Dosis</span>
             </h1>
             <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-              Suite kalkulator farmako-klinis terpadu: Dosis Ginjal (CrCl/eGFR), Dosis Hepar (Child-Pugh &amp; MELD), Dosis Pediatrik &amp; Bayi, Racikan Puyer (SL &amp; DTD), Titrasi Syringe Pump &amp; Infus Drip, Konversi Opioid (CDC MME), IBW/BMI, Oksigen Medis, serta 13 Kalkulator Skor Klinis Terintegrasi.
+              Suite kalkulator farmako-klinis terpadu: Dosis Ginjal (CrCl/eGFR), Dosis Hepar (Child-Pugh &amp; MELD), Dosis Pediatrik &amp; Bayi, Racikan Puyer (SL &amp; DTD), Titrasi Syringe Pump &amp; Infus Drip, Konversi Opioid (CDC MME), IBW/BMI, Oksigen Medis, serta 14 Kalkulator Skor Klinis Terintegrasi.
             </p>
           </div>
 

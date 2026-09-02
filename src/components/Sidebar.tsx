@@ -131,7 +131,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         items: [
           { id: 'bud', label: 'Stabilitas & BUD Racikan', icon: CalendarClock, badge: 'USP', badgeColor: 'bg-emerald-700 text-white' },
           { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer', badgeColor: 'bg-rose-500 text-white' },
-          { id: 'renal-adjuster', label: 'Kalkulator Ginjal & Skor', icon: Calculator, badge: 'Lengkap', badgeColor: 'bg-violet-600 text-white' }
+          { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap', badgeColor: 'bg-violet-600 text-white' }
         ]
       },
       {
@@ -473,7 +473,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className={`hidden md:block flex-shrink-0 h-screen sticky top-0 z-30 transition-all duration-300 ${collapsed ? 'w-20' : 'w-64'}`}>
+      <aside className={`hidden md:block flex-shrink-0 h-screen sticky top-0 z-30 transition-all duration-300 ${collapsed ? 'w-20' : 'w-72'}`}>
         {sidebarContent}
       </aside>
 
