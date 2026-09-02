@@ -52,7 +52,9 @@ export interface YSiteCompatibilityPair {
   recommendation: string;
 }
 
-export const IV_DRUGS_DATABASE: IvDrugProfile[] = [
+import { IV_EXTENDED_DRUGS } from './ivExtendedData';
+
+const BASE_IV_DRUGS: IvDrugProfile[] = [
   {
     id: 'iv-norepinephrine',
     name: 'Norepinephrine (Noradrenalin)',
@@ -3755,6 +3757,11 @@ export const IV_DRUGS_DATABASE: IvDrugProfile[] = [
       "Thiopental Sodium"
     ]
   }
+];
+
+export const IV_DRUGS_DATABASE: IvDrugProfile[] = [
+  ...BASE_IV_DRUGS,
+  ...IV_EXTENDED_DRUGS
 ];
 
 export const Y_SITE_COMPATIBILITY_MATRIX: YSiteCompatibilityPair[] = [

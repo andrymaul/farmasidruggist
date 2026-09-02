@@ -29,7 +29,9 @@ export interface LiteratureCategory {
   count: number;
 }
 
-export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
+import { CLINICAL_LITERATURE_EXTENDED_DATABASE } from './clinicalLiteratureExtendedData';
+
+const BASE_CLINICAL_LITERATURE: LiteratureSource[] = [
   // =========================================================================
   // 1. PANDUAN TERAPI & PNPK SPESIALIS (10 SUMBER)
   // =========================================================================
@@ -729,17 +731,17 @@ export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
     institution: 'Kementerian Kesehatan Republik Indonesia & BPJS Kesehatan',
     category: 'formulary_bpom',
     categoryLabel: 'Formularium & BPOM',
-    documentCode: 'Kepmenkes RI No. HK.01.07/MENKES/6477/2021 & Addendum',
-    releaseYear: '2021 - 2024',
+    documentCode: 'Keputusan Menteri Kesehatan RI No. HK.01.07/MENKES/1199/2025 tentang Formularium Nasional',
+    releaseYear: '2025',
     lastUpdated: 'Januari 2025',
     evidenceLevel: 'Level 3 (Monograf Baku & Regulasi Pemerintah)',
     evidenceGrade: 'Grade A',
-    summary: 'Daftar obat terpilih yang wajib tersedia di fasilitas pelayanan kesehatan dalam penyelenggaraan Jaminan Kesehatan Nasional (JKN/BPJS), lengkap dengan restriksi peresepan, peruntukan faskes (TK 1, TK 2, TK 3), dan program rujuk balik (PRB).',
+    summary: 'Standar regulasi terbaru daftar obat terpilih yang wajib tersedia di fasilitas pelayanan kesehatan dalam penyelenggaraan program Jaminan Kesehatan Nasional (JKN/BPJS Kesehatan), lengkap dengan ketentuan restriksi klinis, penetapan jenjang faskes (Faskes 1, Faskes 2, Faskes 3), Program Rujuk Balik (PRB), serta perluasan akses obat-obatan penyakit kronis dan kemoterapi onkologi.',
     keyTopics: [
-      'Tingkat Faskes Penyedia (Faskes 1 Puskesmas/Klinik, Faskes 2 RS Tipe C/B, Faskes 3 RS Rujukan)',
-      'Restriksi Indikasi & Maksimal Peresepan Obat Kronis',
-      'Obat Program Rujuk Balik (PRB) untuk Pasien Stabil',
-      'Restriksi Antibiotik Cadangan (Reserve / Restricted Antibiotics)'
+      'Tingkat Faskes Penyedia (Faskes 1 Puskesmas/Klinik, Faskes 2 RS Tipe C/B, Faskes 3 RS Rujukan Nasional)',
+      'Restriksi Indikasi & Maksimal Peresepan Obat Kronis & Kardiovaskular',
+      'Obat Program Rujuk Balik (PRB) untuk Pasien Diabetes, Hipertensi, dan PPOK Stabil',
+      'Restriksi Ketat Antibiotik Cadangan (Reserve / Restricted Antibiotics) & Kemoterapi Onkologi'
     ],
     appliedInFeatures: [
       {
@@ -750,12 +752,12 @@ export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
       {
         tabId: 'guidelines',
         featureName: 'Panduan Terapi Klinis',
-        description: 'Penyelarasan regimen obat lini pertama dengan ketersediaan FORNAS.'
+        description: 'Penyelarasan regimen obat lini pertama dengan ketersediaan FORNAS 2025.'
       }
     ],
     officialUrl: 'https://yankes.kemkes.go.id',
     officialUrlLabel: 'Portal e-Formularium Nasional Kemenkes',
-    citation: 'Kemenkes RI. Keputusan Menteri Kesehatan tentang Formularium Nasional (FORNAS) dan Ketentuan Peresepan BPJS Kesehatan.',
+    citation: 'Kementerian Kesehatan RI. Keputusan Menteri Kesehatan RI No. HK.01.07/MENKES/1199/2025 tentang Formularium Nasional. Jakarta: Kemenkes RI, 2025.',
     badgeColor: 'bg-indigo-600 text-white'
   },
   {
@@ -1481,6 +1483,11 @@ export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
   }
 ];
 
+export const CLINICAL_LITERATURE_DATABASE: LiteratureSource[] = [
+  ...BASE_CLINICAL_LITERATURE,
+  ...CLINICAL_LITERATURE_EXTENDED_DATABASE
+];
+
 export const LITERATURE_CATEGORIES: LiteratureCategory[] = [
   {
     id: 'all',
@@ -1491,31 +1498,31 @@ export const LITERATURE_CATEGORIES: LiteratureCategory[] = [
   {
     id: 'guidelines',
     label: 'Pedoman Klinis & PNPK',
-    description: 'PNPK Kemenkes RI dan Konsensus Spesialis (PERKI, PERKENI, PAPDI, PDPI, PERDOSSI, POGI)',
+    description: 'PNPK Kemenkes RI, Konsensus Spesialis (PERKI, PERKENI, PAPDI, PDPI), Baveno VII, EASL & KDIGO',
     count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'guidelines').length
   },
   {
     id: 'pediatric_special',
     label: 'Pediatrik & Puyer',
-    description: 'IDAI, Farmakope Indonesia VI (Serbuk Bagi), dan Harriet Lane Handbook',
+    description: 'IDAI, WHO Pocket Book, Farmakope Indonesia VI (Serbuk Bagi), dan Harriet Lane Handbook',
     count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'pediatric_special').length
   },
   {
     id: 'interactions',
     label: 'Interaksi & Keamanan',
-    description: 'DDInter Database, Nature Digital Medicine, Lexicomp, dan Skala Naranjo ADR',
+    description: 'DDInter Database, Tietz Clinical Chemistry, ADLM/AACC, Lexicomp, dan Skala Naranjo ADR',
     count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'interactions').length
   },
   {
     id: 'iv_sterile',
     label: 'Injeksi & IV Steril',
-    description: "Trissel's™ 2024 Handbook on Injectable Drugs, USP <797>, dan King Guide",
+    description: "Trissel's™ 2024 Handbook on Injectable Drugs, ASCO/ONS Chemo Safety, USP <797>, dan King Guide",
     count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'iv_sterile').length
   },
   {
     id: 'formulary_bpom',
     label: 'Formularium & BPOM',
-    description: 'Formularium Nasional (FORNAS), e-Katalog, dan CekBPOM RI',
+    description: 'Formularium Nasional (FORNAS 2025), PIONAS BPOM, e-Katalog, dan CekBPOM RI',
     count: CLINICAL_LITERATURE_DATABASE.filter(d => d.category === 'formulary_bpom').length
   },
   {
@@ -1541,32 +1548,44 @@ export const FEATURE_EVIDENCE_MAPPING = [
   },
   {
     feature: 'Kompatibilitas Injeksi IV (Y-Site & Stabilitas)',
-    primarySource: "Trissel's™ 2024 Handbook on Injectable Drugs (ASHP), USP <797> & King Guide",
-    standards: 'Pencampuran Y-Site, Presipitasi Asam-Basa, Rekonstitusi Pelarut, Stabilitas BUD',
+    primarySource: "Trissel's™ 2024 Handbook on Injectable Drugs (ASHP), ASCO/ONS Safety Standards, USP <797> & King Guide",
+    standards: 'Pencampuran Y-Site, Presipitasi Asam-Basa, Rekonstitusi Pelarut, Stabilitas BUD, & Ekstravasasi Onkologi',
     evidenceLevel: 'Level 1 (Gold Standard ASHP)'
   },
   {
     feature: 'Panduan Terapi Klinis & Dosis Dewasa',
     primarySource: 'PNPK Kemenkes RI, Konsensus PERKI, PERKENI, PAPDI, PDPI, PERDOSSI, PERNEFRI, POGI',
-    standards: 'Algoritma Terapi Lini Pertama & Kedua, Target Klinis HbA1c/Tensi, FORNAS BPJS',
+    standards: 'Algoritma Terapi Lini Pertama & Kedua, Target Klinis HbA1c/Tensi, FORNAS 2025 BPJS',
     evidenceLevel: 'Level 2 (PNPK & Konsensus Spesialis)'
   },
   {
     feature: 'Dosis Pediatrik & Konversi Racikan Puyer',
-    primarySource: 'Panduan Praktik Klinis IDAI, Farmakope Indonesia VI & Harriet Lane Handbook',
-    standards: 'Dosis Berbasis mg/kgBB dan BSA (m²), Kalkulasi Zat Pengisi SL / Bobot Puyer',
-    evidenceLevel: 'Level 2 (IDAI / Farmakope VI)'
+    primarySource: 'Panduan Praktik Klinis IDAI, WHO Pocket Book of Pediatrics, Farmakope Indonesia VI & Harriet Lane Handbook',
+    standards: 'Dosis Berbasis mg/kgBB dan BSA (m²), Kalkulasi Zat Pengisi SL / Bobot Puyer, & Dosis Zinc/Oralit',
+    evidenceLevel: 'Level 2 (IDAI / WHO / Farmakope VI)'
   },
   {
-    feature: 'Kalkulator Klirens Ginjal & Hepar',
-    primarySource: 'KDIGO 2024 (Cockcroft-Gault, CKD-EPI, Schwartz) & AASLD (Child-Pugh, MELD)',
-    standards: 'Penyesuaian Klirens Kreatinin (CrCl) & Estimasi Laju Filtrasi Glomerulus (eGFR)',
+    feature: 'Kalkulator Klirens Ginjal & Dosis Hemodialisis',
+    primarySource: 'KDIGO 2024 (Cockcroft-Gault, CKD-EPI, Schwartz) & The Sanford Guide to Antimicrobial Therapy',
+    standards: 'Penyesuaian Klirens Kreatinin (CrCl), Estimasi Laju Filtrasi Glomerulus (eGFR), & Dosis Suplemen Pasca-HD',
     evidenceLevel: 'Level 1 (KDIGO International)'
   },
   {
-    feature: 'Formularium Nasional (FORNAS) & Cek Registrasi',
-    primarySource: 'Kepmenkes RI No. HK.01.07/MENKES/6477/2021 & Portal CekBPOM RI',
-    standards: 'Restriksi Faskes 1, 2, 3, Obat Program Rujuk Balik (PRB), Nomor Izin Edar Resmi',
+    feature: 'Evaluasi Dosis Disfungsi Hepar & Sirosis (Child-Pugh & MELD)',
+    primarySource: 'AASLD Practice Guidance, EASL Decompensated Cirrhosis Guidelines, & Baveno VII Portal Hypertension',
+    standards: 'Klasifikasi Child-Pugh A/B/C, MELD Score, Rasio Diuretik Asites 100:40, Albumin Parasentesis, & Batasan Parasetamol',
+    evidenceLevel: 'Level 2 (AASLD & EASL International)'
+  },
+  {
+    feature: 'Interferensi Obat terhadap Uji Laboratorium Klinis',
+    primarySource: 'Tietz Textbook of Clinical Chemistry & ADLM / AACC Guidance on Immunoassays',
+    standards: 'Mekanisme Fotometrik, Spektrofotometri, Enzimatik UV, False Positive/Negative Immunoassay, & UDS Narkoba Urin',
+    evidenceLevel: 'Level 1 (Tietz & ADLM/AACC)'
+  },
+  {
+    feature: 'Formularium Nasional (FORNAS 2025) & Cek Registrasi',
+    primarySource: 'Kepmenkes RI No. HK.01.07/MENKES/1199/2025 tentang Formularium Nasional & Portal CekBPOM RI',
+    standards: 'Restriksi Faskes 1, 2, 3, Obat Program Rujuk Balik (PRB), Nomor Izin Edar Resmi PIONAS BPOM',
     evidenceLevel: 'Level 3 (Regulasi Pemerintah RI)'
   },
   {

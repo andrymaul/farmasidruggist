@@ -44,7 +44,9 @@ export interface LabPanelGuide {
   clinicalPearls: string[];
 }
 
-export const DRUG_LAB_INTERACTIONS_DATABASE: DrugLabInteraction[] = [
+import { DRUG_LAB_EXTENDED_DATABASE } from './drugLabExtendedData';
+
+const BASE_DRUG_LAB_INTERACTIONS: DrugLabInteraction[] = [
   // ==========================================
   // KARDIOLOGI & ENZIM JANTUNG
   // ==========================================
@@ -340,7 +342,7 @@ export const DRUG_LAB_INTERACTIONS_DATABASE: DrugLabInteraction[] = [
       "references": "Clinical Chemistry Journal & Mayo Clinic Laboratories Drug Interference Guide"
   },
   {
-      "id": "dli-vitaminc-glucose",
+      "id": "dli-vitaminc-glucose-megadose",
       "drugName": "Vitamin C Dosis Tinggi (Asam Askorbat >= 1000 mg/hari)",
       "genericName": "Ascorbic Acid (Injeksi IV / Oral Megadose)",
       "drugClass": "Vitamin & Antioksidan",
@@ -369,6 +371,11 @@ export const DRUG_LAB_INTERACTIONS_DATABASE: DrugLabInteraction[] = [
       "severity": "Signifikan (Significant)",
       "references": "Sanford Guide to Antimicrobial Therapy & Tietz Textbook of Clinical Chemistry"
   }
+];
+
+export const DRUG_LAB_INTERACTIONS_DATABASE: DrugLabInteraction[] = [
+  ...BASE_DRUG_LAB_INTERACTIONS,
+  ...DRUG_LAB_EXTENDED_DATABASE
 ];
 
 export const LAB_PANEL_GUIDES: LabPanelGuide[] = [

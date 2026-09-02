@@ -41,26 +41,14 @@ import {
   calculateGravityDripRate, 
   IV_DRUGS_DATABASE 
 } from '../data/ivCompatibilityData';
+import { RENAL_DRUG_RULES, RenalDrugRule } from '../data/renalDosingDatabase';
+import { HEPATIC_DRUG_RULES, HepaticDrugRule } from '../data/hepaticDosingDatabase';
 
 interface RenalDoseAdjusterProps {
   drugs: Drug[];
   currentUser: UserProfile | null;
   onOpenPricingModal: () => void;
   initialTab?: 'renal' | 'hepatic' | 'pediatric' | 'compounding' | 'syringe-pump' | 'opioid' | 'ibw-bmi' | 'oxygen' | 'clinical-scores';
-}
-
-interface RenalDrugRule {
-  drugName: string;
-  genericName: string;
-  atcCode: string;
-  normalDose: string;
-  rules: {
-    minCrCl: number;
-    maxCrCl: number;
-    recommendation: string;
-    status: 'Normal' | 'Adjust' | 'Contraindicated';
-  }[];
-  clinicalPearls: string;
 }
 
 interface FormulaVariable {
@@ -301,150 +289,6 @@ const MedicalFormulaCard: React.FC<MedicalFormulaCardProps> = ({
     </div>
   );
 };
-
-const RENAL_DRUG_RULES: RenalDrugRule[] = [
-  {
-    drugName: 'Metformin',
-    genericName: 'Metformin HCl',
-    atcCode: 'A10BA02',
-    normalDose: '500 - 1000 mg 2-3x sehari (maks 2000 mg/hari)',
-    rules: [
-      { minCrCl: 60, maxCrCl: 999, recommendation: 'Dosis normal (1000 - 2000 mg/hari). Monitor fungsi ginjal tahunan.', status: 'Normal' },
-      { minCrCl: 45, maxCrCl: 59, recommendation: 'Dosis maksimal 1500 mg/hari. Monitor fungsi ginjal setiap 3-6 bulan.', status: 'Adjust' },
-      { minCrCl: 30, maxCrCl: 44, recommendation: 'Dosis maksimal 1000 mg/hari. JANGAN memulai terapi baru jika pasien baru.', status: 'Adjust' },
-      { minCrCl: 0, maxCrCl: 29, recommendation: 'KONTRAINDIKASI MUTLAK (eGFR < 30 mL/min). Risiko tinggi Asidosis Laktat fatal!', status: 'Contraindicated' }
-    ],
-    clinicalPearls: 'Metformin diekskresikan utuh di ginjal. Penurunan fungsi ginjal memicu akumulasi metformin yang memicu Asidosis Laktat.'
-  },
-  {
-    drugName: 'Digoxin',
-    genericName: 'Digoxin',
-    atcCode: 'C01AA05',
-    normalDose: '0.125 - 0.25 mg 1x sehari',
-    rules: [
-      { minCrCl: 50, maxCrCl: 999, recommendation: 'Dosis standar 0.125 - 0.25 mg/hari. Monitor kadar serum digoxin.', status: 'Normal' },
-      { minCrCl: 10, maxCrCl: 49, recommendation: 'Kurangi dosis sebesar 25% - 50% (0.0625 mg/hari atau selang 36 jam).', status: 'Adjust' },
-      { minCrCl: 0, maxCrCl: 9, recommendation: 'Kurangi dosis sebesar 50% - 75% (0.0625 mg setiap 48 jam). Monitor ketat tanda toksisitas.', status: 'Adjust' }
-    ],
-    clinicalPearls: 'Indeks terapi sangat sempit. Hipokalemia akibat diuretik memperparah toksisitas digoxin (aritmia jantung).'
-  },
-  {
-    drugName: 'Allopurinol',
-    genericName: 'Allopurinol',
-    atcCode: 'M04AA01',
-    normalDose: '100 - 300 mg 1x sehari',
-    rules: [
-      { minCrCl: 50, maxCrCl: 999, recommendation: 'Dosis standar 100 - 300 mg/hari sesudah makan.', status: 'Normal' },
-      { minCrCl: 20, maxCrCl: 49, recommendation: 'Dosis maksimal 100 - 200 mg/hari.', status: 'Adjust' },
-      { minCrCl: 10, maxCrCl: 19, recommendation: 'Dosis maksimal 100 mg/hari.', status: 'Adjust' },
-      { minCrCl: 0, maxCrCl: 9, recommendation: 'Dosis 100 mg setiap 2-3 hari atau 50 mg/hari. Risiko Sindrom Hypersensitivitas Allopurinol (AHS).', status: 'Adjust' }
-    ],
-    clinicalPearls: 'Metabolit aktif oxypurinol diekskresikan di ginjal. Penumpukan memicu ruam kulit berat (Stevens-Johnson Syndrome).'
-  },
-  {
-    drugName: 'Ciprofloxacin',
-    genericName: 'Ciprofloxacin HCl',
-    atcCode: 'J01MA02',
-    normalDose: '500 mg 2x sehari (setiap 12 jam)',
-    rules: [
-      { minCrCl: 50, maxCrCl: 999, recommendation: 'Dosis standar 500 mg setiap 12 jam.', status: 'Normal' },
-      { minCrCl: 30, maxCrCl: 49, recommendation: 'Berikan 250 - 500 mg setiap 12 jam.', status: 'Adjust' },
-      { minCrCl: 0, maxCrCl: 29, recommendation: 'Berikan 250 - 500 mg setiap 18 - 24 jam.', status: 'Adjust' }
-    ],
-    clinicalPearls: 'Hindari konsumsi bersama susu/kalsium. Penyesuaian interval penting untuk mencegah toksisitas SSP.'
-  },
-  {
-    drugName: 'Levofloxacin',
-    genericName: 'Levofloxacin',
-    atcCode: 'J01MA12',
-    normalDose: '500 mg 1x sehari (setiap 24 jam)',
-    rules: [
-      { minCrCl: 50, maxCrCl: 999, recommendation: 'Dosis standar 500 mg setiap 24 jam.', status: 'Normal' },
-      { minCrCl: 20, maxCrCl: 49, recommendation: 'Dosis awal 500 mg, selanjutnya 250 mg setiap 24 jam.', status: 'Adjust' },
-      { minCrCl: 0, maxCrCl: 19, recommendation: 'Dosis awal 500 mg, selanjutnya 250 mg setiap 48 jam.', status: 'Adjust' }
-    ],
-    clinicalPearls: 'Ekskresi ginjal > 80%. Waktu paruh memanjang signifikan pada gangguan ginjal sedang-berat.'
-  },
-  {
-    drugName: 'Spironolactone',
-    genericName: 'Spironolactone',
-    atcCode: 'C03DA01',
-    normalDose: '25 - 100 mg 1x sehari',
-    rules: [
-      { minCrCl: 50, maxCrCl: 999, recommendation: 'Dosis standar 25 - 50 mg/hari.', status: 'Normal' },
-      { minCrCl: 30, maxCrCl: 49, recommendation: 'Dosis maksimal 25 mg/hari atau selang hari. Monitor kalium darah ketat.', status: 'Adjust' },
-      { minCrCl: 0, maxCrCl: 29, recommendation: 'KONTRAINDIKASI MUTLAK (eGFR < 30 mL/min). Risiko Hiperkalemia Fatal!', status: 'Contraindicated' }
-    ],
-    clinicalPearls: 'Diuretik hemat kalium. Kontraindikasi pada gagal ginjal berat untuk mencegah henti jantung akibat hiperkalemia.'
-  }
-];
-
-interface HepaticDrugRule {
-  drugName: string;
-  genericName: string;
-  category: string;
-  childPughA: string;
-  childPughB: string;
-  childPughC: string;
-  clinicalPearls: string;
-}
-
-const HEPATIC_DRUG_RULES: HepaticDrugRule[] = [
-  {
-    drugName: 'Paracetamol',
-    genericName: 'Acetaminophen / Paracetamol',
-    category: 'Analgesik & Antipiretik',
-    childPughA: 'Dosis maksimal 2000 - 3000 mg/hari (jangan melebihi 3 g/hari).',
-    childPughB: 'Dosis maksimal 2000 mg/hari (500 mg tiap 6 jam p.r.n).',
-    childPughC: 'Hindari penggunaan rutin atau batasi maks 1000 - 1500 mg/hari hanya jika mutlak perlu.',
-    clinicalPearls: 'Paracetamol tetap menjadi analgesik pilihan lini pertama pada sirosis stabil (lebih aman dibanding NSAID yang memicu sindrom hepatorenal/perdarahan varises), namun dosis harian WAJIB DIBATASI ≤ 2000 mg/hari.'
-  },
-  {
-    drugName: 'Metronidazole',
-    genericName: 'Metronidazole',
-    category: 'Antibiotik & Antiprotozoa',
-    childPughA: 'Dosis standar (500 mg tiap 8 jam).',
-    childPughB: 'Kurangi dosis sebesar 50% (500 mg tiap 12-24 jam).',
-    childPughC: 'Kurangi dosis sebesar 50% (250-500 mg tiap 24 jam). Pantau tanda ensefalopati dan toksisitas SSP.',
-    clinicalPearls: 'Metronidazole dimetabolisme secara ekstensif di hati (>80%). Klirens plasma turun drastis pada sirosis hati berat.'
-  },
-  {
-    drugName: 'Simvastatin / Atorvastatin',
-    genericName: 'HMG-CoA Reductase Inhibitor',
-    category: 'Hipolipidemik / Statin',
-    childPughA: 'Gunakan dosis terendah dengan pemantauan ALT/AST berkala.',
-    childPughB: 'KONTRAINDIKASI pada penyakit hati aktif atau peningkatan transaminase persisten.',
-    childPughC: 'KONTRAINDIKASI MUTLAK.',
-    clinicalPearls: 'Statin mengalami metabolisme lintas pertama (*first-pass metabolism*) hepar yang tinggi. Akumulasi pada sirosis berat memicu rhabdomyolysis.'
-  },
-  {
-    drugName: 'Voriconazole',
-    genericName: 'Voriconazole',
-    category: 'Antijamur Triazol',
-    childPughA: 'Loading dose standar, turunkan dosis pemeliharaan (maintenance) sebesar 50%.',
-    childPughB: 'Loading dose standar, turunkan dosis pemeliharaan sebesar 50%. TDM (Therapeutic Drug Monitoring) wajib.',
-    childPughC: 'KONTRAINDIKASI / Gunakan hanya jika manfaat melebihi risiko kematian akibat infeksi jamur invasif.',
-    clinicalPearls: 'Voriconazole dimetabolisme oleh CYP2C19, CYP2C9, dan CYP3A4. Klirens hepar sangat menurun pada sirosis.'
-  },
-  {
-    drugName: 'Diazepam / Midazolam',
-    genericName: 'Benzodiazepin',
-    category: 'Sedasi & Anxiolitik',
-    childPughA: 'Gunakan dosis minimal dengan interval diperpanjang.',
-    childPughB: 'HINDARI PENGGUNAAN (Risiko tinggi presipitasi Koma Ensefalopati Hepatik).',
-    childPughC: 'KONTRAINDIKASI MUTLAK. Memicu depresi SSP dalam dan koma hepatikum.',
-    clinicalPearls: 'Pasien sirosis memiliki sensitivitas reseptor GABA yang meningkat pesat. Benzodiazepin waktu paruh panjang adalah pemicu utama ensefalopati hepatik akut.'
-  },
-  {
-    drugName: 'Lansoprazole / Omeprazole',
-    genericName: 'Proton Pump Inhibitor (PPI)',
-    category: 'Gastrointestinal',
-    childPughA: 'Dosis standar (Lansoprazole 30 mg atau Omeprazole 20 mg/hari).',
-    childPughB: 'Dosis maksimal Lansoprazole 15-30 mg/hari atau Omeprazole 10-20 mg/hari.',
-    childPughC: 'Dosis maksimal Lansoprazole 15 mg/hari atau Omeprazole 10 mg/hari.',
-    clinicalPearls: 'Klirens hepar menurun hingga 50-70%. Penggunaan jangka panjang pada sirosis juga dikaitkan dengan peningkatan risiko SBP (Spontaneous Bacterial Peritonitis).'
-  }
-];
 
 interface OpioidEquiProfile {
   id: string;
@@ -1222,6 +1066,12 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
                           )}
                         </div>
                         <p className="text-slate-700"><strong className="text-teal-700">Rekomendasi:</strong> {matchedRule?.recommendation || 'Gunakan sesuai petunjuk dokter.'}</p>
+                        {drug.hemodialysisSupplement && (
+                          <div className="flex items-start gap-1.5 text-[11px] text-indigo-900 bg-indigo-50/80 px-2 py-1 rounded-lg border border-indigo-200/60">
+                            <span className="font-bold text-indigo-700 shrink-0">🩸 Hemodialisis (HD):</span>
+                            <span>{drug.hemodialysisSupplement}</span>
+                          </div>
+                        )}
                         <p className="text-[10px] text-slate-500 italic">*Mutiara Klinis: {drug.clinicalPearls}</p>
                       </div>
                     );

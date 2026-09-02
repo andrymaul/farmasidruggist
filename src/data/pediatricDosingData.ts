@@ -37,7 +37,9 @@ export interface PediatricDrugProfile {
   defaultSignaTemplate: string;
 }
 
-export const PEDIATRIC_DRUGS_DATABASE: PediatricDrugProfile[] = [
+import { PEDIATRIC_EXTENDED_DRUGS } from './pediatricExtendedData';
+
+const BASE_PEDIATRIC_DRUGS: PediatricDrugProfile[] = [
   {
     id: 'ped-paracetamol',
     name: 'Paracetamol (Acetaminophen)',
@@ -606,6 +608,11 @@ export const PEDIATRIC_DRUGS_DATABASE: PediatricDrugProfile[] = [
     ],
     defaultSignaTemplate: '2 x sehari 1 sendok takar bersama suapan pertama makan (HABISKAN)'
   }
+];
+
+export const PEDIATRIC_DRUGS_DATABASE: PediatricDrugProfile[] = [
+  ...BASE_PEDIATRIC_DRUGS,
+  ...PEDIATRIC_EXTENDED_DRUGS
 ];
 
 /**

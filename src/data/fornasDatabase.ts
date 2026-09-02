@@ -1641,7 +1641,9 @@ export const FORNAS_ADDITIONAL_DRUGS: Drug[] = [
       "Neurodex",
       "Neurosanbe",
       "Sohobion",
-      "Vitamin B Kompleks KF"
+      "Vitamin B Kompleks KF",
+      "vitamin complex B contains vitamin B1, vitamin B6, vitamin B12",
+      "Vitamin B Complex"
     ],
     "atcCode": "A11DB01",
     "category": "Vitamin Neurotropik / Pemeliharaan Sel Saraf & Antineuropati",
@@ -2559,7 +2561,10 @@ export const FORNAS_ADDITIONAL_DRUGS: Drug[] = [
       "Thiamine Generik",
       "Alinamin",
       "Neurotropic B1",
-      "Thiamin KF"
+      "Thiamin KF",
+      "Thiamine (vit B1)",
+      "Thiamine",
+      "Tiamin"
     ],
     "atcCode": "A11DA01",
     "category": "Vitamin Larut Air / Kofaktor Metabolisme Karbohidrat & Energi Neurologis",
@@ -2629,7 +2634,9 @@ export const FORNAS_ADDITIONAL_DRUGS: Drug[] = [
       "Vitamin B12 IPI",
       "Cyanocobalamin Generik",
       "Sianokobalamin KF",
-      "Cobafor"
+      "Cobafor",
+      "Cyanocobalamin",
+      "Vitamin B12"
     ],
     "atcCode": "B03BA01",
     "category": "Vitamin Larut Air / Antianemia Megaloblastik & Regenerasi Selubung Mielin Saraf",
@@ -3032,7 +3039,10 @@ export const FORNAS_ADDITIONAL_DRUGS: Drug[] = [
       "Foban",
       "Fuladic",
       "Fusicort (Kombinasi dengan Betametason)",
-      "Afucid"
+      "Afucid",
+      "Fusidic Sodium",
+      "Natrium Fusidat",
+      "Sodium Fusidate"
     ],
     "atcCode": "D06AX01",
     "category": "Antibiotik Topikal Struktur Steroid / Anti-Stafilokokus Pioderma & Impetigo",

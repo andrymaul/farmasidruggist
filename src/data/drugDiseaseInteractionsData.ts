@@ -1,6 +1,7 @@
 import { DrugDiseaseInteraction } from '../types';
+import { DRUG_DISEASE_EXTENDED_DATABASE } from './drugDiseaseExtendedData';
 
-export const DRUG_DISEASE_INTERACTIONS_DATABASE: DrugDiseaseInteraction[] = [
+const BASE_DRUG_DISEASE_INTERACTIONS: DrugDiseaseInteraction[] = [
   // =========================================================================
   // 1. RESPIRASI & PARU (ASMA & PPOK)
   // =========================================================================
@@ -292,6 +293,11 @@ export const DRUG_DISEASE_INTERACTIONS_DATABASE: DrugDiseaseInteraction[] = [
     recommendation: 'KONTRAINDIKASI MUTLAK (FDA Black Box Warning). Gunakan golongan antibiotik alternatif (Beta-laktam / Makrolida).',
     references: 'Myasthenia Gravis Foundation of America & FDA Black Box'
   }
+];
+
+export const DRUG_DISEASE_INTERACTIONS_DATABASE: DrugDiseaseInteraction[] = [
+  ...BASE_DRUG_DISEASE_INTERACTIONS,
+  ...DRUG_DISEASE_EXTENDED_DATABASE
 ];
 
 export interface ComorbidityProfile {

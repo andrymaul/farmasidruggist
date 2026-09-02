@@ -1,6 +1,7 @@
 import { DrugInteraction } from '../types';
 import { DRUGSCOM_ADDITIONAL_INTERACTIONS } from './drugsComData';
 import { FORNAS_ADDITIONAL_INTERACTIONS } from './fornasInteractions';
+import { FORNAS_EXTENDED_INTERACTIONS } from './fornasExtendedInteractions';
 import { deduplicateInteractions } from '../utils/ddinterEngine';
 
 const BASE_EXTENDED_INTERACTIONS: DrugInteraction[] = [
@@ -4186,7 +4187,8 @@ const BASE_EXTENDED_INTERACTIONS: DrugInteraction[] = [
 export const EXTENDED_INTERACTIONS_DATABASE: DrugInteraction[] = deduplicateInteractions([
   ...BASE_EXTENDED_INTERACTIONS,
   ...DRUGSCOM_ADDITIONAL_INTERACTIONS,
-  ...FORNAS_ADDITIONAL_INTERACTIONS
+  ...FORNAS_ADDITIONAL_INTERACTIONS,
+  ...FORNAS_EXTENDED_INTERACTIONS
 ]);
 
 

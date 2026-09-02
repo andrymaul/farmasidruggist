@@ -1,6 +1,11 @@
 import { Drug } from '../types';
 import { DRUGSCOM_ADDITIONAL_DRUGS } from './drugsComData';
 import { FORNAS_ADDITIONAL_DRUGS } from './fornasDatabase';
+import { FORNAS_EXTENDED_DRUGS } from './fornasExtendedDatabase';
+import { FORNAS_BATCH2_DRUGS } from './fornasBatch2Database';
+import { FORNAS_BATCH3_DRUGS } from './fornasBatch3Database';
+import { FORNAS_BATCH4_DRUGS } from './fornasBatch4Database';
+import { FORNAS_BATCH5_DRUGS } from './fornasBatch5Database';
 import { deduplicateDrugs } from '../utils/ddinterEngine';
 
 const BASE_EXTENDED_DRUGS: Drug[] = [
@@ -487,7 +492,10 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "brandNames": [
       "Coversyl",
       "Bi-Preterax",
-      "Coveram"
+      "Coveram",
+      "Perindopril Arginine",
+      "Perindopril Erbumine",
+      "Coversyl Plus"
     ],
     "atcCode": "C09AA04",
     "category": "ACE Inhibitor Jangka Panjang",
@@ -1521,7 +1529,10 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "Flamar",
       "Deflamat",
       "Diclofam",
-      "Voren"
+      "Voren",
+      "Sodium Diclofenac",
+      "Natrium Diklofenak Generik",
+      "Diclofenac Sodium"
     ],
     "atcCode": "M01AB05",
     "category": "NSAID Derivat Asam Fenilasetat / Antiinflamasi & Analgesik Sendi Kuat",
@@ -2353,7 +2364,10 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "Depakote",
       "Ikalep",
       "Divalproex Sodium",
-      "Depakene"
+      "Depakene",
+      "Valproate",
+      "Asam Valproat",
+      "Sodium Valproate Generik"
     ],
     "atcCode": "N03AG01",
     "category": "Antikonvulsan Spektrum Luas & Penstabil Mood Bipolar",
@@ -2594,10 +2608,16 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "Fluimucil",
       "Nytex",
       "Simucil",
-      "N-Ace"
+      "N-Ace",
+      "N-Acetyl Cysteine",
+      "Asetilsistein Generik",
+      "Pectocil",
+      "Fluimucil Granul / Kapsul"
     ],
     "atcCode": "R05CB01",
     "category": "Mukolitik & Antidotum Toksisitas Parasetamol",
+    "bpomClassification": "Obat Keras",
+    "drugClassification": "🔴 Obat Keras (FORNAS / PIONAS BPOM)",
     "indication": "Hipersekresi mukus kental saluran napas (PPOK, bronkitis), keracunan akut parasetamol.",
     "contraindications": "Ulkus peptikum aktif, spasme bronkus akut tanpa bronkodilator.",
     "sideEffects": "Mual, muntah, pirosis lambung, bronkospasme (pada asma berat).",
@@ -2656,7 +2676,9 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "brandNames": [
       "Sandimmun Neoral",
       "Cipol-N",
-      "Gengraf"
+      "Gengraf",
+      "Ciclosporin",
+      "Siklosporin Generik"
     ],
     "atcCode": "L04AD01",
     "category": "Inhibitor Kalsineurin (Imunosupresan)",
@@ -3942,7 +3964,9 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "brandNames": [
       "Esmeron",
       "Roculax",
-      "Rocuronium Hameln"
+      "Rocuronium Hameln",
+      "Rocuronium",
+      "Rocuronium OGB"
     ],
     "atcCode": "M03AC09",
     "category": "Pelumpuh Otot Non-Depolarisasi Onset Cepat (RSI)",
@@ -4152,7 +4176,9 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "brandNames": [
       "Pentothal",
       "Tiopol",
-      "Thiopental Hameln"
+      "Thiopental Hameln",
+      "Thiopental",
+      "Thiopental OGB"
     ],
     "atcCode": "N01AF03",
     "category": "Psikotropika Barbiturat Anestetik Intravena Ultra-Short Acting",
@@ -5806,7 +5832,8 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "genericName": "Mycophenolate Mofetil (MMF)",
       "brandNames": [
           "CellCept",
-          "Myfortic",
+          "Myfortic (Mycophenolate Sodium)",
+          "Mycophenolate Sodium",
           "Mofetyl"
       ],
       "atcCode": "L04AA06",
@@ -6178,7 +6205,9 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "L-Zinc",
       "Daryazinc",
       "Orezinc",
-      "Interzinc"
+      "Interzinc",
+      "zinc",
+      "Zinc"
     ],
     "atcCode": "A12CB01",
     "category": "Saluran Cerna (GI) / Terapi Diare Pediatrik & Mineral Esensial",
@@ -6477,7 +6506,8 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "Cendo Timol",
       "Timoph",
       "Xalacom",
-      "Azarga"
+      "Azarga",
+      "Timolol"
     ],
     "atcCode": "S01ED01",
     "category": "Oftalmologi / Antiglaukoma Penghambat Beta-Adrenergik Non-Selektif",
@@ -11456,6 +11486,11 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
 export const EXTENDED_DRUGS_DATABASE: Drug[] = deduplicateDrugs([
   ...BASE_EXTENDED_DRUGS,
   ...DRUGSCOM_ADDITIONAL_DRUGS,
-  ...FORNAS_ADDITIONAL_DRUGS
+  ...FORNAS_ADDITIONAL_DRUGS,
+  ...FORNAS_EXTENDED_DRUGS,
+  ...FORNAS_BATCH2_DRUGS,
+  ...FORNAS_BATCH3_DRUGS,
+  ...FORNAS_BATCH4_DRUGS,
+  ...FORNAS_BATCH5_DRUGS
 ]);
 

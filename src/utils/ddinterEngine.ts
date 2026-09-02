@@ -48,11 +48,9 @@ export function deduplicateDrugs(drugs: Drug[]): Drug[] {
     const normName = (drug.name || '').toLowerCase().trim();
     const normGeneric = (drug.genericName || '').toLowerCase().trim();
 
-    const existing =
-      (normId ? mapById.get(normId) : null) ||
-      (normAtc ? mapByAtc.get(normAtc) : null) ||
-      mapByName.get(normName) ||
-      mapByName.get(normGeneric);
+    const existingById = normId ? mapById.get(normId) : null;
+    const existingByName = mapByName.get(normName) || mapByName.get(normGeneric);
+    const existing = existingById || existingByName;
 
     if (!existing) {
       const copy = { ...drug };
