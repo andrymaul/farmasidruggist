@@ -887,7 +887,7 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
               }`}
             >
               <Stethoscope className="w-4 h-4 text-fuchsia-400" />
-              <span>13 Skor Klinis</span>
+              <span>14 Skor Klinis</span>
             </button>
           </div>
         </div>
@@ -2143,12 +2143,12 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
                 <Stethoscope className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Suite 13 Kalkulator Skor Klinis & Risiko Terpadu</h3>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Suite 14 Kalkulator Skor Klinis & Risiko Terpadu</h3>
                 <p className="text-xs text-slate-600 dark:text-fuchsia-200/80 font-medium">Kalkulator stratifikasi risiko kardiovaskular, stroke, sepsis, dehidrasi, mortalitas, dan psikometri berbasis pedoman klinis internasional.</p>
               </div>
             </div>
             <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-fuchsia-100 dark:bg-fuchsia-500/20 text-fuchsia-800 dark:text-fuchsia-300 border border-fuchsia-300 dark:border-fuchsia-500/40 shrink-0 shadow-2xs">
-              13 Skor Valid
+              14 Skor Valid
             </span>
           </div>
 
@@ -2296,6 +2296,17 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
                 borderColor: 'border-pink-200 hover:border-pink-400 dark:border-pink-800/70 dark:hover:border-pink-500',
                 badgeStyle: 'bg-pink-100 text-pink-800 border-pink-300/70 dark:bg-pink-950 dark:text-pink-300 dark:border-pink-800',
                 orgStyle: 'text-pink-700 dark:text-pink-400'
+              },
+              {
+                id: 'srq20' as CalculatorType,
+                name: 'Kuesioner Kesehatan Jiwa (SRQ-20)',
+                org: 'WHO / Kemenkes RI',
+                desc: 'Instrumen 20 butir skrining gangguan mental emosional (GME), neurosis, ansietas, depresi, & indikasi rujukan psikiatri.',
+                badge: 'Kesehatan Jiwa',
+                cardBg: 'bg-teal-50/60 hover:bg-teal-50/90 dark:bg-slate-900/90 dark:hover:bg-slate-900',
+                borderColor: 'border-teal-200 hover:border-teal-400 dark:border-teal-800/70 dark:hover:border-teal-500',
+                badgeStyle: 'bg-teal-100 text-teal-800 border-teal-300/70 dark:bg-teal-950 dark:text-teal-300 dark:border-teal-800',
+                orgStyle: 'text-teal-700 dark:text-teal-400'
               }
             ].map(scoreItem => (
               <div
