@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Drug, DrugInteraction, ClinicBrandingSettings } from '../types';
+import { Drug, DrugInteraction, ClinicBrandingSettings, DrugFoodInteraction, TherapeuticDuplication } from '../types';
 import { 
   Stethoscope, 
   User, 
@@ -12,6 +12,7 @@ import {
   Cigarette, 
   AlertTriangle, 
   AlertCircle,
+  AlertOctagon,
   CheckCircle2, 
   Printer, 
   Sparkles, 
@@ -38,9 +39,12 @@ import {
   Copy,
   Check,
   Share2,
-  FileText
+  FileText,
+  Layers
 } from 'lucide-react';
 import { getDrugClinicalProfile, DrugClinicalProfile, CLINICAL_DRUG_PROFILES } from '../data/clinicalDrugDefaults';
+import { resolveInteractionPair, evaluateTherapeuticDuplications, evaluateFoodInteractions } from '../utils/ddinterEngine';
+import { getPregnancySafetyProfile } from '../utils/pregnancySyncHelper';
 
 interface PatientParameters {
   name: string;
@@ -78,6 +82,8 @@ interface PrescriptionItem {
 interface ClinicalPolypharmacyEvaluatorProps {
   allDrugs: Drug[];
   allInteractions: DrugInteraction[];
+  foodInteractions?: DrugFoodInteraction[];
+  duplicationRules?: TherapeuticDuplication[];
   clinicBranding?: ClinicBrandingSettings;
   onSelectTab?: (tab: string) => void;
 }
@@ -149,7 +155,7 @@ export const calculateSmartTimes = (
   return ['08:00'];
 };
 
-export const ALLERGY_OPTIONS = [
+const ALLERGY_OPTIONS = [
   'Penisilin & Beta-Laktam (Amoksisilin, Ampisilin)',
   'Sefalosporin (Sefadroksil, Sefiksim, Seftriakson)',
   'Sulfonamida / Sulfa (Kotrimoksazol)',
@@ -177,6 +183,8 @@ export const COMORBIDITY_OPTIONS = [
 export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluatorProps> = ({
   allDrugs,
   allInteractions,
+  foodInteractions = [],
+  duplicationRules = [],
   clinicBranding,
   onSelectTab
 }) => {
@@ -635,9 +643,22 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
     const pregnancyAlerts: string[] = [];
     if (patient.pregnancyStatus !== 'Tidak Hamil') {
       prescription.forEach(p => {
-        const cat = p.drug.pregnancyCategory?.toUpperCase() || 'C';
-        if (cat === 'D' || cat === 'X') {
-          pregnancyAlerts.push(`⚠️ KATEGORI ${cat} PADA KEHAMILAN: Obat ${p.drug.name} (${cat}) berisiko tinggi teratogenik / bahaya janin pada ${patient.pregnancyStatus}!`);
+        const safety = getPregnancySafetyProfile(p.drug);
+        const cat = (safety?.fdaCategory || p.drug.pregnancyCategory || 'C').toUpperCase();
+        if (cat === 'D' || cat === 'X' || safety?.isContraindicatedInPregnancy) {
+          const detail = safety?.teratogenicAlert || safety?.pllrSummary;
+          pregnancyAlerts.push(`⚠️ KATEGORI ${cat} PADA KEHAMILAN: Obat ${p.drug.name} (${cat}) berisiko tinggi teratogenik / bahaya janin pada ${patient.pregnancyStatus}! ${detail ? `• ${detail}` : ''}`);
+        }
+      });
+    }
+
+    if (patient.isLactating) {
+      prescription.forEach(p => {
+        const safety = getPregnancySafetyProfile(p.drug);
+        if (safety?.halesLactationRating === 'L4' || safety?.halesLactationRating === 'L5' || safety?.isContraindicatedInLactation) {
+          pregnancyAlerts.push(`⚠️ RISIKO LAKTASI TINGGI (${p.drug.name}): Rating Hale's ${safety.halesLactationRating} (${safety.breastfeedingSummary || 'Berbahaya pada ASI'}). Hindari pada ibu menyusui.`);
+        } else if (p.drug.lactationWarning && p.drug.lactationWarning.toLowerCase().includes('kontraindikasi')) {
+          pregnancyAlerts.push(`⚠️ PERINGATAN LAKTASI (${p.drug.name}): ${p.drug.lactationWarning}`);
         }
       });
     }
@@ -646,11 +667,16 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
     if (patient.hepaticFunction !== 'Normal') {
       prescription.forEach(p => {
         const name = p.drug.name.toLowerCase();
-        if (name.includes('paracetamol') || name.includes('acetaminophen')) {
-          hepaticAlerts.push(`Toksisitas Hati: ${p.drug.name} berisiko hepatotoksik. Batasi dosis maksimal 2 gram/hari pada ${patient.hepaticFunction}.`);
-        }
-        if (name.includes('simvastatin') || name.includes('atorvastatin') || name.includes('ketoconazole')) {
-          hepaticAlerts.push(`Metabolisme Hati: ${p.drug.name} metabolisme di hati terhambat pada ${patient.hepaticFunction}. Lakukan pemantauan SGOT/SGPT.`);
+        // Cek monografi penyesuaian dosis hepar dari database
+        if (p.drug.hepaticDoseAdjustment && p.drug.hepaticDoseAdjustment.trim().length > 5) {
+          hepaticAlerts.push(`Penyesuaian Dosis Hati Monografi (${p.drug.name} - ${patient.hepaticFunction}): ${p.drug.hepaticDoseAdjustment}`);
+        } else {
+          if (name.includes('paracetamol') || name.includes('acetaminophen')) {
+            hepaticAlerts.push(`Toksisitas Hati: ${p.drug.name} berisiko hepatotoksik. Batasi dosis maksimal 2 gram/hari pada ${patient.hepaticFunction}.`);
+          }
+          if (name.includes('simvastatin') || name.includes('atorvastatin') || name.includes('ketoconazole')) {
+            hepaticAlerts.push(`Metabolisme Hati: ${p.drug.name} metabolisme di hati terhambat pada ${patient.hepaticFunction}. Lakukan pemantauan SGOT/SGPT.`);
+          }
         }
       });
     }
@@ -757,36 +783,51 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
       });
     }
 
-    // Comorbidity Contraindication Alerts
+    // Comorbidity Contraindication Alerts (Heuristic & Monograph Sync)
     const comorbidityAlerts: string[] = [];
     prescription.forEach(p => {
       const drugName = (p.drug.name + ' ' + (p.drug.genericName || '') + ' ' + (p.drug.category || '')).toLowerCase();
+      const contraText = (p.drug.contraindications || p.drug.contraindication || '').toLowerCase();
 
       // BPH vs Anticholinergic & Decongestant
       if (patient.comorbidities.includes('BPH (Pembesaran Prostat Jinak)')) {
-        if (drugName.includes('chlorpheniramine') || drugName.includes('ctm') || drugName.includes('amitriptyline') || drugName.includes('trihexyphenidyl') || drugName.includes('pseudoephedrine')) {
+        if (drugName.includes('chlorpheniramine') || drugName.includes('ctm') || drugName.includes('amitriptyline') || drugName.includes('trihexyphenidyl') || drugName.includes('pseudoephedrine') || contraText.includes('bph') || contraText.includes('prostat')) {
           comorbidityAlerts.push(`⚠️ PERINGATAN BPH: Obat "${p.drug.name}" memiliki efek antikolinergik/simpatomimetik yang dapat memicu retensi urin akut pada pasien BPH.`);
         }
       }
 
       // Glaukoma Sudut Tertutup vs Anticholinergic
       if (patient.comorbidities.includes('Glaukoma Sudut Tertutup')) {
-        if (drugName.includes('amitriptyline') || drugName.includes('atropine') || drugName.includes('trihexyphenidyl') || drugName.includes('dexamethasone') || drugName.includes('methylprednisolone')) {
+        if (drugName.includes('amitriptyline') || drugName.includes('atropine') || drugName.includes('trihexyphenidyl') || drugName.includes('dexamethasone') || drugName.includes('methylprednisolone') || contraText.includes('glaukoma') || contraText.includes('glaucoma')) {
           comorbidityAlerts.push(`🚨 KONTRAINDIKASI GLAUKOMA: "${p.drug.name}" dapat memicu peningkatan tekanan intraokular (TIO) berbahaya pada glaukoma sudut tertutup.`);
         }
       }
 
       // Parkinson vs Metoclopramide / Haloperidol
       if (patient.comorbidities.includes('Penyakit Parkinson')) {
-        if (drugName.includes('metoclopramide') || drugName.includes('haloperidol') || drugName.includes('chlorpromazine')) {
+        if (drugName.includes('metoclopramide') || drugName.includes('haloperidol') || drugName.includes('chlorpromazine') || contraText.includes('parkinson')) {
           comorbidityAlerts.push(`🚨 KONTRAINDIKASI PARKINSON: "${p.drug.name}" adalah antagonis dopamin sentral yang memperparah tremor dan rigiditas motorik Parkinson.`);
         }
       }
 
       // Gout vs Thiazide
       if (patient.comorbidities.includes('Gout / Hiperurisemia')) {
-        if (drugName.includes('hydrochlorothiazide') || drugName.includes('hct')) {
+        if (drugName.includes('hydrochlorothiazide') || drugName.includes('hct') || contraText.includes('asam urat') || contraText.includes('gout')) {
           comorbidityAlerts.push(`ℹ️ PERHATIAN GOUT: Diuretik Tiazid ("${p.drug.name}") menghambat ekskresi asam urat di tubulus ginjal, dapat memicu serangan gout akut.`);
+        }
+      }
+
+      // Asma / PPOK vs Non-selective Beta Blocker
+      if (patient.comorbidities.includes('Penyakit Asma') || patient.comorbidities.includes('PPOK')) {
+        if (drugName.includes('propranolol') || drugName.includes('carvedilol') || drugName.includes('nadolol') || contraText.includes('asma') || contraText.includes('bronkospasme')) {
+          comorbidityAlerts.push(`🚨 KONTRAINDIKASI RESPIRASI: Beta Blocker Non-Kardioselektif ("${p.drug.name}") berisiko memicu bronkospasme berat pada pasien Asma/PPOK.`);
+        }
+      }
+
+      // Ulkus Peptikum vs NSAID
+      if (patient.comorbidities.includes('Ulkus Peptikum / Perdarahan GI')) {
+        if (drugName.includes('ibuprofen') || drugName.includes('mefenamic') || drugName.includes('ketorolac') || drugName.includes('meloxicam') || drugName.includes('diklofenak') || drugName.includes('aspirin') || contraText.includes('ulkus') || contraText.includes('tukak')) {
+          comorbidityAlerts.push(`🚨 KONTRAINDIKASI ULKUS PEPTIKUM: OAINS ("${p.drug.name}") berisiko tinggi memicu perdarahan saluran cerna aktif dan perforasi lambung.`);
         }
       }
     });
@@ -803,20 +844,33 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
       labAlerts.push(`🚨 PERINGATAN HIPERKALEMIA: Kalium serum ${patient.serumPotassium} mmol/L (≥5.5 mmol/L). Waspada aritmia fatal bila dikombinasikan dengan ACEi/ARB atau Spironolakton!`);
     }
 
+    // Penapisan Ginjal Dinamis dari Monografi Database & Heuristik
     const renalAlerts: string[] = [];
     if (patient.enableRenalCheck && patient.crCl < 60) {
       prescription.forEach(p => {
         const name = (p.drug.name + ' ' + (p.drug.genericName || '')).toLowerCase();
-        if (name.includes('metformin') && patient.crCl < 30) {
-          renalAlerts.push(`Kontraindikasi Ginjal: Metformin dikontraindikasikan pada CrCl <30 mL/min (Risiko Asidosis Laktat fatal).`);
-        } else if (name.includes('metformin') && patient.crCl < 45) {
-          renalAlerts.push(`Penyesuaian Dosis Ginjal: Batasi dosis maksimal Metformin 1000 mg/hari pada CrCl ${patient.crCl} mL/min.`);
-        }
-        if (name.includes('allopurinol') || name.includes('captopril') || name.includes('gabapentin')) {
-          renalAlerts.push(`Penyesuaian Dosis Ginjal: ${p.drug.name} memerlukan penurunan dosis atau perpanjangan interval pada CrCl ${patient.crCl} mL/min.`);
+        if (p.drug.renalDoseAdjustment && p.drug.renalDoseAdjustment.trim().length > 5) {
+          renalAlerts.push(`Penyesuaian Dosis Ginjal Monografi (${p.drug.name} - CrCl ${patient.crCl} mL/min): ${p.drug.renalDoseAdjustment}`);
+        } else {
+          if (name.includes('metformin') && patient.crCl < 30) {
+            renalAlerts.push(`Kontraindikasi Ginjal: Metformin dikontraindikasikan pada CrCl <30 mL/min (Risiko Asidosis Laktat fatal).`);
+          } else if (name.includes('metformin') && patient.crCl < 45) {
+            renalAlerts.push(`Penyesuaian Dosis Ginjal: Batasi dosis maksimal Metformin 1000 mg/hari pada CrCl ${patient.crCl} mL/min.`);
+          }
+          if (name.includes('allopurinol') || name.includes('captopril') || name.includes('gabapentin')) {
+            renalAlerts.push(`Penyesuaian Dosis Ginjal: ${p.drug.name} memerlukan penurunan dosis atau perpanjangan interval pada CrCl ${patient.crCl} mL/min.`);
+          }
         }
       });
     }
+
+    // Black Box Warning Alerts dari Monografi Database
+    const blackBoxAlerts: string[] = [];
+    prescription.forEach(p => {
+      if (p.drug.blackBoxWarning && p.drug.blackBoxWarning.trim().length > 3) {
+        blackBoxAlerts.push(`🚨 BLACK BOX WARNING (${p.drug.name}): ${p.drug.blackBoxWarning}`);
+      }
+    });
 
     return { 
       count, 
@@ -832,30 +886,44 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
       prescribingCascades,
       allergyAlerts,
       comorbidityAlerts,
-      labAlerts
+      labAlerts,
+      blackBoxAlerts
     };
   }, [prescription, patient]);
 
-  // Drug-Drug Interactions
+  // Drug-Drug Interactions (Sinkronisasi Mesin DDInter & Database allInteractions)
   const matchedDrugInteractions = useMemo(() => {
-    const results: { drugA: string; drugB: string; severity: string; description: string }[] = [];
+    const results: { 
+      drugA: string; 
+      drugB: string; 
+      severity: string; 
+      mechanism?: string;
+      clinicalOutcome?: string;
+      management?: string;
+      evidenceLevel?: string;
+      description: string;
+    }[] = [];
+    const seenPairs = new Set<string>();
+
     for (let i = 0; i < prescription.length; i++) {
       for (let j = i + 1; j < prescription.length; j++) {
-        const nameA = prescription[i].drug.name.toLowerCase();
-        const nameB = prescription[j].drug.name.toLowerCase();
+        const drugA = prescription[i].drug;
+        const drugB = prescription[j].drug;
+        const pairKey = [drugA.id || drugA.name, drugB.id || drugB.name].sort().join('___');
+        if (seenPairs.has(pairKey)) continue;
 
-        const match = allInteractions.find(inter => {
-          const a = inter.drugAName.toLowerCase();
-          const b = inter.drugBName.toLowerCase();
-          return (a === nameA && b === nameB) || (a === nameB && b === nameA);
-        });
-
+        const match = resolveInteractionPair(drugA, drugB, allInteractions);
         if (match) {
+          seenPairs.add(pairKey);
           results.push({
-            drugA: prescription[i].drug.name,
-            drugB: prescription[j].drug.name,
+            drugA: drugA.name,
+            drugB: drugB.name,
             severity: match.severity,
-            description: `${match.clinicalOutcome || match.mechanism} (Manajemen: ${match.management})`
+            mechanism: match.mechanism,
+            clinicalOutcome: match.clinicalOutcome,
+            management: match.management,
+            evidenceLevel: match.evidenceLevel,
+            description: `${match.clinicalOutcome || match.mechanism} (Manajemen: ${match.management || 'Pantau respon klinis pasien'})`
           });
         }
       }
@@ -863,75 +931,143 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
     return results;
   }, [prescription, allInteractions]);
 
-  // Drug-Food & Lifestyle Interactions Matrix
+  // Therapeutic Duplications Detection (Sinkronisasi Database duplicationRules & Kelas Terapi)
+  const matchedDuplications = useMemo(() => {
+    const drugs = prescription.map(p => p.drug);
+    return evaluateTherapeuticDuplications(drugs, duplicationRules);
+  }, [prescription, duplicationRules]);
+
+  // Drug-Food & Lifestyle Interactions Matrix (Sinkronisasi Database foodInteractions & Monografi)
   const lifestyleInteractions = useMemo(() => {
-    const items: { drugName: string; category: 'Grapefruit' | 'Susu/Kalsium' | 'Alkohol' | 'Kopi/Kafein' | 'Merokok'; note: string; severity: 'Tinggi' | 'Sedang' | 'Ringan' }[] = [];
+    const items: { 
+      drugName: string; 
+      category: string; 
+      note: string; 
+      severity: 'Tinggi' | 'Sedang' | 'Ringan';
+      recommendation?: string;
+    }[] = [];
+    const seenItemKeys = new Set<string>();
 
-    prescription.forEach(p => {
-      const name = p.drug.name.toLowerCase();
-
-      if (name.includes('simvastatin') || name.includes('atorvastatin') || name.includes('amlodipine')) {
+    // 1. Interaksi makanan dari Database Terdaftar (foodInteractions) & Monografi Obat (foodInteraction)
+    const dfiFromDb = evaluateFoodInteractions(prescription.map(p => p.drug), foodInteractions);
+    dfiFromDb.forEach(dfi => {
+      const key = `${dfi.drugName}__${dfi.foodName}`.toLowerCase();
+      if (!seenItemKeys.has(key)) {
+        seenItemKeys.add(key);
+        const sevMapped: 'Tinggi' | 'Sedang' | 'Ringan' = 
+          dfi.severity === 'Major' ? 'Tinggi' : dfi.severity === 'Moderate' ? 'Sedang' : 'Ringan';
         items.push({
-          drugName: p.drug.name,
-          category: 'Grapefruit',
-          note: 'Jus Grapefruit menghambat CYP3A4, meningkatkan kadar obat hingga risiko miopati / hipotensi parah.',
-          severity: 'Tinggi'
-        });
-      }
-
-      if (name.includes('ciprofloxacin') || name.includes('tetracycline') || name.includes('doxycycline')) {
-        items.push({
-          drugName: p.drug.name,
-          category: 'Susu/Kalsium',
-          note: 'Kalsium dalam susu/keju mengkelat antibiotik ini sehingga menurunkan penyerapan hingga 50%. Beri jeda 2 jam.',
-          severity: 'Tinggi'
-        });
-      }
-
-      if (name.includes('metronidazole') || name.includes('ketoconazole')) {
-        items.push({
-          drugName: p.drug.name,
-          category: 'Alkohol',
-          note: 'Reaksi seperti Disulfiram (mual muntah hebat, pusing, takikardia) bila diminum bersama alkohol.',
-          severity: 'Tinggi'
-        });
-      }
-      if (name.includes('paracetamol') || name.includes('acetaminophen')) {
-        items.push({
-          drugName: p.drug.name,
-          category: 'Alkohol',
-          note: 'Konsumsi alkohol rutin meningkatkan toksisitas hati akibat penumpukan metabolit NAPQI.',
-          severity: 'Sedang'
-        });
-      }
-
-      if (name.includes('ciprofloxacin')) {
-        items.push({
-          drugName: p.drug.name,
-          category: 'Kopi/Kafein',
-          note: 'Ciprofloxacin menghambat metabolisme kafein, memicu deg-degan, gelisah, dan insomnia.',
-          severity: 'Sedang'
-        });
-      }
-
-      if (patient.isSmoker && (name.includes('theophylline') || name.includes('clozapine') || name.includes('olanzapine'))) {
-        items.push({
-          drugName: p.drug.name,
-          category: 'Merokok',
-          note: 'Asap rokok menginduksi enzim CYP1A2, menurunkan kadar obat dalam darah hingga 50%. Dosis mungkin perlu ditingkatkan.',
-          severity: 'Tinggi'
+          drugName: dfi.drugName,
+          category: dfi.foodName || dfi.foodCategory,
+          note: `${dfi.clinicalOutcome || dfi.mechanism}. Rekomendasi: ${dfi.recommendation}`,
+          severity: sevMapped,
+          recommendation: dfi.recommendation
         });
       }
     });
 
-    return items;
-  }, [prescription, patient.isSmoker]);
+    // 2. Evaluasi Gaya Hidup Pasien (Rokok, Alkohol, Kafein, Grapefruit, Susu/Kalsium)
+    prescription.forEach(p => {
+      const name = (p.drug.name + ' ' + (p.drug.genericName || '')).toLowerCase();
 
-  // Spacing & Administration Warnings
+      if (name.includes('simvastatin') || name.includes('atorvastatin') || name.includes('amlodipine')) {
+        const key = `${p.drug.name}__grapefruit`.toLowerCase();
+        if (!seenItemKeys.has(key)) {
+          seenItemKeys.add(key);
+          items.push({
+            drugName: p.drug.name,
+            category: 'Grapefruit / Jeruk Bali',
+            note: 'Jus Grapefruit menghambat CYP3A4, meningkatkan kadar obat hingga risiko miopati / hipotensi parah.',
+            severity: 'Tinggi'
+          });
+        }
+      }
+
+      if (name.includes('ciprofloxacin') || name.includes('tetracycline') || name.includes('doxycycline')) {
+        const key = `${p.drug.name}__kalsium`.toLowerCase();
+        if (!seenItemKeys.has(key)) {
+          seenItemKeys.add(key);
+          items.push({
+            drugName: p.drug.name,
+            category: 'Susu / Kalsium',
+            note: 'Kalsium dalam susu/keju mengkelat antibiotik ini sehingga menurunkan penyerapan hingga 50%. Beri jeda 2 jam.',
+            severity: 'Tinggi'
+          });
+        }
+      }
+
+      if (name.includes('metronidazole') || name.includes('ketoconazole')) {
+        const key = `${p.drug.name}__alkohol`.toLowerCase();
+        if (!seenItemKeys.has(key)) {
+          seenItemKeys.add(key);
+          items.push({
+            drugName: p.drug.name,
+            category: 'Alkohol',
+            note: 'Reaksi seperti Disulfiram (mual muntah hebat, pusing, takikardia) bila diminum bersama alkohol.',
+            severity: 'Tinggi'
+          });
+        }
+      }
+      if (name.includes('paracetamol') || name.includes('acetaminophen')) {
+        const key = `${p.drug.name}__alkohol`.toLowerCase();
+        if (!seenItemKeys.has(key)) {
+          seenItemKeys.add(key);
+          items.push({
+            drugName: p.drug.name,
+            category: 'Alkohol',
+            note: 'Konsumsi alkohol rutin meningkatkan toksisitas hati akibat penumpukan metabolit NAPQI.',
+            severity: 'Sedang'
+          });
+        }
+      }
+
+      if (name.includes('ciprofloxacin')) {
+        const key = `${p.drug.name}__kafein`.toLowerCase();
+        if (!seenItemKeys.has(key)) {
+          seenItemKeys.add(key);
+          items.push({
+            drugName: p.drug.name,
+            category: 'Kopi / Kafein',
+            note: 'Ciprofloxacin menghambat metabolisme kafein, memicu deg-degan, gelisah, dan insomnia.',
+            severity: 'Sedang'
+          });
+        }
+      }
+
+      if (patient.isSmoker && (name.includes('theophylline') || name.includes('clozapine') || name.includes('olanzapine'))) {
+        const key = `${p.drug.name}__rokok`.toLowerCase();
+        if (!seenItemKeys.has(key)) {
+          seenItemKeys.add(key);
+          items.push({
+            drugName: p.drug.name,
+            category: 'Merokok',
+            note: 'Asap rokok menginduksi enzim CYP1A2, menurunkan kadar obat dalam darah hingga 50%. Dosis mungkin perlu ditingkatkan.',
+            severity: 'Tinggi'
+          });
+        }
+      }
+    });
+
+    return items;
+  }, [prescription, foodInteractions, patient.isSmoker]);
+
+  // Spacing & Administration Warnings (Sinkronisasi Monografi Panduan Administrasi)
   const spacingWarnings = useMemo(() => {
     const warnings: string[] = [];
     const names = prescription.map(p => (p.drug.name + ' ' + (p.drug.genericName || '')).toLowerCase());
     
+    // Cek administrationGuideline dari monografi obat
+    prescription.forEach(p => {
+      if (p.drug.administrationGuideline && (
+        p.drug.administrationGuideline.toLowerCase().includes('jeda') ||
+        p.drug.administrationGuideline.toLowerCase().includes('terpisah') ||
+        p.drug.administrationGuideline.toLowerCase().includes('perut kosong') ||
+        p.drug.administrationGuideline.toLowerCase().includes('sebelum makan')
+      )) {
+        warnings.push(`ℹ️ Panduan Administrasi (${p.drug.name}): ${p.drug.administrationGuideline}`);
+      }
+    });
+
     // Calcium vs Quinolone / Tetracycline
     const hasCalcium = names.some(n => n.includes('calcium') || n.includes('kalsium'));
     const hasQuinolone = names.some(n => n.includes('ciprofloxacin') || n.includes('levofloxacin') || n.includes('doxycycline') || n.includes('tetracycline'));
@@ -952,7 +1088,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
       warnings.push('⚠️ Perhatian Sucralfate: Minum Sucralfate saat perut kosong (1 jam sebelum makan) dan beri jeda 2 jam dengan obat oral lain.');
     }
 
-    return warnings;
+    return Array.from(new Set(warnings));
   }, [prescription]);
 
   // Harmonized Meal Clusters for Outpatient Guidance
@@ -1152,12 +1288,16 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
           <div className="bg-amber-50/70 p-2 rounded-lg border border-amber-200">
             <h3 className="font-bold border-b border-amber-300 pb-0.5 mb-1 uppercase text-amber-950">2. Hasil Skrining Risiko Klinis</h3>
             <p className="mb-0.5 font-bold">Polifarmasi: {polypharmacyStatus.count} Obat ({polypharmacyStatus.badge})</p>
+            {polypharmacyStatus.blackBoxAlerts.length > 0 && <p className="text-rose-900 font-bold">• {polypharmacyStatus.blackBoxAlerts[0]}</p>}
             {polypharmacyStatus.pregnancyAlerts.length > 0 && <p className="text-rose-900 font-bold">• {polypharmacyStatus.pregnancyAlerts[0]}</p>}
             {polypharmacyStatus.hepaticAlerts.length > 0 && <p className="text-amber-900 font-bold">• {polypharmacyStatus.hepaticAlerts[0]}</p>}
             {polypharmacyStatus.renalAlerts.length > 0 && <p className="text-amber-900 font-bold">• {polypharmacyStatus.renalAlerts[0]}</p>}
             {polypharmacyStatus.elderlyAlerts.length > 0 && <p className="text-rose-900 font-bold">• {polypharmacyStatus.elderlyAlerts[0]}</p>}
+            {matchedDuplications.length > 0 && (
+              <p className="text-rose-900 font-bold">• Duplikasi Terapi: {matchedDuplications.map(d => `${d.drugAName} + ${d.drugBName} (${d.therapeuticClass})`).join('; ')}</p>
+            )}
             {matchedDrugInteractions.length > 0 ? (
-              <p className="text-rose-900 font-bold">• Interaksi: {matchedDrugInteractions[0].drugA} ↔ {matchedDrugInteractions[0].drugB} ({matchedDrugInteractions[0].severity})</p>
+              <p className="text-rose-900 font-bold">• Interaksi: {matchedDrugInteractions.map(m => `${m.drugA} ↔ ${m.drugB} (${m.severity})`).join('; ')}</p>
             ) : (
               <p className="text-emerald-800 font-bold">✅ Bebas Interaksi Obat Berbahaya</p>
             )}
@@ -1814,8 +1954,10 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                 {polypharmacyStatus.count >= 5 && ' Perlu dilakukan pemantauan ketat terhadap efek samping interaksi obat dan kepatuhan minum obat.'}
               </p>
 
-              {/* Peringatan Alergi, Lab, Kehamilan, Hati, Beers Criteria, Komorbiditas & Cascades */}
+              {/* Peringatan Alergi, Black Box, Duplikasi, Lab, Kehamilan, Hati, Beers Criteria, Komorbiditas & Cascades */}
               {(polypharmacyStatus.allergyAlerts.length > 0 ||
+                polypharmacyStatus.blackBoxAlerts?.length > 0 ||
+                matchedDuplications.length > 0 ||
                 polypharmacyStatus.comorbidityAlerts.length > 0 ||
                 polypharmacyStatus.labAlerts.length > 0 ||
                 polypharmacyStatus.pregnancyAlerts.length > 0 || 
@@ -1826,6 +1968,25 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
                 polypharmacyStatus.acbAlert) && (
                 <div className="space-y-1.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-xs">
                   
+                  {/* BLACK BOX WARNING RESMI DARI MONOGRAFI DATABASE (PRIORITAS TERTINGGI) */}
+                  {polypharmacyStatus.blackBoxAlerts?.map((alt, idx) => (
+                    <div key={idx} className="flex items-start gap-2 text-rose-950 dark:text-rose-100 font-extrabold bg-rose-100/90 dark:bg-rose-950/80 p-3 rounded-2xl border-2 border-rose-500 shadow-xs">
+                      <AlertOctagon className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+                      <span className="leading-snug">{alt}</span>
+                    </div>
+                  ))}
+
+                  {/* PERINGATAN DUPLIKASI TERAPI (SINKRONISASI DATABASE) */}
+                  {matchedDuplications.length > 0 && (
+                    <div className="flex items-start gap-2 text-amber-950 dark:text-amber-100 font-extrabold bg-amber-100/90 dark:bg-amber-950/80 p-2.5 rounded-2xl border-2 border-amber-500 shadow-xs">
+                      <Layers className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-black text-amber-950 dark:text-amber-100">⚠️ Terdeteksi {matchedDuplications.length} Duplikasi Kelas Terapi Farmakologis: </span>
+                        <span>{matchedDuplications.map(d => `${d.drugAName} + ${d.drugBName} (${d.therapeuticClass})`).join('; ')}</span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* ALERGI OBAT & ALERGI SILANG (BAHAYA TINGGI - MERAH MENYALA) */}
                   {polypharmacyStatus.allergyAlerts.map((alt, idx) => (
                     <div key={idx} className="flex items-start gap-1.5 text-rose-950 dark:text-rose-200 font-black bg-rose-100 dark:bg-rose-950/70 p-2.5 rounded-xl border-2 border-rose-500 shadow-sm animate-pulse">
@@ -2468,7 +2629,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
           )}
         </div>
 
-        {/* SECTION: Interaksi Obat dengan Makanan, Minuman & Gaya Hidup */}
+        {/* SECTION: Interaksi Obat dengan Makanan, Minuman & Gaya Hidup (Sinkronisasi Database) */}
         <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
             <div className="flex items-center gap-2 text-slate-900 dark:text-white font-extrabold text-sm">
@@ -2476,7 +2637,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
               <span>Interaksi Obat dengan Makanan, Minuman & Gaya Hidup</span>
             </div>
             <span className="text-xs font-bold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-2.5 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
-              Penyesuaian Nutrisi Pasien
+              {lifestyleInteractions.length} Interaksi Nutrisi / Kebiasaan
             </span>
           </div>
 
@@ -2484,15 +2645,20 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
               {lifestyleInteractions.map((item, idx) => (
                 <div key={idx} className="bg-amber-50/60 dark:bg-amber-950/40 p-4 rounded-2xl border border-amber-200 dark:border-amber-800/80 space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-1">
                     <span className="font-extrabold text-slate-900 dark:text-white text-sm">{item.drugName}</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
-                      Kategori: {item.category}
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900 text-amber-900 dark:text-amber-100 border border-amber-300 dark:border-amber-700 shrink-0">
+                      {item.category}
                     </span>
                   </div>
                   <p className="text-amber-950 dark:text-amber-200 font-medium leading-relaxed">
                     {item.note}
                   </p>
+                  {item.recommendation && (
+                    <div className="p-2 bg-white/70 dark:bg-slate-900/70 rounded-xl border border-amber-200/80 dark:border-amber-800/60 text-[11px] text-amber-900 dark:text-amber-300 font-semibold">
+                      💡 Saran: {item.recommendation}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -2503,35 +2669,142 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
           )}
         </div>
 
-        {/* SECTION: Interaksi Antar Obat (Drug-Drug Interactions) */}
+        {/* SECTION: Deteksi Duplikasi Terapi (Therapeutic Duplications - Sinkronisasi Database) */}
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div className="flex items-center gap-2 text-slate-900 dark:text-white font-extrabold text-sm">
+              <Layers className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+              <span>Deteksi Duplikasi Terapi Farmakologis (Therapeutic Duplications)</span>
+            </div>
+            <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${
+              matchedDuplications.length > 0
+                ? 'text-amber-900 dark:text-amber-200 bg-amber-100 dark:bg-amber-950 border-amber-300 dark:border-amber-800 font-black'
+                : 'text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-800'
+            }`}>
+              {matchedDuplications.length} Duplikasi Terdeteksi
+            </span>
+          </div>
+
+          {matchedDuplications.length > 0 ? (
+            <div className="space-y-3 text-xs">
+              {matchedDuplications.map((dup, idx) => (
+                <div key={idx} className="p-4 bg-amber-50/70 dark:bg-amber-950/40 rounded-2xl border-2 border-amber-300 dark:border-amber-800 space-y-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="p-1 rounded-lg bg-amber-600 text-white font-black text-[10px]">
+                        DUPLIKASI
+                      </span>
+                      <h4 className="font-extrabold text-amber-950 dark:text-amber-100 text-sm">
+                        {dup.drugAName} <span className="text-amber-600 dark:text-amber-400 font-black">&</span> {dup.drugBName}
+                      </h4>
+                    </div>
+                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-200 dark:bg-amber-900 text-amber-900 dark:text-amber-100 border border-amber-300 dark:border-amber-700">
+                      Kelas: {dup.therapeuticClass}
+                    </span>
+                  </div>
+
+                  <p className="text-amber-950 dark:text-amber-200 font-medium leading-relaxed">
+                    {dup.riskDescription}
+                  </p>
+
+                  <div className="p-2.5 bg-white/80 dark:bg-slate-900/80 rounded-xl border border-amber-200 dark:border-amber-800/70 flex items-start gap-2 text-[11px] text-amber-900 dark:text-amber-300 font-semibold">
+                    <CheckCircle2 className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-extrabold text-amber-950 dark:text-amber-200">Rekomendasi Deprescribing: </span>
+                      <span>{dup.recommendation}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-slate-50 dark:bg-slate-950/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center text-emerald-700 dark:text-emerald-400 font-bold text-xs">
+              ✅ Tidak terdeteksi duplikasi terapi atau peresepan ganda dari kelas obat yang sama pada resep ini.
+            </div>
+          )}
+        </div>
+
+        {/* SECTION: Interaksi Antar Obat (Drug-Drug Interactions - Sinkronisasi DDInter) */}
         <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
             <div className="flex items-center gap-2 text-slate-900 dark:text-white font-extrabold text-sm">
               <ShieldAlert className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               <span>Deteksi Interaksi Antar Obat (Drug-Drug Interactions)</span>
             </div>
-            <span className="text-xs font-bold text-rose-800 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60 px-2.5 py-0.5 rounded-full border border-rose-200 dark:border-rose-800">
+            <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${
+              matchedDrugInteractions.length > 0
+                ? 'text-rose-900 dark:text-rose-200 bg-rose-100 dark:bg-rose-950 border-rose-300 dark:border-rose-800 font-black'
+                : 'text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-800'
+            }`}>
               {matchedDrugInteractions.length} Interaksi Terdeteksi
             </span>
           </div>
 
           {matchedDrugInteractions.length > 0 ? (
             <div className="space-y-3 text-xs">
-              {matchedDrugInteractions.map((inter, idx) => (
-                <div key={idx} className="p-4 bg-rose-50/60 dark:bg-rose-950/40 rounded-2xl border border-rose-200 dark:border-rose-800/80 space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <div className="font-extrabold text-rose-950 dark:text-rose-200 text-sm">
-                      {inter.drugA} ↔ {inter.drugB}
+              {matchedDrugInteractions.map((inter, idx) => {
+                const isMajor = inter.severity.toLowerCase() === 'major';
+                const isMod = inter.severity.toLowerCase() === 'moderate';
+
+                return (
+                  <div key={idx} className={`p-4 rounded-2xl border space-y-2.5 ${
+                    isMajor 
+                      ? 'bg-rose-50/70 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800' 
+                      : isMod 
+                      ? 'bg-amber-50/70 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800' 
+                      : 'bg-blue-50/70 dark:bg-blue-950/40 border-blue-300 dark:border-blue-800'
+                  }`}>
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="font-extrabold text-slate-900 dark:text-white text-sm flex items-center gap-1.5">
+                        <span className="text-rose-600 dark:text-rose-400 font-black">⚡</span>
+                        <span>{inter.drugA}</span>
+                        <span className="text-slate-400">↔</span>
+                        <span>{inter.drugB}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        {inter.evidenceLevel && (
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                            Bukti: {inter.evidenceLevel}
+                          </span>
+                        )}
+                        <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-full border ${
+                          isMajor
+                            ? 'bg-rose-200 dark:bg-rose-900 text-rose-900 dark:text-rose-100 border-rose-400'
+                            : isMod
+                            ? 'bg-amber-200 dark:bg-amber-900 text-amber-900 dark:text-amber-100 border-amber-400'
+                            : 'bg-blue-200 dark:bg-blue-900 text-blue-900 dark:text-blue-100 border-blue-400'
+                        }`}>
+                          Keparahan: {inter.severity}
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-200 dark:bg-rose-900 text-rose-900 dark:text-rose-100">
-                      Tingkat Keparahan: {inter.severity}
-                    </span>
+
+                    {inter.clinicalOutcome && (
+                      <p className="text-slate-800 dark:text-slate-200 font-semibold leading-relaxed">
+                        <strong className="text-rose-700 dark:text-rose-400">Efek Klinis: </strong>
+                        {inter.clinicalOutcome}
+                      </p>
+                    )}
+
+                    {inter.mechanism && inter.mechanism !== inter.clinicalOutcome && (
+                      <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
+                        <strong className="text-slate-700 dark:text-slate-300">Mekanisme: </strong>
+                        {inter.mechanism}
+                      </p>
+                    )}
+
+                    {inter.management && (
+                      <div className="p-2.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 flex items-start gap-2 text-[11px] text-teal-900 dark:text-teal-200 font-medium">
+                        <CheckCircle2 className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5" />
+                        <div>
+                          <strong className="text-teal-800 dark:text-teal-300">Tindakan & Manajemen Klinis: </strong>
+                          <span>{inter.management}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-rose-900 dark:text-rose-300 font-medium leading-relaxed">
-                    {inter.description}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="bg-slate-50 dark:bg-slate-950/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center text-emerald-700 dark:text-emerald-400 font-bold text-xs">

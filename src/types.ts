@@ -68,6 +68,8 @@ export interface Drug {
   brandNames: string[];
   atcCode: string;
   category: string;
+  subCategory?: string;
+  dosageForms?: string[];
   bpomClassification?: 'Obat Bebas' | 'Obat Bebas Terbatas' | 'Obat Keras' | 'Obat-Obat Tertentu' | 'Psikotropika' | 'Prekursor Farmasi' | 'Narkotika';
   drugClassification?: string;
   description?: string;
@@ -81,6 +83,8 @@ export interface Drug {
   halfLife?: string;
   clearance?: string;
   pharmacology?: string;
+  mechanismOfAction?: string;
+  interactionKeywords?: string[];
   foodInteraction?: string;
   pregnancyCategory?: string;
   ddinterId?: string;
