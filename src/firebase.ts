@@ -19,7 +19,9 @@ import {
   getDocs, 
   updateDoc, 
   deleteDoc, 
-  onSnapshot 
+  onSnapshot,
+  query,
+  where
 } from 'firebase/firestore';
 import { Drug, DrugInteraction, UserProfile, InteractionCheckRecord, AdminUser } from './types';
 import { INITIAL_DRUGS, INITIAL_INTERACTIONS } from './data/ddinterData';
@@ -143,15 +145,102 @@ export function subscribeToCustomersFirestore(callback: (customers: UserProfile[
 }
 
 /**
- * Menghapus dokumen customer dari Cloud Firestore
+ * Menghapus dokumen customer dari Cloud Firestore secara menyeluruh (berdasarkan UID langsung, field UID, dan Email)
  */
-export async function deleteCustomerFromFirestore(uid: string): Promise<void> {
-  if (!db || !uid) return;
+export async function deleteCustomerFromFirestore(uid: string, email?: string): Promise<{ success: boolean; deletedCount: number; error?: string }> {
+  if (!db || (!uid && !email)) return { success: false, deletedCount: 0 };
+  let deletedCount = 0;
+  const deletedDocIds = new Set<string>();
+
   try {
-    const userDocRef = doc(db, 'users', uid);
-    await deleteDoc(userDocRef);
-  } catch (err) {
+    // 1. Hapus dokumen langsung jika doc ID == uid
+    if (uid) {
+      try {
+        const directDocRef = doc(db, 'users', uid);
+        const snap = await getDoc(directDocRef);
+        if (snap.exists()) {
+          await deleteDoc(directDocRef);
+          deletedDocIds.add(uid);
+          deletedCount++;
+        }
+      } catch (e) {}
+    }
+
+    // 2. Query dokumen yang memiliki field 'uid' == uid (jika doc ID di Firestore berbeda)
+    if (uid) {
+      try {
+        const qUid = query(collection(db, 'users'), where('uid', '==', uid));
+        const snapUid = await getDocs(qUid);
+        for (const docSnap of snapUid.docs) {
+          if (!deletedDocIds.has(docSnap.id)) {
+            await deleteDoc(docSnap.ref);
+            deletedDocIds.add(docSnap.id);
+            deletedCount++;
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 3. Query dokumen yang memiliki field 'email' == email (jika email disediakan)
+    if (email && email.trim()) {
+      try {
+        const cleanEmail = email.trim().toLowerCase();
+        const qEmail = query(collection(db, 'users'), where('email', '==', cleanEmail));
+        const snapEmail = await getDocs(qEmail);
+        for (const docSnap of snapEmail.docs) {
+          if (!deletedDocIds.has(docSnap.id)) {
+            await deleteDoc(docSnap.ref);
+            deletedDocIds.add(docSnap.id);
+            deletedCount++;
+          }
+        }
+      } catch (e) {}
+    }
+
+    return { success: true, deletedCount };
+  } catch (err: any) {
     console.warn('Firestore deleteCustomerFromFirestore warning:', err);
+    return { success: false, deletedCount, error: err?.message || String(err) };
+  }
+}
+
+/**
+ * Membersihkan semua data pelanggan dummy / simulasi contoh dari Cloud Firestore
+ */
+export async function cleanupDummyCustomersFromFirestore(): Promise<{ deletedCount: number; deletedEmails: string[] }> {
+  if (!db) return { deletedCount: 0, deletedEmails: [] };
+  try {
+    const usersCol = collection(db, 'users');
+    const snap = await getDocs(usersCol);
+    const dummyIdentifiers = [
+      'cust-001', 'cust-002', 'cust-003', 'cust-demo',
+      'farmasis.klinik@gmail.com', 'budi.santoso@rsmedika.co.id', 'apotek.k24sudirman@gmail.com'
+    ];
+    let count = 0;
+    const deletedEmails: string[] = [];
+
+    for (const docSnap of snap.docs) {
+      const data = docSnap.data() as UserProfile;
+      const isDummy = 
+        dummyIdentifiers.includes(docSnap.id) ||
+        (data.uid && dummyIdentifiers.some(id => data.uid === id || data.uid.startsWith(id))) ||
+        (data.email && dummyIdentifiers.includes(data.email.toLowerCase())) ||
+        (data.notes && (
+          data.notes.includes('PIC apt. Rina') || 
+          data.notes.includes('Dokter spesialis penyakit dalam') || 
+          data.notes.includes('Apotek 24 jam dengan integrasi SOP')
+        ));
+
+      if (isDummy) {
+        await deleteDoc(docSnap.ref);
+        count++;
+        if (data.email) deletedEmails.push(data.email);
+      }
+    }
+    return { deletedCount: count, deletedEmails };
+  } catch (err) {
+    console.warn('Firestore cleanupDummyCustomersFromFirestore warning:', err);
+    return { deletedCount: 0, deletedEmails: [] };
   }
 }
 

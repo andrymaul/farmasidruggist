@@ -262,28 +262,10 @@ export default function App() {
         c.uid && !deletedList.includes(c.uid)
       );
 
-      setCustomerList((prev) => {
-        const map = new Map<string, UserProfile>();
-        // Add existing local customers first
-        prev.forEach(c => {
-          if (c.uid && !deletedList.includes(c.uid)) {
-            const key = (c.uid || c.email).toLowerCase();
-            map.set(key, c);
-          }
-        });
-        // Merge with fresh Firestore customer data
-        cleanList.forEach(fc => {
-          if (fc.uid && !deletedList.includes(fc.uid)) {
-            const key = (fc.uid || fc.email).toLowerCase();
-            map.set(key, fc);
-          }
-        });
-        const merged = Array.from(map.values());
-        try {
-          localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(merged));
-        } catch (e) {}
-        return merged;
-      });
+      setCustomerList(cleanList);
+      try {
+        localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(cleanList));
+      } catch (e) {}
     });
     return () => unsubscribe();
   }, []);
@@ -356,12 +338,6 @@ export default function App() {
     try {
       localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(updated));
     } catch (e) {}
-    // Sync each customer to Firestore
-    updated.forEach((c) => {
-      if (c.uid) {
-        saveUserProfileToFirestore(c).catch(() => {});
-      }
-    });
   };
 
   const [historyRecords, setHistoryRecords] = useState<InteractionCheckRecord[]>(() => {
