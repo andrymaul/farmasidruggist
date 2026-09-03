@@ -275,26 +275,26 @@ export const AdminTeamManager: React.FC<AdminTeamManagerProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-slate-800">
+      {/* Header Banner - Clean White Enterprise Card */}
+      <div className="bg-white rounded-2xl p-6 sm:p-7 text-slate-900 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 border border-slate-200">
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
-            <Lock className="w-3.5 h-3.5 text-teal-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-bold border border-teal-200">
+            <Lock className="w-3.5 h-3.5 text-teal-600" />
             <span>Manajemen Akses Multi-Staf Administrator</span>
           </div>
           
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-outfit">
             Manajemen Tim Admin & Hak Akses
           </h1>
           
-          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
             Kelola akun tim administrator, tentukan peran staf (*Apoteker Pengelola, Editor Konten, Support*), dan atur centang hak akses per modul aplikasi secara terpusat.
           </p>
         </div>
 
         <button
           onClick={handleOpenAddModal}
-          className="px-5 py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 shrink-0 border border-teal-500/40"
+          className="px-5 py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95"
         >
           <Plus className="w-5 h-5" />
           <span>Tambah Staf Admin Baru</span>

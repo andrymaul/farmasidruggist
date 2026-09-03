@@ -520,19 +520,19 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       
-      {/* Header Banner - Deep Dark Teal Clinical & Outfit Display */}
-      <div className="bg-gradient-to-r from-[#06191c] via-[#092b31] to-[#0a353c] rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-[#184c53] relative overflow-hidden">
+      {/* Header Banner - Clean White Enterprise Card */}
+      <div className="bg-white rounded-2xl p-6 sm:p-7 text-slate-900 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 border border-slate-200 relative overflow-hidden">
         <div className="space-y-2 max-w-2xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#156d67]/30 text-[#5fd0df] text-xs font-bold border border-[#3dbfd1]/30 font-outfit">
-            <UserCheck className="w-3.5 h-3.5 text-[#3dbfd1]" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-bold border border-teal-200 font-outfit">
+            <UserCheck className="w-3.5 h-3.5 text-teal-600" />
             <span>Manajemen Pelanggan & Lisensi Subskripsi</span>
           </div>
           
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 font-outfit">
             Kelola Akun & Lisensi Customer
           </h2>
           
-          <p className="text-teal-100/80 text-xs sm:text-sm font-medium leading-relaxed">
+          <p className="text-slate-600 text-xs sm:text-sm font-medium leading-relaxed">
             Pantau kata sandi, status lisensi aktif, durasi masa langganan, kuota penapisan obat, dan data instansi customer dalam satu kendali administrator tersinkronisasi Cloud Firebase.
           </p>
         </div>
@@ -540,37 +540,37 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
         <div className="relative z-10 shrink-0 flex flex-wrap items-center gap-2.5">
           <button
             onClick={() => setShowImportModal(true)}
-            className="px-4 py-3 bg-[#3dbfd1]/20 hover:bg-[#3dbfd1]/30 border border-[#3dbfd1]/50 text-cyan-200 rounded-2xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer hover:scale-105"
+            className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer hover:scale-102"
             title="Impor atau Tambah Cepat Akun Terdaftar dari Firebase Console"
           >
-            <Sparkles className="w-4 h-4 text-[#3dbfd1]" />
+            <Sparkles className="w-4 h-4 text-teal-600" />
             <span>Impor Akun Firebase</span>
           </button>
 
           <button
             onClick={handleSyncFromFirebase}
             disabled={syncingFirebase}
-            className="px-4 py-3 bg-[#156d67]/40 hover:bg-[#156d67]/70 border border-[#3dbfd1]/40 text-teal-100 rounded-2xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer hover:scale-105 disabled:opacity-50"
+            className="px-4 py-2.5 bg-teal-600 hover:bg-teal-500 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all cursor-pointer hover:scale-102 disabled:opacity-50"
             title="Tarik & Sinkronkan data pelanggan terbaru dari Cloud Firebase"
           >
-            <Cloud className={`w-4 h-4 text-[#3dbfd1] ${syncingFirebase ? 'animate-pulse' : ''}`} />
+            <Cloud className={`w-4 h-4 text-white ${syncingFirebase ? 'animate-pulse' : ''}`} />
             <span>{syncingFirebase ? 'Menyinkronkan...' : 'Sinkronkan dari Firebase'}</span>
           </button>
 
           {customers.length === 0 && (
             <button
               onClick={() => setCustomers(SAMPLE_DEMO_CUSTOMERS)}
-              className="px-4 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-2xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer hover:scale-105"
+              className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer hover:scale-102"
               title="Muat data contoh demo untuk simulasi"
             >
-              <RefreshCw className="w-4 h-4" />
+              <RefreshCw className="w-4 h-4 text-slate-500" />
               <span>Muat Contoh Demo</span>
             </button>
           )}
 
           <button
             onClick={handleOpenAddModal}
-            className="w-full sm:w-auto px-5 py-3 btn-teal-gradient rounded-2xl font-black text-xs flex items-center justify-center gap-2 shadow-lg cursor-pointer hover:scale-105"
+            className="w-full sm:w-auto px-5 py-2.5 bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-500 hover:to-teal-400 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-teal-700/20 cursor-pointer hover:scale-102"
           >
             <Plus className="w-4 h-4" />
             <span>Tambah Customer Baru</span>

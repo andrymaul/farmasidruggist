@@ -116,32 +116,32 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-slate-800">
+      {/* Header Banner - Clean White Enterprise Card */}
+      <div className="bg-white rounded-2xl p-6 sm:p-7 text-slate-900 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 border border-slate-200">
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
-            <CreditCard className="w-3.5 h-3.5 text-teal-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-bold border border-teal-200">
+            <CreditCard className="w-3.5 h-3.5 text-teal-600" />
             <span>Panel Pengaturan Mandiri Administrator</span>
           </div>
           
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-outfit">
             Pengaturan Tarif, Paket & Metode Pembayaran
           </h1>
           
-          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
             Kelola harga langganan, fitur paket, dan nomor rekening/QRIS untuk pembayaran QRIS, Transfer Bank, dan E-Wallet secara dinamis.
           </p>
         </div>
 
         <div className="flex flex-col items-stretch sm:items-end gap-2.5 shrink-0">
-          <div className="bg-slate-950/80 px-4 py-2 rounded-2xl border border-slate-800 text-left sm:text-right shadow-md">
-            <span className="text-[11px] text-slate-400 block font-medium">Tingkat Akses Lisensi:</span>
-            <span className="text-base sm:text-lg font-black text-teal-400">{plans.length} Paket Layanan</span>
+          <div className="bg-slate-50 px-4 py-2 rounded-2xl border border-slate-200 text-left sm:text-right shadow-xs">
+            <span className="text-[11px] text-slate-500 block font-medium">Tingkat Akses Lisensi:</span>
+            <span className="text-base sm:text-lg font-black text-teal-700">{plans.length} Paket Layanan</span>
           </div>
 
           <button
             onClick={handleSaveAll}
-            className="px-6 py-2.5 bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 border border-teal-500/40 cursor-pointer active:scale-95"
+            className="px-6 py-2.5 bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
           >
             <Save className="w-5 h-5" />
             <span>Simpan Semua Perubahan</span>

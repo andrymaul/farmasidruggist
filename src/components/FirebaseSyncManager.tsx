@@ -267,20 +267,18 @@ export const FirebaseSyncManager: React.FC<FirebaseSyncManagerProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Header Info Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-2xl p-6 text-white border border-teal-800/40 shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-48 h-48 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-
+      {/* Header Info Banner - Clean White Enterprise Card */}
+      <div className="bg-white rounded-2xl p-6 text-slate-900 border border-slate-200 shadow-sm relative overflow-hidden">
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold">
-              <Cloud className="w-3.5 h-3.5 text-teal-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 border border-teal-200 text-xs font-bold">
+              <Cloud className="w-3.5 h-3.5 text-teal-600" />
               <span>Firebase Cloud Synchronization Management</span>
             </div>
-            <h2 className="text-2xl font-black text-white tracking-tight">
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight font-outfit">
               Manajemen Sinkronisasi Database Firebase
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
               Pengelolaan konektivitas real-time, sinkronisasi massal basis data DDInter, validasi hak akses
               Authentication, dan pemeliharaan status integritas data Cloud Firebase.
             </p>
@@ -290,16 +288,16 @@ export const FirebaseSyncManager: React.FC<FirebaseSyncManagerProps> = ({
             <button
               onClick={handleTestPing}
               disabled={isTestingPing}
-              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-teal-300 border border-teal-500/40 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
+              className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs"
             >
-              <Radio className={`w-4 h-4 text-teal-400 ${isTestingPing ? 'animate-pulse' : ''}`} />
+              <Radio className={`w-4 h-4 text-teal-600 ${isTestingPing ? 'animate-pulse' : ''}`} />
               <span>{isTestingPing ? 'Menguji Latensi...' : 'Uji Ping Firebase'}</span>
             </button>
 
             <button
               onClick={handleFullReSync}
               disabled={syncing}
-              className="px-5 py-2.5 bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-500 hover:to-teal-400 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-teal-900/40 disabled:opacity-50"
+              className="px-5 py-2.5 bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-500 hover:to-teal-400 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md shadow-teal-700/20 disabled:opacity-50"
             >
               <RefreshCw className={`w-4 h-4 ${syncing ? 'animate-spin' : ''}`} />
               <span>{syncing ? 'Menyinkronkan...' : 'Sinkronkan Total'}</span>
@@ -309,14 +307,14 @@ export const FirebaseSyncManager: React.FC<FirebaseSyncManagerProps> = ({
 
         {/* Progress bar when syncing */}
         {syncing && (
-          <div className="mt-4 pt-4 border-t border-teal-800/40 space-y-1.5 animate-in fade-in">
-            <div className="flex items-center justify-between text-xs font-semibold text-teal-300">
+          <div className="mt-4 pt-4 border-t border-slate-100 space-y-1.5 animate-in fade-in">
+            <div className="flex items-center justify-between text-xs font-semibold text-teal-700">
               <span>{syncStatusText}</span>
               <span>{syncProgress}%</span>
             </div>
-            <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden border border-teal-900">
+            <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200">
               <div
-                className="bg-gradient-to-r from-teal-400 to-emerald-400 h-2 rounded-full transition-all duration-300"
+                className="bg-gradient-to-r from-teal-500 to-emerald-500 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${syncProgress}%` }}
               />
             </div>
