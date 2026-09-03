@@ -197,7 +197,10 @@ export default function App() {
       if (saved) {
         const parsed: AdminUser[] = JSON.parse(saved);
         const filtered = parsed
-          .filter(u => !['admin-001', 'admin-002', 'admin-003', 'admin-004'].includes(u.id))
+          .filter(u => 
+            !['admin-001', 'admin-002', 'admin-003', 'admin-004', 'admin-main-001', 'admin-main-002'].includes(u.id) &&
+            !['andrymaul.aem@gmail.com', 'andrymaul.am@gmail.com'].includes(u.email?.toLowerCase() || '')
+          )
           .map(u => ({
             ...u,
             password: u.password || (u.id === 'admin-main-000' ? 'admin123' : 'pass12345')
