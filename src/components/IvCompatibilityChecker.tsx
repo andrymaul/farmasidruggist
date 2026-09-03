@@ -165,29 +165,29 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
   return (
     <div className="space-y-6 pb-12">
-      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* HERO BANNER - COBALT ICE & DARK SAPPHIRE */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#040914] via-[#09172f] to-[#0d2347] p-6 sm:p-8 text-white shadow-2xl border border-blue-500/25">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
-          <Syringe className="w-48 h-48 text-teal-300" />
+          <Syringe className="w-48 h-48 text-blue-400" />
         </div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-bold font-outfit">
+              <Sparkles className="w-3.5 h-3.5 text-blue-400" />
               <span>Standar Trissel’s 2024 &amp; ASHP Injectable Drugs Handbook</span>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-950/50 shrink-0">
                 <Syringe className="w-6 h-6" />
               </div>
               <div>
                 <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
                   Uji Kompatibilitas Injeksi IV &amp; Y-Site
                 </h1>
-                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                <p className="text-xs sm:text-sm text-blue-100/80 font-medium">
                   Evaluasi kompatibilitas percabangan jalur infus bersama (Y-Site), skrining presipitasi asam-basa, kompatibilitas pelarut infus, dan titrasi syringe pump.
                 </p>
               </div>
@@ -195,25 +195,25 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
             {/* Quick Stat Badges */}
             <div className="flex flex-wrap gap-2 pt-2">
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
-                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-blue-200">
+                <Layers className="w-3.5 h-3.5 text-blue-400" />
                 <span>Skrining Y-Site Percabangan Infus</span>
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Pelarut NS, D5W, RL &amp; Stabilitas BUD</span>
               </div>
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-pink-200">
-                <AlertTriangle className="w-3.5 h-3.5 text-pink-300" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-sky-200">
+                <AlertTriangle className="w-3.5 h-3.5 text-sky-300" />
                 <span>Pencegahan Presipitasi Kristal</span>
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-3 shrink-0 relative z-10">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-blue-950/60 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Total Obat Injeksi:</span>
-              <span className="text-lg font-black text-teal-300">{IV_DRUGS_DATABASE.length} Sediaan IV &amp; ICU</span>
+              <span className="text-lg font-black text-blue-400">{IV_DRUGS_DATABASE.length} Sediaan IV &amp; ICU</span>
             </div>
           </div>
         </div>

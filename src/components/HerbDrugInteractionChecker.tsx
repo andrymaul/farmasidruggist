@@ -137,11 +137,11 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
 
   return (
     <div className="space-y-6">
-      {/* HERO BANNER */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2a1c] via-[#123826] to-[#0a2418] p-6 sm:p-8 text-white shadow-xl border border-emerald-500/20">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* HERO BANNER - EMERALD JADE & DARK MOSS */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030e08] via-[#071f13] to-[#0c2e1c] p-6 sm:p-8 text-white shadow-2xl border border-emerald-500/25">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
-          <Leaf className="w-48 h-48 text-emerald-300" />
+          <Leaf className="w-48 h-48 text-emerald-400" />
         </div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -152,7 +152,7 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-emerald-950/50 shrink-0">
                 <Leaf className="w-6 h-6" />
               </div>
               <div>
@@ -183,7 +183,7 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
           </div>
 
           <div className="flex items-center gap-3 shrink-0 relative z-10">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-emerald-950/60 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Total Herbal Terdaftar:</span>
               <span className="text-lg font-black text-emerald-400">{INDONESIAN_HERB_PROFILES.length} Herbal &amp; {HERB_DRUG_INTERACTIONS_DATABASE.length} Interaksi</span>
             </div>

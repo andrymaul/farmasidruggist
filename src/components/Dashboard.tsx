@@ -85,27 +85,27 @@ export const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div className="space-y-8">
       
-      {/* Welcome & User Status Banner - Standardized Clinical Deep Teal Gradient */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Welcome & User Status Banner - MIDNIGHT INDIGO & SAPPHIRE */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#050714] via-[#0d122e] to-[#141b45] p-6 sm:p-8 text-white shadow-2xl border border-indigo-500/25 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-72 -bottom-10 opacity-10 pointer-events-none hidden lg:block">
-          <Stethoscope className="w-56 h-56 text-teal-300 -rotate-12" />
+          <Stethoscope className="w-56 h-56 text-indigo-300 -rotate-12" />
         </div>
         <div className="space-y-3 max-w-2xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold font-outfit border border-teal-500/30">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold font-outfit border border-indigo-500/30">
             <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
             <span>Ruang Kerja Klinis Apoteker &amp; Dokter CDSS</span>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-600 text-white flex items-center justify-center shadow-lg shadow-indigo-950/50 shrink-0">
               <Stethoscope className="w-6 h-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
-                Selamat Datang, <span className="text-teal-300">{currentUser ? currentUser.name : 'Apoteker / Dokter'}</span>
+                Selamat Datang, <span className="text-indigo-300">{currentUser ? currentUser.name : 'Apoteker / Dokter'}</span>
               </h1>
-              <p className="text-xs sm:text-sm text-teal-100/80 font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-indigo-100/80 font-medium leading-relaxed">
                 Platform integrasi klinis informasi obat resmi BPOM &amp; MIMS, penapisan polifarmasi resep, kalkulator dosis ginjal &amp; pediatrik, serta pedoman terapi terpercaya.
               </p>
             </div>
@@ -113,27 +113,27 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
           {/* Quick Stat Badges */}
           <div className="flex flex-wrap gap-2 pt-2">
-            <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
-              <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+            <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-indigo-200">
+              <Layers className="w-3.5 h-3.5 text-indigo-400" />
               <span>{drugs.length.toLocaleString('id-ID')} Obat &amp; {interactions.length.toLocaleString('id-ID')} Interaksi</span>
             </div>
-            <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
+              <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
               <span>Standar FORNAS &amp; BPOM RI</span>
             </div>
-            <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
-              <Activity className="w-3.5 h-3.5 text-cyan-300" />
+            <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-sky-200">
+              <Activity className="w-3.5 h-3.5 text-sky-300" />
               <span>22+ Modul Klinis Siap Pakai</span>
             </div>
           </div>
         </div>
 
         {/* User Badge & Subscription Quick Status */}
-        <div className="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 flex flex-col justify-center space-y-2.5 shrink-0 min-w-[260px] shadow-lg relative z-10">
+        <div className="bg-slate-950/80 p-5 rounded-2xl border border-indigo-950/60 flex flex-col justify-center space-y-2.5 shrink-0 min-w-[260px] shadow-lg relative z-10">
           <div className="flex items-center justify-between">
             <span className="text-xs text-slate-400 font-semibold">Status Lisensi:</span>
-            <span className="bg-teal-500/20 text-teal-300 text-[11px] font-black px-2.5 py-0.5 rounded-full border border-teal-500/40 flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3 text-teal-300" />
+            <span className="bg-indigo-500/20 text-indigo-300 text-[11px] font-black px-2.5 py-0.5 rounded-full border border-indigo-500/40 flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-indigo-300" />
               {currentUser?.subscriptionStatus === 'active' ? 'Aktif' : 'Trial / Dasar'}
             </span>
           </div>

@@ -243,29 +243,29 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
 
   return (
     <div className="space-y-6 pb-16 animate-fade-in font-sans">
-      {/* Hero Header Section - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white border border-teal-500/20 shadow-2xl">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Hero Header Section - EMERALD GOLD & DEEP FOREST */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030e0a] via-[#082218] to-[#0d3626] p-6 sm:p-8 text-white border border-emerald-500/25 shadow-2xl">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
-          <GraduationCap className="w-64 h-64 text-teal-300 -rotate-12" />
+          <GraduationCap className="w-64 h-64 text-emerald-400 -rotate-12" />
         </div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
-              <GraduationCap className="w-3.5 h-3.5 text-teal-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold font-outfit">
+              <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
               <span>Modul Resmi Persiapan UKMPPAI &amp; UKTVF Nasional</span>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-amber-600 text-white flex items-center justify-center shadow-lg shadow-emerald-950/50 shrink-0">
                 <GraduationCap className="w-6 h-6" />
               </div>
               <div>
                 <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
                   Pusat Belajar Uji Kompetensi Farmasi
                 </h1>
-                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                <p className="text-xs sm:text-sm text-emerald-100/80 font-medium">
                   Platform akselerasi kelulusan UKMPPAI (CBT &amp; OSCE) dan UKTVF: 4 Blueprint KFN, bank soal kasus, simulasi CBT, dan panduan OSCE.
                 </p>
               </div>
@@ -273,25 +273,25 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
 
             {/* Quick Stat Badges */}
             <div className="flex flex-wrap gap-2 pt-2">
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
-                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                <Layers className="w-3.5 h-3.5 text-emerald-400" />
                 <span>4 Domain Blueprint KFN &amp; IAI</span>
               </div>
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-amber-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
                 <span>{EXAM_QUESTION_BANK.length} Soal CBT &amp; {OSCE_STATIONS.length} Stase OSCE</span>
               </div>
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
-                <BookMarked className="w-3.5 h-3.5 text-cyan-300" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                <BookMarked className="w-3.5 h-3.5 text-teal-300" />
                 <span>{FLASHCARD_DECK.length} Flashcard &amp; Rumus Cepat</span>
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-3 shrink-0 relative z-10">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-emerald-950/60 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Bank Soal &amp; Kasus:</span>
-              <span className="text-lg font-black text-teal-300">{EXAM_QUESTION_BANK.length} Soal Uji CBT</span>
+              <span className="text-lg font-black text-emerald-400">{EXAM_QUESTION_BANK.length} Soal Uji CBT</span>
             </div>
           </div>
         </div>

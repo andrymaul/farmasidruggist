@@ -440,30 +440,30 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
 
   return (
     <div className="space-y-6 pb-12">
-      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
+      {/* HERO BANNER - VIOLET ORCHID & DEEP MULBERRY */}
       {!hideHeader && (
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
-          <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0d0414] via-[#1c0a2e] to-[#2c0f47] p-6 sm:p-8 text-white shadow-2xl border border-purple-500/25">
+          <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
-            <Baby className="w-48 h-48 text-teal-300" />
+            <Baby className="w-48 h-48 text-purple-400" />
           </div>
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-3 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold font-outfit">
+                <Sparkles className="w-3.5 h-3.5 text-purple-400" />
                 <span>Pedoman Dosis Pediatrik IDAI, Nelson &amp; Farmakope Indonesia</span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 text-white flex items-center justify-center shadow-lg shadow-purple-950/50 shrink-0">
                   <Baby className="w-6 h-6" />
                 </div>
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
                     Kalkulator Dosis Pediatrik &amp; Racikan Puyer
                   </h1>
-                  <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                  <p className="text-xs sm:text-sm text-purple-100/80 font-medium">
                     Hitung dosis anak berbasis BB/BSA, konversi racikan tablet ke puyer dengan zat pengisi SL, dan takaran sirup/drops.
                   </p>
                 </div>
@@ -471,8 +471,8 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
 
               {/* Quick Stat Badges */}
               <div className="flex flex-wrap gap-2 pt-2">
-                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
-                  <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-purple-200">
+                  <Layers className="w-3.5 h-3.5 text-purple-400" />
                   <span>Kalkulasi BB &amp; BSA Mosteller</span>
                 </div>
                 <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
@@ -487,9 +487,9 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
             </div>
 
             <div className="flex items-center gap-3 shrink-0 relative z-10">
-              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-purple-950/60 text-right shadow-md">
                 <span className="text-[11px] text-slate-400 block font-medium">Total Obat Pediatrik:</span>
-                <span className="text-lg font-black text-teal-300">{PEDIATRIC_DRUGS_DATABASE.length} Formula Dosis Anak</span>
+                <span className="text-lg font-black text-purple-400">{PEDIATRIC_DRUGS_DATABASE.length} Formula Dosis Anak</span>
               </div>
             </div>
           </div>

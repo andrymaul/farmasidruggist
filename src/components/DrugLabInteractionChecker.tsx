@@ -161,22 +161,22 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
 
   return (
     <div className="space-y-6">
-      {/* HERO BANNER */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#12283a] via-[#1a384f] to-[#102434] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* HERO BANNER - ELECTRIC CYAN & MIDNIGHT NAVY */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030914] via-[#07192b] to-[#0c273e] p-6 sm:p-8 text-white shadow-2xl border border-cyan-500/25">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
-          <FlaskConical className="w-48 h-48 text-cyan-300" />
+          <FlaskConical className="w-48 h-48 text-cyan-400" />
         </div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-xs font-bold font-outfit">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold font-outfit">
               <Microscope className="w-3.5 h-3.5" />
-              <span>Standar Tietz Clinical Guide to Laboratory Tests & AACC Guidelines</span>
+              <span>Standar Tietz Clinical Guide to Laboratory Tests &amp; AACC Guidelines</span>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white flex items-center justify-center shadow-lg shadow-cyan-950/50 shrink-0">
                 <FlaskConical className="w-6 h-6" />
               </div>
               <div>
@@ -193,7 +193,7 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
             <div className="flex flex-wrap gap-2 pt-2">
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
                 <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Interferensi Analitik & Fisiologis</span>
+                <span>Interferensi Analitik &amp; Fisiologis</span>
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-rose-200">
                 <AlertTriangle className="w-3.5 h-3.5 text-rose-300" />
@@ -207,7 +207,7 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
           </div>
 
           <div className="flex items-center gap-3 shrink-0 relative z-10">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-cyan-950/60 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Total Parameter Terdaftar:</span>
               <span className="text-lg font-black text-cyan-400">{DRUG_LAB_INTERACTIONS_DATABASE.length} Pasangan Uji Lab</span>
             </div>

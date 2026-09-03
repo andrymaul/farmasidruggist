@@ -209,29 +209,29 @@ Sistem Verifikasi: FarmasiDruggist Evidence-Based CDSS (DDInter / Fornas VI)`;
   return (
     <div className="space-y-6">
       
-      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* HERO BANNER - STEEL CHARCOAL & MIDNIGHT SLATE */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#07090e] via-[#101521] to-[#182030] p-6 sm:p-8 text-white shadow-2xl border border-slate-500/25">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-slate-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
-          <History className="w-48 h-48 text-teal-300" />
+          <History className="w-48 h-48 text-slate-400" />
         </div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
-              <History className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-500/20 text-slate-300 border border-slate-500/30 text-xs font-bold font-outfit">
+              <History className="w-3.5 h-3.5 text-slate-400" />
               <span>Cloud Patient Interaction Archive &amp; EMR Logs</span>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-600 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-slate-950/50 shrink-0">
                 <History className="w-6 h-6" />
               </div>
               <div>
                 <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
                   Riwayat Pemeriksaan Resep &amp; Interaksi
                 </h1>
-                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                <p className="text-xs sm:text-sm text-slate-200/80 font-medium">
                   Arsip lengkap rekam jejak telaah resep pasien, cetak lembar telaah klinis, salin format CPPT, dan integrasi WhatsApp.
                 </p>
               </div>
@@ -239,12 +239,12 @@ Sistem Verifikasi: FarmasiDruggist Evidence-Based CDSS (DDInter / Fornas VI)`;
 
             {/* Quick Stat Badges */}
             <div className="flex flex-wrap gap-2 pt-2">
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
-                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-slate-200">
+                <Layers className="w-3.5 h-3.5 text-slate-400" />
                 <span>Format Standar CPPT / SIMRS</span>
               </div>
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
-                <Printer className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                <Printer className="w-3.5 h-3.5 text-teal-400" />
                 <span>Cetak Lembar Telaah PDF</span>
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">

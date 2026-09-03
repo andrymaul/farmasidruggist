@@ -69,29 +69,29 @@ export const PharmacySopManager: React.FC<PharmacySopManagerProps> = ({
   return (
     <div className="space-y-6">
       
-      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 print:hidden">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* HERO BANNER - TITANIUM SLATE & DARK STEEL */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#080a0e] via-[#12161f] to-[#1c2230] p-6 sm:p-8 text-white shadow-2xl border border-slate-500/25 print:hidden">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-slate-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
-          <ClipboardList className="w-48 h-48 text-teal-300" />
+          <ClipboardList className="w-48 h-48 text-slate-400" />
         </div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
-              <ClipboardList className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-500/20 text-slate-300 border border-slate-500/30 text-xs font-bold font-outfit">
+              <ClipboardList className="w-3.5 h-3.5 text-slate-400" />
               <span>Dokumen Mutu &amp; Akreditasi Kefarmasian Resmi Permenkes</span>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-600 to-zinc-600 text-white flex items-center justify-center shadow-lg shadow-slate-950/50 shrink-0">
                 <ClipboardList className="w-6 h-6" />
               </div>
               <div>
                 <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
                   Standar Prosedur Operasional (SOP) Farmasi
                 </h1>
-                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                <p className="text-xs sm:text-sm text-slate-200/80 font-medium">
                   Kumpulan SOP Pelayanan Kefarmasian resmi berstandar Permenkes No. 73/2016, 72/2016, CDOB &amp; PerBPOM.
                 </p>
               </div>
@@ -99,8 +99,8 @@ export const PharmacySopManager: React.FC<PharmacySopManagerProps> = ({
 
             {/* Quick Stat Badges */}
             <div className="flex flex-wrap gap-2 pt-2">
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
-                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-slate-200">
+                <Layers className="w-3.5 h-3.5 text-slate-400" />
                 <span>Standar Akreditasi Kemenkes &amp; CDOB</span>
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
@@ -117,11 +117,11 @@ export const PharmacySopManager: React.FC<PharmacySopManagerProps> = ({
           <div className="flex flex-col items-stretch sm:items-end gap-2.5 shrink-0 relative z-10">
             <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-left sm:text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Total SOP Terakreditasi:</span>
-              <span className="text-lg font-black text-teal-300">{PHARMACY_SOP_LIST.length} Dokumen Resmi</span>
+              <span className="text-lg font-black text-slate-200">{PHARMACY_SOP_LIST.length} Dokumen Resmi</span>
             </div>
             <button
               onClick={handlePrint}
-              className="px-5 py-2.5 rounded-2xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-black shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer border border-teal-400/40 hover:scale-105 active:scale-95"
+              className="px-5 py-2.5 rounded-2xl bg-slate-700 hover:bg-slate-600 text-white text-xs font-black shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer border border-slate-500/40 hover:scale-105 active:scale-95"
             >
               <Printer className="w-4 h-4" />
               <span>Cetak Dokumen SOP</span>

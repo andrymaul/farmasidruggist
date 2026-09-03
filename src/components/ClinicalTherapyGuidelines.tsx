@@ -286,29 +286,29 @@ ${guideline.keyClinicalAlert || '-'}`;
   return (
     <div className="space-y-6">
       
-      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 space-y-5">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* HERO BANNER - DEEP MARINE & MIDNIGHT NAVY */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030914] via-[#08182f] to-[#0e274a] p-6 sm:p-8 text-white shadow-2xl border border-blue-500/25 space-y-5">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
-          <BookOpen className="w-64 h-64 text-teal-300 -rotate-12" />
+          <BookOpen className="w-64 h-64 text-blue-400 -rotate-12" />
         </div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
-              <BookOpen className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-bold font-outfit">
+              <BookOpen className="w-3.5 h-3.5 text-blue-400" />
               <span>Pedoman Nasional Pelayanan Kedokteran (PNPK) &amp; Konsensus Spesialis RI</span>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 text-white flex items-center justify-center shadow-lg shadow-blue-950/50 shrink-0">
                 <BookOpen className="w-6 h-6" />
               </div>
               <div>
                 <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
                   Panduan Terapi Penyakit Klinis Indonesia
                 </h1>
-                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                <p className="text-xs sm:text-sm text-blue-100/80 font-medium">
                   Database tatalaksana farmakoterapi resmi berbasis standar Kemenkes RI, PERKI, PERKENI, PAPDI, PDPI, IDAI, POGI, PERDOSSI, dan Formularium Nasional (FORNAS).
                 </p>
               </div>
@@ -316,12 +316,12 @@ ${guideline.keyClinicalAlert || '-'}`;
 
             {/* Quick Stat Badges */}
             <div className="flex flex-wrap gap-2 pt-2">
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
-                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-blue-200">
+                <Layers className="w-3.5 h-3.5 text-blue-400" />
                 <span>Terintegrasi FORNAS BPJS</span>
               </div>
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Rekomendasi Lini 1 &amp; Lini 2</span>
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-pink-200">
@@ -332,9 +332,9 @@ ${guideline.keyClinicalAlert || '-'}`;
           </div>
 
           <div className="flex items-center gap-3 shrink-0 relative z-10">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-blue-950/60 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Total PNPK &amp; Konsensus:</span>
-              <span className="text-lg font-black text-teal-300">{CLINICAL_GUIDELINES_DATABASE.length} Pedoman Terapi</span>
+              <span className="text-lg font-black text-blue-400">{CLINICAL_GUIDELINES_DATABASE.length} Pedoman Terapi</span>
             </div>
           </div>
         </div>

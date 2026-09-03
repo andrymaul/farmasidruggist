@@ -218,22 +218,22 @@ export const BeyondUseDateCalculator: React.FC<BeyondUseDateCalculatorProps> = (
 
   return (
     <div className="space-y-6">
-      {/* HERO BANNER */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c312d] via-[#10433e] to-[#153e3a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* HERO BANNER - TEAL MINT & DEEP PINE */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030d0c] via-[#07211e] to-[#0c332e] p-6 sm:p-8 text-white shadow-2xl border border-teal-500/25">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
-          <CalendarClock className="w-48 h-48 text-emerald-300" />
+          <CalendarClock className="w-48 h-48 text-teal-400" />
         </div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold font-outfit">
-              <ShieldCheck className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+              <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
               <span>Standar Akreditasi KARS / STARKES, USP &lt;795&gt;, &lt;797&gt; &amp; Farmakope Indonesia VI</span>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shadow-teal-950/50 shrink-0">
                 <CalendarClock className="w-6 h-6" />
               </div>
               <div>
@@ -264,9 +264,9 @@ export const BeyondUseDateCalculator: React.FC<BeyondUseDateCalculatorProps> = (
           </div>
 
           <div className="flex items-center gap-3 shrink-0 relative z-10">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-teal-950/60 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Standar Baku BUD:</span>
-              <span className="text-lg font-black text-emerald-400">USP &lt;795&gt;/&lt;797&gt; &amp; {COMMERCIAL_DRUG_RECONSTITUTIONS.length} Monografi</span>
+              <span className="text-lg font-black text-teal-400">USP &lt;795&gt;/&lt;797&gt; &amp; {COMMERCIAL_DRUG_RECONSTITUTIONS.length} Monografi</span>
             </div>
           </div>
         </div>

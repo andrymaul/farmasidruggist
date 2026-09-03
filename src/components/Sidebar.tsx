@@ -237,6 +237,56 @@ export const Sidebar: React.FC<SidebarProps> = ({
       .filter((cat) => cat.items.length > 0);
   }, [categories, menuSearchQuery]);
 
+  const getActiveTabStyle = (itemId: string): string => {
+    switch (itemId) {
+      case 'interactions':
+        return 'bg-gradient-to-r from-rose-950 via-rose-900 to-rose-700 text-white shadow-md shadow-rose-950/50 border border-rose-500/40';
+      case 'pregnancy':
+        return 'bg-gradient-to-r from-pink-950 via-pink-900 to-pink-700 text-white shadow-md shadow-pink-950/50 border border-pink-500/40';
+      case 'drug-lab':
+        return 'bg-gradient-to-r from-cyan-950 via-cyan-900 to-cyan-700 text-white shadow-md shadow-cyan-950/50 border border-cyan-500/40';
+      case 'herb-drug':
+        return 'bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-700 text-white shadow-md shadow-emerald-950/50 border border-emerald-500/40';
+      case 'side-effects':
+        return 'bg-gradient-to-r from-amber-950 via-amber-900 to-amber-700 text-white shadow-md shadow-amber-950/50 border border-amber-500/40';
+      case 'iv-compatibility':
+        return 'bg-gradient-to-r from-blue-950 via-blue-900 to-blue-700 text-white shadow-md shadow-blue-950/50 border border-blue-500/40';
+      case 'bud':
+        return 'bg-gradient-to-r from-teal-950 via-teal-900 to-teal-700 text-white shadow-md shadow-teal-950/50 border border-teal-500/40';
+      case 'pediatric':
+        return 'bg-gradient-to-r from-purple-950 via-purple-900 to-purple-700 text-white shadow-md shadow-purple-950/50 border border-purple-500/40';
+      case 'renal-adjuster':
+        return 'bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-700 text-white shadow-md shadow-indigo-950/50 border border-indigo-500/40';
+      case 'polypharmacy':
+        return 'bg-gradient-to-r from-violet-950 via-violet-900 to-violet-700 text-white shadow-md shadow-violet-950/50 border border-violet-500/40';
+      case 'whatsapp-pio':
+        return 'bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-700 text-white shadow-md shadow-emerald-950/50 border border-emerald-500/40';
+      case 'guidelines':
+        return 'bg-gradient-to-r from-blue-950 via-blue-900 to-blue-700 text-white shadow-md shadow-blue-950/50 border border-blue-500/40';
+      case 'drugs':
+        return 'bg-gradient-to-r from-teal-950 via-teal-900 to-teal-700 text-white shadow-md shadow-teal-950/50 border border-teal-500/40';
+      case 'usage':
+        return 'bg-gradient-to-r from-cyan-950 via-cyan-900 to-cyan-700 text-white shadow-md shadow-cyan-950/50 border border-cyan-500/40';
+      case 'history':
+        return 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 text-white shadow-md shadow-slate-950/50 border border-slate-500/40';
+      case 'competency':
+        return 'bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-700 text-white shadow-md shadow-emerald-950/50 border border-emerald-500/40';
+      case 'sop':
+        return 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 text-white shadow-md shadow-slate-950/50 border border-slate-500/40';
+      case 'regulations':
+        return 'bg-gradient-to-r from-amber-950 via-amber-900 to-amber-700 text-white shadow-md shadow-amber-950/50 border border-amber-500/40';
+      case 'literature':
+        return 'bg-gradient-to-r from-teal-950 via-teal-900 to-teal-700 text-white shadow-md shadow-teal-950/50 border border-teal-500/40';
+      case 'dashboard':
+        return 'bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-700 text-white shadow-md shadow-indigo-950/50 border border-indigo-500/40';
+      default:
+        if (itemId.startsWith('admin')) {
+          return 'bg-gradient-to-r from-amber-950 via-amber-900 to-amber-700 text-white shadow-md shadow-amber-950/50 border border-amber-500/40';
+        }
+        return 'bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-600 dark:to-cyan-600 text-white shadow-md shadow-teal-500/20';
+    }
+  };
+
   const sidebarContent = (
     <div className="flex flex-col h-full bg-white dark:bg-[#0b0f19] text-slate-800 dark:text-slate-200 border-r border-slate-200 dark:border-slate-800/90 shadow-sm transition-all duration-300">
       
@@ -357,7 +407,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                           title={collapsed ? `${category.title}: ${item.label}` : undefined}
                           className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold transition-all duration-150 group relative cursor-pointer font-outfit ${
                             isActive
-                              ? 'bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-600 dark:to-cyan-600 text-white shadow-md shadow-teal-500/20 scale-[1.01]'
+                              ? `${getActiveTabStyle(item.id)} scale-[1.01]`
                               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white'
                           } ${collapsed ? 'justify-center px-2' : ''}`}
                         >

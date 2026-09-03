@@ -70,29 +70,29 @@ export const PharmacyRegulationsManager: React.FC<PharmacyRegulationsManagerProp
   return (
     <div className="space-y-6">
       
-      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 print:hidden">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* HERO BANNER - GOLDEN BRONZE & DARK ESPRESSO */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0e0a04] via-[#211709] to-[#33240e] p-6 sm:p-8 text-white shadow-2xl border border-amber-500/25 print:hidden">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
-          <Scale className="w-48 h-48 text-teal-300" />
+          <Scale className="w-48 h-48 text-amber-400" />
         </div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
-              <Gavel className="w-3.5 h-3.5 text-teal-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold font-outfit">
+              <Gavel className="w-3.5 h-3.5 text-amber-400" />
               <span>Kompilasi Hukum &amp; Regulasi Kefarmasian Indonesia</span>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-600 text-white flex items-center justify-center shadow-lg shadow-amber-950/50 shrink-0">
                 <Scale className="w-6 h-6" />
               </div>
               <div>
                 <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
                   Regulasi &amp; Kebijakan Farmasi Indonesia
                 </h1>
-                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                <p className="text-xs sm:text-sm text-amber-100/80 font-medium">
                   Pusat referensi regulasi kefarmasian: UU No. 17/2023, Narkotika &amp; Psikotropika, Permenkes 73/2016, dan DOWA 1, 2, 3.
                 </p>
               </div>
@@ -100,29 +100,29 @@ export const PharmacyRegulationsManager: React.FC<PharmacyRegulationsManagerProp
 
             {/* Quick Stat Badges */}
             <div className="flex flex-wrap gap-2 pt-2">
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
-                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-amber-200">
+                <Layers className="w-3.5 h-3.5 text-amber-400" />
                 <span>UU 17/2023 &amp; Narkotika-Psikotropika</span>
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Permenkes 73/2016 &amp; CDOB BPOM</span>
               </div>
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
-                <Pill className="w-3.5 h-3.5 text-cyan-300" />
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-amber-200">
+                <Pill className="w-3.5 h-3.5 text-amber-300" />
                 <span>Daftar Obat Wajib Apotek (DOWA 1,2,3)</span>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col items-stretch sm:items-end gap-2.5 shrink-0 relative z-10">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-left sm:text-right shadow-md">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-amber-950/60 text-left sm:text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Total Regulasi Terdaftar:</span>
-              <span className="text-lg font-black text-teal-300">{PHARMACY_REGULATIONS_DATA.length} Peraturan &amp; DOWA</span>
+              <span className="text-lg font-black text-amber-300">{PHARMACY_REGULATIONS_DATA.length} Peraturan &amp; DOWA</span>
             </div>
             <button
               onClick={handlePrint}
-              className="px-5 py-2.5 rounded-2xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-black shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer border border-teal-400/40 hover:scale-105 active:scale-95"
+              className="px-5 py-2.5 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-black shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer border border-amber-400/40 hover:scale-105 active:scale-95"
             >
               <Printer className="w-4 h-4" />
               <span>Cetak Intisari Regulasi</span>

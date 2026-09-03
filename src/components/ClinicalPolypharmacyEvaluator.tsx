@@ -1346,29 +1346,29 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
       {/* TAMPILAN INTERAKTIF LAYAR MONITOR (PRINT HIDDEN) */}
       <div className="space-y-6 print:hidden">
         
-        {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
-          <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        {/* HERO BANNER - DEEP AMETHYST & OBSIDIAN */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0a0514] via-[#170b2b] to-[#251244] p-6 sm:p-8 text-white shadow-2xl border border-violet-500/25">
+          <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-violet-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
-            <Stethoscope className="w-64 h-64 text-teal-300 -rotate-12" />
+            <Stethoscope className="w-64 h-64 text-violet-400 -rotate-12" />
           </div>
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-3 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-xs font-bold font-outfit">
                 <Stethoscope className="w-3.5 h-3.5" />
                 <span>Modul Evaluasi Klinis &amp; Penapisan Polifarmasi Pasien</span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 text-white flex items-center justify-center shadow-lg shadow-violet-950/50 shrink-0">
                   <Stethoscope className="w-6 h-6" />
                 </div>
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
                     Evaluasi Klinis &amp; Penapisan Polifarmasi
                   </h1>
-                  <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                  <p className="text-xs sm:text-sm text-violet-100/80 font-medium">
                     Skrining parameter klinis, evaluasi kecocokan dosis, deteksi bahaya polifarmasi, generator jadwal harian, dan interaksi makanan.
                   </p>
                 </div>
@@ -1376,8 +1376,8 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
 
               {/* Quick Stat Badges */}
               <div className="flex flex-wrap gap-2 pt-2">
-                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
-                  <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-violet-200">
+                  <Layers className="w-3.5 h-3.5 text-violet-400" />
                   <span>Kriteria Beers 2023 &amp; STOPP/START</span>
                 </div>
                 <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
@@ -1392,13 +1392,13 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
             </div>
 
             <div className="flex flex-col items-stretch sm:items-end gap-2.5 shrink-0 relative z-10">
-              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-left sm:text-right shadow-md">
+              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-violet-950/60 text-left sm:text-right shadow-md">
                 <span className="text-[11px] text-slate-400 block font-medium">Kriteria Geriatri &amp; Beers:</span>
-                <span className="text-base sm:text-lg font-black text-teal-300">60+ Obat Beers &amp; STOPP</span>
+                <span className="text-base sm:text-lg font-black text-violet-300">60+ Obat Beers &amp; STOPP</span>
               </div>
               <button
                 onClick={handlePrintReport}
-                className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs shadow-lg transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                className="px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs shadow-lg transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95"
               >
                 <Printer className="w-4 h-4" />
                 <span>Cetak Lembar Evaluasi (1 Halaman)</span>

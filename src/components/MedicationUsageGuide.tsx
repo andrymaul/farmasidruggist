@@ -194,29 +194,29 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
       {/* SCREEN UI WRAPPER */}
       <div className="space-y-6 print:hidden">
         
-        {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
-          <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        {/* HERO BANNER - AQUA CYAN & DEEP NAVY */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030e12] via-[#072029] to-[#0c313d] p-6 sm:p-8 text-white shadow-2xl border border-cyan-500/25">
+          <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
-            <BookOpen className="w-48 h-48 text-teal-300" />
+            <BookOpen className="w-48 h-48 text-cyan-400" />
           </div>
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-3 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold font-outfit border border-teal-500/30">
-                <BookOpen className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-bold font-outfit border border-cyan-500/30">
+                <BookOpen className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Panduan Pelayanan Informasi Obat (PIO) &amp; Edukasi Pasien</span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-cyan-950/50 shrink-0">
                   <BookOpen className="w-6 h-6" />
                 </div>
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
                     Panduan Tata Cara Penggunaan Obat Khusus
                   </h1>
-                  <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                  <p className="text-xs sm:text-sm text-cyan-100/80 font-medium">
                     Database sediaan khusus (Inhaler MDI/Spacer, Turbuhaler, Diskus, Pen Insulin, Suppositoria, Koyo) dengan instruksi langkah demi langkah.
                   </p>
                 </div>
@@ -224,12 +224,12 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
 
               {/* Quick Stat Badges */}
               <div className="flex flex-wrap gap-2 pt-2">
-                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
-                  <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
+                  <Layers className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Teknik Inhaler, Insulin &amp; Topikal</span>
                 </div>
-                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                  <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
                   <span>Standar WHO &amp; Kemenkes PIO</span>
                 </div>
                 <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
@@ -240,9 +240,9 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
             </div>
 
             <div className="flex items-center gap-3 shrink-0 relative z-10">
-              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-cyan-950/60 text-right shadow-md">
                 <span className="text-[11px] text-slate-400 block font-medium">Total Sediaan Terdaftar:</span>
-                <span className="text-lg font-black text-teal-300">{cleanGuides.length} Panduan Khusus</span>
+                <span className="text-lg font-black text-cyan-400">{cleanGuides.length} Panduan Khusus</span>
               </div>
             </div>
           </div>
