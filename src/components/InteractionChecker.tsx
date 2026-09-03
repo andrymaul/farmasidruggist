@@ -615,15 +615,15 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       {selectedDrugs.length >= 1 ? (
         <div className="space-y-5">
           
-          {/* Risk Banner - Crisp High-Contrast Clinical Colors */}
+          {/* Risk Banner - Hospital EMR Standard Clinical Severity Palette */}
           <div className={`p-5 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-md ${
             highestSeverity === 'Major'
-              ? 'bg-[#881337] text-white border-rose-900'
+              ? 'bg-gradient-to-r from-rose-900 via-rose-950 to-slate-950 text-white border-rose-700/80'
               : highestSeverity === 'Moderate'
-              ? 'bg-[#78350f] text-white border-amber-900'
+              ? 'bg-gradient-to-r from-amber-900 via-amber-950 to-slate-950 text-white border-amber-600/80'
               : highestSeverity === 'Minor'
-              ? 'bg-[#0e7490] text-white border-cyan-800'
-              : 'bg-[#0f766e] text-white border-teal-800'
+              ? 'bg-gradient-to-r from-sky-900 via-sky-950 to-slate-950 text-white border-sky-600/80'
+              : 'bg-gradient-to-r from-teal-900 via-emerald-950 to-slate-950 text-white border-teal-600/80'
           }`}>
             <div className="space-y-0.5">
               <div className="flex items-center gap-2">
@@ -686,20 +686,18 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                   return (
                     <div
                       key={item.id}
-                      className="bg-white dark:bg-[#071c21] rounded-xl p-4 sm:p-5 border border-rose-200 dark:border-rose-800/60 shadow-xs space-y-3"
+                      className="clinical-card-major rounded-xl p-4 sm:p-5 border shadow-xs space-y-3"
                     >
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-rose-100 dark:border-rose-900/40 pb-2">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-black/5 dark:border-white/10 pb-2">
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className="font-black text-slate-900 dark:text-white text-sm">💊 {item.drugName}</span>
-                          <span className="text-rose-600 font-black">❌ BERTENTANGAN DENGAN</span>
-                          <span className="bg-rose-100 dark:bg-rose-950 text-rose-900 dark:text-rose-200 text-xs font-black px-2.5 py-0.5 rounded-lg border border-rose-300 dark:border-rose-800">
+                          <span className="text-rose-600 font-black">❌ KONTRAINDIKASI DENGAN</span>
+                          <span className="bg-white/90 dark:bg-slate-800 text-rose-950 dark:text-rose-200 text-xs font-black px-2.5 py-0.5 rounded-lg border border-rose-300 dark:border-rose-700">
                             🩺 {item.diseaseName}
                           </span>
                         </div>
-                        <span className={`text-[10px] font-black px-2.5 py-1 rounded-md text-white uppercase ${
-                          isAbsolute ? 'bg-rose-700' : 'bg-amber-600'
-                        }`}>
-                          {item.contraindicationLevel}
+                        <span className={isAbsolute ? 'clinical-badge-major' : 'clinical-badge-moderate'}>
+                          {isAbsolute ? '⛔ MUTLAK / ABSOLUTE' : '⚠️ RELATIF / CAUTION'}
                         </span>
                       </div>
 
@@ -770,54 +768,60 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               </h3>
 
               {matchedInteractions.map((item) => {
-                const badgeColor =
-                  item.severity === 'Major'
-                    ? 'bg-rose-700 text-white'
-                    : item.severity === 'Moderate'
-                    ? 'bg-amber-500 text-slate-950 font-black'
-                    : 'bg-cyan-700 text-white';
+                const isMajor = item.severity === 'Major';
+                const isMod = item.severity === 'Moderate';
+                const cardSeverityClass = isMajor 
+                  ? 'clinical-card-major' 
+                  : isMod 
+                  ? 'clinical-card-moderate' 
+                  : 'clinical-card-minor';
+                const badgeSeverityClass = isMajor
+                  ? 'clinical-badge-major'
+                  : isMod
+                  ? 'clinical-badge-moderate'
+                  : 'clinical-badge-minor';
 
                 return (
                   <div
                     key={item.id}
-                    className="bg-white dark:bg-[#071c21] rounded-2xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-4"
+                    className={`rounded-2xl p-5 sm:p-6 border shadow-sm space-y-4 text-left transition-all ${cardSeverityClass}`}
                   >
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-black/5 dark:border-white/10 pb-3">
                       <div className="flex items-center gap-2">
-                        <span className="text-lg font-black text-slate-900 dark:text-white">{item.drugAName}</span>
+                        <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">{item.drugAName}</span>
                         <span className="text-amber-500 font-black">⚡</span>
-                        <span className="text-lg font-black text-slate-900 dark:text-white">{item.drugBName}</span>
+                        <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">{item.drugBName}</span>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className={`text-xs font-black px-3 py-0.5 rounded-full ${badgeColor}`}>
-                          {item.severity}
+                        <span className={badgeSeverityClass}>
+                          {isMajor ? '⚠️ MAJOR / KONTRAINDIKASI' : isMod ? '⚡ MODERATE / MONITORING' : 'ℹ️ MINOR / WASPADA'}
                         </span>
-                        <span className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded">
+                        <span className="bg-white/90 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-bold px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700">
                           Bukti: {item.evidenceLevel}
                         </span>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                      <div className="bg-slate-50 dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
+                      <div className="bg-white/90 dark:bg-slate-900/70 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
                         <p className="font-black text-slate-900 dark:text-white">Mekanisme Interaksi:</p>
                         <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.mechanism}</p>
                       </div>
 
-                      <div className="bg-slate-50 dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
+                      <div className="bg-white/90 dark:bg-slate-900/70 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
                         <p className="font-black text-slate-900 dark:text-white">Dampak Klinis Pasien:</p>
                         <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.clinicalOutcome}</p>
                       </div>
                     </div>
 
                     {/* Management Box */}
-                    <div className="bg-teal-50 dark:bg-teal-950/40 p-4 rounded-xl border border-teal-200/80 dark:border-teal-900 space-y-1">
+                    <div className="bg-white/95 dark:bg-slate-900/85 p-4 rounded-xl border border-teal-300/60 dark:border-teal-800/80 space-y-1 shadow-2xs">
                       <div className="flex items-center gap-1.5 text-teal-900 dark:text-teal-200 font-bold text-xs">
                         <CheckCircle2 className="w-4 h-4 text-teal-700 dark:text-teal-400" />
-                        <span>Solusi & Manajemen Praktik Klinis:</span>
+                        <span>Solusi &amp; Manajemen Praktik Klinis:</span>
                       </div>
-                      <p className="text-xs text-teal-950 dark:text-teal-100 leading-relaxed font-medium">
+                      <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
                         {item.management}
                       </p>
                     </div>
@@ -830,12 +834,16 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               })}
             </div>
           ) : selectedDrugs.length >= 2 ? (
-            <div className="bg-white dark:bg-[#071c21] p-8 rounded-2xl border border-slate-200 dark:border-slate-800 text-center space-y-2 shadow-xs">
-              <ShieldCheck className="w-10 h-10 text-emerald-600 mx-auto" />
-              <h3 className="text-base font-black text-[#082a24] dark:text-teal-200">Aman! Tidak Ditemukan Interaksi Signifikan Antar Obat</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto font-medium">
-                Kombinasi obat yang Anda pilih tidak menunjukkan efek interaksi obat-dengan-obat yang berbahaya pada analisis standar database.
-              </p>
+            <div className="clinical-card-safe p-8 rounded-2xl border text-center space-y-2.5 shadow-xs">
+              <ShieldCheck className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto" />
+              <div className="space-y-1">
+                <h3 className="text-base font-black text-emerald-950 dark:text-emerald-200">
+                  Kompatibilitas Aman: Tidak Ditemukan Interaksi Signifikan
+                </h3>
+                <p className="text-xs text-emerald-900/80 dark:text-emerald-300/80 max-w-md mx-auto font-medium leading-relaxed">
+                  Kombinasi obat yang Anda pilih tidak menunjukkan efek interaksi obat-dengan-obat (DDI) yang membahayakan pada analisis standar konsensus klinis DDInter &amp; Drugs.com.
+                </p>
+              </div>
             </div>
           ) : null}
 

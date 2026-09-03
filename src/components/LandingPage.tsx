@@ -533,47 +533,63 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                     return (
                       <div
                         key={idx}
-                        className={`p-4 rounded-2xl border space-y-2 transition-all text-left ${
+                        className={`p-4 sm:p-5 rounded-2xl border space-y-3 transition-all text-left shadow-xs ${
                           isMajor
-                            ? 'bg-rose-50/90 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800/80 text-rose-950 dark:text-rose-200'
+                            ? 'clinical-card-major'
                             : isMod
-                            ? 'bg-amber-50/90 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800/80 text-amber-950 dark:text-amber-200'
-                            : 'bg-blue-50/90 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800/80 text-blue-950 dark:text-blue-200'
+                            ? 'clinical-card-moderate'
+                            : 'clinical-card-minor'
                         }`}
                       >
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs sm:text-sm font-black font-outfit tracking-wide">
-                            {item.drugAName} + {item.drugBName}
-                          </span>
-                          <span className={`text-[10px] font-black px-2.5 py-0.5 rounded font-outfit ${
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-black/5 dark:border-white/10 pb-2.5">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white">
+                              {item.drugAName} <span className="text-slate-400 font-normal">&amp;</span> {item.drugBName}
+                            </span>
+                          </div>
+                          <span className={
                             isMajor
-                              ? 'bg-rose-700 text-white shadow-xs'
+                              ? 'clinical-badge-major'
                               : isMod
-                              ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
-                              : 'bg-blue-600 text-white shadow-xs'
-                          }`}>
-                            {item.severity.toUpperCase()}
+                              ? 'clinical-badge-moderate'
+                              : 'clinical-badge-minor'
+                          }>
+                            {isMajor ? '⚠️ MAJOR / KONTRAINDIKASI' : isMod ? '⚡ MODERATE / MONITORING' : 'ℹ️ MINOR / WASPADA'}
                           </span>
                         </div>
-                        <p className="text-xs leading-relaxed font-medium">
-                          <strong>Efek Klinis:</strong> {item.clinicalOutcome || item.mechanism}
-                        </p>
+                        
+                        <div className="text-xs space-y-1">
+                          <span className="font-extrabold text-slate-900 dark:text-white block">Dampak &amp; Efek Klinis:</span>
+                          <p className="leading-relaxed text-slate-700 dark:text-slate-300 font-medium">
+                            {item.clinicalOutcome || item.mechanism}
+                          </p>
+                        </div>
+
                         {item.management && (
-                          <div className="text-xs pt-2 border-t border-black/5 dark:border-white/10">
-                            <strong>Saran Manajemen Farmasi:</strong> {item.management}
+                          <div className="text-xs p-3 rounded-xl bg-white/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 space-y-1">
+                            <span className="font-extrabold text-teal-800 dark:text-teal-300 flex items-center gap-1.5">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                              Rekomendasi Manajemen Farmakoterapi:
+                            </span>
+                            <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                              {item.management}
+                            </p>
                           </div>
                         )}
                       </div>
                     );
                   })
                 ) : (
-                  <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800/80 text-emerald-950 dark:text-emerald-200 text-xs space-y-1">
-                    <div className="font-bold flex items-center gap-1.5 text-emerald-900 dark:text-emerald-300">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                      <span>Tidak Ditemukan Interaksi Berbahaya Signifikan</span>
+                  <div className="p-5 rounded-2xl clinical-card-safe border space-y-2 text-left shadow-xs">
+                    <div className="flex items-center justify-between">
+                      <div className="font-black flex items-center gap-2 text-emerald-950 dark:text-emerald-200 text-sm">
+                        <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                        <span>Kompatibilitas Aman: Tidak Ditemukan Interaksi Signifikan</span>
+                      </div>
+                      <span className="clinical-badge-safe">✓ COMPATIBLE</span>
                     </div>
-                    <p className="text-[11px] text-emerald-800/90 dark:text-emerald-300/90">
-                      Kombinasi <strong>{interactiveSelectedDrugs.map(d => d.name).join(' + ')}</strong> relatif aman digunakan bersamaan berdasarkan data DDInter &amp; Drugs.com.
+                    <p className="text-xs text-emerald-900/90 dark:text-emerald-200/90 leading-relaxed font-medium">
+                      Kombinasi <strong>{interactiveSelectedDrugs.map(d => d.name).join(' + ')}</strong> tidak menunjukkan interaksi farmakokinetik atau farmakodinamik yang membahayakan berdasarkan penelusuran konsensus DDInter Nature &amp; Drugs.com.
                     </p>
                   </div>
                 )
