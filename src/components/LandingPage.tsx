@@ -1767,29 +1767,6 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </div>
         </div>
 
-        {/* Social Proof Strip */}
-        <div className="p-4 rounded-2xl bg-slate-100 dark:bg-[#07242c] border border-slate-200 dark:border-teal-500/20 flex flex-wrap items-center justify-around gap-4 text-center">
-          <div>
-            <span className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">⭐ 100% Otentik</span>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Ulasan Sejawat Nyata</p>
-          </div>
-          <div className="hidden sm:block w-px h-8 bg-slate-300 dark:bg-slate-700" />
-          <div>
-            <span className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">0877-7840-2266</span>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">WhatsApp Layanan Langsung</p>
-          </div>
-          <div className="hidden sm:block w-px h-8 bg-slate-300 dark:bg-slate-700" />
-          <div>
-            <span className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">Respon Cepat</span>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Dukungan Tim Teknis Klinis</p>
-          </div>
-          <div className="hidden sm:block w-px h-8 bg-slate-300 dark:bg-slate-700" />
-          <div>
-            <span className="text-base sm:text-lg font-black text-emerald-600 dark:text-emerald-400 font-outfit">99.9%</span>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Ketersediaan Sistem (Uptime)</p>
-          </div>
-        </div>
-
       </section>
 
       {/* =========================================================================
