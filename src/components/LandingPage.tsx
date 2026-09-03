@@ -1954,21 +1954,6 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
               <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed font-medium">
                 Wadah kolaborasi 7.000+ Apoteker, Dokter Spesialis/Umum, dan Mahasiswa Farmasi seluruh Indonesia. Bedah kasus polifarmasi kompleks, telaah resep dokter, hingga kupas tuntas soal UKMPPAI.
               </p>
-
-              <div className="space-y-2 pt-2 text-xs text-sky-100">
-                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-sky-400/30">
-                  <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0" />
-                  <span className="font-semibold">Diskusi Kasus Interaksi Obat &amp; Polifarmasi</span>
-                </div>
-                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-sky-400/30">
-                  <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
-                  <span className="font-semibold">Bedah Blueprint Soal UKMPPAI &amp; UKTTK</span>
-                </div>
-                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-sky-400/30">
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span className="font-semibold">Jejaring Karir &amp; Manajemen SOP Apotek</span>
-                </div>
-              </div>
             </div>
 
             <div className="space-y-2 pt-4 border-t border-sky-400/20 relative z-10">
@@ -2005,21 +1990,6 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
               <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed font-medium">
                 Dapatkan akses instan ke 21 modul klinis terpadu, monografi resmi BPOM, skrining interaksi multi-konsensus global, dan kalkulator resep presisi tanpa instalasi rumit.
               </p>
-
-              <div className="space-y-2 pt-2 text-xs text-teal-100">
-                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-teal-500/30">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="font-semibold">100% Bebas Iklan Komersial &amp; Transparan</span>
-                </div>
-                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-teal-500/30">
-                  <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
-                  <span className="font-semibold">Sesuai Standar Pedoman PNPK Kemenkes RI</span>
-                </div>
-                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-teal-500/30">
-                  <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
-                  <span className="font-semibold">Data &amp; Algoritma Selalu Diperbarui Berkala</span>
-                </div>
-              </div>
             </div>
 
             <div className="space-y-2.5 pt-4 border-t border-teal-500/20 relative z-10">
