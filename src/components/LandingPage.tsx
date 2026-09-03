@@ -343,80 +343,236 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
               </div>
             </form>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+            {/* Action Buttons - Simplified High-Impact CTA Hierarchy */}
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
               <button
                 onClick={() => {
                   const el = document.getElementById('interactive-playground');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-6 py-3.5 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 text-slate-950 font-black rounded-xl shadow-lg transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02]"
+                className="px-7 py-3.5 bg-gradient-to-r from-teal-400 via-teal-300 to-emerald-400 hover:from-teal-300 hover:to-emerald-300 text-slate-950 font-black rounded-2xl shadow-xl shadow-teal-950/50 transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02] active:scale-95 font-outfit"
               >
                 <Zap className="w-4 h-4 fill-slate-950" />
-                <span>Coba Uji Klinis Langsung (Gratis)</span>
+                <span>Eksplorasi Fitur Klinis Gratis</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
 
               <button
                 onClick={onOpenAuthModal}
-                className="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/20 transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02]"
+                className="px-6 py-3.5 bg-white/10 hover:bg-white/15 text-white font-bold rounded-2xl border border-white/20 transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02] active:scale-95 backdrop-blur-md"
               >
                 <ShieldCheck className="w-4 h-4 text-teal-300" />
-                <span>Masuk / Login Akun</span>
+                <span>Masuk Akun Apoteker &amp; Dokter</span>
               </button>
-
-              <button
-                onClick={onOpenPricingModal}
-                className="px-6 py-3.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-xl shadow-lg transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02]"
-              >
-                <Sparkles className="w-4 h-4 fill-slate-950" />
-                <span>Paket Langganan Pro</span>
-              </button>
-            </div>
-
-            {/* Stat Counters Row - Elevated Translucent Glassmorphism Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-10 border-t border-teal-500/20 text-left">
-              <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-teal-500/30 hover:border-teal-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
-                <div className="flex items-center justify-between mb-1">
-                  <p className="text-xl sm:text-2xl font-black text-teal-300 font-outfit group-hover:text-teal-200 transition-colors">
-                    {drugs.length > 0 ? `${drugs.length}+` : '80+'}
-                  </p>
-                  <Pill className="w-4 h-4 text-teal-400/60 group-hover:text-teal-300 transition-colors" />
-                </div>
-                <p className="text-[11px] text-teal-100/90 font-bold leading-tight">Monografi Obat Resmi BPOM</p>
-              </div>
-
-              <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-cyan-500/30 hover:border-cyan-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
-                <div className="flex items-center justify-between mb-1">
-                  <p className="text-xl sm:text-2xl font-black text-cyan-300 font-outfit group-hover:text-cyan-200 transition-colors">
-                    {INITIAL_INTERACTIONS.length > 0 ? `${INITIAL_INTERACTIONS.length}+` : '25+'}
-                  </p>
-                  <ShieldAlert className="w-4 h-4 text-cyan-400/60 group-hover:text-cyan-300 transition-colors" />
-                </div>
-                <p className="text-[11px] text-cyan-100/90 font-bold leading-tight">Pasangan DDI DDInter</p>
-              </div>
-
-              <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-amber-500/30 hover:border-amber-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
-                <div className="flex items-center justify-between mb-1">
-                  <p className="text-xl sm:text-2xl font-black text-amber-300 font-outfit group-hover:text-amber-200 transition-colors">
-                    21 Modul
-                  </p>
-                  <Layers className="w-4 h-4 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
-                </div>
-                <p className="text-[11px] text-amber-100/90 font-bold leading-tight">Klinis, Dosis &amp; UKMPPAI</p>
-              </div>
-
-              <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-emerald-500/30 hover:border-emerald-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
-                <div className="flex items-center justify-between mb-1">
-                  <p className="text-xl sm:text-2xl font-black text-emerald-300 font-outfit group-hover:text-emerald-200 transition-colors">
-                    100% EBM
-                  </p>
-                  <ShieldCheck className="w-4 h-4 text-emerald-400/60 group-hover:text-emerald-300 transition-colors" />
-                </div>
-                <p className="text-[11px] text-emerald-100/90 font-bold leading-tight">PNPK &amp; Standar Kemenkes</p>
-              </div>
             </div>
 
           </div>
+
+          {/* =========================================================================
+              FLOATING LIVE UI PRODUCT MOCKUP: 3D PERSPECTIVE CLINICAL DASHBOARD
+              ========================================================================= */}
+          <div className="max-w-5xl mx-auto mt-12">
+            <div className="relative group">
+              {/* Outer Glow Ambient Halo */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/30 via-cyan-400/20 to-emerald-500/30 rounded-[32px] blur-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-700 pointer-events-none" />
+
+              {/* Window Container */}
+              <div className="relative rounded-3xl bg-[#04151a]/95 border border-teal-500/30 shadow-[0_25px_70px_-15px_rgba(4,20,25,0.9)] backdrop-blur-2xl overflow-hidden transition-all duration-300 group-hover:border-teal-400/50">
+                
+                {/* Window Title Bar */}
+                <div className="px-5 py-3.5 bg-[#061e24] border-b border-teal-500/20 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block border border-rose-600/40" />
+                    <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block border border-amber-600/40" />
+                    <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block border border-emerald-600/40" />
+                    <span className="text-[11px] font-mono text-teal-300/80 ml-2 hidden sm:inline">
+                      farmasidruggist-clinical-engine.app • v2.5
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[10px] font-black">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>Live Multi-Consensus Engine</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Mockup Dashboard Content */}
+                <div className="p-5 sm:p-7 space-y-5 text-left font-sans">
+                  
+                  {/* Mock Patient Context Bar */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-[#07252c]/90 border border-teal-500/25">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center font-black text-xs font-outfit border border-teal-500/30">
+                        PS
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-black text-white">Kasus Klinis: Ny. S (62 th)</span>
+                          <span className="text-[10px] px-2 py-0.2 rounded-full bg-teal-950 text-teal-300 font-mono border border-teal-500/30">
+                            CrCl: 42 mL/min
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-teal-200/70 font-medium">
+                          Dx: Fibrilasi Atrium • Hiperkolesterolemia • Osteoarthritis
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5 items-center">
+                      <span className="px-2.5 py-1 rounded-lg bg-teal-950/80 text-teal-200 border border-teal-500/30 text-[11px] font-bold flex items-center gap-1">
+                        <Pill className="w-3 h-3 text-teal-400" /> Warfarin 5mg
+                      </span>
+                      <span className="px-2.5 py-1 rounded-lg bg-teal-950/80 text-teal-200 border border-teal-500/30 text-[11px] font-bold flex items-center gap-1">
+                        <Pill className="w-3 h-3 text-teal-400" /> Aspirin 80mg
+                      </span>
+                      <span className="px-2.5 py-1 rounded-lg bg-teal-950/80 text-teal-200 border border-teal-500/30 text-[11px] font-bold flex items-center gap-1">
+                        <Pill className="w-3 h-3 text-teal-400" /> Simvastatin 20mg
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Dual Live Clinical Finding Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    {/* Finding 1: Major DDI Alert */}
+                    <div className="p-4 rounded-2xl bg-rose-950/30 border border-rose-500/40 shadow-inner space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-black border border-rose-500/40 uppercase tracking-wider">
+                          <AlertTriangle className="w-3 h-3 text-rose-400" />
+                          Interaksi Mayor (Kontraindikasi Relatif)
+                        </span>
+                        <span className="text-[10px] text-rose-300/80 font-mono font-bold">Skor DDI: 0.89</span>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xs font-black text-white font-outfit">
+                          Warfarin + Aspirin (Kombinasi Sinergis Antiplatelet)
+                        </h4>
+                        <p className="text-[11px] text-rose-100/80 mt-1 leading-relaxed">
+                          Peningkatan risiko perdarahan gastrointestinal dan intrakranial hingga <strong>3.8x lipat</strong> tanpa manfaat kardiovaskular tambahan pada sebagian besar indikasi AFib.
+                        </p>
+                      </div>
+
+                      <div className="p-2.5 rounded-xl bg-rose-950/60 border border-rose-500/20 text-[10px] text-rose-200 space-y-1">
+                        <div className="font-bold text-rose-300 flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3 text-rose-400 shrink-0" />
+                          <span>Rekomendasi Klinis EBM:</span>
+                        </div>
+                        <p className="text-rose-100/90 leading-tight">
+                          Evaluasi ulang indikasi ganda. Pantau INR ketat (target 2.0-2.5) dan berikan gastroprotektor PPI (misal Pantoprazole).
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Finding 2: Moderate DDI & DFI Alert */}
+                    <div className="p-4 rounded-2xl bg-amber-950/30 border border-amber-500/40 shadow-inner space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-black border border-amber-500/40 uppercase tracking-wider">
+                          <ShieldAlert className="w-3 h-3 text-amber-400" />
+                          Interaksi Signifikan &amp; Makanan (DFI)
+                        </span>
+                        <span className="text-[10px] text-amber-300/80 font-mono font-bold">CYP3A4 Pathway</span>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xs font-black text-white font-outfit">
+                          Simvastatin + Makanan / Jus Grapefruit
+                        </h4>
+                        <p className="text-[11px] text-amber-100/80 mt-1 leading-relaxed">
+                          Inhibisi enzim CYP3A4 usus halus meningkatkan AUC Simvastatin hingga <strong>330%</strong>, memicu risiko toksisitas miopati hingga rabdomiolisis akut.
+                        </p>
+                      </div>
+
+                      <div className="p-2.5 rounded-xl bg-amber-950/60 border border-amber-500/20 text-[10px] text-amber-200 space-y-1">
+                        <div className="font-bold text-amber-300 flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3 text-amber-400 shrink-0" />
+                          <span>Solusi Alternatif Terapi:</span>
+                        </div>
+                        <p className="text-amber-100/90 leading-tight">
+                          Ganti ke Statin alternatif non-CYP3A4 seperti <strong>Rosuvastatin (10mg)</strong> atau <strong>Pravastatin (20mg)</strong>.
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  {/* Micro Quick Capability Strip */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-teal-500/20 text-[11px]">
+                    <div className="flex flex-wrap gap-2 text-teal-200/80 font-medium">
+                      <span className="flex items-center gap-1 text-teal-300">
+                        <Check className="w-3.5 h-3.5 text-teal-400" /> Konsensus 6 Database
+                      </span>
+                      <span className="flex items-center gap-1 text-teal-300">
+                        <Check className="w-3.5 h-3.5 text-teal-400" /> Evaluasi Beers 2023
+                      </span>
+                      <span className="flex items-center gap-1 text-teal-300">
+                        <Check className="w-3.5 h-3.5 text-teal-400" /> 1-Klik Cetak Laporan
+                      </span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const el = document.getElementById('interactive-playground');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      className="text-teal-300 hover:text-white font-black text-[11px] flex items-center gap-1 transition-colors cursor-pointer group"
+                    >
+                      <span>Coba Simulasi Interaktif Langsung</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Stat Counters Row - Elevated Translucent Glassmorphism Cards */}
+          <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-10 text-left">
+            <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-teal-500/30 hover:border-teal-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-xl sm:text-2xl font-black text-teal-300 font-outfit group-hover:text-teal-200 transition-colors">
+                  {drugs.length > 0 ? `${drugs.length}+` : '80+'}
+                </p>
+                <Pill className="w-4 h-4 text-teal-400/60 group-hover:text-teal-300 transition-colors" />
+              </div>
+              <p className="text-[11px] text-teal-100/90 font-bold leading-tight">Monografi Obat Resmi BPOM</p>
+            </div>
+
+            <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-cyan-500/30 hover:border-cyan-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-xl sm:text-2xl font-black text-cyan-300 font-outfit group-hover:text-cyan-200 transition-colors">
+                  {INITIAL_INTERACTIONS.length > 0 ? `${INITIAL_INTERACTIONS.length}+` : '25+'}
+                </p>
+                <ShieldAlert className="w-4 h-4 text-cyan-400/60 group-hover:text-cyan-300 transition-colors" />
+              </div>
+              <p className="text-[11px] text-cyan-100/90 font-bold leading-tight">Pasangan DDI DDInter</p>
+            </div>
+
+            <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-amber-500/30 hover:border-amber-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-xl sm:text-2xl font-black text-amber-300 font-outfit group-hover:text-amber-200 transition-colors">
+                  21 Modul
+                </p>
+                <Layers className="w-4 h-4 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
+              </div>
+              <p className="text-[11px] text-amber-100/90 font-bold leading-tight">Klinis, Dosis &amp; UKMPPAI</p>
+            </div>
+
+            <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-emerald-500/30 hover:border-emerald-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-xl sm:text-2xl font-black text-emerald-300 font-outfit group-hover:text-emerald-200 transition-colors">
+                  100% EBM
+                </p>
+                <ShieldCheck className="w-4 h-4 text-emerald-400/60 group-hover:text-emerald-300 transition-colors" />
+              </div>
+              <p className="text-[11px] text-emerald-100/90 font-bold leading-tight">PNPK &amp; Standar Kemenkes</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
