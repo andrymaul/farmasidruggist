@@ -30,7 +30,11 @@ export const DDINTER_CATEGORIES = [
   'Analgesik & Antiinflamasi (NSAID)',
   'Respirasi & Alergi',
   'Imunosupresan & Onkologi',
-  'Ginjal & Metabolik'
+  'Ginjal & Metabolik',
+  'Mata & THT (Oftalmologi & Otologi)',
+  'Dermatologi & Topikal Kulit',
+  'Vitamin, Mineral & Nutrisi Klinis',
+  'Hematologi & Hemostasis'
 ] as const;
 
 /**

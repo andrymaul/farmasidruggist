@@ -254,26 +254,6 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
         </div>
       </div>
 
-      {/* Category Pills Bar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
-        {DDINTER_CATEGORIES.map((cat) => {
-          const isActive = selectedCategory === cat;
-          return (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all shadow-xs cursor-pointer ${
-                isActive
-                  ? 'bg-[#0f766e] text-white shadow-md border border-teal-400/40 scale-[1.02]'
-                  : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
-              }`}
-            >
-              {cat}
-            </button>
-          );
-        })}
-      </div>
-
       {/* Filter and Search Toolbar */}
       <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-sm space-y-4">
         
@@ -301,10 +281,29 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
           )}
         </div>
 
-        {/* Filter Controls Grid */}
-        <div className="pt-3 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {/* Filter Controls Grid (5 Columns) */}
+        <div className="pt-3 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           
-          {/* Filter: Golongan Obat BPOM */}
+          {/* Filter 1: Kategori Terapi Obat */}
+          <div className="space-y-1">
+            <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1">
+              <Filter className="w-3.5 h-3.5 text-[#0f766e]" />
+              <span>Kategori Terapi</span>
+            </label>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full p-2.5 text-xs font-bold text-slate-800 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:border-teal-600 cursor-pointer"
+            >
+              {DDINTER_CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Filter 2: Golongan Obat BPOM */}
           <div className="space-y-1">
             <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1">
               <ShieldAlert className="w-3.5 h-3.5 text-[#0f766e]" />

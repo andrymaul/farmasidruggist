@@ -108,6 +108,14 @@ export function matchesCategoryFilter(drug: Drug, selectedCat: string): boolean 
       return ['imuno', 'onkologi', 'kanker', 'kemoterapi', 'antineoplastik', 'sitostatis', 'dmard', 'kalsineurin', 'antimetabolit'].some(k => dStr.includes(k));
     case 'Ginjal & Metabolik':
       return ['ginjal', 'metabolik', 'diuretik', 'asam urat', 'fibrat', 'trigliserida', 'kolesterol', 'hipolipidemik', 'mra'].some(k => dStr.includes(k));
+    case 'Mata & THT (Oftalmologi & Otologi)':
+      return ['mata', 'tht', 'oftalmologi', 'glaukoma', 'tetes mata', 'timolol', 'latanoprost', 'travoprost', 'brimonidine', 'kloramfenikol tetes', 'telinga', 'otitis', 'cendo', 'karbogliserin', 'polimiksin'].some(k => dStr.includes(k));
+    case 'Dermatologi & Topikal Kulit':
+      return ['dermatologi', 'kulit', 'topikal', 'salep', 'krim', 'gel', 'hidrokortison', 'betametason', 'mometason', 'desoksimetason', 'gentamisin krim', 'ketokonazol krim', 'mikonazol', 'klotrimazol', 'permetrin', 'acne', 'jerawat'].some(k => dStr.includes(k));
+    case 'Vitamin, Mineral & Nutrisi Klinis':
+      return ['vitamin', 'mineral', 'nutrisi', 'suplemen', 'asam folat', 'kalsium', 'calcium', 'besi', 'ferrous', 'b12', 'sianokobalamin', 'tiamin', 'piridoksin', 'asam askorbat', 'vitamin d', 'kolekalsiferol', 'zink', 'zinc'].some(k => dStr.includes(k));
+    case 'Hematologi & Hemostasis':
+      return ['hemostasis', 'hematologi', 'koagulasi', 'perdarahan', 'asam traneksamat', 'tranexamic', 'vitamin k', 'fitomenadion', 'faktor viii', 'fibrinogen', 'heparin', 'protamin'].some(k => dStr.includes(k));
     default:
       return dStr.includes(selectedCat.toLowerCase());
   }
