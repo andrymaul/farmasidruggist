@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Drug, DrugInteraction, UserProfile } from '../types';
 import { 
   Search, 
@@ -16,7 +16,11 @@ import {
   Baby,
   X,
   Check,
-  Smartphone
+  Smartphone,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight
 } from 'lucide-react';
 import { DDINTER_CATEGORIES, resolveDrugFromDDInter, deduplicateDrugs } from '../utils/ddinterEngine';
 import { 
@@ -51,11 +55,22 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
   initialSearchQuery = ''
 }) => {
   const [searchTerm, setSearchTerm] = useState(initialSearchQuery);
+  const [debouncedSearch, setDebouncedSearch] = useState(initialSearchQuery);
   const [selectedCategory, setSelectedCategory] = useState<string>('Semua Kategori');
   const [selectedPregnancyCat, setSelectedPregnancyCat] = useState<string>('Semua');
   const [bpomClassFilter, setBpomClassFilter] = useState<'all' | 'bebas' | 'bebas-terbatas' | 'obat-keras' | 'oot' | 'prekursor' | 'psikotropika' | 'narkotika'>('all');
   const [interactionFilter, setInteractionFilter] = useState<'all' | 'has-interactions' | 'no-interactions'>('all');
   const [sortBy, setSortBy] = useState<SortOption>('name-asc');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(24);
+
+  // Debounce search input for silky-smooth typing (200ms)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   // Pre-calculate interaction count for fast filter/sort
   const interactionCountMap = useMemo(() => {
@@ -75,7 +90,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
   // Dynamic filter & sort
   const filteredAndSortedDrugs = useMemo(() => {
     const result = cleanDrugs.filter((drug) => {
-      const query = searchTerm.toLowerCase().trim();
+      const query = debouncedSearch.toLowerCase().trim();
       const matchesSearch =
         !query ||
         (drug.name && drug.name.toLowerCase().includes(query)) ||
@@ -127,7 +142,53 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
       }
       return 0;
     });
-  }, [cleanDrugs, searchTerm, selectedCategory, selectedPregnancyCat, bpomClassFilter, interactionFilter, sortBy, interactionCountMap]);
+  }, [cleanDrugs, debouncedSearch, selectedCategory, selectedPregnancyCat, bpomClassFilter, interactionFilter, sortBy, interactionCountMap]);
+
+  // Reset to page 1 whenever any filter criteria change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch, selectedCategory, selectedPregnancyCat, bpomClassFilter, interactionFilter, sortBy, itemsPerPage]);
+
+  // Pagination slicing & calculations
+  const totalItems = filteredAndSortedDrugs.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+  const validCurrentPage = Math.min(currentPage, totalPages);
+
+  const paginatedDrugs = useMemo(() => {
+    const start = (validCurrentPage - 1) * itemsPerPage;
+    return filteredAndSortedDrugs.slice(start, start + itemsPerPage);
+  }, [filteredAndSortedDrugs, validCurrentPage, itemsPerPage]);
+
+  const startIndex = (validCurrentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
+    const catalogContainer = document.getElementById('katalog-obat-container');
+    if (catalogContainer) {
+      catalogContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const getPageNumbers = () => {
+    const delta = 1;
+    const range: (number | string)[] = [];
+    for (let i = 1; i <= totalPages; i++) {
+      if (
+        i === 1 ||
+        i === totalPages ||
+        (i >= validCurrentPage - delta && i <= validCurrentPage + delta)
+      ) {
+        range.push(i);
+      } else if (range[range.length - 1] !== '...') {
+        range.push('...');
+      }
+    }
+    return range;
+  };
 
   const resetFilters = () => {
     setSearchTerm('');
@@ -165,7 +226,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div id="katalog-obat-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       
       {/* Header Banner - Modern Deep Obsidian & Sapphire Palette */}
       <div className="bg-gradient-to-r from-slate-900 via-[#0e1728] to-slate-900 p-6 sm:p-8 rounded-3xl text-white border border-blue-500/20 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -324,16 +385,42 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
 
         </div>
 
-        {/* Filter Summary Status */}
-        <div className="flex items-center justify-between text-xs font-medium text-slate-500 pt-1">
-          <p>
-            Menampilkan <span className="font-black text-[#0f766e]">{filteredAndSortedDrugs.length.toLocaleString('id-ID')}</span> dari <span className="font-black text-slate-900">{cleanDrugs.length.toLocaleString('id-ID')}</span> obat unik terdaftar ({drugs.length.toLocaleString('id-ID')} entri terintegrasi).
-          </p>
-          {isFiltered && (
-            <span className="text-[11px] bg-teal-50 text-teal-800 font-bold px-2.5 py-0.5 rounded-full border border-teal-200">
-              Filter Aktif
-            </span>
-          )}
+        {/* Filter Summary Status & Items Per Page Selector */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-medium text-slate-500 pt-1 border-t border-slate-100">
+          <div className="flex items-center gap-2 flex-wrap">
+            <p>
+              Menampilkan <span className="font-black text-[#0f766e]">{totalItems === 0 ? 0 : `${(startIndex + 1).toLocaleString('id-ID')}–${endIndex.toLocaleString('id-ID')}`}</span> dari <span className="font-black text-slate-900">{totalItems.toLocaleString('id-ID')}</span> hasil filter ({cleanDrugs.length.toLocaleString('id-ID')} obat terdaftar).
+            </p>
+            {isFiltered && (
+              <span className="text-[10px] bg-teal-50 text-teal-800 font-bold px-2 py-0.5 rounded-full border border-teal-200">
+                Filter Aktif
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            {/* Items Per Page */}
+            <div className="flex items-center gap-1.5 text-xs text-slate-600">
+              <span className="text-[11px] font-semibold text-slate-400">Tampilkan:</span>
+              <select
+                value={itemsPerPage}
+                onChange={(e) => setItemsPerPage(Number(e.target.value))}
+                className="bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg px-2 py-1 text-xs font-bold text-slate-800 cursor-pointer focus:outline-none"
+              >
+                <option value={12}>12 / hal</option>
+                <option value={24}>24 / hal (Rekomendasi)</option>
+                <option value={48}>48 / hal</option>
+                <option value={96}>96 / hal</option>
+              </select>
+            </div>
+
+            {/* Current Page Pill */}
+            {totalPages > 1 && (
+              <span className="font-mono text-[11px] bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-bold">
+                Hal {validCurrentPage} / {totalPages}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Active Filter Badges Chips Bar */}
@@ -429,8 +516,9 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
 
       {/* Drug Cards Grid */}
       {filteredAndSortedDrugs.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredAndSortedDrugs.map((drug) => {
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {paginatedDrugs.map((drug) => {
             const intCount = interactionCountMap.get(drug.name.toLowerCase()) || 0;
             const bpomBadge = getBpomBadge(drug);
 
@@ -560,6 +648,95 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
               </div>
             );
           })}
+        </div>
+
+        {/* Pagination Controls Bottom */}
+        {totalPages > 1 && (
+          <div className="bg-white rounded-2xl border border-slate-200/90 p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-xs text-slate-500 font-medium">
+              Halaman <span className="font-bold text-slate-900">{validCurrentPage}</span> dari <span className="font-bold text-slate-900">{totalPages}</span> (Menampilkan {paginatedDrugs.length} dari {totalItems.toLocaleString('id-ID')} obat)
+            </div>
+
+            <div className="flex items-center gap-1 flex-wrap justify-center">
+              {/* First Page */}
+              <button
+                type="button"
+                onClick={() => handlePageChange(1)}
+                disabled={validCurrentPage === 1}
+                className="p-2 rounded-xl text-slate-600 hover:text-teal-700 hover:bg-teal-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer border border-slate-200"
+                title="Halaman Pertama"
+              >
+                <ChevronsLeft className="w-4 h-4" />
+              </button>
+
+              {/* Previous Page */}
+              <button
+                type="button"
+                onClick={() => handlePageChange(validCurrentPage - 1)}
+                disabled={validCurrentPage === 1}
+                className="px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-teal-700 hover:bg-teal-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer flex items-center gap-1 border border-slate-200"
+                title="Halaman Sebelumnya"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">Sebelumnya</span>
+              </button>
+
+              {/* Numbered Page Buttons */}
+              <div className="flex items-center gap-1 mx-1">
+                {getPageNumbers().map((pageItem, idx) => {
+                  if (pageItem === '...') {
+                    return (
+                      <span key={`ellipsis-${idx}`} className="px-2 py-1 text-xs text-slate-400 font-bold select-none">
+                        ...
+                      </span>
+                    );
+                  }
+
+                  const pageNumber = pageItem as number;
+                  const isActive = pageNumber === validCurrentPage;
+
+                  return (
+                    <button
+                      key={pageNumber}
+                      type="button"
+                      onClick={() => handlePageChange(pageNumber)}
+                      className={`min-w-[36px] h-9 px-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
+                        isActive
+                          ? 'bg-[#0f766e] text-white shadow-xs scale-105'
+                          : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                      }`}
+                    >
+                      {pageNumber}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Next Page */}
+              <button
+                type="button"
+                onClick={() => handlePageChange(validCurrentPage + 1)}
+                disabled={validCurrentPage === totalPages}
+                className="px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-teal-700 hover:bg-teal-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer flex items-center gap-1 border border-slate-200"
+                title="Halaman Berikutnya"
+              >
+                <span className="hidden sm:inline">Berikutnya</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+
+              {/* Last Page */}
+              <button
+                type="button"
+                onClick={() => handlePageChange(totalPages)}
+                disabled={validCurrentPage === totalPages}
+                className="p-2 rounded-xl text-slate-600 hover:text-teal-700 hover:bg-teal-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer border border-slate-200"
+                title="Halaman Terakhir"
+              >
+                <ChevronsRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
         </div>
       ) : (
         <div className="bg-white p-10 rounded-2xl border border-slate-200 text-center space-y-4 shadow-xs">
