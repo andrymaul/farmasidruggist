@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({
   // Landing Header Rendering - Neo-Clinical Floating Capsule Island
   if (isLanding) {
     return (
-      <header className="sticky top-3 sm:top-5 z-50 w-full px-3 sm:px-6 pointer-events-none transition-all duration-300">
+      <header className="sticky top-3 sm:top-5 z-50 w-full px-3 sm:px-6 pointer-events-none transition-all duration-300 -mb-16 sm:-mb-20">
         <div className="max-w-6xl mx-auto">
           <div className={`pointer-events-auto rounded-full transition-all duration-300 px-3.5 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between ${
             isScrolled 

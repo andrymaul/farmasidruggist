@@ -281,12 +281,12 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
   ];
 
   return (
-    <div className="space-y-16 pb-24 bg-[#f4f8f8] dark:bg-[#051418] text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <div className="space-y-16 pb-24 bg-[#02090c] dark:bg-[#02090c] text-slate-100 transition-colors duration-300">
       
       {/* =========================================================================
           HERO SECTION: Spatial Radiant Glow & Neo-Clinical Tech Architecture
           ========================================================================= */}
-      <section id="hero-section" className="relative overflow-hidden bg-gradient-to-b from-[#02090c] via-[#04151a] to-[#07242c] text-white pt-16 sm:pt-20 pb-20 sm:pb-24 border-b border-teal-500/20">
+      <section id="hero-section" className="relative overflow-hidden bg-gradient-to-b from-[#02090c] via-[#04151a] to-[#07242c] text-white pt-24 sm:pt-28 pb-20 sm:pb-24 border-b border-teal-500/20">
         {/* Floating Pills Background Particles */}
         <FloatingPillsBackground density="normal" accentColor="#2dd4bf" />
 
