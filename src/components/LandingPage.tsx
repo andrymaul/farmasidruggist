@@ -34,6 +34,7 @@ import {
   Scale,
   BookOpen,
   ChevronRight,
+  ChevronDown,
   Copy,
   CheckCheck,
   Building2,
@@ -70,6 +71,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 }) => {
   const [heroSearch, setHeroSearch] = useState('');
   const [activePlaygroundTab, setActivePlaygroundTab] = useState<'ddi' | 'srq20'>('ddi');
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   // Animated rotating placeholder for hero search bar
   const samplePlaceholders = useMemo(() => [
@@ -1857,26 +1859,63 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       </section>
 
       {/* =========================================================================
-          FAQ SECTION
+          STAGE 5 & 6: INTERACTIVE ACCORDION FAQ SECTION
           ========================================================================= */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="text-center space-y-2">
-          <h2 className="text-2xl font-extrabold text-[#082a24] dark:text-white font-outfit">Pertanyaan Sering Diajukan (FAQ)</h2>
-          <p className="text-xs text-slate-500 font-medium">Informasi seputar lisensi, validitas klinis data, dan integrasi WhatsApp</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 text-xs font-black border border-teal-300 dark:border-teal-800">
+            <HelpCircle className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+            <span>Pusat Informasi &amp; Transparansi</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#082a24] dark:text-white font-outfit">
+            Pertanyaan Sering Diajukan (FAQ)
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium max-w-lg mx-auto">
+            Informasi lengkap seputar lisensi, validitas bukti klinis (EBM), dan integrasi sistem.
+          </p>
         </div>
 
         <div className="space-y-3">
-          {PRICING_FAQS.map((faq, idx) => (
-            <div key={idx} className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-1">
-              <h3 className="text-xs sm:text-sm font-bold text-[#082a24] dark:text-teal-300 flex items-center gap-2">
-                <HelpCircle className="w-4 h-4 text-[#0f766e] shrink-0" />
-                {faq.q}
-              </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 pl-6 leading-relaxed">
-                {faq.a}
-              </p>
-            </div>
-          ))}
+          {PRICING_FAQS.map((faq, idx) => {
+            const isOpen = openFaqIndex === idx;
+
+            return (
+              <div 
+                key={idx} 
+                className={`bg-white dark:bg-[#061d23] rounded-2xl border transition-all duration-200 overflow-hidden ${
+                  isOpen 
+                    ? 'border-teal-500 shadow-md ring-1 ring-teal-500/30' 
+                    : 'border-slate-200/90 dark:border-teal-500/20 shadow-xs hover:border-teal-300 dark:hover:border-teal-500/50'
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 cursor-pointer select-none"
+                >
+                  <h3 className={`text-xs sm:text-sm font-bold flex items-center gap-2.5 transition-colors ${
+                    isOpen ? 'text-teal-700 dark:text-teal-300' : 'text-[#082a24] dark:text-white'
+                  }`}>
+                    <span className={`p-1.5 rounded-xl transition-colors shrink-0 ${
+                      isOpen ? 'bg-teal-100 dark:bg-teal-950 text-teal-700 dark:text-teal-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+                    }`}>
+                      <HelpCircle className="w-4 h-4" />
+                    </span>
+                    <span className="font-outfit">{faq.q}</span>
+                  </h3>
+                  <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-200 ${
+                    isOpen ? 'rotate-180 text-teal-600 dark:text-teal-400' : 'text-slate-400'
+                  }`} />
+                </button>
+
+                {isOpen && (
+                  <div className="px-5 pb-5 pt-1 text-xs text-slate-600 dark:text-slate-300 pl-12 leading-relaxed border-t border-slate-100 dark:border-teal-500/20 font-medium">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -1884,24 +1923,24 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           TELEGRAM COMMUNITY SECTION: Ruang Diskusi Apoteker & Dokter Indonesia
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#07252f] via-[#0c3947] to-[#0f4758] p-8 sm:p-12 text-white border-2 border-[#229ED9]/50 shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#062028] via-[#09323d] to-[#0d4554] p-8 sm:p-12 text-white border-2 border-sky-400/40 shadow-2xl">
           {/* Ambient Glows */}
-          <div className="absolute -top-20 -right-20 w-96 h-96 bg-[#229ED9]/25 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-teal-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#229ED9]/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4 text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#229ED9]/20 border border-[#229ED9]/60 text-sky-200 text-xs font-black shadow-inner">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#229ED9]/20 border border-[#229ED9]/50 text-sky-200 text-xs font-black shadow-inner">
                 <Send className="w-3.5 h-3.5 text-sky-300 fill-sky-300" />
-                <span>Komunitas Telegram Resmi FarmasiDruggist • Akses Diskusi Gratis</span>
+                <span>Komunitas Telegram Resmi FarmasiDruggist • Akses Diskusi Bebas Biaya</span>
               </div>
 
               <h2 className="text-2xl sm:text-4xl font-black font-outfit text-white tracking-tight leading-snug">
                 Gabung Forum Diskusi Kasus Klinis &amp; Farmasi Indonesia
               </h2>
 
-              <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed max-w-2xl">
-                Wadah kolaborasi interaktif ribuan Apoteker, Dokter, Tenaga Vokasi Farmasi, dan Mahasiswa Farmasi seluruh Indonesia. Diskusikan kasus interaksi obat polifarmasi kompleks, telaah resep dokter, update PNPK Kemenkes, kupas tuntas soal latihan UKMPPAI (CBT &amp; OSCE), hingga tips manajerial apotek klinis modern.
+              <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed max-w-2xl font-medium">
+                Wadah kolaborasi ribuan Apoteker, Dokter Spesialis/Umum, Tenaga Vokasi Farmasi, dan Mahasiswa Farmasi seluruh Indonesia. Diskusikan kasus interaksi obat polifarmasi kompleks, telaah resep dokter, update PNPK Kemenkes, kupas tuntas soal UKMPPAI, hingga tips manajerial apotek modern.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs text-sky-100">
@@ -1921,13 +1960,13 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             </div>
 
             <div className="lg:col-span-4 flex flex-col items-center lg:items-end justify-center">
-              <div className="bg-[#051b22]/95 p-6 rounded-2xl border-2 border-sky-400/40 text-center w-full max-w-sm space-y-4 shadow-2xl">
-                <div className="w-16 h-16 rounded-2xl bg-[#229ED9] text-white flex items-center justify-center mx-auto shadow-lg shadow-[#229ED9]/40">
+              <div className="bg-[#04161c]/95 p-6 rounded-3xl border-2 border-sky-400/40 text-center w-full max-w-sm space-y-4 shadow-2xl backdrop-blur-md">
+                <div className="w-16 h-16 rounded-2xl bg-[#229ED9] text-white flex items-center justify-center mx-auto shadow-lg shadow-[#229ED9]/40 transition-transform hover:scale-110">
                   <Send className="w-8 h-8 fill-white ml-0.5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white font-outfit">Grup Telegram Apoteker &amp; Dokter</h3>
-                  <p className="text-[11px] text-teal-200/80 mt-1">Gabung sekarang &amp; bangun jejaring profesional Anda</p>
+                  <h3 className="text-base font-bold text-white font-outfit">Forum Komunitas Tenaga Kesehatan</h3>
+                  <p className="text-[11px] text-teal-200/80 mt-1 font-medium">3.800+ Rekan Sejawat • Diskusi Ilmiah &amp; Bebas Spam</p>
                 </div>
                 <a
                   href="https://t.me/+lHiIMC_TdoM2NTk1"
@@ -1936,7 +1975,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                   className="w-full py-3.5 px-4 bg-[#229ED9] hover:bg-[#1b8bc2] text-white font-black text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.03] border border-sky-200/40"
                 >
                   <Send className="w-4 h-4 fill-white" />
-                  <span>Join Komunitas Telegram →</span>
+                  <span>Join Grup Telegram Resmi →</span>
                 </a>
               </div>
             </div>
@@ -1945,42 +1984,61 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       </section>
 
       {/* =========================================================================
-          BOTTOM CONVERTING CTA BANNER
+          BOTTOM HIGH-CONVERTING CTA BANNER
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-gradient-to-r from-teal-900 via-teal-800 to-cyan-900 p-8 sm:p-12 text-white text-center space-y-6 shadow-2xl border border-teal-400/30">
-          <div className="max-w-2xl mx-auto space-y-3">
-            <h2 className="text-2xl sm:text-4xl font-black font-outfit">
-              Tingkatkan Standar Pelayanan Farmasi Klinis Anda Hari Ini
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#031519] via-[#062932] to-[#093c4a] p-8 sm:p-14 text-white text-center space-y-7 shadow-2xl border-2 border-teal-500/40">
+          
+          <div className="max-w-3xl mx-auto space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 border border-teal-400/40 text-teal-300 text-xs font-black">
+              <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+              <span>Mulai Transformasi Digital Pelayanan Farmasi Klinis Anda</span>
+            </div>
+
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black font-outfit tracking-tight">
+              Tingkatkan Keselamatan Pasien &amp; Ketepatan Terapi Hari Ini
             </h2>
-            <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed">
-              Bergabunglah dengan ribuan Apoteker, Dokter, dan Mahasiswa Farmasi di seluruh Indonesia dalam mewujudkan pelayanan obat yang aman, cepat, dan presisi.
+
+            <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed max-w-2xl mx-auto font-medium">
+              Bergabunglah dengan ribuan Apoteker, Dokter, dan Calon Apoteker di seluruh Indonesia dalam mewujudkan telaah resep cepat, terstandar, dan berlandaskan bukti ilmiah resmi.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <button
-              onClick={onOpenAuthModal}
-              className="px-8 py-4 bg-white text-slate-950 hover:bg-slate-100 font-black rounded-2xl shadow-xl transition-all text-xs sm:text-sm cursor-pointer hover:scale-105"
+              onClick={() => {
+                const el = document.getElementById('interactive-playground');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-8 py-4 bg-gradient-to-r from-teal-400 to-emerald-400 hover:from-teal-300 hover:to-emerald-300 text-slate-950 font-black rounded-2xl shadow-xl shadow-teal-950/50 transition-all text-xs sm:text-sm cursor-pointer hover:scale-105 active:scale-95 font-outfit flex items-center gap-2"
             >
-              Mulai Daftar Akun Sekarang
+              <Zap className="w-4 h-4 fill-slate-950" />
+              <span>Coba Simulasi Klinis Gratis</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
-            <a
-              href="https://t.me/+lHiIMC_TdoM2NTk1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 bg-[#229ED9] hover:bg-[#1b8bc2] text-white font-black rounded-2xl shadow-xl transition-all text-xs sm:text-sm cursor-pointer hover:scale-105 flex items-center gap-2 border border-sky-300/40"
-            >
-              <Send className="w-4 h-4 fill-white" />
-              <span>Gabung Komunitas Telegram</span>
-            </a>
+
             <button
               onClick={onOpenPricingModal}
-              className="px-8 py-4 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-2xl shadow-xl transition-all text-xs sm:text-sm cursor-pointer hover:scale-105"
+              className="px-8 py-4 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-2xl shadow-xl shadow-amber-950/40 transition-all text-xs sm:text-sm cursor-pointer hover:scale-105 active:scale-95 font-outfit flex items-center gap-2"
             >
-              Berlangganan Paket Pro (Rp 199rb/Tahun)
+              <Sparkles className="w-4 h-4 fill-slate-950" />
+              <span>Ambil Promo Paket Pro (Rp 199rb/Tahun)</span>
             </button>
           </div>
+
+          {/* Guarantee Badges */}
+          <div className="pt-4 border-t border-teal-500/20 flex flex-wrap items-center justify-center gap-6 text-[11px] text-teal-200/80 font-bold">
+            <span className="flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" /> 100% Bebas Iklan Komersial
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-teal-400" /> Sesuai Standar PNPK Kemenkes RI
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-teal-400" /> Data Selalu Diperbarui Berkala
+            </span>
+          </div>
+
         </div>
       </section>
 
