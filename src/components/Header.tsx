@@ -375,7 +375,7 @@ export const Header: React.FC<HeaderProps> = ({
             href="https://t.me/+lHiIMC_TdoM2NTk1"
             target="_blank"
             rel="noopener noreferrer"
-            title="Gabung Komunitas Telegram Apoteker & Dokter FarmasiDruggist"
+            title="Gabung Komunitas Telegram Apoteker & Tenaga Kesehatan FarmasiDruggist"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#229ED9]/15 hover:bg-[#229ED9]/25 text-[#1b8bc2] dark:text-sky-300 border border-[#229ED9]/40 hover:border-[#229ED9]/70 rounded-full text-xs font-bold transition-all shadow-2xs hover:scale-105 font-outfit"
           >
             <Send className="w-3.5 h-3.5 fill-[#229ED9] dark:fill-sky-300" />

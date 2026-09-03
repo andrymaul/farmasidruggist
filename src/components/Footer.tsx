@@ -16,7 +16,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
           <div className="md:col-span-5 space-y-4">
             <Logo size="lg" variant="dark" />
             <p className="text-xs text-teal-100/70 leading-relaxed max-w-sm">
-              FARMASIDRUGGIST adalah platform database informasi obat, evaluasi polifarmasi, dan pemeriksa interaksi obat terpercaya untuk Apoteker, Dokter, Klinik, dan Fasilitas Pelayanan Kesehatan Indonesia.
+              FARMASIDRUGGIST adalah platform database informasi obat, evaluasi polifarmasi, dan pemeriksa interaksi obat terpercaya untuk Apoteker, Tenaga Kesehatan, Klinik, dan Fasilitas Pelayanan Kesehatan Indonesia.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <div className="flex items-center gap-2 text-xs text-teal-400 font-bold">

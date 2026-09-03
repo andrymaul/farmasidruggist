@@ -613,7 +613,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 <ShieldCheck className="w-4 h-4 text-emerald-400/60 group-hover:text-emerald-300 transition-colors" />
               </div>
               <p className="text-[10px] sm:text-[10.5px] font-black uppercase tracking-wider text-emerald-300/70">SEJAWAT AKTIF</p>
-              <p className="text-[11px] text-emerald-100/90 font-medium leading-tight mt-0.5">Apoteker &amp; Dokter se-Indonesia</p>
+              <p className="text-[11px] text-emerald-100/90 font-medium leading-tight mt-0.5">Apoteker &amp; Tenaga Kesehatan se-Indonesia</p>
             </div>
           </div>
 
@@ -1246,7 +1246,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </h2>
           
           <p className="text-xs sm:text-sm text-slate-600 dark:text-teal-100/75 leading-relaxed font-medium">
-            Dari apotek komunitas, ruang rawat inap RS &amp; ICU, praktik dokter spesialis, hingga pusat persiapan UKMPPAI. Seluruh modul saling terhubung secara real-time.
+            Dari apotek komunitas, ruang rawat inap RS &amp; ICU, faskes tenaga kesehatan, hingga pusat persiapan UKMPPAI. Seluruh modul saling terhubung secara real-time.
           </p>
         </div>
 
@@ -1304,7 +1304,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             <div className="pt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 dark:border-teal-500/20 mt-4 relative z-10">
               <span className="text-xs text-slate-500 dark:text-teal-200/70 font-bold flex items-center gap-1.5">
                 <Building2 className="w-4 h-4 text-teal-600 dark:text-teal-400" />
-                <span>Untuk: Apoteker RS, Apotek &amp; Dokter Klinisi</span>
+                <span>Untuk: Apoteker, Apotek &amp; Tenaga Kesehatan</span>
               </span>
               <button
                 type="button"
@@ -1731,7 +1731,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                       required
                       value={feedbackRole}
                       onChange={(e) => setFeedbackRole(e.target.value)}
-                      placeholder="misal: Apoteker RSUD / Apotek / Dokter"
+                      placeholder="misal: Apoteker RSUD / Apotek / Tenaga Kesehatan"
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
                     />
                   </div>
@@ -2027,7 +2027,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
               </h2>
 
               <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed font-medium">
-                Wadah kolaborasi 7.000+ Apoteker, Dokter Spesialis/Umum, dan Mahasiswa Farmasi seluruh Indonesia. Bedah kasus polifarmasi kompleks, telaah resep dokter, hingga kupas tuntas soal UKMPPAI.
+                Wadah kolaborasi 7.000+ Apoteker, Tenaga Kesehatan, dan Mahasiswa Farmasi seluruh Indonesia. Bedah kasus polifarmasi kompleks, telaah resep faskes, hingga kupas tuntas soal UKMPPAI.
               </p>
             </div>
 
