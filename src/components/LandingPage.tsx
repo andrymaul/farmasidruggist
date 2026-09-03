@@ -1975,7 +1975,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
               </h2>
 
               <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed font-medium">
-                Wadah kolaborasi ribuan Apoteker, Dokter Spesialis/Umum, dan Mahasiswa Farmasi seluruh Indonesia. Bedah kasus polifarmasi kompleks, telaah resep dokter, hingga kupas tuntas soal UKMPPAI.
+                Wadah kolaborasi 7.000+ Apoteker, Dokter Spesialis/Umum, dan Mahasiswa Farmasi seluruh Indonesia. Bedah kasus polifarmasi kompleks, telaah resep dokter, hingga kupas tuntas soal UKMPPAI.
               </p>
 
               <div className="space-y-2 pt-2 text-xs text-sky-100">
@@ -2002,7 +2002,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 className="w-full py-3.5 px-5 bg-[#229ED9] hover:bg-[#1b8bc2] text-white font-black text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] border border-sky-200/40 font-outfit"
               >
                 <Send className="w-4 h-4 fill-white" />
-                <span>Join Grup Telegram (3.800+ Sejawat) →</span>
+                <span>Join Grup Telegram (7.000+ Sejawat) →</span>
               </a>
               <p className="text-[10px] text-center text-teal-200/70">
                 🔒 Diskusi ilmiah, teratur, dan bebas spam iklan komersial.
