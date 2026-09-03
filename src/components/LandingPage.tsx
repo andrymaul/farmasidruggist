@@ -73,6 +73,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const [activePlaygroundTab, setActivePlaygroundTab] = useState<'ddi' | 'srq20'>('ddi');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
+  // Feedback Questionnaire to WhatsApp State
+  const [feedbackName, setFeedbackName] = useState('');
+  const [feedbackRole, setFeedbackRole] = useState('');
+  const [feedbackCity, setFeedbackCity] = useState('');
+  const [feedbackRating, setFeedbackRating] = useState(5);
+  const [feedbackModule, setFeedbackModule] = useState('Multi-Consensus DDI (Interaksi Obat)');
+  const [feedbackMessage, setFeedbackMessage] = useState('');
+
+  const handleSendFeedbackWhatsApp = (e: React.FormEvent) => {
+    e.preventDefault();
+    const stars = '⭐'.repeat(feedbackRating);
+    const message = `Halo Admin FarmasiDruggist, saya ingin menyampaikan testimoni / saran pengguna:
+
+👤 *Nama:* ${feedbackName.trim() || 'Rekan Sejawat'}
+🏥 *Profesi/Faskes:* ${feedbackRole.trim() || '-'}
+📍 *Kota:* ${feedbackCity.trim() || '-'}
+⭐ *Rating Kepuasan:* ${stars} (${feedbackRating}/5)
+🔬 *Modul Favorit:* ${feedbackModule}
+💬 *Ulasan, Masukan & Saran:*
+"${feedbackMessage.trim() || 'Aplikasi FarmasiDruggist sangat membantu praktik kefarmasian klinis.'}"`;
+
+    const encoded = encodeURIComponent(message);
+    window.open(`https://wa.me/6287778402266?text=${encoded}`, '_blank');
+  };
+
   // Animated rotating placeholder for hero search bar
   const samplePlaceholders = useMemo(() => [
     'Cari Warfarin, Simvastatin, Clopidogrel...',
@@ -1509,218 +1534,254 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       </section>
 
       {/* =========================================================================
-          STAGE 4: CLINICAL TESTIMONIALS & USER REVIEWS
+          STAGE 4: PUSAT SUARA PENGGUNA & KUISIONER FEEDBACK WHATSAPP (0877-7840-2266)
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-300 text-xs font-black shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-            <span>Testimoni Rekan Sejawat • Kepuasan Klinis 99.4%</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-300 text-xs font-black shadow-xs">
+            <Smartphone className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <span>Pusat Suara Pengguna &amp; Partisipasi Sejawat</span>
           </div>
 
           <h2 className="text-2xl sm:text-4xl font-black text-[#082a24] dark:text-white font-outfit tracking-tight">
-            Dipercaya oleh Praktisi Medis &amp; Farmasi di Seluruh Indonesia
+            Bagikan Pengalaman, Ulasan &amp; Usulan Fitur Anda
           </h2>
           
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
-            Dengarkan bagaimana FarmasiDruggist mengubah kecepatan telaah resep, keamanan peracikan, dan ketepatan keputusan klinis mereka sehari-hari.
+            Platform ini terus berkembang berkat masukan riil rekan sejawat di lapangan. Sampaikan testimoni praktik Anda, kritik konstruktif, atau usulan fitur baru langsung ke WhatsApp pengembang kami.
           </p>
         </div>
 
-        {/* 4 Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          
-          {/* Testimonial 1 */}
-          <div className="bg-white dark:bg-[#061d23] rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-teal-500/25 shadow-md hover:shadow-xl hover:border-teal-400 transition-all duration-300 flex flex-col justify-between space-y-4 group">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 text-amber-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400" />
-                  ))}
+        {/* 2-Column Split: Value Proposition on Left, Interactive Questionnaire Form on Right */}
+        <div className="bg-white dark:bg-[#061d23] rounded-3xl border border-slate-200/90 dark:border-teal-500/25 shadow-xl overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12">
+            
+            {/* Left Column (5 Cols): Why Your Voice Matters & Direct Contact */}
+            <div className="lg:col-span-5 bg-gradient-to-br from-[#04151a] via-[#07252c] to-[#09323c] text-white p-6 sm:p-10 flex flex-col justify-between space-y-6">
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-black uppercase tracking-wider font-outfit border border-emerald-500/30">
+                    Transparansi &amp; Kolaborasi
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black font-outfit text-white">
+                    Suara Rekan Sejawat Adalah Nyawa Perkembangan Kami
+                  </h3>
+                  <p className="text-xs sm:text-sm text-teal-100/80 leading-relaxed font-medium">
+                    Kami percaya perangkat lunak klinis terbaik tidak lahir di laboratorium tertutup, melainkan dari meja apotek, ruang peracikan, dan bangsal rawat inap nyata.
+                  </p>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950/80 text-teal-700 dark:text-teal-300 text-[10px] font-black border border-teal-200 dark:border-teal-800">
-                  Apotek Komunitas
-                </span>
-              </div>
 
-              <div className="relative">
-                <Quote className="w-6 h-6 text-teal-500/20 absolute -top-2 -left-1" />
-                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium pl-6">
-                  "Kalkulator BUD USP &lt;795&gt; dan generator etiket WhatsApp-nya sangat membantu edukasi pasien kronis kami. Waktu telaah resep dan peracikan puyer anak jadi jauh lebih cepat, akurat, dan pasien sangat mengapresiasi pesan pengingat minum obat yang rapi."
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-teal-600 text-white font-black flex items-center justify-center text-sm shadow-md font-outfit">
-                  RP
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white font-outfit">
-                      apt. Rian Pratama, S.Farm.
-                    </h4>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 shrink-0" />
+                <div className="space-y-3.5 text-xs">
+                  <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/5 border border-white/10">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-white">100% Dibaca Tim Pengembang</h4>
+                      <p className="text-[11px] text-teal-200/70 mt-0.5">Setiap pesan yang Anda kirim ke WhatsApp langsung ditelaah oleh tim farmasi &amp; engineering kami.</p>
+                    </div>
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Apoteker Penanggung Jawab • Bandung</p>
-                </div>
-              </div>
-              <span className="hidden sm:inline text-[10px] px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono font-bold">
-                Hemat waktu 65%
-              </span>
-            </div>
-          </div>
 
-          {/* Testimonial 2 */}
-          <div className="bg-white dark:bg-[#061d23] rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-teal-500/25 shadow-md hover:shadow-xl hover:border-cyan-400 transition-all duration-300 flex flex-col justify-between space-y-4 group">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 text-amber-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400" />
-                  ))}
-                </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-cyan-50 dark:bg-cyan-950/80 text-cyan-700 dark:text-cyan-300 text-[10px] font-black border border-cyan-200 dark:border-cyan-800">
-                  Dokter Spesialis Anak
-                </span>
-              </div>
-
-              <div className="relative">
-                <Quote className="w-6 h-6 text-cyan-500/20 absolute -top-2 -left-1" />
-                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium pl-6">
-                  "Skrining kompatibilitas IV ICU dan kalkulator dosis puyer anak berdasarkan BSA sangat krusial di ruang rawat inap anak. Interaksi fatal dan risiko presipitasi cairan infus ganda bisa langsung dicegah sebelum perawat memberikan obat."
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-cyan-600 text-white font-black flex items-center justify-center text-sm shadow-md font-outfit">
-                  AK
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white font-outfit">
-                      dr. Anita Kusuma, Sp.A
-                    </h4>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                  <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/5 border border-white/10">
+                    <Sparkles className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-white">Prioritas Roadmap Fitur Baru</h4>
+                      <p className="text-[11px] text-teal-200/70 mt-0.5">Butuh algoritma obat baru, template etiket khusus, atau kalkulator klinis tertentu? Usulkan di sini.</p>
+                    </div>
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Dokter Spesialis Anak RS Swasta • Jakarta Selatan</p>
-                </div>
-              </div>
-              <span className="hidden sm:inline text-[10px] px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono font-bold">
-                100% Presisi Injeksi
-              </span>
-            </div>
-          </div>
 
-          {/* Testimonial 3 */}
-          <div className="bg-white dark:bg-[#061d23] rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-teal-500/25 shadow-md hover:shadow-xl hover:border-indigo-400 transition-all duration-300 flex flex-col justify-between space-y-4 group">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 text-amber-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400" />
-                  ))}
-                </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 text-[10px] font-black border border-indigo-200 dark:border-indigo-800">
-                  Farmasi Klinis RSUD
-                </span>
-              </div>
-
-              <div className="relative">
-                <Quote className="w-6 h-6 text-indigo-500/20 absolute -top-2 -left-1" />
-                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium pl-6">
-                  "Konsensus DDInter 6 database global dan evaluasi polifarmasi Beers 2023 sangat memangkas beban kerja apoteker klinis saat ronde bangsal. Rekomendasi deprescribing untuk pasien geriatri kini jauh lebih mudah diterima dan diapresiasi oleh DPJP."
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-indigo-600 text-white font-black flex items-center justify-center text-sm shadow-md font-outfit">
-                  DK
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white font-outfit">
-                      apt. Dedi Kurniawan, M.Clin.Pharm.
-                    </h4>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                  <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/5 border border-white/10">
+                    <ShieldCheck className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-white">Testimoni Asli &amp; Terverifikasi</h4>
+                      <p className="text-[11px] text-teal-200/70 mt-0.5">Ulasan autentik dari Anda akan kami tampilkan dengan izin sebagai rujukan kredibel bagi sejawat lain.</p>
+                    </div>
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Kepala Sub-Instalasi Farmasi Klinis RSUD • Surabaya</p>
                 </div>
               </div>
-              <span className="hidden sm:inline text-[10px] px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono font-bold">
-                Ronde Bangsal Efisien
-              </span>
-            </div>
-          </div>
 
-          {/* Testimonial 4 */}
-          <div className="bg-white dark:bg-[#061d23] rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-teal-500/25 shadow-md hover:shadow-xl hover:border-amber-400 transition-all duration-300 flex flex-col justify-between space-y-4 group">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 text-amber-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400" />
-                  ))}
+              <div className="pt-6 border-t border-teal-500/20 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-teal-200">
+                  <Smartphone className="w-4 h-4 text-emerald-400" />
+                  <span>WhatsApp Layanan Admin Langsung:</span>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 text-[10px] font-black border border-amber-200 dark:border-amber-800">
-                  Lulusan UKMPPAI
-                </span>
-              </div>
-
-              <div className="relative">
-                <Quote className="w-6 h-6 text-amber-500/20 absolute -top-2 -left-1" />
-                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium pl-6">
-                  "Pusat Belajar Farmasi di platform ini luar biasa lengkap. Bank soal vignette CBT 4 domain dan blueprint OSCE-nya sangat mirip dengan ujian aslinya. Pembahasannya runut dan berlandaskan regulasi Kemenkes terbaru."
-                </p>
+                <a
+                  href="https://wa.me/6287778402266"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lg font-black text-emerald-300 hover:text-emerald-200 font-mono tracking-wide hover:underline block"
+                >
+                  +62 877-7840-2266
+                </a>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-amber-600 text-white font-black flex items-center justify-center text-sm shadow-md font-outfit">
-                  FR
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white font-outfit">
-                      Fajar Ramadhan, S.Farm.
-                    </h4>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+            {/* Right Column (7 Cols): Interactive Form */}
+            <div className="lg:col-span-7 p-6 sm:p-10">
+              <form onSubmit={handleSendFeedbackWhatsApp} className="space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                  <div>
+                    <h3 className="text-base font-black text-[#082a24] dark:text-white font-outfit">
+                      Formulir Kuisioner &amp; Ulasan Pengguna
+                    </h3>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">Isi formulir ringkas di bawah ini untuk mengirim ulasan langsung ke WhatsApp Admin.</p>
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Peraih Nilai Tertinggi Tryout CBT UKMPPAI • Yogyakarta</p>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-mono font-bold">
+                    WhatsApp 1-Klik
+                  </span>
                 </div>
-              </div>
-              <span className="hidden sm:inline text-[10px] px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono font-bold">
-                Lulus First-Taker
-              </span>
-            </div>
-          </div>
 
+                {/* Grid Inputs: Nama & Profesi */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="space-y-1">
+                    <label className="text-xs font-black text-slate-700 dark:text-slate-300 font-outfit">
+                      Nama &amp; Gelar <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={feedbackName}
+                      onChange={(e) => setFeedbackName(e.target.value)}
+                      placeholder="misal: apt. Budi Santoso, S.Farm."
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#07242c] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-black text-slate-700 dark:text-slate-300 font-outfit">
+                      Profesi / Tempat Tugas <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={feedbackRole}
+                      onChange={(e) => setFeedbackRole(e.target.value)}
+                      placeholder="misal: Apoteker RSUD / Apotek / Dokter"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#07242c] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
+                    />
+                  </div>
+                </div>
+
+                {/* Grid Inputs: Kota & Modul Favorit */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="space-y-1">
+                    <label className="text-xs font-black text-slate-700 dark:text-slate-300 font-outfit">
+                      Kota / Daerah
+                    </label>
+                    <input
+                      type="text"
+                      value={feedbackCity}
+                      onChange={(e) => setFeedbackCity(e.target.value)}
+                      placeholder="misal: Bandung / Surabaya / Medan"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#07242c] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-black text-slate-700 dark:text-slate-300 font-outfit">
+                      Modul yang Dinilai
+                    </label>
+                    <select
+                      value={feedbackModule}
+                      onChange={(e) => setFeedbackModule(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#07242c] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium cursor-pointer"
+                    >
+                      <option value="Multi-Consensus DDI (Interaksi Obat)">Multi-Consensus DDI (Interaksi Obat)</option>
+                      <option value="Kalkulator BUD Racikan USP <795>">Kalkulator BUD Racikan USP &lt;795&gt;</option>
+                      <option value="Kompatibilitas Injeksi IV ICU (ASHP)">Kompatibilitas Injeksi IV ICU (ASHP)</option>
+                      <option value="Keamanan Bumil & Busui (FDA PLLR & Hale)">Keamanan Bumil &amp; Busui (FDA PLLR &amp; Hale)</option>
+                      <option value="Evaluasi Geriatri Beers 2023">Evaluasi Geriatri Beers 2023</option>
+                      <option value="Generator Kartu PIO WhatsApp">Generator Kartu PIO WhatsApp</option>
+                      <option value="Pusat Belajar UKMPPAI & OSCE">Pusat Belajar UKMPPAI &amp; OSCE</option>
+                      <option value="Lainnya / Usulan Modul Baru">Lainnya / Usulan Modul Baru</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Rating Bintang Interaktif */}
+                <div className="space-y-1.5 p-3 rounded-2xl bg-amber-50/70 dark:bg-[#07242c]/60 border border-amber-200/80 dark:border-amber-900/40">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-black text-slate-800 dark:text-slate-200 font-outfit">
+                      Rating Kepuasan Anda terhadap Platform Ini:
+                    </span>
+                    <span className="text-xs font-black text-amber-600 dark:text-amber-400 font-mono">
+                      {feedbackRating} dari 5 Bintang
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setFeedbackRating(star)}
+                        className="p-1 cursor-pointer transition-transform hover:scale-125 focus:outline-none"
+                      >
+                        <Star
+                          className={`w-6 h-6 ${
+                            star <= feedbackRating
+                              ? 'fill-amber-400 text-amber-400'
+                              : 'fill-slate-200 dark:fill-slate-700 text-slate-300 dark:text-slate-600'
+                          }`}
+                        />
+                      </button>
+                    ))}
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 ml-2 font-medium">
+                      {feedbackRating === 5 && 'Sangat Memuaskan & Bermanfaat! 🎉'}
+                      {feedbackRating === 4 && 'Bagus & Bermanfaat 👍'}
+                      {feedbackRating === 3 && 'Cukup, Perlu Peningkatan 🙂'}
+                      {feedbackRating <= 2 && 'Perlu Banyak Pembenahan ✍️'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Pesan & Saran */}
+                <div className="space-y-1">
+                  <label className="text-xs font-black text-slate-700 dark:text-slate-300 font-outfit">
+                    Ulasan Pengalaman, Kritik Membangun, atau Usulan Fitur Baru <span className="text-rose-500">*</span>
+                  </label>
+                  <textarea
+                    rows={3}
+                    required
+                    value={feedbackMessage}
+                    onChange={(e) => setFeedbackMessage(e.target.value)}
+                    placeholder="Ceritakan pengalaman Anda saat mencoba aplikasi ini, modul apa yang paling membantu kerja Anda, atau kendala apa yang Anda temukan..."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#07242c] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium leading-relaxed resize-none"
+                  />
+                </div>
+
+                {/* Submit Action */}
+                <button
+                  type="submit"
+                  className="w-full py-3.5 px-6 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm rounded-xl shadow-lg shadow-emerald-900/30 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01] active:scale-98 font-outfit border border-emerald-400/40"
+                >
+                  <Send className="w-4 h-4 fill-white" />
+                  <span>Kirim Ulasan &amp; Saran ke WhatsApp (+62 877-7840-2266) →</span>
+                </button>
+
+                <p className="text-[10px] text-center text-slate-400 dark:text-slate-500">
+                  🔒 WhatsApp akan terbuka langsung di ponsel atau browser Anda tanpa perantara.
+                </p>
+              </form>
+            </div>
+
+          </div>
         </div>
 
         {/* Social Proof Strip */}
         <div className="p-4 rounded-2xl bg-slate-100 dark:bg-[#07242c] border border-slate-200 dark:border-teal-500/20 flex flex-wrap items-center justify-around gap-4 text-center">
           <div>
-            <span className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">⭐ 4.98 / 5.0</span>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Skor Kepuasan Sejawat</p>
+            <span className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">⭐ 100% Otentik</span>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Ulasan Sejawat Nyata</p>
           </div>
           <div className="hidden sm:block w-px h-8 bg-slate-300 dark:bg-slate-700" />
           <div>
-            <span className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">3.800+</span>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Apoteker &amp; Dokter Aktif</p>
+            <span className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">0877-7840-2266</span>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">WhatsApp Layanan Langsung</p>
           </div>
           <div className="hidden sm:block w-px h-8 bg-slate-300 dark:bg-slate-700" />
           <div>
-            <span className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">140.000+</span>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Telaah Resep Selesai</p>
+            <span className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">Respon Cepat</span>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Dukungan Tim Teknis Klinis</p>
           </div>
           <div className="hidden sm:block w-px h-8 bg-slate-300 dark:bg-slate-700" />
           <div>
