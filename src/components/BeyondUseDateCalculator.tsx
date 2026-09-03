@@ -274,14 +274,14 @@ export const BeyondUseDateCalculator: React.FC<BeyondUseDateCalculatorProps> = (
         </div>
       </div>
 
-      {/* NAVIGATION SUBTABS */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-200 dark:border-slate-800">
+      {/* NAVIGATION SUBTABS - TEAL MINT & DEEP PINE */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-teal-100 dark:border-teal-950/80">
         <button
           onClick={() => setActiveTab('calculator')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'calculator'
-              ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md shadow-teal-950/40 border border-teal-400/30'
+              : 'bg-white dark:bg-[#071d1a] text-slate-600 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-950/40 border border-slate-200 dark:border-teal-900/30'
           }`}
         >
           <CalendarClock className="w-4 h-4" />
@@ -290,10 +290,10 @@ export const BeyondUseDateCalculator: React.FC<BeyondUseDateCalculatorProps> = (
 
         <button
           onClick={() => setActiveTab('directory')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'directory'
-              ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md shadow-teal-950/40 border border-teal-400/30'
+              : 'bg-white dark:bg-[#071d1a] text-slate-600 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-950/40 border border-slate-200 dark:border-teal-900/30'
           }`}
         >
           <TestTubes className="w-4 h-4" />
@@ -302,10 +302,10 @@ export const BeyondUseDateCalculator: React.FC<BeyondUseDateCalculatorProps> = (
 
         <button
           onClick={() => setActiveTab('matrix')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'matrix'
-              ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md shadow-teal-950/40 border border-teal-400/30'
+              : 'bg-white dark:bg-[#071d1a] text-slate-600 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-950/40 border border-slate-200 dark:border-teal-900/30'
           }`}
         >
           <BookOpen className="w-4 h-4" />
@@ -321,25 +321,25 @@ export const BeyondUseDateCalculator: React.FC<BeyondUseDateCalculatorProps> = (
           {/* Top Form Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left: Input Parameters (7 cols) */}
-            <div className="lg:col-span-7 p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
-                <h3 className="text-base font-black text-slate-900 dark:text-white font-outfit">
+            <div className="lg:col-span-7 p-6 rounded-3xl bg-white dark:bg-[#071d1a] border border-teal-200/80 dark:border-teal-500/25 shadow-sm space-y-4">
+              <div className="border-b border-teal-100 dark:border-teal-950/80 pb-3">
+                <h3 className="text-base font-extrabold text-slate-900 dark:text-white font-outfit">
                   Parameter Peracikan &amp; Sediaan Obat
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                   Pilih bentuk sediaan, masukkan tanggal peracikan, dan tanggal kadaluarsa (ED) bahan baku terdekat.
                 </p>
               </div>
 
               {/* 1. Dosage Form Selector */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block">
+                <label className="text-xs font-bold font-outfit text-slate-700 dark:text-slate-300 block">
                   1. Bentuk Sediaan &amp; Karakteristik Formula:
                 </label>
                 <select
                   value={selectedCategory}
                   onChange={e => setSelectedCategory(e.target.value as DosageFormCategory)}
-                  className="w-full p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500/40"
+                  className="w-full p-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500/40"
                 >
                   <option value="non_aqueous_solid">
                     Puyer / Pulveres / Kapsul / Salep Anhidrat (Maks 180 Hari / 25% ED)

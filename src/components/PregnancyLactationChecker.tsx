@@ -255,14 +255,14 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
         </div>
       </div>
 
-      {/* NAVIGATION SUBTABS */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-200 dark:border-slate-800">
+      {/* NAVIGATION SUBTABS - VELVET PINK & MAGENTA */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-pink-100 dark:border-pink-950/80">
         <button
           onClick={() => setActiveTab('screening')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'screening'
-              ? 'bg-gradient-to-r from-pink-600 to-teal-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md shadow-pink-950/40 border border-pink-400/30'
+              : 'bg-white dark:bg-[#150612] text-slate-600 dark:text-slate-300 hover:bg-pink-50 dark:hover:bg-pink-950/40 border border-slate-200 dark:border-pink-900/30'
           }`}
         >
           <Sparkles className="w-4 h-4" />
@@ -271,10 +271,10 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
 
         <button
           onClick={() => setActiveTab('conditions')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'conditions'
-              ? 'bg-gradient-to-r from-pink-600 to-teal-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md shadow-pink-950/40 border border-pink-400/30'
+              : 'bg-white dark:bg-[#150612] text-slate-600 dark:text-slate-300 hover:bg-pink-50 dark:hover:bg-pink-950/40 border border-slate-200 dark:border-pink-900/30'
           }`}
         >
           <ShieldCheck className="w-4 h-4" />
@@ -283,10 +283,10 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
 
         <button
           onClick={() => setActiveTab('teratogens')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'teratogens'
-              ? 'bg-gradient-to-r from-pink-600 to-teal-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md shadow-pink-950/40 border border-pink-400/30'
+              : 'bg-white dark:bg-[#150612] text-slate-600 dark:text-slate-300 hover:bg-pink-50 dark:hover:bg-pink-950/40 border border-slate-200 dark:border-pink-900/30'
           }`}
         >
           <ShieldAlert className="w-4 h-4" />
@@ -295,10 +295,10 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
 
         <button
           onClick={() => setActiveTab('directory')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'directory'
-              ? 'bg-gradient-to-r from-pink-600 to-teal-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md shadow-pink-950/40 border border-pink-400/30'
+              : 'bg-white dark:bg-[#150612] text-slate-600 dark:text-slate-300 hover:bg-pink-50 dark:hover:bg-pink-950/40 border border-slate-200 dark:border-pink-900/30'
           }`}
         >
           <BookOpen className="w-4 h-4" />
@@ -311,21 +311,21 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
       {/* ========================================================================= */}
       {activeTab === 'screening' && (
         <div className="space-y-6 animate-fade-in">
-          {/* Patient Profile & Trimester Selector */}
-          <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+          {/* Patient Profile & Trimester Selector - Velvet Pink Suite */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#150612] border border-pink-200/80 dark:border-pink-500/25 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-pink-100 dark:border-pink-950/80 pb-3">
               <div>
-                <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-outfit">
+                <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white font-outfit">
                   Pilih Status Fisiologis Kehamilan / Laktasi
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                   Risiko toksisitas obat berbeda secara signifikan antara Trimester 1 (organogenesis), Trimester 2/3 (pertumbuhan & persalinan), dan masa Menyusui.
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleCopySummary}
-                  className="px-3 py-1.5 rounded-xl bg-pink-50 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800 text-xs font-bold flex items-center gap-1.5 hover:bg-pink-100 cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-xl bg-pink-50 dark:bg-pink-950/50 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800 text-xs font-bold font-outfit flex items-center gap-1.5 hover:bg-pink-100 dark:hover:bg-pink-900/40 cursor-pointer transition shadow-2xs"
                 >
                   {copiedSummary ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedSummary ? 'Tersalin!' : 'Salin Laporan WhatsApp'}</span>
@@ -336,57 +336,57 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               <button
                 onClick={() => setPatientTrimester('t1')}
-                className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
+                className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                   patientTrimester === 't1'
-                    ? 'bg-pink-500/10 border-pink-500 text-pink-900 dark:text-pink-200 font-bold shadow-sm'
-                    : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300'
+                    ? 'bg-pink-500/15 border-pink-500 text-pink-950 dark:text-pink-100 font-bold shadow-2xs'
+                    : 'border-slate-200 dark:border-pink-900/30 hover:bg-pink-50/50 dark:hover:bg-pink-950/30 text-slate-700 dark:text-slate-300'
                 }`}
               >
-                <div className="text-xs font-black font-outfit">Trimester 1</div>
-                <div className="text-[11px] text-slate-500">Minggu 1 – 12 (Organogenesis)</div>
+                <div className="text-xs font-extrabold font-outfit">Trimester 1</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Minggu 1 – 12 (Organogenesis)</div>
               </button>
 
               <button
                 onClick={() => setPatientTrimester('t2')}
-                className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
+                className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                   patientTrimester === 't2'
-                    ? 'bg-pink-500/10 border-pink-500 text-pink-900 dark:text-pink-200 font-bold shadow-sm'
-                    : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300'
+                    ? 'bg-pink-500/15 border-pink-500 text-pink-950 dark:text-pink-100 font-bold shadow-2xs'
+                    : 'border-slate-200 dark:border-pink-900/30 hover:bg-pink-50/50 dark:hover:bg-pink-950/30 text-slate-700 dark:text-slate-300'
                 }`}
               >
-                <div className="text-xs font-black font-outfit">Trimester 2</div>
-                <div className="text-[11px] text-slate-500">Minggu 13 – 27 (Maturasi Organ)</div>
+                <div className="text-xs font-extrabold font-outfit">Trimester 2</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Minggu 13 – 27 (Maturasi Organ)</div>
               </button>
 
               <button
                 onClick={() => setPatientTrimester('t3')}
-                className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
+                className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                   patientTrimester === 't3'
-                    ? 'bg-pink-500/10 border-pink-500 text-pink-900 dark:text-pink-200 font-bold shadow-sm'
-                    : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300'
+                    ? 'bg-pink-500/15 border-pink-500 text-pink-950 dark:text-pink-100 font-bold shadow-2xs'
+                    : 'border-slate-200 dark:border-pink-900/30 hover:bg-pink-50/50 dark:hover:bg-pink-950/30 text-slate-700 dark:text-slate-300'
                 }`}
               >
-                <div className="text-xs font-black font-outfit">Trimester 3</div>
-                <div className="text-[11px] text-slate-500">Minggu 28 – 40+ (Persalinan)</div>
+                <div className="text-xs font-extrabold font-outfit">Trimester 3</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Minggu 28 – 40+ (Persalinan)</div>
               </button>
 
               <button
                 onClick={() => setPatientTrimester('lactation')}
-                className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
+                className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                   patientTrimester === 'lactation'
-                    ? 'bg-teal-500/10 border-teal-500 text-teal-900 dark:text-teal-200 font-bold shadow-sm'
-                    : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300'
+                    ? 'bg-pink-500/15 border-pink-500 text-pink-950 dark:text-pink-100 font-bold shadow-2xs'
+                    : 'border-slate-200 dark:border-pink-900/30 hover:bg-pink-50/50 dark:hover:bg-pink-950/30 text-slate-700 dark:text-slate-300'
                 }`}
               >
-                <div className="text-xs font-black font-outfit">Ibu Menyusui (ASI)</div>
-                <div className="text-[11px] text-slate-500">Laktasi & Nilai RID %</div>
+                <div className="text-xs font-extrabold font-outfit">Ibu Menyusui (ASI)</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Laktasi & Nilai RID %</div>
               </button>
             </div>
           </div>
 
           {/* Search & Add Drug to Patient List */}
-          <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-            <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-outfit">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#150612] border border-pink-200/80 dark:border-pink-500/25 shadow-sm space-y-4">
+            <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white font-outfit">
               Daftar Obat Resep Pasien yang Sedang Dievaluasi
             </h3>
 
@@ -397,7 +397,7 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
                 placeholder="Ketik nama obat (misal: Captopril, Metformin, Amoxicillin, Ibuprofen, Simvastatin)..."
                 value={searchQueryScreening}
                 onChange={e => setSearchQueryScreening(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-pink-500/40"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-pink-500/40"
               />
 
               {/* Suggestions Dropdown */}

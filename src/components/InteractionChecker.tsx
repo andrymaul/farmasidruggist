@@ -475,10 +475,10 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
         </div>
       </div>
 
-      {/* Preset Scenarios */}
+      {/* Preset Scenarios - Crimson Rose Safety Suite */}
       <div className="space-y-2">
-        <div className="flex items-center gap-1.5 text-xs font-black text-slate-700 uppercase tracking-wider">
-          <Sparkles className="w-3.5 h-3.5 text-[#0f766e]" />
+        <div className="flex items-center gap-1.5 text-xs font-black font-outfit text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+          <Sparkles className="w-3.5 h-3.5 text-rose-500" />
           <span>Skenario Interaksi Klinis Populer (Uji Cepat):</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
@@ -486,10 +486,10 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             <button
               key={idx}
               onClick={() => applyPreset(preset.drugNames)}
-              className="bg-white hover:bg-teal-50/80 p-3 rounded-xl border border-slate-200 hover:border-teal-400 text-left transition-all group shadow-xs cursor-pointer"
+              className="bg-white dark:bg-[#14060b] hover:bg-rose-50/80 dark:hover:bg-rose-950/40 p-3 rounded-2xl border border-slate-200 dark:border-rose-900/30 hover:border-rose-400 dark:hover:border-rose-700 text-left transition-all group shadow-xs cursor-pointer"
             >
-              <p className="text-xs font-black text-slate-900 group-hover:text-teal-800 transition-colors">{preset.title}</p>
-              <p className="text-[11px] text-teal-700 font-bold">{preset.desc}</p>
+              <p className="text-xs font-black font-outfit text-slate-900 dark:text-white group-hover:text-rose-800 dark:group-hover:text-rose-300 transition-colors">{preset.title}</p>
+              <p className="text-[11px] text-rose-700 dark:text-rose-400 font-bold font-outfit mt-0.5">{preset.desc}</p>
             </button>
           ))}
         </div>
@@ -497,14 +497,14 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
 
       {/* Limit Warning Banner for Free Tier */}
       {limitWarning && (
-        <div className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm animate-in fade-in duration-200">
+        <div className="bg-amber-50 dark:bg-amber-950/40 border-2 border-amber-300 dark:border-amber-700 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm animate-in fade-in duration-200">
           <div className="flex items-center gap-2.5">
             <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
-            <p className="text-xs font-black text-amber-950 leading-relaxed">{limitWarning}</p>
+            <p className="text-xs font-black font-outfit text-amber-950 dark:text-amber-200 leading-relaxed">{limitWarning}</p>
           </div>
           <button
             onClick={onOpenPricingModal}
-            className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-xl shadow-xs transition-all shrink-0 flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black font-outfit text-xs rounded-xl shadow-xs transition-all shrink-0 flex items-center gap-1.5 cursor-pointer"
           >
             <Sparkles className="w-3.5 h-3.5 fill-slate-950" />
             <span>Upgrade ke Pro</span>
@@ -512,30 +512,30 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
         </div>
       )}
 
-      {/* Drug Selector Panel */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200/90 shadow-sm space-y-5">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+      {/* Drug Selector Panel - Rose Crimson Thematic Suite */}
+      <div className="bg-white dark:bg-[#14060b] p-6 rounded-3xl border border-rose-200/80 dark:border-rose-500/25 shadow-sm space-y-5">
+        <div className="flex items-center justify-between border-b border-rose-100 dark:border-rose-950/80 pb-3">
           <div>
-            <h2 className="text-base font-black text-[#082a24]">Daftar Obat Resep Pasien</h2>
-            <p className="text-xs text-slate-500 font-medium">Pilih obat dari katalog atau ketik nama obat apapun untuk ditambahkan ke penapisan.</p>
+            <h2 className="text-base sm:text-lg font-extrabold font-outfit text-slate-900 dark:text-white tracking-tight">Daftar Obat Resep Pasien</h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans">Pilih obat dari katalog atau ketik nama obat apapun untuk ditambahkan ke penapisan.</p>
           </div>
-          <span className="bg-teal-50 text-teal-800 text-xs font-black px-3 py-1 rounded-full border border-teal-200">
+          <span className="bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 text-xs font-black font-outfit px-3.5 py-1 rounded-full border border-rose-200 dark:border-rose-800 shadow-2xs">
             {selectedDrugs.length} Obat Dipilih
           </span>
         </div>
 
         {/* Selected Drugs Chips */}
-        <div className="flex flex-wrap items-center gap-2 min-h-[48px] p-3 bg-slate-50 rounded-xl border border-slate-200">
+        <div className="flex flex-wrap items-center gap-2 min-h-[48px] p-3.5 bg-rose-50/40 dark:bg-rose-950/20 rounded-2xl border border-rose-200/80 dark:border-rose-800/40">
           {selectedDrugs.length > 0 ? (
             selectedDrugs.map((drug) => (
               <div
                 key={drug.id}
-                className="bg-[#0f766e] text-white px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs"
+                className="bg-gradient-to-r from-rose-600 to-red-600 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold font-outfit flex items-center gap-1.5 shadow-md shadow-rose-950/25"
               >
                 <span>{drug.name}</span>
-                <span className="text-[10px] text-teal-200 font-normal">({drug.atcCode || 'Obat'})</span>
+                <span className="text-[10px] text-rose-100 font-normal">({drug.atcCode || 'Obat'})</span>
                 {drug.blackBoxWarning && (
-                  <span className="bg-rose-900/90 text-rose-200 text-[9px] px-1.5 py-0.5 rounded font-black border border-rose-400/40" title="Obat memiliki FDA Boxed Warning (Peringatan Khusus)">
+                  <span className="bg-rose-950 text-rose-200 text-[9px] px-1.5 py-0.5 rounded font-black border border-rose-400/40" title="Obat memiliki FDA Boxed Warning (Peringatan Khusus)">
                     ⚠️ Boxed
                   </span>
                 )}
@@ -549,7 +549,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               </div>
             ))
           ) : (
-            <span className="text-xs text-slate-400 font-medium italic">
+            <span className="text-xs text-slate-400 font-medium italic font-outfit">
               Belum ada obat yang dipilih. Gunakan pencarian di bawah untuk menambahkan minimal 2 obat.
             </span>
           )}
@@ -564,12 +564,12 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Ketik nama obat (misal: Warfarin, Atorvastatin, Ketoconazole, Tacrolimus, Sildenafil)..."
-              className="w-full pl-10 pr-24 py-2.5 text-xs font-bold text-slate-900 bg-white rounded-xl border border-slate-300 focus:outline-none focus:border-teal-600 shadow-2xs"
+              className="w-full pl-10 pr-24 py-2.5 text-xs font-bold font-outfit text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-rose-500 shadow-2xs"
             />
             {searchInput.trim().length > 0 && (
               <button
                 onClick={handleAddCustomDrug}
-                className="absolute right-2 bg-[#0f766e] hover:bg-[#115e59] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors shadow-xs cursor-pointer"
+                className="absolute right-2 bg-rose-600 hover:bg-rose-500 text-white text-[11px] font-bold font-outfit px-3.5 py-1.5 rounded-lg transition-colors shadow-xs cursor-pointer"
               >
                 + Tambah
               </button>
@@ -578,76 +578,47 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
 
           {/* Search Dropdown Suggestions */}
           {searchInput.trim().length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-xl border border-slate-200 z-30 max-h-60 overflow-y-auto divide-y divide-slate-100">
+            <div className="absolute z-20 left-0 right-0 bg-white dark:bg-[#14060b] border border-rose-200 dark:border-rose-800/80 rounded-2xl shadow-xl max-h-60 overflow-y-auto mt-1 p-2 divide-y divide-slate-100 dark:divide-slate-800">
               {searchResults.length > 0 ? (
-                searchResults.map((drug) => {
-                  const matchingBrand = drug.brandNames?.find((b) =>
-                    b.toLowerCase().includes(searchInput.toLowerCase().trim())
-                  );
-
-                  return (
-                    <button
-                      key={drug.id}
-                      onClick={() => handleAddDrug(drug)}
-                      className="w-full p-2.5 text-left hover:bg-teal-50 flex items-center justify-between transition-colors cursor-pointer"
-                    >
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <p className="text-xs font-bold text-slate-900">{drug.name}</p>
-                          {matchingBrand && (
-                            <span className="bg-amber-100 text-amber-900 text-[10px] font-black px-1.5 py-0.2 rounded border border-amber-300">
-                              Merek: {matchingBrand}
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-[11px] text-slate-500 font-medium">
-                          {drug.genericName} • {drug.category}
-                        </p>
-                        {drug.brandNames && drug.brandNames.length > 0 && !matchingBrand && (
-                          <p className="text-[10px] text-teal-800 font-bold truncate max-w-sm">
-                            Merek ID: {drug.brandNames.join(', ')}
-                          </p>
-                        )}
-                      </div>
-                      <span className="bg-[#0f766e] text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1 shrink-0">
-                        <Plus className="w-3 h-3" /> Tambah
-                      </span>
-                    </button>
-                  );
-                })
-              ) : null}
-
-              {/* Direct add trigger option */}
-              <button
-                onClick={handleAddCustomDrug}
-                className="w-full p-3 text-left bg-teal-50 hover:bg-teal-100 transition-colors flex items-center justify-between text-teal-900 cursor-pointer"
-              >
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-teal-700" />
-                  <div>
-                    <p className="text-xs font-bold">Tambah "{searchInput}" ke Analisis Interaksi</p>
-                    <p className="text-[10px] text-teal-700 font-medium">Ambil parameter & mekanisme klinis langsung</p>
-                  </div>
+                searchResults.map((d) => (
+                  <button
+                    key={d.id}
+                    onClick={() => handleAddDrug(d)}
+                    className="w-full text-left px-3 py-2 hover:bg-rose-50/80 dark:hover:bg-rose-950/50 rounded-xl flex items-center justify-between transition cursor-pointer"
+                  >
+                    <div>
+                      <p className="text-xs font-black font-outfit text-slate-900 dark:text-white">{d.name}</p>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium font-outfit">{d.genericName} • {d.category}</p>
+                    </div>
+                    <span className="text-[11px] font-bold font-outfit text-rose-600 dark:text-rose-400">+ Pilih</span>
+                  </button>
+                ))
+              ) : (
+                <div className="p-3 text-center">
+                  <p className="text-xs text-slate-500 font-outfit">Obat tidak ada di katalog cepat.</p>
+                  <button
+                    onClick={handleAddCustomDrug}
+                    className="mt-1 text-xs font-black font-outfit text-rose-600 hover:underline cursor-pointer"
+                  >
+                    + Tetap Tambahkan "{searchInput}" sebagai Obat Kustom
+                  </button>
                 </div>
-                <span className="bg-[#0f766e] text-white text-xs font-bold px-3 py-1 rounded-lg">
-                  + Tambah Obat
-                </span>
-              </button>
+              )}
             </div>
           )}
         </div>
 
         {/* Comorbidity / Patient Disease Conditions Selector */}
-        <div className="bg-slate-50 dark:bg-slate-900/60 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+        <div className="bg-slate-50 dark:bg-[#0c0407] p-4 sm:p-5 rounded-2xl border border-rose-100 dark:border-rose-950/60 space-y-3">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <span className="p-1.5 rounded-lg bg-teal-100 dark:bg-teal-900/60 text-teal-800 dark:text-teal-200">
+              <span className="p-1.5 rounded-lg bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300">
                 <Stethoscope className="w-4 h-4" />
               </span>
               <div>
-                <h4 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+                <h4 className="text-xs font-black font-outfit text-slate-900 dark:text-white flex items-center gap-1.5">
                   <span>Riwayat Komorbiditas & Penyakit Pasien</span>
-                  <span className="text-[10px] text-teal-700 dark:text-teal-300 font-bold bg-teal-50 dark:bg-teal-950 px-2 py-0.5 rounded-md border border-teal-200 dark:border-teal-800">
+                  <span className="text-[10px] text-rose-700 dark:text-rose-300 font-bold font-outfit bg-rose-50 dark:bg-rose-950 px-2 py-0.5 rounded-md border border-rose-200 dark:border-rose-800">
                     Opsional / Skrining Kontraindikasi
                   </span>
                 </h4>
@@ -660,7 +631,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             {selectedDiseases.length > 0 && (
               <button
                 onClick={handleClearDiseases}
-                className="text-[11px] font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer"
+                className="text-[11px] font-bold font-outfit text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
                 <span>Reset ({selectedDiseases.length})</span>
@@ -676,10 +647,10 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                 <button
                   key={dis.id}
                   onClick={() => handleToggleDisease(dis.name)}
-                  className={`text-xs font-bold px-3 py-1.5 rounded-xl border transition-all flex items-center gap-1.5 cursor-pointer ${
+                  className={`text-xs font-bold font-outfit px-3 py-1.5 rounded-xl border transition-all flex items-center gap-1.5 cursor-pointer ${
                     isSelected
                       ? 'bg-rose-600 text-white border-rose-700 shadow-xs scale-[1.02]'
-                      : 'bg-white dark:bg-[#071c21] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-teal-500 hover:text-teal-700'
+                      : 'bg-white dark:bg-[#14060b] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-rose-400 hover:text-rose-700'
                   }`}
                 >
                   <span>{dis.icon}</span>
@@ -695,7 +666,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       {/* Analysis Output */}
       {selectedDrugs.length >= 1 ? (
         <div className="space-y-5">
-          
           {/* Risk Banner - Hospital EMR Standard Clinical Severity Palette */}
           <div className={`p-5 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-md ${
             highestSeverity === 'Major'

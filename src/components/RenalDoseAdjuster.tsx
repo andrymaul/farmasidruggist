@@ -33,7 +33,8 @@ import {
   ChevronDown,
   ChevronUp,
   Lightbulb,
-  ShieldCheck
+  ShieldCheck,
+  Droplets
 } from 'lucide-react';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { PediatricCompoundingCalculator } from './PediatricCompoundingCalculator';
@@ -807,27 +808,27 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
           </div>
         </div>
 
-        {/* Full-width Responsive 9-Tab Switcher Menu */}
-        <div className="bg-slate-950/90 p-2 rounded-2xl border border-slate-800 shadow-inner relative z-10">
+        {/* Full-width Responsive 9-Tab Switcher Menu - Indigo & Violet Medical Suite */}
+        <div className="bg-slate-950/90 p-2 rounded-2xl border border-indigo-950/80 shadow-inner relative z-10">
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
             <button
               onClick={() => setActiveTab('renal')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold font-outfit transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
                 activeTab === 'renal'
-                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
-                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-950/40 border border-indigo-400/30'
+                  : 'text-slate-400 hover:text-indigo-200 hover:bg-indigo-950/40'
               }`}
             >
-              <Activity className="w-4 h-4 text-teal-400" />
+              <Activity className="w-4 h-4 text-indigo-400" />
               <span>Dosis Ginjal</span>
             </button>
 
             <button
               onClick={() => setActiveTab('hepatic')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold font-outfit transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
                 activeTab === 'hepatic'
-                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
-                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-950/40 border border-indigo-400/30'
+                  : 'text-slate-400 hover:text-indigo-200 hover:bg-indigo-950/40'
               }`}
             >
               <HeartPulse className="w-4 h-4 text-rose-400" />
@@ -836,10 +837,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
             <button
               onClick={() => setActiveTab('pediatric')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold font-outfit transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
                 activeTab === 'pediatric'
-                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
-                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-950/40 border border-indigo-400/30'
+                  : 'text-slate-400 hover:text-indigo-200 hover:bg-indigo-950/40'
               }`}
             >
               <Baby className="w-4 h-4 text-emerald-400" />
@@ -848,10 +849,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
             <button
               onClick={() => setActiveTab('compounding')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold font-outfit transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
                 activeTab === 'compounding'
-                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
-                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-950/40 border border-indigo-400/30'
+                  : 'text-slate-400 hover:text-indigo-200 hover:bg-indigo-950/40'
               }`}
             >
               <FlaskConical className="w-4 h-4 text-cyan-400" />
@@ -860,10 +861,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
             <button
               onClick={() => setActiveTab('syringe-pump')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold font-outfit transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
                 activeTab === 'syringe-pump'
-                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
-                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-950/40 border border-indigo-400/30'
+                  : 'text-slate-400 hover:text-indigo-200 hover:bg-indigo-950/40'
               }`}
             >
               <Syringe className="w-4 h-4 text-sky-400" />
@@ -872,10 +873,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
             <button
               onClick={() => setActiveTab('opioid')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold font-outfit transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
                 activeTab === 'opioid'
-                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
-                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-950/40 border border-indigo-400/30'
+                  : 'text-slate-400 hover:text-indigo-200 hover:bg-indigo-950/40'
               }`}
             >
               <Pill className="w-4 h-4 text-amber-400" />
@@ -884,10 +885,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
             <button
               onClick={() => setActiveTab('ibw-bmi')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold font-outfit transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
                 activeTab === 'ibw-bmi'
-                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
-                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-950/40 border border-indigo-400/30'
+                  : 'text-slate-400 hover:text-indigo-200 hover:bg-indigo-950/40'
               }`}
             >
               <Scale className="w-4 h-4 text-indigo-400" />
@@ -896,10 +897,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
             <button
               onClick={() => setActiveTab('oxygen')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold font-outfit transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
                 activeTab === 'oxygen'
-                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
-                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-950/40 border border-indigo-400/30'
+                  : 'text-slate-400 hover:text-indigo-200 hover:bg-indigo-950/40'
               }`}
             >
               <Wind className="w-4 h-4 text-blue-400" />
@@ -908,10 +909,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
             <button
               onClick={() => setActiveTab('clinical-scores')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold font-outfit transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap ${
                 activeTab === 'clinical-scores'
-                  ? 'bg-[#0f766e] text-white shadow-md ring-1 ring-teal-400/40'
-                  : 'text-slate-400 hover:text-white hover:bg-[#0e3742]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-950/40 border border-indigo-400/30'
+                  : 'text-slate-400 hover:text-indigo-200 hover:bg-indigo-950/40'
               }`}
             >
               <Stethoscope className="w-4 h-4 text-fuchsia-400" />
@@ -931,10 +932,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
             title="Rumus Cockcroft-Gault (CrCl) & Bedside Schwartz (Pediatrik)"
             badge="Klirens Ginjal"
             category="Penyesuaian Dosis Renal"
-            theme="teal"
+            theme="indigo"
             formulaDisplay={
               <div className="space-y-1">
-                <p className="text-teal-300 font-bold text-xs">CrCl (mL/min) = [(140 - Usia) × Berat Badan (kg)] / [72 × Serum Kreatinin (mg/dL)]</p>
+                <p className="text-indigo-300 font-bold text-xs">CrCl (mL/min) = [(140 - Usia) × Berat Badan (kg)] / [72 × Serum Kreatinin (mg/dL)]</p>
                 <p className="text-slate-300 text-[11px]">* Kalikan faktor 0.85 untuk pasien Wanita (massa otot lebih rendah)</p>
               </div>
             }
@@ -972,24 +973,24 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
               <div className="space-y-3 text-xs">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Jenis Kelamin Pasien:</label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Jenis Kelamin Pasien:</label>
+                  <div className="grid grid-cols-2 gap-2 font-outfit">
                     <button
                       onClick={() => setRenalGender('male')}
-                      className={`py-2 rounded-xl font-bold border transition-all ${
+                      className={`py-2 rounded-xl font-bold font-outfit border transition-all cursor-pointer ${
                         renalGender === 'male' 
-                          ? 'bg-teal-600 text-white border-teal-600 shadow-xs' 
-                          : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                          ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-indigo-500 shadow-md shadow-indigo-950/30' 
+                          : 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100'
                       }`}
                     >
                       Laki-Laki (Male)
                     </button>
                     <button
                       onClick={() => setRenalGender('female')}
-                      className={`py-2 rounded-xl font-bold border transition-all ${
+                      className={`py-2 rounded-xl font-bold font-outfit border transition-all cursor-pointer ${
                         renalGender === 'female' 
-                          ? 'bg-teal-600 text-white border-teal-600 shadow-xs' 
-                          : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                          ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-indigo-500 shadow-md shadow-indigo-950/30' 
+                          : 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100'
                       }`}
                     >
                       Wanita (Female x0.85)
@@ -997,59 +998,59 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3 font-outfit">
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Usia (Tahun):</label>
+                    <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Usia (Tahun):</label>
                     <input
                       type="number"
                       value={renalAge}
                       onChange={(e) => setRenalAge(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none font-outfit"
                     />
                   </div>
 
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Berat Badan (kg):</label>
+                    <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Berat Badan (kg):</label>
                     <input
                       type="number"
                       value={renalWeight}
                       onChange={(e) => setRenalWeight(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none font-outfit"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">Serum Kreatinin (mg/dL):</label>
+                <div className="font-outfit">
+                  <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Serum Kreatinin (mg/dL):</label>
                   <input
                     type="number"
                     step="0.1"
                     value={renalScr}
                     onChange={(e) => setRenalScr(Number(e.target.value))}
-                    className="w-full px-3 py-2 bg-teal-50 border border-teal-300 rounded-xl text-sm font-black text-teal-950 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-300 dark:border-indigo-800 rounded-xl text-sm font-black text-indigo-950 dark:text-indigo-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none font-outfit"
                   />
-                  <p className="text-[10px] text-slate-400 mt-1">Nilai normal rata-rata: 0.6 - 1.2 mg/dL</p>
+                  <p className="text-[10px] text-slate-400 mt-1 font-medium font-outfit">Nilai normal rata-rata: 0.6 - 1.2 mg/dL</p>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-7 space-y-4">
-              <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 text-white space-y-4 shadow-xl border border-slate-800">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <span className="text-xs font-bold text-teal-300">HASIL ESTIMASI ESTIMASI KLINIK</span>
-                  <span className="text-[10px] text-slate-400">Formula Cockcroft-Gault</span>
+            <div className="lg:col-span-7 space-y-4 font-outfit">
+              <div className="bg-gradient-to-br from-[#080c26] via-[#10194a] to-[#070b22] rounded-3xl p-6 text-white space-y-4 shadow-xl border border-indigo-500/30 font-outfit">
+                <div className="flex items-center justify-between border-b border-indigo-500/20 pb-3">
+                  <span className="text-xs font-black text-indigo-300 uppercase tracking-wider font-outfit">HASIL ESTIMASI KLINIK</span>
+                  <span className="text-[10px] text-indigo-200/70 font-semibold font-outfit">Formula Cockcroft-Gault</span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 space-y-1">
-                    <p className="text-[10px] text-slate-400 uppercase font-bold">Klirens Kreatinin (CrCl):</p>
-                    <p className="text-3xl font-black text-teal-400">{crClValue} <span className="text-sm font-normal text-slate-300">mL/min</span></p>
-                    <p className="text-[10px] text-slate-400">Dasar penyesuaian dosis obat</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-outfit">
+                  <div className="bg-slate-900/80 p-4 rounded-2xl border border-indigo-900/50 space-y-1">
+                    <p className="text-[10px] text-indigo-200/70 uppercase font-bold font-outfit">Klirens Kreatinin (CrCl):</p>
+                    <p className="text-3xl font-black text-cyan-300 font-outfit">{crClValue} <span className="text-sm font-normal text-slate-300">mL/min</span></p>
+                    <p className="text-[10px] text-slate-400 font-outfit">Dasar penyesuaian dosis obat</p>
                   </div>
 
-                  <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 space-y-1">
-                    <p className="text-[10px] text-slate-400 uppercase font-bold">Stadium Penurunan Fungsi Ginjal (CKD):</p>
-                    <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-bold border mt-1 ${ckdInfo.color}`}>
+                  <div className="bg-slate-900/80 p-4 rounded-2xl border border-indigo-900/50 space-y-1">
+                    <p className="text-[10px] text-indigo-200/70 uppercase font-bold font-outfit">Stadium Penurunan Fungsi Ginjal (CKD):</p>
+                    <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-bold border mt-1 font-outfit ${ckdInfo.color}`}>
                       {ckdInfo.stage}
                     </span>
                   </div>
@@ -1057,10 +1058,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
               </div>
 
               {/* Renal Drug Rules Search */}
-              <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-md space-y-3">
+              <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-md space-y-3 font-outfit">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                    <ShieldAlert className="w-4 h-4 text-teal-600" />
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-outfit">
+                    <ShieldAlert className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                     Panduan Dosis Obat Ginjal (CrCl Pasien: {crClValue} mL/min)
                   </h3>
                 </div>
@@ -1072,7 +1073,7 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
                     value={searchRenalDrug}
                     onChange={(e) => setSearchRenalDrug(e.target.value)}
                     placeholder="Cari obat penyesuaian ginjal (Metformin, Allopurinol, Ciprofloxacin...)"
-                    className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-teal-500"
+                    className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 font-outfit"
                   />
                 </div>
 
@@ -1259,40 +1260,40 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
             </div>
 
             {/* Results Panel */}
-            <div className="lg:col-span-7 space-y-4">
-              <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 text-white space-y-4 shadow-xl border border-slate-800">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <span className="text-xs font-bold text-teal-300 uppercase tracking-wider">
-                    Hasil Klasifikasi Child-Pugh & MELD
+            <div className="lg:col-span-7 space-y-4 font-outfit">
+              <div className="bg-gradient-to-br from-[#080c26] via-[#10194a] to-[#070b22] rounded-3xl p-6 text-white space-y-4 shadow-xl border border-indigo-500/30 font-outfit">
+                <div className="flex items-center justify-between border-b border-indigo-500/20 pb-3">
+                  <span className="text-xs font-black text-indigo-300 uppercase tracking-wider font-outfit">
+                    Hasil Klasifikasi Child-Pugh &amp; MELD
                   </span>
-                  <span className="text-[10px] text-slate-400">UNOS / Mayo Clinic Standard</span>
+                  <span className="text-[10px] text-indigo-200/70 font-semibold font-outfit">UNOS / Mayo Clinic Standard</span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 space-y-1">
-                    <p className="text-[10px] text-slate-400 uppercase font-bold">Skor & Kelas Child-Pugh:</p>
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-3xl font-black text-teal-400">Kelas {childPughCalculation.grade}</span>
-                      <span className="text-xs font-semibold text-slate-300">({childPughCalculation.totalScore} Poin)</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-outfit">
+                  <div className="bg-slate-900/80 p-4 rounded-2xl border border-indigo-900/50 space-y-1">
+                    <p className="text-[10px] text-indigo-200/70 uppercase font-bold font-outfit">Skor &amp; Kelas Child-Pugh:</p>
+                    <div className="flex items-baseline gap-2 mt-1 font-outfit">
+                      <span className="text-3xl font-black text-cyan-300 font-outfit">Kelas {childPughCalculation.grade}</span>
+                      <span className="text-xs font-semibold text-slate-300 font-outfit">({childPughCalculation.totalScore} Poin)</span>
                     </div>
-                    <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border mt-1 ${childPughCalculation.badgeColor}`}>
+                    <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border mt-1 font-outfit ${childPughCalculation.badgeColor}`}>
                       {childPughCalculation.severityLabel}
                     </span>
-                    <p className="text-[10px] text-slate-400 mt-2">
+                    <p className="text-[10px] text-slate-400 mt-2 font-medium font-outfit">
                       Survival 1 Tahun: <strong>{childPughCalculation.survival1Yr}</strong> • 2 Tahun: <strong>{childPughCalculation.survival2Yr}</strong>
                     </p>
                   </div>
 
-                  <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 space-y-1">
-                    <p className="text-[10px] text-slate-400 uppercase font-bold">Skor MELD (End-Stage Liver):</p>
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-3xl font-black text-amber-400">{childPughCalculation.meldScore}</span>
-                      <span className="text-xs font-semibold text-slate-300">/ 40</span>
+                  <div className="bg-slate-900/80 p-4 rounded-2xl border border-indigo-900/50 space-y-1">
+                    <p className="text-[10px] text-indigo-200/70 uppercase font-bold font-outfit">Skor MELD (End-Stage Liver):</p>
+                    <div className="flex items-baseline gap-2 mt-1 font-outfit">
+                      <span className="text-3xl font-black text-amber-400 font-outfit">{childPughCalculation.meldScore}</span>
+                      <span className="text-xs font-semibold text-slate-300 font-outfit">/ 40</span>
                     </div>
-                    <p className="text-[11px] text-slate-300 mt-1">
+                    <p className="text-[11px] text-slate-300 mt-1 font-medium font-outfit">
                       Mortalitas 90-Hari: <strong className="text-amber-300">{childPughCalculation.meldMortality90Day}</strong>
                     </p>
-                    <p className="text-[10px] text-slate-400 mt-2">
+                    <p className="text-[10px] text-slate-400 mt-2 font-medium font-outfit">
                       Prediktor kesintasan sirosis dekompensata
                     </p>
                   </div>
@@ -1300,22 +1301,22 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
               </div>
 
               {/* Hepatic Drug Adjustment Directory */}
-              <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-md space-y-3">
+              <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-md space-y-3 font-outfit">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                    <Pill className="w-4 h-4 text-teal-600" />
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-outfit">
+                    <Pill className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                     Panduan Dosis Obat Gangguan Hepar (Pasien: Kelas {childPughCalculation.grade})
                   </h3>
                 </div>
 
-                <div className="relative">
+                <div className="relative font-outfit">
                   <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                   <input
                     type="text"
                     value={searchHepaticDrug}
                     onChange={(e) => setSearchHepaticDrug(e.target.value)}
                     placeholder="Cari obat metabolisme hepar (Paracetamol, Metronidazole, Statin, PPI...)"
-                    className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-teal-500"
+                    className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 font-outfit"
                   />
                 </div>
 
@@ -1485,49 +1486,49 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
             {/* Results Panel */}
             <div className="lg:col-span-7 space-y-4">
-              <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 text-white space-y-5 shadow-xl border border-slate-800">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <span className="text-xs font-bold text-teal-300 uppercase tracking-wider">
+              <div className="bg-gradient-to-br from-[#1c1206] via-[#332009] to-[#170e04] rounded-3xl p-6 text-white space-y-5 shadow-xl border border-amber-500/35 font-outfit">
+                <div className="flex items-center justify-between border-b border-amber-500/20 pb-3">
+                  <span className="text-xs font-black text-amber-300 uppercase tracking-wider font-outfit">
                     Hasil Konversi Ekivalensi Dosis Opioid
                   </span>
-                  <span className="text-[10px] text-slate-400">CDC & EAPC Guideline</span>
+                  <span className="text-[10px] text-amber-200/70 font-semibold font-outfit">CDC &amp; EAPC Guideline</span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                  <div className="bg-slate-800/80 p-3.5 rounded-2xl border border-slate-700 space-y-1">
-                    <p className="text-[10px] text-slate-400 uppercase font-bold">Total Beban Opioid (MME):</p>
-                    <p className="text-3xl font-black text-teal-400">{opioidCalculation.totalOmeMgPerDay}</p>
-                    <p className="text-[10px] text-slate-400">mg Oral Morphine / hari</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center font-outfit">
+                  <div className="bg-slate-900/80 p-3.5 rounded-2xl border border-amber-900/50 space-y-1">
+                    <p className="text-[10px] text-amber-200/70 uppercase font-bold font-outfit">Total Beban Opioid (MME):</p>
+                    <p className="text-3xl font-black text-amber-400 font-outfit">{opioidCalculation.totalOmeMgPerDay}</p>
+                    <p className="text-[10px] text-slate-400 font-outfit">mg Oral Morphine / hari</p>
                   </div>
 
-                  <div className="bg-teal-950 p-3.5 rounded-2xl border border-teal-500/50 space-y-1 col-span-2">
-                    <p className="text-[10px] text-teal-300 uppercase font-bold">
+                  <div className="bg-amber-950/70 p-3.5 rounded-2xl border border-amber-500/50 space-y-1 col-span-2">
+                    <p className="text-[10px] text-amber-300 uppercase font-bold font-outfit">
                       REKOMENDASI DOSIS BARU ({crossToleranceReductionPct}% Reduksi):
                     </p>
-                    <p className="text-3xl font-black text-white">
-                      {opioidCalculation.targetNewDose} <span className="text-sm text-teal-300">{opioidCalculation.toProfile.unit}</span>
+                    <p className="text-3xl font-black text-white font-outfit">
+                      {opioidCalculation.targetNewDose} <span className="text-sm text-amber-300 font-outfit">{opioidCalculation.toProfile.unit}</span>
                     </p>
-                    <p className="text-[10px] text-teal-200">
+                    <p className="text-[10px] text-amber-200 font-outfit">
                       Target: {opioidCalculation.toProfile.name}
                     </p>
                   </div>
                 </div>
 
                 {/* CDC Risk Banner */}
-                <div className={`p-3.5 rounded-2xl border text-xs leading-relaxed ${opioidCalculation.cdcBadgeColor}`}>
-                  <p className="font-bold">{opioidCalculation.cdcRiskText}</p>
+                <div className={`p-3.5 rounded-2xl border text-xs leading-relaxed font-outfit ${opioidCalculation.cdcBadgeColor}`}>
+                  <p className="font-bold font-outfit">{opioidCalculation.cdcRiskText}</p>
                 </div>
 
                 {/* Breakthrough Pain Rescue Dose Box */}
-                <div className="bg-slate-800/60 p-4 rounded-2xl border border-slate-700/80 text-xs space-y-2">
-                  <span className="font-extrabold text-teal-300 flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4 text-teal-400" />
+                <div className="bg-slate-900/80 p-4 rounded-2xl border border-amber-900/50 text-xs space-y-2 font-outfit">
+                  <span className="font-extrabold text-amber-300 flex items-center gap-1.5 font-outfit">
+                    <Sparkles className="w-4 h-4 text-amber-400" />
                     Dosis Penyelamat Nyeri Terobosan (*Breakthrough Pain Rescue / PRN*):
                   </span>
-                  <p className="text-slate-300 leading-relaxed">
+                  <p className="text-slate-300 leading-relaxed font-medium">
                     Jika pasien mengalami nyeri mendadak (*breakthrough pain*), berikan dosis penyelamat oral/injeksi sebesar <strong>10% - 15%</strong> dari total dosis 24 jam:
                   </p>
-                  <div className="flex items-center gap-3 font-mono text-[11px] font-bold text-amber-300 bg-slate-950/80 p-2.5 rounded-xl border border-slate-800">
+                  <div className="flex items-center gap-3 text-[11px] font-bold text-amber-300 bg-slate-950/80 p-2.5 rounded-xl border border-slate-800 font-outfit">
                     <span>• 10% Dosis: {opioidCalculation.breakthroughDose10Pct} {opioidCalculation.toProfile.unit.split(' ')[0]}</span>
                     <span>• 15% Dosis: {opioidCalculation.breakthroughDose15Pct} {opioidCalculation.toProfile.unit.split(' ')[0]} (tiap 2-4 jam p.r.n)</span>
                   </div>
@@ -1535,10 +1536,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
               </div>
 
               {/* Opioid Conversion Table Info */}
-              <div className="bg-slate-900 text-white rounded-3xl p-5 border border-slate-800 shadow-lg text-xs space-y-3">
-                <span className="font-bold text-teal-300 flex items-center gap-1.5">
-                  <BookOpen className="w-4 h-4 text-teal-400" />
-                  Prinsip Klinis Rotasi Opioid pada Pasien Paliatif & Onkologi:
+              <div className="bg-slate-900 text-white rounded-3xl p-5 border border-slate-800 shadow-lg text-xs space-y-3 font-outfit">
+                <span className="font-bold text-amber-300 flex items-center gap-1.5 font-outfit">
+                  <BookOpen className="w-4 h-4 text-amber-400" />
+                  Prinsip Klinis Rotasi Opioid pada Pasien Paliatif &amp; Onkologi:
                 </span>
                 <ul className="list-disc list-inside text-slate-300 space-y-1 text-[11px] pl-1">
                   <li><strong>Hitung Total 24 Jam:</strong> Jumlahkan seluruh opioid reguler + dosis PRN yang diminum pasien dalam 24 jam terakhir.</li>
@@ -1593,73 +1594,73 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
             reference="Devine BJ (Drug Intell Clin Pharm 1974) & WHO Western Pacific Region Obesity Criteria"
           />
 
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-            <Scale className="w-6 h-6 text-teal-600" />
-            <div>
-              <h2 className="text-base font-bold text-slate-900">Kalkulator Berat Badan Ideal (IBW, ABW & BMI)</h2>
-              <p className="text-xs text-slate-500">Penyesuaian dosis obat hidrofilik/lipofilik pada pasien overweight & obesitas (Devine Formula).</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Jenis Kelamin:</label>
-              <select
-                value={ibwGender}
-                onChange={(e) => setIbwGender(e.target.value as any)}
-                className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none cursor-pointer"
-              >
-                <option value="male">Laki-Laki (Male)</option>
-                <option value="female">Wanita (Female)</option>
-              </select>
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-md space-y-6 font-outfit">
+            <div className="flex items-center gap-2.5 border-b border-slate-100 dark:border-slate-800 pb-3">
+              <Scale className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+              <div>
+                <h2 className="text-base font-black text-slate-900 dark:text-white font-outfit">Kalkulator Berat Badan Ideal (IBW, ABW &amp; BMI)</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium font-outfit">Penyesuaian dosis obat hidrofilik/lipofilik pada pasien overweight &amp; obesitas (Devine Formula).</p>
+              </div>
             </div>
 
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Tinggi Badan (cm):</label>
-              <input
-                type="number"
-                value={ibwHeightCm}
-                onChange={(e) => setIbwHeightCm(Number(e.target.value))}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-outfit">
+              <div>
+                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Jenis Kelamin:</label>
+                <select
+                  value={ibwGender}
+                  onChange={(e) => setIbwGender(e.target.value as any)}
+                  className="w-full p-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer font-outfit"
+                >
+                  <option value="male">Laki-Laki (Male)</option>
+                  <option value="female">Wanita (Female)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Tinggi Badan (cm):</label>
+                <input
+                  type="number"
+                  value={ibwHeightCm}
+                  onChange={(e) => setIbwHeightCm(Number(e.target.value))}
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none font-outfit"
+                />
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Berat Badan Aktual (kg):</label>
+                <input
+                  type="number"
+                  value={ibwActualWeightKg}
+                  onChange={(e) => setIbwActualWeightKg(Number(e.target.value))}
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none font-outfit"
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Berat Badan Aktual (kg):</label>
-              <input
-                type="number"
-                value={ibwActualWeightKg}
-                onChange={(e) => setIbwActualWeightKg(Number(e.target.value))}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-              />
-            </div>
-          </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center font-outfit">
+              <div className="bg-slate-50 dark:bg-slate-950/70 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-1 font-outfit">
+                <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase font-outfit">BB Ideal (IBW Devine):</p>
+                <p className="text-3xl font-black text-slate-900 dark:text-white font-outfit">{ibwKg} <span className="text-xs font-normal text-slate-500">kg</span></p>
+                <p className="text-[10px] text-slate-400 font-medium font-outfit">Gunakan untuk Dosis Aminofilin &amp; Digoxin</p>
+              </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-1">
-              <p className="text-[10px] font-bold text-slate-500 uppercase">BB Ideal (IBW Devine):</p>
-              <p className="text-3xl font-black text-slate-900">{ibwKg} <span className="text-xs font-normal text-slate-500">kg</span></p>
-              <p className="text-[10px] text-slate-400">Gunakan untuk Dosis Aminofilin & Digoxin</p>
-            </div>
+              <div className="bg-indigo-50/80 dark:bg-indigo-950/40 p-5 rounded-3xl border border-indigo-200 dark:border-indigo-800/60 space-y-1 font-outfit">
+                <p className="text-[10px] font-black text-indigo-800 dark:text-indigo-300 uppercase font-outfit">BB Disesuaikan (ABW 40%):</p>
+                <p className="text-3xl font-black text-indigo-950 dark:text-indigo-200 font-outfit">{abwKg} <span className="text-xs font-normal text-indigo-700 dark:text-indigo-400">kg</span></p>
+                <p className="text-[10px] text-indigo-700 dark:text-indigo-300 font-medium font-outfit">Gunakan untuk Dosis Aminoglikosida</p>
+              </div>
 
-            <div className="bg-teal-50 p-4 rounded-2xl border border-teal-100 space-y-1">
-              <p className="text-[10px] font-bold text-teal-800 uppercase">BB Disesuaikan (ABW 40%):</p>
-              <p className="text-3xl font-black text-teal-950">{abwKg} <span className="text-xs font-normal text-teal-700">kg</span></p>
-              <p className="text-[10px] text-teal-700">Gunakan untuk Dosis Aminoglikosida</p>
-            </div>
-
-            <div className="bg-slate-900 p-4 rounded-2xl text-white space-y-1">
-              <p className="text-[10px] text-slate-400 uppercase font-bold">Indeks Massa Tubuh (BMI):</p>
-              <p className="text-3xl font-black text-teal-400">{bmiValue} <span className="text-xs font-normal text-slate-300">kg/m²</span></p>
-              <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border ${bmiCatInfo.color}`}>
-                {bmiCatInfo.cat}
-              </span>
+              <div className="bg-gradient-to-br from-[#080c26] via-[#10194a] to-[#070b22] border border-indigo-500/35 p-5 rounded-3xl text-white space-y-1 font-outfit shadow-xl">
+                <p className="text-[10px] text-indigo-200/70 uppercase font-black font-outfit">Indeks Massa Tubuh (BMI):</p>
+                <p className="text-3xl font-black text-cyan-300 font-outfit">{bmiValue} <span className="text-xs font-normal text-slate-300">kg/m²</span></p>
+                <span className={`inline-block px-3 py-1 rounded-xl text-[10px] font-black border font-outfit ${bmiCatInfo.color}`}>
+                  {bmiCatInfo.cat}
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )}
+      )}
 
       {/* ========================================================================= */}
       {/* TAB 5: OXYGEN MEDIS CALCULATOR */}
@@ -1671,15 +1672,15 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
             title="Rumus Durasi Tabung Oksigen Medis & Estimasi Fraksi FiO2"
             badge="Emergensi & Respirasi"
             category="Manajemen Pasokan Gas Medis"
-            theme="blue"
+            theme="indigo"
             formulaDisplay={
-              <div className="space-y-1">
-                <p className="text-blue-300 font-bold text-xs">Durasi Tabung (menit) = [(Tekanan Manometer psi - 200 psi batas aman) × Faktor Tabung] / Laju Aliran (LPM)</p>
+              <div className="space-y-1 font-outfit">
+                <p className="text-indigo-300 font-bold text-xs">Durasi Tabung (menit) = [(Tekanan Manometer psi - 200 psi batas aman) × Faktor Tabung] / Laju Aliran (LPM)</p>
                 <p className="text-slate-300 text-[11px]">Sisa Volume Oksigen (Liter) = (Tekanan psi - 200) × Faktor Tabung</p>
               </div>
             }
             secondaryFormulaDisplay={
-              <div className="space-y-1">
+              <div className="space-y-1 font-outfit">
                 <p className="text-amber-300 font-bold text-xs">Estimasi FiO2 Nasal Kanul = 20% + (4% × Laju LPM)</p>
                 <p className="text-slate-300 text-[11px]">1 LPM = 24%, 2 LPM = 28%, 3 LPM = 32%, 4 LPM = 36%, 6 LPM = 44%</p>
               </div>
@@ -1704,89 +1705,89 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
             reference="American Association for Respiratory Care (AARC) Clinical Practice Guidelines & BTS Oxygen Guideline"
           />
 
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-            <Wind className="w-6 h-6 text-teal-600" />
-            <div>
-              <h2 className="text-base font-bold text-slate-900">Kalkulator Durasi Tabung & Konsentrasi Oksigen Medis (FiO2)</h2>
-              <p className="text-xs text-slate-500">Estimasi waktu habis pasokan tabung oksigen & fraksi oksigen terhirup (FiO2) pasien emergency/IGD.</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Ukuran Tabung Oksigen:</label>
-              <select
-                value={cylinderType}
-                onChange={(e) => setCylinderType(e.target.value)}
-                className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none cursor-pointer"
-              >
-                <option value="D">Tipe D (Portabel 350 L - Faktor 0.16)</option>
-                <option value="E">Tipe E (Emergency Standar 680 L - Faktor 0.28)</option>
-                <option value="M">Tipe M (3000 L - Faktor 1.56)</option>
-                <option value="G">Tipe G (5300 L - Faktor 2.41)</option>
-                <option value="H">Tipe H (Besar RS 6900 L - Faktor 3.14)</option>
-              </select>
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-md space-y-6 font-outfit">
+            <div className="flex items-center gap-2.5 border-b border-slate-100 dark:border-slate-800 pb-3">
+              <Wind className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+              <div>
+                <h2 className="text-base font-black text-slate-900 dark:text-white font-outfit">Kalkulator Durasi Tabung &amp; Konsentrasi Oksigen Medis (FiO2)</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium font-outfit">Estimasi waktu habis pasokan tabung oksigen &amp; fraksi oksigen terhirup (FiO2) pasien emergency/IGD.</p>
+              </div>
             </div>
 
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Tekanan Manometer (psi):</label>
-              <input
-                type="number"
-                value={pressurePsi}
-                onChange={(e) => setPressurePsi(Number(e.target.value))}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-              />
-              <p className="text-[10px] text-slate-400 mt-1">Standar tabung penuh: ~2000 psi</p>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs font-outfit">
+              <div>
+                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Ukuran Tabung Oksigen:</label>
+                <select
+                  value={cylinderType}
+                  onChange={(e) => setCylinderType(e.target.value)}
+                  className="w-full p-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer font-outfit"
+                >
+                  <option value="D">Tipe D (Portabel 350 L - Faktor 0.16)</option>
+                  <option value="E">Tipe E (Emergency Standar 680 L - Faktor 0.28)</option>
+                  <option value="M">Tipe M (3000 L - Faktor 1.56)</option>
+                  <option value="G">Tipe G (5300 L - Faktor 2.41)</option>
+                  <option value="H">Tipe H (Besar RS 6900 L - Faktor 3.14)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Tekanan Manometer (psi):</label>
+                <input
+                  type="number"
+                  value={pressurePsi}
+                  onChange={(e) => setPressurePsi(Number(e.target.value))}
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none font-outfit"
+                />
+                <p className="text-[10px] text-slate-400 mt-1 font-medium font-outfit">Standar tabung penuh: ~2000 psi</p>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Laju Aliran / Flow Rate (LPM):</label>
+                <input
+                  type="number"
+                  step="0.5"
+                  min="0.5"
+                  max="15"
+                  value={flowRateLpm}
+                  onChange={(e) => setFlowRateLpm(Number(e.target.value))}
+                  className="w-full px-3 py-2 bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-300 dark:border-indigo-800 rounded-xl text-xs font-black text-indigo-950 dark:text-indigo-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none font-outfit"
+                />
+                <p className="text-[10px] text-slate-400 mt-1 font-medium font-outfit">Liter per menit (L/min)</p>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1 font-outfit">Perangkat Oksigenasi:</label>
+                <select
+                  value={oxygenDeliveryDevice}
+                  onChange={(e) => setOxygenDeliveryDevice(e.target.value)}
+                  className="w-full p-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer font-outfit"
+                >
+                  <option value="nasal-cannula">Nasal Cannula (1 - 6 LPM)</option>
+                  <option value="simple-mask">Simple Mask (5 - 8 LPM)</option>
+                  <option value="nrm">NRM Reservoir (10 - 15 LPM)</option>
+                  <option value="venturi">Venturi Mask (Konsentrasi Presisi)</option>
+                </select>
+              </div>
             </div>
 
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Laju Aliran / Flow Rate (LPM):</label>
-              <input
-                type="number"
-                step="0.5"
-                min="0.5"
-                max="15"
-                value={flowRateLpm}
-                onChange={(e) => setFlowRateLpm(Number(e.target.value))}
-                className="w-full px-3 py-2 bg-teal-50 border border-teal-300 rounded-xl text-xs font-black text-teal-950 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-              />
-              <p className="text-[10px] text-slate-400 mt-1">Liter per menit (L/min)</p>
-            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center font-outfit">
+              <div className="bg-gradient-to-br from-[#080c26] via-[#10194a] to-[#070b22] border border-indigo-500/35 p-6 rounded-3xl text-white space-y-1 shadow-xl font-outfit">
+                <p className="text-[10px] text-indigo-200/70 uppercase font-black font-outfit">Estimasi Sisa Durasi Tabung:</p>
+                <p className="text-3xl font-black text-cyan-300 mt-1 font-outfit">
+                  {oxygenDurationHours} <span className="text-sm font-semibold text-slate-300">Jam</span> {oxygenDurationRemMinutes} <span className="text-sm font-semibold text-slate-300">Menit</span>
+                </p>
+                <p className="text-[10px] text-indigo-200/60 font-medium font-outfit">Total: {oxygenDurationMinutes} menit (Sisa Volume: ~{remainingLiters} Liter)</p>
+              </div>
 
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Perangkat Oksigenasi:</label>
-              <select
-                value={oxygenDeliveryDevice}
-                onChange={(e) => setOxygenDeliveryDevice(e.target.value)}
-                className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none cursor-pointer"
-              >
-                <option value="nasal-cannula">Nasal Cannula (1 - 6 LPM)</option>
-                <option value="simple-mask">Simple Mask (5 - 8 LPM)</option>
-                <option value="nrm">NRM Reservoir (10 - 15 LPM)</option>
-                <option value="venturi">Venturi Mask (Konsentrasi Presisi)</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
-            <div className="bg-slate-900 p-5 rounded-2xl text-white space-y-1">
-              <p className="text-[10px] text-slate-400 uppercase font-bold">Estimasi Sisa Durasi Tabung:</p>
-              <p className="text-3xl font-black text-teal-400 mt-1">
-                {oxygenDurationHours} <span className="text-sm font-semibold text-slate-300">Jam</span> {oxygenDurationRemMinutes} <span className="text-sm font-semibold text-slate-300">Menit</span>
-              </p>
-              <p className="text-[10px] text-slate-400">Total: {oxygenDurationMinutes} menit (Sisa Volume: ~{remainingLiters} Liter)</p>
-            </div>
-
-            <div className="bg-teal-950 p-5 rounded-2xl border border-teal-500/40 space-y-1 text-white">
-              <p className="text-[10px] text-teal-300 uppercase font-bold">Estimasi Fraksi Oksigen Terhirup (FiO2):</p>
-              <p className="text-3xl font-black text-white mt-1">{fio2Info.fio2}</p>
-              <p className="text-[10px] text-teal-200">Rentang Alat: {fio2Info.range} ({fio2Info.notes})</p>
+              <div className="bg-gradient-to-br from-[#120e36] via-[#1e1554] to-[#0d0929] border border-indigo-500/40 p-6 rounded-3xl space-y-1 text-white font-outfit shadow-xl">
+                <p className="text-[10px] text-indigo-300 uppercase font-black font-outfit">Estimasi Fraksi Oksigen Terhirup (FiO2):</p>
+                <p className="text-3xl font-black text-white mt-1 font-outfit">{fio2Info.fio2}</p>
+                <p className="text-[10px] text-indigo-200/80 font-medium font-outfit">Rentang Alat: {fio2Info.range} ({fio2Info.notes})</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )}
+      )}
 
 
       {/* ========================================================================= */}
@@ -1927,10 +1928,10 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
             title="Rumus Laju Titrasi Syringe Pump & Kecepatan Tetesan Infus Gravitasi"
             badge="ICU & Emergensi"
             category="Titrasi Vasoaktif & Infus Kontinu"
-            theme="sky"
+            theme="indigo"
             formulaDisplay={
-              <div className="space-y-1">
-                <p className="text-sky-300 font-bold text-xs">Laju Syringe Pump (mL/jam) = [Dosis (mcg/kg/menit) × BB (kg) × 60] / Konsentrasi (mcg/mL)</p>
+              <div className="space-y-1 font-outfit">
+                <p className="text-indigo-300 font-bold text-xs">Laju Syringe Pump (mL/jam) = [Dosis (mcg/kg/menit) × BB (kg) × 60] / Konsentrasi (mcg/mL)</p>
                 <p className="text-slate-300 text-[11px]">Konsentrasi Spuit (mcg/mL) = [Total Obat dalam Spuit (mg) × 1000] / Total Volume Spuit (mL)</p>
               </div>
             }
@@ -1958,28 +1959,28 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
             reference="ASHP Guidelines on Injectable Drug Administration & Trissel's 2024"
           />
 
-          <div className="p-4.5 bg-gradient-to-r from-sky-50 via-blue-50 to-sky-50 dark:from-sky-950/40 dark:via-blue-950/40 dark:to-sky-950/40 border border-sky-200 dark:border-sky-800/60 rounded-2xl flex items-center justify-between gap-3 shadow-xs">
+          <div className="p-4.5 bg-gradient-to-r from-indigo-50 via-violet-50 to-indigo-50 dark:from-indigo-950/40 dark:via-violet-950/40 dark:to-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60 rounded-2xl flex items-center justify-between gap-3 shadow-xs font-outfit">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-700/60">
+              <div className="p-2 rounded-xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700/60">
                 <Syringe className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white">Kalkulator Kecepatan Syringe Pump & Tetesan Infus Drip</h3>
-                <p className="text-xs text-slate-600 dark:text-sky-200/80 font-medium">Hitung laju infus titrasi kontinu (mcg/kg/menit, mcg/menit, mg/jam ke mL/jam) dan tetesan infus makro/mikro per menit.</p>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white font-outfit">Kalkulator Kecepatan Syringe Pump & Tetesan Infus Drip</h3>
+                <p className="text-xs text-slate-600 dark:text-indigo-200/80 font-medium font-outfit">Hitung laju infus titrasi kontinu (mcg/kg/menit, mcg/menit, mg/jam ke mL/jam) dan tetesan infus makro/mikro per menit.</p>
               </div>
             </div>
-            <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-sky-100 dark:bg-sky-500/20 text-sky-800 dark:text-sky-300 border border-sky-300 dark:border-sky-500/40 shrink-0 shadow-2xs">
+            <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-indigo-100 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-500/40 shrink-0 shadow-2xs font-outfit">
               ICU & Emergensi
             </span>
           </div>
 
           {/* Quick Drug Presets for Syringe Pump */}
-          <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
-            <span className="text-xs font-bold text-slate-800 dark:text-slate-300 flex items-center gap-1.5">
+          <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3 font-outfit">
+            <span className="text-xs font-bold text-slate-800 dark:text-slate-300 flex items-center gap-1.5 font-outfit">
               <Zap className="w-4 h-4 text-amber-500 dark:text-amber-400" />
               Pilih Preset Obat Titrasi ICU Sering Digunakan:
             </span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 font-outfit">
               {[
                 { id: 'iv-norepinephrine', name: 'Norepinephrine (Vascon)', dose: '4 mg / 50 mL (80 mcg/mL)' },
                 { id: 'iv-dobutamine', name: 'Dobutamine (Inotrop)', dose: '250 mg / 50 mL (5000 mcg/mL)' },
@@ -1993,164 +1994,171 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
                 <button
                   key={preset.id}
                   onClick={() => handleApplySyringePreset(preset.id)}
-                  className={`p-2.5 text-left rounded-xl border text-xs transition cursor-pointer ${
+                  className={`p-2.5 text-left rounded-xl border text-xs transition cursor-pointer font-outfit ${
                     calcDrugPreset === preset.id
-                      ? 'bg-sky-100 dark:bg-sky-950/90 border-sky-400 dark:border-sky-500 text-sky-950 dark:text-sky-200 shadow-xs'
+                      ? 'bg-indigo-100 dark:bg-indigo-950/90 border-indigo-400 dark:border-indigo-500 text-indigo-950 dark:text-indigo-200 shadow-sm'
                       : 'bg-slate-50 dark:bg-slate-950/70 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
-                  <div className="font-bold text-slate-900 dark:text-white">{preset.name}</div>
-                  <div className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">{preset.dose}</div>
+                  <div className="font-bold text-slate-900 dark:text-white font-outfit">{preset.name}</div>
+                  <div className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5 font-outfit">{preset.dose}</div>
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 font-outfit">
             {/* Input Parameters */}
-            <div className="lg:col-span-5 bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+            <div className="lg:col-span-5 bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4 font-outfit">
+              <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
+                <SlidersHorizontal className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 Parameter Syringe Pump
               </h4>
 
-              <div className="space-y-3 text-xs">
+              <div className="space-y-3 text-xs font-outfit">
                 <div>
-                  <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1">Berat Badan Pasien (kg):</label>
+                  <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1 font-outfit">Berat Badan Pasien (kg):</label>
                   <input
                     type="number"
                     value={calcPatientWeightKg}
                     onChange={(e) => setCalcPatientWeightKg(Number(e.target.value))}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-sky-500"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-indigo-500 font-outfit"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1">Target Dosis Titrasi (mcg / kgBB / menit):</label>
+                  <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1 font-outfit">Target Dosis Titrasi (mcg / kgBB / menit):</label>
                   <input
                     type="number"
                     step="0.01"
                     value={calcTargetDose}
                     onChange={(e) => setCalcTargetDose(Number(e.target.value))}
-                    className="w-full bg-sky-50 dark:bg-sky-950/50 border border-sky-300 dark:border-sky-500/60 rounded-xl px-3 py-2 text-sky-950 dark:text-sky-300 font-black text-sm focus:outline-none"
+                    className="w-full bg-indigo-50/80 dark:bg-indigo-950/50 border border-indigo-300 dark:border-indigo-500/60 rounded-xl px-3 py-2 text-indigo-950 dark:text-indigo-300 font-black text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-outfit"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3 font-outfit">
                   <div>
-                    <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1">Total Obat (mg):</label>
+                    <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1 font-outfit">Total Obat (mg):</label>
                     <input
                       type="number"
                       value={calcDrugMgInSyringe}
                       onChange={(e) => setCalcDrugMgInSyringe(Number(e.target.value))}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-sky-500"
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-indigo-500 font-outfit"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1">Volume Spuit (mL):</label>
-                    <input
-                      type="number"
+                    <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1 font-outfit">Volume Spuit (mL):</label>
+                    <select
                       value={calcSyringeVolumeMl}
                       onChange={(e) => setCalcSyringeVolumeMl(Number(e.target.value))}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-sky-500"
-                    />
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-indigo-500 cursor-pointer font-outfit"
+                    >
+                      <option value="50">50 mL</option>
+                      <option value="20">20 mL</option>
+                      <option value="10">10 mL</option>
+                    </select>
                   </div>
                 </div>
+              </div>
 
-                {/* Gravity Drip Inputs */}
-                <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3">
-                  <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <Wind className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                    Parameter Infus Gravitasi (Drip)
-                  </h4>
+              {/* Gravity Infusion Drip Calculator */}
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3 font-outfit">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
+                  <Droplets className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                  Parameter Infus Gravitasi (Drip)
+                </h4>
 
-                  <div className="grid grid-cols-3 gap-2">
-                    <div>
-                      <label className="block text-[10.5px] text-slate-700 dark:text-slate-400 font-bold mb-1">Volume (mL):</label>
-                      <input
-                        type="number"
-                        value={dripVolumeMl}
-                        onChange={(e) => setDripVolumeMl(Number(e.target.value))}
-                        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 dark:text-white font-bold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[10.5px] text-slate-700 dark:text-slate-400 font-bold mb-1">Durasi (Jam):</label>
-                      <input
-                        type="number"
-                        value={dripDurationHours}
-                        onChange={(e) => setDripDurationHours(Number(e.target.value))}
-                        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 dark:text-white font-bold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[10.5px] text-slate-700 dark:text-slate-400 font-bold mb-1">Faktor Tetes:</label>
-                      <select
-                        value={dripFactor}
-                        onChange={(e) => setDripFactor(Number(e.target.value) as 20 | 60)}
-                        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-2 py-1.5 text-xs text-slate-900 dark:text-white font-bold"
-                      >
-                        <option value={20}>20 gtt (Makro)</option>
-                        <option value={60}>60 gtt (Mikro)</option>
-                      </select>
-                    </div>
+                <div className="grid grid-cols-3 gap-2 text-xs font-outfit">
+                  <div>
+                    <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1 font-outfit">Volume (mL):</label>
+                    <input
+                      type="number"
+                      value={dripVolumeMl}
+                      onChange={(e) => setDripVolumeMl(Number(e.target.value))}
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-2 py-1.5 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-indigo-500 font-outfit"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1 font-outfit">Durasi (Jam):</label>
+                    <input
+                      type="number"
+                      step="0.5"
+                      value={dripDurationHours}
+                      onChange={(e) => setDripDurationHours(Number(e.target.value))}
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-2 py-1.5 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-indigo-500 font-outfit"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-700 dark:text-slate-400 font-bold mb-1 font-outfit">Faktor Tetes:</label>
+                    <select
+                      value={dripFactor}
+                      onChange={(e) => setDripFactor(Number(e.target.value) as 20 | 60)}
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-2 py-1.5 text-slate-900 dark:text-white font-bold focus:outline-none focus:border-indigo-500 cursor-pointer font-outfit"
+                    >
+                      <option value="20">20 gtt (Makro)</option>
+                      <option value="15">15 gtt (Makro Blood)</option>
+                      <option value="60">60 gtt (Mikro)</option>
+                    </select>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Calculations Output */}
-            <div className="lg:col-span-7 space-y-4">
-              <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5 text-white">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+            <div className="lg:col-span-7 space-y-4 font-outfit">
+              <div className="bg-gradient-to-br from-[#080c26] via-[#10194a] to-[#070b22] border border-indigo-500/35 rounded-3xl p-6 shadow-2xl space-y-5 text-white font-outfit">
+                <span className="text-xs font-black text-indigo-300 uppercase tracking-wider font-outfit">
                   Hasil Perhitungan Setting Syringe Pump
                 </span>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-4">
-                    <span className="text-xs text-slate-400 font-medium">Setting Syringe Pump</span>
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-3xl font-black text-sky-400">{syringePumpCalculations.rateMlPerHour}</span>
-                      <span className="text-sm font-semibold text-slate-300">mL / jam</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-outfit">
+                  <div className="bg-slate-900/80 border border-indigo-900/60 rounded-2xl p-4.5 font-outfit">
+                    <span className="text-xs text-indigo-200/70 font-bold font-outfit">Setting Syringe Pump</span>
+                    <div className="flex items-baseline gap-2 mt-1 font-outfit">
+                      <span className="text-3xl font-black text-cyan-300 font-outfit">{syringePumpCalculations.rateMlPerHour}</span>
+                      <span className="text-sm font-semibold text-slate-300 font-outfit">mL / jam</span>
                     </div>
-                    <span className="text-[11px] text-slate-500 mt-1 block">
+                    <span className="text-[11px] text-indigo-300/70 mt-1 block font-medium font-outfit">
                       Konsentrasi: {syringePumpCalculations.concentrationMcgPerMl} mcg/mL
                     </span>
                   </div>
 
-                  <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-4">
-                    <span className="text-xs text-slate-400 font-medium">Waktu Spuit Habis</span>
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-3xl font-black text-emerald-400">~{syringePumpCalculations.syringeDurationHours}</span>
-                      <span className="text-sm font-semibold text-slate-300">Jam</span>
+                  <div className="bg-slate-900/80 border border-indigo-900/60 rounded-2xl p-4.5 font-outfit">
+                    <span className="text-xs text-indigo-200/70 font-bold font-outfit">Waktu Spuit Habis</span>
+                    <div className="flex items-baseline gap-2 mt-1 font-outfit">
+                      <span className="text-3xl font-black text-indigo-300 font-outfit">~{syringePumpCalculations.syringeDurationHours}</span>
+                      <span className="text-sm font-semibold text-slate-300 font-outfit">Jam</span>
                     </div>
-                    <span className="text-[11px] text-slate-500 mt-1 block">
+                    <span className="text-[11px] text-indigo-300/70 mt-1 block font-medium font-outfit">
                       Total dosis masuk: {syringePumpCalculations.totalDoseMgPerHour} mg/jam
                     </span>
                   </div>
                 </div>
 
                 {/* Gravity Drip Result Box */}
-                <div className="bg-sky-950/30 border border-sky-800/40 rounded-xl p-4">
-                  <span className="text-xs font-bold text-sky-300 block mb-1">
+                <div className="bg-indigo-950/60 border border-indigo-500/40 rounded-2xl p-4.5 font-outfit">
+                  <span className="text-xs font-black text-indigo-200 block mb-1 font-outfit">
                     Hasil Tetesan Infus Gravitasi ({dripVolumeMl} mL dalam {dripDurationHours} jam):
                   </span>
-                  <div className="flex items-baseline gap-4 mt-2">
+                  <div className="flex items-baseline gap-4 mt-2 font-outfit">
                     <div>
-                      <span className="text-2xl font-black text-white">{gravityDripCalculations.dripRateGttPerMin}</span>
-                      <span className="text-xs font-semibold text-sky-300 ml-1">tetes / menit ({dripFactor === 20 ? 'Makro' : 'Mikro'})</span>
+                      <span className="text-2xl sm:text-3xl font-black text-white font-outfit">{gravityDripCalculations.dripRateGttPerMin}</span>
+                      <span className="text-xs font-bold text-cyan-300 ml-1 font-outfit">tetes / menit ({dripFactor === 20 ? 'Makro' : 'Mikro'})</span>
                     </div>
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs text-indigo-200/80 font-medium font-outfit">
                       Kecepatan: <strong>{gravityDripCalculations.rateMlPerHour} mL/jam</strong>
                     </div>
                   </div>
                 </div>
 
                 {/* Formula Box */}
-                <div className="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1 text-xs text-slate-400">
-                  <span className="font-bold text-slate-300 block">Rumus Syringe Pump Standar:</span>
-                  <p className="font-mono text-[11px] text-slate-300">
+                <div className="p-4.5 rounded-2xl bg-[#040614]/80 border border-indigo-900/50 space-y-1 text-xs text-indigo-200/70 font-outfit">
+                  <span className="font-bold text-indigo-200 block font-outfit">Rumus Syringe Pump Standar:</span>
+                  <p className="text-[11px] text-slate-300 font-medium font-outfit">
                     Kecepatan (mL/jam) = [Dosis ({calcTargetDose} mcg/kg/mnt) × BB ({calcPatientWeightKg} kg) × 60] ÷ Konsentrasi ({syringePumpCalculations.concentrationMcgPerMl} mcg/mL)
                   </p>
                 </div>
@@ -2162,7 +2170,6 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
 
       {/* ========================================================================= */}
       {/* TAB: 13 INTEGRATED CLINICAL SCORE CALCULATORS */}
-      {/* ========================================================================= */}
       {activeTab === 'clinical-scores' && (
         <div className="space-y-6">
           <div className="p-4.5 bg-gradient-to-r from-fuchsia-50 via-purple-50 to-pink-50 dark:from-fuchsia-950/40 dark:via-purple-950/40 dark:to-pink-950/40 border border-fuchsia-200 dark:border-fuchsia-800/60 rounded-2xl flex items-center justify-between gap-3 shadow-xs">

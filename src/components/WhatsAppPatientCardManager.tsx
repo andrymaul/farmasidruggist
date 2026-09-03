@@ -966,39 +966,39 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
         </div>
       </div>
 
-      {/* QUICK TEMPLATES PRESETS */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-wrap items-center gap-2">
+      {/* QUICK TEMPLATES PRESETS - EMERALD GREEN SUITE */}
+      <div className="bg-white dark:bg-[#071c10] border border-emerald-200/80 dark:border-emerald-500/25 rounded-3xl p-5 shadow-sm flex flex-wrap items-center gap-2">
         <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 mr-1 font-outfit">
           <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
           Template Resep Cepat:
         </span>
         <button
           onClick={() => handleLoadPreset('hipertensi')}
-          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 transition cursor-pointer"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold font-outfit bg-emerald-50/70 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-950 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/80 transition cursor-pointer"
         >
           🫀 Paket Hipertensi
         </button>
         <button
           onClick={() => handleLoadPreset('diabetes')}
-          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 transition cursor-pointer"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold font-outfit bg-emerald-50/70 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-950 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/80 transition cursor-pointer"
         >
           🩸 Paket Diabetes
         </button>
         <button
           onClick={() => handleLoadPreset('ispa')}
-          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 transition cursor-pointer"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold font-outfit bg-emerald-50/70 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-950 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/80 transition cursor-pointer"
         >
           🤧 Paket Batuk Pilek / ISPA
         </button>
         <button
           onClick={() => handleLoadPreset('gerd')}
-          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 transition cursor-pointer"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold font-outfit bg-emerald-50/70 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-950 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/80 transition cursor-pointer"
         >
           🔥 Paket Maag / GERD
         </button>
         <button
           onClick={() => handleLoadPreset('diare_anak')}
-          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 transition cursor-pointer"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold font-outfit bg-emerald-50/70 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-950 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/80 transition cursor-pointer"
         >
           👶 Paket Diare Anak (Zinc + Oralit)
         </button>
@@ -1008,26 +1008,26 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
         {/* LEFT COLUMN: EDITOR FORM */}
         <div className="lg:col-span-6 space-y-6">
           {/* Patient Details Card */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
+          <div className="bg-white dark:bg-[#071c10] border border-emerald-200/80 dark:border-emerald-500/25 rounded-3xl p-6 shadow-sm space-y-4">
+            <h3 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
               <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               Informasi Pasien Penerima Edukasi
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-400 mb-1">Nama Pasien</label>
+                <label className="block text-xs font-bold font-outfit text-slate-700 dark:text-slate-400 mb-1">Nama Pasien</label>
                 <input
                   type="text"
                   value={patientName}
                   onChange={(e) => setPatientName(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-sm font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30"
                   placeholder="cth. Bpk. Hendra"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-400 mb-1">
+                <label className="block text-xs font-bold font-outfit text-slate-700 dark:text-slate-400 mb-1">
                   Nomor WhatsApp Pasien <span className="text-emerald-600 dark:text-emerald-400 font-bold">*Wajib</span>
                 </label>
                 <div className="relative">
@@ -1036,7 +1036,7 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
                     type="tel"
                     value={patientPhone}
                     onChange={(e) => setPatientPhone(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-9 pr-3 py-2 text-sm font-bold text-emerald-600 dark:text-emerald-400 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-9 pr-3 py-2 text-sm font-bold font-outfit text-emerald-600 dark:text-emerald-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30"
                     placeholder="081234567890"
                   />
                 </div>
@@ -1051,18 +1051,18 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
               <div className="flex items-center gap-2.5">
                 <Building2 className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 <div className="text-xs">
-                  <span className="text-slate-900 dark:text-slate-300 font-bold">{clinicBranding.clinicName || 'Apotek Anda'}</span>
-                  <span className="text-slate-500 block text-[11px]">{clinicBranding.pharmacistName || 'Apoteker Penanggung Jawab'} ({clinicBranding.pharmacistSipa || clinicBranding.sipNumber || 'SIPA'})</span>
+                  <span className="text-slate-900 dark:text-slate-300 font-bold font-outfit">{clinicBranding.clinicName || 'Apotek Anda'}</span>
+                  <span className="text-slate-500 block text-[11px] font-sans">{clinicBranding.pharmacistName || 'Apoteker Penanggung Jawab'} ({clinicBranding.pharmacistSipa || clinicBranding.sipNumber || 'SIPA'})</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Medications Form */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800/80">
+          <div className="bg-white dark:bg-[#071c10] border border-emerald-200/80 dark:border-emerald-500/25 rounded-3xl p-6 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-emerald-100 dark:border-emerald-950/80">
               <div>
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
+                <h3 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
                   <Pill className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   Daftar Obat Pasien ({medications.length} Obat)
                 </h3>

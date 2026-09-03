@@ -219,47 +219,45 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
             </div>
           </div>
         </div>
-      </div>
-
-      {/* SUB-TABS NAVIGATION */}
-      <div className="flex flex-wrap gap-2 p-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
+      </div>      {/* SUB-TABS NAVIGATION - SKY & NAVY CLINICAL ICU */}
+      <div className="flex flex-wrap gap-2 p-1.5 bg-slate-50 dark:bg-[#061422] border border-sky-200/70 dark:border-sky-500/25 rounded-2xl shadow-2xs">
         <button
           onClick={() => setActiveSubTab('ysite')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold transition cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold font-outfit transition cursor-pointer ${
             activeSubTab === 'ysite'
-              ? 'bg-[#0f766e] text-white shadow-md'
-              : 'text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+              ? 'bg-gradient-to-r from-sky-600 to-blue-600 text-white shadow-md shadow-sky-950/40 border border-sky-400/30'
+              : 'text-slate-700 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-300 hover:bg-sky-50/80 dark:hover:bg-sky-950/40'
           }`}
         >
           <Layers className="w-4 h-4" />
-          Uji Kompatibilitas Percabangan Y-Site
-          <span className={`ml-1 px-2 py-0.5 text-[10px] font-bold rounded-full ${activeSubTab === 'ysite' ? 'bg-teal-900/50 text-teal-100' : 'bg-teal-100 text-teal-800'}`}>
+          <span>Uji Kompatibilitas Percabangan Y-Site</span>
+          <span className={`ml-1 px-2 py-0.5 text-[10px] font-bold font-outfit rounded-full ${activeSubTab === 'ysite' ? 'bg-sky-950/60 text-sky-200 border border-sky-400/30' : 'bg-sky-100 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-800'}`}>
             Multi-Drug
           </span>
         </button>
 
         <button
           onClick={() => setActiveSubTab('directory')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold transition cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold font-outfit transition cursor-pointer ${
             activeSubTab === 'directory'
-              ? 'bg-[#0f766e] text-white shadow-md'
-              : 'text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+              ? 'bg-gradient-to-r from-sky-600 to-blue-600 text-white shadow-md shadow-sky-950/40 border border-sky-400/30'
+              : 'text-slate-700 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-300 hover:bg-sky-50/80 dark:hover:bg-sky-950/40'
           }`}
         >
           <FlaskConical className="w-4 h-4" />
-          Monografi Pelarut & Stabilitas Rekonstitusi (BUD)
+          <span>Monografi Pelarut & Stabilitas Rekonstitusi (BUD)</span>
         </button>
 
         <button
           onClick={() => setActiveSubTab('calculator')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold transition cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold font-outfit transition cursor-pointer ${
             activeSubTab === 'calculator'
-              ? 'bg-[#0f766e] text-white shadow-md'
-              : 'text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+              ? 'bg-gradient-to-r from-sky-600 to-blue-600 text-white shadow-md shadow-sky-950/40 border border-sky-400/30'
+              : 'text-slate-700 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-300 hover:bg-sky-50/80 dark:hover:bg-sky-950/40'
           }`}
         >
           <Calculator className="w-4 h-4" />
-          Kalkulator Titrasi Syringe Pump & Drip
+          <span>Kalkulator Titrasi Syringe Pump & Drip</span>
         </button>
       </div>
 
@@ -268,15 +266,15 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
       {/* ========================================================================= */}
       {activeSubTab === 'ysite' && (
         <div className="space-y-6">
-          {/* Drug Selection Card */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-teal-100 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 flex items-center justify-center font-bold">
-                  <Syringe className="w-5 h-5" />
+          {/* Drug Selection Card - Sky & Navy Thematic Suite */}
+          <div className="bg-white dark:bg-[#071726] border border-sky-200/80 dark:border-sky-500/25 rounded-3xl p-5 sm:p-6 shadow-sm space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-sky-100 dark:border-sky-950/80">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-400/30 flex items-center justify-center font-bold shadow-2xs">
+                  <Syringe className="w-5 h-5 stroke-[2.2]" />
                 </div>
                 <div>
-                  <h3 className="text-base font-black text-slate-900 dark:text-white">Pilih Obat Injeksi yang Dialirkan Sejalur (Y-Site)</h3>
+                  <h3 className="text-base sm:text-lg font-extrabold font-outfit text-slate-900 dark:text-white tracking-tight">Pilih Obat Injeksi yang Dialirkan Sejalur (Y-Site)</h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Pilih 2 atau lebih obat untuk menguji kompatibilitas fisikokimia larutan</p>
                 </div>
               </div>
@@ -284,19 +282,19 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
               {/* Status Header Badge */}
               <div>
                 {overallYSiteStatus === 'incompatible' && (
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black bg-rose-600 text-white shadow-md shadow-rose-900/20">
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black font-outfit bg-rose-600 text-white shadow-md shadow-rose-900/20">
                     <AlertTriangle className="w-4 h-4" />
                     TERDETEKSI INKOMPATIBILITAS BERBAHAYA!
                   </span>
                 )}
                 {overallYSiteStatus === 'compatible' && (
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black bg-emerald-600 text-white shadow-md shadow-emerald-900/20">
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black font-outfit bg-emerald-600 text-white shadow-md shadow-emerald-900/20">
                     <CheckCircle2 className="w-4 h-4" />
                     SEMUA OBAT KOMPATIBEL DI JALUR Y-SITE
                   </span>
                 )}
                 {overallYSiteStatus === 'conditional' && (
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black bg-amber-600 text-white shadow-md shadow-amber-900/20">
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black font-outfit bg-amber-500 text-slate-950 shadow-md shadow-amber-950/20">
                     <Info className="w-4 h-4" />
                     PERHATIAN KHUSUS / PEMBILASAN
                   </span>
@@ -312,11 +310,11 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                 return (
                   <span
                     key={drug.id}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white shadow-2xs"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold font-outfit bg-sky-50/90 dark:bg-sky-950/50 border border-sky-200 dark:border-sky-800/80 text-sky-950 dark:text-sky-100 shadow-2xs"
                   >
-                    <span className="w-2 h-2 rounded-full bg-teal-600 dark:bg-teal-400" />
+                    <span className="w-2 h-2 rounded-full bg-sky-500 ring-2 ring-sky-400/40" />
                     {drug.name}
-                    <span className="text-[11px] text-teal-800 dark:text-teal-300 font-mono font-bold">(pH {drug.phRange})</span>
+                    <span className="text-[11px] text-sky-700 dark:text-sky-300 font-mono font-bold bg-sky-500/10 px-1.5 py-0.5 rounded-md">(pH {drug.phRange})</span>
                     <button
                       onClick={() => handleRemoveYSiteDrug(drug.id)}
                       className="text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition cursor-pointer ml-1"
@@ -338,7 +336,7 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                     }
                   }}
                   defaultValue=""
-                  className="bg-teal-50 hover:bg-teal-100 text-teal-900 dark:bg-slate-800 dark:text-teal-300 border border-teal-300 dark:border-teal-700 rounded-xl px-3.5 py-1.5 text-xs font-bold focus:outline-none cursor-pointer transition-colors"
+                  className="bg-sky-500/10 hover:bg-sky-500/15 text-sky-900 dark:text-sky-200 border border-sky-400/40 hover:border-sky-400/60 rounded-xl px-4 py-2 text-xs font-bold font-outfit focus:outline-none cursor-pointer transition-colors shadow-2xs"
                 >
                   <option value="" disabled>+ Tambah Obat Injeksi...</option>
                   {IV_DRUGS_DATABASE.filter(d => !selectedYSiteDrugIds.includes(d.id)).map(drug => (
@@ -351,37 +349,38 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
             </div>
 
             {/* Quick Clinical Presets */}
-            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-2 text-2xs">
-              <span className="text-slate-500 font-bold flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Contoh Kasus Injeksi Ruang Kritis:
+            <div className="pt-3 border-t border-sky-100 dark:border-sky-950/80 flex flex-wrap items-center gap-2 text-xs">
+              <span className="text-slate-500 dark:text-slate-400 font-extrabold font-outfit flex items-center gap-1.5 text-xs">
+                <Sparkles className="w-3.5 h-3.5 text-sky-500" />
+                <span>Contoh Kasus Injeksi Ruang Kritis:</span>
               </span>
               <button
                 onClick={() => setSelectedYSiteDrugIds(['iv-norepinephrine', 'iv-dobutamine', 'iv-furosemide'])}
-                className="px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/40 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-800 hover:bg-teal-100 font-medium cursor-pointer"
+                className="px-2.5 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/40 text-sky-900 dark:text-sky-200 border border-sky-200 dark:border-sky-800/60 hover:bg-sky-100 dark:hover:bg-sky-900/60 font-bold font-outfit cursor-pointer transition-colors"
               >
                 🫀 Syok Kardiogenik (Norepinephrine + Dobutamine + Furosemide)
               </button>
               <button
                 onClick={() => setSelectedYSiteDrugIds(['iv-mannitol', 'iv-furosemide', 'iv-phenytoin'])}
-                className="px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 font-medium cursor-pointer"
+                className="px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-900 dark:text-blue-200 border border-blue-200 dark:border-blue-800/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 font-bold font-outfit cursor-pointer transition-colors"
               >
                 🧠 Edema Serebral & Kejang (Mannitol 20% + Furosemide + Fenitoin)
               </button>
               <button
                 onClick={() => setSelectedYSiteDrugIds(['iv-thiopental', 'iv-atracurium', 'iv-midazolam'])}
-                className="px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800 hover:bg-rose-100 font-medium cursor-pointer"
+                className="px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-900 dark:text-rose-200 border border-rose-200 dark:border-rose-800/60 hover:bg-rose-100 dark:hover:bg-rose-900/60 font-bold font-outfit cursor-pointer transition-colors"
               >
                 ⚠️ Inkompatibilitas Fatal Anestesi (Thiopental + Atracurium + Midazolam)
               </button>
               <button
                 onClick={() => setSelectedYSiteDrugIds(['iv-calcium-gluconate', 'iv-potassium-phosphate', 'iv-sodium-bicarbonate'])}
-                className="px-2.5 py-1 rounded-lg bg-red-50 dark:bg-red-950/40 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800 hover:bg-red-100 font-medium cursor-pointer"
+                className="px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200 border border-amber-200 dark:border-amber-800/60 hover:bg-amber-100 dark:hover:bg-amber-900/60 font-bold font-outfit cursor-pointer transition-colors"
               >
                 ⚡ Presipitasi Kapur Elektrolit (Kalsium + K-Phos + Bikarbonat)
               </button>
               <button
                 onClick={() => setSelectedYSiteDrugIds(['iv-oxytocin', 'iv-tranexamic-acid', 'iv-magnesium-sulfate'])}
-                className="px-2.5 py-1 rounded-lg bg-pink-50 dark:bg-pink-950/40 text-pink-800 dark:text-pink-300 border border-pink-200 dark:border-pink-800 hover:bg-pink-100 font-medium cursor-pointer"
+                className="px-2.5 py-1 rounded-lg bg-pink-50 dark:bg-pink-950/40 text-pink-900 dark:text-pink-200 border border-pink-200 dark:border-pink-800/60 hover:bg-pink-100 dark:hover:bg-pink-900/60 font-bold font-outfit cursor-pointer transition-colors"
               >
                 🤰 Kebidanan & PPH (Oxytocin + Asam Traneksamat + MgSO4)
               </button>
@@ -390,31 +389,32 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
           {/* Matrix Grid Overview (if >=2 drugs) */}
           {selectedYSiteDrugIds.length >= 2 && (
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm overflow-x-auto">
-              <h4 className="text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-3">
-                Matriks Kompatibilitas Y-Site Antar Pasangan
+            <div className="bg-white dark:bg-[#071726] border border-sky-200/80 dark:border-sky-500/25 rounded-3xl p-5 sm:p-6 shadow-sm overflow-x-auto">
+              <h4 className="text-xs font-black font-outfit text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <Layers className="w-3.5 h-3.5 text-sky-500" />
+                <span>Matriks Kompatibilitas Y-Site Antar Pasangan</span>
               </h4>
 
               <table className="w-full text-center text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-slate-800">
-                    <th className="p-2 text-left text-slate-600 dark:text-slate-400 font-bold">Obat</th>
+                  <tr className="border-b border-sky-100 dark:border-sky-950/80">
+                    <th className="p-2 text-left text-slate-600 dark:text-slate-400 font-bold font-outfit">Obat</th>
                     {selectedYSiteDrugIds.map(id => {
                       const d = IV_DRUGS_DATABASE.find(item => item.id === id);
                       return (
-                        <th key={id} className="p-2 text-slate-800 dark:text-slate-200 font-bold max-w-[110px] truncate" title={d?.name}>
+                        <th key={id} className="p-2 text-slate-800 dark:text-slate-200 font-bold font-outfit max-w-[110px] truncate" title={d?.name}>
                           {d?.name.split(' ')[0]}
                         </th>
                       );
                     })}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                <tbody className="divide-y divide-sky-100/60 dark:divide-sky-950/60">
                   {selectedYSiteDrugIds.map((rowId) => {
                     const rowDrug = IV_DRUGS_DATABASE.find(d => d.id === rowId);
                     return (
                       <tr key={rowId}>
-                        <td className="p-2 text-left font-black text-slate-900 dark:text-white whitespace-nowrap">
+                        <td className="p-2 text-left font-black font-outfit text-slate-900 dark:text-white whitespace-nowrap">
                           {rowDrug?.name}
                         </td>
                         {selectedYSiteDrugIds.map((colId) => {
@@ -429,22 +429,22 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                           return (
                             <td key={colId} className="p-2">
                               {check.status === 'compatible' && (
-                                <span className="inline-block w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300 leading-7 font-black border border-emerald-300 dark:border-emerald-500/30" title="Kompatibel (Aman)">
+                                <span className="inline-block w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300 leading-7 font-black font-outfit border border-emerald-300 dark:border-emerald-500/30" title="Kompatibel (Aman)">
                                   C
                                 </span>
                               )}
                               {check.status === 'incompatible' && (
-                                <span className="inline-block w-7 h-7 rounded-lg bg-rose-100 text-rose-800 dark:bg-rose-500/20 dark:text-rose-300 leading-7 font-black border border-rose-300 dark:border-rose-500/30" title="Inkompatibel (Bahaya)">
+                                <span className="inline-block w-7 h-7 rounded-lg bg-rose-100 text-rose-800 dark:bg-rose-500/20 dark:text-rose-300 leading-7 font-black font-outfit border border-rose-300 dark:border-rose-500/30" title="Inkompatibel (Bahaya)">
                                   I
                                 </span>
                               )}
                               {check.status === 'conditional' && (
-                                <span className="inline-block w-7 h-7 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300 leading-7 font-black border border-amber-300 dark:border-amber-500/30" title="Bersyarat / Waspada">
+                                <span className="inline-block w-7 h-7 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300 leading-7 font-black font-outfit border border-amber-300 dark:border-amber-500/30" title="Bersyarat / Waspada">
                                   V
                                 </span>
                               )}
                               {check.status === 'no_data' && (
-                                <span className="inline-block w-7 h-7 rounded-lg bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 leading-7 font-bold border border-slate-200 dark:border-slate-700" title="Belum Ada Data">
+                                <span className="inline-block w-7 h-7 rounded-lg bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 leading-7 font-bold font-outfit border border-slate-200 dark:border-slate-700" title="Belum Ada Data">
                                   ?
                                 </span>
                               )}
@@ -457,7 +457,7 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                 </tbody>
               </table>
 
-              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600 dark:text-slate-400 mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 font-medium">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600 dark:text-slate-400 mt-4 pt-3 border-t border-sky-100 dark:border-sky-950/80 font-medium font-outfit">
                 <span className="flex items-center gap-1.5"><span className="w-4 h-4 rounded bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-[10px] border border-emerald-300">C</span> Kompatibel (Aman)</span>
                 <span className="flex items-center gap-1.5"><span className="w-4 h-4 rounded bg-rose-100 text-rose-800 font-black flex items-center justify-center text-[10px] border border-rose-300">I</span> Inkompatibel (Bahaya / Presipitasi)</span>
                 <span className="flex items-center gap-1.5"><span className="w-4 h-4 rounded bg-amber-100 text-amber-800 font-black flex items-center justify-center text-[10px] border border-amber-300">V</span> Bersyarat (Waspada pH)</span>
@@ -468,25 +468,25 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
           {/* Detailed Pairwise Cards */}
           <div className="space-y-4">
-            <h4 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
-              <Activity className="w-4 h-4 text-teal-700 dark:text-teal-400" />
+            <h4 className="text-sm sm:text-base font-extrabold font-outfit text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
+              <Activity className="w-4 h-4 text-sky-500" />
               Rincian Klinis Kompatibilitas Antar Pasangan ({ySitePairwiseResults.length} Pasangan)
             </h4>
 
             {ySitePairwiseResults.map((pair, idx) => (
               <div
                 key={idx}
-                className={`rounded-2xl p-5 shadow-sm transition space-y-4 border ${
+                className={`rounded-3xl p-5 sm:p-6 shadow-sm transition space-y-4 border ${
                   pair.result.status === 'incompatible'
-                    ? 'bg-rose-50/90 dark:bg-rose-950/40 border-2 border-rose-400 dark:border-rose-700/80'
+                    ? 'bg-rose-50/90 dark:bg-rose-950/30 border-2 border-rose-400 dark:border-rose-700/80'
                     : pair.result.status === 'conditional'
-                    ? 'bg-amber-50/90 dark:bg-amber-950/40 border-2 border-amber-400 dark:border-amber-700/80'
-                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800'
+                    ? 'bg-amber-50/90 dark:bg-amber-950/30 border-2 border-amber-400 dark:border-amber-700/80'
+                    : 'bg-white dark:bg-[#071726] border-sky-200/80 dark:border-sky-500/25'
                 }`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200/80 dark:border-slate-800">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className={`text-base sm:text-lg font-black ${
+                    <span className={`text-base sm:text-lg font-black font-outfit ${
                       pair.result.status === 'incompatible' ? 'text-rose-950 dark:text-rose-100' :
                       pair.result.status === 'conditional' ? 'text-amber-950 dark:text-amber-100' :
                       'text-slate-900 dark:text-white'
@@ -494,7 +494,7 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                       {pair.drugA.name}
                     </span>
                     <span className="text-sm font-black text-slate-400">+</span>
-                    <span className={`text-base sm:text-lg font-black ${
+                    <span className={`text-base sm:text-lg font-black font-outfit ${
                       pair.result.status === 'incompatible' ? 'text-rose-950 dark:text-rose-100' :
                       pair.result.status === 'conditional' ? 'text-amber-950 dark:text-amber-100' :
                       'text-slate-900 dark:text-white'
@@ -512,14 +512,14 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                  <div className="bg-white dark:bg-slate-900 rounded-xl p-3.5 border border-slate-200 dark:border-slate-800 shadow-2xs">
-                    <span className="text-slate-700 dark:text-slate-300 font-bold block mb-1">Parameter pH Larutan:</span>
+                  <div className="bg-slate-50/80 dark:bg-slate-900/80 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+                    <span className="text-slate-700 dark:text-slate-300 font-bold font-outfit block mb-1">Parameter pH Larutan:</span>
                     <div className="flex flex-wrap items-center gap-3 mt-1.5 font-medium">
                       <span className="text-slate-800 dark:text-slate-200 font-mono">
-                        {pair.drugA.name.split(' ')[0]}: <strong className="text-teal-800 dark:text-teal-300 font-black">pH {pair.drugA.phRange}</strong>
+                        {pair.drugA.name.split(' ')[0]}: <strong className="text-sky-700 dark:text-sky-300 font-black">pH {pair.drugA.phRange}</strong>
                       </span>
                       <span className="text-slate-800 dark:text-slate-200 font-mono">
-                        {pair.drugB.name.split(' ')[0]}: <strong className="text-teal-800 dark:text-teal-300 font-black">pH {pair.drugB.phRange}</strong>
+                        {pair.drugB.name.split(' ')[0]}: <strong className="text-sky-700 dark:text-sky-300 font-black">pH {pair.drugB.phRange}</strong>
                       </span>
                     </div>
                   </div>
@@ -558,7 +558,7 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
       {activeSubTab === 'directory' && (
         <div className="space-y-6">
           {/* Search and Filters */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-white dark:bg-[#071726] border border-sky-200/80 dark:border-sky-500/25 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
             <div className="relative flex-1 min-w-[240px]">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
               <input
@@ -566,16 +566,16 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                 value={directorySearchQuery}
                 onChange={(e) => setDirectorySearchQuery(e.target.value)}
                 placeholder="Cari obat injeksi (nama generik / merk dagang)..."
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-2 text-sm text-slate-900 dark:text-white font-bold focus:outline-none focus:border-teal-600"
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-2 text-sm text-slate-900 dark:text-white font-bold font-outfit focus:outline-none focus:border-sky-500"
               />
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-slate-600 dark:text-slate-400">Kategori:</span>
+              <span className="text-xs font-bold font-outfit text-slate-600 dark:text-slate-400">Kategori:</span>
               <select
                 value={selectedCategoryFilter}
                 onChange={(e) => setSelectedCategoryFilter(e.target.value)}
-                className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 cursor-pointer"
+                className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 cursor-pointer"
               >
                 <option value="Semua">Semua Kategori</option>
                 <option value="Vasoaktif / Inotropik">Vasoaktif / Inotropik</option>
@@ -593,23 +593,23 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
             {filteredDirectoryDrugs.map(drug => (
               <div
                 key={drug.id}
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm hover:border-teal-400 transition"
+                className="bg-white dark:bg-[#071726] border border-sky-200/80 dark:border-sky-500/25 rounded-3xl p-5 sm:p-6 shadow-sm hover:border-sky-400 dark:hover:border-sky-400/60 transition"
               >
                 <div
                   className="flex flex-wrap items-center justify-between gap-3 cursor-pointer"
                   onClick={() => setExpandedDrugId(expandedDrugId === drug.id ? null : drug.id)}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 flex items-center justify-center font-bold">
+                    <div className="w-10 h-10 rounded-2xl bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-400/30 flex items-center justify-center font-bold shadow-2xs">
                       <FlaskConical className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                      <h3 className="text-base font-extrabold font-outfit text-slate-900 dark:text-white flex items-center gap-2">
                         {drug.name}
                         <span className="text-xs font-semibold text-slate-500 font-mono">({drug.genericName})</span>
                       </h3>
                       <div className="flex flex-wrap items-center gap-2 mt-1">
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-teal-50 text-teal-800 border border-teal-200">
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-black font-outfit bg-sky-50 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
                           {drug.category}
                         </span>
                         <span className="text-xs text-slate-600 dark:text-slate-400 font-mono">
@@ -624,18 +624,18 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
                   <div className="flex items-center gap-2">
                     {drug.stability.lightProtectionRequired && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black bg-amber-100 text-amber-900 border border-amber-300" title="Wajib Flabot Gelap / Aluminium Foil">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black font-outfit bg-amber-100 text-amber-900 border border-amber-300" title="Wajib Flabot Gelap / Aluminium Foil">
                         <SunMedium className="w-3 h-3" />
                         Pelindung Cahaya
                       </span>
                     )}
                     {drug.stability.filterRequired && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black bg-purple-100 text-purple-900 border border-purple-300" title="Wajib In-line Filter">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black font-outfit bg-purple-100 text-purple-900 border border-purple-300" title="Wajib In-line Filter">
                         <Filter className="w-3 h-3" />
                         In-line Filter
                       </span>
                     )}
-                    <span className="text-xs text-[#0f766e] dark:text-teal-400 font-bold underline ml-1">
+                    <span className="text-xs text-sky-600 dark:text-sky-400 font-bold font-outfit underline ml-1">
                       {expandedDrugId === drug.id ? 'Tutup Rincian' : 'Lihat Rekonstitusi & BUD'}
                     </span>
                   </div>
@@ -643,32 +643,31 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
                 {/* Expanded Details */}
                 {expandedDrugId === drug.id && (
-                  <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-4 text-xs">
+                  <div className="mt-5 pt-4 border-t border-sky-100 dark:border-sky-950/80 space-y-4 text-xs">
                     {/* Diluent Compatibility Grid */}
-                    <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-4 border border-slate-200 dark:border-slate-800">
-                      <span className="text-xs font-black text-slate-800 dark:text-slate-200 block mb-2">
+                    <div className="bg-slate-50 dark:bg-[#040f1a] rounded-2xl p-4 border border-sky-200/60 dark:border-sky-900/40">
+                      <span className="text-xs font-black font-outfit text-slate-800 dark:text-slate-200 block mb-2">
                         Kompatibilitas Cairan Pembawa / Infus:
                       </span>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div className={`p-2.5 rounded-lg border flex items-center justify-between font-bold ${drug.diluents.ns ? 'bg-emerald-50 border-emerald-300 text-emerald-900 dark:bg-emerald-950/30 dark:border-emerald-800/40 dark:text-emerald-300' : 'bg-rose-50 border-rose-300 text-rose-900 dark:bg-rose-950/30 dark:border-rose-800/40 dark:text-rose-300'}`}>
-                          <span>NaCl 0.9% (NS)</span>
-                          {drug.diluents.ns ? <Check className="w-4 h-4 text-emerald-700 dark:text-emerald-400" /> : <X className="w-4 h-4 text-rose-700 dark:text-rose-400" />}
-                        </div>
-                        <div className={`p-2.5 rounded-lg border flex items-center justify-between font-bold ${drug.diluents.d5w ? 'bg-emerald-50 border-emerald-300 text-emerald-900 dark:bg-emerald-950/30 dark:border-emerald-800/40 dark:text-emerald-300' : 'bg-rose-50 border-rose-300 text-rose-900 dark:bg-rose-950/30 dark:border-rose-800/40 dark:text-rose-300'}`}>
-                          <span>Dextrose 5% (D5W)</span>
-                          {drug.diluents.d5w ? <Check className="w-4 h-4 text-emerald-700 dark:text-emerald-400" /> : <X className="w-4 h-4 text-rose-700 dark:text-rose-400" />}
-                        </div>
-                        <div className={`p-2.5 rounded-lg border flex items-center justify-between font-bold ${drug.diluents.rl ? 'bg-emerald-50 border-emerald-300 text-emerald-900 dark:bg-emerald-950/30 dark:border-emerald-800/40 dark:text-emerald-300' : 'bg-rose-50 border-rose-300 text-rose-900 dark:bg-rose-950/30 dark:border-rose-800/40 dark:text-rose-300'}`}>
-                          <span>Ringer Lactate (RL)</span>
-                          {drug.diluents.rl ? <Check className="w-4 h-4 text-emerald-700 dark:text-emerald-400" /> : <X className="w-4 h-4 text-rose-700 dark:text-rose-400" />}
-                        </div>
-                        <div className={`p-2.5 rounded-lg border flex items-center justify-between font-bold ${drug.diluents.wfi ? 'bg-emerald-50 border-emerald-300 text-emerald-900 dark:bg-emerald-950/30 dark:border-emerald-800/40 dark:text-emerald-300' : 'bg-rose-50 border-rose-300 text-rose-900 dark:bg-rose-950/30 dark:border-rose-800/40 dark:text-rose-300'}`}>
-                          <span>Water for Inj. (WFI)</span>
-                          {drug.diluents.wfi ? <Check className="w-4 h-4 text-emerald-700 dark:text-emerald-400" /> : <X className="w-4 h-4 text-rose-700 dark:text-rose-400" />}
-                        </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        {Object.entries(drug.diluents).filter(([k]) => k !== 'notes').map(([key, val], idx) => (
+                          <div
+                            key={idx}
+                            className={`p-2.5 rounded-xl border flex items-center justify-between ${
+                              val
+                                ? 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800/80 text-emerald-900 dark:text-emerald-300'
+                                : 'bg-rose-50 dark:bg-rose-950/30 border-rose-300 dark:border-rose-800/80 text-rose-900 dark:text-rose-300'
+                            }`}
+                          >
+                            <span className="font-bold font-outfit">{key.toUpperCase()}</span>
+                            <span className="font-black font-outfit text-xs">
+                              {val ? '✓ Ya' : '✕ Tidak'}
+                            </span>
+                          </div>
+                        ))}
                       </div>
                       {drug.diluents.notes && (
-                        <p className="text-xs text-amber-900 dark:text-amber-300 mt-2 font-bold">
+                        <p className="text-xs text-amber-900 dark:text-amber-300 mt-2 font-bold font-outfit">
                           *Catatan: {drug.diluents.notes}
                         </p>
                       )}
@@ -676,40 +675,29 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
                     {/* Reconstitution & Stability Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-4 border border-slate-200 dark:border-slate-800 space-y-2">
-                        <span className="text-xs font-black text-teal-800 dark:text-teal-300 flex items-center gap-1.5">
-                          <FlaskConical className="w-3.5 h-3.5" /> Panduan Rekonstitusi & Pengenceran:
+                      <div className="p-4 bg-sky-50/60 dark:bg-sky-950/30 rounded-2xl border border-sky-200/80 dark:border-sky-800/60 space-y-2">
+                        <span className="font-black font-outfit text-sky-900 dark:text-sky-300 block flex items-center gap-1.5">
+                          <FlaskConical className="w-4 h-4 text-sky-600" />
+                          Panduan Rekonstitusi:
                         </span>
-                        <p className="text-slate-800 dark:text-slate-200"><strong className="text-slate-900 dark:text-white">Pelarut: </strong>{drug.reconstitution.recommendedDiluent}</p>
-                        <p className="text-slate-800 dark:text-slate-200"><strong className="text-slate-900 dark:text-white">Volume: </strong>{drug.reconstitution.volumeToReconstitute}</p>
-                        <p className="text-slate-800 dark:text-slate-200"><strong className="text-slate-900 dark:text-white">Konsentrasi Akhir: </strong>{drug.reconstitution.resultantConcentration}</p>
-                        <p className="text-[11px] text-slate-600 dark:text-slate-400 italic font-medium">{drug.reconstitution.instructions}</p>
+                        <p className="text-slate-700 dark:text-slate-300 font-medium font-outfit">{drug.reconstitution.instructions}</p>
+                        <div className="text-[11px] text-slate-600 dark:text-slate-400 font-mono pt-1 border-t border-sky-200/60 dark:border-sky-900/60">
+                          <p>Pelarut: {drug.reconstitution.recommendedDiluent}</p>
+                          <p>Volume: {drug.reconstitution.volumeToReconstitute}</p>
+                        </div>
                       </div>
 
-                      <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-4 border border-slate-200 dark:border-slate-800 space-y-2">
-                        <span className="text-xs font-black text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5" /> Stabilitas & Beyond Use Date (BUD):
+                      <div className="p-4 bg-blue-50/60 dark:bg-blue-950/30 rounded-2xl border border-blue-200/80 dark:border-blue-800/60 space-y-2">
+                        <span className="font-black font-outfit text-blue-900 dark:text-blue-300 block flex items-center gap-1.5">
+                          <Clock className="w-4 h-4 text-blue-600" />
+                          Stabilitas & Beyond Use Date (BUD):
                         </span>
-                        <p className="text-slate-800 dark:text-slate-200"><strong className="text-slate-900 dark:text-white">Suhu Kamar (15-25°C): </strong>{drug.stability.roomTemp25C}</p>
-                        <p className="text-slate-800 dark:text-slate-200"><strong className="text-slate-900 dark:text-white">Kulkas (2-8°C): </strong>{drug.stability.refrigerated2to8C}</p>
-                        <p className="text-slate-800 dark:text-slate-200"><strong className="text-slate-900 dark:text-white">Pelindung Cahaya: </strong>{drug.stability.lightProtectionRequired ? 'Wajib Dibungkus Gelap / Aluminium Foil' : 'Tidak Wajib'}</p>
-                        <p className="text-slate-800 dark:text-slate-200"><strong className="text-slate-900 dark:text-white">In-line Filter: </strong>{drug.stability.filterRequired ? drug.stability.filterType : 'Tidak Diperlukan'}</p>
+                        <div className="text-slate-700 dark:text-slate-300 text-[11px] font-outfit font-medium">
+                          <p>Suhu Kamar: {drug.stability.roomTemp25C}</p>
+                          <p>Kulkas: {drug.stability.refrigerated2to8C}</p>
+                        </div>
                       </div>
                     </div>
-
-                    {/* Black Box Incompatibilities */}
-                    {drug.blackBoxIncompatibilities && drug.blackBoxIncompatibilities.length > 0 && (
-                      <div className="p-3.5 bg-rose-100 dark:bg-rose-950/60 border border-rose-300 dark:border-rose-700 rounded-xl text-rose-950 dark:text-rose-200 space-y-1">
-                        <span className="font-black flex items-center gap-1.5 text-rose-950 dark:text-rose-300">
-                          <AlertTriangle className="w-3.5 h-3.5 text-rose-700" /> Inkompatibilitas Mutlak (KONTRAINDIKASI SEJALUR):
-                        </span>
-                        <ul className="list-disc list-inside text-xs font-bold text-rose-900 dark:text-rose-100 pl-1">
-                          {drug.blackBoxIncompatibilities.map((bb, idx) => (
-                            <li key={idx}>{bb}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>
@@ -725,14 +713,14 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Controls Column */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
-              <h3 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
-                <Calculator className="w-4 h-4 text-teal-700 dark:text-teal-400" />
-                Parameter Infus Syringe Pump
+            <div className="bg-white dark:bg-[#071726] border border-sky-200/80 dark:border-sky-500/25 rounded-3xl p-6 shadow-sm space-y-4">
+              <h3 className="text-base font-extrabold font-outfit text-slate-900 dark:text-white flex items-center gap-2">
+                <Calculator className="w-5 h-5 text-sky-500" />
+                Parameter Syringe Pump ICU
               </h3>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Preset Obat Inotropik / Sedasi</label>
+                <label className="block text-xs font-bold font-outfit text-slate-700 dark:text-slate-300 mb-1">Pilih Preset Obat Vasoaktif:</label>
                 <select
                   value={calcDrugPreset}
                   onChange={(e) => {
@@ -755,7 +743,7 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                       setCalcSyringeVolumeMl(50);
                     }
                   }}
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-sky-500"
                 >
                   <option value="iv-norepinephrine">Norepinephrine (Vascon) 4 mg / 50 mL</option>
                   <option value="iv-dobutamine">Dobutamine (Inotrop) 250 mg / 50 mL</option>
@@ -766,18 +754,18 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Berat Badan Pasien (kg)</label>
+                  <label className="block text-xs font-bold font-outfit text-slate-700 dark:text-slate-300 mb-1">Berat Badan (kg)</label>
                   <input
                     type="number"
                     min="1"
                     value={calcPatientWeightKg}
                     onChange={(e) => setCalcPatientWeightKg(Math.max(1, parseFloat(e.target.value) || 1))}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-sky-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Target Dosis Titrasi</label>
+                  <label className="block text-xs font-bold font-outfit text-slate-700 dark:text-slate-300 mb-1">Target Dosis Titrasi</label>
                   <div className="relative">
                     <input
                       type="number"
@@ -785,73 +773,47 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                       min="0.001"
                       value={calcTargetDose}
                       onChange={(e) => setCalcTargetDose(Math.max(0.001, parseFloat(e.target.value) || 0))}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-black text-teal-800 dark:text-teal-300 focus:outline-none focus:border-teal-600"
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-black font-outfit text-sky-800 dark:text-sky-300 focus:outline-none focus:border-sky-500"
                     />
-                    <span className="absolute right-2.5 top-2 text-[10px] text-slate-500 font-bold">mcg/kg/mnt</span>
+                    <span className="absolute right-2.5 top-2 text-[10px] text-slate-500 font-bold font-outfit">mcg/kg/mnt</span>
                   </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Jumlah Obat dlm Spuit (mg)</label>
-                  <input
-                    type="number"
-                    min="0.1"
-                    value={calcDrugMgInSyringe}
-                    onChange={(e) => setCalcDrugMgInSyringe(Math.max(0.1, parseFloat(e.target.value) || 1))}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Volume Spuit (mL)</label>
-                  <select
-                    value={calcSyringeVolumeMl}
-                    onChange={(e) => setCalcSyringeVolumeMl(parseInt(e.target.value))}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600"
-                  >
-                    <option value={50}>50 mL (Spuit Standar ICU)</option>
-                    <option value={20}>20 mL</option>
-                    <option value={100}>100 mL (Micro-infusion)</option>
-                  </select>
                 </div>
               </div>
             </div>
 
             {/* Gravity Drip Section */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
-              <h3 className="text-xs font-black text-slate-800 dark:text-slate-200 uppercase tracking-wider">
-                Kalkulator Tetesan Infus Gravitasi (Flabot/Kantong)
+            <div className="bg-white dark:bg-[#071726] border border-sky-200/80 dark:border-sky-500/25 rounded-3xl p-6 shadow-sm space-y-3">
+              <h3 className="text-xs font-black font-outfit text-slate-800 dark:text-slate-200 uppercase tracking-wider">
+                Kalkulator Tetesan Infus Gravitasi
               </h3>
               <div className="grid grid-cols-3 gap-2">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">Volume (mL)</label>
+                  <label className="block text-[11px] font-bold font-outfit text-slate-600 dark:text-slate-400 mb-1">Vol (mL)</label>
                   <input
                     type="number"
                     value={dripVolumeMl}
                     onChange={(e) => setDripVolumeMl(parseInt(e.target.value) || 100)}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-bold text-slate-900 dark:text-white"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-sky-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">Durasi (Jam)</label>
+                  <label className="block text-[11px] font-bold font-outfit text-slate-600 dark:text-slate-400 mb-1">Jam</label>
                   <input
                     type="number"
                     value={dripDurationHours}
                     onChange={(e) => setDripDurationHours(parseInt(e.target.value) || 1)}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-bold text-slate-900 dark:text-white"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-sky-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">Faktor Tetes</label>
+                  <label className="block text-[11px] font-bold font-outfit text-slate-600 dark:text-slate-400 mb-1">Factor</label>
                   <select
                     value={dripFactor}
                     onChange={(e) => setDripFactor(parseInt(e.target.value) as any)}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-bold text-slate-900 dark:text-white"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-2 py-1.5 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-sky-500"
                   >
-                    <option value={20}>Makro (20 gtt/mL)</option>
-                    <option value={60}>Mikro (60 gtt/mL)</option>
+                    <option value={20}>Makro</option>
+                    <option value={60}>Mikro</option>
                   </select>
                 </div>
               </div>
@@ -860,57 +822,32 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
           {/* Results Column */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] border border-[#143d47] rounded-2xl p-6 text-white shadow-xl space-y-5">
-              <span className="text-xs font-bold text-teal-300 uppercase tracking-wider block">
-                Hasil Setting Kecepatan Syringe Pump
+            <div className="bg-gradient-to-r from-[#031522] via-[#072438] to-[#041926] border border-sky-500/30 rounded-3xl p-6 text-white shadow-xl space-y-5">
+              <span className="text-xs font-extrabold font-outfit text-sky-400 uppercase tracking-wider block">
+                Hasil Setting Syringe Pump
               </span>
-
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-[#06181c] border border-[#14424e] rounded-xl p-4">
-                  <span className="text-xs text-teal-200/80 font-medium">Setting Syringe Pump</span>
+                <div className="bg-[#020d16]/90 border border-sky-500/25 rounded-2xl p-4">
+                  <span className="text-xs text-sky-200/80 font-medium font-outfit">Setting Pump</span>
                   <div className="flex items-baseline gap-2 mt-1">
-                    <span className="text-3xl font-black text-teal-300">{syringePumpCalculations.rateMlPerHour}</span>
-                    <span className="text-sm font-bold text-teal-100">mL / jam</span>
+                    <span className="text-3xl font-black font-outfit text-sky-400">{syringePumpCalculations.rateMlPerHour}</span>
+                    <span className="text-sm font-bold font-outfit text-sky-100">mL / jam</span>
                   </div>
-                  <span className="text-[11px] text-teal-300/70 mt-1 block font-mono">
-                    Konsentrasi: {syringePumpCalculations.concentrationMcgPerMl} mcg/mL
-                  </span>
                 </div>
-
-                <div className="bg-[#06181c] border border-[#14424e] rounded-xl p-4">
-                  <span className="text-xs text-teal-200/80 font-medium">Waktu Spuit Habis</span>
+                <div className="bg-[#020d16]/90 border border-sky-500/25 rounded-2xl p-4">
+                  <span className="text-xs text-sky-200/80 font-medium font-outfit">Habis Dalam</span>
                   <div className="flex items-baseline gap-2 mt-1">
-                    <span className="text-3xl font-black text-emerald-300">~{syringePumpCalculations.syringeDurationHours}</span>
-                    <span className="text-sm font-bold text-teal-100">Jam</span>
+                    <span className="text-3xl font-black font-outfit text-emerald-300">~{syringePumpCalculations.syringeDurationHours}</span>
+                    <span className="text-sm font-bold font-outfit text-sky-100">Jam</span>
                   </div>
-                  <span className="text-[11px] text-teal-300/70 mt-1 block font-mono">
-                    Total dosis masuk: {syringePumpCalculations.totalDoseMgPerHour} mg/jam
-                  </span>
                 </div>
               </div>
-
-              {/* Gravity Drip Result Box */}
-              <div className="bg-[#08282e] border border-teal-500/30 rounded-xl p-4">
-                <span className="text-xs font-bold text-teal-300 block mb-1">
-                  Hasil Tetesan Infus Gravitasi ({dripVolumeMl} mL dalam {dripDurationHours} jam):
+              <div className="bg-[#041624] border border-sky-500/30 rounded-2xl p-4">
+                <span className="text-xs font-bold font-outfit text-sky-300 block mb-1">
+                  Hasil Tetesan Gravitasi ({dripVolumeMl} mL / {dripDurationHours} jam):
                 </span>
-                <div className="flex items-baseline gap-4 mt-2">
-                  <div>
-                    <span className="text-2xl font-black text-white">{gravityDripCalculations.dripRateGttPerMin}</span>
-                    <span className="text-xs font-bold text-teal-300 ml-1">tetes / menit ({dripFactor === 20 ? 'Makro' : 'Mikro'})</span>
-                  </div>
-                  <div className="text-xs text-teal-100 font-medium">
-                    Kecepatan: <strong className="text-white font-black">{gravityDripCalculations.rateMlPerHour} mL/jam</strong>
-                  </div>
-                </div>
-              </div>
-
-              {/* Clinical Formula Box */}
-              <div className="p-4 rounded-xl bg-[#06181c] border border-[#14424e] space-y-1 text-xs text-teal-200/80">
-                <span className="font-bold text-teal-300 block">Rumus Syringe Pump Standar:</span>
-                <p className="font-mono text-[11px] text-teal-100">
-                  Kecepatan (mL/jam) = [Dosis ({calcTargetDose} mcg/kg/mnt) × BB ({calcPatientWeightKg} kg) × 60] ÷ Konsentrasi ({syringePumpCalculations.concentrationMcgPerMl} mcg/mL)
-                </p>
+                <span className="text-2xl font-black font-outfit text-white">{gravityDripCalculations.dripRateGttPerMin}</span>
+                <span className="text-xs font-bold font-outfit text-sky-300 ml-1">tetes / menit</span>
               </div>
             </div>
           </div>
@@ -920,8 +857,8 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
       {/* VERIFIED CLINICAL REFERENCES FOOTER */}
       <div className="p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm space-y-3">
         <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
-          <BookOpen className="w-4 h-4 text-[#0f766e] dark:text-teal-400" />
-          <h4 className="text-xs font-black uppercase tracking-wider text-slate-800 dark:text-slate-200">
+          <BookOpen className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+          <h4 className="text-xs font-black font-outfit uppercase tracking-wider text-slate-800 dark:text-slate-200">
             Sumber Referensi Resmi & Literatur Terverifikasi:
           </h4>
         </div>

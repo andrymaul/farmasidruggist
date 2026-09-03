@@ -286,8 +286,8 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
         </div>
       </div>
 
-      {/* Filter and Search Toolbar */}
-      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-sm space-y-4">
+      {/* Filter and Search Toolbar - Emerald Mint Suite */}
+      <div className="bg-white dark:bg-[#071c17] p-5 sm:p-6 rounded-3xl border border-teal-200/80 dark:border-teal-500/25 shadow-sm space-y-4">
         
         {/* Top Search Input & Primary Actions */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
@@ -298,14 +298,14 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Cari obat apa saja (misal: Warfarin, Atorvastatin, Sanmol, Plavix, Ciprofloxacin, J01MA02)..."
-              className="w-full pl-10 pr-4 py-2.5 text-xs font-bold text-slate-900 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:border-teal-600 focus:bg-white transition-colors"
+              className="w-full pl-10 pr-4 py-2.5 text-xs font-bold font-outfit text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 transition-colors"
             />
           </div>
 
           {currentUser?.role === 'admin' && onOpenAddDrugModal && (
             <button
               onClick={onOpenAddDrugModal}
-              className="bg-[#0f766e] hover:bg-[#115e59] text-white px-4 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0 cursor-pointer"
+              className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white px-4 py-2.5 rounded-xl font-bold font-outfit text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-teal-950/40 shrink-0 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Tambah Obat</span>
@@ -314,18 +314,18 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
         </div>
 
         {/* Filter Controls Grid (5 Columns) */}
-        <div className="pt-3 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div className="pt-3 border-t border-teal-100 dark:border-teal-950/80 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           
           {/* Filter 1: Kategori Terapi Obat */}
           <div className="space-y-1">
-            <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1">
-              <Filter className="w-3.5 h-3.5 text-[#0f766e]" />
+            <label className="text-[11px] font-extrabold font-outfit text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
+              <Filter className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
               <span>Kategori Terapi</span>
             </label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full p-2.5 text-xs font-bold text-slate-800 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:border-teal-600 cursor-pointer"
+              className="w-full p-2.5 text-xs font-bold font-outfit text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-teal-500 cursor-pointer"
             >
               {DDINTER_CATEGORIES.map((cat) => (
                 <option key={cat} value={cat}>
@@ -337,14 +337,14 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
 
           {/* Filter 2: Golongan Obat BPOM */}
           <div className="space-y-1">
-            <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1">
-              <ShieldAlert className="w-3.5 h-3.5 text-[#0f766e]" />
+            <label className="text-[11px] font-extrabold font-outfit text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
+              <ShieldAlert className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
               <span>Golongan Obat (BPOM)</span>
             </label>
             <select
               value={bpomClassFilter}
               onChange={(e) => setBpomClassFilter(e.target.value as any)}
-              className="w-full p-2.5 text-xs font-bold text-slate-800 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:border-teal-600 cursor-pointer"
+              className="w-full p-2.5 text-xs font-bold font-outfit text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-teal-500 cursor-pointer"
             >
               <option value="all">Semua Golongan Obat</option>
               <option value="bebas">🟢 Obat Bebas</option>
@@ -359,14 +359,14 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
           
           {/* Filter: Kategori Kehamilan */}
           <div className="space-y-1">
-            <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1">
-              <Baby className="w-3.5 h-3.5 text-[#0f766e]" />
+            <label className="text-[11px] font-extrabold font-outfit text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
+              <Baby className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
               <span>Kategori Kehamilan</span>
             </label>
             <select
               value={selectedPregnancyCat}
               onChange={(e) => setSelectedPregnancyCat(e.target.value)}
-              className="w-full p-2.5 text-xs font-bold text-slate-800 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:border-teal-600 cursor-pointer"
+              className="w-full p-2.5 text-xs font-bold font-outfit text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-teal-500 cursor-pointer"
             >
               <option value="Semua">Semua Kategori (A, B, C, D, X)</option>
               <option value="A">Kategori A (Aman)</option>
@@ -379,14 +379,14 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
 
           {/* Filter: Status Interaksi Obat */}
           <div className="space-y-1">
-            <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1">
-              <ShieldAlert className="w-3.5 h-3.5 text-[#0f766e]" />
+            <label className="text-[11px] font-extrabold font-outfit text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
+              <ShieldAlert className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
               <span>Status Interaksi</span>
             </label>
             <select
               value={interactionFilter}
               onChange={(e) => setInteractionFilter(e.target.value as any)}
-              className="w-full p-2.5 text-xs font-bold text-slate-800 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:border-teal-600 cursor-pointer"
+              className="w-full p-2.5 text-xs font-bold font-outfit text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-teal-500 cursor-pointer"
             >
               <option value="all">Semua Obat</option>
               <option value="has-interactions">Memiliki Interaksi Terdaftar</option>
@@ -396,14 +396,14 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
 
           {/* Sort: Urutkan Berdasarkan */}
           <div className="space-y-1">
-            <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1">
-              <ArrowUpDown className="w-3.5 h-3.5 text-[#0f766e]" />
+            <label className="text-[11px] font-extrabold font-outfit text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
+              <ArrowUpDown className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
               <span>Urutkan Berdasarkan</span>
             </label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="w-full p-2.5 text-xs font-bold text-slate-800 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:border-teal-600 cursor-pointer"
+              className="w-full p-2.5 text-xs font-bold font-outfit text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-teal-500 cursor-pointer"
             >
               <option value="name-asc">Nama Obat (A - Z)</option>
               <option value="name-desc">Nama Obat (Z - A)</option>

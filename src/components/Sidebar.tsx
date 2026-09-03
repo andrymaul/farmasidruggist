@@ -59,6 +59,7 @@ interface NavItem {
   icon: React.ComponentType<{ className?: string }>;
   badge?: string;
   badgeColor?: string;
+  iconColor?: string;
 }
 
 interface NavCategory {
@@ -98,11 +99,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
         headerBg: 'bg-teal-500/10 border-teal-500/20 text-teal-800 dark:text-teal-300',
         items: [
           ...(isUser
-            ? [{ id: 'dashboard', label: 'Dashboard', icon: Sparkles }]
-            : [{ id: 'landing', label: 'Beranda', icon: Sparkles }]),
-          { id: 'drugs', label: 'Katalog & Monografi Obat', icon: Pill },
-          { id: 'usage', label: 'Panduan Cara Pakai Obat', icon: BookOpen },
-          ...(isUser ? [{ id: 'history', label: 'Riwayat Cek Resep', icon: History }] : [])
+            ? [{ id: 'dashboard', label: 'Dashboard', icon: Sparkles, iconColor: 'text-amber-500 dark:text-amber-400' }]
+            : [{ id: 'landing', label: 'Beranda', icon: Sparkles, iconColor: 'text-amber-500 dark:text-amber-400' }]),
+          { id: 'drugs', label: 'Katalog & Monografi Obat', icon: Pill, iconColor: 'text-teal-500 dark:text-teal-400' },
+          { id: 'usage', label: 'Panduan Cara Pakai Obat', icon: BookOpen, iconColor: 'text-sky-500 dark:text-sky-400' },
+          ...(isUser ? [{ id: 'history', label: 'Riwayat Cek Resep', icon: History, iconColor: 'text-indigo-400 dark:text-indigo-300' }] : [])
         ]
       },
       {
@@ -159,7 +160,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           { id: 'sop', label: 'SOP Pelayanan Farmasi', icon: ClipboardList, badge: 'Resmi', badgeColor: 'text-slate-500 dark:text-slate-400' },
           { id: 'regulations', label: 'Regulasi & UU Kesehatan', icon: Scale, badge: 'Hukum', badgeColor: 'text-amber-600 dark:text-amber-400' },
           { id: 'literature', label: 'Literatur Ilmiah (EBM)', icon: BookMarked, badge: 'EBM', badgeColor: 'text-teal-500 dark:text-teal-400' },
-          { id: 'pricing', label: 'Harga Layanan & Lisensi', icon: CreditCard }
+          { id: 'pricing', label: 'Harga Layanan & Lisensi', icon: CreditCard, iconColor: 'text-amber-500 dark:text-amber-400' }
         ]
       }
     ];
@@ -174,10 +175,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         colorClass: 'text-amber-600 dark:text-amber-400',
         headerBg: 'bg-amber-500/10 border-amber-500/20 text-amber-800 dark:text-amber-300',
         items: [
-          { id: 'admin-firebase', label: 'Sinkronisasi Firebase', icon: RefreshCw },
-          { id: 'admin-pricing', label: 'Tarif & Hak Akses', icon: Tag },
-          { id: 'admin-users', label: 'Kelola Tim Admin', icon: Users },
-          { id: 'admin-subscriptions', label: 'Subskripsi Customer', icon: UserCheck }
+          { id: 'admin-firebase', label: 'Sinkronisasi Firebase', icon: RefreshCw, iconColor: 'text-orange-500 dark:text-orange-400' },
+          { id: 'admin-pricing', label: 'Tarif & Hak Akses', icon: Tag, iconColor: 'text-teal-500 dark:text-teal-400' },
+          { id: 'admin-users', label: 'Kelola Tim Admin', icon: Users, iconColor: 'text-blue-500 dark:text-blue-400' },
+          { id: 'admin-subscriptions', label: 'Subskripsi Customer', icon: UserCheck, iconColor: 'text-emerald-500 dark:text-emerald-400' }
         ]
       });
     }
@@ -408,8 +409,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white'
                           } ${collapsed ? 'justify-center px-2' : ''}`}
                         >
-                          <Icon className={`w-4 h-4 flex-shrink-0 transition-transform group-hover:scale-110 ${
-                            isActive ? 'text-white' : 'text-slate-400 dark:text-slate-400 group-hover:text-teal-600 dark:group-hover:text-teal-300'
+                          <Icon className={`w-4 h-4 flex-shrink-0 transition-transform duration-150 group-hover:scale-115 ${
+                            isActive ? 'text-white' : (item.iconColor || item.badgeColor || 'text-teal-600 dark:text-teal-400')
                           }`} />
                           
                           {!collapsed && (

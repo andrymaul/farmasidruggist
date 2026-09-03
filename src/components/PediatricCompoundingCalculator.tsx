@@ -498,25 +498,25 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
         </div>
       )}
 
-      {/* PATIENT PROFILE CARD */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-teal-100 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 flex items-center justify-center font-bold">
+      {/* PATIENT PROFILE CARD - PURPLE & MULBERRY PEDIATRIC SUITE */}
+      <div className="bg-white dark:bg-[#12061c] border border-purple-200/80 dark:border-purple-500/25 rounded-3xl p-6 shadow-sm space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-purple-100 dark:border-purple-950/80">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-400/30 flex items-center justify-center font-bold shadow-2xs">
               <Baby className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-black text-slate-900 dark:text-white">Profil Pasien Pediatrik</h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Parameter acuan perhitungan dosis terapeutik anak</p>
+              <h2 className="text-base sm:text-lg font-extrabold font-outfit text-slate-900 dark:text-white tracking-tight">Profil Pasien Pediatrik</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans">Parameter acuan perhitungan dosis terapeutik anak</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={handleApplyEstimatedWeight}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-teal-50 hover:bg-teal-100 text-teal-900 dark:bg-slate-800 dark:text-teal-300 transition border border-teal-200 dark:border-slate-700 cursor-pointer shadow-2xs"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold font-outfit bg-purple-50 hover:bg-purple-100 text-purple-900 dark:bg-purple-950/60 dark:text-purple-300 transition border border-purple-200 dark:border-purple-800 cursor-pointer shadow-2xs"
               title="Gunakan estimasi rumus Weech / WHO berdasarkan usia"
             >
-              <Scale className="w-3.5 h-3.5 text-teal-700 dark:text-teal-400" />
+              <Scale className="w-3.5 h-3.5 text-purple-700 dark:text-purple-400" />
               Gunakan Estimasi BB ({estimatedWeight.toFixed(1)} kg)
             </button>
           </div>
@@ -524,18 +524,18 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
           <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nama Pasien</label>
+            <label className="block text-xs font-bold font-outfit text-slate-700 dark:text-slate-300 mb-1">Nama Pasien</label>
             <input
               type="text"
               value={patientName}
               onChange={(e) => setPatientName(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 shadow-2xs"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 shadow-2xs"
               placeholder="cth. An. Rahmat"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Usia (Tahun & Bulan)</label>
+            <label className="block text-xs font-bold font-outfit text-slate-700 dark:text-slate-300 mb-1">Usia (Tahun & Bulan)</label>
             <div className="grid grid-cols-2 gap-2">
               <div className="relative">
                 <input
@@ -544,9 +544,9 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                   max="18"
                   value={ageYears}
                   onChange={(e) => setAgeYears(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 shadow-2xs"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-8 py-2 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 shadow-2xs"
                 />
-                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">th</span>
+                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold font-outfit text-slate-400 pointer-events-none">th</span>
               </div>
               <div className="relative">
                 <input
@@ -555,16 +555,16 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                   max="11"
                   value={ageMonths}
                   onChange={(e) => setAgeMonths(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 shadow-2xs"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-8 py-2 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 shadow-2xs"
                 />
-                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">bln</span>
+                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold font-outfit text-slate-400 pointer-events-none">bln</span>
               </div>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-              Berat Badan (kg) <span className="text-teal-700 dark:text-teal-400 font-extrabold">*Wajib</span>
+            <label className="block text-xs font-bold font-outfit text-slate-700 dark:text-slate-300 mb-1">
+              Berat Badan (kg) <span className="text-purple-600 dark:text-purple-400 font-extrabold">*Wajib</span>
             </label>
             <div className="relative">
               <input
@@ -574,88 +574,91 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                 max="150"
                 value={weightKg}
                 onChange={(e) => setWeightKg(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-teal-300 dark:border-teal-700 rounded-xl pl-3 pr-8 py-2 text-xs font-black text-teal-800 dark:text-teal-300 focus:outline-none focus:border-teal-600 shadow-2xs"
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-8 py-2 text-xs font-black font-outfit text-purple-900 dark:text-purple-200 focus:outline-none focus:border-purple-500 shadow-2xs"
+                placeholder="cth. 12"
               />
-              <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-black text-teal-700 dark:text-teal-400 pointer-events-none">kg</span>
+              <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold font-outfit text-slate-400 pointer-events-none">kg</span>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Tinggi Badan (cm)</label>
+            <label className="block text-xs font-bold font-outfit text-slate-700 dark:text-slate-300 mb-1">Tinggi Badan (cm)</label>
             <div className="relative">
               <input
                 type="number"
-                min="10"
-                max="250"
+                step="1"
+                min="30"
+                max="200"
                 value={heightCm}
                 onChange={(e) => setHeightCm(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 shadow-2xs"
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-8 py-2 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 shadow-2xs"
+                placeholder="cth. 85"
               />
-              <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">cm</span>
+              <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold font-outfit text-slate-400 pointer-events-none">cm</span>
             </div>
           </div>
 
-          <div className="bg-teal-50/70 dark:bg-slate-950 rounded-xl p-2.5 border border-teal-200 dark:border-slate-800 flex flex-col justify-center shadow-2xs">
-            <span className="text-[11px] text-teal-800 dark:text-slate-400 font-bold">Luas Permukaan Tubuh (BSA):</span>
+          <div className="bg-purple-50/60 dark:bg-purple-950/30 p-3 rounded-2xl border border-purple-200/80 dark:border-purple-800/60 flex flex-col justify-center">
+            <span className="text-[11px] font-bold font-outfit text-slate-600 dark:text-slate-400 block">Luas Permukaan Tubuh:</span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-base font-black text-teal-900 dark:text-teal-300">{calculatedBSA.toFixed(2)}</span>
-              <span className="text-xs font-bold text-teal-700 dark:text-slate-500">m² (Mosteller)</span>
+              <span className="text-base font-black font-outfit text-purple-900 dark:text-purple-300">{calculatedBSA.toFixed(2)}</span>
+              <span className="text-xs font-bold font-outfit text-purple-700 dark:text-purple-400">m² (Mosteller)</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* SUB-TABS NAVIGATION */}
-      <div className="flex flex-wrap gap-2 p-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
+      {/* SUB-TABS NAVIGATION - PURPLE & MULBERRY */}
+      <div className="flex flex-wrap gap-2 p-1.5 bg-purple-50/70 dark:bg-[#150720] border border-purple-200/90 dark:border-purple-500/30 rounded-2xl shadow-2xs">
         <button
           onClick={() => setActiveSubTab('quick')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold transition cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold font-outfit transition cursor-pointer ${
             activeSubTab === 'quick'
-              ? 'bg-[#0f766e] text-white shadow-md'
-              : 'text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+              ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-md shadow-purple-950/40 border border-purple-400/30'
+              : 'text-slate-700 dark:text-purple-200/80 hover:text-purple-700 dark:hover:text-purple-200 hover:bg-purple-100/70 dark:hover:bg-purple-950/50'
           }`}
         >
           <Calculator className="w-4 h-4" />
-          Kalkulator Dosis Cepat
+          <span>Kalkulator Dosis Cepat</span>
         </button>
 
         <button
           onClick={() => setActiveSubTab('compounding')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold transition cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold font-outfit transition cursor-pointer ${
             activeSubTab === 'compounding'
-              ? 'bg-[#0f766e] text-white shadow-md'
-              : 'text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+              ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-md shadow-purple-950/40 border border-purple-400/30'
+              : 'text-slate-700 dark:text-purple-200/80 hover:text-purple-700 dark:hover:text-purple-200 hover:bg-purple-100/70 dark:hover:bg-purple-950/50'
           }`}
         >
           <FlaskConical className="w-4 h-4" />
-          Kalkulator Racikan Puyer & Kapsul
-          <span className={`ml-1 px-2 py-0.5 text-[10px] font-bold rounded-full ${activeSubTab === 'compounding' ? 'bg-teal-900/50 text-teal-100' : 'bg-amber-100 text-amber-900'}`}>
+          <span>Kalkulator Racikan Puyer & Kapsul</span>
+          <span className={`ml-1 px-2 py-0.5 text-[10px] font-bold font-outfit rounded-full ${activeSubTab === 'compounding' ? 'bg-purple-950/60 text-purple-200 border border-purple-400/30' : 'bg-purple-100 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800'}`}>
             Resep Racik
           </span>
         </button>
 
         <button
           onClick={() => setActiveSubTab('syrup')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold transition cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold font-outfit transition cursor-pointer ${
             activeSubTab === 'syrup'
-              ? 'bg-[#0f766e] text-white shadow-md'
-              : 'text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+              ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-md shadow-purple-950/40 border border-purple-400/30'
+              : 'text-slate-700 dark:text-purple-200/80 hover:text-purple-700 dark:hover:text-purple-200 hover:bg-purple-100/70 dark:hover:bg-purple-950/50'
           }`}
         >
           <Pill className="w-4 h-4" />
-          Kalkulator Sirup & Botol
+          <span>Kalkulator Sirup & Botol</span>
         </button>
 
         <button
           onClick={() => setActiveSubTab('classic')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold transition cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold font-outfit transition cursor-pointer ${
             activeSubTab === 'classic'
-              ? 'bg-[#0f766e] text-white shadow-md'
-              : 'text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+              ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-md shadow-purple-950/40 border border-purple-400/30'
+              : 'text-slate-700 dark:text-purple-200/80 hover:text-purple-700 dark:hover:text-purple-200 hover:bg-purple-100/70 dark:hover:bg-purple-950/50'
           }`}
         >
           <Scale className="w-4 h-4" />
-          Rumus Klasik (Young/Dilling/Fried)
+          <span>Rumus Klasik (Young/Dilling/Fried)</span>
         </button>
       </div>
 
@@ -726,17 +729,17 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                           max={rangeConfig.max}
                           value={quickCustomMgPerKg}
                           onChange={(e) => setQuickCustomMgPerKg(e.target.value)}
-                          className="w-24 bg-white dark:bg-slate-900 border border-teal-400 dark:border-teal-600 rounded-xl pl-3 pr-2 py-1.5 text-sm font-black text-teal-800 dark:text-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500/20 text-center shadow-2xs"
+                          className="w-24 bg-white dark:bg-slate-900 border border-purple-400 dark:border-purple-600 rounded-xl pl-3 pr-2 py-1.5 text-sm font-black text-purple-800 dark:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500/20 text-center shadow-2xs"
                         />
                       </div>
-                      <span className="text-xs font-bold text-teal-800 dark:text-teal-300">
+                      <span className="text-xs font-bold text-purple-800 dark:text-purple-300">
                         {rangeConfig.type === 'per_dose' ? 'mg/kg' : (rangeConfig.type === 'per_day' ? 'mg/kg/hr' : 'mg')}
                       </span>
                     </div>
                   </div>
 
                   {/* Range Slider */}
-                  <div className="space-y-1">
+                  <div className="space-y-1 font-outfit">
                     <input
                       type="range"
                       min={rangeConfig.min}
@@ -744,21 +747,21 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                       step={rangeConfig.step}
                       value={numCustomMgPerKg || rangeConfig.stdMin}
                       onChange={(e) => setQuickCustomMgPerKg(parseFloat(e.target.value))}
-                      className="w-full accent-[#0f766e] h-2 bg-slate-200 dark:bg-slate-800 rounded-lg cursor-pointer transition"
+                      className="w-full accent-purple-600 h-2 bg-purple-100 dark:bg-purple-950/60 rounded-lg cursor-pointer transition"
                     />
-                    <div className="flex justify-between text-[10px] text-slate-400 font-bold px-0.5">
+                    <div className="flex justify-between text-[10px] text-slate-400 font-bold px-0.5 font-outfit">
                       <span>Batas Min: {rangeConfig.min}</span>
-                      <span className="text-teal-700 dark:text-teal-400">Rekomendasi: {rangeConfig.stdMin} - {rangeConfig.stdMax}</span>
+                      <span className="text-purple-700 dark:text-purple-300 font-extrabold">Rekomendasi: {rangeConfig.stdMin} - {rangeConfig.stdMax}</span>
                       <span>Batas Maks: {rangeConfig.max}</span>
                     </div>
                   </div>
 
                   {/* Clinical Preset Buttons (Chips) */}
-                  <div className="pt-2 border-t border-slate-200/80 dark:border-slate-800/80">
-                    <span className="text-[11px] font-bold text-slate-600 dark:text-slate-400 block mb-1.5">
+                  <div className="pt-2 border-t border-purple-100 dark:border-purple-900/60 font-outfit">
+                    <span className="text-[11px] font-bold text-slate-600 dark:text-purple-300/80 block mb-1.5 font-outfit">
                       Pilihan Dosis Baku Klinis:
                     </span>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-1.5 font-outfit">
                       {rangeConfig.presets.map((preset, idx) => {
                         const isSelected = Math.abs(numCustomMgPerKg - preset.value) < 0.01;
                         return (
@@ -766,10 +769,10 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                             key={idx}
                             type="button"
                             onClick={() => setQuickCustomMgPerKg(preset.value)}
-                            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer shadow-2xs ${
+                            className={`px-3 py-1.5 rounded-xl text-xs font-bold font-outfit transition cursor-pointer shadow-2xs ${
                               isSelected
-                                ? 'bg-[#0f766e] text-white shadow-sm ring-2 ring-teal-500/30'
-                                : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-teal-500 hover:text-teal-800 dark:hover:text-teal-300'
+                                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md shadow-purple-950/30 ring-2 ring-purple-400/40'
+                                : 'bg-white dark:bg-purple-950/40 text-slate-700 dark:text-purple-200 border border-purple-200 dark:border-purple-800/80 hover:border-purple-500 hover:text-purple-900 dark:hover:text-purple-100 hover:bg-purple-50'
                             }`}
                           >
                             {preset.label}
@@ -780,49 +783,54 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                   </div>
 
                   {/* Real-time Dose Status Badge */}
-                  <div className="pt-1">
+                  <div className="pt-1 font-outfit">
                     {quickCalculations.isBelowTherapeutic ? (
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold bg-amber-50 text-amber-900 border border-amber-200 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-800/50">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold font-outfit bg-amber-50 text-amber-900 border border-amber-200 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-800/50">
                         <AlertTriangle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                         Dosis di bawah rekomendasi standar (Sub-terapeutik &lt; {rangeConfig.stdMin} {rangeConfig.unit})
                       </div>
                     ) : quickCalculations.isAboveStandard ? (
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold bg-orange-50 text-orange-900 border border-orange-200 dark:bg-orange-950/30 dark:text-orange-300 dark:border-orange-800/50">
-                        <AlertTriangle className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
-                        Dosis di atas rekomendasi lazim (&gt; {rangeConfig.stdMax} {rangeConfig.unit}) - Pastikan indikasi tepat
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold font-outfit bg-rose-50 text-rose-900 border border-rose-200 dark:bg-rose-950/30 dark:text-rose-300 dark:border-rose-800/50">
+                        <AlertTriangle className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+                        Dosis di atas rentang standar rekomendasi (&gt; {rangeConfig.stdMax} {rangeConfig.unit})
                       </div>
                     ) : (
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-50 text-emerald-900 border border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-800/50">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                        Dosis berada dalam rentang terapi aman BPOM & Pedoman IDAI
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold font-outfit bg-purple-50 text-purple-900 border border-purple-200 dark:bg-purple-950/40 dark:text-purple-300 dark:border-purple-800/60">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                        Dosis berada dalam rentang terapi aman BPOM &amp; Pedoman IDAI
                       </div>
                     )}
                   </div>
                 </div>
 
-                {/* Frequency selection */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Frekuensi Pemberian</label>
-                  <select
-                    value={quickFrequency}
-                    onChange={(e) => setQuickFrequency(parseInt(e.target.value))}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 cursor-pointer shadow-2xs"
-                  >
-                    {currentDrug.frequencyOptions.map((opt, idx) => (
-                      <option key={idx} value={opt.timesPerDay}>
-                        {opt.label} ({opt.timesPerDay}x sehari)
-                      </option>
+                {/* Frekuensi Pemberian */}
+                <div className="font-outfit">
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5 font-outfit">Frekuensi Pemberian</label>
+                  <div className="grid grid-cols-4 gap-2">
+                    {[1, 2, 3, 4].map((freq) => (
+                      <button
+                        key={freq}
+                        type="button"
+                        onClick={() => setQuickFrequency(freq)}
+                        className={`py-2 rounded-xl text-xs font-bold font-outfit transition cursor-pointer shadow-2xs ${
+                          quickFrequency === freq
+                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md shadow-purple-950/30 ring-2 ring-purple-400/40'
+                            : 'bg-white dark:bg-purple-950/40 text-slate-700 dark:text-purple-200 border border-purple-200 dark:border-purple-800/80 hover:border-purple-500 hover:text-purple-900 dark:hover:text-purple-100 hover:bg-purple-50'
+                        }`}
+                      >
+                        {freq}x sehari
+                      </button>
                     ))}
-                  </select>
+                  </div>
                 </div>
 
                 {/* Sediaan Komersial */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Pilihan Bentuk Sediaan Komersial</label>
+                <div className="font-outfit">
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Pilihan Bentuk Sediaan Komersial</label>
                   <select
                     value={quickSelectedFormulationIndex}
                     onChange={(e) => setQuickSelectedFormulationIndex(parseInt(e.target.value))}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 cursor-pointer shadow-2xs"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-purple-200 dark:border-purple-800/80 rounded-xl px-3 py-2 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 cursor-pointer shadow-2xs"
                   >
                     {currentDrug.formulations.map((form, idx) => (
                       <option key={idx} value={idx}>
@@ -835,36 +843,36 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
             </div>
           </div>
 
-          {/* Results Column */}
-          <div className="lg:col-span-6 space-y-4">
+          {/* Results Column - Executive Mulberry & Purple Suite */}
+          <div className="lg:col-span-6 space-y-4 font-outfit">
             {/* Main Result Card */}
-            <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] border border-[#143d47] rounded-2xl p-6 text-white shadow-xl relative overflow-hidden space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-500/20">
-                <span className="text-xs font-bold text-teal-300 uppercase tracking-wider">Hasil Perhitungan Terapi Anak</span>
-                <span className="px-3 py-1 rounded-full text-xs font-bold bg-teal-500/20 text-teal-200 border border-teal-500/30">
+            <div className="bg-gradient-to-br from-[#1a0524] via-[#2a0c3b] to-[#160420] border border-purple-500/35 rounded-3xl p-6 text-white shadow-2xl relative overflow-hidden space-y-4 font-outfit">
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-purple-500/25">
+                <span className="text-xs font-black text-pink-300 uppercase tracking-wider font-outfit">Hasil Perhitungan Terapi Anak</span>
+                <span className="px-3 py-1 rounded-full text-xs font-bold font-outfit bg-purple-500/25 text-pink-200 border border-purple-400/40">
                   BB: {numWeightKg} kg | Usia: {numAgeYears} th {numAgeMonths} bln
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-[#06181c] border border-[#14424e] rounded-xl p-4">
-                  <span className="text-xs text-teal-200/80 font-medium">Dosis Per Kali Minum</span>
-                  <div className="flex items-baseline gap-1.5 mt-1">
-                    <span className="text-3xl font-black text-teal-300">{quickCalculations.singleDoseMg}</span>
-                    <span className="text-sm font-bold text-teal-100">mg / kali</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-outfit">
+                <div className="bg-[#12031a]/90 border border-purple-900/60 rounded-2xl p-4.5">
+                  <span className="text-xs text-purple-200/80 font-bold font-outfit">Dosis Per Kali Minum</span>
+                  <div className="flex items-baseline gap-1.5 mt-1 font-outfit">
+                    <span className="text-3xl font-black text-pink-300 font-outfit">{quickCalculations.singleDoseMg}</span>
+                    <span className="text-sm font-bold text-purple-100 font-outfit">mg / kali</span>
                   </div>
-                  <span className="text-[11px] text-teal-300/70 block mt-1">
+                  <span className="text-[11px] text-purple-300/80 font-medium font-outfit block mt-1">
                     Diberikan {quickFrequency}x sehari (Tiap {24 / quickFrequency} jam)
                   </span>
                 </div>
 
-                <div className="bg-[#06181c] border border-[#14424e] rounded-xl p-4">
-                  <span className="text-xs text-teal-200/80 font-medium">Total Dosis Harian</span>
-                  <div className="flex items-baseline gap-1.5 mt-1">
-                    <span className="text-3xl font-black text-emerald-300">{quickCalculations.dailyDoseMg}</span>
-                    <span className="text-sm font-bold text-teal-100">mg / 24 jam</span>
+                <div className="bg-[#12031a]/90 border border-purple-900/60 rounded-2xl p-4.5">
+                  <span className="text-xs text-purple-200/80 font-bold font-outfit">Total Dosis Harian</span>
+                  <div className="flex items-baseline gap-1.5 mt-1 font-outfit">
+                    <span className="text-3xl font-black text-purple-300 font-outfit">{quickCalculations.dailyDoseMg}</span>
+                    <span className="text-sm font-bold text-purple-100 font-outfit">mg / 24 jam</span>
                   </div>
-                  <span className="text-[11px] text-teal-300/70 block mt-1">
+                  <span className="text-[11px] text-purple-300/80 font-medium font-outfit block mt-1">
                     Batas Maksimum: {currentDrug.maxDailyDoseMg ? `${currentDrug.maxDailyDoseMg} mg/hari` : 'Sesuai BB'}
                   </span>
                 </div>
@@ -872,16 +880,16 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
 
               {/* Liquid Volume Conversion if available */}
               {quickCalculations.liquidVolumeMlPerDose > 0 && (
-                <div className="bg-[#08282e] border border-teal-500/30 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-1.5 text-teal-300 text-xs font-bold">
-                    <FlaskConical className="w-4 h-4" />
+                <div className="bg-purple-950/70 border border-purple-500/40 rounded-2xl p-4.5 font-outfit">
+                  <div className="flex items-center gap-2 mb-1.5 text-pink-300 text-xs font-black font-outfit">
+                    <FlaskConical className="w-4 h-4 text-pink-400" />
                     Konversi Takaran Sediaan Cair ({quickCalculations.activeFormulation.name}):
                   </div>
-                  <div className="flex flex-wrap items-baseline gap-3">
-                    <span className="text-2xl font-black text-white">
+                  <div className="flex flex-wrap items-baseline gap-3 font-outfit">
+                    <span className="text-2xl sm:text-3xl font-black text-white font-outfit">
                       {quickCalculations.liquidVolumeMlPerDose} mL
                     </span>
-                    <span className="text-sm font-bold text-teal-300">
+                    <span className="text-sm font-extrabold text-pink-300 font-outfit">
                       = {quickCalculations.householdMeasure}
                     </span>
                   </div>
@@ -890,38 +898,38 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
 
               {/* Safety & Warning Alerts */}
               {(quickCalculations.isExceedingMaxDaily || quickCalculations.isExceedingMaxSingle) ? (
-                <div className="p-3.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-200 text-xs flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-200 text-xs flex items-start gap-2.5 font-outfit">
                   <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold">PERINGATAN: Dosis Melebihi Batas Keamanan Pediatrik!</span>
-                    <p className="mt-0.5 text-rose-300">
+                    <span className="font-extrabold font-outfit">PERINGATAN: Dosis Melebihi Batas Keamanan Pediatrik!</span>
+                    <p className="mt-0.5 text-rose-300 font-medium font-outfit">
                       Dosis yang dihitung melebihi batas maksimum harian ({currentDrug.maxDailyDoseMg} mg). Harap turunkan dosis atau frekuensi pemberian.
                     </p>
                   </div>
                 </div>
               ) : (
-                <div className="p-3 rounded-xl bg-teal-500/20 border border-teal-500/30 text-teal-200 text-xs flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-teal-300 flex-shrink-0" />
-                  <span>Dosis berada dalam rentang terapi aman standar farmakope & pedoman klinis.</span>
+                <div className="p-3.5 rounded-2xl bg-purple-500/20 border border-purple-500/40 text-purple-100 text-xs flex items-center gap-2.5 font-outfit">
+                  <CheckCircle2 className="w-4 h-4 text-pink-300 flex-shrink-0" />
+                  <span className="font-medium font-outfit">Dosis berada dalam rentang terapi aman standar farmakope &amp; pedoman klinis.</span>
                 </div>
               )}
 
               {/* Administration & Red Flags */}
-              <div className="pt-3 border-t border-teal-500/20 space-y-2 text-xs">
-                <div className="flex items-start gap-2 text-teal-100">
-                  <Info className="w-4 h-4 text-teal-300 flex-shrink-0 mt-0.5" />
+              <div className="pt-3 border-t border-purple-500/25 space-y-2 text-xs font-outfit">
+                <div className="flex items-start gap-2 text-purple-100 font-outfit">
+                  <Info className="w-4 h-4 text-pink-400 flex-shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold text-teal-200">Cara Pemberian: </span>
+                    <span className="font-extrabold text-pink-200 font-outfit">Cara Pemberian: </span>
                     {currentDrug.administrationNotes}
                   </div>
                 </div>
 
                 {currentDrug.redFlags && currentDrug.redFlags.length > 0 && (
-                  <div className="p-3 bg-amber-500/20 border border-amber-500/30 rounded-xl text-amber-200 space-y-1">
-                    <span className="font-bold flex items-center gap-1.5 text-amber-300">
+                  <div className="p-3.5 bg-amber-500/20 border border-amber-500/40 rounded-2xl text-amber-200 space-y-1 font-outfit">
+                    <span className="font-extrabold flex items-center gap-1.5 text-amber-300 font-outfit">
                       <ShieldAlert className="w-3.5 h-3.5" /> Perhatian Klinis:
                     </span>
-                    <ul className="list-disc list-inside space-y-0.5 text-[11px] text-amber-100 pl-1">
+                    <ul className="list-disc list-inside space-y-0.5 text-[11px] text-amber-100 pl-1 font-medium font-outfit">
                       {currentDrug.redFlags.map((flag, idx) => (
                         <li key={idx}>{flag}</li>
                       ))}
@@ -1022,16 +1030,16 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
           </div>
 
           {/* Compounding Items Table */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm overflow-hidden space-y-4">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm overflow-hidden space-y-4 font-outfit">
             <div className="flex items-center justify-between">
-              <h4 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
-                <Pill className="w-4 h-4 text-teal-700 dark:text-teal-400" />
+              <h4 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
+                <Pill className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 Komposisi Obat yang Dirasuk ({compoundingItems.length} Item)
               </h4>
 
               <button
                 onClick={handleAddCompoundingItem}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-50 hover:bg-teal-100 text-teal-900 dark:bg-slate-800 dark:text-teal-300 border border-teal-200 dark:border-slate-700 transition cursor-pointer shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-50 hover:bg-purple-100 text-purple-900 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800 transition cursor-pointer shadow-2xs font-outfit"
               >
                 <Plus className="w-3.5 h-3.5" />
                 Tambah Obat Racikan
@@ -1039,7 +1047,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
+              <table className="w-full text-left text-xs border-collapse font-outfit">
                 <thead>
                   <tr className="bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 border-b border-slate-200 dark:border-slate-800 font-bold">
                     <th className="py-3 px-3">Nama Obat / Generik</th>
@@ -1059,7 +1067,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                           type="text"
                           value={item.customName}
                           onChange={(e) => handleUpdateCompoundingItem(item.id, 'customName', e.target.value)}
-                          className="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs font-bold text-slate-900 dark:text-white w-36 sm:w-44 focus:outline-none focus:border-teal-600"
+                          className="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs font-bold text-slate-900 dark:text-white w-36 sm:w-44 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20"
                         />
                       </td>
 
@@ -1070,7 +1078,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                             step="0.1"
                             value={item.dosePerPacketMg}
                             onChange={(e) => handleUpdateCompoundingItem(item.id, 'dosePerPacketMg', e.target.value)}
-                            className="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-xs text-teal-800 dark:text-teal-300 font-bold w-20 focus:outline-none focus:border-teal-600"
+                            className="bg-slate-50 dark:bg-slate-950 border border-purple-200 dark:border-purple-800/70 rounded-lg px-2 py-1 text-xs text-purple-900 dark:text-purple-300 font-bold w-20 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20"
                           />
                           <span className="text-slate-500 font-bold">mg</span>
                         </div>
@@ -1083,7 +1091,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                             step="0.5"
                             value={item.tabletStrengthMg}
                             onChange={(e) => handleUpdateCompoundingItem(item.id, 'tabletStrengthMg', e.target.value)}
-                            className="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-xs text-slate-900 dark:text-white font-bold w-20 focus:outline-none focus:border-teal-600"
+                            className="bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-xs text-slate-900 dark:text-white font-bold w-20 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20"
                           />
                           <span className="text-slate-500 font-bold">mg/tab</span>
                         </div>
@@ -1122,10 +1130,10 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
             </div>
 
             {/* Calculations Summary & Saccharum Lactis Filler */}
-            <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-4">
+            <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-4 font-outfit">
+              <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-4.5">
                 <span className="text-xs text-slate-600 dark:text-slate-400 block mb-1 font-bold">Estimasi Bobot Obat Aktif:</span>
-                <span className="text-xl font-black text-slate-900 dark:text-slate-100">
+                <span className="text-xl font-black text-slate-900 dark:text-slate-100 font-outfit">
                   {compoundingResults.totalActiveMedicinesWeightMg} mg
                 </span>
                 <span className="text-[11px] text-slate-500 block mt-1 font-medium">
@@ -1133,33 +1141,33 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                 </span>
               </div>
 
-              <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/40 rounded-xl p-4">
-                <span className="text-xs text-emerald-800 dark:text-emerald-300 block mb-1 font-bold">Kebutuhan Zat Pengisi ({fillerType}):</span>
-                <span className="text-xl font-black text-emerald-700 dark:text-emerald-400">
+              <div className="bg-pink-50/70 dark:bg-pink-950/30 border border-pink-200 dark:border-pink-800/40 rounded-2xl p-4.5">
+                <span className="text-xs text-pink-900 dark:text-pink-300 block mb-1 font-bold">Kebutuhan Zat Pengisi ({fillerType}):</span>
+                <span className="text-xl font-black text-pink-700 dark:text-pink-400 font-outfit">
                   {compoundingResults.saccharumLactisNeededMg} mg
                 </span>
-                <span className="text-[11px] text-emerald-800/80 dark:text-emerald-300/80 block mt-1 font-medium">
+                <span className="text-[11px] text-pink-800/80 dark:text-pink-300/80 block mt-1 font-medium">
                   ({(compoundingResults.saccharumLactisNeededMg / 1000).toFixed(2)} gram / {(compoundingResults.fillerPerPacketMg)} mg per bungkus)
                 </span>
               </div>
 
-              <div className="bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800/40 rounded-xl p-4">
-                <span className="text-xs text-teal-800 dark:text-teal-300 block mb-1 font-bold">Total Bobot Serbuk yang Ditimbang:</span>
-                <span className="text-xl font-black text-teal-900 dark:text-teal-300">
+              <div className="bg-purple-50/70 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/40 rounded-2xl p-4.5">
+                <span className="text-xs text-purple-900 dark:text-purple-300 block mb-1 font-bold">Total Bobot Serbuk yang Ditimbang:</span>
+                <span className="text-xl font-black text-purple-900 dark:text-purple-300 font-outfit">
                   {compoundingResults.targetTotalPowderWeightMg} mg
                 </span>
-                <span className="text-[11px] text-teal-800/80 dark:text-teal-300/80 block mt-1 font-medium">
+                <span className="text-[11px] text-purple-800/80 dark:text-purple-300/80 block mt-1 font-medium">
                   (Bagi rata menjadi {numPacketCount} bungkus @ {targetWeightPerPacketMg} mg)
                 </span>
               </div>
             </div>
 
             {/* Action Bar & WhatsApp Export */}
-            <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 font-outfit">
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleCopyToClipboard(generateWhatsAppLabelText(), 'Etiket Puyer')}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#0f766e] hover:bg-[#115e59] text-white shadow-md transition cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-md shadow-purple-950/30 transition cursor-pointer font-outfit"
                 >
                   {copiedNotification === 'Etiket Puyer' ? (
                     <>
@@ -1189,15 +1197,15 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
       {/* ========================================================================= */}
       {activeSubTab === 'syrup' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-5 space-y-4">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
-              <h3 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
-                <Pill className="w-4 h-4 text-teal-700 dark:text-teal-400" />
+          <div className="lg:col-span-5 space-y-4 font-outfit">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm space-y-4 font-outfit">
+              <h3 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-2 font-outfit">
+                <Pill className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 Pilihan Sediaan Sirup Komersial
               </h3>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Obat Sirup</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Obat Sirup</label>
                 <select
                   value={syrupDrugId}
                   onChange={(e) => {
@@ -1210,7 +1218,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                       setSyrupFrequency(target.defaultFrequencyPerDay);
                     }
                   }}
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 cursor-pointer shadow-2xs"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 cursor-pointer shadow-2xs font-outfit"
                 >
                   {PEDIATRIC_DRUGS_DATABASE.filter(d => d.formulations.some(f => f.volumePerUnit && f.volumePerUnit > 0)).map(drug => (
                     <option key={drug.id} value={drug.id}>
@@ -1221,11 +1229,11 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kekuatan Sediaan Sirup / Drops</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Kekuatan Sediaan Sirup / Drops</label>
                 <select
                   value={syrupFormulationIndex}
                   onChange={(e) => setSyrupFormulationIndex(parseInt(e.target.value))}
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 cursor-pointer shadow-2xs"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 cursor-pointer shadow-2xs font-outfit"
                 >
                   {syrupDrug.formulations.filter(f => f.volumePerUnit && f.volumePerUnit > 0).map((form, idx) => (
                     <option key={idx} value={idx}>
@@ -1236,26 +1244,26 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Dosis yang Diminta per Kali Minum (mg)</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Dosis yang Diminta per Kali Minum (mg)</label>
                 <div className="relative">
                   <input
                     type="number"
                     step="5"
                     value={syrupCustomDoseMg}
                     onChange={(e) => setSyrupCustomDoseMg(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-20 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 shadow-2xs"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-20 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 shadow-2xs font-outfit"
                   />
-                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">mg / minum</span>
+                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none font-outfit">mg / minum</span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 font-outfit">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Frekuensi per Hari</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Frekuensi per Hari</label>
                   <select
                     value={syrupFrequency}
                     onChange={(e) => setSyrupFrequency(parseInt(e.target.value))}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 cursor-pointer shadow-2xs"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 cursor-pointer shadow-2xs font-outfit"
                   >
                     <option value={1}>1 x sehari (Tiap 24 jam)</option>
                     <option value={2}>2 x sehari (Tiap 12 jam)</option>
@@ -1265,7 +1273,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Durasi Terapi (Hari)</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Durasi Terapi (Hari)</label>
                   <div className="relative">
                     <input
                       type="number"
@@ -1273,54 +1281,54 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
                       max="30"
                       value={syrupDurationDays}
                       onChange={(e) => setSyrupDurationDays(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-10 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 shadow-2xs"
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-10 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 shadow-2xs font-outfit"
                     />
-                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">hari</span>
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none font-outfit">hari</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-7 space-y-4">
-            <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] border border-[#143d47] rounded-2xl p-6 text-white shadow-xl space-y-5">
-              <span className="text-xs font-bold text-teal-300 uppercase tracking-wider block">
-                Hasil Perhitungan Takaran & Botol Sirup
+          <div className="lg:col-span-7 space-y-4 font-outfit">
+            <div className="bg-gradient-to-br from-[#1a0524] via-[#2a0c3b] to-[#160420] border border-purple-500/35 rounded-3xl p-6 text-white shadow-2xl space-y-5 font-outfit">
+              <span className="text-xs font-black text-pink-300 uppercase tracking-wider block font-outfit">
+                Hasil Perhitungan Takaran &amp; Botol Sirup
               </span>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-[#06181c] border border-[#14424e] rounded-xl p-4">
-                  <span className="text-xs text-teal-200/80 font-medium">Takaran Sekali Minum</span>
-                  <div className="flex items-baseline gap-2 mt-1">
-                    <span className="text-3xl font-black text-teal-300">{syrupResults.mlPerDose}</span>
-                    <span className="text-sm font-bold text-teal-100">mL</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-outfit">
+                <div className="bg-[#12031a]/90 border border-purple-900/60 rounded-2xl p-4.5">
+                  <span className="text-xs text-purple-200/80 font-bold font-outfit">Takaran Sekali Minum</span>
+                  <div className="flex items-baseline gap-2 mt-1 font-outfit">
+                    <span className="text-3xl font-black text-pink-300 font-outfit">{syrupResults.mlPerDose}</span>
+                    <span className="text-sm font-bold text-purple-100 font-outfit">mL</span>
                   </div>
-                  <span className="text-xs font-bold text-emerald-300 mt-1 block">
+                  <span className="text-xs font-bold text-purple-300 mt-1 block font-outfit">
                     = {syrupResults.spoonText}
                   </span>
                 </div>
 
-                <div className="bg-[#06181c] border border-[#14424e] rounded-xl p-4">
-                  <span className="text-xs text-teal-200/80 font-medium">Kebutuhan Botol ({numSyrupDays} Hari)</span>
-                  <div className="flex items-baseline gap-2 mt-1">
-                    <span className="text-3xl font-black text-amber-300">{syrupResults.bottlesRequired}</span>
-                    <span className="text-sm font-bold text-teal-100">Botol ({syrupResults.activeForm.bottleSizeMl} mL)</span>
+                <div className="bg-[#12031a]/90 border border-purple-900/60 rounded-2xl p-4.5">
+                  <span className="text-xs text-purple-200/80 font-bold font-outfit">Kebutuhan Botol ({numSyrupDays} Hari)</span>
+                  <div className="flex items-baseline gap-2 mt-1 font-outfit">
+                    <span className="text-3xl font-black text-amber-300 font-outfit">{syrupResults.bottlesRequired}</span>
+                    <span className="text-sm font-bold text-purple-100 font-outfit">Botol ({syrupResults.activeForm.bottleSizeMl} mL)</span>
                   </div>
-                  <span className="text-xs text-teal-200/70 mt-1 block font-mono">
+                  <span className="text-xs text-purple-200/70 mt-1 block font-outfit">
                     Total volume dibutuhkan: {syrupResults.totalMlNeeded} mL
                   </span>
                 </div>
               </div>
 
               {/* Beyond Use Date (BUD) Warning */}
-              <div className="p-4 rounded-xl bg-[#06181c] border border-[#14424e] space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-teal-200">
+              <div className="p-4 rounded-2xl bg-[#12031a]/90 border border-purple-900/60 space-y-2 font-outfit">
+                <div className="flex items-center gap-2 text-xs font-bold text-purple-200 font-outfit">
                   <Clock className="w-4 h-4 text-amber-400" />
-                  Informasi Beyond Use Date (BUD) & Penyimpanan:
+                  Informasi Beyond Use Date (BUD) &amp; Penyimpanan:
                 </div>
-                <div className="text-xs text-teal-100/90 space-y-1 font-medium">
+                <div className="text-xs text-purple-100/90 space-y-1 font-medium font-outfit">
                   <p>• Masa simpan aman pasca dilarutkan/dibuka: <strong className="text-amber-300 font-bold">{syrupResults.budDays} Hari</strong>.</p>
-                  <p>• {syrupResults.activeForm.form === 'sirup' && syrupResults.activeForm.budAfterOpenDays && syrupResults.activeForm.budAfterOpenDays <= 7 ? 'HARUS DISIMPAN DI LEMARI ES (2 - 8°C) DAN JANGAN DIBEKUKAN.' : 'Simpan pada suhu ruang sejuk (<25°C) terlindung dari sinar matahari langsung.'}</p>
+                  <p>• {syrupResults.activeForm.form === 'sirup' && syrupResults.activeForm.budAfterOpenDays && syrupResults.activeForm.budAfterOpenDays <= 7 ? 'HARUS DISIMPAN DI LEMARI ES (2 - 8°C) DAN JANGAN DIBEKUKAN.' : 'Simpan pada suhu ruang sejuk (&lt;25°C) terlindung dari sinar matahari langsung.'}</p>
                 </div>
               </div>
             </div>
@@ -1332,42 +1340,42 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
       {/* TAB 4: RUMUS KLASIK FARMAKOPE */}
       {/* ========================================================================= */}
       {activeSubTab === 'classic' && (
-        <div className="space-y-6">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+        <div className="space-y-6 font-outfit">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm space-y-4 font-outfit">
             <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300 flex items-center justify-center font-bold">
                   <Scale className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-black text-slate-900 dark:text-white">Komparasi Rumus Dosis Klasik Farmakope Indonesia</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Verifikasi dosis anak terhadap Dosis Maksimum (DM) Dewasa</p>
+                  <h3 className="text-base font-black text-slate-900 dark:text-white font-outfit">Komparasi Rumus Dosis Klasik Farmakope Indonesia</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium font-outfit">Verifikasi dosis anak terhadap Dosis Maksimum (DM) Dewasa</p>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 font-outfit">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nama Obat Acuan</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Nama Obat Acuan</label>
                 <input
                   type="text"
                   value={classicDrugName}
                   onChange={(e) => setClassicDrugName(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 shadow-2xs"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 shadow-2xs font-outfit"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Dosis Maksimum / Standar Dewasa (mg)</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Dosis Maksimum / Standar Dewasa (mg)</label>
                 <div className="relative">
                   <input
                     type="number"
                     min="1"
                     value={classicAdultDoseMg}
                     onChange={(e) => setClassicAdultDoseMg(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-20 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-teal-600 shadow-2xs"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl pl-3 pr-20 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 shadow-2xs font-outfit"
                   />
-                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">mg / dosis</span>
+                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none font-outfit">mg / dosis</span>
                 </div>
               </div>
             </div>

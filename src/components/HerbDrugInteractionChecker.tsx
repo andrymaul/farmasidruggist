@@ -193,14 +193,14 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
         </div>
       </div>
 
-      {/* NAVIGATION SUBTABS */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-200 dark:border-slate-800">
+            {/* NAVIGATION SUBTABS - ROYAL FOREST EMERALD */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-emerald-100 dark:border-emerald-950/80">
         <button
           onClick={() => setActiveTab('screening')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'screening'
-              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/40 border border-emerald-400/30'
+              : 'bg-white dark:bg-[#041a10] text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-slate-200 dark:border-emerald-900/30'
           }`}
         >
           <Sparkles className="w-4 h-4" />
@@ -209,10 +209,10 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
 
         <button
           onClick={() => setActiveTab('monographs')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'monographs'
-              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/40 border border-emerald-400/30'
+              : 'bg-white dark:bg-[#041a10] text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-slate-200 dark:border-emerald-900/30'
           }`}
         >
           <BookOpen className="w-4 h-4" />
@@ -221,10 +221,10 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
 
         <button
           onClick={() => setActiveTab('critical')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'critical'
-              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/40 border border-emerald-400/30'
+              : 'bg-white dark:bg-[#041a10] text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-slate-200 dark:border-emerald-900/30'
           }`}
         >
           <ShieldAlert className="w-4 h-4" />
@@ -233,10 +233,10 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
 
         <button
           onClick={() => setActiveTab('guidelines')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'guidelines'
-              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/40 border border-emerald-400/30'
+              : 'bg-white dark:bg-[#041a10] text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-slate-200 dark:border-emerald-900/30'
           }`}
         >
           <Info className="w-4 h-4" />
@@ -250,19 +250,19 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
       {activeTab === 'screening' && (
         <div className="space-y-6 animate-fade-in">
           {/* Search Box */}
-          <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#041a10] border border-emerald-200/80 dark:border-emerald-500/25 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-emerald-100 dark:border-emerald-950/80 pb-3">
               <div>
-                <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-outfit">
+                <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white font-outfit">
                   Pilih Herbal &amp; Obat Resep untuk Diskrin
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                   Evaluasi potensi perdarahan ganda, hipoglikemia, atau kegagalan imunosupresi akibat konsumsi jamu bersamaan.
                 </p>
               </div>
               <button
                 onClick={handleCopyCounseling}
-                className="px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-bold flex items-center gap-1.5 hover:bg-emerald-100 cursor-pointer"
+                className="px-3.5 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-bold font-outfit flex items-center gap-1.5 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 cursor-pointer transition shadow-2xs"
               >
                 {copiedCounseling ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copiedCounseling ? 'Tersalin!' : 'Salin Laporan WhatsApp'}</span>
@@ -276,27 +276,27 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
                 placeholder="Ketik nama herbal atau obat (misal: Kunyit, Temulawak, Sambiloto, Bawang Putih, Warfarin, Aspirin, Amlodipine, Steroid)..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
               />
 
               {/* Suggestions */}
               {searchSuggestions.length > 0 && (
-                <div className="absolute left-0 right-0 top-full mt-1.5 z-30 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 space-y-1 animate-in fade-in zoom-in-95">
-                  <div className="text-[10px] font-bold text-slate-400 px-3 py-1">Pilih Interaksi untuk Ditambahkan:</div>
-                  {searchSuggestions.map(item => (
+                <div className="absolute left-0 right-0 top-full mt-1.5 z-30 bg-white dark:bg-[#041a10] rounded-2xl shadow-xl border border-emerald-200 dark:border-emerald-800 p-2 space-y-1 animate-in fade-in zoom-in-95">
+                  <div className="text-[10px] font-bold text-slate-400 px-3 py-1 font-outfit">Pilih Pasangan Herbal untuk Ditambahkan:</div>
+                  {searchSuggestions.map(h => (
                     <button
-                      key={item.id}
-                      onClick={() => handleAddInteraction(item.id)}
-                      className="w-full p-2.5 rounded-xl text-left hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between transition-colors cursor-pointer"
+                      key={h.id}
+                      onClick={() => handleAddInteraction(h.id)}
+                      className="w-full p-2.5 rounded-xl text-left hover:bg-emerald-50 dark:hover:bg-emerald-950/50 flex items-center justify-between transition-colors cursor-pointer"
                     >
                       <div>
                         <div className="text-xs font-black text-slate-900 dark:text-white font-outfit">
-                          {item.herbName} ➔ {item.drugName}
+                          🌿 {h.herbName} ➔ 💊 {h.drugName}
                         </div>
-                        <div className="text-[10px] text-slate-500">{item.drugClass}</div>
+                        <div className="text-[10px] text-slate-500 font-outfit">{h.drugClass}</div>
                       </div>
-                      <span className={`text-[10px] font-black px-2 py-0.5 rounded border ${getSeverityBadge(item.severity)}`}>
-                        {item.severity}
+                      <span className={`text-[10px] font-black font-outfit px-2 py-0.5 rounded border ${getSeverityBadge(h.severity)}`}>
+                        {h.severity}
                       </span>
                     </button>
                   ))}
@@ -309,15 +309,15 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
               {activeScreeningList.map(item => (
                 <div
                   key={item.id}
-                  className="pl-3 pr-2 py-1.5 rounded-xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-950 dark:text-emerald-200 text-xs font-bold flex items-center gap-2"
+                  className="pl-3 pr-2 py-1.5 rounded-xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50/90 dark:bg-emerald-950/50 text-emerald-950 dark:text-emerald-200 text-xs font-bold font-outfit flex items-center gap-2 shadow-2xs"
                 >
-                  <span>{item.herbName} ➔ {item.drugName}</span>
+                  <span>🌿 {item.herbName} ➔ 💊 {item.drugName}</span>
                   <button
                     onClick={() => handleRemoveInteraction(item.id)}
-                    className="p-1 hover:bg-black/10 rounded-lg cursor-pointer"
+                    className="p-1 hover:bg-black/10 rounded-lg cursor-pointer ml-1"
                     title="Hapus"
                   >
-                    <Trash2 className="w-3.5 h-3.5 text-slate-500 hover:text-rose-600" />
+                    <Trash2 className="w-3.5 h-3.5 text-slate-400 hover:text-rose-600" />
                   </button>
                 </div>
               ))}

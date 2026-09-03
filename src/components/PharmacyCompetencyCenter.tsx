@@ -299,19 +299,19 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
         </div>
       </div>
 
-      {/* Main Subtab Navigation Bar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar border-b border-slate-200 dark:border-slate-800">
+      {/* Main Subtab Navigation Bar - Royal Emerald Suite */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar border-b border-emerald-100 dark:border-emerald-950/80">
         <button
           onClick={() => setActiveMainTab('topics')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all shrink-0 cursor-pointer font-outfit ${
             activeMainTab === 'topics'
-              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/25 scale-[1.02]'
-              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/40 border border-emerald-400/30 scale-[1.02]'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300'
           }`}
         >
           <BookOpen className="w-4 h-4" />
           <span>Rangkuman 4 Domain</span>
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-700/60 text-emerald-100">
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">
             {HIGH_YIELD_TOPICS.length} Topik
           </span>
         </button>
@@ -320,13 +320,13 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
           onClick={() => setActiveMainTab('cbt')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all shrink-0 cursor-pointer font-outfit ${
             activeMainTab === 'cbt'
-              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/25 scale-[1.02]'
-              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/40 border border-emerald-400/30 scale-[1.02]'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300'
           }`}
         >
           <Trophy className="w-4 h-4" />
           <span>Bank Soal & Tryout CBT</span>
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-700/60 text-emerald-100">
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">
             Simulasi
           </span>
         </button>
@@ -335,13 +335,13 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
           onClick={() => setActiveMainTab('calc')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all shrink-0 cursor-pointer font-outfit ${
             activeMainTab === 'calc'
-              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/25 scale-[1.02]'
-              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/40 border border-emerald-400/30 scale-[1.02]'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300'
           }`}
         >
           <Calculator className="w-4 h-4" />
           <span>Kalkulator & Rumus Cepat</span>
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-700/60 text-emerald-100">
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">
             {FORMULA_GUIDES.length} Rumus
           </span>
         </button>
@@ -350,13 +350,13 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
           onClick={() => setActiveMainTab('osce')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all shrink-0 cursor-pointer font-outfit ${
             activeMainTab === 'osce'
-              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/25 scale-[1.02]'
-              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/40 border border-emerald-400/30 scale-[1.02]'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300'
           }`}
         >
           <Stethoscope className="w-4 h-4" />
           <span>Panduan Stasi OSCE</span>
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-700/60 text-emerald-100">
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">
             Praktik
           </span>
         </button>
@@ -365,13 +365,13 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
           onClick={() => setActiveMainTab('flashcards')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all shrink-0 cursor-pointer font-outfit ${
             activeMainTab === 'flashcards'
-              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/25 scale-[1.02]'
-              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/40 border border-emerald-400/30 scale-[1.02]'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300'
           }`}
         >
           <Zap className="w-4 h-4" />
           <span>Flashcard & Hafalan Cepat</span>
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-700/60 text-emerald-100">
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">
             {FLASHCARD_DECK.length} Kartu
           </span>
         </button>

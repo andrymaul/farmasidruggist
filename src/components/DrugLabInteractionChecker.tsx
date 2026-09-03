@@ -217,14 +217,14 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
         </div>
       </div>
 
-      {/* NAVIGATION SUBTABS */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-200 dark:border-slate-800">
+      {/* NAVIGATION SUBTABS - OCEAN NEON CYAN */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-cyan-100 dark:border-cyan-950/80">
         <button
           onClick={() => setActiveTab('screening')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'screening'
-              ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-950/40 border border-cyan-400/30'
+              : 'bg-white dark:bg-[#061726] text-slate-600 dark:text-slate-300 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 border border-slate-200 dark:border-cyan-900/30'
           }`}
         >
           <Sparkles className="w-4 h-4" />
@@ -233,10 +233,10 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
 
         <button
           onClick={() => setActiveTab('critical')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'critical'
-              ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-950/40 border border-cyan-400/30'
+              : 'bg-white dark:bg-[#061726] text-slate-600 dark:text-slate-300 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 border border-slate-200 dark:border-cyan-900/30'
           }`}
         >
           <ShieldAlert className="w-4 h-4" />
@@ -245,10 +245,10 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
 
         <button
           onClick={() => setActiveTab('panels')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'panels'
-              ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-950/40 border border-cyan-400/30'
+              : 'bg-white dark:bg-[#061726] text-slate-600 dark:text-slate-300 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 border border-slate-200 dark:border-cyan-900/30'
           }`}
         >
           <TestTubes className="w-4 h-4" />
@@ -257,10 +257,10 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
 
         <button
           onClick={() => setActiveTab('directory')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black font-outfit transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
             activeTab === 'directory'
-              ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-md'
-              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-950/40 border border-cyan-400/30'
+              : 'bg-white dark:bg-[#061726] text-slate-600 dark:text-slate-300 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 border border-slate-200 dark:border-cyan-900/30'
           }`}
         >
           <BookOpen className="w-4 h-4" />
@@ -274,19 +274,19 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
       {activeTab === 'screening' && (
         <div className="space-y-6 animate-fade-in">
           {/* Search Box */}
-          <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#061726] border border-cyan-200/80 dark:border-cyan-500/25 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyan-100 dark:border-cyan-950/80 pb-3">
               <div>
-                <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-outfit">
+                <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white font-outfit">
                   Pilih Obat / Uji Lab Pasien untuk Diskrin
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                   Periksa apakah obat yang dikonsumsi pasien dapat mengubah, menaikkan, atau menurunkan nilai hasil tes laboratorium secara palsu.
                 </p>
               </div>
               <button
                 onClick={handleCopySummary}
-                className="px-3 py-1.5 rounded-xl bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-bold flex items-center gap-1.5 hover:bg-violet-100 cursor-pointer"
+                className="px-3.5 py-1.5 rounded-xl bg-cyan-50 dark:bg-cyan-950/50 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 text-xs font-bold font-outfit flex items-center gap-1.5 hover:bg-cyan-100 dark:hover:bg-cyan-900/40 cursor-pointer transition shadow-2xs"
               >
                 {copiedSummary ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copiedSummary ? 'Tersalin!' : 'Salin Laporan WhatsApp'}</span>
@@ -300,26 +300,26 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
                 placeholder="Ketik nama obat atau nama tes lab (misal: Biotin, Troponin, Cotrimoxazole, Ceftriaxone, Levofloxacin, Vitamin C)..."
                 value={screeningSearchQuery}
                 onChange={e => setScreeningSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500/40"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs font-bold font-outfit text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
               />
 
               {/* Suggestions */}
               {drugSuggestions.length > 0 && (
-                <div className="absolute left-0 right-0 top-full mt-1.5 z-30 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 space-y-1 animate-in fade-in zoom-in-95">
-                  <div className="text-[10px] font-bold text-slate-400 px-3 py-1">Pilih Interferensi untuk Ditambahkan:</div>
+                <div className="absolute left-0 right-0 top-full mt-1.5 z-30 bg-white dark:bg-[#061726] rounded-2xl shadow-xl border border-cyan-200 dark:border-cyan-800 p-2 space-y-1 animate-in fade-in zoom-in-95">
+                  <div className="text-[10px] font-bold text-slate-400 px-3 py-1 font-outfit">Pilih Interferensi untuk Ditambahkan:</div>
                   {drugSuggestions.map(d => (
                     <button
                       key={d.id}
                       onClick={() => handleAddInteraction(d.id)}
-                      className="w-full p-2.5 rounded-xl text-left hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between transition-colors cursor-pointer"
+                      className="w-full p-2.5 rounded-xl text-left hover:bg-cyan-50 dark:hover:bg-cyan-950/50 flex items-center justify-between transition-colors cursor-pointer"
                     >
                       <div>
                         <div className="text-xs font-black text-slate-900 dark:text-white font-outfit">
                           {d.drugName} ➔ {d.labTestName}
                         </div>
-                        <div className="text-[10px] text-slate-500">{d.labCategory}</div>
+                        <div className="text-[10px] text-slate-500 font-outfit">{d.labCategory}</div>
                       </div>
-                      <span className={`text-[10px] font-black px-2 py-0.5 rounded border ${getSeverityBadge(d.severity)}`}>
+                      <span className={`text-[10px] font-black font-outfit px-2 py-0.5 rounded border ${getSeverityBadge(d.severity)}`}>
                         {d.severity}
                       </span>
                     </button>
@@ -333,15 +333,15 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
               {activeScreeningList.map(item => (
                 <div
                   key={item.id}
-                  className="pl-3 pr-2 py-1.5 rounded-xl border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 text-violet-900 dark:text-violet-200 text-xs font-bold flex items-center gap-2"
+                  className="pl-3 pr-2 py-1.5 rounded-xl border border-cyan-300 dark:border-cyan-800 bg-cyan-50/90 dark:bg-cyan-950/50 text-cyan-950 dark:text-cyan-200 text-xs font-bold font-outfit flex items-center gap-2 shadow-2xs"
                 >
                   <span>{item.drugName} ➔ {item.labTestName}</span>
                   <button
                     onClick={() => handleRemoveInteraction(item.id)}
-                    className="p-1 hover:bg-black/10 rounded-lg cursor-pointer"
+                    className="p-1 hover:bg-black/10 rounded-lg cursor-pointer ml-1"
                     title="Hapus"
                   >
-                    <Trash2 className="w-3.5 h-3.5 text-slate-500 hover:text-rose-600" />
+                    <Trash2 className="w-3.5 h-3.5 text-slate-400 hover:text-rose-600" />
                   </button>
                 </div>
               ))}
@@ -350,14 +350,14 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
 
           {/* Active Screening Cards */}
           <div className="space-y-4">
-            <h3 className="text-base font-black text-slate-900 dark:text-white font-outfit">
+            <h3 className="text-base font-extrabold text-slate-900 dark:text-white font-outfit">
               Daftar Dampak Interferensi Laboratorium ({activeScreeningList.length} Temuan)
             </h3>
 
             {activeScreeningList.map((item, index) => (
               <div
                 key={item.id}
-                className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4"
+                className="p-6 rounded-3xl bg-white dark:bg-[#061726] border border-cyan-200/80 dark:border-cyan-500/25 shadow-sm space-y-4"
               >
                 <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
                   <div>

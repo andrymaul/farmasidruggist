@@ -140,11 +140,36 @@ export interface UserProfile {
   canExportPdf?: boolean;
   canAccessRenal?: boolean;
   canAccessPolypharmacy?: boolean;
+  canAccessIvCompatibility?: boolean;
+  canAccessBud?: boolean;
+  canAccessPediatric?: boolean;
+  canAccessPregnancy?: boolean;
+  canAccessDrugLab?: boolean;
+  canAccessHerbDrug?: boolean;
+  canAccessSideEffects?: boolean;
+  canAccessWhatsappPio?: boolean;
+  canAccessGuidelines?: boolean;
+  canAccessCompetency?: boolean;
+  canAccessSop?: boolean;
+  canAccessRegulations?: boolean;
+  canAccessLiterature?: boolean;
   expiresAt?: string;
   isEmailVerified?: boolean;
   createdAt?: string;
   lastActiveAt?: string;
   isOnline?: boolean;
+  paymentHistory?: CustomerPaymentRecord[];
+}
+
+export interface CustomerPaymentRecord {
+  id: string;
+  date: string;
+  amount: number;
+  plan: string;
+  paymentMethod: string;
+  referenceNumber?: string;
+  status: 'Lunas' | 'Pending' | 'Batal';
+  notes?: string;
 }
 
 export interface InteractionCheckRecord {

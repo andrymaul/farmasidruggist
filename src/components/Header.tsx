@@ -296,42 +296,229 @@ export const Header: React.FC<HeaderProps> = ({
   // App Topbar Rendering (When Sidebar is active)
   const getTabTitle = (tab: string) => {
     switch (tab) {
-      case 'dashboard': return { title: 'Dashboard Utama', desc: 'Ringkasan aktivitas & analisis obat klinis', icon: Sparkles, iconColor: 'text-amber-500 bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-800' };
-      case 'drugs': return { title: 'Katalog Informasi Obat', desc: 'Direktori komprehensif indikasi, dosis & efek samping', icon: Pill, iconColor: 'text-blue-600 bg-blue-50 dark:bg-blue-950/50 border-blue-200 dark:border-blue-800' };
-      case 'pregnancy': return { title: 'Keamanan Obat Ibu Hamil & Menyusui (Pregnancy & Lactation)', desc: 'Penapisan risiko teratogenik FDA PLLR, profil laktasi Hale’s L1-L5, RID %, dan direktori alternatif obat aman', icon: HeartHandshake, iconColor: 'text-pink-600 bg-pink-50 dark:bg-pink-950/50 border-pink-200 dark:border-pink-800' };
-      case 'drug-lab': return { title: 'Interaksi Obat dengan Uji Laboratorium (DLI)', desc: 'Deteksi distorsi analit in vitro & hasil positif/negatif palsu pemeriksaan Troponin, Tiroid, Ginjal, Glukosa & Narkoba Urin', icon: FlaskConical, iconColor: 'text-cyan-700 bg-cyan-50 dark:bg-cyan-950/50 border-cyan-200 dark:border-cyan-800' };
-      case 'herb-drug': return { title: 'Interaksi Herbal & Obat Indonesia (Herb-Drug Interactions)', desc: 'Penapisan interaksi Jamu, OHT & Fitofarmaka (Kunyit, Temulawak, Sambiloto, Bawang Putih, Ginkgo) terhadap obat resep sintetik', icon: Leaf, iconColor: 'text-emerald-800 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800' };
-      case 'bud': return { title: 'Kalkulator Stabilitas & Beyond Use Date (BUD)', desc: 'Penetapan batas kadaluarsa sediaan racikan puyer, sirup oral, krim/gel, tetes mata, insulin & injeksi steril berstandar USP <795>, <797> & FI VI', icon: CalendarClock, iconColor: 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800' };
-      case 'competency': return { title: 'Pusat Belajar Uji Kompetensi Farmasi (UKMPPAI & UKTVF)', desc: 'Rangkuman 4 domain blueprint nasional, bank soal kasus vignette, simulasi CBT, rumus hitungan cepat & panduan OSCE', icon: GraduationCap, iconColor: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800' };
-      case 'guidelines': return { title: 'Panduan Terapi Klinis Indonesia', desc: 'Pedoman Nasional Pelayanan Kedokteran (PNPK) & Konsensus Organisasi Profesi Spesialis RI', icon: HeartPulse, iconColor: 'text-blue-600 bg-blue-50 dark:bg-blue-950/50 border-blue-200 dark:border-blue-800' };
-      case 'polypharmacy': return { title: 'Evaluasi Klinis & Penapisan Polifarmasi', desc: 'Parameter klinis pasien, penapisan resep, generator jadwal harian & interaksi makanan', icon: Stethoscope, iconColor: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 border-indigo-200 dark:border-indigo-800' };
-      case 'interactions': return { title: 'Deteksi Interaksi Obat (Evaluasi Klinis)', desc: 'Pemeriksaan potensi efek samping & tingkat keparahan', icon: ShieldAlert, iconColor: 'text-rose-600 bg-rose-50 dark:bg-rose-950/50 border-rose-200 dark:border-rose-800' };
-      case 'side-effects': return { title: 'Pusat Analisis Efek Samping & Toksisitas Organ', desc: 'Evaluasi toksisitas kumulatif multi-obat, pelacak gejala KTD & algoritma farmakovigilans BPOM', icon: Activity, iconColor: 'text-amber-600 bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-800' };
-      case 'usage': return { title: 'Panduan Penggunaan Obat', desc: 'Petunjuk langkah demi langkah tata cara penggunaan sediaan obat khusus', icon: BookOpen, iconColor: 'text-teal-600 bg-teal-50 dark:bg-teal-950/50 border-teal-200 dark:border-teal-800' };
-      case 'literature': return { title: 'Literatur & Basis Ilmiah (EBM)', desc: 'Direktori komprehensif pedoman PNPK Kemenkes, konsensus organisasi profesi & standar internasional', icon: BookMarked, iconColor: 'text-teal-600 bg-teal-50 dark:bg-teal-950/50 border-teal-200 dark:border-teal-800' };
-      case 'history': return { title: 'Riwayat Pemeriksaan', desc: 'Rekam jejak simulasi & penelusuran interaksi', icon: History, iconColor: 'text-purple-600 bg-purple-50 dark:bg-purple-950/50 border-purple-200 dark:border-purple-800' };
-      case 'renal-adjuster': return { title: 'Kalkulator Medis & Penyesuaian Dosis', desc: 'Suite kalkulator farmako-klinis terpadu: Dosis Ginjal, Hepar, Syringe Pump, Opioid, IBW, dan Skor Klinis', icon: Calculator, iconColor: 'text-violet-600 bg-violet-50 dark:bg-violet-950/50 border-violet-200 dark:border-violet-800' };
-      case 'pediatric': return { title: 'Kalkulator Dosis Pediatrik & Puyer', desc: 'Perhitungan dosis anak berbasis BB/BSA, konversi puyer, takaran sirup & batas dosis toksik', icon: Baby, iconColor: 'text-rose-500 bg-rose-50 dark:bg-rose-950/50 border-rose-200 dark:border-rose-800' };
-      case 'iv-compatibility': return { title: 'Uji Kompatibilitas Injeksi IV', desc: 'Skrining kompatibilitas percabangan Y-Site, presipitasi pelarut infus & stabilitas rekonstitusi', icon: Syringe, iconColor: 'text-cyan-600 bg-cyan-50 dark:bg-cyan-950/50 border-cyan-200 dark:border-cyan-800' };
-      case 'whatsapp-pio': return { title: 'Kartu PIO Pasien WhatsApp', desc: 'Generator kartu edukasi aturan pakai & etiket resep siap kirim langsung ke WhatsApp pasien', icon: MessageSquare, iconColor: 'text-teal-600 bg-teal-50 dark:bg-teal-950/50 border-teal-200 dark:border-teal-800' };
-      case 'sop': return { title: 'Standar Operasional Prosedur (SOP) Farmasi', desc: 'Kumpulan SOP Pelayanan Kefarmasian berstandar Permenkes No. 73/2016 & BPOM', icon: ClipboardList, iconColor: 'text-slate-700 bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700' };
-      case 'regulations': return { title: 'Regulasi & Kebijakan Farmasi Indonesia', desc: 'Kompilasi UU Kesehatan No. 17/2023, Narkotika, Psikotropika, DOWA & PerBPOM', icon: Scale, iconColor: 'text-amber-700 bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-800' };
-      case 'admin': return { title: 'Panel Administrasi', desc: 'Manajemen basis data obat & aturan interaksi', icon: Database, iconColor: 'text-slate-700 bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700' };
-      case 'subscriptions': return { title: 'Manajemen Berlangganan Customer', desc: 'Pengelolaan lisensi subskripsi, perpanjangan masa aktif & akun pelanggan', icon: UserCheck, iconColor: 'text-teal-600 bg-teal-50 dark:bg-teal-950/50 border-teal-200 dark:border-teal-800' };
-      default: return { title: 'Farmasi & Klinik DDI Interaksi', desc: 'Platform Integrasi Klinis Penilaian Interaksi Obat', icon: Sparkles, iconColor: 'text-teal-600 bg-teal-50 dark:bg-teal-950/50 border-teal-200 dark:border-teal-800' };
+      case 'dashboard':
+        return {
+          title: 'Dashboard Utama',
+          desc: 'Ringkasan aktivitas & analisis obat klinis',
+          icon: Sparkles,
+          iconColor: 'text-amber-500 bg-amber-500/10 border-amber-400/30',
+          headerBg: 'bg-gradient-to-r from-amber-50/85 via-teal-50/40 to-white/95 dark:from-[#110c03]/95 dark:via-[#161205]/90 dark:to-[#090702]/95 border-b border-amber-200/60 dark:border-amber-500/25',
+          glowAccent: 'from-amber-500/10 via-teal-500/5 to-transparent'
+        };
+      case 'drugs':
+        return {
+          title: 'Katalog Informasi Obat',
+          desc: 'Direktori komprehensif indikasi, dosis & efek samping',
+          icon: Pill,
+          iconColor: 'text-teal-600 dark:text-teal-400 bg-teal-500/10 border-teal-400/30',
+          headerBg: 'bg-gradient-to-r from-teal-50/85 via-blue-50/40 to-white/95 dark:from-[#031518]/95 dark:via-[#051e24]/90 dark:to-[#020b0d]/95 border-b border-teal-200/60 dark:border-teal-500/25',
+          glowAccent: 'from-teal-500/10 via-cyan-500/5 to-transparent'
+        };
+      case 'pregnancy':
+        return {
+          title: 'Keamanan Obat Ibu Hamil & Menyusui (Pregnancy & Lactation)',
+          desc: 'Penapisan risiko teratogenik FDA PLLR, profil laktasi Hale’s L1-L5, RID %, dan direktori alternatif obat aman',
+          icon: HeartHandshake,
+          iconColor: 'text-pink-600 dark:text-pink-400 bg-pink-500/10 border-pink-400/30',
+          headerBg: 'bg-gradient-to-r from-pink-50/90 via-rose-50/50 to-white/95 dark:from-[#1a0614]/95 dark:via-[#26091e]/90 dark:to-[#0e020a]/95 border-b border-pink-200/60 dark:border-pink-500/25',
+          glowAccent: 'from-pink-500/10 via-rose-500/5 to-transparent'
+        };
+      case 'drug-lab':
+        return {
+          title: 'Interaksi Obat dengan Uji Laboratorium (DLI)',
+          desc: 'Deteksi distorsi analit in vitro & hasil positif/negatif palsu pemeriksaan Troponin, Tiroid, Ginjal, Glukosa & Narkoba Urin',
+          icon: FlaskConical,
+          iconColor: 'text-cyan-600 dark:text-cyan-400 bg-cyan-500/10 border-cyan-400/30',
+          headerBg: 'bg-gradient-to-r from-cyan-50/90 via-teal-50/50 to-white/95 dark:from-[#03171e]/95 dark:via-[#05232c]/90 dark:to-[#020d10]/95 border-b border-cyan-200/60 dark:border-cyan-500/25',
+          glowAccent: 'from-cyan-500/10 via-teal-500/5 to-transparent'
+        };
+      case 'herb-drug':
+        return {
+          title: 'Interaksi Herbal & Obat Indonesia (Herb-Drug Interactions)',
+          desc: 'Penapisan interaksi Jamu, OHT & Fitofarmaka (Kunyit, Temulawak, Sambiloto, Bawang Putih, Ginkgo) terhadap obat resep sintetik',
+          icon: Leaf,
+          iconColor: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-400/30',
+          headerBg: 'bg-gradient-to-r from-emerald-50/90 via-green-50/50 to-white/95 dark:from-[#03170e]/95 dark:via-[#052417]/90 dark:to-[#020d08]/95 border-b border-emerald-200/60 dark:border-emerald-500/25',
+          glowAccent: 'from-emerald-500/10 via-green-500/5 to-transparent'
+        };
+      case 'bud':
+        return {
+          title: 'Kalkulator Stabilitas & Beyond Use Date (BUD)',
+          desc: 'Penetapan batas kadaluarsa sediaan racikan puyer, sirup oral, krim/gel, tetes mata, insulin & injeksi steril berstandar USP <795>, <797> & FI VI',
+          icon: CalendarClock,
+          iconColor: 'text-teal-600 dark:text-teal-400 bg-teal-500/10 border-teal-400/30',
+          headerBg: 'bg-gradient-to-r from-teal-50/90 via-emerald-50/50 to-white/95 dark:from-[#031818]/95 dark:via-[#052525]/90 dark:to-[#020d0d]/95 border-b border-teal-200/60 dark:border-teal-500/25',
+          glowAccent: 'from-teal-500/10 via-emerald-500/5 to-transparent'
+        };
+      case 'competency':
+        return {
+          title: 'Pusat Belajar Uji Kompetensi Farmasi (UKMPPAI & UKTVF)',
+          desc: 'Rangkuman 4 domain blueprint nasional, bank soal kasus vignette, simulasi CBT, rumus hitungan cepat & panduan OSCE',
+          icon: GraduationCap,
+          iconColor: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-400/30',
+          headerBg: 'bg-gradient-to-r from-emerald-50/90 via-teal-50/50 to-white/95 dark:from-[#041812]/95 dark:via-[#06251b]/90 dark:to-[#020d09]/95 border-b border-emerald-200/60 dark:border-emerald-500/25',
+          glowAccent: 'from-emerald-500/10 via-teal-500/5 to-transparent'
+        };
+      case 'guidelines':
+        return {
+          title: 'Panduan Terapi Klinis Indonesia',
+          desc: 'Pedoman Nasional Pelayanan Kedokteran (PNPK) & Konsensus Organisasi Profesi Spesialis RI',
+          icon: HeartPulse,
+          iconColor: 'text-blue-600 dark:text-blue-400 bg-blue-500/10 border-blue-400/30',
+          headerBg: 'bg-gradient-to-r from-blue-50/90 via-indigo-50/50 to-white/95 dark:from-[#051025]/95 dark:via-[#081838]/90 dark:to-[#020814]/95 border-b border-blue-200/60 dark:border-blue-500/25',
+          glowAccent: 'from-blue-500/10 via-indigo-500/5 to-transparent'
+        };
+      case 'polypharmacy':
+        return {
+          title: 'Evaluasi Klinis & Penapisan Polifarmasi',
+          desc: 'Parameter klinis pasien, penapisan resep, generator jadwal harian & interaksi makanan',
+          icon: Stethoscope,
+          iconColor: 'text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 border-indigo-400/30',
+          headerBg: 'bg-gradient-to-r from-indigo-50/90 via-blue-50/50 to-white/95 dark:from-[#070b22]/95 dark:via-[#0b1233]/90 dark:to-[#030512]/95 border-b border-indigo-200/60 dark:border-indigo-500/25',
+          glowAccent: 'from-indigo-500/10 via-blue-500/5 to-transparent'
+        };
+      case 'interactions':
+        return {
+          title: 'Deteksi Interaksi Obat (Evaluasi Klinis)',
+          desc: 'Pemeriksaan potensi efek samping & tingkat keparahan',
+          icon: ShieldAlert,
+          iconColor: 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border-rose-400/30',
+          headerBg: 'bg-gradient-to-r from-rose-50/90 via-red-50/50 to-white/95 dark:from-[#1b0609]/95 dark:via-[#28090e]/90 dark:to-[#0d0204]/95 border-b border-rose-200/60 dark:border-rose-500/25',
+          glowAccent: 'from-rose-500/10 via-red-500/5 to-transparent'
+        };
+      case 'side-effects':
+        return {
+          title: 'Pusat Analisis Efek Samping & Toksisitas Organ',
+          desc: 'Evaluasi toksisitas kumulatif multi-obat, pelacak gejala KTD & algoritma farmakovigilans BPOM',
+          icon: Activity,
+          iconColor: 'text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-400/30',
+          headerBg: 'bg-gradient-to-r from-amber-50/90 via-yellow-50/50 to-white/95 dark:from-[#1a1203]/95 dark:via-[#271b05]/90 dark:to-[#0e0901]/95 border-b border-amber-200/60 dark:border-amber-500/25',
+          glowAccent: 'from-amber-500/10 via-yellow-500/5 to-transparent'
+        };
+      case 'usage':
+        return {
+          title: 'Panduan Penggunaan Obat',
+          desc: 'Petunjuk langkah demi langkah tata cara penggunaan sediaan obat khusus',
+          icon: BookOpen,
+          iconColor: 'text-sky-600 dark:text-sky-400 bg-sky-500/10 border-sky-400/30',
+          headerBg: 'bg-gradient-to-r from-sky-50/90 via-blue-50/50 to-white/95 dark:from-[#031422]/95 dark:via-[#051e33]/90 dark:to-[#020b13]/95 border-b border-sky-200/60 dark:border-sky-500/25',
+          glowAccent: 'from-sky-500/10 via-blue-500/5 to-transparent'
+        };
+      case 'literature':
+        return {
+          title: 'Literatur & Basis Ilmiah (EBM)',
+          desc: 'Direktori komprehensif pedoman PNPK Kemenkes, konsensus organisasi profesi & standar internasional',
+          icon: BookMarked,
+          iconColor: 'text-teal-600 dark:text-teal-400 bg-teal-500/10 border-teal-400/30',
+          headerBg: 'bg-gradient-to-r from-teal-50/90 via-cyan-50/50 to-white/95 dark:from-[#03181a]/95 dark:via-[#052529]/90 dark:to-[#020d0e]/95 border-b border-teal-200/60 dark:border-teal-500/25',
+          glowAccent: 'from-teal-500/10 via-cyan-500/5 to-transparent'
+        };
+      case 'history':
+        return {
+          title: 'Riwayat Pemeriksaan',
+          desc: 'Rekam jejak simulasi & penelusuran interaksi',
+          icon: History,
+          iconColor: 'text-purple-600 dark:text-purple-400 bg-purple-500/10 border-purple-400/30',
+          headerBg: 'bg-gradient-to-r from-purple-50/90 via-indigo-50/50 to-white/95 dark:from-[#110722]/95 dark:via-[#1a0b33]/90 dark:to-[#090312]/95 border-b border-purple-200/60 dark:border-purple-500/25',
+          glowAccent: 'from-purple-500/10 via-indigo-500/5 to-transparent'
+        };
+      case 'renal-adjuster':
+        return {
+          title: 'Kalkulator Medis & Penyesuaian Dosis',
+          desc: 'Suite kalkulator farmako-klinis terpadu: Dosis Ginjal, Hepar, Syringe Pump, Opioid, IBW, dan Skor Klinis',
+          icon: Calculator,
+          iconColor: 'text-violet-600 dark:text-violet-400 bg-violet-500/10 border-violet-400/30',
+          headerBg: 'bg-gradient-to-r from-violet-50/90 via-purple-50/50 to-white/95 dark:from-[#120824]/95 dark:via-[#1c0c38]/90 dark:to-[#0a0414]/95 border-b border-violet-200/60 dark:border-violet-500/25',
+          glowAccent: 'from-violet-500/10 via-purple-500/5 to-transparent'
+        };
+      case 'pediatric':
+        return {
+          title: 'Kalkulator Dosis Pediatrik & Puyer',
+          desc: 'Perhitungan dosis anak berbasis BB/BSA, konversi puyer, takaran sirup & batas dosis toksik',
+          icon: Baby,
+          iconColor: 'text-rose-500 dark:text-rose-400 bg-rose-500/10 border-rose-400/30',
+          headerBg: 'bg-gradient-to-r from-rose-50/90 via-pink-50/50 to-white/95 dark:from-[#1d0810]/95 dark:via-[#2b0c17]/90 dark:to-[#100308]/95 border-b border-rose-200/60 dark:border-rose-500/25',
+          glowAccent: 'from-rose-500/10 via-pink-500/5 to-transparent'
+        };
+      case 'iv-compatibility':
+        return {
+          title: 'Uji Kompatibilitas Injeksi IV',
+          desc: 'Skrining kompatibilitas percabangan Y-Site, presipitasi pelarut infus & stabilitas rekonstitusi',
+          icon: Syringe,
+          iconColor: 'text-sky-600 dark:text-sky-400 bg-sky-500/10 border-sky-400/30',
+          headerBg: 'bg-gradient-to-r from-sky-50/90 via-blue-50/50 to-white/95 dark:from-[#031522]/95 dark:via-[#041f33]/90 dark:to-[#020c13]/95 border-b border-sky-200/60 dark:border-sky-500/25',
+          glowAccent: 'from-sky-500/10 via-blue-500/5 to-transparent'
+        };
+      case 'whatsapp-pio':
+        return {
+          title: 'Kartu PIO Pasien WhatsApp',
+          desc: 'Generator kartu edukasi aturan pakai & etiket resep siap kirim langsung ke WhatsApp pasien',
+          icon: MessageSquare,
+          iconColor: 'text-teal-600 dark:text-teal-400 bg-teal-500/10 border-teal-400/30',
+          headerBg: 'bg-gradient-to-r from-teal-50/90 via-emerald-50/50 to-white/95 dark:from-[#031816]/95 dark:via-[#052522]/90 dark:to-[#020d0c]/95 border-b border-teal-200/60 dark:border-teal-500/25',
+          glowAccent: 'from-teal-500/10 via-emerald-500/5 to-transparent'
+        };
+      case 'sop':
+        return {
+          title: 'Standar Operasional Prosedur (SOP) Farmasi',
+          desc: 'Kumpulan SOP Pelayanan Kefarmasian berstandar Permenkes No. 73/2016 & BPOM',
+          icon: ClipboardList,
+          iconColor: 'text-slate-700 dark:text-slate-300 bg-slate-500/10 border-slate-400/30',
+          headerBg: 'bg-gradient-to-r from-slate-100/90 via-slate-50/50 to-white/95 dark:from-[#0d131a]/95 dark:via-[#141d27]/90 dark:to-[#070a0e]/95 border-b border-slate-200/70 dark:border-slate-700/50',
+          glowAccent: 'from-slate-500/10 via-slate-400/5 to-transparent'
+        };
+      case 'regulations':
+        return {
+          title: 'Regulasi & Kebijakan Farmasi Indonesia',
+          desc: 'Kompilasi UU Kesehatan No. 17/2023, Narkotika, Psikotropika, DOWA & PerBPOM',
+          icon: Scale,
+          iconColor: 'text-amber-700 dark:text-amber-400 bg-amber-500/10 border-amber-400/30',
+          headerBg: 'bg-gradient-to-r from-amber-50/90 via-orange-50/50 to-white/95 dark:from-[#1b1203]/95 dark:via-[#261a05]/90 dark:to-[#0e0901]/95 border-b border-amber-200/60 dark:border-amber-600/30',
+          glowAccent: 'from-amber-500/10 via-orange-500/5 to-transparent'
+        };
+      case 'admin':
+      case 'admin-firebase':
+      case 'admin-pricing':
+      case 'admin-users':
+      case 'admin-subscriptions':
+      case 'subscriptions':
+        return {
+          title: tab === 'subscriptions' || tab === 'admin-subscriptions' 
+            ? 'Manajemen Berlangganan Customer' 
+            : tab === 'admin-pricing' 
+            ? 'Pengaturan Tarif & Hak Akses'
+            : tab === 'admin-users'
+            ? 'Kelola Tim Administrator'
+            : tab === 'admin-firebase'
+            ? 'Sinkronisasi Database Firebase'
+            : 'Panel Administrasi',
+          desc: 'Pengelolaan basis data obat, hak akses subskripsi, akun tim & integrasi Cloud Firestore',
+          icon: tab === 'subscriptions' || tab === 'admin-subscriptions' ? UserCheck : Database,
+          iconColor: 'text-amber-500 dark:text-amber-300 bg-amber-500/15 border-amber-400/40 shadow-xs',
+          headerBg: 'bg-gradient-to-r from-amber-50/85 via-orange-50/40 to-white/95 dark:from-[#120e03]/95 dark:via-[#1e1705]/90 dark:to-[#0a0701]/95 border-b border-amber-300/50 dark:border-amber-500/30',
+          glowAccent: 'from-amber-500/15 via-yellow-500/5 to-transparent'
+        };
+      default:
+        return {
+          title: 'Farmasi & Klinik DDI Interaksi',
+          desc: 'Platform Integrasi Klinis Penilaian Interaksi Obat',
+          icon: Sparkles,
+          iconColor: 'text-teal-600 dark:text-teal-400 bg-teal-500/10 border-teal-400/30',
+          headerBg: 'bg-gradient-to-r from-teal-50/85 via-cyan-50/40 to-white/95 dark:from-[#031518]/95 dark:via-[#051e24]/90 dark:to-[#020b0d]/95 border-b border-teal-200/60 dark:border-teal-500/25',
+          glowAccent: 'from-teal-500/10 via-cyan-500/5 to-transparent'
+        };
     }
   };
 
   const currentTabMeta = getTabTitle(activeTab);
-  const { title, desc, icon: TabIcon, iconColor } = currentTabMeta;
+  const { title, desc, icon: TabIcon, iconColor, headerBg, glowAccent } = currentTabMeta;
 
   return (
-    <header className={`sticky top-0 z-40 transition-all duration-300 px-4 sm:px-6 lg:px-8 py-3 print:hidden ${
-      isScrolled 
-        ? 'bg-white/95 dark:bg-[#0b0f19]/95 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 shadow-sm' 
-        : 'bg-white/85 dark:bg-[#0b0f19]/85 backdrop-blur-xl border-b border-slate-200/70 dark:border-slate-800/70'
-    }`}>
-      <div className="flex items-center justify-between gap-4">
+    <header className={`sticky top-0 z-40 transition-all duration-300 px-4 sm:px-6 lg:px-8 py-3 print:hidden backdrop-blur-2xl shadow-xs relative overflow-hidden ${headerBg}`}>
+      {/* Subtle Dynamic Ambient Glow Accent */}
+      <div className={`absolute -top-12 left-1/4 w-96 h-24 bg-gradient-to-b ${glowAccent} blur-3xl pointer-events-none -z-10`} />
+
+      <div className="flex items-center justify-between gap-4 relative z-10">
         
         {/* Mobile Sidebar Toggle & Title */}
         <div className="flex items-center gap-3">
@@ -362,7 +549,7 @@ export const Header: React.FC<HeaderProps> = ({
               <h1 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2 font-outfit">
                 {title}
               </h1>
-              <p className="text-xs text-slate-500 dark:text-slate-400 hidden lg:block font-medium">{desc}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-300/90 hidden lg:block font-medium">{desc}</p>
             </div>
           </div>
         </div>

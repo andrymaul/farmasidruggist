@@ -1009,7 +1009,7 @@ export default function App() {
               )}
 
               {activeTab === 'pregnancy' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessPregnancy) ? (
                   <ProFeatureGate
                     featureTitle="Keamanan Obat Ibu Hamil & Menyusui (Pregnancy & Lactation Database)"
                     featureDescription="Akses komprehensif penapisan risiko teratogenik FDA PLLR per trimester, profil ekskresi ASI (Hale’s L1–L5 & RID %), deteksi obat teratogenik Kategori X, serta direktori terapi lini pertama yang aman."
@@ -1027,7 +1027,7 @@ export default function App() {
               )}
 
               {activeTab === 'drug-lab' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessDrugLab) ? (
                   <ProFeatureGate
                     featureTitle="Interaksi Obat dengan Uji Laboratorium (Drug-Lab Interactions)"
                     featureDescription="Akses lengkap deteksi gangguan analit in vitro, pencegahan hasil positif/negatif palsu pemeriksaan biomarker kardiologi (Troponin), tiroid (TSH/FT4), fungsi ginjal (Kreatinin), glukosa strip & toksikologi narkoba urin."
@@ -1044,7 +1044,7 @@ export default function App() {
               )}
 
               {activeTab === 'bud' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessBud) ? (
                   <ProFeatureGate
                     featureTitle="Kalkulator Stabilitas & Beyond Use Date (BUD Racikan)"
                     featureDescription="Akses lengkap penetapan batas kadaluarsa sediaan racikan padat bebas air (puyer/kapsul), sirup oral berair, krim/gel topikal, sirup kering rekonstitusi, tetes mata multidose & minidose, serta injeksi steril berstandar USP <795>, <797> & Farmakope Indonesia VI."
@@ -1061,7 +1061,7 @@ export default function App() {
               )}
 
               {activeTab === 'herb-drug' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessHerbDrug) ? (
                   <ProFeatureGate
                     featureTitle="Interaksi Herbal & Obat Indonesia (Herb-Drug Interactions)"
                     featureDescription="Akses lengkap evaluasi penapisan interaksi sediaan Jamu, OHT & Fitofarmaka (Kunyit, Temulawak, Sambiloto, Bawang Putih, Ginkgo, Ginseng, Kumis Kucing, Daun Sirsak, Meniran) terhadap obat resep dokter, protokol penghentian pra-bedah & modul farmakologi herbal asli Indonesia."
@@ -1078,7 +1078,7 @@ export default function App() {
               )}
 
               {activeTab === 'competency' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessCompetency) ? (
                   <ProFeatureGate
                     featureTitle="Pusat Belajar Uji Kompetensi Farmasi (UKMPPAI CBT, OSCE & UKTVF)"
                     featureDescription="Akses lengkap rangkuman 4 domain blueprint nasional KFN/IAI, bank soal kasus vignette interaktif, simulasi tryout CBT berwaktu, generator rumus hitungan cepat, dan panduan stasi OSCE."
@@ -1095,7 +1095,7 @@ export default function App() {
               )}
 
               {activeTab === 'guidelines' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessGuidelines) ? (
                   <ProFeatureGate
                     featureTitle="Database Panduan Terapi PNPK & Konsensus RI"
                     featureDescription="Akses lengkap 23+ pedoman nasional pelayanan kedokteran Kemenkes RI, algoritma terapi lini pertama & kedua, Formularium Nasional (FORNAS), dan pencegahan risiko interaksi."
@@ -1118,7 +1118,7 @@ export default function App() {
               )}
 
               {activeTab === 'polypharmacy' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessPolypharmacy) ? (
                   <ProFeatureGate
                     featureTitle="Evaluasi Skrining Resep & Polifarmasi Klinis"
                     featureDescription="Analisis otomatis interaksi kompleks multi-obat, skrining potensi duplikasi terapi farmakologis, serta pencegahan efek samping polifarmasi pasien."
@@ -1156,7 +1156,7 @@ export default function App() {
               )}
 
               {activeTab === 'side-effects' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessSideEffects) ? (
                   <ProFeatureGate
                     featureTitle="Pusat Analisis Efek Samping Obat & Instrumen Farmakovigilans (MESO)"
                     featureDescription="Evaluasi akumulasi beban toksisitas organ (Hepatotoksik, Nefrotoksik, Kardiotoksik, dll.), pelacak gejala KTD, algoritma kausalitas Naranjo & WHO-UMC, tingkat keparahan Hartwig, serta generator formulir kuning MESO BPOM."
@@ -1183,7 +1183,7 @@ export default function App() {
               )}
 
               {activeTab === 'sop' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessSop) ? (
                   <ProFeatureGate
                     featureTitle="Modul Standar Operasional Prosedur (SOP) Farmasi Klinis"
                     featureDescription="Koleksi SOP resmi pelayanan kefarmasian di apotek dan klinik: penapisan resep, penyerahan obat (dispensing), konseling PIO, dan pelaporan MESO."
@@ -1199,7 +1199,7 @@ export default function App() {
               )}
 
               {activeTab === 'regulations' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessRegulations) ? (
                   <ProFeatureGate
                     featureTitle="Database Regulasi & Standar Hukum Kefarmasian RI"
                     featureDescription="Kompilasi undang-undang, Permenkes, dan standar akreditasi fasilitas pelayanan kefarmasian terkini di Indonesia."
@@ -1215,7 +1215,7 @@ export default function App() {
               )}
 
               {activeTab === 'literature' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessLiterature) ? (
                   <ProFeatureGate
                     featureTitle="Pusat Literatur Klinis, Matriks Bukti & Basis Ilmiah EBM"
                     featureDescription="Akses komprehensif kepustakaan farmakologi klinis terakreditasi, basis data Evidence-Based Medicine (EBM), jurnal pedoman internasional, serta matriks pembuktian ilmiah untuk setiap parameter klinis obat."
@@ -1231,7 +1231,7 @@ export default function App() {
               )}
 
               {activeTab === 'whatsapp-pio' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessWhatsappPio) ? (
                   <ProFeatureGate
                     featureTitle="Kartu PIO Pasien Siap Kirim via WhatsApp"
                     featureDescription="Buat kartu edukasi aturan pakai obat digital, pantangan makanan, dan instruksi penyimpanan, lalu kirim langsung ke WhatsApp pasien hanya dengan 1 kali klik."
@@ -1250,7 +1250,7 @@ export default function App() {
               )}
 
               {activeTab === 'iv-compatibility' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessIvCompatibility) ? (
                   <ProFeatureGate
                     featureTitle="Uji Kompatibilitas Injeksi IV, Y-Site & Stabilitas Rekonstitusi"
                     featureDescription="Evaluasi kompatibilitas percabangan jalur infus bersama (Y-Site Co-Infusion), skrining presipitasi asam-basa, kompatibilitas pelarut infus (NS, D5W, RL), stabilitas BUD, dan titrasi syringe pump."
@@ -1266,7 +1266,7 @@ export default function App() {
               )}
 
               {activeTab === 'pediatric' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessPediatric) ? (
                   <ProFeatureGate
                     featureTitle="Kalkulator Dosis Pediatrik & Konversi Racikan Puyer / Sirup"
                     featureDescription="Hitung dosis terapi anak berbasis BB & BSA, konversi peracikan tablet utuh ke serbuk puyer dengan perhitungan zat pengisi Saccharum Lactis, dan takaran botol sirup."
@@ -1286,7 +1286,7 @@ export default function App() {
               )}
 
               {activeTab === 'renal-adjuster' && (
-                !isProUser ? (
+                !(isProUser || currentUser?.canAccessRenal) ? (
                   <ProFeatureGate
                     featureTitle="Kalkulator Medis & Penyesuaian Dosis"
                     featureDescription="Kalkulator farmakoterapi komprehensif: Klirens Ginjal (CrCl/eGFR), Skor Hepar (Child-Pugh & MELD), Konversi Opioid & Paliatif (OME CDC), Berat Badan Ideal (IBW), dan Oksigen Medis."
