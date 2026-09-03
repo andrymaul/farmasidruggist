@@ -12,8 +12,6 @@ import {
   ShieldCheck, 
   Stethoscope, 
   HeartPulse,
-  Sun, 
-  Moon,
   BookMarked,
   GraduationCap,
   ShieldAlert,
@@ -145,21 +143,6 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Right Action Buttons on Landing */}
             <div className="hidden md:flex items-center space-x-3">
-              {onToggleTheme && (
-                <button
-                  type="button"
-                  onClick={onToggleTheme}
-                  title={theme === 'dark' ? 'Ganti ke Mode Terang (Light Mode)' : 'Ganti ke Mode Gelap (Dark Mode)'}
-                  className="h-9 w-9 shrink-0 rounded-xl text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-white bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center cursor-pointer shadow-xs hover:scale-105"
-                >
-                  {theme === 'dark' ? (
-                    <Sun className="w-4 h-4 text-amber-400 fill-amber-400" />
-                  ) : (
-                    <Moon className="w-4 h-4 text-teal-700" />
-                  )}
-                </button>
-              )}
-
               {/* Telegram Community Button on Landing Header */}
               <a
                 href="https://t.me/+lHiIMC_TdoM2NTk1"
@@ -204,15 +187,6 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Mobile Menu Button on Landing */}
             <div className="flex items-center space-x-2 md:hidden">
-              {onToggleTheme && (
-                <button
-                  type="button"
-                  onClick={onToggleTheme}
-                  className="p-2 rounded-xl text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
-                >
-                  {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-teal-700" />}
-                </button>
-              )}
               <button
                 onClick={() => setLandingMobileMenuOpen(!landingMobileMenuOpen)}
                 className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
@@ -353,22 +327,6 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right Header Actions */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-
-          {/* Dark/Light Mode Switcher */}
-          {onToggleTheme && (
-            <button
-              type="button"
-              onClick={onToggleTheme}
-              title={theme === 'dark' ? 'Ganti ke Mode Terang (Light Mode)' : 'Ganti ke Mode Gelap (Dark Mode)'}
-              className="p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-teal-800 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center cursor-pointer shadow-xs hover:scale-105"
-            >
-              {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-400 fill-amber-400" />
-              ) : (
-                <Moon className="w-4 h-4 text-teal-700" />
-              )}
-            </button>
-          )}
 
           {/* Telegram Community Join Button */}
           <a
