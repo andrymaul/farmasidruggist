@@ -405,26 +405,71 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             </div>
 
             {/* Quick Stat Badges */}
+            {/* Quick Stat Badges */}
             <div className="flex flex-wrap gap-2 pt-2">
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-rose-200">
                 <Layers className="w-3.5 h-3.5 text-rose-400" />
                 <span>Konsensus 6 Database Global</span>
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-amber-200">
-                <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-                <span>Skrining Duplikasi &amp; Makanan</span>
+                <Utensils className="w-3.5 h-3.5 text-amber-400" />
+                <span>{SAMPLE_FOOD_INTERACTIONS.length} Interaksi Makanan (DFI)</span>
               </div>
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-red-200">
-                <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
-                <span>Gradasi Major, Moderate &amp; Minor</span>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-purple-200">
+                <CopyX className="w-3.5 h-3.5 text-purple-400" />
+                <span>{SAMPLE_THERAPEUTIC_DUPLICATIONS.length} Duplikasi Terapi</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                <HeartPulse className="w-3.5 h-3.5 text-emerald-400" />
+                <span>{DRUG_DISEASE_INTERACTIONS_DATABASE.length} Kontraindikasi Penyakit</span>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0 relative z-10">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-rose-950/60 text-right shadow-md">
-              <span className="text-[11px] text-slate-400 block font-medium">Basis Data Terverifikasi:</span>
-              <span className="text-lg font-black text-rose-400">{drugs.length.toLocaleString('id-ID')} Obat &amp; {interactions.length.toLocaleString('id-ID')} Interaksi</span>
+          <div className="flex items-center gap-3 shrink-0 relative z-10 w-full sm:w-auto">
+            <div className="w-full sm:w-auto bg-slate-950/90 p-3 sm:p-3.5 rounded-2xl border border-rose-500/30 shadow-xl backdrop-blur-md">
+              <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-2 mb-2">
+                <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <Database className="w-3.5 h-3.5 text-rose-400" />
+                  Basis Data Terverifikasi:
+                </span>
+                <span className="text-[10px] bg-rose-500/20 text-rose-300 font-extrabold px-2 py-0.5 rounded-full border border-rose-500/30">
+                  Multi-Modal
+                </span>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-slate-400 flex items-center gap-1">
+                    <Pill className="w-3 h-3 text-cyan-400" /> Obat:
+                  </span>
+                  <span className="font-black text-white">{drugs.length.toLocaleString('id-ID')}</span>
+                </div>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-slate-400 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3 text-rose-400" /> Obat-Obat:
+                  </span>
+                  <span className="font-black text-rose-400">{interactions.length.toLocaleString('id-ID')} DDI</span>
+                </div>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-slate-400 flex items-center gap-1">
+                    <Utensils className="w-3 h-3 text-amber-400" /> Makanan:
+                  </span>
+                  <span className="font-black text-amber-300">{SAMPLE_FOOD_INTERACTIONS.length} DFI</span>
+                </div>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-slate-400 flex items-center gap-1">
+                    <CopyX className="w-3 h-3 text-purple-400" /> Duplikasi:
+                  </span>
+                  <span className="font-black text-purple-300">{SAMPLE_THERAPEUTIC_DUPLICATIONS.length} Golongan</span>
+                </div>
+                <div className="col-span-2 flex items-center justify-between gap-2 pt-1.5 mt-0.5 border-t border-white/5">
+                  <span className="text-slate-400 flex items-center gap-1">
+                    <HeartPulse className="w-3 h-3 text-emerald-400" /> Kontraindikasi Penyakit:
+                  </span>
+                  <span className="font-black text-emerald-300">{DRUG_DISEASE_INTERACTIONS_DATABASE.length} ({COMMON_CLINICAL_DISEASES.length} Komorbiditas)</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

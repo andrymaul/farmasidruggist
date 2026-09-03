@@ -174,13 +174,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         colorClass: 'text-amber-600 dark:text-amber-400',
         headerBg: 'bg-amber-500/10 border-amber-500/20 text-amber-800 dark:text-amber-300',
         items: [
-          { id: 'admin-drugs', label: 'Monografi & Obat', icon: Database },
-          { id: 'admin-interactions', label: 'Interaksi DDInter', icon: ShieldAlert },
           { id: 'admin-firebase', label: 'Sinkronisasi Firebase', icon: RefreshCw },
-          { id: 'admin-editor', label: 'Editor DFI & Duplikasi', icon: Utensils },
           { id: 'admin-pricing', label: 'Tarif & Hak Akses', icon: Tag },
           { id: 'admin-users', label: 'Kelola Tim Admin', icon: Users },
-          { id: 'admin-logs', label: 'Log Audit Sistem', icon: FileSpreadsheet },
           { id: 'admin-subscriptions', label: 'Subskripsi Customer', icon: UserCheck }
         ]
       });
@@ -195,7 +191,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   // Auto-expand category containing activeTab whenever activeTab changes
   useEffect(() => {
     const activeCategory = categories.find((cat) =>
-      cat.items.some((item) => item.id === activeTab || (activeTab === 'admin' && item.id === 'admin-drugs'))
+      cat.items.some((item) => item.id === activeTab || (activeTab === 'admin' && item.id === 'admin-firebase'))
     );
     if (activeCategory && collapsedCategories[activeCategory.id]) {
       setCollapsedCategories((prev) => ({
@@ -356,7 +352,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           filteredCategories.map((category) => {
             const isCategoryCollapsed = !menuSearchQuery && !!collapsedCategories[category.id];
             const hasActiveItem = category.items.some(
-              (item) => item.id === activeTab || (activeTab === 'admin' && item.id === 'admin-drugs')
+              (item) => item.id === activeTab || (activeTab === 'admin' && item.id === 'admin-firebase')
             );
 
             return (
@@ -398,7 +394,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <div className="space-y-0.5 pt-0.5">
                     {category.items.map((item) => {
                       const Icon = item.icon;
-                      const isActive = activeTab === item.id || (activeTab === 'admin' && item.id === 'admin-drugs');
+                      const isActive = activeTab === item.id || (activeTab === 'admin' && item.id === 'admin-firebase');
 
                       return (
                         <button
