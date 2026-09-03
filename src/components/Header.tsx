@@ -141,20 +141,6 @@ export const Header: React.FC<HeaderProps> = ({
                 <Stethoscope className="w-3.5 h-3.5 text-indigo-500" />
                 <span>Evaluasi Polifarmasi</span>
               </button>
-              <button
-                onClick={() => setActiveTab('literature')}
-                className="text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-300 px-3.5 py-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-1.5 cursor-pointer"
-              >
-                <BookMarked className="w-3.5 h-3.5 text-teal-500" />
-                <span>Literatur & Bukti EBM</span>
-              </button>
-              <button
-                onClick={onOpenPricingModal}
-                className="text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-300 px-3.5 py-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-1.5 cursor-pointer"
-              >
-                <CreditCard className="w-3.5 h-3.5 text-amber-500" />
-                <span>Harga Layanan</span>
-              </button>
             </nav>
 
             {/* Right Action Buttons on Landing */}
@@ -164,7 +150,7 @@ export const Header: React.FC<HeaderProps> = ({
                   type="button"
                   onClick={onToggleTheme}
                   title={theme === 'dark' ? 'Ganti ke Mode Terang (Light Mode)' : 'Ganti ke Mode Gelap (Dark Mode)'}
-                  className="p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-white bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center cursor-pointer shadow-xs hover:scale-105"
+                  className="h-9 w-9 shrink-0 rounded-xl text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-white bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center cursor-pointer shadow-xs hover:scale-105"
                 >
                   {theme === 'dark' ? (
                     <Sun className="w-4 h-4 text-amber-400 fill-amber-400" />
@@ -180,9 +166,9 @@ export const Header: React.FC<HeaderProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Gabung Komunitas Telegram Apoteker & Dokter"
-                className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#229ED9]/15 hover:bg-[#229ED9]/25 text-[#1b8bc2] dark:text-sky-300 border border-[#229ED9]/40 hover:border-[#229ED9]/70 rounded-full text-xs font-bold transition-all shadow-2xs hover:scale-105 font-outfit"
+                className="h-9 px-3.5 sm:px-4 rounded-xl text-xs font-black text-white bg-[#229ED9] hover:bg-[#1b8bc2] border border-[#229ED9] transition-all flex items-center justify-center gap-1.5 whitespace-nowrap shadow-xs hover:shadow-md hover:scale-105 cursor-pointer"
               >
-                <Send className="w-3.5 h-3.5 fill-[#229ED9] dark:fill-sky-300" />
+                <Send className="w-3.5 h-3.5 fill-white shrink-0" />
                 <span>Komunitas Telegram</span>
               </a>
 
@@ -190,17 +176,10 @@ export const Header: React.FC<HeaderProps> = ({
                 <>
                   <button
                     onClick={onOpenAuthModal}
-                    className="text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-teal-600 dark:hover:text-teal-400 px-3.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="h-9 px-3.5 sm:px-4 rounded-xl text-xs font-black text-slate-950 bg-amber-400 hover:bg-amber-300 active:bg-amber-500 border border-amber-300 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap shadow-xs hover:shadow-md hover:scale-105 cursor-pointer"
                   >
-                    <LogIn className="w-3.5 h-3.5" />
+                    <LogIn className="w-3.5 h-3.5 text-slate-950 stroke-[2.5] shrink-0" />
                     <span>Masuk</span>
-                  </button>
-                  <button
-                    onClick={onOpenPricingModal}
-                    className="text-xs font-black text-white bg-gradient-to-r from-teal-600 via-teal-500 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 px-4 py-2 rounded-xl shadow-sm hover:shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:scale-105"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                    <span>Paket Langganan</span>
                   </button>
                 </>
               ) : (
@@ -272,33 +251,15 @@ export const Header: React.FC<HeaderProps> = ({
             >
               Evaluasi Polifarmasi
             </button>
-            <button
-              onClick={() => { setActiveTab('literature'); setLandingMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-            >
-              Literatur & Bukti EBM
-            </button>
-            <button
-              onClick={() => { onOpenPricingModal(); setLandingMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-            >
-              Harga Layanan
-            </button>
             
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
               {!currentUser ? (
                 <>
                   <button
                     onClick={() => { onOpenAuthModal(); setLandingMobileMenuOpen(false); }}
-                    className="w-full py-2.5 text-center text-xs font-bold text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800 rounded-xl"
+                    className="w-full py-2.5 text-center text-xs font-black text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-xl shadow-xs"
                   >
                     Masuk Akun
-                  </button>
-                  <button
-                    onClick={() => { onOpenPricingModal(); setLandingMobileMenuOpen(false); }}
-                    className="w-full py-2.5 text-center text-xs font-black text-white bg-gradient-to-r from-teal-600 to-cyan-600 rounded-xl shadow-xs"
-                  >
-                    Berlangganan
                   </button>
                 </>
               ) : (

@@ -155,7 +155,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         colorClass: 'text-teal-700 dark:text-cyan-400',
         headerBg: 'bg-teal-500/10 border-teal-500/20 text-teal-800 dark:text-teal-300',
         items: [
-          { id: 'competency', label: 'Pusat Belajar UKMPPAI', icon: GraduationCap, badge: 'CBT/OSCE', badgeColor: 'bg-emerald-600 text-white' },
+          { id: 'competency', label: 'Pusat Belajar Farmasi', icon: GraduationCap, badge: 'CBT/OSCE', badgeColor: 'bg-emerald-600 text-white' },
           { id: 'sop', label: 'SOP Pelayanan Farmasi', icon: ClipboardList, badge: 'Resmi', badgeColor: 'bg-slate-700 dark:bg-slate-600 text-white' },
           { id: 'regulations', label: 'Regulasi & UU Kesehatan', icon: Scale, badge: 'Hukum', badgeColor: 'bg-amber-600 text-white' },
           { id: 'literature', label: 'Literatur Ilmiah (EBM)', icon: BookMarked, badge: 'EBM', badgeColor: 'bg-teal-600 text-white' },

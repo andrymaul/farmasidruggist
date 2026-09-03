@@ -65,7 +65,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onOpenAuthModal
 }) => {
   const [heroSearch, setHeroSearch] = useState('');
-  const [activePlaygroundTab, setActivePlaygroundTab] = useState<'ddi' | 'bud' | 'pregnancy' | 'whatsapp' | 'ukmppai'>('ddi');
+  const [activePlaygroundTab, setActivePlaygroundTab] = useState<'ddi' | 'srq20'>('ddi');
 
   // =========================================================================
   // 1. PLAYGROUND: DDI INTERACTIVE CHECKER STATE
@@ -133,86 +133,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     return list;
   }, [interactiveSelectedDrugs, interactions]);
 
-  // =========================================================================
-  // 2. PLAYGROUND: BUD CALCULATOR SAMPLE
-  // =========================================================================
-  const [selectedBudType, setSelectedBudType] = useState<'puyer' | 'sirup_oral' | 'salep_krim' | 'dry_syrup'>('puyer');
-  const [rawMaterialEdMonths, setRawMaterialEdMonths] = useState<number>(12);
-
-  const calculatedBudResult = useMemo(() => {
-    if (selectedBudType === 'puyer') {
-      const calculatedMonths = Math.min(6, Math.floor(rawMaterialEdMonths * 0.25));
-      return {
-        standard: 'USP <795> Non-Aqueous Solid',
-        budPeriod: `${calculatedMonths > 0 ? calculatedMonths : 1} Bulan (${(calculatedMonths > 0 ? calculatedMonths : 1) * 30} Hari)`,
-        storage: 'Suhu Kamar Terkontrol (20°C - 25°C), wadah tertutup rapat & kering',
-        rule: `25% dari sisa ED bahan baku (${rawMaterialEdMonths} bln x 25% = ${rawMaterialEdMonths * 0.25} bln) atau maks 6 bulan.`
-      };
-    } else if (selectedBudType === 'sirup_oral') {
-      return {
-        standard: 'USP <795> Water-Containing Oral Formulations',
-        budPeriod: 'Maksimal 14 Hari',
-        storage: 'Wajib Lemari Pendingin (2°C - 8°C), jangan dibekukan',
-        rule: 'Sediaan cair oral berair rentan hidrolisis & kontaminasi mikroba.'
-      };
-    } else if (selectedBudType === 'salep_krim') {
-      return {
-        standard: 'USP <795> Water-Containing Topical Formulations',
-        budPeriod: 'Maksimal 30 Hari',
-        storage: 'Suhu Kamar Terkontrol (20°C - 25°C), terlindung dari sinar matahari langsung',
-        rule: 'Sediaan topikal semipadat (krim/gel berair) dengan pengawet.'
-      };
-    } else {
-      return {
-        standard: 'Standar Rekonstitusi Pabrik (Commercial Dry Syrup)',
-        budPeriod: '7 - 14 Hari (Sesuai Brosur)',
-        storage: 'Lemari Pendingin (2°C - 8°C) untuk sirup Amoksisilin / Cefixime',
-        rule: 'Setelah dilarutkan dengan Aquades, perhatikan degradasi cincin beta-laktam.'
-      };
-    }
-  }, [selectedBudType, rawMaterialEdMonths]);
-
-  // =========================================================================
-  // 3. PLAYGROUND: PREGNANCY & LACTATION SAMPLE
-  // =========================================================================
-  const samplePregnancyDrugs = [
-    { name: 'Methyldopa', fda: 'B', hale: 'L2', safe: true, info: 'Pilihan utama antihipertensi gestasional & preeklamsia trimester 1-3.' },
-    { name: 'Captopril / ACEI', fda: 'D', hale: 'L2', safe: false, info: 'KONTRAINDIKASI Trimester 2-3 (Risiko gagal ginjal janin & oligohidramnion).' },
-    { name: 'Paracetamol', fda: 'B', hale: 'L1', safe: true, info: 'Analgesik & antipiretik lini pertama teraman untuk ibu hamil & menyusui.' },
-    { name: 'Warfarin', fda: 'X', hale: 'L2', safe: false, info: 'KONTRAINDIKASI Kategori X (Sindrom Warfarin Fetal, hipoplasia hidung & pendarahan).' }
-  ];
-  const [selectedPregDrug, setSelectedPregDrug] = useState(samplePregnancyDrugs[0]);
-
-  // =========================================================================
-  // 4. PLAYGROUND: WHATSAPP PIO CARD SAMPLE
-  // =========================================================================
-  const [waPatientName, setWaPatientName] = useState('Ny. Siti Rahma (54 Th)');
-  const [waCopied, setWaCopied] = useState(false);
-
-  const sampleWaText = `*KLINIK & APOTEK FARMASIDRUGGIST*\n*KARTU INFORMASI OBAT & PIO PASIEN*\n----------------------------------------\n*Nama Pasien:* ${waPatientName}\n*Tanggal Pelayanan:* ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}\n\n*DAFTAR RESEP & ATURAN PAKAI:*\n1. *Amlodipine 10 mg* : 1x1 tablet pagi hari (sesudah makan)\n2. *Metformin 500 mg* : 2x1 tablet bersama/sesudah makan\n3. *Atorvastatin 20 mg* : 1x1 tablet malam hari sebelum tidur\n\n*PERINGATAN & EDUKASI KHUSUS:*\n- Hindari konsumsi jus grapefruit saat minum Amlodipine/Atorvastatin.\n- Simpan obat pada suhu ruang (< 30°C) kering dan jauh dari jangkauan anak.\n\n_Semoga lekas sembuh! Konsultasi farmasi hubungi Apoteker kami._`;
-
-  const handleCopyWa = () => {
-    navigator.clipboard.writeText(sampleWaText);
-    setWaCopied(true);
-    setTimeout(() => setWaCopied(false), 2500);
-  };
-
-  // =========================================================================
-  // 5. PLAYGROUND: UKMPPAI CBT FLASHCARD SAMPLE
-  // =========================================================================
-  const [ukmppaiSelectedOption, setUkmppaiSelectedOption] = useState<number | null>(null);
-  const sampleQuiz = {
-    domain: 'Farmasi Klinis & Farmakoterapi',
-    question: 'Seorang pasien pria 58 tahun dengan riwayat Gagal Jantung (HFrEF) dan Hipertensi mengonsumsi Digoxin. Pasien kemudian diresepkan Amiodarone untuk aritmia. Apa interaksi klinis yang wajib diwaspadai dan tindakan apoteker?',
-    options: [
-      'Amiodarone menurunkan klirens Digoxin via inhibisi P-gp; Turunkan dosis Digoxin 30-50% dan pantau kadar serum.',
-      'Amiodarone menginduksi metabolisme CYP3A4 Digoxin; Naikkan dosis Digoxin 2 kali lipat.',
-      'Digoxin menurunkan absorpsi Amiodarone di usus; Berikan jeda 2 jam saat minum.',
-      'Tidak ada interaksi signifikan karena rute ekskresi berbeda total.'
-    ],
-    correctIndex: 0,
-    explanation: 'Amiodarone merupakan inhibitor kuat glikoprotein-P (P-gp) di tubulus ginjal dan empedu. Pemberian bersamaan meningkatkan kadar serum Digoxin hingga 70-100%, memicu aritmia fatal dan toksisitas digitalis. Rekomendasi klinis: Turunkan dosis Digoxin sebesar 30-50% dan lakukan TDM (Therapeutic Drug Monitoring).'
-  };
 
   const activePlans = pricingPlans && pricingPlans.length > 0 ? pricingPlans : PRICING_PLANS;
 
@@ -223,220 +143,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       onSelectTab('drugs');
     }
   };
-
-  // =========================================================================
-  // 18-MODULE DASHBOARD DIRECTORY DATA
-  // =========================================================================
-  const moduleCategories = [
-    {
-      categoryName: '1. Skrining Resep & Keamanan Klinis',
-      categoryDesc: 'Mesin deteksi risiko interaksi obat, uji lab semu, jamu, toksisitas organ, dan inkompatibilitas infus.',
-      accentColor: 'rose',
-      modules: [
-        {
-          id: 'interactions',
-          title: 'Cek Interaksi Obat (DDInter)',
-          desc: 'Skrining interaksi multi-obat simultan, level keparahan (Major/Mod/Minor), mekanisme farmakokinetik & laporan PDF.',
-          icon: ShieldAlert,
-          badge: 'DDInter & Drugs.com',
-          badgeColor: 'bg-rose-600 text-white',
-          color: 'text-rose-600 dark:text-rose-400',
-          bg: 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800/60'
-        },
-        {
-          id: 'pregnancy',
-          title: 'Keamanan Bumil & Busui',
-          desc: 'Kategori FDA PLLR per Trimester (1/2/3) & skor laktasi Hale (L1–L5), dosis relatif bayi (RID), dan alternatif obat aman.',
-          icon: HeartHandshake,
-          badge: 'FDA PLLR & Hale',
-          badgeColor: 'bg-pink-600 text-white',
-          color: 'text-pink-600 dark:text-pink-400',
-          bg: 'bg-pink-50 dark:bg-pink-950/40 border-pink-200 dark:border-pink-800/60'
-        },
-        {
-          id: 'drug-lab',
-          title: 'Interaksi Obat & Uji Lab',
-          desc: 'Deteksi hasil lab palsu/semu (Troponin, Kreatinin, Tiroid, Elektrolit) akibat interferensi analitik obat.',
-          icon: FlaskConical,
-          badge: 'Uji Lab Semu',
-          badgeColor: 'bg-cyan-700 text-white',
-          color: 'text-cyan-700 dark:text-cyan-400',
-          bg: 'bg-cyan-50 dark:bg-cyan-950/40 border-cyan-200 dark:border-cyan-800/60'
-        },
-        {
-          id: 'herb-drug',
-          title: 'Interaksi Herbal & Obat Resep',
-          desc: 'Penapisan interaksi jamu, OHT, dan fitofarmaka Indonesia (FOHI) vs obat resep dokter.',
-          icon: Leaf,
-          badge: 'Jamu & FOHI',
-          badgeColor: 'bg-emerald-800 text-white',
-          color: 'text-emerald-800 dark:text-emerald-400',
-          bg: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60'
-        },
-        {
-          id: 'side-effects',
-          title: 'Cek Efek Samping & Skor Naranjo',
-          desc: 'Evaluasi toksisitas organ (Hepatotoksisitas, Nefrotoksisitas), pelacak gejala pasien & algoritma probabilitas ADR Naranjo.',
-          icon: Activity,
-          badge: 'ADR & Naranjo',
-          badgeColor: 'bg-amber-600 text-white',
-          color: 'text-amber-600 dark:text-amber-400',
-          bg: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800/60'
-        },
-        {
-          id: 'iv-compatibility',
-          title: 'Kompatibilitas Injeksi IV & ICU',
-          desc: 'Skrining Y-Site injeksi & kompatibilitas pelarut infus ICU berdasarkan standar ASHP Trissel’s 2024.',
-          icon: Syringe,
-          badge: 'ASHP Trissel’s',
-          badgeColor: 'bg-cyan-600 text-white',
-          color: 'text-cyan-600 dark:text-cyan-400',
-          bg: 'bg-cyan-50 dark:bg-cyan-950/40 border-cyan-200 dark:border-cyan-800/60'
-        }
-      ]
-    },
-    {
-      categoryName: '2. Kalkulator Medis & Racikan Farmasi',
-      categoryDesc: 'Perhitungan presisi batas stabilitas Beyond-Use-Date, dosis anak BB/BSA, klirens ginjal, dan skor risiko klinis.',
-      accentColor: 'teal',
-      modules: [
-        {
-          id: 'bud',
-          title: 'Stabilitas & BUD Racikan',
-          desc: 'Kalkulator masa simpan sediaan puyer, sirup oral, salep/krim topikal & dry syrup sesuai USP <795> dan FI VI.',
-          icon: CalendarClock,
-          badge: 'USP <795>',
-          badgeColor: 'bg-emerald-700 text-white',
-          color: 'text-emerald-700 dark:text-emerald-400',
-          bg: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60'
-        },
-        {
-          id: 'pediatric',
-          title: 'Dosis Pediatrik & Puyer Anak',
-          desc: 'Kalkulator dosis anak berbasis Berat Badan (mg/kg/hari) & BSA Mosteller, verifikasi dosis maksimal & racikan pulveres.',
-          icon: Baby,
-          badge: 'BB & BSA',
-          badgeColor: 'bg-rose-500 text-white',
-          color: 'text-rose-600 dark:text-rose-400',
-          bg: 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800/60'
-        },
-        {
-          id: 'renal-adjuster',
-          title: 'Kalkulator Medis & Penyesuaian Dosis',
-          desc: 'Suite kalkulator farmako-klinis terpadu: Dosis Ginjal (CrCl/eGFR), Hepar, Syringe Pump, Opioid, IBW, serta 14 Kalkulator Skor Klinis (termasuk SRQ-20).',
-          icon: Calculator,
-          badge: '14+ Skor & Dosis',
-          badgeColor: 'bg-violet-600 text-white',
-          color: 'text-violet-600 dark:text-violet-400',
-          bg: 'bg-violet-50 dark:bg-violet-950/40 border-violet-200 dark:border-violet-800/60'
-        }
-      ]
-    },
-    {
-      categoryName: '3. Manajemen Polifarmasi & Edukasi Pasien',
-      categoryDesc: 'Optimalisasi terapi geriatri, pengiriman etiket WhatsApp satu klik, panduan PNPK, dan cara pakai alat obat.',
-      accentColor: 'indigo',
-      modules: [
-        {
-          id: 'polypharmacy',
-          title: 'Evaluasi Polifarmasi & Geriatri',
-          desc: 'Skrining Kriteria Beers 2023, STOPP/START, Skrining Antikolinergik (ARS), dan deteksi duplikasi terapi pada resep polifarmasi.',
-          icon: Stethoscope,
-          badge: 'Beers 2023 & STOPP',
-          badgeColor: 'bg-indigo-600 text-white',
-          color: 'text-indigo-600 dark:text-indigo-400',
-          bg: 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-800/60'
-        },
-        {
-          id: 'whatsapp-pio',
-          title: 'Kartu PIO WhatsApp Pasien',
-          desc: 'Generator etiket, aturan pakai, peringatan interaksi & jadwal minum obat terformat 1-klik langsung ke nomor WhatsApp pasien.',
-          icon: MessageSquare,
-          badge: '1-Klik Pasien',
-          badgeColor: 'bg-teal-600 text-white',
-          color: 'text-teal-600 dark:text-teal-400',
-          bg: 'bg-teal-50 dark:bg-teal-950/40 border-teal-200 dark:border-teal-800/60'
-        },
-        {
-          id: 'guidelines',
-          title: 'Panduan Terapi Klinis (PNPK)',
-          desc: 'Algoritma terapi lini 1 & lini 2 terstandarisasi PNPK Kemenkes RI, Konsensus PERKI (Kardio), PERKENI (Endokrin), & PAPDI.',
-          icon: HeartPulse,
-          badge: 'PNPK Kemenkes',
-          badgeColor: 'bg-blue-600 text-white',
-          color: 'text-blue-600 dark:text-blue-400',
-          bg: 'bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800/60'
-        },
-        {
-          id: 'usage',
-          title: 'Panduan Penggunaan Obat Khusus',
-          desc: 'Instruksi visual langkah demi langkah pemakaian inhaler (MDI/Turbuhaler), insulin pen, suppositoria, tetes mata/telinga.',
-          icon: BookOpen,
-          badge: 'Edukasi Visual',
-          badgeColor: 'bg-teal-700 text-white',
-          color: 'text-teal-700 dark:text-teal-400',
-          bg: 'bg-teal-50 dark:bg-teal-950/40 border-teal-200 dark:border-teal-800/60'
-        },
-        {
-          id: 'drugs',
-          title: 'Monografi & Katalog Obat Lengkap',
-          desc: 'Direktori farmakologi, indikasi, dosis lazim, kontraindikasi, farmakokinetik & ratusan merk dagang obat Indonesia.',
-          icon: Pill,
-          badge: 'BPOM & MIMS',
-          badgeColor: 'bg-blue-700 text-white',
-          color: 'text-blue-700 dark:text-blue-400',
-          bg: 'bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800/60'
-        }
-      ]
-    },
-    {
-      categoryName: '4. Pusat Belajar UKMPPAI, SOP, Regulasi & EBM',
-      categoryDesc: 'Sumber daya pembelajaran apoteker, standardisasi operasional, hukum kefarmasian, dan basis literatur resmi.',
-      accentColor: 'emerald',
-      modules: [
-        {
-          id: 'competency',
-          title: 'Pusat Belajar Uji Kompetensi',
-          desc: 'Persiapan UKMPPAI CBT & OSCE lengkap dengan bank soal 4 domain, rangkuman high-yield materi, dan kalkulator farmasi.',
-          icon: GraduationCap,
-          badge: 'UKMPPAI & OSCE',
-          badgeColor: 'bg-emerald-600 text-white',
-          color: 'text-emerald-600 dark:text-emerald-400',
-          bg: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60'
-        },
-        {
-          id: 'sop',
-          title: 'SOP Pelayanan Kefarmasian',
-          desc: 'Template Standar Operasional Prosedur resmi apotek & klinik sesuai Permenkes 73/2016 siap cetak dan implementasi.',
-          icon: ClipboardList,
-          badge: 'Permenkes 73/16',
-          badgeColor: 'bg-slate-700 text-white',
-          color: 'text-slate-700 dark:text-slate-300',
-          bg: 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800'
-        },
-        {
-          id: 'regulations',
-          title: 'Regulasi & Hukum Farmasi',
-          desc: 'Kompilasi peraturan perundang-undangan: UU Kesehatan No. 17/2023, regulasi narkotika/psikotropika, dan peraturan BPOM.',
-          icon: Scale,
-          badge: 'UU Kesehatan',
-          badgeColor: 'bg-amber-600 text-white',
-          color: 'text-amber-600 dark:text-amber-400',
-          bg: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800/60'
-        },
-        {
-          id: 'literature',
-          title: 'Literatur & Basis Ilmiah EBM',
-          desc: 'Transparansi sumber literatur ilmiah terverifikasi: PNPK Kemenkes, DDInter Nature, ASHP Trissel’s, dan CekBPOM.',
-          icon: BookMarked,
-          badge: 'Evidence-Based',
-          badgeColor: 'bg-teal-600 text-white',
-          color: 'text-teal-600 dark:text-teal-400',
-          bg: 'bg-teal-50 dark:bg-teal-950/40 border-teal-200 dark:border-teal-800/60'
-        }
-      ]
-    }
-  ];
 
   // =========================================================================
   // SRQ-20 PUBLIC HEALTH SELF-ASSESSMENT STATE & HANDLERS
@@ -553,7 +259,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
 
             {/* Subtitle */}
             <p className="text-sm sm:text-base text-teal-100/90 font-medium leading-relaxed max-w-2xl mx-auto">
-              <strong>FARMASIDRUGGIST</strong> mengintegrasikan <strong>18+ Modul Klinis Terpercaya</strong>: Skrining Interaksi DDInter, Keamanan Bumil &amp; Busui, Interaksi Lab, BUD Racikan USP &lt;795&gt;, Kartu PIO WhatsApp, hingga Pusat Belajar UKMPPAI.
+              <strong>FARMASIDRUGGIST</strong> mengintegrasikan <strong>18+ Modul Klinis Terpercaya</strong>: Skrining Interaksi DDInter, Keamanan Bumil &amp; Busui, Interaksi Lab, BUD Racikan USP &lt;795&gt;, Kartu PIO WhatsApp, hingga Pusat Belajar Farmasi.
             </p>
 
             {/* Hero Quick Search Box */}
@@ -618,17 +324,6 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 <span>Coba Uji Klinis Langsung (Gratis)</span>
               </button>
 
-              <button
-                type="button"
-                onClick={() => {
-                  const el = document.getElementById('skrining-srq20');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="px-6 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold rounded-xl shadow-lg transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02] border border-emerald-400/30"
-              >
-                <Brain className="w-4 h-4 text-emerald-200" />
-                <span>Cek Kesehatan Jiwa (SRQ-20 Gratis)</span>
-              </button>
 
               <button
                 onClick={onOpenAuthModal}
@@ -638,15 +333,6 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 <span>Masuk / Login Akun</span>
               </button>
 
-              <a
-                href="https://t.me/+lHiIMC_TdoM2NTk1"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3.5 bg-[#229ED9] hover:bg-[#1b8bc2] text-white font-black rounded-xl shadow-lg transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02] border border-sky-300/40"
-              >
-                <Send className="w-4 h-4 fill-white" />
-                <span>Gabung Komunitas Telegram</span>
-              </a>
 
               <button
                 onClick={onOpenPricingModal}
@@ -705,7 +391,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           <div className="flex flex-wrap gap-1.5 bg-slate-200/80 dark:bg-slate-900 p-1.5 rounded-2xl border border-slate-300 dark:border-slate-800 self-start md:self-auto">
             <button
               onClick={() => setActivePlaygroundTab('ddi')}
-              className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
                 activePlaygroundTab === 'ddi'
                   ? 'bg-[#0f766e] text-white shadow-md'
                   : 'text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800'
@@ -716,61 +402,14 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             </button>
 
             <button
-              onClick={() => setActivePlaygroundTab('bud')}
-              className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
-                activePlaygroundTab === 'bud'
+              onClick={() => setActivePlaygroundTab('srq20')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
+                activePlaygroundTab === 'srq20'
                   ? 'bg-[#0f766e] text-white shadow-md'
                   : 'text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800'
               }`}
             >
-              <CalendarClock className="w-3.5 h-3.5" />
-              <span>BUD Racikan USP</span>
-            </button>
-
-            <button
-              onClick={() => setActivePlaygroundTab('pregnancy')}
-              className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
-                activePlaygroundTab === 'pregnancy'
-                  ? 'bg-[#0f766e] text-white shadow-md'
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800'
-              }`}
-            >
-              <HeartHandshake className="w-3.5 h-3.5" />
-              <span>Bumil &amp; Busui</span>
-            </button>
-
-            <button
-              onClick={() => setActivePlaygroundTab('whatsapp')}
-              className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
-                activePlaygroundTab === 'whatsapp'
-                  ? 'bg-[#0f766e] text-white shadow-md'
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800'
-              }`}
-            >
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>Kartu PIO WA</span>
-            </button>
-
-            <button
-              onClick={() => setActivePlaygroundTab('ukmppai')}
-              className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
-                activePlaygroundTab === 'ukmppai'
-                  ? 'bg-[#0f766e] text-white shadow-md'
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800'
-              }`}
-            >
-              <GraduationCap className="w-3.5 h-3.5" />
-              <span>Kuis UKMPPAI</span>
-            </button>
-
-            <button
-              onClick={() => {
-                const el = document.getElementById('skrining-srq20');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit text-teal-700 dark:text-teal-300 bg-teal-500/10 hover:bg-teal-500/20 border border-teal-500/30"
-            >
-              <Brain className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+              <Brain className="w-3.5 h-3.5" />
               <span>Cek Jiwa SRQ-20</span>
             </button>
           </div>
@@ -958,464 +597,171 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </div>
         )}
 
-        {/* ==================== TAB 2: BUD RACIKAN USP DEMO ==================== */}
-        {activePlaygroundTab === 'bud' && (
-          <div className="bg-white dark:bg-[#0c191d] rounded-3xl p-5 sm:p-7 border border-teal-800/20 dark:border-teal-500/20 shadow-xl space-y-5 transition-all">
+        {/* ==================== TAB 2: SRQ-20 MENTAL HEALTH DEMO ==================== */}
+        {activePlaygroundTab === 'srq20' && (
+          <div className="bg-white dark:bg-[#0c191d] rounded-3xl p-5 sm:p-7 border border-teal-800/20 dark:border-teal-500/20 shadow-xl space-y-6 transition-all">
+            {/* Header */}
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
               <div>
                 <h3 className="font-black text-[#082a24] dark:text-emerald-300 text-sm sm:text-base flex items-center gap-2 font-outfit">
-                  <CalendarClock className="w-4 h-4 text-emerald-600" />
-                  <span>Kalkulator Stabilitas &amp; Beyond-Use Date (USP &lt;795&gt; &amp; USP &lt;797&gt;)</span>
+                  <Brain className="w-4 h-4 text-teal-600 animate-pulse" />
+                  <span>Skrining Kesehatan Jiwa Mandiri (SRQ-20 Kemenkes RI / WHO)</span>
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Hitung masa kadaluarsa racikan puyer, sirup oral, salep/krim topikal sesuai Farmakope Indonesia VI &amp; USP.
+                  Uji penapisan mandiri 20 gejala emosional &amp; psikosomatis dalam 30 hari terakhir. 100% anonim &amp; hasil evaluasi instan.
                 </p>
               </div>
-              <span className="text-[10px] font-black px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
-                USP &lt;795&gt; Standard
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Form Controls */}
-              <div className="space-y-3">
-                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block">
-                  1. Pilih Bentuk Sediaan Racikan:
-                </label>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedBudType('puyer')}
-                    className={`p-3 rounded-xl text-left border text-xs font-bold transition-all cursor-pointer ${
-                      selectedBudType === 'puyer'
-                        ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-900 dark:text-emerald-300 shadow-xs ring-1 ring-emerald-400'
-                        : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
-                    }`}
-                  >
-                    <p className="font-black">💊 Puyer / Pulveres / Kapsul</p>
-                    <p className="text-[10px] text-slate-500 font-normal mt-0.5">Sediaan padat tanpa air</p>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setSelectedBudType('sirup_oral')}
-                    className={`p-3 rounded-xl text-left border text-xs font-bold transition-all cursor-pointer ${
-                      selectedBudType === 'sirup_oral'
-                        ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-900 dark:text-emerald-300 shadow-xs ring-1 ring-emerald-400'
-                        : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
-                    }`}
-                  >
-                    <p className="font-black">🧪 Sirup / Suspensi Oral</p>
-                    <p className="text-[10px] text-slate-500 font-normal mt-0.5">Cairan oral mengandung air</p>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setSelectedBudType('salep_krim')}
-                    className={`p-3 rounded-xl text-left border text-xs font-bold transition-all cursor-pointer ${
-                      selectedBudType === 'salep_krim'
-                        ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-900 dark:text-emerald-300 shadow-xs ring-1 ring-emerald-400'
-                        : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
-                    }`}
-                  >
-                    <p className="font-black">🧴 Salep / Krim Topikal</p>
-                    <p className="text-[10px] text-slate-500 font-normal mt-0.5">Semipadat dengan fase air</p>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setSelectedBudType('dry_syrup')}
-                    className={`p-3 rounded-xl text-left border text-xs font-bold transition-all cursor-pointer ${
-                      selectedBudType === 'dry_syrup'
-                        ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-900 dark:text-emerald-300 shadow-xs ring-1 ring-emerald-400'
-                        : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
-                    }`}
-                  >
-                    <p className="font-black">💧 Dry Syrup Rekonstitusi</p>
-                    <p className="text-[10px] text-slate-500 font-normal mt-0.5">Sirup antibiotik pabrik</p>
-                  </button>
-                </div>
-
-                {selectedBudType === 'puyer' && (
-                  <div className="space-y-1.5 pt-2">
-                    <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block">
-                      2. Sisa Masa Kadaluarsa (ED) Bahan Baku Terdekat:
-                    </label>
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="range"
-                        min="2"
-                        max="36"
-                        step="1"
-                        value={rawMaterialEdMonths}
-                        onChange={(e) => setRawMaterialEdMonths(Number(e.target.value))}
-                        className="flex-1 accent-teal-600"
-                      />
-                      <span className="text-xs font-black px-2.5 py-1 rounded bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200 shrink-0">
-                        {rawMaterialEdMonths} Bulan
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Calculation Output Card */}
-              <div className="bg-emerald-50/80 dark:bg-emerald-950/30 rounded-2xl p-5 border border-emerald-200 dark:border-emerald-800/60 space-y-3 flex flex-col justify-between">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-emerald-900 dark:text-emerald-300">Hasil Perhitungan BUD:</span>
-                    <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400">{calculatedBudResult.standard}</span>
-                  </div>
-
-                  <div className="p-3.5 bg-white dark:bg-slate-900 rounded-xl border border-emerald-300 dark:border-emerald-700 text-center shadow-xs">
-                    <p className="text-[11px] text-slate-500 font-bold uppercase">Batas Waktu Penggunaan (BUD)</p>
-                    <p className="text-2xl font-black text-emerald-700 dark:text-emerald-400 font-outfit mt-0.5">
-                      {calculatedBudResult.budPeriod}
-                    </p>
-                  </div>
-
-                  <div className="text-xs space-y-1 text-slate-700 dark:text-slate-300">
-                    <p><strong>Kondisi Penyimpanan:</strong> {calculatedBudResult.storage}</p>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400"><strong>Dasar Aturan:</strong> {calculatedBudResult.rule}</p>
-                  </div>
-                </div>
-
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => onSelectTab('bud')}
-                  className="w-full py-2.5 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <CalendarClock className="w-4 h-4" />
-                  <span>Buka Kalkulator BUD Lengkap &amp; Cetak Etiket</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ==================== TAB 3: BUMIL & BUSUI DEMO ==================== */}
-        {activePlaygroundTab === 'pregnancy' && (
-          <div className="bg-white dark:bg-[#0c191d] rounded-3xl p-5 sm:p-7 border border-teal-800/20 dark:border-teal-500/20 shadow-xl space-y-5 transition-all">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-              <div>
-                <h3 className="font-black text-[#082a24] dark:text-pink-300 text-sm sm:text-base flex items-center gap-2 font-outfit">
-                  <HeartHandshake className="w-4 h-4 text-pink-600" />
-                  <span>Skrining Keamanan Ibu Hamil (FDA PLLR) &amp; Menyusui (Hale L1–L5)</span>
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Verifikasi keamanan obat maternal, trimester spesifik risiko teratogenik &amp; keamanan laktasi.
-                </p>
-              </div>
-              <span className="text-[10px] font-black px-2.5 py-1 rounded-full bg-pink-100 dark:bg-pink-950 text-pink-800 dark:text-pink-300 border border-pink-300 dark:border-pink-700">
-                FDA &amp; Hale Rating
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {samplePregnancyDrugs.map((item) => (
-                <button
-                  key={item.name}
                   type="button"
-                  onClick={() => setSelectedPregDrug(item)}
-                  className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer space-y-2 ${
-                    selectedPregDrug.name === item.name
-                      ? 'bg-pink-50 dark:bg-pink-950/60 border-pink-500 shadow-md ring-2 ring-pink-400'
-                      : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-pink-300'
-                  }`}
+                  onClick={() => setPublicSrqScores(Array(20).fill(0))}
+                  className="px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1 cursor-pointer transition-all border border-slate-200 dark:border-slate-700"
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-slate-900 dark:text-white font-outfit">{item.name}</span>
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded ${
-                      item.fda === 'X' || item.fda === 'D'
-                        ? 'bg-rose-600 text-white'
-                        : 'bg-emerald-600 text-white'
-                    }`}>
-                      FDA {item.fda}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-[10px]">
-                    <span className="text-slate-500">Laktasi Hale: <strong>{item.hale}</strong></span>
-                    <span className={`font-bold ${item.safe ? 'text-emerald-600' : 'text-rose-600'}`}>
-                      {item.safe ? '✓ Relatif Aman' : '⚠ Risiko Tinggi'}
-                    </span>
-                  </div>
+                  <RotateCcw className="w-3 h-3" />
+                  <span>Reset Jawaban</span>
                 </button>
-              ))}
-            </div>
-
-            {/* Selected Drug Detail Banner */}
-            <div className="p-4 rounded-2xl bg-pink-50/70 dark:bg-pink-950/30 border border-pink-200 dark:border-pink-800/60 space-y-2 text-xs">
-              <div className="flex items-center justify-between">
-                <span className="font-extrabold text-pink-950 dark:text-pink-200 text-sm">
-                  Evaluasi Klinis: {selectedPregDrug.name}
-                </span>
-                <span className="text-[11px] font-bold text-pink-800 dark:text-pink-300">
-                  Kategori FDA {selectedPregDrug.fda} • Hale {selectedPregDrug.hale}
+                <span className="text-[10px] font-black px-2.5 py-1 rounded-full bg-teal-100 dark:bg-teal-950 text-teal-800 dark:text-teal-300 border border-teal-300 dark:border-teal-700 flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                  Standar Baku Kemenkes RI
                 </span>
               </div>
-              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                {selectedPregDrug.info}
-              </p>
             </div>
 
-            <div className="pt-2">
-              <button
-                onClick={() => onSelectTab('pregnancy')}
-                className="w-full py-3 bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <HeartHandshake className="w-4 h-4" />
-                <span>Buka Direktori Keamanan Bumil &amp; Busui Lengkap (100+ Obat &amp; Panduan Trimester)</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        )}
+            {/* Questions Grid with compact clean layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 max-h-[420px] overflow-y-auto pr-1">
+              {publicSrqQuestions.map((questionText, idx) => {
+                const isSelectedYes = publicSrqScores[idx] === 1;
+                const isRedFlagItem = idx === 16;
 
-        {/* ==================== TAB 4: WHATSAPP PIO DEMO ==================== */}
-        {activePlaygroundTab === 'whatsapp' && (
-          <div className="bg-white dark:bg-[#0c191d] rounded-3xl p-5 sm:p-7 border border-teal-800/20 dark:border-teal-500/20 shadow-xl space-y-5 transition-all">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-              <div>
-                <h3 className="font-black text-[#082a24] dark:text-teal-300 text-sm sm:text-base flex items-center gap-2 font-outfit">
-                  <MessageSquare className="w-4 h-4 text-teal-600" />
-                  <span>Generator Kartu PIO &amp; Edukasi Pasien via WhatsApp</span>
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Kirim aturan pakai obat, jadwal minum, pantangan makanan &amp; edukasi resep 1-klik langsung ke WhatsApp pasien.
-                </p>
-              </div>
-              <span className="text-[10px] font-black px-2.5 py-1 rounded-full bg-teal-100 dark:bg-teal-950 text-teal-800 dark:text-teal-300 border border-teal-300 dark:border-teal-700 flex items-center gap-1">
-                <Smartphone className="w-3 h-3" />
-                WhatsApp Direct API
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
-              <div className="space-y-3">
-                <div>
-                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">
-                    Nama Pasien Uji Coba:
-                  </label>
-                  <input
-                    type="text"
-                    value={waPatientName}
-                    onChange={(e) => setWaPatientName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs font-bold text-slate-900 dark:text-white"
-                  />
-                </div>
-
-                <div className="p-3.5 rounded-2xl bg-teal-50/80 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800/60 text-xs space-y-2">
-                  <p className="font-extrabold text-teal-900 dark:text-teal-300 flex items-center gap-1.5">
-                    <Building2 className="w-4 h-4 text-teal-600" />
-                    <span>Fitur Unggulan Modul WhatsApp PIO:</span>
-                  </p>
-                  <ul className="space-y-1 text-slate-600 dark:text-slate-300 text-[11px]">
-                    <li>✓ Menggunakan Kop &amp; Branding Apotek / Klinik Anda sendiri</li>
-                    <li>✓ Format rapi dengan teks tebal (*bold*) &amp; list poin profesional</li>
-                    <li>✓ Peringatan interaksi obat otomatis &amp; cara penyimpanan</li>
-                    <li>✓ Tombol Kirim 1-Klik membuka aplikasi WhatsApp Web / Mobile</li>
-                  </ul>
-                </div>
-
-                <div className="flex gap-2">
-                  <button
-                    onClick={handleCopyWa}
-                    className="flex-1 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-800 dark:text-slate-200 font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                return (
+                  <div
+                    key={idx}
+                    className={`p-3 rounded-xl border transition-all duration-150 flex items-center justify-between gap-3 ${
+                      isRedFlagItem && isSelectedYes
+                        ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-400 shadow-xs'
+                        : isSelectedYes
+                        ? 'bg-teal-50/80 dark:bg-teal-950/40 border-teal-400 dark:border-teal-600 shadow-2xs'
+                        : 'bg-slate-50/80 dark:bg-slate-900/60 border-slate-200 dark:border-slate-800 hover:border-slate-300'
+                    }`}
                   >
-                    {waCopied ? <CheckCheck className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
-                    <span>{waCopied ? 'Teks Tersalin!' : 'Salin Format Pesan'}</span>
-                  </button>
+                    <div className="flex-1">
+                      <p className={`text-xs leading-snug ${
+                        isRedFlagItem && isSelectedYes 
+                          ? 'font-bold text-rose-900 dark:text-rose-200' 
+                          : isSelectedYes 
+                          ? 'font-bold text-teal-950 dark:text-teal-200' 
+                          : 'text-slate-700 dark:text-slate-300 font-medium'
+                      }`}>
+                        {questionText}
+                      </p>
+                    </div>
 
-                  <button
-                    onClick={() => onSelectTab('whatsapp-pio')}
-                    className="flex-1 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Buka Generator PIO</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Smartphone Chat Bubble Mockup */}
-              <div className="bg-[#e5ddd5] dark:bg-[#0b141a] p-4 rounded-3xl border border-slate-300 dark:border-slate-800 shadow-md">
-                <div className="bg-white dark:bg-[#202c33] p-4 rounded-2xl shadow-sm text-xs font-mono space-y-2 text-slate-800 dark:text-slate-100 whitespace-pre-line leading-relaxed max-h-72 overflow-y-auto">
-                  {sampleWaText}
-                </div>
-                <p className="text-[10px] text-center text-slate-500 dark:text-slate-400 mt-2 font-sans font-medium">
-                  Pratinjau tampilan pesan WhatsApp yang diterima pasien
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ==================== TAB 5: UKMPPAI CBT DEMO ==================== */}
-        {activePlaygroundTab === 'ukmppai' && (
-          <div className="bg-white dark:bg-[#0c191d] rounded-3xl p-5 sm:p-7 border border-teal-800/20 dark:border-teal-500/20 shadow-xl space-y-5 transition-all">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-              <div>
-                <h3 className="font-black text-[#082a24] dark:text-emerald-300 text-sm sm:text-base flex items-center gap-2 font-outfit">
-                  <GraduationCap className="w-4 h-4 text-emerald-600" />
-                  <span>Pusat Belajar Uji Kompetensi Apoteker (UKMPPAI CBT &amp; OSCE)</span>
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Simulasi bank soal 4 domain farmasi: Klinis, Manajemen, Industri CPOB &amp; Bahan Alam.
-                </p>
-              </div>
-              <span className="text-[10px] font-black px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
-                UKMPPAI CBT Prep
-              </span>
-            </div>
-
-            {/* Flashcard Question */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 text-xs">
-              <div className="flex items-center justify-between">
-                <span className="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-extrabold text-[10px]">
-                  {sampleQuiz.domain}
-                </span>
-                <span className="text-[10px] text-slate-400 font-bold">Soal Interaksi &amp; DRP</span>
-              </div>
-
-              <p className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm leading-relaxed">
-                {sampleQuiz.question}
-              </p>
-
-              <div className="space-y-2 pt-2">
-                {sampleQuiz.options.map((opt, idx) => {
-                  const isSelected = ukmppaiSelectedOption === idx;
-                  const isCorrect = idx === sampleQuiz.correctIndex;
-                  let btnClass = 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-emerald-400';
-                  
-                  if (ukmppaiSelectedOption !== null) {
-                    if (isCorrect) {
-                      btnClass = 'bg-emerald-100 dark:bg-emerald-950/80 border-emerald-500 text-emerald-900 dark:text-emerald-200 font-bold';
-                    } else if (isSelected && !isCorrect) {
-                      btnClass = 'bg-rose-100 dark:bg-rose-950/80 border-rose-500 text-rose-900 dark:text-rose-200';
-                    }
-                  }
-
-                  return (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setUkmppaiSelectedOption(idx)}
-                      className={`w-full p-3 rounded-xl border text-left text-xs transition-all cursor-pointer flex items-start gap-2 ${btnClass}`}
-                    >
-                      <span className="font-mono font-bold">{String.fromCharCode(65 + idx)}.</span>
-                      <span className="flex-1">{opt}</span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {ukmppaiSelectedOption !== null && (
-                <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 space-y-1 mt-3">
-                  <p className="font-extrabold text-emerald-900 dark:text-emerald-300 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span>Pembahasan &amp; Clinical Pearls:</span>
-                  </p>
-                  <p className="text-[11px] text-slate-700 dark:text-slate-300 leading-relaxed">
-                    {sampleQuiz.explanation}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            <div className="pt-2">
-              <button
-                onClick={() => onSelectTab('competency')}
-                className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <GraduationCap className="w-4 h-4" />
-                <span>Buka Pusat Belajar UKMPPAI Lengkap (Bank Soal CBT, OSCE Station &amp; Rangkuman 4 Domain)</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        )}
-
-      </section>
-
-      {/* =========================================================================
-          COMPREHENSIVE 18-MODULE DASHBOARD DIRECTORY SHOWCASE
-          ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#0a3840]/10 dark:bg-teal-950/60 text-[#0f5c53] dark:text-teal-300 text-xs font-black border border-[#0f5c53]/20 dark:border-teal-800">
-            <Database className="w-3.5 h-3.5" />
-            <span>Katalog Lengkap Fitur &amp; Menu Dashboard</span>
-          </div>
-
-          <h2 className="text-2xl sm:text-4xl font-black text-[#082a24] dark:text-white font-outfit">
-            18+ Modul Klinis Terintegrasi untuk Praktik Farmasi Modern
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
-            Setiap fitur dirancang khusus untuk memenuhi standar pelayanan kefarmasian di Apotek, Klinik, Rumah Sakit, dan Pusat Studi.
-          </p>
-        </div>
-
-        {/* 4 Pillars Category Listing */}
-        <div className="space-y-10">
-          {moduleCategories.map((cat, cIdx) => (
-            <div key={cIdx} className="space-y-4">
-              
-              {/* Category Subheader */}
-              <div className="border-b border-slate-200 dark:border-slate-800 pb-2">
-                <h3 className="text-lg font-black text-slate-900 dark:text-white font-outfit flex items-center gap-2">
-                  <span>{cat.categoryName}</span>
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  {cat.categoryDesc}
-                </p>
-              </div>
-
-              {/* Modules Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {cat.modules.map((mod) => {
-                  const Icon = mod.icon;
-                  return (
-                    <div
-                      key={mod.id}
-                      className={`p-5 rounded-2xl border ${mod.bg} shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md hover:scale-[1.01] transition-all group`}
-                    >
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between">
-                          <div className={`p-2.5 rounded-xl bg-white dark:bg-slate-900 shadow-2xs ${mod.color}`}>
-                            <Icon className="w-5 h-5" />
-                          </div>
-                          <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded shadow-2xs font-outfit ${mod.badgeColor}`}>
-                            {mod.badge}
-                          </span>
-                        </div>
-
-                        <div>
-                          <h4 className="text-sm font-black text-slate-900 dark:text-white font-outfit group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors">
-                            {mod.title}
-                          </h4>
-                          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mt-1">
-                            {mod.desc}
-                          </p>
-                        </div>
-                      </div>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = [...publicSrqScores];
+                          next[idx] = 0;
+                          setPublicSrqScores(next);
+                        }}
+                        className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          !isSelectedYes
+                            ? 'bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 shadow-2xs'
+                            : 'bg-transparent text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800'
+                        }`}
+                      >
+                        Tidak
+                      </button>
 
                       <button
-                        onClick={() => onSelectTab(mod.id)}
-                        className="w-full py-2.5 px-3 bg-white dark:bg-slate-900 hover:bg-teal-600 hover:text-white dark:hover:bg-teal-600 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs group-hover:border-teal-500"
+                        type="button"
+                        onClick={() => {
+                          const next = [...publicSrqScores];
+                          next[idx] = 1;
+                          setPublicSrqScores(next);
+                        }}
+                        className={`px-2.5 py-1 rounded-lg text-xs font-black transition-all cursor-pointer ${
+                          isSelectedYes
+                            ? isRedFlagItem
+                              ? 'bg-rose-600 text-white shadow-xs'
+                              : 'bg-teal-600 text-white shadow-xs'
+                            : 'bg-transparent text-slate-400 hover:bg-teal-100/50 dark:hover:bg-teal-950/50'
+                        }`}
                       >
-                        <span>Buka Modul {mod.title}</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
+                        Ya
                       </button>
                     </div>
-                  );
-                })}
-              </div>
-
+                  </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
+
+            {/* Live Result Evaluation Box inside the module */}
+            {(() => {
+              const res = calculatePublicSrq();
+
+              return (
+                <div className={`p-4 sm:p-5 rounded-2xl border ${res.badgeColor} bg-white dark:bg-slate-900/90 space-y-3 shadow-md`}>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/60 dark:border-slate-800 pb-2">
+                    <div>
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                        Hasil Evaluasi Mandiri Kemenkes RI (Ambang Batas &ge; 6 Poin)
+                      </span>
+                      <h4 className={`text-base sm:text-lg font-black font-outfit mt-0.5 ${res.textColor}`}>
+                        {res.category}
+                      </h4>
+                    </div>
+
+                    <div className="text-left sm:text-right">
+                      <span className={`text-2xl sm:text-3xl font-black font-outfit ${res.textColor}`}>
+                        {res.score} / 20
+                      </span>
+                      <span className="block text-[11px] text-slate-500 font-semibold">Skor Jawaban "Ya"</span>
+                    </div>
+                  </div>
+
+                  {res.hasSuicidalIdeation && (
+                    <div className="p-3 bg-rose-600 text-white rounded-xl text-xs font-bold flex items-start gap-2 shadow-md">
+                      <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-black">PERHATIAN KRITIS: Terdeteksi Pikiran Mengakhiri Hidup (Butir 17 Positif)</p>
+                        <p className="text-[11px] font-medium opacity-90 mt-0.5">Segera hubungi Hotline Kemenkes SEJIWA 119 ext 8 atau dampingi pasien ke IGD faskes terdekat.</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <strong>Rekomendasi Klinis:</strong> {res.recommendation}
+                  </p>
+
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200/60 dark:border-slate-800">
+                    <button
+                      type="button"
+                      onClick={handleCopySrqResult}
+                      className="px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    >
+                      {isSrqCopied ? <CheckCheck className="w-3.5 h-3.5 text-emerald-200" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{isSrqCopied ? 'Hasil Tersalin!' : 'Salin Hasil SRQ-20'}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => onSelectTab('renal-adjuster')}
+                      className="text-xs font-bold text-teal-700 dark:text-teal-300 hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>Buka Kalkulator Skor Klinis Lengkap (14+ Skor Medis)</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        )}
 
       </section>
+
+
 
       {/* =========================================================================
           BENEFICIARIES SECTION: SIAPA YANG DIUNTUNGKAN?
@@ -1477,222 +823,6 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
         </div>
       </section>
 
-      {/* =========================================================================
-          STANDALONE PUBLIC HEALTH SECTION: SRQ-20 MENTAL HEALTH SCREENING
-          ========================================================================= */}
-      <section id="skrining-srq20" className="py-20 relative bg-slate-900/95 dark:bg-[#061016] text-white border-y border-slate-800 overflow-hidden">
-        {/* Ambient Glows */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-10">
-          {/* Section Header */}
-          <div className="text-center space-y-4 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold border border-teal-500/30 shadow-xs">
-              <Brain className="w-4 h-4 text-teal-300" />
-              <span>Layanan Terbuka untuk Umum • Standar Baku WHO &amp; Kemenkes RI</span>
-            </div>
-            
-            <h2 className="text-2xl sm:text-4xl font-black font-outfit tracking-tight text-white">
-              Cek Kesehatan Mental Mandiri <span className="bg-gradient-to-r from-teal-300 via-emerald-300 to-cyan-300 bg-clip-text text-transparent">(SRQ-20)</span>
-            </h2>
-
-            <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
-              Kuesioner 20 pertanyaan resmi Kementerian Kesehatan RI untuk mendeteksi dini Gangguan Mental Emosional (kecemasan, depresi, dan distres somatik) dalam kurun waktu <strong>30 hari terakhir</strong>.
-            </p>
-
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700/80 text-xs text-slate-300 font-semibold shadow-inner">
-              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>100% Anonim, Rahasia &amp; Gratis — Jawaban Anda hanya diproses di peramban ini dan tidak pernah disimpan ke server.</span>
-            </div>
-          </div>
-
-          {/* Interactive Card */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-slate-800/60 dark:bg-slate-900/80 border border-slate-700/80 shadow-2xl backdrop-blur-md space-y-8">
-            
-            {/* Top Toolbar */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-700/70">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-teal-500/20 text-teal-300 flex items-center justify-center font-black">
-                  <Activity className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-white">Panduan Pengisian:</h4>
-                  <p className="text-xs text-slate-400">Pilihlah <strong>"Ya"</strong> jika keluhan tersebut Anda rasakan dalam 30 hari terakhir.</p>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setPublicSrqScores(Array(20).fill(0))}
-                  className="px-3.5 py-2 rounded-xl bg-slate-700/70 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-600 transition-all flex items-center gap-1.5 cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5 text-teal-400" />
-                  <span>Reset Semua "Tidak"</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleCopySrqResult}
-                  className="px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-teal-900/30"
-                >
-                  {isSrqCopied ? (
-                    <>
-                      <CheckCheck className="w-3.5 h-3.5 text-emerald-300" />
-                      <span>Hasil Tersalin!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Salin Ringkasan Hasil</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* 20 Questions Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[560px] overflow-y-auto pr-1 sm:pr-2">
-              {publicSrqQuestions.map((questionText, idx) => {
-                const isSelectedYes = publicSrqScores[idx] === 1;
-                const isRedFlagItem = idx === 16;
-
-                return (
-                  <div
-                    key={idx}
-                    className={`p-3.5 rounded-2xl border transition-all duration-200 flex flex-col justify-between gap-3 ${
-                      isRedFlagItem && isSelectedYes
-                        ? 'bg-rose-950/40 border-rose-500/80 shadow-md shadow-rose-950/40'
-                        : isSelectedYes
-                        ? 'bg-teal-950/40 border-teal-500/60 shadow-xs'
-                        : 'bg-slate-800/40 border-slate-700/50 hover:border-slate-600'
-                    }`}
-                  >
-                    <div className="space-y-1">
-                      <span className={`text-xs leading-relaxed font-semibold block ${
-                        isRedFlagItem ? 'text-rose-300 font-bold' : 'text-slate-200'
-                      }`}>
-                        {questionText}
-                      </span>
-                      {isRedFlagItem && (
-                        <span className="text-[10px] text-rose-400/90 font-medium block">
-                          *Butir kritis evaluasi keselamatan diri
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex items-center justify-end gap-2 pt-1 border-t border-slate-700/40">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const next = [...publicSrqScores];
-                          next[idx] = 0;
-                          setPublicSrqScores(next);
-                        }}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                          !isSelectedYes
-                            ? 'bg-slate-700 text-white border-slate-500 shadow-2xs'
-                            : 'bg-slate-800/80 text-slate-400 border-slate-700 hover:bg-slate-750'
-                        }`}
-                      >
-                        Tidak (0)
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const next = [...publicSrqScores];
-                          next[idx] = 1;
-                          setPublicSrqScores(next);
-                        }}
-                        className={`px-3.5 py-1.5 rounded-xl text-xs font-black border transition-all cursor-pointer ${
-                          isSelectedYes
-                            ? isRedFlagItem
-                              ? 'bg-rose-600 text-white border-rose-500 shadow-md shadow-rose-900/40'
-                              : 'bg-teal-600 text-white border-teal-500 shadow-md shadow-teal-900/40'
-                            : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-teal-900/30 hover:border-teal-600/50'
-                        }`}
-                      >
-                        Ya (1)
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Live Result Evaluation Box */}
-            {(() => {
-              const res = calculatePublicSrq();
-
-              return (
-                <div className={`p-6 rounded-2xl border ${res.badgeColor} bg-slate-900/90 space-y-4 shadow-xl`}>
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                        Hasil Evaluasi Mandiri Kemenkes RI
-                      </span>
-                      <h3 className={`text-xl sm:text-2xl font-black font-outfit mt-0.5 ${res.textColor}`}>
-                        {res.category}
-                      </h3>
-                    </div>
-
-                    <div className="text-left sm:text-right">
-                      <span className={`text-3xl sm:text-4xl font-black font-outfit ${res.textColor}`}>
-                        {res.score} / 20
-                      </span>
-                      <span className="block text-xs text-slate-400 font-semibold">Skor Jawaban "Ya"</span>
-                    </div>
-                  </div>
-
-                  {/* Red Flag Alert Banner */}
-                  {res.hasSuicidalIdeation && (
-                    <div className="p-4 rounded-2xl bg-rose-600 text-white text-xs font-medium space-y-2 shadow-lg shadow-rose-950/60 border border-rose-400 animate-pulse">
-                      <div className="flex items-center gap-2 font-black text-sm text-rose-100">
-                        <AlertTriangle className="w-5 h-5 shrink-0 text-white" />
-                        <span>PERINGATAN KRITIS KESEHATAN JIWA (BUTIR 17):</span>
-                      </div>
-                      <p className="leading-relaxed">
-                        Anda menandai <strong>"Ya"</strong> pada pertanyaan mengenai pikiran untuk mengakhiri hidup. Perasaan ini sangat berat dan tidak boleh dipikul sendirian. Bantuan dan harapan selalu ada. Silakan segera hubungi orang terdekat atau akses layanan bantuan darurat 24 jam bebas pulsa:
-                      </p>
-                      <div className="flex flex-wrap items-center gap-2 pt-1 font-bold">
-                        <span className="px-3 py-1 rounded-lg bg-black/30 border border-white/20">
-                          📞 Layanan SEJIWA: <strong>119 ext 8</strong>
-                        </span>
-                        <span className="px-3 py-1 rounded-lg bg-black/30 border border-white/20">
-                          🏥 Halo Kemenkes: <strong>1500-567</strong>
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Clinical Recommendation Text */}
-                  <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
-                    <strong className="text-teal-300">💡 Penjelasan &amp; Rekomendasi:</strong> {res.recommendation}
-                  </div>
-
-                  {/* Score Reference Table Footnote */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 pt-2 text-[11px] text-slate-400 border-t border-slate-800">
-                    <div>
-                      <strong>Standar Cut-Off Kemenkes RI:</strong> Skor 0–5 (Normal) | Skor &ge; 6 (Indikasi Gangguan Mental Emosional) | Skor &ge; 12 (Distres Berat).
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleCopySrqResult}
-                      className="inline-flex items-center gap-1.5 text-teal-400 hover:text-teal-300 font-bold transition-colors cursor-pointer"
-                    >
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>{isSrqCopied ? 'Tersalin ke Clipboard!' : 'Salin Hasil Ini'}</span>
-                    </button>
-                  </div>
-                </div>
-              );
-            })()}
-
-          </div>
-        </div>
-      </section>
 
       {/* =========================================================================
           EVIDENCE-BASED MEDICINE & SCIENTIFIC CITATION SECTION

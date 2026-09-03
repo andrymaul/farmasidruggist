@@ -731,6 +731,61 @@ export function resolveDrugFromDDInter(queryName: string, existingList: Drug[]):
   };
 }
 
+function getDrugMatchKeys(drug: Drug): string[] {
+  const keys = new Set<string>();
+  const add = (s?: string) => {
+    if (!s) return;
+    const clean = s.toLowerCase().trim();
+    if (clean) {
+      keys.add(clean);
+      const withoutParen = clean.replace(/\s*\([^)]*\)/g, '').trim();
+      if (withoutParen) keys.add(withoutParen);
+      const base = withoutParen.split(/[/+]/)[0].trim();
+      if (base) keys.add(base);
+    }
+  };
+
+  add(drug.name);
+  add(drug.genericName);
+  if (drug.id) {
+    add(drug.id.toLowerCase().replace(/^drug-/, '').replace(/^fornas-/, ''));
+  }
+  if (drug.brandNames) {
+    drug.brandNames.forEach(add);
+  }
+
+  // Indonesian <-> International medical naming variants
+  const arr = Array.from(keys);
+  arr.forEach((k) => {
+    if (k.endsWith('in') && !k.endsWith('oin') && !k.endsWith('sin')) keys.add(k + 'e');
+    if (k.endsWith('ine')) keys.add(k.slice(0, -1));
+    if (k.includes('parasetamol')) keys.add(k.replace('parasetamol', 'paracetamol'));
+    if (k.includes('paracetamol')) keys.add(k.replace('paracetamol', 'parasetamol'));
+    if (k.includes('rifampisin')) keys.add(k.replace('rifampisin', 'rifampicin'));
+    if (k.includes('rifampicin')) keys.add(k.replace('rifampicin', 'rifampisin'));
+    if (k.includes('asam traneksamat')) keys.add('tranexamic acid');
+    if (k.includes('tranexamic acid')) keys.add('asam traneksamat');
+    if (k.includes('ceftriakson')) keys.add('ceftriaxone');
+    if (k.includes('ceftriaxone')) keys.add('ceftriakson');
+  });
+
+  return Array.from(keys);
+}
+
+function getInteractionKeys(name: string, id?: string): string[] {
+  const keys = new Set<string>();
+  const clean = name.toLowerCase().trim();
+  keys.add(clean);
+  const withoutParen = clean.replace(/\s*\([^)]*\)/g, '').trim();
+  if (withoutParen) keys.add(withoutParen);
+  const base = withoutParen.split(/[/+]/)[0].trim();
+  if (base) keys.add(base);
+  if (id) {
+    keys.add(id.toLowerCase().replace(/^drug-/, '').replace(/^fornas-/, '').trim());
+  }
+  return Array.from(keys);
+}
+
 /**
  * Checks or calculates interaction pair dynamically based on DDInter principles
  */
@@ -739,10 +794,10 @@ export function resolveInteractionPair(
   drugB: Drug,
   existingInteractions: DrugInteraction[]
 ): DrugInteraction | null {
-  const nameA = drugA.name.toLowerCase();
-  const nameB = drugB.name.toLowerCase();
+  const nameA = drugA.name.toLowerCase().trim();
+  const nameB = drugB.name.toLowerCase().trim();
 
-  // 1. Direct match in static database
+  // 1. Direct exact match in static database
   const directMatch = existingInteractions.find(
     (i) =>
       (i.drugAName.toLowerCase() === nameA && i.drugBName.toLowerCase() === nameB) ||
@@ -751,6 +806,24 @@ export function resolveInteractionPair(
       (i.drugAId === drugB.id && i.drugBId === drugA.id)
   );
   if (directMatch) return directMatch;
+
+  // 1b. Smart semantic/alias matching against database
+  const keysA = getDrugMatchKeys(drugA);
+  const keysB = getDrugMatchKeys(drugB);
+
+  const aliasMatch = existingInteractions.find((i) => {
+    const interKeysA = getInteractionKeys(i.drugAName, i.drugAId);
+    const interKeysB = getInteractionKeys(i.drugBName, i.drugBId);
+
+    const aMatchesA = keysA.some((k) => interKeysA.includes(k));
+    const bMatchesB = keysB.some((k) => interKeysB.includes(k));
+    if (aMatchesA && bMatchesB) return true;
+
+    const aMatchesB = keysA.some((k) => interKeysB.includes(k));
+    const bMatchesA = keysB.some((k) => interKeysA.includes(k));
+    return aMatchesB && bMatchesA;
+  });
+  if (aliasMatch) return aliasMatch;
 
   // 2. Rule-based interaction inference for major drug classes
   const isStatin = (d: Drug) => d.category.toLowerCase().includes('statin') || d.name.toLowerCase().includes('statin');

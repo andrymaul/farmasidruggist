@@ -23,15 +23,6 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
                 <Database className="w-4 h-4 text-teal-400" />
                 <span>Database Interaksi Klinis Terintegrasi</span>
               </div>
-              <a
-                href="https://t.me/+lHiIMC_TdoM2NTk1"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#229ED9]/20 hover:bg-[#229ED9]/30 border border-[#229ED9]/50 text-sky-300 text-xs font-bold rounded-lg transition-all"
-              >
-                <Send className="w-3.5 h-3.5 fill-sky-300" />
-                <span>Grup Telegram Resmi</span>
-              </a>
             </div>
           </div>
 

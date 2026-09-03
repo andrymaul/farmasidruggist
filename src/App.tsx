@@ -132,7 +132,7 @@ export default function App() {
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState<boolean>(false);
 
-  const APP_DB_VERSION = 'v2026_indonesian_monographs_v30';
+  const APP_DB_VERSION = 'v2026_indonesian_monographs_v33';
 
   // Atomic database version migration and cache invalidation
   try {
