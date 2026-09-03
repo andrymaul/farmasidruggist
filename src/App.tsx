@@ -55,7 +55,7 @@ import {
   fetchCustomersFromFirestore
 } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { deduplicateDrugs, deduplicateInteractions } from './utils/ddinterEngine';
+import { deduplicateDrugs, deduplicateInteractions, resolveInteractionPair } from './utils/ddinterEngine';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => {
@@ -362,7 +362,13 @@ export default function App() {
     });
   };
 
-  const [historyRecords, setHistoryRecords] = useState<InteractionCheckRecord[]>([]);
+  const [historyRecords, setHistoryRecords] = useState<InteractionCheckRecord[]>(() => {
+    try {
+      const saved = localStorage.getItem('farmasi_history_records');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return [];
+  });
 
   // Modals & Selections
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
@@ -678,7 +684,85 @@ export default function App() {
     const docId = await saveInteractionCheckHistory(newRecord);
     const fullRecord: InteractionCheckRecord = { id: docId, ...newRecord };
 
-    setHistoryRecords([fullRecord, ...historyRecords]);
+    setHistoryRecords((prev) => {
+      const updated = [fullRecord, ...prev];
+      try {
+        localStorage.setItem('farmasi_history_records', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
+  };
+
+  const handlePrintHistoryReport = (record: InteractionCheckRecord) => {
+    const matchedDrugs: Drug[] = record.drugs.map((dName, idx) => {
+      const found = drugs.find(
+        (d) =>
+          d.name.toLowerCase() === dName.toLowerCase() ||
+          (d.genericName && d.genericName.toLowerCase() === dName.toLowerCase())
+      );
+      if (found) return found;
+      return {
+        id: 'hist-' + idx,
+        name: dName,
+        genericName: dName,
+        brandNames: [],
+        atcCode: '-',
+        category: 'Resep Pasien',
+        dosage: '-',
+        indication: '-',
+        mechanism: '-'
+      };
+    });
+
+    const matchedInteractions: DrugInteraction[] = [];
+    for (let i = 0; i < matchedDrugs.length; i++) {
+      for (let j = i + 1; j < matchedDrugs.length; j++) {
+        const pair = resolveInteractionPair(matchedDrugs[i], matchedDrugs[j], interactions);
+        if (pair) matchedInteractions.push(pair);
+      }
+    }
+
+    setReportModalData({
+      selectedDrugs: matchedDrugs,
+      interactions: matchedInteractions
+    });
+  };
+
+  const handleSendWhatsappHistory = (record: InteractionCheckRecord) => {
+    const firstDrug = drugs.find((d) =>
+      record.drugs.some((rd) => rd.toLowerCase() === d.name.toLowerCase())
+    );
+    if (firstDrug) {
+      setPreselectedPioDrug(firstDrug);
+    }
+    handleSelectTab('whatsapp');
+  };
+
+  const handleUpdateHistoryNotes = (recordId: string, notes: string) => {
+    setHistoryRecords((prev) => {
+      const updated = prev.map((r) => (r.id === recordId ? { ...r, notes } : r));
+      try {
+        localStorage.setItem('farmasi_history_records', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
+  };
+
+  const handleDeleteHistoryRecord = (recordId: string) => {
+    setHistoryRecords((prev) => {
+      const updated = prev.filter((r) => r.id !== recordId);
+      try {
+        localStorage.setItem('farmasi_history_records', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
+  };
+
+  const handleClearAllHistoryRecords = () => {
+    setHistoryRecords([]);
+    try {
+      localStorage.removeItem('farmasi_history_records');
+    } catch (e) {}
   };
 
   const logAdminAction = (
@@ -1188,6 +1272,16 @@ export default function App() {
                   currentUser={currentUser}
                   onOpenPricingModal={() => setShowPricingModal(true)}
                   onOpenAuthModal={() => setShowAuthModal(true)}
+                  onRecheckRecord={(record) => {
+                    setPreselectedDrugNames(record.drugs);
+                    setPreselectedDrugName(record.drugs[0] || '');
+                    handleSelectTab('interactions');
+                  }}
+                  onPrintReport={handlePrintHistoryReport}
+                  onSendWhatsapp={handleSendWhatsappHistory}
+                  onUpdateRecordNotes={handleUpdateHistoryNotes}
+                  onDeleteRecord={handleDeleteHistoryRecord}
+                  onClearAllRecords={handleClearAllHistoryRecords}
                 />
               )}
 
