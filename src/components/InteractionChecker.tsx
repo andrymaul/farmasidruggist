@@ -33,6 +33,11 @@ import {
 } from '../utils/ddinterEngine';
 import { SAMPLE_FOOD_INTERACTIONS, SAMPLE_THERAPEUTIC_DUPLICATIONS, DDINTER_DATASET_INFO } from '../data/ddinterData';
 import { DRUG_DISEASE_INTERACTIONS_DATABASE, COMMON_CLINICAL_DISEASES } from '../data/drugDiseaseInteractionsData';
+import { CuteMascot, MascotMood } from './CuteMascot';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
+import { CuteConfettiEffect } from './CuteConfettiEffect';
+import { CuteVisualPlaygroundModal } from './CuteVisualPlaygroundModal';
+import { playCutePop, playCuteChime, playCuteAlert } from '../utils/cuteSoundEffects';
 
 interface InteractionCheckerProps {
   drugs: Drug[];
@@ -51,7 +56,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   drugs,
   interactions,
   currentUser,
-  pricingPlans,
+  pricingPlans = [],
   onSaveHistory,
   onOpenPricingModal,
   onOpenAuthModal,
@@ -65,6 +70,8 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   const [isSaved, setIsSaved] = useState(false);
   const [showDatasetDetails, setShowDatasetDetails] = useState(false);
   const [limitWarning, setLimitWarning] = useState<string | null>(null);
+  const [showPlaygroundModal, setShowPlaygroundModal] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   // Auto-select when navigating with preselected drug(s)
   useEffect(() => {
@@ -143,6 +150,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       setSelectedDrugs([...selectedDrugs, drugToAdd]);
       setIsSaved(false);
       setLimitWarning(null);
+      playCutePop();
     }
     setSearchInput('');
   };
@@ -162,6 +170,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
         setSelectedDrugs([...selectedDrugs, resolved]);
         setIsSaved(false);
         setLimitWarning(null);
+        playCutePop();
       }
     }
     setSearchInput('');
@@ -253,7 +262,20 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
     onOpenReportModal(selectedDrugs, matchedInteractions);
   };
 
+  // Trigger celebratory confetti when a safe prescription is evaluated
+  useEffect(() => {
+    if (selectedDrugs.length >= 2 && highestSeverity === 'None') {
+      setShowConfetti(true);
+      playCuteChime();
+    }
+  }, [selectedDrugs.length, highestSeverity]);
+
   const presets = [
+    {
+      title: '🌟 Resep Bebas Interaksi (100% Aman)',
+      desc: 'Paracetamol + Cetirizine',
+      drugNames: ['Paracetamol', 'Cetirizine']
+    },
     {
       title: 'Paxlovid & Statin (CYP3A4)',
       desc: 'Paxlovid + Simvastatin',
@@ -353,6 +375,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
     }
     setSelectedDrugs(list);
     setIsSaved(false);
+    playCutePop();
   };
 
   const handleSaveCheck = () => {
@@ -370,6 +393,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       
       {/* HERO BANNER - CRIMSON RUBY & DARK OBSIDIAN */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c0407] via-[#1a0812] to-[#260d1b] p-6 sm:p-8 text-white shadow-2xl border border-rose-500/25">
+        <FloatingPillsBackground density="normal" accentColor="#fb7185" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-rose-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
           <ShieldAlert className="w-48 h-48 text-rose-400" />
@@ -413,10 +437,53 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0 relative z-10">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-rose-950/60 text-right shadow-md">
-              <span className="text-[11px] text-slate-400 block font-medium">Basis Data Terverifikasi:</span>
-              <span className="text-lg font-black text-rose-400">{drugs.length.toLocaleString('id-ID')} Obat &amp; {interactions.length.toLocaleString('id-ID')} Interaksi</span>
+          <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 relative z-10">
+            {/* Live Reactive Cute Mascot */}
+            <div className="hidden lg:block">
+              <CuteMascot
+                mood={
+                  selectedDrugs.length === 0
+                    ? 'happy'
+                    : highestSeverity === 'Major'
+                    ? 'danger'
+                    : highestSeverity === 'Moderate'
+                    ? 'alert'
+                    : highestSeverity === 'Minor'
+                    ? 'thinking'
+                    : 'happy'
+                }
+                size="sm"
+                interactive={true}
+                speechBubble={
+                  selectedDrugs.length === 0
+                    ? 'Yuk racik resep! ✨'
+                    : highestSeverity === 'Major'
+                    ? 'Awas bahaya! ⚠️'
+                    : highestSeverity === 'Moderate'
+                    ? 'Cek jeda jam ya 🧐'
+                    : highestSeverity === 'Minor'
+                    ? 'Pantau ringan ya'
+                    : '100% Aman! 👍'
+                }
+              />
+            </div>
+
+            <div className="flex flex-col items-stretch sm:items-end gap-2.5">
+              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-rose-950/60 text-right shadow-md">
+                <span className="text-[11px] text-slate-400 block font-medium">Basis Data Terverifikasi:</span>
+                <span className="text-lg font-black text-rose-400">{drugs.length.toLocaleString('id-ID')} Obat &amp; {interactions.length.toLocaleString('id-ID')} Interaksi</span>
+              </div>
+
+              <button
+                onClick={() => {
+                  setShowPlaygroundModal(true);
+                  playCutePop();
+                }}
+                className="px-4 py-2 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-400 hover:to-amber-400 text-white text-xs font-black shadow-lg shadow-rose-950/40 flex items-center justify-center gap-2 cursor-pointer active:scale-95 hover:scale-105 transition-all border border-pink-300/40"
+              >
+                <span className="text-sm">🧸</span>
+                <span>Coba Visual &amp; Maskot Lucu</span>
+              </button>
             </div>
           </div>
         </div>
@@ -692,6 +759,37 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               </button>
             </div>
           </div>
+
+          {/* Safe Prescription Celebration Card */}
+          {highestSeverity === 'None' && selectedDrugs.length >= 2 && (
+            <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-emerald-500/15 border-2 border-emerald-500/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm animate-fade-in">
+              <FloatingPillsBackground density="low" accentColor="#10b981" />
+              <div className="relative z-10 flex items-center gap-4">
+                <CuteMascot mood="happy" size="sm" speechBubble="Aman 100%! 🌟" interactive={true} />
+                <div>
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-bold text-[10px] mb-1 font-outfit uppercase">
+                    <span>Terverifikasi Bebas Interaksi</span>
+                  </div>
+                  <h4 className="text-sm font-black text-emerald-950 dark:text-emerald-200 font-outfit">
+                    Resep Ini Lolos Seluruh Penapisan Interaksi Klinis!
+                  </h4>
+                  <p className="text-xs text-emerald-800/80 dark:text-emerald-300/80">
+                    Tidak ditemukan interaksi antar-obat (DDI), kontraindikasi penyakit, maupun duplikasi terapeutik.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  setShowConfetti(true);
+                  playCuteChime();
+                }}
+                className="relative z-10 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 hover:scale-105 transition-all shrink-0"
+              >
+                <span>🎉 Ulangi Selebrasi</span>
+              </button>
+            </div>
+          )}
 
           {/* Drug-Disease Interactions (Contraindications) Section - Bold Amber/Rose Danger Styling */}
           {matchedDiseaseInteractions.length > 0 && (
@@ -979,14 +1077,64 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
 
         </div>
       ) : (
-        <div className="bg-white p-8 rounded-2xl border border-dashed border-slate-300 text-center space-y-2 shadow-xs">
-          <Info className="w-8 h-8 text-[#0f766e] mx-auto" />
-          <h3 className="text-sm font-black text-slate-800">Pilih Minimal 2 Obat untuk Memulai Analisis Interaksi</h3>
-          <p className="text-xs text-slate-500 max-w-xs mx-auto font-medium">
-            Gunakan kotak pencarian di atas atau klik contoh skenario klinis di bagian atas.
-          </p>
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-white via-rose-50/30 to-slate-50 dark:from-[#0c121e] dark:via-[#160c14] dark:to-[#080d16] p-8 sm:p-12 border-2 border-dashed border-rose-300/80 dark:border-rose-900/60 text-center space-y-4 shadow-sm">
+          <FloatingPillsBackground density="low" accentColor="#fb7185" />
+          
+          <div className="relative z-10 flex flex-col items-center justify-center space-y-3">
+            <CuteMascot
+              mood="thinking"
+              size="lg"
+              interactive={true}
+              speechBubble="Meja racik masih kosong nih! Ketik nama obat di atas yuk~ 🔍"
+            />
+
+            <div className="space-y-1 max-w-md mx-auto">
+              <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-outfit">
+                Pilih Minimal 2 Obat untuk Memulai Analisis Klinis
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                Gunakan kolom pencarian di atas, atau klik salah satu skenario uji cepat di atas untuk melihat penapisan interaksi, kontraindikasi penyakit, dan duplikasi terapi secara instan.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              <button
+                onClick={() => applyPreset(['Paracetamol', 'Cetirizine'])}
+                className="px-4 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900 text-emerald-800 dark:text-emerald-300 text-xs font-bold border border-emerald-300 dark:border-emerald-800 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95"
+              >
+                <span>🌟 Coba Resep Aman</span>
+              </button>
+              <button
+                onClick={() => applyPreset(['Paxlovid', 'Simvastatin'])}
+                className="px-4 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-100 dark:hover:bg-rose-900 text-rose-800 dark:text-rose-300 text-xs font-bold border border-rose-300 dark:border-rose-800 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95"
+              >
+                <span>⚠️ Coba Interaksi Mayor</span>
+              </button>
+              <button
+                onClick={() => {
+                  setShowPlaygroundModal(true);
+                  playCutePop();
+                }}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-400 hover:to-rose-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
+              >
+                <span>🧸 Buka Taman Visual Lucu</span>
+              </button>
+            </div>
+          </div>
         </div>
       )}
+
+      {/* Confetti Celebration on Safe Prescriptions */}
+      <CuteConfettiEffect
+        active={showConfetti}
+        onComplete={() => setShowConfetti(false)}
+      />
+
+      {/* Interactive Cute Visual Playground Modal */}
+      <CuteVisualPlaygroundModal
+        isOpen={showPlaygroundModal}
+        onClose={() => setShowPlaygroundModal(false)}
+      />
 
     </div>
   );
