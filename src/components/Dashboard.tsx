@@ -29,6 +29,7 @@ import {
   Leaf,
   Layers
 } from 'lucide-react';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 
 interface DashboardProps {
   currentUser: UserProfile | null;
@@ -87,6 +88,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
       
       {/* Welcome & User Status Banner - MIDNIGHT INDIGO & SAPPHIRE */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#050714] via-[#0d122e] to-[#141b45] p-6 sm:p-8 text-white shadow-2xl border border-indigo-500/25 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <FloatingPillsBackground density="low" accentColor="#818cf8" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-72 -bottom-10 opacity-10 pointer-events-none hidden lg:block">
           <Stethoscope className="w-56 h-56 text-indigo-300 -rotate-12" />

@@ -26,7 +26,6 @@ import {
   Layers,
   ShieldCheck
 } from 'lucide-react';
-import { CuteMascot } from './CuteMascot';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
 
 export interface CompoundingItem {
@@ -489,17 +488,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 relative z-10">
-              {/* Si Kapsul Baby Edition */}
-              <div className="hidden sm:block">
-                <CuteMascot
-                  mood="baby"
-                  size="sm"
-                  interactive={true}
-                  speechBubble="Hitung dosis si kecil dengan presisi ya 🍼✨"
-                />
-              </div>
-
+            <div className="flex items-center gap-3 shrink-0 relative z-10">
               <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-purple-950/60 text-right shadow-md">
                 <span className="text-[11px] text-slate-400 block font-medium">Total Obat Pediatrik:</span>
                 <span className="text-lg font-black text-purple-400">{PEDIATRIC_DRUGS_DATABASE.length} Formula Dosis Anak</span>

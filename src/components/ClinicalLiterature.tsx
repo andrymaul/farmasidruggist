@@ -25,6 +25,7 @@ import {
   FEATURE_EVIDENCE_MAPPING,
   LiteratureSource 
 } from '../data/clinicalLiteratureData';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 
 interface ClinicalLiteratureProps {
   onSelectTab?: (tabId: string) => void;
@@ -93,6 +94,7 @@ export const ClinicalLiterature: React.FC<ClinicalLiteratureProps> = ({ onSelect
     <div className="space-y-8 pb-16">
       {/* HERO SECTION - DEEP TEAL & MIDNIGHT SAPPHIRE */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030b0e] via-[#061922] to-[#092634] p-6 sm:p-8 text-white shadow-2xl border border-teal-500/25">
+        <FloatingPillsBackground density="low" accentColor="#2dd4bf" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
           <BookOpen className="w-48 h-48 text-teal-400" />

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { MEDICATION_GUIDES, deduplicateMedicationGuides } from '../data/medicationGuides';
 import { MedicationGuide } from '../types';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { 
   Eye, 
   Ear, 
@@ -196,6 +197,7 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
         
         {/* HERO BANNER - AQUA CYAN & DEEP NAVY */}
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030e12] via-[#072029] to-[#0c313d] p-6 sm:p-8 text-white shadow-2xl border border-cyan-500/25">
+          <FloatingPillsBackground density="low" accentColor="#22d3ee" />
           <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
             <BookOpen className="w-48 h-48 text-cyan-400" />

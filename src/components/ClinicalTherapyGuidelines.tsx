@@ -29,6 +29,7 @@ import {
   GitBranch,
   ShieldCheck
 } from 'lucide-react';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { 
   ClinicalGuideline, 
   GuidelineCategory, 
@@ -288,6 +289,7 @@ ${guideline.keyClinicalAlert || '-'}`;
       
       {/* HERO BANNER - DEEP MARINE & MIDNIGHT NAVY */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030914] via-[#08182f] to-[#0e274a] p-6 sm:p-8 text-white shadow-2xl border border-blue-500/25 space-y-5">
+        <FloatingPillsBackground density="low" accentColor="#60a5fa" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
           <BookOpen className="w-64 h-64 text-blue-400 -rotate-12" />

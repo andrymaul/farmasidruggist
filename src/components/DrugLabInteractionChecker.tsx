@@ -35,6 +35,7 @@ import {
   LabSeverity,
   LabInteractionEffectType
 } from '../data/drugLabInteractionsData';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 
 interface DrugLabInteractionCheckerProps {
   onSelectTab?: (tabId: string) => void;
@@ -163,6 +164,7 @@ export const DrugLabInteractionChecker: React.FC<DrugLabInteractionCheckerProps>
     <div className="space-y-6">
       {/* HERO BANNER - ELECTRIC CYAN & MIDNIGHT NAVY */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030914] via-[#07192b] to-[#0c273e] p-6 sm:p-8 text-white shadow-2xl border border-cyan-500/25">
+        <FloatingPillsBackground density="low" accentColor="#22d3ee" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
           <FlaskConical className="w-48 h-48 text-cyan-400" />

@@ -33,6 +33,7 @@ import {
   Layers,
   ShieldCheck
 } from 'lucide-react';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 
 export interface PatientMedicationEntry {
   id: string;
@@ -912,6 +913,7 @@ export const WhatsAppPatientCardManager: React.FC<WhatsAppPatientCardManagerProp
     <div className="space-y-6 pb-12">
       {/* HERO BANNER - WHATSAPP EMERALD & DEEP PINE */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030f0a] via-[#072418] to-[#0b3624] p-6 sm:p-8 text-white shadow-2xl border border-emerald-500/25">
+        <FloatingPillsBackground density="low" accentColor="#34d399" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
           <MessageSquare className="w-48 h-48 text-emerald-400" />

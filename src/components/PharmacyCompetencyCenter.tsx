@@ -35,6 +35,7 @@ import {
   Baby,
   ShieldCheck
 } from 'lucide-react';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 import {
   COMPETENCY_DOMAINS,
   HIGH_YIELD_TOPICS,
@@ -245,6 +246,7 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
     <div className="space-y-6 pb-16 animate-fade-in font-sans">
       {/* Hero Header Section - EMERALD GOLD & DEEP FOREST */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030e0a] via-[#082218] to-[#0d3626] p-6 sm:p-8 text-white border border-emerald-500/25 shadow-2xl">
+        <FloatingPillsBackground density="low" accentColor="#34d399" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
           <GraduationCap className="w-64 h-64 text-emerald-400 -rotate-12" />

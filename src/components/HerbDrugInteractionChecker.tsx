@@ -31,6 +31,7 @@ import {
   HerbInteractionSeverity,
   HerbInteractionType
 } from '../data/herbDrugInteractionsData';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 
 interface HerbDrugInteractionCheckerProps {
   onSelectTab?: (tabId: string) => void;
@@ -139,6 +140,7 @@ export const HerbDrugInteractionChecker: React.FC<HerbDrugInteractionCheckerProp
     <div className="space-y-6">
       {/* HERO BANNER - EMERALD JADE & DARK MOSS */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030e08] via-[#071f13] to-[#0c2e1c] p-6 sm:p-8 text-white shadow-2xl border border-emerald-500/25">
+        <FloatingPillsBackground density="low" accentColor="#34d399" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
           <Leaf className="w-48 h-48 text-emerald-400" />

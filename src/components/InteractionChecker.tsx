@@ -22,7 +22,8 @@ import {
   Stethoscope,
   Flame,
   UserCheck,
-  Layers
+  Layers,
+  Pill
 } from 'lucide-react';
 import { 
   resolveDrugFromDDInter, 
@@ -33,10 +34,7 @@ import {
 } from '../utils/ddinterEngine';
 import { SAMPLE_FOOD_INTERACTIONS, SAMPLE_THERAPEUTIC_DUPLICATIONS, DDINTER_DATASET_INFO } from '../data/ddinterData';
 import { DRUG_DISEASE_INTERACTIONS_DATABASE, COMMON_CLINICAL_DISEASES } from '../data/drugDiseaseInteractionsData';
-import { CuteMascot, MascotMood } from './CuteMascot';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
-import { CuteConfettiEffect } from './CuteConfettiEffect';
-import { playCutePop, playCuteChime, playCuteAlert } from '../utils/cuteSoundEffects';
 
 interface InteractionCheckerProps {
   drugs: Drug[];
@@ -69,7 +67,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   const [isSaved, setIsSaved] = useState(false);
   const [showDatasetDetails, setShowDatasetDetails] = useState(false);
   const [limitWarning, setLimitWarning] = useState<string | null>(null);
-  const [showConfetti, setShowConfetti] = useState(false);
 
   // Auto-select when navigating with preselected drug(s)
   useEffect(() => {
@@ -148,7 +145,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       setSelectedDrugs([...selectedDrugs, drugToAdd]);
       setIsSaved(false);
       setLimitWarning(null);
-      playCutePop();
     }
     setSearchInput('');
   };
@@ -168,7 +164,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
         setSelectedDrugs([...selectedDrugs, resolved]);
         setIsSaved(false);
         setLimitWarning(null);
-        playCutePop();
       }
     }
     setSearchInput('');
@@ -259,14 +254,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
     }
     onOpenReportModal(selectedDrugs, matchedInteractions);
   };
-
-  // Trigger celebratory confetti when a safe prescription is evaluated
-  useEffect(() => {
-    if (selectedDrugs.length >= 2 && highestSeverity === 'None') {
-      setShowConfetti(true);
-      playCuteChime();
-    }
-  }, [selectedDrugs.length, highestSeverity]);
 
   const presets = [
     {
@@ -373,7 +360,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
     }
     setSelectedDrugs(list);
     setIsSaved(false);
-    playCutePop();
   };
 
   const handleSaveCheck = () => {
@@ -435,42 +421,10 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 relative z-10">
-            {/* Live Reactive Cute Mascot */}
-            <div className="hidden lg:block">
-              <CuteMascot
-                mood={
-                  selectedDrugs.length === 0
-                    ? 'happy'
-                    : highestSeverity === 'Major'
-                    ? 'danger'
-                    : highestSeverity === 'Moderate'
-                    ? 'alert'
-                    : highestSeverity === 'Minor'
-                    ? 'thinking'
-                    : 'happy'
-                }
-                size="sm"
-                interactive={true}
-                speechBubble={
-                  selectedDrugs.length === 0
-                    ? 'Yuk racik resep! ✨'
-                    : highestSeverity === 'Major'
-                    ? 'Awas bahaya! ⚠️'
-                    : highestSeverity === 'Moderate'
-                    ? 'Cek jeda jam ya 🧐'
-                    : highestSeverity === 'Minor'
-                    ? 'Pantau ringan ya'
-                    : '100% Aman! 👍'
-                }
-              />
-            </div>
-
-            <div className="flex flex-col items-stretch sm:items-end gap-2.5">
-              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-rose-950/60 text-right shadow-md">
-                <span className="text-[11px] text-slate-400 block font-medium">Basis Data Terverifikasi:</span>
-                <span className="text-lg font-black text-rose-400">{drugs.length.toLocaleString('id-ID')} Obat &amp; {interactions.length.toLocaleString('id-ID')} Interaksi</span>
-              </div>
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-rose-950/60 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Basis Data Terverifikasi:</span>
+              <span className="text-lg font-black text-rose-400">{drugs.length.toLocaleString('id-ID')} Obat &amp; {interactions.length.toLocaleString('id-ID')} Interaksi</span>
             </div>
           </div>
         </div>
@@ -747,12 +701,14 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             </div>
           </div>
 
-          {/* Safe Prescription Celebration Card */}
+          {/* Safe Prescription Card */}
           {highestSeverity === 'None' && selectedDrugs.length >= 2 && (
-            <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-emerald-500/15 border-2 border-emerald-500/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm animate-fade-in">
+            <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-emerald-500/15 border-2 border-emerald-500/40 rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 shadow-sm animate-fade-in">
               <FloatingPillsBackground density="low" accentColor="#10b981" />
-              <div className="relative z-10 flex items-center gap-4">
-                <CuteMascot mood="happy" size="sm" speechBubble="Aman 100%! 🌟" interactive={true} />
+              <div className="relative z-10 flex items-center gap-3.5">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center shrink-0 border border-emerald-500/30">
+                  <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                </div>
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-bold text-[10px] mb-1 font-outfit uppercase">
                     <span>Terverifikasi Bebas Interaksi</span>
@@ -765,16 +721,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                   </p>
                 </div>
               </div>
-
-              <button
-                onClick={() => {
-                  setShowConfetti(true);
-                  playCuteChime();
-                }}
-                className="relative z-10 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black shadow-md flex items-center gap-1.5 cursor-pointer active:scale-95 hover:scale-105 transition-all shrink-0"
-              >
-                <span>🎉 Ulangi Selebrasi</span>
-              </button>
             </div>
           )}
 
@@ -1068,19 +1014,16 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
           <FloatingPillsBackground density="low" accentColor="#fb7185" />
           
           <div className="relative z-10 flex flex-col items-center justify-center space-y-3">
-            <CuteMascot
-              mood="thinking"
-              size="lg"
-              interactive={true}
-              speechBubble="Meja racik masih kosong nih! Ketik nama obat di atas yuk~ 🔍"
-            />
+            <div className="w-16 h-16 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900/60 flex items-center justify-center text-rose-500 dark:text-rose-400 shadow-sm">
+              <Pill className="w-8 h-8" />
+            </div>
 
             <div className="space-y-1 max-w-md mx-auto">
               <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-outfit">
                 Pilih Minimal 2 Obat untuk Memulai Analisis Klinis
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                Gunakan kolom pencarian di atas, atau klik salah satu skenario uji cepat di atas untuk melihat penapisan interaksi, kontraindikasi penyakit, dan duplikasi terapi secara instan.
+                Gunakan kolom pencarian di atas, atau klik salah satu skenario uji cepat di bawah untuk melihat penapisan interaksi, kontraindikasi penyakit, dan duplikasi terapi secara instan.
               </p>
             </div>
 
@@ -1089,7 +1032,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                 onClick={() => applyPreset(['Paracetamol', 'Cetirizine'])}
                 className="px-4 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900 text-emerald-800 dark:text-emerald-300 text-xs font-bold border border-emerald-300 dark:border-emerald-800 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-2xs"
               >
-                <span>🌟 Coba Resep Aman</span>
+                <span>🌟 Coba Resep Bebas Interaksi</span>
               </button>
               <button
                 onClick={() => applyPreset(['Paxlovid', 'Simvastatin'])}
@@ -1101,12 +1044,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
           </div>
         </div>
       )}
-
-      {/* Confetti Celebration on Safe Prescriptions */}
-      <CuteConfettiEffect
-        active={showConfetti}
-        onComplete={() => setShowConfetti(false)}
-      />
 
     </div>
   );

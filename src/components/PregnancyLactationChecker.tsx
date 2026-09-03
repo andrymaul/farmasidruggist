@@ -32,7 +32,6 @@ import {
   FdaPregnancyCategory,
   HalesLactationRating
 } from '../data/pregnancyLactationData';
-import { CuteMascot } from './CuteMascot';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
 
 interface PregnancyLactationCheckerProps {
@@ -247,17 +246,7 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 relative z-10">
-            {/* Si Kapsul Bumil & Busui */}
-            <div className="hidden sm:block">
-              <CuteMascot
-                mood="pregnant"
-                size="sm"
-                interactive={true}
-                speechBubble="Aman untuk janin & ASI ya Bunda 💕"
-              />
-            </div>
-
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
             <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-pink-950/60 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Total Obat Terverifikasi:</span>
               <span className="text-lg font-black text-pink-400">{PREGNANCY_LACTATION_DATABASE.length} Obat Bumil &amp; Busui</span>

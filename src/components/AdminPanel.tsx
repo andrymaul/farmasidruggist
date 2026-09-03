@@ -26,6 +26,7 @@ import {
   ShieldCheck,
   Layers
 } from 'lucide-react';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { resolveDrugFromDDInter } from '../utils/ddinterEngine';
 import { CustomerSubscriptionManager } from './CustomerSubscriptionManager';
 import { PricingManager } from './PricingManager';
@@ -448,6 +449,7 @@ DDInter-PAIR-00105,"Tacrolimus","Fluconazole","Major","Fluconazole menghambat CY
 
       {/* HERO BANNER - DEEP ONYX & AMBER TITANIUM */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0e0905] via-[#1f140a] to-[#2e1d0f] p-6 sm:p-8 text-white shadow-2xl border border-amber-500/25">
+        <FloatingPillsBackground density="low" accentColor="#fbbf24" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
           <Settings className="w-48 h-48 text-amber-400" />

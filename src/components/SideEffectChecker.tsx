@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Drug, ClinicBrandingSettings } from '../types';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { 
   ORGAN_TOXICITY_CATEGORIES, 
   DRUG_TOXICITY_PROFILES, 
@@ -417,6 +418,7 @@ export const SideEffectChecker: React.FC<SideEffectCheckerProps> = ({
       
       {/* HERO BANNER - AMBER GOLD & DEEP BRONZE */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0f0802] via-[#241405] to-[#382008] p-6 sm:p-8 text-white shadow-2xl border border-amber-500/25 print:hidden">
+        <FloatingPillsBackground density="low" accentColor="#fbbf24" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
           <HeartPulse className="w-48 h-48 text-amber-400" />
