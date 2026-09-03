@@ -927,6 +927,8 @@ export default function App() {
           onOpenPricingModal={() => setShowPricingModal(true)}
           mobileOpen={mobileSidebarOpen}
           setMobileOpen={setMobileSidebarOpen}
+          theme={theme}
+          onToggleTheme={handleToggleTheme}
         />
       )}
 

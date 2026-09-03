@@ -31,7 +31,9 @@ import {
   CalendarClock,
   Leaf,
   Send,
-  ArrowUpRight
+  ArrowUpRight,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -163,6 +165,22 @@ export const Header: React.FC<HeaderProps> = ({
                 <Send className="w-3 h-3 text-[#229ED9] fill-[#229ED9] shrink-0" />
                 <span>Komunitas (7.000+)</span>
               </a>
+
+              {/* Dark / Light Mode Toggle */}
+              {onToggleTheme && (
+                <button
+                  onClick={onToggleTheme}
+                  title={theme === 'dark' ? 'Beralih ke Mode Terang' : 'Beralih ke Mode Gelap'}
+                  className="w-8 h-8 rounded-full text-slate-300 hover:text-amber-300 bg-[#062026] hover:bg-[#09303a] border border-teal-500/30 transition-all flex items-center justify-center cursor-pointer shadow-2xs hover:scale-105"
+                  aria-label="Toggle Dark/Light Mode"
+                >
+                  {theme === 'dark' ? (
+                    <Sun className="w-3.5 h-3.5 text-amber-400 fill-amber-400/20" />
+                  ) : (
+                    <Moon className="w-3.5 h-3.5 text-sky-300 fill-sky-300/20" />
+                  )}
+                </button>
+              )}
 
               {!currentUser ? (
                 <button
@@ -569,6 +587,28 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="hidden sm:inline">Komunitas Telegram</span>
             <span className="sm:hidden">Telegram</span>
           </a>
+
+          {/* Dark / Light Mode Toggle Button */}
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              title={theme === 'dark' ? 'Beralih ke Mode Terang (Light Mode)' : 'Beralih ke Mode Gelap (Dark Mode)'}
+              className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-full sm:rounded-xl text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 bg-slate-100/90 dark:bg-slate-800/80 hover:bg-slate-200/90 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs hover:scale-105 font-outfit"
+              aria-label="Toggle Dark / Light Mode"
+            >
+              {theme === 'dark' ? (
+                <>
+                  <Sun className="w-3.5 h-3.5 text-amber-400 fill-amber-400/20 shrink-0" />
+                  <span className="hidden md:inline text-xs font-bold text-slate-200">Terang</span>
+                </>
+              ) : (
+                <>
+                  <Moon className="w-3.5 h-3.5 text-slate-700 fill-slate-700/20 shrink-0" />
+                  <span className="hidden md:inline text-xs font-bold text-slate-700">Gelap</span>
+                </>
+              )}
+            </button>
+          )}
 
           {/* Quick Pricing Badge */}
           {currentUser && (currentUser.subscriptionPlan === 'Gratis' || currentUser.subscriptionPlan === 'Pemula') && (

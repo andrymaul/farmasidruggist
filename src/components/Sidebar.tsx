@@ -39,7 +39,9 @@ import {
   CalendarClock,
   Leaf,
   Search,
-  Send
+  Send,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -51,6 +53,8 @@ interface SidebarProps {
   onOpenPricingModal: () => void;
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
+  theme?: 'light' | 'dark';
+  onToggleTheme?: () => void;
 }
 
 interface NavItem {
@@ -80,7 +84,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onLogout,
   onOpenPricingModal,
   mobileOpen,
-  setMobileOpen
+  setMobileOpen,
+  theme = 'dark',
+  onToggleTheme
 }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [menuSearchQuery, setMenuSearchQuery] = useState('');
@@ -461,6 +467,33 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {!collapsed && <span className="truncate">Komunitas Telegram</span>}
         </a>
       </div>
+
+      {/* Dark / Light Mode Toggle in Sidebar */}
+      {onToggleTheme && (
+        <div className="px-3 pt-1 pb-2">
+          <button
+            onClick={onToggleTheme}
+            className={`w-full flex items-center justify-between gap-2 p-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer font-outfit border border-slate-200/80 dark:border-slate-800/80 ${collapsed ? 'justify-center p-2' : ''}`}
+            title={theme === 'dark' ? 'Beralih ke Mode Terang (Light Mode)' : 'Beralih ke Mode Gelap (Dark Mode)'}
+          >
+            <div className="flex items-center gap-2">
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 text-amber-400 fill-amber-400/20 shrink-0" />
+              ) : (
+                <Moon className="w-4 h-4 text-slate-700 fill-slate-700/20 shrink-0" />
+              )}
+              {!collapsed && (
+                <span>{theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}</span>
+              )}
+            </div>
+            {!collapsed && (
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-slate-200/70 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                {theme === 'dark' ? 'Dark' : 'Light'}
+              </span>
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Footer / User Profile Section */}
       <div className="p-3 border-t border-slate-100 dark:border-slate-800/80 bg-slate-50/70 dark:bg-[#0e1320]/70">
