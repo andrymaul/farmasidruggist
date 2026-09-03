@@ -626,3 +626,5 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
   );
 };
 
+export default PricingManager;
+

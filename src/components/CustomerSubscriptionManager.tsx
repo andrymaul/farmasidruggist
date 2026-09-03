@@ -1532,3 +1532,5 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
     </div>
   );
 };
+
+export default CustomerSubscriptionManager;

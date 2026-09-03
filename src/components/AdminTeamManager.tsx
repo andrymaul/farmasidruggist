@@ -768,3 +768,5 @@ export const AdminTeamManager: React.FC<AdminTeamManagerProps> = ({
     </div>
   );
 };
+
+export default AdminTeamManager;

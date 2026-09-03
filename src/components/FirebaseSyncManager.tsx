@@ -590,3 +590,5 @@ export const FirebaseSyncManager: React.FC<FirebaseSyncManagerProps> = ({
     </div>
   );
 };
+
+export default FirebaseSyncManager;
