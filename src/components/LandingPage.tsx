@@ -1954,123 +1954,118 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       </section>
 
       {/* =========================================================================
-          TELEGRAM COMMUNITY SECTION: Ruang Diskusi Apoteker & Dokter Indonesia
+          STAGE 6: 2-COLUMN SIDE-BY-SIDE: TELEGRAM COMMUNITY & CONVERTING CTA
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#062028] via-[#09323d] to-[#0d4554] p-8 sm:p-12 text-white border-2 border-sky-400/40 shadow-2xl">
-          {/* Ambient Glows */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#229ED9]/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+          
+          {/* Left Card: Telegram Community */}
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#062028] via-[#09323d] to-[#0d4554] p-6 sm:p-8 text-white border-2 border-sky-400/40 shadow-2xl flex flex-col justify-between space-y-6">
+            {/* Ambient Glow */}
+            <div className="absolute -top-20 -right-20 w-72 h-72 bg-[#229ED9]/20 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 space-y-4 text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#229ED9]/20 border border-[#229ED9]/50 text-sky-200 text-xs font-black shadow-inner">
+            <div className="space-y-4 text-left relative z-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#229ED9]/20 border border-[#229ED9]/50 text-sky-200 text-xs font-black shadow-inner">
                 <Send className="w-3.5 h-3.5 text-sky-300 fill-sky-300" />
-                <span>Komunitas Telegram Resmi FarmasiDruggist • Akses Diskusi Bebas Biaya</span>
+                <span>Komunitas Telegram Resmi • Bebas Biaya</span>
               </div>
 
-              <h2 className="text-2xl sm:text-4xl font-black font-outfit text-white tracking-tight leading-snug">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-black font-outfit text-white tracking-tight leading-snug">
                 Gabung Forum Diskusi Kasus Klinis &amp; Farmasi Indonesia
               </h2>
 
-              <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed max-w-2xl font-medium">
-                Wadah kolaborasi ribuan Apoteker, Dokter Spesialis/Umum, Tenaga Vokasi Farmasi, dan Mahasiswa Farmasi seluruh Indonesia. Diskusikan kasus interaksi obat polifarmasi kompleks, telaah resep dokter, update PNPK Kemenkes, kupas tuntas soal UKMPPAI, hingga tips manajerial apotek modern.
+              <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed font-medium">
+                Wadah kolaborasi ribuan Apoteker, Dokter Spesialis/Umum, dan Mahasiswa Farmasi seluruh Indonesia. Bedah kasus polifarmasi kompleks, telaah resep dokter, hingga kupas tuntas soal UKMPPAI.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs text-sky-100">
-                <div className="flex items-center gap-2 bg-[#051c24]/80 p-3 rounded-xl border border-sky-400/30">
+              <div className="space-y-2 pt-2 text-xs text-sky-100">
+                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-sky-400/30">
                   <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0" />
-                  <span className="font-semibold">Diskusi Kasus Interaksi Obat</span>
+                  <span className="font-semibold">Diskusi Kasus Interaksi Obat &amp; Polifarmasi</span>
                 </div>
-                <div className="flex items-center gap-2 bg-[#051c24]/80 p-3 rounded-xl border border-sky-400/30">
+                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-sky-400/30">
                   <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
-                  <span className="font-semibold">Bedah Soal UKMPPAI &amp; UKTTK</span>
+                  <span className="font-semibold">Bedah Blueprint Soal UKMPPAI &amp; UKTTK</span>
                 </div>
-                <div className="flex items-center gap-2 bg-[#051c24]/80 p-3 rounded-xl border border-sky-400/30">
+                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-sky-400/30">
                   <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span className="font-semibold">Jejaring Karir &amp; SOP Apotek</span>
+                  <span className="font-semibold">Jejaring Karir &amp; Manajemen SOP Apotek</span>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-4 flex flex-col items-center lg:items-end justify-center">
-              <div className="bg-[#04161c]/95 p-6 rounded-3xl border-2 border-sky-400/40 text-center w-full max-w-sm space-y-4 shadow-2xl backdrop-blur-md">
-                <div className="w-16 h-16 rounded-2xl bg-[#229ED9] text-white flex items-center justify-center mx-auto shadow-lg shadow-[#229ED9]/40 transition-transform hover:scale-110">
-                  <Send className="w-8 h-8 fill-white ml-0.5" />
+            <div className="space-y-2 pt-4 border-t border-sky-400/20 relative z-10">
+              <a
+                href="https://t.me/+lHiIMC_TdoM2NTk1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3.5 px-5 bg-[#229ED9] hover:bg-[#1b8bc2] text-white font-black text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] border border-sky-200/40 font-outfit"
+              >
+                <Send className="w-4 h-4 fill-white" />
+                <span>Join Grup Telegram (3.800+ Sejawat) →</span>
+              </a>
+              <p className="text-[10px] text-center text-teal-200/70">
+                🔒 Diskusi ilmiah, teratur, dan bebas spam iklan komersial.
+              </p>
+            </div>
+          </div>
+
+          {/* Right Card: Converting Platform CTA */}
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#031519] via-[#062932] to-[#093c4a] p-6 sm:p-8 text-white border-2 border-teal-500/40 shadow-2xl flex flex-col justify-between space-y-6">
+            {/* Ambient Glow */}
+            <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-teal-500/20 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="space-y-4 text-left relative z-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-400/40 text-teal-300 text-xs font-black">
+                <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+                <span>Mulai Transformasi Pelayanan Klinis Anda</span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-black font-outfit tracking-tight leading-snug">
+                Tingkatkan Keselamatan Pasien &amp; Ketepatan Terapi Hari Ini
+              </h2>
+
+              <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed font-medium">
+                Dapatkan akses instan ke 21 modul klinis terpadu, monografi resmi BPOM, skrining interaksi multi-konsensus global, dan kalkulator resep presisi tanpa instalasi rumit.
+              </p>
+
+              <div className="space-y-2 pt-2 text-xs text-teal-100">
+                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-teal-500/30">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span className="font-semibold">100% Bebas Iklan Komersial &amp; Transparan</span>
                 </div>
-                <div>
-                  <h3 className="text-base font-bold text-white font-outfit">Forum Komunitas Tenaga Kesehatan</h3>
-                  <p className="text-[11px] text-teal-200/80 mt-1 font-medium">3.800+ Rekan Sejawat • Diskusi Ilmiah &amp; Bebas Spam</p>
+                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-teal-500/30">
+                  <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+                  <span className="font-semibold">Sesuai Standar Pedoman PNPK Kemenkes RI</span>
                 </div>
-                <a
-                  href="https://t.me/+lHiIMC_TdoM2NTk1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3.5 px-4 bg-[#229ED9] hover:bg-[#1b8bc2] text-white font-black text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.03] border border-sky-200/40"
-                >
-                  <Send className="w-4 h-4 fill-white" />
-                  <span>Join Grup Telegram Resmi →</span>
-                </a>
+                <div className="flex items-center gap-2 bg-[#051c24]/80 p-2.5 rounded-xl border border-teal-500/30">
+                  <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+                  <span className="font-semibold">Data &amp; Algoritma Selalu Diperbarui Berkala</span>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* =========================================================================
-          BOTTOM HIGH-CONVERTING CTA BANNER
-          ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#031519] via-[#062932] to-[#093c4a] p-8 sm:p-14 text-white text-center space-y-7 shadow-2xl border-2 border-teal-500/40">
-          
-          <div className="max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 border border-teal-400/40 text-teal-300 text-xs font-black">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
-              <span>Mulai Transformasi Digital Pelayanan Farmasi Klinis Anda</span>
+            <div className="space-y-2.5 pt-4 border-t border-teal-500/20 relative z-10">
+              <button
+                onClick={() => {
+                  const el = document.getElementById('interactive-playground');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="w-full py-3.5 px-5 bg-gradient-to-r from-teal-400 to-emerald-400 hover:from-teal-300 hover:to-emerald-300 text-slate-950 font-black rounded-xl shadow-lg shadow-teal-950/40 transition-all text-xs sm:text-sm cursor-pointer hover:scale-[1.02] active:scale-98 font-outfit flex items-center justify-center gap-2"
+              >
+                <Zap className="w-4 h-4 fill-slate-950" />
+                <span>Coba Simulasi Klinis Gratis</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                onClick={onOpenPricingModal}
+                className="w-full py-3 px-5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-xl shadow-md transition-all text-xs cursor-pointer hover:scale-[1.01] active:scale-98 font-outfit flex items-center justify-center gap-2"
+              >
+                <Sparkles className="w-3.5 h-3.5 fill-slate-950" />
+                <span>Ambil Promo Paket Pro (Rp 199rb/Tahun)</span>
+              </button>
             </div>
-
-            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black font-outfit tracking-tight">
-              Tingkatkan Keselamatan Pasien &amp; Ketepatan Terapi Hari Ini
-            </h2>
-
-            <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed max-w-2xl mx-auto font-medium">
-              Bergabunglah dengan ribuan Apoteker, Dokter, dan Calon Apoteker di seluruh Indonesia dalam mewujudkan telaah resep cepat, terstandar, dan berlandaskan bukti ilmiah resmi.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <button
-              onClick={() => {
-                const el = document.getElementById('interactive-playground');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-8 py-4 bg-gradient-to-r from-teal-400 to-emerald-400 hover:from-teal-300 hover:to-emerald-300 text-slate-950 font-black rounded-2xl shadow-xl shadow-teal-950/50 transition-all text-xs sm:text-sm cursor-pointer hover:scale-105 active:scale-95 font-outfit flex items-center gap-2"
-            >
-              <Zap className="w-4 h-4 fill-slate-950" />
-              <span>Coba Simulasi Klinis Gratis</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-
-            <button
-              onClick={onOpenPricingModal}
-              className="px-8 py-4 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-2xl shadow-xl shadow-amber-950/40 transition-all text-xs sm:text-sm cursor-pointer hover:scale-105 active:scale-95 font-outfit flex items-center gap-2"
-            >
-              <Sparkles className="w-4 h-4 fill-slate-950" />
-              <span>Ambil Promo Paket Pro (Rp 199rb/Tahun)</span>
-            </button>
-          </div>
-
-          {/* Guarantee Badges */}
-          <div className="pt-4 border-t border-teal-500/20 flex flex-wrap items-center justify-center gap-6 text-[11px] text-teal-200/80 font-bold">
-            <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" /> 100% Bebas Iklan Komersial
-            </span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-teal-400" /> Sesuai Standar PNPK Kemenkes RI
-            </span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-teal-400" /> Data Selalu Diperbarui Berkala
-            </span>
           </div>
 
         </div>
