@@ -31,21 +31,14 @@ export const Logo: React.FC<LogoProps> = ({
     xl: { title: 'text-2xl font-black', sub: 'text-xs tracking-[0.22em]' }
   };
 
-  // Official Logo Emblem Image (Crisp Vector SVG)
+  // Official Logo Emblem Image (Crisp Vector SVG: Shield Monogram FD & Clinical Capsule)
   const LogoEmblem = (
-    <div className={`relative flex items-center justify-center shrink-0 ${iconSizes[size]}`}>
+    <div className={`relative flex items-center justify-center shrink-0 ${iconSizes[size]} transition-transform duration-200 group-hover:scale-105`}>
       <img 
         src={LOGO_IMAGE_URL} 
         alt="Logo Farmasi Druggist" 
-        className="w-full h-full object-contain drop-shadow-sm select-none"
+        className="w-full h-full object-contain drop-shadow-[0_2px_10px_rgba(45,212,191,0.35)] select-none"
         loading="eager"
-        onError={(e) => {
-          // Fallback if local svg isn't served
-          const target = e.currentTarget;
-          if (target.src !== 'https://i.ibb.co/0pgKRTsz/Logo-FD.png') {
-            target.src = 'https://i.ibb.co/0pgKRTsz/Logo-FD.png';
-          }
-        }}
       />
     </div>
   );
