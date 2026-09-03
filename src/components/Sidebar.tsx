@@ -113,12 +113,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
         colorClass: 'text-rose-600 dark:text-rose-400',
         headerBg: 'bg-rose-500/10 border-rose-500/20 text-rose-800 dark:text-rose-300',
         items: [
-          { id: 'interactions', label: 'Cek Interaksi Obat (DDInter)', icon: ShieldAlert, badge: 'DDI', badgeColor: 'bg-rose-600 text-white' },
-          { id: 'pregnancy', label: 'Keamanan Bumil & Busui', icon: HeartHandshake, badge: 'Bumil', badgeColor: 'bg-pink-600 text-white' },
-          { id: 'drug-lab', label: 'Interaksi Obat & Uji Lab', icon: FlaskConical, badge: 'Lab', badgeColor: 'bg-cyan-700 text-white' },
-          { id: 'herb-drug', label: 'Interaksi Herbal & Obat', icon: Leaf, badge: 'Jamu', badgeColor: 'bg-emerald-800 text-white' },
-          { id: 'side-effects', label: 'Cek Efek Samping & Naranjo', icon: Activity, badge: 'ADR', badgeColor: 'bg-amber-500 text-slate-950 font-bold' },
-          { id: 'iv-compatibility', label: 'Kompatibilitas Injeksi IV', icon: Syringe, badge: 'IV/ICU', badgeColor: 'bg-cyan-600 text-white' }
+          { id: 'interactions', label: 'Cek Interaksi Obat (DDInter)', icon: ShieldAlert, badge: 'DDI', badgeColor: 'text-rose-500 dark:text-rose-400' },
+          { id: 'pregnancy', label: 'Keamanan Bumil & Busui', icon: HeartHandshake, badge: 'Bumil', badgeColor: 'text-pink-500 dark:text-pink-400' },
+          { id: 'drug-lab', label: 'Interaksi Obat & Uji Lab', icon: FlaskConical, badge: 'Lab', badgeColor: 'text-cyan-500 dark:text-cyan-400' },
+          { id: 'herb-drug', label: 'Interaksi Herbal & Obat', icon: Leaf, badge: 'Jamu', badgeColor: 'text-emerald-500 dark:text-emerald-400' },
+          { id: 'side-effects', label: 'Cek Efek Samping & Naranjo', icon: Activity, badge: 'ADR', badgeColor: 'text-amber-500 dark:text-amber-400' },
+          { id: 'iv-compatibility', label: 'Kompatibilitas Injeksi IV', icon: Syringe, badge: 'IV/ICU', badgeColor: 'text-sky-500 dark:text-sky-400' }
         ]
       },
       {
@@ -129,9 +129,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         colorClass: 'text-emerald-600 dark:text-emerald-400',
         headerBg: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-800 dark:text-emerald-300',
         items: [
-          { id: 'bud', label: 'Stabilitas & BUD Racikan', icon: CalendarClock, badge: 'USP', badgeColor: 'bg-emerald-700 text-white' },
-          { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer', badgeColor: 'bg-rose-500 text-white' },
-          { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap', badgeColor: 'bg-violet-600 text-white' }
+          { id: 'bud', label: 'Stabilitas & BUD Racikan', icon: CalendarClock, badge: 'USP', badgeColor: 'text-teal-500 dark:text-teal-400' },
+          { id: 'pediatric', label: 'Dosis Pediatrik & Puyer', icon: Baby, badge: 'Puyer', badgeColor: 'text-rose-400 dark:text-rose-300' },
+          { id: 'renal-adjuster', label: 'Kalkulator Medis & Dosis', icon: Calculator, badge: 'Lengkap', badgeColor: 'text-violet-500 dark:text-violet-400' }
         ]
       },
       {
@@ -142,9 +142,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         colorClass: 'text-indigo-600 dark:text-indigo-400',
         headerBg: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-800 dark:text-indigo-300',
         items: [
-          { id: 'polypharmacy', label: 'Evaluasi Polifarmasi Beers', icon: Stethoscope, badge: 'Beers', badgeColor: 'bg-indigo-600 text-white' },
-          { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp Pasien', icon: MessageSquare, badge: 'Pasien', badgeColor: 'bg-teal-600 text-white' },
-          { id: 'guidelines', label: 'Panduan Terapi (PNPK)', icon: HeartPulse, badge: 'PNPK', badgeColor: 'bg-blue-600 text-white' }
+          { id: 'polypharmacy', label: 'Evaluasi Polifarmasi Beers', icon: Stethoscope, badge: 'Beers', badgeColor: 'text-indigo-500 dark:text-indigo-400' },
+          { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp Pasien', icon: MessageSquare, badge: 'Pasien', badgeColor: 'text-teal-500 dark:text-teal-400' },
+          { id: 'guidelines', label: 'Panduan Terapi (PNPK)', icon: HeartPulse, badge: 'PNPK', badgeColor: 'text-blue-500 dark:text-blue-400' }
         ]
       },
       {
@@ -155,10 +155,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         colorClass: 'text-teal-700 dark:text-cyan-400',
         headerBg: 'bg-teal-500/10 border-teal-500/20 text-teal-800 dark:text-teal-300',
         items: [
-          { id: 'competency', label: 'Pusat Belajar Farmasi', icon: GraduationCap, badge: 'CBT/OSCE', badgeColor: 'bg-emerald-600 text-white' },
-          { id: 'sop', label: 'SOP Pelayanan Farmasi', icon: ClipboardList, badge: 'Resmi', badgeColor: 'bg-slate-700 dark:bg-slate-600 text-white' },
-          { id: 'regulations', label: 'Regulasi & UU Kesehatan', icon: Scale, badge: 'Hukum', badgeColor: 'bg-amber-600 text-white' },
-          { id: 'literature', label: 'Literatur Ilmiah (EBM)', icon: BookMarked, badge: 'EBM', badgeColor: 'bg-teal-600 text-white' },
+          { id: 'competency', label: 'Pusat Belajar Farmasi', icon: GraduationCap, badge: 'CBT/OSCE', badgeColor: 'text-emerald-500 dark:text-emerald-400' },
+          { id: 'sop', label: 'SOP Pelayanan Farmasi', icon: ClipboardList, badge: 'Resmi', badgeColor: 'text-slate-500 dark:text-slate-400' },
+          { id: 'regulations', label: 'Regulasi & UU Kesehatan', icon: Scale, badge: 'Hukum', badgeColor: 'text-amber-600 dark:text-amber-400' },
+          { id: 'literature', label: 'Literatur Ilmiah (EBM)', icon: BookMarked, badge: 'EBM', badgeColor: 'text-teal-500 dark:text-teal-400' },
           { id: 'pricing', label: 'Harga Layanan & Lisensi', icon: CreditCard }
         ]
       }
@@ -416,7 +416,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                           )}
 
                           {!collapsed && item.badge && (
-                            <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded shadow-2xs ${item.badgeColor || 'bg-teal-500 text-white'}`}>
+                            <span
+                              className={`text-[10px] font-black tracking-wider uppercase font-outfit shrink-0 transition-colors duration-150 ${
+                                isActive
+                                  ? 'text-white/95 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]'
+                                  : (item.badgeColor || 'text-teal-600 dark:text-teal-400')
+                              }`}
+                            >
                               {item.badge}
                             </span>
                           )}
