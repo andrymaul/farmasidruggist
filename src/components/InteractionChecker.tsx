@@ -826,8 +826,25 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                       </p>
                     </div>
 
-                    <div className="text-[10px] text-slate-400 font-semibold text-right">
-                      Kode Pasangan DDInter: {item.ddinterPairId}
+                    {/* EBM Scientific Verification Strip */}
+                    <div className="pt-2 border-t border-black/5 dark:border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="inline-flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300">
+                          <ShieldCheck className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                          <span>Level Bukti Ilmiah: <strong>Tingkat {item.evidenceLevel}</strong></span>
+                        </span>
+                        <span className="text-slate-300 dark:text-slate-700">•</span>
+                        <span className="text-slate-600 dark:text-slate-400">
+                          Rujukan: <strong>DDInter Nature Protocol &amp; Panduan Terapi</strong>
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 font-mono text-[10px] text-slate-400 dark:text-slate-500">
+                        <span>ID Verifikasi:</span>
+                        <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shadow-2xs">
+                          {item.ddinterPairId}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 );
@@ -881,6 +898,56 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               </div>
             </div>
           )}
+
+          {/* EBM Scientific Framework & Institutional Standards Footer */}
+          <div className="bg-slate-50 dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 dark:border-slate-800 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="p-1.5 rounded-lg bg-teal-100 dark:bg-teal-950 text-teal-700 dark:text-teal-300">
+                  <ShieldCheck className="w-4 h-4" />
+                </span>
+                <div>
+                  <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">
+                    Basis Ilmiah &amp; Standar Regulasi Terverifikasi (EBM Standards)
+                  </h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                    Algoritma penapisan interaksi FarmasiDruggist dibangun di atas konsensus farmakologi global dan nasional.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 font-mono text-[10px] text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Audit Mutu Data: September 2026</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 pt-1">
+              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200/70 dark:border-slate-800/80 space-y-1">
+                <span className="text-xs font-black text-slate-900 dark:text-white block">🔬 DDInter Nature Protocol</span>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug">Kurasi mekanisme kinetik &amp; dinamik multi-agen dengan ID relasi unik.</p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200/70 dark:border-slate-800/80 space-y-1">
+                <span className="text-xs font-black text-slate-900 dark:text-white block">📖 Farmakope Indonesia VI</span>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug">Monografi resmi zat aktif, kelarutan, pH stabilitas, dan pedoman BPOM RI.</p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200/70 dark:border-slate-800/80 space-y-1">
+                <span className="text-xs font-black text-slate-900 dark:text-white block">🏥 Permenkes RI No. 73/2016</span>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug">Standar baku Pelayanan Kefarmasian &amp; pengkajian resep di apotek.</p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200/70 dark:border-slate-800/80 space-y-1">
+                <span className="text-xs font-black text-slate-900 dark:text-white block">👴 Beers Criteria &amp; STOPP</span>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug">Evaluasi peresepan berpotensi tidak tepat (PIMs) pada populasi geriatri.</p>
+              </div>
+            </div>
+
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 italic pt-1 text-center sm:text-left">
+              *Catatan Medis: Sistem ini berfungsi sebagai instrumen pendukung keputusan klinis (Clinical Decision Support System / CDSS). Keputusan intervensi resep sepenuhnya berada pada wewenang profesional apoteker dan dokter penanggung jawab.
+            </p>
+          </div>
 
         </div>
       ) : (

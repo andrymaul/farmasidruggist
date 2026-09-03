@@ -450,8 +450,9 @@ ${notes || 'Diminum secara teratur sesuai aturan dosis dokter. Segera hubungi ap
         {/* Blok Tanda Tangan Resmi Apoteker & Stempel Digital */}
         <div className="pt-1 border-t border-slate-300 flex items-end justify-between text-[8px] text-slate-600 leading-tight">
           <div>
-            <p className="font-bold text-slate-800">FARMASIDRUGGIST CDSS</p>
-            <p className="text-[7px] text-slate-500">Dokumen PIO Resmi Terverifikasi Sistem</p>
+            <p className="font-bold text-slate-800">FARMASIDRUGGIST CDSS • Standar EBM Terverifikasi</p>
+            <p className="text-[6.5px] text-slate-500">Rujukan: DDInter Nature Protocols • Farmakope Indonesia VI • Kemenkes RI No. 73/2016</p>
+            <p className="text-[6px] text-slate-400 italic">Instrumen pendukung keputusan klinis farmasi resmi.</p>
           </div>
 
           <div className="text-center w-36 shrink-0 space-y-0.5 relative">

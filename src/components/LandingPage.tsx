@@ -600,6 +600,29 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
               )}
             </div>
 
+            {/* EBM Trust Badges & Clinical Scientific Sources Strip */}
+            <div className="p-3.5 rounded-xl bg-slate-50/90 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-[11px]">
+              <div className="flex items-center gap-2 flex-wrap text-slate-600 dark:text-slate-400">
+                <span className="font-extrabold text-slate-800 dark:text-slate-200 flex items-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                  <span>Rujukan EBM Terverifikasi:</span>
+                </span>
+                <span className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300">
+                  🔬 DDInter Nature Protocols 2022
+                </span>
+                <span className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300">
+                  📖 Farmakope Indonesia VI
+                </span>
+                <span className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300">
+                  🏥 Kemenkes RI No. 73/2016
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0 font-mono text-[10px] text-slate-500 dark:text-slate-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Database Terkini: September 2026</span>
+              </div>
+            </div>
+
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => onSelectTab('interactions')}
