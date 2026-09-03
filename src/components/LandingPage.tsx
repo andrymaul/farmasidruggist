@@ -1612,7 +1612,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
         </div>
 
         {/* 2-Column Split: Value Proposition on Left, Interactive Questionnaire Form on Right */}
-        <div className="bg-white dark:bg-[#061d23] rounded-3xl border border-slate-200/90 dark:border-teal-500/25 shadow-xl overflow-hidden">
+        <div className="bg-white/95 dark:bg-[#04151a]/95 backdrop-blur-2xl rounded-3xl border border-slate-200/90 dark:border-teal-500/30 shadow-2xl dark:shadow-[0_25px_60px_rgba(0,0,0,0.6)] overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12">
             
             {/* Left Column (5 Cols): Why Your Voice Matters & Direct Contact */}
@@ -1700,7 +1700,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                       value={feedbackName}
                       onChange={(e) => setFeedbackName(e.target.value)}
                       placeholder="misal: apt. Budi Santoso, S.Farm."
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#07242c] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
                     />
                   </div>
 
@@ -1714,7 +1714,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                       value={feedbackRole}
                       onChange={(e) => setFeedbackRole(e.target.value)}
                       placeholder="misal: Apoteker RSUD / Apotek / Dokter"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#07242c] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
                     />
                   </div>
                 </div>
@@ -1730,7 +1730,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                       value={feedbackCity}
                       onChange={(e) => setFeedbackCity(e.target.value)}
                       placeholder="misal: Bandung / Surabaya / Medan"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#07242c] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
                     />
                   </div>
 
@@ -1741,7 +1741,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                     <select
                       value={feedbackModule}
                       onChange={(e) => setFeedbackModule(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#07242c] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium cursor-pointer"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium cursor-pointer"
                     >
                       <option value="Multi-Consensus DDI (Interaksi Obat)">Multi-Consensus DDI (Interaksi Obat)</option>
                       <option value="Kalkulator BUD Racikan USP <795>">Kalkulator BUD Racikan USP &lt;795&gt;</option>
@@ -1756,7 +1756,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 </div>
 
                 {/* Rating Bintang Interaktif */}
-                <div className="space-y-1.5 p-3 rounded-2xl bg-amber-50/70 dark:bg-[#07242c]/60 border border-amber-200/80 dark:border-amber-900/40">
+                <div className="space-y-1.5 p-3 rounded-2xl bg-amber-50/70 dark:bg-[#062026] border border-amber-200/80 dark:border-teal-500/20">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black text-slate-800 dark:text-slate-200 font-outfit">
                       Rating Kepuasan Anda terhadap Platform Ini:
@@ -1802,16 +1802,16 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                     value={feedbackMessage}
                     onChange={(e) => setFeedbackMessage(e.target.value)}
                     placeholder="Ceritakan pengalaman Anda saat mencoba aplikasi ini, modul apa yang paling membantu kerja Anda, atau kendala apa yang Anda temukan..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#07242c] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium leading-relaxed resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium leading-relaxed resize-none"
                   />
                 </div>
 
                 {/* Submit Action */}
                 <button
                   type="submit"
-                  className="w-full py-3.5 px-6 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm rounded-xl shadow-lg shadow-emerald-900/30 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01] active:scale-98 font-outfit border border-emerald-400/40"
+                  className="w-full py-4 px-6 bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-300 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm rounded-full shadow-xl shadow-emerald-950/40 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01] active:scale-98 font-outfit border border-emerald-400/50"
                 >
-                  <Send className="w-4 h-4 fill-white" />
+                  <Send className="w-4 h-4 fill-slate-950" />
                   <span>Kirim Ulasan &amp; Saran ke WhatsApp (+62 877-7840-2266) →</span>
                 </button>
 
@@ -1827,19 +1827,19 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       </section>
 
       {/* =========================================================================
-          PRICING & SUBSCRIPTION SECTION
+          PRICING & SUBSCRIPTION SECTION (NEO-CLINICAL TECH)
           ========================================================================= */}
       <section id="pricing-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-950 dark:text-amber-200 text-xs font-black border border-amber-300 dark:border-amber-800">
-            <Sparkles className="w-3.5 h-3.5 fill-amber-900 dark:fill-amber-300" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-500/15 text-amber-900 dark:text-amber-300 text-xs font-black border border-amber-300 dark:border-amber-400/30">
+            <Sparkles className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
             <span>Paket Langganan Hemat (Akses Penuh 1 Tahun)</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#082a24] dark:text-white font-outfit">
+          <h2 className="text-2xl sm:text-4xl font-black text-[#082a24] dark:text-white font-outfit tracking-tight">
             Tarif &amp; Lisensi Layanan FARMASIDRUGGIST
           </h2>
-          <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm font-medium">
+          <p className="text-slate-600 dark:text-teal-100/75 text-xs sm:text-sm font-medium leading-relaxed">
             Pilihan paket lisensi tahunan terjangkau untuk mahasiswa, apoteker praktik mandiri, hingga institusi klinik &amp; apotek.
           </p>
         </div>
@@ -1851,28 +1851,28 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             return (
               <div
                 key={plan.id}
-                className={`bg-white dark:bg-[#071c21] rounded-3xl p-6 sm:p-8 border flex flex-col justify-between relative transition-all ${
+                className={`rounded-3xl p-6 sm:p-8 border flex flex-col justify-between relative transition-all ${
                   isPopular 
-                    ? 'border-teal-500 ring-2 ring-teal-500/40 shadow-2xl scale-[1.02]' 
-                    : 'border-slate-200/90 dark:border-teal-500/20 shadow-md hover:border-teal-300'
+                    ? 'bg-gradient-to-b from-white via-teal-50/20 to-emerald-50/15 dark:from-[#062026] dark:via-[#072831] dark:to-[#04151a] border-2 border-teal-400 dark:border-teal-400 shadow-2xl dark:shadow-[0_25px_60px_rgba(45,212,191,0.2)] scale-[1.02]' 
+                    : 'bg-white/95 dark:bg-[#04151a]/95 backdrop-blur-2xl border-slate-200/90 dark:border-teal-500/25 shadow-xl dark:shadow-[0_15px_40px_rgba(0,0,0,0.4)] hover:border-teal-400/50'
                 }`}
               >
                 {plan.badge && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 text-[11px] font-black rounded-full uppercase tracking-wider shadow-md bg-amber-400 text-slate-950 font-outfit">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 text-[10.5px] font-black rounded-full uppercase tracking-wider shadow-lg bg-gradient-to-r from-amber-400 to-amber-300 text-slate-950 font-outfit border border-amber-200">
                     {plan.badge}
                   </div>
                 )}
 
-                <div className="space-y-4">
+                <div className="space-y-4 text-left">
                   <div>
                     <h3 className="text-2xl font-black text-[#082a24] dark:text-white font-outfit">{plan.name}</h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 min-h-[32px] font-medium leading-relaxed">{plan.description}</p>
+                    <p className="text-xs text-slate-500 dark:text-teal-100/70 mt-1 min-h-[32px] font-medium leading-relaxed">{plan.description}</p>
                   </div>
 
-                  <div className="border-y border-slate-100 dark:border-slate-800 py-4">
+                  <div className="border-y border-slate-100 dark:border-teal-500/20 py-4">
                     {plan.originalPriceFormatted && (
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs line-through text-slate-400 font-bold decoration-rose-500 decoration-2">
+                        <span className="text-xs line-through text-slate-400 dark:text-slate-500 font-bold decoration-rose-500 decoration-2">
                           {plan.originalPriceFormatted} / tahun
                         </span>
                         {plan.discountBadge && (
@@ -1883,22 +1883,22 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                       </div>
                     )}
                     <div className="flex items-baseline gap-1.5">
-                      {plan.priceValue > 0 && <span className="text-sm font-bold text-slate-500">Rp</span>}
+                      {plan.priceValue > 0 && <span className="text-sm font-bold text-slate-500 dark:text-teal-200/60">Rp</span>}
                       <span className="text-4xl font-black text-[#082a24] dark:text-white font-outfit">
                         {plan.priceValue === 0 ? 'Gratis' : plan.priceValue.toLocaleString('id-ID')}
                       </span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                      <span className="text-xs text-slate-500 dark:text-teal-200/60 font-medium">
                         {plan.priceValue === 0 ? 'Selamanya' : '/tahun'}
                       </span>
                     </div>
                     {plan.priceValue > 0 && (
-                      <p className="text-xs text-teal-600 dark:text-teal-400 font-black mt-1">
+                      <p className="text-xs text-teal-600 dark:text-teal-300 font-black mt-1">
                         Hanya ~Rp 16.500 / bulan (Hemat Rp 800.000!)
                       </p>
                     )}
                   </div>
 
-                  <ul className="space-y-2.5 text-xs text-slate-700 dark:text-slate-300">
+                  <ul className="space-y-2.5 text-xs text-slate-700 dark:text-slate-200">
                     {plan.features.map((feat, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <Check className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5" />
@@ -1911,10 +1911,10 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 <div className="pt-6">
                   <button
                     onClick={onOpenPricingModal}
-                    className={`w-full py-4 rounded-2xl font-black text-xs transition-all cursor-pointer ${
+                    className={`w-full py-4 rounded-full font-black text-xs transition-all cursor-pointer font-outfit ${
                       isPopular
-                        ? 'bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md hover:scale-[1.02]'
-                        : 'bg-[#0f766e] hover:bg-[#115e59] text-white shadow-sm hover:scale-[1.01]'
+                        ? 'bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300 hover:from-amber-300 hover:to-yellow-300 text-slate-950 shadow-xl shadow-amber-950/40 hover:scale-105 active:scale-95'
+                        : 'bg-slate-100 hover:bg-slate-200 dark:bg-teal-950/60 dark:hover:bg-teal-900/60 text-slate-900 dark:text-teal-200 border border-slate-300 dark:border-teal-500/30 shadow-sm hover:scale-[1.01] active:scale-95'
                     }`}
                   >
                     {plan.priceValue === 0 ? 'Mulai Akses Pemula Gratis' : `Ambil Promo Paket Pro Rp 199rb / Tahun`}
@@ -2018,7 +2018,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 href="https://t.me/+lHiIMC_TdoM2NTk1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3.5 px-5 bg-[#229ED9] hover:bg-[#1b8bc2] text-white font-black text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] border border-sky-200/40 font-outfit"
+                className="w-full py-4 px-5 bg-gradient-to-r from-sky-400 via-[#229ED9] to-sky-500 hover:from-sky-300 hover:to-sky-400 text-white font-black text-xs sm:text-sm rounded-full shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] border border-sky-300/40 font-outfit"
               >
                 <Send className="w-4 h-4 fill-white" />
                 <span>Join Grup Telegram (7.000+ Sejawat) →</span>
@@ -2055,7 +2055,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                   const el = document.getElementById('interactive-playground');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="w-full py-3.5 px-5 bg-gradient-to-r from-teal-400 to-emerald-400 hover:from-teal-300 hover:to-emerald-300 text-slate-950 font-black rounded-xl shadow-lg shadow-teal-950/40 transition-all text-xs sm:text-sm cursor-pointer hover:scale-[1.02] active:scale-98 font-outfit flex items-center justify-center gap-2"
+                className="w-full py-4 px-5 bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-300 hover:from-teal-300 hover:to-emerald-300 text-slate-950 font-black rounded-full shadow-xl shadow-teal-950/40 transition-all text-xs sm:text-sm cursor-pointer hover:scale-[1.02] active:scale-98 font-outfit flex items-center justify-center gap-2"
               >
                 <Zap className="w-4 h-4 fill-slate-950" />
                 <span>Coba Simulasi Klinis Gratis</span>
@@ -2064,7 +2064,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
 
               <button
                 onClick={onOpenPricingModal}
-                className="w-full py-3 px-5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-xl shadow-md transition-all text-xs cursor-pointer hover:scale-[1.01] active:scale-98 font-outfit flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-5 bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black rounded-full shadow-md transition-all text-xs cursor-pointer hover:scale-[1.01] active:scale-98 font-outfit flex items-center justify-center gap-2"
               >
                 <Sparkles className="w-3.5 h-3.5 fill-slate-950" />
                 <span>Ambil Promo Paket Pro (Rp 199rb/Tahun)</span>
