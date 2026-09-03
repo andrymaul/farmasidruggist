@@ -7,7 +7,7 @@ interface LogoProps {
   variant?: 'light' | 'dark';
 }
 
-export const LOGO_IMAGE_URL = '/logo.svg';
+export const LOGO_IMAGE_URL = '/logo.png';
 
 export const Logo: React.FC<LogoProps> = ({ 
   className = '', 
@@ -31,13 +31,13 @@ export const Logo: React.FC<LogoProps> = ({
     xl: { title: 'text-2xl font-black', sub: 'text-xs tracking-[0.22em]' }
   };
 
-  // Official Logo Emblem Image (Crisp Vector SVG: Shield Monogram FD & Clinical Capsule)
+  // Official Logo Emblem Image
   const LogoEmblem = (
     <div className={`relative flex items-center justify-center shrink-0 ${iconSizes[size]} transition-transform duration-200 group-hover:scale-105`}>
       <img 
         src={LOGO_IMAGE_URL} 
         alt="Logo Farmasi Druggist" 
-        className="w-full h-full object-contain drop-shadow-[0_2px_10px_rgba(45,212,191,0.35)] select-none"
+        className="w-full h-full object-cover rounded-xl shadow-md border border-teal-500/30 select-none"
         loading="eager"
       />
     </div>
