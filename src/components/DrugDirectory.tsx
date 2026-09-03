@@ -256,7 +256,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
 
       {/* Category Pills Bar */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
-        {['Semua Kategori', ...DDINTER_CATEGORIES].map((cat) => {
+        {DDINTER_CATEGORIES.map((cat) => {
           const isActive = selectedCategory === cat;
           return (
             <button
