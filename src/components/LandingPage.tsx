@@ -314,13 +314,13 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
                 </span>
                 <span className="tracking-wider uppercase text-[10px] sm:text-[11px] font-extrabold text-teal-200">
-                  SISTEM KEPUTUSAN KLINIS &amp; EBM
+                  EKOSISTEM DIGITAL 21 MODUL KEFARMASIAN
                 </span>
               </div>
 
               {/* Main Headline with Geometric Sans & Glowing Gradient Word */}
               <h1 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-white tracking-tight leading-[1.12] font-outfit">
-                Sistem Telaah Resep &amp; Keputusan Klinis yang{' '}
+                Platform Informasi Obat Terpadu &amp; Kalkulator Klinis yang{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 via-emerald-300 to-cyan-300 drop-shadow-[0_0_35px_rgba(45,212,191,0.45)]">
                   Presisi.
                 </span>
