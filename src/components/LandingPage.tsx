@@ -595,9 +595,27 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 Kredibilitas Ilmiah &amp; Validasi Sumber Evidence-Based Medicine (EBM)
               </p>
             </div>
-            <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300 font-mono">
-              6 Konsensus Global &amp; Regulasi RI Terintegrasi
-            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 font-mono hidden sm:inline mr-1">
+                6 Konsensus Global
+              </span>
+              <button
+                type="button"
+                onClick={() => onSelectTab('guidelines')}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/60 hover:bg-teal-100 dark:hover:bg-teal-900/60 text-teal-700 dark:text-teal-300 font-bold text-[10px] border border-teal-200 dark:border-teal-800 transition-all cursor-pointer"
+              >
+                <span>Panduan Terapi PNPK</span>
+                <ChevronRight className="w-3 h-3" />
+              </button>
+              <button
+                type="button"
+                onClick={() => onSelectTab('literature')}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-[10px] border border-slate-200 dark:border-slate-700 transition-all cursor-pointer"
+              >
+                <BookMarked className="w-3 h-3 text-teal-600 dark:text-teal-400" />
+                <span>Direktori EBM</span>
+              </button>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -1488,51 +1506,6 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
 
         </div>
 
-      </section>
-
-
-      {/* =========================================================================
-          EVIDENCE-BASED MEDICINE & SCIENTIFIC CITATION SECTION
-          ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-gradient-to-br from-[#071c21] via-[#092931] to-[#0c3742] text-white p-6 sm:p-10 border border-teal-500/30 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold border border-teal-500/30">
-              <BookMarked className="w-3.5 h-3.5 text-teal-400" />
-              <span>Transparansi &amp; Akurasi 100% Evidence-Based Medicine (EBM)</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-outfit text-white">
-              Divalidasi dari Pedoman Resmi Kemenkes RI &amp; Standar Global
-            </h2>
-            <p className="text-xs sm:text-sm text-teal-100/80 leading-relaxed">
-              Kami menyajikan data yang dapat dipertanggungjawabkan: <strong>PNPK Kemenkes RI</strong>, konsensus PERKI &amp; PERKENI, <strong>DDInter Database (Nature npj)</strong>, standar inkompatibilitas <strong>Trissel's™ 2024 / ASHP</strong>, serta regulasi Permenkes No. 73/2016.
-            </p>
-            <div className="flex flex-wrap gap-2 pt-2 text-[11px] font-bold text-teal-200">
-              <span className="bg-[#0b333c] px-3 py-1 rounded-lg border border-teal-600/40">✓ PNPK Kemenkes RI</span>
-              <span className="bg-[#0b333c] px-3 py-1 rounded-lg border border-teal-600/40">✓ ASHP Trissel's IV 2024</span>
-              <span className="bg-[#0b333c] px-3 py-1 rounded-lg border border-teal-600/40">✓ DDInter Database</span>
-              <span className="bg-[#0b333c] px-3 py-1 rounded-lg border border-teal-600/40">✓ CekBPOM RI</span>
-              <span className="bg-[#0b333c] px-3 py-1 rounded-lg border border-teal-600/40">✓ USP &lt;795&gt; &amp; &lt;797&gt;</span>
-            </div>
-          </div>
-
-          <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto">
-            <button
-              onClick={() => onSelectTab('literature')}
-              className="px-6 py-3.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-black rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-xs cursor-pointer hover:scale-105"
-            >
-              <BookMarked className="w-4 h-4" />
-              <span>Buka Direktori Literatur &amp; EBM</span>
-            </button>
-            <button
-              onClick={() => onSelectTab('guidelines')}
-              className="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl border border-white/20 transition-all flex items-center justify-center gap-2 text-xs cursor-pointer"
-            >
-              <span>Lihat Panduan Terapi PNPK</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
       </section>
 
       {/* =========================================================================
