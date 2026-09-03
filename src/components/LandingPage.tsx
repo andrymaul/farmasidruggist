@@ -621,133 +621,172 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       </section>
 
       {/* =========================================================================
-          STAGE 2: TRUST LOGO STRIP & MEDICAL STANDARDS MARQUEE
+          STAGE 2: TRUST LOGO STRIP & MEDICAL STANDARDS MARQUEE (NEO-CLINICAL TECH)
           ========================================================================= */}
-      <section className="relative z-10 -mt-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/95 dark:bg-[#061b20]/95 backdrop-blur-xl rounded-3xl p-5 sm:p-6 border border-slate-200/90 dark:border-teal-500/30 shadow-xl shadow-slate-900/5 dark:shadow-teal-950/40 space-y-4">
+      <section id="ebm-standards" className="relative z-10 -mt-8 sm:-mt-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden bg-[#04151a]/95 backdrop-blur-2xl rounded-3xl p-5 sm:p-6 border border-teal-500/30 shadow-[0_20px_60px_rgba(0,0,0,0.6)] space-y-4 text-white">
           
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-teal-500/20 pb-3">
-            <div className="flex items-center gap-2">
-              <span className="p-1 rounded-md bg-teal-500/10 dark:bg-teal-500/20 text-teal-600 dark:text-teal-400">
+          {/* Subtle Ambient Spatial Rim Glows */}
+          <div className="absolute -top-24 -left-24 w-72 h-72 bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Header Row */}
+          <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-teal-500/20 pb-3.5">
+            <div className="flex items-center gap-2.5">
+              <span className="p-1.5 rounded-xl bg-teal-500/20 text-teal-300 border border-teal-400/30 shadow-inner">
                 <ShieldCheck className="w-4 h-4" />
               </span>
-              <p className="text-[11px] font-black uppercase tracking-wider text-slate-700 dark:text-teal-300 font-outfit">
-                Kredibilitas Ilmiah &amp; Validasi Sumber Evidence-Based Medicine (EBM)
-              </p>
+              <div>
+                <p className="text-[11px] font-black uppercase tracking-wider text-teal-300 font-outfit">
+                  Kredibilitas Ilmiah &amp; Validasi Standar Evidence-Based Medicine (EBM)
+                </p>
+                <p className="text-[10px] text-teal-100/60 font-medium">
+                  Tervalidasi 6 Konsensus Resmi Kedokteran &amp; Farmasi Klinis Global
+                </p>
+              </div>
             </div>
+
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 font-mono hidden sm:inline mr-1">
-                6 Konsensus Global
-              </span>
               <button
                 type="button"
                 onClick={() => onSelectTab('guidelines')}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/60 hover:bg-teal-100 dark:hover:bg-teal-900/60 text-teal-700 dark:text-teal-300 font-bold text-[10px] border border-teal-200 dark:border-teal-800 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-teal-500/15 hover:bg-teal-500/25 text-teal-200 hover:text-white font-bold text-[10.5px] border border-teal-400/30 transition-all cursor-pointer shadow-xs group"
               >
                 <span>Panduan Terapi PNPK</span>
-                <ChevronRight className="w-3 h-3" />
+                <ChevronRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
               </button>
               <button
                 type="button"
                 onClick={() => onSelectTab('literature')}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-[10px] border border-slate-200 dark:border-slate-700 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-teal-100 hover:text-white font-bold text-[10.5px] border border-teal-500/20 transition-all cursor-pointer shadow-xs"
               >
-                <BookMarked className="w-3 h-3 text-teal-600 dark:text-teal-400" />
+                <BookMarked className="w-3 h-3 text-teal-400" />
                 <span>Direktori EBM</span>
               </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          {/* 6 Standards Cards */}
+          <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             
             {/* Standard 1: Kemenkes RI */}
-            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-7 h-7 rounded-xl bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 flex items-center justify-center font-black text-xs shrink-0 border border-red-200 dark:border-red-900/50">
+            <div className="p-3.5 rounded-2xl bg-[#062026]/80 hover:bg-[#092e37] border border-teal-500/20 hover:border-teal-400/50 transition-all duration-300 group hover:scale-[1.02] shadow-sm hover:shadow-teal-950/40 text-left flex flex-col justify-between space-y-2">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-xl bg-rose-500/15 text-rose-300 flex items-center justify-center font-black text-xs shrink-0 border border-rose-500/30">
                   <Building2 className="w-3.5 h-3.5" />
                 </div>
-                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                <span className="text-xs font-black text-white group-hover:text-teal-200 font-outfit truncate transition-colors">
                   Kemenkes RI
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
-                PNPK &amp; Konsensus PAPDI/PERKI
-              </p>
+              <div>
+                <p className="text-[10px] text-teal-100/75 leading-tight font-medium">
+                  PNPK PAPDI &amp; PERKI
+                </p>
+                <span className="inline-block mt-1 text-[8.5px] font-bold text-teal-400/80 uppercase tracking-wider">
+                  Pedoman Nasional
+                </span>
+              </div>
             </div>
 
             {/* Standard 2: BPOM RI */}
-            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-7 h-7 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-xs shrink-0 border border-blue-200 dark:border-blue-900/50">
+            <div className="p-3.5 rounded-2xl bg-[#062026]/80 hover:bg-[#092e37] border border-teal-500/20 hover:border-teal-400/50 transition-all duration-300 group hover:scale-[1.02] shadow-sm hover:shadow-teal-950/40 text-left flex flex-col justify-between space-y-2">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-xl bg-sky-500/15 text-sky-300 flex items-center justify-center font-black text-xs shrink-0 border border-sky-500/30">
                   <ShieldCheck className="w-3.5 h-3.5" />
                 </div>
-                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                <span className="text-xs font-black text-white group-hover:text-teal-200 font-outfit truncate transition-colors">
                   Badan POM RI
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
-                CekBPOM &amp; Database NIE Resmi
-              </p>
+              <div>
+                <p className="text-[10px] text-teal-100/75 leading-tight font-medium">
+                  CekBPOM &amp; Database NIE
+                </p>
+                <span className="inline-block mt-1 text-[8.5px] font-bold text-sky-400/80 uppercase tracking-wider">
+                  Regulasi Resmi
+                </span>
+              </div>
             </div>
 
-            {/* Standard 3: ASHP Trissel's 2024 */}
-            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-7 h-7 rounded-xl bg-teal-100 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 flex items-center justify-center font-black text-xs shrink-0 border border-teal-200 dark:border-teal-900/50">
+            {/* Standard 3: ASHP Trissel's */}
+            <div className="p-3.5 rounded-2xl bg-[#062026]/80 hover:bg-[#092e37] border border-teal-500/20 hover:border-teal-400/50 transition-all duration-300 group hover:scale-[1.02] shadow-sm hover:shadow-teal-950/40 text-left flex flex-col justify-between space-y-2">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-xl bg-teal-500/15 text-teal-300 flex items-center justify-center font-black text-xs shrink-0 border border-teal-500/30">
                   <Syringe className="w-3.5 h-3.5" />
                 </div>
-                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                <span className="text-xs font-black text-white group-hover:text-teal-200 font-outfit truncate transition-colors">
                   ASHP Trissel's
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
-                Inkompatibilitas Injeksi IV Y-Site
-              </p>
+              <div>
+                <p className="text-[10px] text-teal-100/75 leading-tight font-medium">
+                  Injeksi IV &amp; Y-Site 2024
+                </p>
+                <span className="inline-block mt-1 text-[8.5px] font-bold text-teal-400/80 uppercase tracking-wider">
+                  Inkompatibilitas
+                </span>
+              </div>
             </div>
 
-            {/* Standard 4: DDInter Database */}
-            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-7 h-7 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-black text-xs shrink-0 border border-cyan-200 dark:border-cyan-900/50">
+            {/* Standard 4: DDInter Global */}
+            <div className="p-3.5 rounded-2xl bg-[#062026]/80 hover:bg-[#092e37] border border-teal-500/20 hover:border-teal-400/50 transition-all duration-300 group hover:scale-[1.02] shadow-sm hover:shadow-teal-950/40 text-left flex flex-col justify-between space-y-2">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-xl bg-cyan-500/15 text-cyan-300 flex items-center justify-center font-black text-xs shrink-0 border border-cyan-500/30">
                   <Activity className="w-3.5 h-3.5" />
                 </div>
-                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                <span className="text-xs font-black text-white group-hover:text-teal-200 font-outfit truncate transition-colors">
                   DDInter Global
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
-                Nature npj Digital Medicine
-              </p>
+              <div>
+                <p className="text-[10px] text-teal-100/75 leading-tight font-medium">
+                  Nature npj Digital Med
+                </p>
+                <span className="inline-block mt-1 text-[8.5px] font-bold text-cyan-400/80 uppercase tracking-wider">
+                  6 DB Konsensus
+                </span>
+              </div>
             </div>
 
             {/* Standard 5: USP <795> & Farmakope */}
-            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-7 h-7 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center font-black text-xs shrink-0 border border-amber-200 dark:border-amber-900/50">
+            <div className="p-3.5 rounded-2xl bg-[#062026]/80 hover:bg-[#092e37] border border-teal-500/20 hover:border-teal-400/50 transition-all duration-300 group hover:scale-[1.02] shadow-sm hover:shadow-teal-950/40 text-left flex flex-col justify-between space-y-2">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-xl bg-amber-500/15 text-amber-300 flex items-center justify-center font-black text-xs shrink-0 border border-amber-500/30">
                   <BookMarked className="w-3.5 h-3.5" />
                 </div>
-                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                <span className="text-xs font-black text-white group-hover:text-teal-200 font-outfit truncate transition-colors">
                   USP &lt;795&gt; &amp; FI VI
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
-                Beyond-Use Date (BUD) Racikan
-              </p>
+              <div>
+                <p className="text-[10px] text-teal-100/75 leading-tight font-medium">
+                  BUD Racikan Non-Steril
+                </p>
+                <span className="inline-block mt-1 text-[8.5px] font-bold text-amber-400/80 uppercase tracking-wider">
+                  Compounding EBM
+                </span>
+              </div>
             </div>
 
             {/* Standard 6: Beers Criteria 2023 */}
-            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-7 h-7 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-black text-xs shrink-0 border border-emerald-200 dark:border-emerald-900/50">
+            <div className="p-3.5 rounded-2xl bg-[#062026]/80 hover:bg-[#092e37] border border-teal-500/20 hover:border-teal-400/50 transition-all duration-300 group hover:scale-[1.02] shadow-sm hover:shadow-teal-950/40 text-left flex flex-col justify-between space-y-2">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-xl bg-emerald-500/15 text-emerald-300 flex items-center justify-center font-black text-xs shrink-0 border border-emerald-500/30">
                   <HeartPulse className="w-3.5 h-3.5" />
                 </div>
-                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                <span className="text-xs font-black text-white group-hover:text-teal-200 font-outfit truncate transition-colors">
                   Beers 2023 AGS
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
-                Skrining Polifarmasi Geriatri
-              </p>
+              <div>
+                <p className="text-[10px] text-teal-100/75 leading-tight font-medium">
+                  Skrining Geriatri AGS
+                </p>
+                <span className="inline-block mt-1 text-[8.5px] font-bold text-emerald-400/80 uppercase tracking-wider">
+                  Kriteria Lansia
+                </span>
+              </div>
             </div>
 
           </div>
@@ -776,13 +815,13 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </div>
 
           {/* Tab Switcher Buttons */}
-          <div className="flex flex-wrap gap-1.5 bg-slate-200/80 dark:bg-slate-900 p-1.5 rounded-2xl border border-slate-300 dark:border-slate-800 self-start md:self-auto">
+          <div className="flex flex-wrap gap-1.5 bg-slate-200/80 dark:bg-[#031114]/90 p-1.5 rounded-full border border-slate-300 dark:border-teal-500/30 self-start md:self-auto backdrop-blur-xl shadow-lg">
             <button
               onClick={() => setActivePlaygroundTab('ddi')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
+              className={`px-4 py-2 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
                 activePlaygroundTab === 'ddi'
-                  ? 'bg-[#0f766e] text-white shadow-md'
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800'
+                  ? 'bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-300 text-slate-950 shadow-md'
+                  : 'text-slate-700 dark:text-teal-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-teal-500/15'
               }`}
             >
               <ShieldAlert className="w-3.5 h-3.5" />
@@ -791,10 +830,10 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
 
             <button
               onClick={() => setActivePlaygroundTab('srq20')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
+              className={`px-4 py-2 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
                 activePlaygroundTab === 'srq20'
-                  ? 'bg-[#0f766e] text-white shadow-md'
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800'
+                  ? 'bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-300 text-slate-950 shadow-md'
+                  : 'text-slate-700 dark:text-teal-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-teal-500/15'
               }`}
             >
               <Brain className="w-3.5 h-3.5" />
@@ -805,7 +844,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
 
         {/* ==================== TAB 1: DDI CHECKER DEMO ==================== */}
         {activePlaygroundTab === 'ddi' && (
-          <div className="bg-white dark:bg-[#0c191d] rounded-3xl p-5 sm:p-7 border border-teal-800/20 dark:border-teal-500/20 shadow-xl space-y-5 transition-all">
+          <div className="bg-white/95 dark:bg-[#04151a]/95 backdrop-blur-2xl rounded-3xl p-5 sm:p-7 border border-slate-200/90 dark:border-teal-500/30 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] space-y-5 transition-all">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
               <div>
                 <h3 className="font-black text-[#082a24] dark:text-emerald-300 text-sm sm:text-base flex items-center gap-2 font-outfit">
@@ -1014,11 +1053,11 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => onSelectTab('interactions')}
-                className="flex-1 py-3 bg-[#0f766e] hover:bg-[#115e59] text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer hover:scale-[1.01] flex items-center justify-center gap-2"
+                className="flex-1 py-3 rounded-full bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-300 text-slate-950 font-black text-xs shadow-md transition-all cursor-pointer hover:scale-[1.01] active:scale-95 flex items-center justify-center gap-2 font-outfit"
               >
-                <ShieldAlert className="w-4 h-4" />
+                <ShieldAlert className="w-4 h-4 text-slate-950" />
                 <span>Buka Cek Interaksi Lengkap (Multi-Obat &amp; Export PDF)</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
               </button>
             </div>
           </div>
@@ -1026,7 +1065,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
 
         {/* ==================== TAB 2: SRQ-20 MENTAL HEALTH DEMO ==================== */}
         {activePlaygroundTab === 'srq20' && (
-          <div className="bg-white dark:bg-[#0c191d] rounded-3xl p-5 sm:p-7 border border-teal-800/20 dark:border-teal-500/20 shadow-xl space-y-6 transition-all">
+          <div className="bg-white/95 dark:bg-[#04151a]/95 backdrop-blur-2xl rounded-3xl p-5 sm:p-7 border border-slate-200/90 dark:border-teal-500/30 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] space-y-6 transition-all">
             {/* Header */}
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
               <div>
@@ -1165,9 +1204,9 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                     <button
                       type="button"
                       onClick={handleCopySrqResult}
-                      className="px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                      className="px-4 py-2 rounded-full bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-300 text-slate-950 text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-md hover:scale-105 active:scale-95 font-outfit"
                     >
-                      {isSrqCopied ? <CheckCheck className="w-3.5 h-3.5 text-emerald-200" /> : <Copy className="w-3.5 h-3.5" />}
+                      {isSrqCopied ? <CheckCheck className="w-3.5 h-3.5 text-slate-950" /> : <Copy className="w-3.5 h-3.5 text-slate-950" />}
                       <span>{isSrqCopied ? 'Hasil Tersalin!' : 'Salin Hasil SRQ-20'}</span>
                     </button>
 
@@ -1191,13 +1230,13 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
 
 
       {/* =========================================================================
-          STAGE 3: MODERN BENTO GRID ARCHITECTURE - 21 MODUL KLINIS
+          STAGE 3: MODERN BENTO GRID ARCHITECTURE - 21 MODUL KLINIS (NEO-CLINICAL TECH)
           ========================================================================= */}
       <section id="bento-features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 dark:bg-teal-950/60 border border-teal-300 dark:border-teal-800 text-teal-800 dark:text-teal-300 text-xs font-black shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 dark:bg-teal-500/15 border border-teal-300 dark:border-teal-400/30 text-teal-800 dark:text-teal-300 text-xs font-black shadow-xs">
             <Layers className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
             <span>Ekosistem Klinis Terpadu • 21 Modul Komprehensif</span>
           </div>
@@ -1206,7 +1245,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             Arsitektur Fitur Terintegrasi untuk Setiap Titik Pelayanan
           </h2>
           
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-teal-100/75 leading-relaxed font-medium">
             Dari apotek komunitas, ruang rawat inap RS &amp; ICU, praktik dokter spesialis, hingga pusat persiapan UKMPPAI. Seluruh modul saling terhubung secara real-time.
           </p>
         </div>
@@ -1215,14 +1254,17 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
           
           {/* Card 1 (Span 8 Kolom): The Master Engine - Multi-Consensus DDI */}
-          <div className="lg:col-span-8 bg-gradient-to-br from-white via-teal-50/30 to-emerald-50/20 dark:from-[#061d23] dark:via-[#07242c] dark:to-[#092d37] rounded-3xl p-6 sm:p-8 border border-teal-500/30 shadow-lg hover:shadow-2xl hover:border-teal-400 transition-all duration-300 flex flex-col justify-between group">
-            <div className="space-y-4">
+          <div className="lg:col-span-8 bg-gradient-to-br from-white via-teal-50/30 to-emerald-50/20 dark:from-[#04151a] dark:via-[#062026] dark:to-[#082e38] rounded-3xl p-6 sm:p-8 border border-slate-200/90 dark:border-teal-500/30 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:border-teal-400/70 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden text-left">
+            {/* Ambient Corner Glow */}
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="space-y-4 relative z-10">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="px-3 py-1 rounded-full bg-teal-600 text-white text-[10px] font-black uppercase tracking-wider font-outfit shadow-xs">
+                <span className="px-3 py-1 rounded-full bg-teal-600 dark:bg-gradient-to-r dark:from-teal-400 dark:to-emerald-400 text-white dark:text-slate-950 text-[10px] font-black uppercase tracking-wider font-outfit shadow-xs">
                   Modul Utama #1
                 </span>
                 <span className="text-[11px] font-mono font-bold text-teal-700 dark:text-teal-300 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                   <span>DDInter Engine • 6 Konsensus Global</span>
                 </span>
               </div>
@@ -1231,43 +1273,43 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 <h3 className="text-xl sm:text-2xl font-black text-[#082a24] dark:text-white font-outfit">
                   Multi-Consensus Drug-Drug Interaction (DDI) Engine
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-teal-100/75 mt-2 leading-relaxed">
                   Penapisan simultan &gt;10 obat resep sekaligus. Menggabungkan data dari <strong>DDInter (Nature npj)</strong>, ASHP, Drugs.com, Medscape, Stockley’s Drug Interactions, dan CekBPOM RI.
                 </p>
               </div>
 
               {/* Visual Micro-Preview in Card */}
-              <div className="p-3.5 rounded-2xl bg-white/80 dark:bg-[#04151a]/90 border border-slate-200/80 dark:border-teal-500/20 shadow-inner space-y-2">
-                <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 dark:text-slate-400">
+              <div className="p-3.5 rounded-2xl bg-white/80 dark:bg-[#020d11]/90 border border-slate-200/80 dark:border-teal-500/25 shadow-inner space-y-2">
+                <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 dark:text-teal-300/80">
                   <span>Matriks Derajat Keparahan:</span>
                   <span className="text-teal-600 dark:text-teal-400 font-mono">Real-time Calculation</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2 text-center text-xs font-black">
-                  <div className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-900/40">
-                    <span className="block text-sm">Major</span>
+                  <div className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30">
+                    <span className="block text-sm font-outfit">Major</span>
                     <span className="text-[9px] font-medium opacity-80">Kontraindikasi Relatif</span>
                   </div>
-                  <div className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-300 border border-amber-200 dark:border-amber-900/40">
-                    <span className="block text-sm">Moderate</span>
+                  <div className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30">
+                    <span className="block text-sm font-outfit">Moderate</span>
                     <span className="text-[9px] font-medium opacity-80">Monitoring Ketat</span>
                   </div>
-                  <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/40">
-                    <span className="block text-sm">Minor</span>
+                  <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30">
+                    <span className="block text-sm font-outfit">Minor</span>
                     <span className="text-[9px] font-medium opacity-80">Signifikansi Ringan</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 dark:border-teal-500/20 mt-4">
-              <span className="text-xs text-slate-500 dark:text-slate-400 font-bold flex items-center gap-1.5">
+            <div className="pt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 dark:border-teal-500/20 mt-4 relative z-10">
+              <span className="text-xs text-slate-500 dark:text-teal-200/70 font-bold flex items-center gap-1.5">
                 <Building2 className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                 <span>Untuk: Apoteker RS, Apotek &amp; Dokter Klinisi</span>
               </span>
               <button
                 type="button"
                 onClick={() => onSelectTab('interactions')}
-                className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-black text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:scale-105"
+                className="px-4 py-2 rounded-full bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-300 text-slate-950 font-black text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:scale-105 active:scale-95 font-outfit"
               >
                 <span>Buka Cek Interaksi</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -1276,41 +1318,41 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </div>
 
           {/* Card 2 (Span 4 Kolom): Keamanan Ibu Hamil & Laktasi */}
-          <div className="lg:col-span-4 bg-white dark:bg-[#061d23] rounded-3xl p-6 border border-slate-200/90 dark:border-teal-500/25 shadow-md hover:shadow-xl hover:border-pink-400 transition-all duration-300 flex flex-col justify-between group">
+          <div className="lg:col-span-4 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 border border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:shadow-xl hover:border-pink-400/60 transition-all duration-300 flex flex-col justify-between group text-left">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="p-2.5 rounded-2xl bg-pink-100 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 border border-pink-200 dark:border-pink-900/50">
                   <Baby className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-pink-50 dark:bg-pink-950 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800">
+                <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-pink-50 dark:bg-pink-950/80 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800">
                   FDA PLLR
                 </span>
               </div>
 
-              <h3 className="text-lg font-black text-[#082a24] dark:text-white font-outfit">
+              <h3 className="text-lg font-black text-[#082a24] dark:text-white font-outfit group-hover:text-pink-300 transition-colors">
                 Keamanan Bumil &amp; Busui
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-teal-100/75 leading-relaxed">
                 Skrining trimester 1, 2, dan 3 berdasar klasifikasi naratif FDA PLLR serta kategori keamanan menyusui Hale L1 (Aman) hingga L5 (Kontraindikasi).
               </p>
 
               <div className="space-y-1.5 pt-1 text-[11px] font-bold text-slate-700 dark:text-slate-300">
-                <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-[#07242c]">
-                  <span>Trimester 1 (Organogenesis)</span>
-                  <span className="text-rose-500 font-mono">Skrining Ketat</span>
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#062026] border border-slate-100 dark:border-teal-500/20">
+                  <span className="dark:text-teal-100">Trimester 1 (Organogenesis)</span>
+                  <span className="text-rose-500 font-mono text-[10.5px]">Skrining Ketat</span>
                 </div>
-                <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-[#07242c]">
-                  <span>Laktasi (Hale's L1-L5)</span>
-                  <span className="text-pink-500 font-mono">Rasio RID &amp; M/P</span>
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#062026] border border-slate-100 dark:border-teal-500/20">
+                  <span className="dark:text-teal-100">Laktasi (Hale's L1-L5)</span>
+                  <span className="text-pink-500 font-mono text-[10.5px]">Rasio RID &amp; M/P</span>
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4">
+            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 mt-4">
               <button
                 type="button"
                 onClick={() => onSelectTab('pregnancy')}
-                className="w-full py-2.5 bg-pink-50 hover:bg-pink-100 dark:bg-pink-950/40 dark:hover:bg-pink-950/70 text-pink-700 dark:text-pink-300 font-bold text-xs rounded-xl border border-pink-200 dark:border-pink-800 transition-all flex items-center justify-center gap-1 cursor-pointer"
+                className="w-full py-2.5 rounded-full bg-pink-50 hover:bg-pink-100 dark:bg-pink-950/40 dark:hover:bg-pink-950/70 text-pink-700 dark:text-pink-300 font-bold text-xs border border-pink-200 dark:border-pink-800 transition-all flex items-center justify-center gap-1 cursor-pointer font-outfit"
               >
                 <span>Lihat Modul Bumil &amp; Busui</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -1319,25 +1361,25 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </div>
 
           {/* Card 3 (Span 4 Kolom): Kalkulator BUD Racikan USP <795> */}
-          <div className="lg:col-span-4 bg-white dark:bg-[#061d23] rounded-3xl p-6 border border-slate-200/90 dark:border-teal-500/25 shadow-md hover:shadow-xl hover:border-teal-400 transition-all duration-300 flex flex-col justify-between group">
+          <div className="lg:col-span-4 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 border border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:shadow-xl hover:border-teal-400/60 transition-all duration-300 flex flex-col justify-between group text-left">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="p-2.5 rounded-2xl bg-teal-100 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border border-teal-200 dark:border-teal-900/50">
                   <FlaskConical className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
+                <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950/80 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
                   USP &lt;795&gt; &amp; FI VI
                 </span>
               </div>
 
-              <h3 className="text-lg font-black text-[#082a24] dark:text-white font-outfit">
+              <h3 className="text-lg font-black text-[#082a24] dark:text-white font-outfit group-hover:text-teal-300 transition-colors">
                 Kalkulator BUD Racikan
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-teal-100/75 leading-relaxed">
                 Penetapan otomatis Beyond-Use Date untuk sediaan non-steril: puyer racikan, sirup kering antibiotik rekonstitusi, dan salep/krim.
               </p>
 
-              <div className="p-3 rounded-2xl bg-teal-50/60 dark:bg-[#07242c] text-[11px] font-medium space-y-1 text-slate-700 dark:text-slate-300">
+              <div className="p-3 rounded-2xl bg-teal-50/60 dark:bg-[#062026] text-[11px] font-medium space-y-1 text-slate-700 dark:text-slate-300 border border-teal-100 dark:border-teal-500/20">
                 <div className="flex justify-between font-bold text-teal-800 dark:text-teal-300">
                   <span>Sediaan Cair Tanpa Air:</span>
                   <span>Maks. 90 Hari</span>
@@ -1349,11 +1391,11 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4">
+            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 mt-4">
               <button
                 type="button"
                 onClick={() => onSelectTab('bud-calculator')}
-                className="w-full py-2.5 bg-teal-50 hover:bg-teal-100 dark:bg-teal-950/40 dark:hover:bg-teal-950/70 text-teal-700 dark:text-teal-300 font-bold text-xs rounded-xl border border-teal-200 dark:border-teal-800 transition-all flex items-center justify-center gap-1 cursor-pointer"
+                className="w-full py-2.5 rounded-full bg-teal-50 hover:bg-teal-100 dark:bg-teal-950/40 dark:hover:bg-teal-950/70 text-teal-700 dark:text-teal-300 font-bold text-xs border border-teal-200 dark:border-teal-800 transition-all flex items-center justify-center gap-1 cursor-pointer font-outfit"
               >
                 <span>Buka Kalkulator BUD</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -1362,39 +1404,39 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </div>
 
           {/* Card 4 (Span 4 Kolom): Kompatibilitas Injeksi IV ASHP */}
-          <div className="lg:col-span-4 bg-white dark:bg-[#061d23] rounded-3xl p-6 border border-slate-200/90 dark:border-teal-500/25 shadow-md hover:shadow-xl hover:border-sky-400 transition-all duration-300 flex flex-col justify-between group">
+          <div className="lg:col-span-4 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 border border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:shadow-xl hover:border-sky-400/60 transition-all duration-300 flex flex-col justify-between group text-left">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="p-2.5 rounded-2xl bg-sky-100 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-900/50">
                   <Syringe className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+                <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
                   ASHP Trissel's 2024
                 </span>
               </div>
 
-              <h3 className="text-lg font-black text-[#082a24] dark:text-white font-outfit">
+              <h3 className="text-lg font-black text-[#082a24] dark:text-white font-outfit group-hover:text-sky-300 transition-colors">
                 Kompatibilitas Injeksi IV
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-teal-100/75 leading-relaxed">
                 Skrining presipitasi &amp; inkompatibilitas Y-Site pada jalur infus ganda ICU. Verifikasi pelarut D5W, NS 0.9%, dan RL untuk mencegah emboli kristal.
               </p>
 
               <div className="grid grid-cols-2 gap-2 text-center text-[10px] font-black pt-1">
-                <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50">
+                <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30">
                   ✓ Kompatibel (C)
                 </div>
-                <div className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-900/50">
+                <div className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30">
                   ✕ Inkompatibel (I)
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4">
+            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 mt-4">
               <button
                 type="button"
                 onClick={() => onSelectTab('iv-compatibility')}
-                className="w-full py-2.5 bg-sky-50 hover:bg-sky-100 dark:bg-sky-950/40 dark:hover:bg-sky-950/70 text-sky-700 dark:text-sky-300 font-bold text-xs rounded-xl border border-sky-200 dark:border-sky-800 transition-all flex items-center justify-center gap-1 cursor-pointer"
+                className="w-full py-2.5 rounded-full bg-sky-50 hover:bg-sky-100 dark:bg-sky-950/40 dark:hover:bg-sky-950/70 text-sky-700 dark:text-sky-300 font-bold text-xs border border-sky-200 dark:border-sky-800 transition-all flex items-center justify-center gap-1 cursor-pointer font-outfit"
               >
                 <span>Buka Skrining Injeksi IV</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -1403,40 +1445,40 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </div>
 
           {/* Card 5 (Span 4 Kolom): Generator Kartu PIO WhatsApp */}
-          <div className="lg:col-span-4 bg-white dark:bg-[#061d23] rounded-3xl p-6 border border-slate-200/90 dark:border-teal-500/25 shadow-md hover:shadow-xl hover:border-emerald-400 transition-all duration-300 flex flex-col justify-between group">
+          <div className="lg:col-span-4 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 border border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:shadow-xl hover:border-emerald-400/60 transition-all duration-300 flex flex-col justify-between group text-left">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="p-2.5 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/50">
                   <Smartphone className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                   WhatsApp 1-Klik
                 </span>
               </div>
 
-              <h3 className="text-lg font-black text-[#082a24] dark:text-white font-outfit">
+              <h3 className="text-lg font-black text-[#082a24] dark:text-white font-outfit group-hover:text-emerald-300 transition-colors">
                 Edukasi Obat Pasien (PIO)
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-teal-100/75 leading-relaxed">
                 Buat kartu edukasi aturan minum obat, pantangan makanan, dan peringatan efek samping dalam format rapi yang langsung terkirim ke WhatsApp pasien.
               </p>
 
-              <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 text-[10px] text-emerald-800 dark:text-emerald-200 space-y-1">
+              <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-[#062026] border border-emerald-200 dark:border-teal-500/20 text-[10px] text-emerald-800 dark:text-emerald-200 space-y-1">
                 <div className="font-bold flex items-center gap-1">
-                  <Check className="w-3 h-3 text-emerald-600" />
+                  <Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                   <span>Format Pesan Ramah Pasien Otomatis</span>
                 </div>
-                <p className="text-[9.5px] opacity-80 leading-tight">
+                <p className="text-[9.5px] opacity-80 leading-tight dark:text-teal-100/70">
                   Disertai nama faskes/apotek, nomor resep, jadwal dosis pagi/malam, dan etiket khusus.
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4">
+            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 mt-4">
               <button
                 type="button"
                 onClick={() => onSelectTab('patient-cards')}
-                className="w-full py-2.5 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 font-bold text-xs rounded-xl border border-emerald-200 dark:border-emerald-800 transition-all flex items-center justify-center gap-1 cursor-pointer"
+                className="w-full py-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 font-bold text-xs border border-emerald-200 dark:border-emerald-800 transition-all flex items-center justify-center gap-1 cursor-pointer font-outfit"
               >
                 <span>Buka Kartu PIO WhatsApp</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -1445,7 +1487,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </div>
 
           {/* Card 6 (Span 6 Kolom): Evaluasi Polifarmasi Geriatri Beers 2023 */}
-          <div className="lg:col-span-6 bg-white dark:bg-[#061d23] rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-teal-500/25 shadow-md hover:shadow-xl hover:border-indigo-400 transition-all duration-300 flex flex-col justify-between group">
+          <div className="lg:col-span-6 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:shadow-xl hover:border-indigo-400/60 transition-all duration-300 flex flex-col justify-between group text-left">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -1453,40 +1495,40 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                     <HeartPulse className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">
+                    <h3 className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit group-hover:text-indigo-300 transition-colors">
                       Polifarmasi Geriatri (Beers 2023)
                     </h3>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">American Geriatrics Society &amp; STOPP/START</p>
+                    <p className="text-[11px] text-slate-500 dark:text-teal-200/60">American Geriatrics Society &amp; STOPP/START</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
                   Pasien $\ge 65$ Th
                 </span>
               </div>
 
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-teal-100/75 leading-relaxed">
                 Skrining otomatis obat berisiko tinggi pada lansia: antikolinergik burden, sedatif hipnotik, NSAID kronis, dan kombinasi yang memicu risiko jatuh atau perburukan demensia.
               </p>
 
               <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
-                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#07242c] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#062026] text-slate-700 dark:text-teal-100 border border-slate-200 dark:border-teal-500/20">
                   Kriteria Beers 2023
                 </div>
-                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#07242c] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#062026] text-slate-700 dark:text-teal-100 border border-slate-200 dark:border-teal-500/20">
                   Kriteria STOPP/START
                 </div>
-                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#07242c] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#062026] text-slate-700 dark:text-teal-100 border border-slate-200 dark:border-teal-500/20">
                   Anticholinergic Burden
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500">Mencegah peresepan kaskade (prescribing cascade)</span>
+            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 mt-4 flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-500 dark:text-teal-300/60">Mencegah peresepan kaskade</span>
               <button
                 type="button"
                 onClick={() => onSelectTab('beers')}
-                className="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 font-bold text-xs rounded-xl border border-indigo-200 dark:border-indigo-800 transition-all flex items-center gap-1 cursor-pointer"
+                className="px-4 py-2 rounded-full bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 font-bold text-xs border border-indigo-200 dark:border-indigo-800 transition-all flex items-center gap-1 cursor-pointer font-outfit"
               >
                 <span>Uji Polifarmasi</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -1495,7 +1537,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </div>
 
           {/* Card 7 (Span 6 Kolom): Pusat Belajar UKMPPAI & OSCE Blueprint */}
-          <div className="lg:col-span-6 bg-white dark:bg-[#061d23] rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-teal-500/25 shadow-md hover:shadow-xl hover:border-amber-400 transition-all duration-300 flex flex-col justify-between group">
+          <div className="lg:col-span-6 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:shadow-xl hover:border-amber-400/60 transition-all duration-300 flex flex-col justify-between group text-left">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -1503,40 +1545,40 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                     <GraduationCap className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit">
+                    <h3 className="text-base sm:text-lg font-black text-[#082a24] dark:text-white font-outfit group-hover:text-amber-300 transition-colors">
                       Pusat Belajar UKMPPAI &amp; OSCE
                     </h3>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">Simulasi Uji Kompetensi Calon Apoteker Indonesia</p>
+                    <p className="text-[11px] text-slate-500 dark:text-teal-200/60">Simulasi Uji Kompetensi Calon Apoteker Indonesia</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                   Bank Soal CBT
                 </span>
               </div>
 
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-teal-100/75 leading-relaxed">
                 Koleksi soal vignette CBT klinis 4 domain keilmuan farmasi, blueprint stasiun OSCE interaktif, rubrik penilaian resmi, serta panduan telaah resep cepat.
               </p>
 
               <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
-                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#07242c] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#062026] text-slate-700 dark:text-teal-100 border border-slate-200 dark:border-teal-500/20">
                   CBT Vignette 4 Domain
                 </div>
-                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#07242c] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#062026] text-slate-700 dark:text-teal-100 border border-slate-200 dark:border-teal-500/20">
                   Blueprint Stasiun OSCE
                 </div>
-                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#07242c] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+                <div className="p-2 rounded-xl bg-slate-50 dark:bg-[#062026] text-slate-700 dark:text-teal-100 border border-slate-200 dark:border-teal-500/20">
                   Pembahasan High-Yield
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500">Persiapan kelulusan UKMPPAI</span>
+            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 mt-4 flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-500 dark:text-teal-300/60">Persiapan kelulusan UKMPPAI</span>
               <button
                 type="button"
                 onClick={() => onSelectTab('competency')}
-                className="px-4 py-2 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-bold text-xs rounded-xl border border-amber-200 dark:border-amber-800 transition-all flex items-center gap-1 cursor-pointer"
+                className="px-4 py-2 rounded-full bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-bold text-xs border border-amber-200 dark:border-amber-800 transition-all flex items-center gap-1 cursor-pointer font-outfit"
               >
                 <span>Mulai Tryout Soal</span>
                 <ChevronRight className="w-3.5 h-3.5" />
