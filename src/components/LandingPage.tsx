@@ -284,14 +284,15 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
     <div className="space-y-16 pb-24 bg-[#f4f8f8] dark:bg-[#051418] text-slate-900 dark:text-slate-100 transition-colors duration-300">
       
       {/* =========================================================================
-          HERO SECTION: Deep Dark Oceanic Teal with Aurora Glow & Floating Particles
+          HERO SECTION: Spatial Radiant Glow & Neo-Clinical Tech Architecture
           ========================================================================= */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#031114] via-[#062026] to-[#0a2f38] text-white pt-16 pb-20 border-b border-teal-500/20">
+      <section id="hero-section" className="relative overflow-hidden bg-gradient-to-b from-[#02090c] via-[#04151a] to-[#07242c] text-white pt-16 sm:pt-20 pb-20 sm:pb-24 border-b border-teal-500/20">
         {/* Floating Pills Background Particles */}
         <FloatingPillsBackground density="normal" accentColor="#2dd4bf" />
 
-        {/* Ambient Aurora Glow Mesh */}
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-teal-500/25 via-cyan-400/20 to-emerald-500/20 rounded-full blur-[110px] pointer-events-none" />
+        {/* Spatial Radiant Glow Mesh & Centerpiece Halo */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[950px] h-[550px] bg-gradient-to-tr from-teal-500/20 via-cyan-500/15 to-emerald-500/10 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[850px] h-[350px] bg-teal-500/20 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute top-1/3 -left-32 w-80 h-80 bg-teal-600/15 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute top-1/3 -right-32 w-80 h-80 bg-cyan-600/15 rounded-full blur-[100px] pointer-events-none" />
 
@@ -305,31 +306,29 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             {/* Left Column (Span 5 Kolom di Desktop): Copywriting, Search, & CTA */}
             <div className="lg:col-span-5 text-left space-y-5">
               
-              {/* Clinical Live Badge with Animated Pulse Dot */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#062930]/90 border border-teal-400/50 text-teal-300 text-xs font-black shadow-lg shadow-teal-950/60 backdrop-blur-md">
+              {/* Vectra-Style Kicker with Glowing Accent Line & Pulse Dot */}
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#051c22]/90 border border-teal-400/40 text-teal-300 text-xs font-bold shadow-lg shadow-teal-950/60 backdrop-blur-md">
+                <span className="w-3.5 h-0.5 rounded-full bg-gradient-to-r from-teal-400 to-emerald-400 inline-block shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
                 </span>
-                <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
-                <span className="tracking-wide text-[11px] sm:text-xs">Sistem Integrasi Apoteker &amp; Dokter</span>
+                <span className="tracking-wider uppercase text-[10px] sm:text-[11px] font-extrabold text-teal-200">
+                  SISTEM KEPUTUSAN KLINIS &amp; EBM
+                </span>
               </div>
 
-              {/* Main Headline with Crystal Gradient Typography */}
-              <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] font-black text-white tracking-tight leading-[1.15] font-outfit">
-                Sistem Informasi Obat,{' '}
-                <span className="bg-gradient-to-r from-teal-200 via-cyan-100 to-emerald-200 bg-clip-text text-transparent">
-                  Interaksi Klinis
-                </span>{' '}
-                &amp;{' '}
-                <span className="bg-gradient-to-r from-cyan-200 via-teal-100 to-emerald-200 bg-clip-text text-transparent underline decoration-teal-400/60 decoration-4 underline-offset-8">
-                  Kalkulator Resep
+              {/* Main Headline with Geometric Sans & Glowing Gradient Word */}
+              <h1 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-white tracking-tight leading-[1.12] font-outfit">
+                Sistem Telaah Resep &amp; Keputusan Klinis yang{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 via-emerald-300 to-cyan-300 drop-shadow-[0_0_35px_rgba(45,212,191,0.45)]">
+                  Presisi.
                 </span>
               </h1>
 
               {/* Subtitle */}
-              <p className="text-xs sm:text-sm text-teal-100/90 font-medium leading-relaxed">
-                <strong className="text-white">FARMASIDRUGGIST</strong> mengintegrasikan <strong className="text-teal-200">21 Modul Klinis Terpercaya</strong>: Skrining Interaksi DDInter 6 database global, Keamanan Bumil &amp; Busui PLLR, BUD Racikan USP &lt;795&gt;, hingga Pusat UKMPPAI.
+              <p className="text-xs sm:text-sm text-teal-100/80 font-medium leading-relaxed max-w-xl">
+                <strong className="text-white font-bold">FARMASIDRUGGIST</strong> mengintegrasikan <strong className="text-teal-200 font-bold">21 Modul Klinis Terpadu</strong>: Skrining Interaksi multi-database global (DDInter, Stockley, Lexicomp), Keamanan Ibu Hamil &amp; Laktasi PLLR, Kalkulator BUD USP &lt;795&gt;, hingga Evaluasi Geriatri Beers 2023.
               </p>
 
               {/* Hero Quick Search Box with Glowing Neon Border Ring & Rotating Placeholder */}
@@ -375,26 +374,30 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 </div>
               </form>
 
-              {/* Action Buttons - High-Impact CTA Hierarchy */}
+              {/* Action Buttons - High-Impact CTA Hierarchy (Vectra Neo-Clinical Tech Style) */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <button
                   onClick={() => {
                     const el = document.getElementById('interactive-playground');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="px-6 py-3.5 bg-gradient-to-r from-teal-400 via-teal-300 to-emerald-400 hover:from-teal-300 hover:to-emerald-300 text-slate-950 font-black rounded-xl shadow-xl shadow-teal-950/50 transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02] active:scale-95 font-outfit"
+                  className="px-6 py-3.5 rounded-full bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-300 hover:from-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-teal-950/50 hover:shadow-teal-500/25 transition-all flex items-center gap-2.5 cursor-pointer hover:scale-[1.02] active:scale-95 font-outfit group"
                 >
-                  <Zap className="w-4 h-4 fill-slate-950" />
-                  <span>Eksplorasi Gratis</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>Coba Simulasi Klinis Gratis</span>
+                  <span className="w-5 h-5 rounded-full bg-slate-950/15 flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                    <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+                  </span>
                 </button>
 
                 <button
-                  onClick={onOpenAuthModal}
-                  className="px-5 py-3.5 bg-white/10 hover:bg-white/15 text-white font-bold rounded-xl border border-white/20 transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02] active:scale-95 backdrop-blur-md"
+                  onClick={() => {
+                    const el = document.getElementById('bento-features');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-5 py-3.5 rounded-full bg-[#051c22]/80 hover:bg-[#082a32] text-teal-100 hover:text-white font-bold border border-teal-500/30 hover:border-teal-400/60 transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02] active:scale-95 backdrop-blur-md"
                 >
-                  <ShieldCheck className="w-4 h-4 text-teal-300" />
-                  <span>Masuk Akun</span>
+                  <BookOpen className="w-4 h-4 text-teal-400" />
+                  <span>Eksplorasi 21 Modul Terpadu</span>
                 </button>
               </div>
 
@@ -403,11 +406,19 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             {/* Right Column (Span 7 Kolom di Desktop): Floating 3D Perspective Live UI Mockup Card */}
             <div className="lg:col-span-7">
               <div className="relative group">
-                {/* Outer Glow Ambient Halo */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/30 via-cyan-400/20 to-emerald-500/30 rounded-[32px] blur-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-700 pointer-events-none" />
+                {/* Outer Glow Ambient Halo & Orbital Decor Rings */}
+                <div className="absolute -inset-4 bg-gradient-to-r from-teal-500/25 via-cyan-400/20 to-emerald-500/25 rounded-[40px] blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full border border-teal-400/20 pointer-events-none animate-[spin_30s_linear_infinite]" />
+                <div className="absolute -bottom-10 -left-10 w-36 h-36 rounded-full border border-emerald-400/15 pointer-events-none" />
+
+                {/* Floating Glass Badge */}
+                <div className="absolute -top-3.5 right-4 sm:right-6 z-20 px-3.5 py-1 rounded-full bg-[#051b20]/95 border border-teal-400/50 backdrop-blur-xl shadow-lg flex items-center gap-1.5 text-[10px] sm:text-[10.5px] font-black text-teal-200">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300 shrink-0" />
+                  <span>99.9% Presisi EBM • Terstandar PNPK</span>
+                </div>
 
                 {/* Window Container */}
-                <div className="relative rounded-3xl bg-[#04151a]/95 border border-teal-500/30 shadow-[0_25px_70px_-15px_rgba(4,20,25,0.9)] backdrop-blur-2xl overflow-hidden transition-all duration-300 group-hover:border-teal-400/50">
+                <div className="relative rounded-3xl bg-[#04151a]/95 border border-teal-500/35 shadow-[0_25px_70px_-15px_rgba(4,20,25,0.9)] backdrop-blur-2xl overflow-hidden transition-all duration-300 group-hover:border-teal-400/60">
                   
                   {/* Window Title Bar */}
                   <div className="px-4 py-3 bg-[#061e24] border-b border-teal-500/20 flex items-center justify-between">
@@ -561,44 +572,48 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
 
           {/* Full-width Stat Counters Row - Elevated Translucent Glassmorphism Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-6 text-left border-t border-teal-500/20">
-            <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-teal-500/30 hover:border-teal-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
-              <div className="flex items-center justify-between mb-1">
-                <p className="text-xl sm:text-2xl font-black text-teal-300 font-outfit group-hover:text-teal-200 transition-colors">
+            <div className="p-4 bg-[#051c22]/80 hover:bg-[#07262e] border border-teal-500/30 hover:border-teal-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-2xl sm:text-3xl font-black text-teal-300 font-outfit group-hover:text-teal-200 transition-colors">
                   {drugs.length > 0 ? `${drugs.length}+` : '80+'}
                 </p>
                 <Pill className="w-4 h-4 text-teal-400/60 group-hover:text-teal-300 transition-colors" />
               </div>
-              <p className="text-[11px] text-teal-100/90 font-bold leading-tight">Monografi Obat Resmi BPOM</p>
+              <p className="text-[10px] sm:text-[10.5px] font-black uppercase tracking-wider text-teal-300/70">MONOGRAFI BPOM</p>
+              <p className="text-[11px] text-teal-100/90 font-medium leading-tight mt-0.5">Indikasi, Dosis &amp; Interaksi Lengkap</p>
             </div>
 
-            <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-cyan-500/30 hover:border-cyan-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
-              <div className="flex items-center justify-between mb-1">
-                <p className="text-xl sm:text-2xl font-black text-cyan-300 font-outfit group-hover:text-cyan-200 transition-colors">
+            <div className="p-4 bg-[#051c22]/80 hover:bg-[#07262e] border border-cyan-500/30 hover:border-cyan-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-2xl sm:text-3xl font-black text-cyan-300 font-outfit group-hover:text-cyan-200 transition-colors">
                   {INITIAL_INTERACTIONS.length > 0 ? `${INITIAL_INTERACTIONS.length}+` : '25+'}
                 </p>
                 <ShieldAlert className="w-4 h-4 text-cyan-400/60 group-hover:text-cyan-300 transition-colors" />
               </div>
-              <p className="text-[11px] text-cyan-100/90 font-bold leading-tight">Pasangan DDI DDInter</p>
+              <p className="text-[10px] sm:text-[10.5px] font-black uppercase tracking-wider text-cyan-300/70">PASANGAN DDI</p>
+              <p className="text-[11px] text-cyan-100/90 font-medium leading-tight mt-0.5">Konsensus DDInter 6 Database Global</p>
             </div>
 
-            <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-amber-500/30 hover:border-amber-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
-              <div className="flex items-center justify-between mb-1">
-                <p className="text-xl sm:text-2xl font-black text-amber-300 font-outfit group-hover:text-amber-200 transition-colors">
+            <div className="p-4 bg-[#051c22]/80 hover:bg-[#07262e] border border-amber-500/30 hover:border-amber-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-2xl sm:text-3xl font-black text-amber-300 font-outfit group-hover:text-amber-200 transition-colors">
                   21 Modul
                 </p>
                 <Layers className="w-4 h-4 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
               </div>
-              <p className="text-[11px] text-amber-100/90 font-bold leading-tight">Klinis, Dosis &amp; UKMPPAI</p>
+              <p className="text-[10px] sm:text-[10.5px] font-black uppercase tracking-wider text-amber-300/70">EKOSISTEM TERPADU</p>
+              <p className="text-[11px] text-amber-100/90 font-medium leading-tight mt-0.5">Kalkulator Klinis, PLLR &amp; UKMPPAI</p>
             </div>
 
-            <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-emerald-500/30 hover:border-emerald-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
-              <div className="flex items-center justify-between mb-1">
-                <p className="text-xl sm:text-2xl font-black text-emerald-300 font-outfit group-hover:text-emerald-200 transition-colors">
-                  100% EBM
+            <div className="p-4 bg-[#051c22]/80 hover:bg-[#07262e] border border-emerald-500/30 hover:border-emerald-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-2xl sm:text-3xl font-black text-emerald-300 font-outfit group-hover:text-emerald-200 transition-colors">
+                  7.000+
                 </p>
                 <ShieldCheck className="w-4 h-4 text-emerald-400/60 group-hover:text-emerald-300 transition-colors" />
               </div>
-              <p className="text-[11px] text-emerald-100/90 font-bold leading-tight">PNPK &amp; Standar Kemenkes</p>
+              <p className="text-[10px] sm:text-[10.5px] font-black uppercase tracking-wider text-emerald-300/70">SEJAWAT AKTIF</p>
+              <p className="text-[11px] text-emerald-100/90 font-medium leading-tight mt-0.5">Apoteker &amp; Dokter se-Indonesia</p>
             </div>
           </div>
 
@@ -1178,7 +1193,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       {/* =========================================================================
           STAGE 3: MODERN BENTO GRID ARCHITECTURE - 21 MODUL KLINIS
           ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section id="bento-features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
@@ -1536,7 +1551,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       {/* =========================================================================
           STAGE 4: PUSAT SUARA PENGGUNA & KUISIONER FEEDBACK WHATSAPP (0877-7840-2266)
           ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section id="suara-sejawat" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
@@ -1772,7 +1787,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       {/* =========================================================================
           PRICING & SUBSCRIPTION SECTION
           ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section id="pricing-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-950 dark:text-amber-200 text-xs font-black border border-amber-300 dark:border-amber-800">
             <Sparkles className="w-3.5 h-3.5 fill-amber-900 dark:fill-amber-300" />
@@ -1933,7 +1948,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       {/* =========================================================================
           STAGE 6: 2-COLUMN SIDE-BY-SIDE: TELEGRAM COMMUNITY & CONVERTING CTA
           ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="komunitas-telegram" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
           
           {/* Left Card: Telegram Community */}

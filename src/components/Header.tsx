@@ -30,7 +30,8 @@ import {
   FlaskConical,
   CalendarClock,
   Leaf,
-  Send
+  Send,
+  ArrowUpRight
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -73,180 +74,221 @@ export const Header: React.FC<HeaderProps> = ({
 
   const isLanding = activeTab === 'landing';
 
-  // Landing Header Rendering - Seamless Dark Teal Glassmorphism
+  // Landing Header Rendering - Neo-Clinical Floating Capsule Island
   if (isLanding) {
     return (
-      <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-[#031114]/95 backdrop-blur-2xl border-b border-teal-500/25 shadow-xl' 
-          : 'bg-[#031114]/80 backdrop-blur-xl border-b border-teal-500/15 shadow-sm'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+      <header className="sticky top-3 sm:top-5 z-50 w-full px-3 sm:px-6 pointer-events-none transition-all duration-300">
+        <div className="max-w-6xl mx-auto">
+          <div className={`pointer-events-auto rounded-full transition-all duration-300 px-3.5 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between ${
+            isScrolled 
+              ? 'bg-[#041418]/92 backdrop-blur-2xl border border-teal-500/35 shadow-[0_12px_40px_rgba(0,0,0,0.65)]' 
+              : 'bg-[#031114]/85 backdrop-blur-xl border border-teal-500/25 shadow-[0_8px_30px_rgba(0,0,0,0.45)]'
+          }`}>
             
-            {/* Logo with dark variant for crisp white/teal typography */}
+            {/* Brand Logo */}
             <button 
-              onClick={() => setActiveTab('landing')}
+              onClick={() => {
+                setActiveTab('landing');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               className="focus:outline-none flex items-center gap-2 group text-left cursor-pointer transition-transform hover:scale-[1.02]"
             >
-              <Logo size="md" variant="dark" />
+              <Logo size="sm" variant="dark" />
             </button>
 
-            {/* Nav Items on Landing */}
-            <nav className="hidden md:flex items-center space-x-1 text-xs font-bold font-outfit">
+            {/* Nav Items on Landing - Sleek Minimalist Capsule Pills */}
+            <nav className="hidden lg:flex items-center space-x-1 text-xs font-semibold font-outfit">
               <button
-                onClick={() => setActiveTab('landing')}
-                className="text-teal-300 bg-teal-500/20 border border-teal-400/40 px-3.5 py-1.5 rounded-full transition-all cursor-pointer shadow-xs"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="text-teal-300 bg-teal-500/15 border border-teal-400/30 px-3 py-1.5 rounded-full transition-all cursor-pointer shadow-2xs"
               >
                 Beranda
               </button>
               <button
                 onClick={() => {
-                  if (!currentUser) {
-                    onOpenAuthModal();
-                  } else {
-                    setActiveTab('drugs');
-                  }
+                  const el = document.getElementById('interactive-playground');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  else if (!currentUser) onOpenAuthModal();
+                  else setActiveTab('drugs');
                 }}
-                className="text-teal-100/80 hover:text-teal-200 px-3.5 py-1.5 rounded-full hover:bg-teal-500/15 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="text-teal-100/75 hover:text-white px-3 py-1.5 rounded-full hover:bg-teal-500/15 transition-all flex items-center gap-1.5 cursor-pointer"
               >
-                <Pill className="w-3.5 h-3.5 text-teal-400" />
-                <span>Katalog Obat</span>
+                <Pill className="w-3 h-3 text-teal-400" />
+                <span>Simulasi Klinis</span>
               </button>
               <button
                 onClick={() => {
-                  if (!currentUser) {
-                    onOpenAuthModal();
-                  } else {
-                    setActiveTab('interactions');
-                  }
+                  const el = document.getElementById('bento-features');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-teal-100/80 hover:text-teal-200 px-3.5 py-1.5 rounded-full hover:bg-teal-500/15 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="text-teal-100/75 hover:text-white px-3 py-1.5 rounded-full hover:bg-teal-500/15 transition-all flex items-center gap-1.5 cursor-pointer"
               >
-                <HeartPulse className="w-3.5 h-3.5 text-rose-400" />
-                <span>Cek Interaksi</span>
+                <BookOpen className="w-3 h-3 text-cyan-400" />
+                <span>21 Modul</span>
               </button>
               <button
                 onClick={() => {
-                  if (!currentUser) {
-                    onOpenAuthModal();
-                  } else {
-                    setActiveTab('polypharmacy');
-                  }
+                  const el = document.getElementById('suara-sejawat');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-teal-100/80 hover:text-teal-200 px-3.5 py-1.5 rounded-full hover:bg-teal-500/15 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="text-teal-100/75 hover:text-white px-3 py-1.5 rounded-full hover:bg-teal-500/15 transition-all flex items-center gap-1.5 cursor-pointer"
               >
-                <Stethoscope className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Evaluasi Polifarmasi</span>
+                <MessageSquare className="w-3 h-3 text-emerald-400" />
+                <span>Suara Sejawat</span>
+              </button>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('pricing-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="text-teal-100/75 hover:text-white px-3 py-1.5 rounded-full hover:bg-teal-500/15 transition-all flex items-center gap-1.5 cursor-pointer"
+              >
+                <CreditCard className="w-3 h-3 text-amber-400" />
+                <span>Paket Akses</span>
               </button>
             </nav>
 
-            {/* Right Action Buttons on Landing */}
-            <div className="hidden md:flex items-center space-x-3">
-              {/* Telegram Community Button on Landing Header */}
+            {/* Right Action Buttons */}
+            <div className="hidden sm:flex items-center space-x-2">
+              {/* Telegram Community Button */}
               <a
                 href="https://t.me/+lHiIMC_TdoM2NTk1"
                 target="_blank"
                 rel="noopener noreferrer"
-                title="Gabung Komunitas Telegram Apoteker & Dokter"
-                className="h-9 px-3.5 sm:px-4 rounded-xl text-xs font-black text-white bg-[#229ED9] hover:bg-[#1b8bc2] border border-[#229ED9] transition-all flex items-center justify-center gap-1.5 whitespace-nowrap shadow-xs hover:shadow-md hover:scale-105 cursor-pointer"
+                title="Gabung Komunitas Telegram (7.000+ Sejawat)"
+                className="h-8 px-3 rounded-full text-[11px] font-bold text-teal-200 hover:text-white bg-[#062026] hover:bg-[#09303a] border border-teal-500/30 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer shadow-2xs"
               >
-                <Send className="w-3.5 h-3.5 fill-white shrink-0" />
-                <span>Komunitas Telegram</span>
+                <Send className="w-3 h-3 text-[#229ED9] fill-[#229ED9] shrink-0" />
+                <span>Komunitas (7.000+)</span>
               </a>
 
               {!currentUser ? (
-                <>
-                  <button
-                    onClick={onOpenAuthModal}
-                    className="h-9 px-3.5 sm:px-4 rounded-xl text-xs font-black text-slate-950 bg-amber-400 hover:bg-amber-300 active:bg-amber-500 border border-amber-300 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap shadow-xs hover:shadow-md hover:scale-105 cursor-pointer"
-                  >
-                    <LogIn className="w-3.5 h-3.5 text-slate-950 stroke-[2.5] shrink-0" />
-                    <span>Masuk</span>
-                  </button>
-                </>
+                <button
+                  onClick={onOpenAuthModal}
+                  className="h-8 px-3.5 sm:px-4 rounded-full text-xs font-black text-slate-950 bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-300 hover:from-teal-300 hover:to-emerald-300 transition-all flex items-center justify-center gap-1 whitespace-nowrap shadow-md shadow-teal-950/40 hover:scale-[1.02] active:scale-95 cursor-pointer group"
+                >
+                  <span>Masuk Sistem</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </button>
               ) : (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1.5">
                   <button
                     onClick={() => setActiveTab('dashboard')}
-                    className="text-xs font-bold text-white bg-teal-600 hover:bg-teal-700 px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="text-xs font-bold text-slate-950 bg-teal-400 hover:bg-teal-300 px-3.5 py-1.5 rounded-full shadow-xs transition-all flex items-center gap-1 cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5" />
+                    <Sparkles className="w-3 h-3" />
                     <span>Dashboard</span>
                   </button>
                   <button
                     onClick={onLogout}
                     title="Keluar"
-                    className="p-2 text-slate-400 hover:text-rose-400 rounded-xl hover:bg-rose-950/30 transition-all cursor-pointer"
+                    className="p-1.5 text-slate-400 hover:text-rose-400 rounded-full hover:bg-rose-950/30 transition-all cursor-pointer"
                   >
-                    <LogOut className="w-4 h-4" />
+                    <LogOut className="w-3.5 h-3.5" />
                   </button>
                 </div>
               )}
             </div>
 
             {/* Mobile Menu Button on Landing */}
-            <div className="flex items-center space-x-2 md:hidden">
+            <div className="flex items-center space-x-2 lg:hidden">
               <button
                 onClick={() => setLandingMobileMenuOpen(!landingMobileMenuOpen)}
-                className="p-2 rounded-xl text-teal-200 hover:bg-teal-500/20 transition-all"
+                className="p-1.5 rounded-full text-teal-200 hover:bg-teal-500/20 transition-all cursor-pointer"
               >
-                {landingMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {landingMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
 
           </div>
-        </div>
 
-        {/* Mobile Dropdown on Landing */}
-        {landingMobileMenuOpen && (
-          <div className="md:hidden bg-[#041418]/95 backdrop-blur-2xl border-b border-teal-500/25 px-4 pt-2 pb-6 space-y-2">
-            <button
-              onClick={() => { setActiveTab('landing'); setLandingMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-bold text-teal-300 bg-teal-500/20 border border-teal-500/30"
-            >
-              Beranda
-            </button>
-            <button
-              onClick={() => { setActiveTab('drugs'); setLandingMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-teal-100 hover:bg-teal-500/15"
-            >
-              Katalog Obat
-            </button>
-            <button
-              onClick={() => { setActiveTab('interactions'); setLandingMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-teal-100 hover:bg-teal-500/15"
-            >
-              Cek Interaksi
-            </button>
-            <button
-              onClick={() => { setActiveTab('polypharmacy'); setLandingMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-teal-100 hover:bg-teal-500/15"
-            >
-              Evaluasi Polifarmasi
-            </button>
-            
-            <div className="pt-3 border-t border-teal-500/20 flex flex-col gap-2">
-              {!currentUser ? (
-                <>
+          {/* Floating Mobile Dropdown */}
+          {landingMobileMenuOpen && (
+            <div className="pointer-events-auto mt-2 rounded-2xl bg-[#04151a]/95 backdrop-blur-2xl border border-teal-500/30 p-4 space-y-2 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+              <button
+                onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setLandingMobileMenuOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-teal-300 bg-teal-500/20 border border-teal-500/30"
+              >
+                Beranda
+              </button>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('interactive-playground');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  else if (!currentUser) onOpenAuthModal();
+                  else setActiveTab('drugs');
+                  setLandingMobileMenuOpen(false);
+                }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-medium text-teal-100 hover:bg-teal-500/15 flex items-center gap-2"
+              >
+                <Pill className="w-3.5 h-3.5 text-teal-400" />
+                <span>Simulasi Klinis</span>
+              </button>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('bento-features');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  setLandingMobileMenuOpen(false);
+                }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-medium text-teal-100 hover:bg-teal-500/15 flex items-center gap-2"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-cyan-400" />
+                <span>21 Modul Terpadu</span>
+              </button>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('suara-sejawat');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  setLandingMobileMenuOpen(false);
+                }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-medium text-teal-100 hover:bg-teal-500/15 flex items-center gap-2"
+              >
+                <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Suara Sejawat</span>
+              </button>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('pricing-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  setLandingMobileMenuOpen(false);
+                }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-medium text-teal-100 hover:bg-teal-500/15 flex items-center gap-2"
+              >
+                <CreditCard className="w-3.5 h-3.5 text-amber-400" />
+                <span>Paket Langganan</span>
+              </button>
+              <a
+                href="https://t.me/+lHiIMC_TdoM2NTk1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-medium text-teal-100 hover:bg-teal-500/15 flex items-center gap-2"
+              >
+                <Send className="w-3.5 h-3.5 text-[#229ED9]" />
+                <span>Gabung Telegram (7.000+)</span>
+              </a>
+              
+              <div className="pt-2 border-t border-teal-500/20">
+                {!currentUser ? (
                   <button
                     onClick={() => { onOpenAuthModal(); setLandingMobileMenuOpen(false); }}
-                    className="w-full py-2.5 text-center text-xs font-black text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-xl shadow-xs"
+                    className="w-full py-2.5 text-center text-xs font-black text-slate-950 bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-300 rounded-xl shadow-md"
                   >
-                    Masuk Akun
+                    Masuk Sistem ↗
                   </button>
-                </>
-              ) : (
-                <button
-                  onClick={() => { setActiveTab('dashboard'); setLandingMobileMenuOpen(false); }}
-                  className="w-full py-2.5 text-center text-xs font-bold text-white bg-teal-600 rounded-xl shadow-xs"
-                >
-                  Buka Dashboard
-                </button>
-              )}
+                ) : (
+                  <button
+                    onClick={() => { setActiveTab('dashboard'); setLandingMobileMenuOpen(false); }}
+                    className="w-full py-2.5 text-center text-xs font-bold text-white bg-teal-600 rounded-xl shadow-xs"
+                  >
+                    Buka Dashboard
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </header>
     );
   }
