@@ -577,6 +577,123 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       </section>
 
       {/* =========================================================================
+          STAGE 2: TRUST LOGO STRIP & MEDICAL STANDARDS MARQUEE
+          ========================================================================= */}
+      <section className="relative z-10 -mt-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/95 dark:bg-[#061b20]/95 backdrop-blur-xl rounded-3xl p-5 sm:p-6 border border-slate-200/90 dark:border-teal-500/30 shadow-xl shadow-slate-900/5 dark:shadow-teal-950/40 space-y-4">
+          
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-teal-500/20 pb-3">
+            <div className="flex items-center gap-2">
+              <span className="p-1 rounded-md bg-teal-500/10 dark:bg-teal-500/20 text-teal-600 dark:text-teal-400">
+                <ShieldCheck className="w-4 h-4" />
+              </span>
+              <p className="text-[11px] font-black uppercase tracking-wider text-slate-700 dark:text-teal-300 font-outfit">
+                Kredibilitas Ilmiah &amp; Validasi Sumber Evidence-Based Medicine (EBM)
+              </p>
+            </div>
+            <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300 font-mono">
+              6 Konsensus Global &amp; Regulasi RI Terintegrasi
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            
+            {/* Standard 1: Kemenkes RI */}
+            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-7 h-7 rounded-xl bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 flex items-center justify-center font-black text-xs shrink-0 border border-red-200 dark:border-red-900/50">
+                  <Building2 className="w-3.5 h-3.5" />
+                </div>
+                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                  Kemenkes RI
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
+                PNPK &amp; Konsensus PAPDI/PERKI
+              </p>
+            </div>
+
+            {/* Standard 2: BPOM RI */}
+            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-7 h-7 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-xs shrink-0 border border-blue-200 dark:border-blue-900/50">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                </div>
+                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                  Badan POM RI
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
+                CekBPOM &amp; Database NIE Resmi
+              </p>
+            </div>
+
+            {/* Standard 3: ASHP Trissel's 2024 */}
+            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-7 h-7 rounded-xl bg-teal-100 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 flex items-center justify-center font-black text-xs shrink-0 border border-teal-200 dark:border-teal-900/50">
+                  <Syringe className="w-3.5 h-3.5" />
+                </div>
+                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                  ASHP Trissel's
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
+                Inkompatibilitas Injeksi IV Y-Site
+              </p>
+            </div>
+
+            {/* Standard 4: DDInter Database */}
+            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-7 h-7 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-black text-xs shrink-0 border border-cyan-200 dark:border-cyan-900/50">
+                  <Activity className="w-3.5 h-3.5" />
+                </div>
+                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                  DDInter Global
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
+                Nature npj Digital Medicine
+              </p>
+            </div>
+
+            {/* Standard 5: USP <795> & Farmakope */}
+            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-7 h-7 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center font-black text-xs shrink-0 border border-amber-200 dark:border-amber-900/50">
+                  <BookMarked className="w-3.5 h-3.5" />
+                </div>
+                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                  USP &lt;795&gt; &amp; FI VI
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
+                Beyond-Use Date (BUD) Racikan
+              </p>
+            </div>
+
+            {/* Standard 6: Beers Criteria 2023 */}
+            <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#08242a]/60 hover:bg-teal-50/50 dark:hover:bg-[#0a2e36] border border-slate-200/70 dark:border-teal-500/20 hover:border-teal-400/50 transition-all group">
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-7 h-7 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-black text-xs shrink-0 border border-emerald-200 dark:border-emerald-900/50">
+                  <HeartPulse className="w-3.5 h-3.5" />
+                </div>
+                <span className="text-xs font-black text-slate-900 dark:text-white font-outfit truncate">
+                  Beers 2023 AGS
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight font-medium">
+                Skrining Polifarmasi Geriatri
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
           INTERACTIVE CLINICAL PLAYGROUND: 5 LIVE DEMOS (NO LOGIN REQUIRED)
           ========================================================================= */}
       <section id="interactive-playground" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
