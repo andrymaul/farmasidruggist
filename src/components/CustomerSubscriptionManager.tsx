@@ -4,8 +4,7 @@ import { UserProfile, CustomerPaymentRecord } from '../types';
 import { 
   saveUserProfileToFirestore, 
   deleteCustomerFromFirestore, 
-  fetchCustomersFromFirestore,
-  cleanupDummyCustomersFromFirestore
+  fetchCustomersFromFirestore
 } from '../firebase';
 import { 
   Users, 
@@ -763,7 +762,6 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
     }));
   };
 
-  const [isCleaningDummy, setIsCleaningDummy] = useState(false);
 
   const handleDeleteCustomer = async () => {
     if (!deletingCustomer) return;
@@ -791,33 +789,6 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
     }
   };
 
-  const handleCleanupDummyData = async () => {
-    if (!window.confirm('⚠️ Apakah Anda yakin ingin MEMBERSIHKAN SEMUA DATA DUMMY / SIMULASI (seperti apt. Rina Wati, dr. Budi Santoso, Apotek K-24 Sudirman) langsung dari Cloud Firestore?\n\nData asli customer Anda TIDAK akan terhapus.')) {
-      return;
-    }
-
-    setIsCleaningDummy(true);
-    setSyncMessage('Sedang memindai dan menghapus semua dokumen pelanggan dummy di Cloud Firestore...');
-
-    try {
-      const res = await cleanupDummyCustomersFromFirestore();
-      const dummyEmails = ['farmasis.klinik@gmail.com', 'budi.santoso@rsmedika.co.id', 'apotek.k24sudirman@gmail.com'];
-      const dummyUids = ['cust-001', 'cust-002', 'cust-003'];
-
-      setCustomers(prev => prev.filter(c => 
-        !dummyUids.includes(c.uid) && 
-        !(c.email && dummyEmails.includes(c.email.toLowerCase()))
-      ));
-
-      setSyncMessage(`Sukses membersihkan: ${res.deletedCount} dokumen dummy berhasil dihapus tuntas dari Cloud Firestore!`);
-      setTimeout(() => setSyncMessage(null), 5000);
-    } catch (err) {
-      setSyncMessage('Terjadi kendala saat membersihkan data dummy di Firestore.');
-      setTimeout(() => setSyncMessage(null), 4500);
-    } finally {
-      setIsCleaningDummy(false);
-    }
-  };
 
   // Bulk Selection & Action Handlers
   const handleToggleSelectAll = () => {
@@ -1049,15 +1020,6 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
             <span>{syncingFirebase ? 'Menyinkronkan...' : 'Sinkronkan dari Firebase'}</span>
           </button>
 
-          <button
-            onClick={handleCleanupDummyData}
-            disabled={isCleaningDummy}
-            className="px-4 py-2.5 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/40 border border-rose-200 dark:border-rose-800/60 text-rose-700 dark:text-rose-300 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer hover:scale-102 disabled:opacity-50 font-outfit"
-            title="Pindai & hapus permanen semua data akun dummy dari Cloud Firestore"
-          >
-            <Trash2 className="w-4 h-4 text-rose-600 dark:text-rose-400" />
-            <span>{isCleaningDummy ? 'Membersihkan...' : 'Bersihkan Dummy di Firestore'}</span>
-          </button>
 
           {customers.length === 0 && (
             <button
