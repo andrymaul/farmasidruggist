@@ -118,7 +118,7 @@ export default function App() {
   useEffect(() => {
     try {
       localStorage.setItem('farmasi_theme', theme);
-      if (theme === 'dark' || activeTab === 'landing') {
+      if (theme === 'dark') {
         document.documentElement.classList.add('dark');
         document.body.classList.add('dark');
       } else {
@@ -126,7 +126,7 @@ export default function App() {
         document.body.classList.remove('dark');
       }
     } catch (e) {}
-  }, [theme, activeTab]);
+  }, [theme]);
 
   const handleToggleTheme = () => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -900,7 +900,7 @@ export default function App() {
   const isLanding = activeTab === 'landing';
 
   return (
-    <div className={`min-h-screen ${isLanding ? 'bg-[#02090c] text-slate-100' : 'bg-slate-50 dark:bg-[#051418] text-slate-800 dark:text-slate-100'} font-sans flex flex-col md:flex-row selection:bg-teal-900 selection:text-teal-100 transition-colors duration-300`}>
+    <div className="min-h-screen bg-slate-50 dark:bg-[#051418] font-sans text-slate-800 dark:text-slate-100 flex flex-col md:flex-row selection:bg-teal-900 selection:text-teal-100 transition-colors duration-300">
 
       {/* Sidebar Navigation - Hanya untuk tab selain Landing Page */}
       {!isLanding && (
@@ -917,7 +917,7 @@ export default function App() {
       )}
 
       {/* Container Utama Aplikasi with Modern Clinical Obsidian & Clean Slate Theme */}
-      <div className={`flex-1 flex flex-col min-w-0 min-h-screen ${isLanding ? 'bg-[#02090c]' : 'bg-slate-50 dark:bg-[#090d16]'} relative overflow-x-clip transition-colors duration-200`}>
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen bg-slate-50 dark:bg-[#090d16] relative overflow-x-clip transition-colors duration-200">
         
         {/* Subtle Ambient Glow Mesh Orbs matching Logo Palette */}
         <div className="fixed top-0 left-1/4 w-96 h-96 bg-[#156d67]/5 dark:bg-[#156d67]/15 rounded-full blur-3xl pointer-events-none -z-10" />
