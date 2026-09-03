@@ -1188,7 +1188,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto animate-in fade-in duration-200 print:m-0 print:p-0 print:w-full print:max-w-none">
+    <div className="space-y-6 animate-in fade-in duration-200 print:m-0 print:p-0 print:w-full print:max-w-none">
       
       {/* LAYOUT TAMPILAN KHUSUS CETAK 1 HALAMAN (PRINT VIEW ONLY - COLORFUL & BRANDED) */}
       <div className="hidden print:block print:fixed print:inset-0 print:z-[999999] print:bg-white print:p-0 print:m-0 font-sans text-slate-900 space-y-2">

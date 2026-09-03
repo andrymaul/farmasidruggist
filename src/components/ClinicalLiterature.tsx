@@ -89,7 +89,7 @@ export const ClinicalLiterature: React.FC<ClinicalLiteratureProps> = ({ onSelect
   };
 
   return (
-    <div className="space-y-8 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="space-y-8 pb-16">
       {/* HERO SECTION */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-teal-950 to-slate-950 text-white p-6 sm:p-10 shadow-2xl border border-teal-500/20">
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />

@@ -188,7 +188,7 @@ export const MedicationUsageGuide: React.FC<MedicationUsageGuideProps> = ({
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto animate-in fade-in duration-200 print:max-w-none print:w-full print:m-0 print:p-0">
+    <div className="space-y-6 animate-in fade-in duration-200 print:max-w-none print:w-full print:m-0 print:p-0">
       
       {/* SCREEN UI WRAPPER */}
       <div className="space-y-6 print:hidden">

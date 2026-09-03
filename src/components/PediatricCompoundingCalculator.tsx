@@ -437,7 +437,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
   };
 
   return (
-    <div className="space-y-6 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="space-y-6 pb-12">
       {/* HEADER BANNER - Modern Deep Obsidian & Rose/Pink Palette */}
       {!hideHeader && (
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-[#181120] to-slate-900 p-6 sm:p-8 text-white border border-rose-500/20 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">

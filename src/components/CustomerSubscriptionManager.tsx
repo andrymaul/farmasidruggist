@@ -518,7 +518,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto animate-in fade-in duration-200">
+    <div className="space-y-6 animate-in fade-in duration-200">
       
       {/* Header Banner - Deep Dark Teal Clinical & Outfit Display */}
       <div className="bg-gradient-to-r from-[#06191c] via-[#092b31] to-[#0a353c] rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-[#184c53] relative overflow-hidden">

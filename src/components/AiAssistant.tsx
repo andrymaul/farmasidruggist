@@ -159,7 +159,7 @@ Silakan pilih *Quick Prompt Chip* di bawah atau ketikkan pertanyaan klinis Anda!
   ];
 
   return (
-    <div className="flex flex-col h-[calc(100vh-6rem)] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-4">
+    <div className="flex flex-col h-[calc(100vh-6rem)] space-y-4">
       
       {/* Top Bar Header */}
       <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-3xl p-5 text-white shadow-xl border border-[#143d47] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shrink-0">

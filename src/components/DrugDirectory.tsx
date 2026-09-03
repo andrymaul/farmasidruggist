@@ -226,7 +226,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
   };
 
   return (
-    <div id="katalog-obat-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div id="katalog-obat-container" className="space-y-6">
       
       {/* Header Banner - Modern Deep Obsidian & Sapphire Palette */}
       <div className="bg-gradient-to-r from-slate-900 via-[#0e1728] to-slate-900 p-6 sm:p-8 rounded-3xl text-white border border-blue-500/20 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">

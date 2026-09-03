@@ -283,7 +283,7 @@ ${guideline.keyClinicalAlert || '-'}`;
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="space-y-6">
       
       {/* Header Banner - Modern Deep Obsidian & Clinical Blue/Teal Palette */}
       <div className="bg-gradient-to-r from-slate-900 via-[#0e172a] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-slate-800 relative overflow-hidden space-y-5">

@@ -365,7 +365,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 print:hidden">
+    <div className="space-y-6 print:hidden">
       
       {/* Dark Obsidian & Rose/Teal Banner */}
       <div className="bg-gradient-to-r from-slate-900 via-[#1a0f1d] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-rose-500/20 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">

@@ -442,7 +442,7 @@ DDInter-PAIR-00105,"Tacrolimus","Fluconazole","Major","Fluconazole menghambat CY
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    <div className="space-y-6">
 
       {/* Header Banner */}
       <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-2xl p-6 text-white shadow-xl border border-[#143d47] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">

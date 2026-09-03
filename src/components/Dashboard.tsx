@@ -82,7 +82,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="space-y-8">
       
       {/* Welcome & User Status Banner - Modern Deep Sapphire Obsidian */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-[#0d1f2d] to-slate-900 p-6 sm:p-8 text-white shadow-xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-6">

@@ -105,7 +105,7 @@ export const AuditLogManager: React.FC<AuditLogManagerProps> = ({ auditLogs }) =
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto animate-in fade-in duration-200">
+    <div className="space-y-6 animate-in fade-in duration-200">
       
       {/* Header Banner */}
       <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-slate-800">

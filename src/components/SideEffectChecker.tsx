@@ -412,7 +412,7 @@ export const SideEffectChecker: React.FC<SideEffectCheckerProps> = ({
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-16">
+    <div className="space-y-6 pb-16">
       
       {/* 1. Header Banner & Intro - Deep Obsidian & Teal Palette */}
       <div className="bg-gradient-to-r from-slate-900 via-[#0d1f27] to-slate-900 rounded-3xl p-6 sm:p-8 text-white border border-teal-500/20 shadow-xl relative overflow-hidden print:hidden">

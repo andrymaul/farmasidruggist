@@ -241,7 +241,7 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto pb-16 animate-fade-in font-sans">
+    <div className="space-y-6 pb-16 animate-fade-in font-sans">
       {/* Hero Header Section */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c242b] via-[#091b22] to-[#041014] p-6 sm:p-8 text-white border border-teal-500/30 shadow-2xl">
         <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
