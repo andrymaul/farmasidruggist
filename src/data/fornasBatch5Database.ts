@@ -173,7 +173,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vaccine-hepb-recombinant",
-    "name": "recombinant hepatitis B vaccine",
+    "name": "Recombinant Hepatitis B Vaccine",
     "genericName": "Vaksin Hepatitis B Rekombinan Uniject Injeksi 0.5 mL (HepB0 Monovalen)",
     "brandNames": [
       "Vaksin Hepatitis B Rekombinan Bio Farma (Uniject)",
@@ -207,7 +207,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vaccine-hpv",
-    "name": "human papillomavirus vaccine",
+    "name": "Human Papillomavirus Vaccine",
     "genericName": "Vaksin Human Papillomavirus Rekombinan (Vaksin HPV 4-Valen / 2-Valen / 9-Valen Injeksi 0.5 mL)",
     "brandNames": [
       "Gardasil (HPV Tipe 6, 11, 16, 18)",
@@ -241,7 +241,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vaccine-rotavirus",
-    "name": "human rotavirus vaccine",
+    "name": "Human Rotavirus Vaccine",
     "genericName": "Vaksin Rotavirus Hidup Oral Tetes Mulut (Rotarix Monovalen / RotaTeq Pentavalen Suspensi Oral)",
     "brandNames": [
       "Rotarix (RV1 Monovalen GlaxoSmithKline)",
@@ -275,7 +275,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vaccine-je",
-    "name": "live attenuated Japanese encephalitis vaccine",
+    "name": "Live Attenuated Japanese Encephalitis Vaccine",
     "genericName": "Vaksin Japanese Encephalitis Hidup Dilemahkan (Vaksin JE SA 14-14-2 / Imojev Injeksi Subkutan 0.5 mL)",
     "brandNames": [
       "Imojev (Sanofi Pasteur)",
@@ -308,7 +308,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vaccine-dt",
-    "name": "diphtheria tetanus (DT) vaccine",
+    "name": "Diphtheria Tetanus (DT) Vaccine",
     "genericName": "Vaksin Difteri Tetanus Anak Suspensi Injeksi (Vaksin DT Bio Farma Injeksi IM 0.5 mL)",
     "brandNames": [
       "Vaksin DT Bio Farma (Pediatrik)",
@@ -339,7 +339,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vaccine-td",
-    "name": "tetanus diphtheria (Td) vaccine",
+    "name": "Tetanus Diphtheria (Td) Vaccine",
     "genericName": "Vaksin Tetanus Difteri Dewasa & Remaja (Vaksin Td Bio Farma Injeksi IM 0.5 mL)",
     "brandNames": [
       "Vaksin Td Bio Farma (Dewasa / Anak Besar)",
@@ -370,7 +370,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vaccine-mr",
-    "name": "measles rubella (MR) vaccine",
+    "name": "Measles Rubella (MR) Vaccine",
     "genericName": "Vaksin Campak dan Rubela Hidup Dilemahkan (Vaksin MR Bio Farma Liofilisasi Injeksi SC 0.5 mL)",
     "brandNames": [
       "Vaksin MR Bio Farma",
@@ -403,7 +403,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vaccine-pcv",
-    "name": "conjugate polysaccharide pneumococcal vaccine",
+    "name": "Conjugate Polysaccharide Pneumococcal Vaccine",
     "genericName": "Vaksin Pneumokokus Konjugat 13-Valen / 10-Valen (Vaksin PCV13 / PCV10 Injeksi IM 0.5 mL)",
     "brandNames": [
       "Prevenar 13 (PCV13 Pfizer)",
@@ -467,7 +467,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vaccine-b-opv",
-    "name": "oral polio vaccine (b-OPV)",
+    "name": "Oral Polio Vaccine (b-OPV)",
     "genericName": "Vaksin Polio Oral Bivalen Tipe 1 & 3 (b-OPV Tetes Mulut Bio Farma 2 Tetes)",
     "brandNames": [
       "Vaksin Polio Oral b-OPV Bio Farma",
@@ -500,7 +500,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vaccine-rabies-human",
-    "name": "rabies vaccine, for humans",
+    "name": "Rabies Vaccine, for Humans",
     "genericName": "Vaksin Anti Rabies Manusia (Purified Vero Cell Rabies Vaccine / VAR Injeksi 0.5 mL)",
     "brandNames": [
       "Verorab (Sanofi Pasteur)",
@@ -534,7 +534,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-valaciclovir",
-    "name": "valaciclovir",
+    "name": "Valaciclovir",
     "genericName": "Valasiklovir Hidroklorida 500 mg Tablet (Prodrug L-Valil Ester Asiklovir)",
     "brandNames": [
       "Valtrex 500 mg",
@@ -569,7 +569,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-valganciclovir",
-    "name": "valganciclovir",
+    "name": "Valganciclovir",
     "genericName": "Valgansiklovir Hidroklorida 450 mg Tablet (Prodrug L-Valil Gansiklovir Oral)",
     "brandNames": [
       "Valcyte 450 mg",
@@ -603,7 +603,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vasopressin",
-    "name": "vasopressin (argipressin)",
+    "name": "Vasopressin (Argipressin)",
     "genericName": "Vasopresin Sintetis Injeksi Infus 20 Unit / mL (Arginin Vasopresin / AVP)",
     "brandNames": [
       "Pitressin 20 U/mL",
@@ -637,7 +637,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vinblastine",
-    "name": "vinblastine",
+    "name": "Vinblastine",
     "genericName": "Vinblastin Sulfat Serbuk Injeksi Intravena 10 mg (Alkaloid Vinka Antimitotik)",
     "brandNames": [
       "Velbe 10 mg",
@@ -671,7 +671,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vincristine",
-    "name": "vincristine",
+    "name": "Vincristine",
     "genericName": "Vinkristin Sulfat Serbuk Injeksi Intravena 1 mg / 2 mg",
     "brandNames": [
       "Vincristine Kalbe 1 mg / 2 mg",
@@ -707,7 +707,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-vinorelbine",
-    "name": "vinorelbine",
+    "name": "Vinorelbine",
     "genericName": "Vinorelbin Tartrat Injeksi Intravena (10 mg / mL & 50 mg / 5 mL)",
     "brandNames": [
       "Navelbine 10 mg / 50 mg",
@@ -741,7 +741,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-zinc-sulfate",
-    "name": "zinc",
+    "name": "Zinc",
     "genericName": "Zinc Sulfat 20 mg Tablet Dispersible (Zink Elemental Terapi Diare Anak)",
     "brandNames": [
       "Zinc Sulfat 20 mg Dispersible Generik Kemenkes RI",
@@ -773,7 +773,7 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-zonisamide",
-    "name": "zonisamide",
+    "name": "Zonisamide",
     "genericName": "Zonisamide (Kapsul 25 mg, 50 mg, 100 mg)",
     "brandNames": [
       "Zonegran 25 mg / 50 mg / 100 mg",

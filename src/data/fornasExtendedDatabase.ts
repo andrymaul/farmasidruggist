@@ -961,7 +961,7 @@ export const FORNAS_EXTENDED_DRUGS: Drug[] = [
   },
   {
     "id": "drug-fornas-131i-mibg",
-    "name": "meta iodobenzylguanidine (131I MIBG)",
+    "name": "Meta Iodobenzylguanidine (131I MIBG)",
     "genericName": "Iobenguane I-131 (131I-MIBG)",
     "brandNames": [
       "Azedra (Iobenguane I-131)",

@@ -6206,7 +6206,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "Daryazinc",
       "Orezinc",
       "Interzinc",
-      "zinc",
+      "Zincare",
       "Zinc"
     ],
     "atcCode": "A12CB01",

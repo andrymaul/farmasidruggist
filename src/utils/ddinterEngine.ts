@@ -37,6 +37,12 @@ export const DDINTER_CATEGORIES = [
   'Hematologi & Hemostasis'
 ] as const;
 
+export function capitalizeFirstLetter(str: string): string {
+  if (!str) return '';
+  const trimmed = str.trim();
+  return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+}
+
 /**
  * Deduplicate array of Drugs by unique ID or Name
  */
@@ -57,7 +63,11 @@ export function deduplicateDrugs(drugs: Drug[]): Drug[] {
     const existing = existingById || existingByName;
 
     if (!existing) {
-      const copy = { ...drug };
+      const copy = { 
+        ...drug,
+        name: capitalizeFirstLetter(drug.name),
+        brandNames: (drug.brandNames || []).map(b => capitalizeFirstLetter(b))
+      };
       const dosageInfo = findDosageMonograph(copy);
       if (dosageInfo) {
         if (!copy.adultDosage && dosageInfo.adultDosage) copy.adultDosage = dosageInfo.adultDosage;
@@ -74,8 +84,9 @@ export function deduplicateDrugs(drugs: Drug[]): Drug[] {
       if (normGeneric) mapByName.set(normGeneric, copy);
       result.push(copy);
     } else {
-      const mergedBrands = Array.from(new Set([...(existing.brandNames || []), ...(drug.brandNames || [])]));
-      existing.brandNames = mergedBrands;
+      existing.name = capitalizeFirstLetter(existing.name);
+      const mergedBrands = Array.from(new Set([...(existing.brandNames || []), ...(drug.brandNames || [])])).map(b => capitalizeFirstLetter(b));
+      existing.brandNames = Array.from(new Set(mergedBrands));
       if (drug.pregnancyCategory && !existing.pregnancyCategory) {
         existing.pregnancyCategory = drug.pregnancyCategory;
       }

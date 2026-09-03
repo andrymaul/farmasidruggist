@@ -228,7 +228,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
         {/* Modal Header */}
         <div className="text-center space-y-1.5">
           <Logo size="md" className="justify-center" />
-          <h2 className="text-xl font-black text-[#082a24] pt-1">
+          <h2 className="text-xl font-black text-[#082a24] dark:text-white pt-1 font-outfit">
             {isRegister ? 'Daftar Akun Baru' : 'Masuk Akun'}
           </h2>
           <p className="text-xs text-slate-500 font-medium">

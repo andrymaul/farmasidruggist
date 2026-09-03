@@ -47,6 +47,12 @@ interface DrugDirectoryProps {
 
 type SortOption = 'name-asc' | 'name-desc' | 'interactions-desc' | 'atc-asc' | 'ddinter-asc' | 'pregnancy-asc';
 
+export const formatTitleCase = (str: string): string => {
+  if (!str) return '';
+  const trimmed = str.trim();
+  return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+};
+
 export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
   drugs,
   interactions,
@@ -417,13 +423,13 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
         </div>
 
         {/* Filter Summary Status & Items Per Page Selector */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-medium text-slate-500 pt-1 border-t border-slate-100">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-medium text-slate-500 dark:text-slate-400 pt-1 border-t border-slate-100 dark:border-slate-800">
           <div className="flex items-center gap-2 flex-wrap">
             <p>
-              Menampilkan <span className="font-black text-[#0f766e]">{totalItems === 0 ? 0 : `${(startIndex + 1).toLocaleString('id-ID')}–${endIndex.toLocaleString('id-ID')}`}</span> dari <span className="font-black text-slate-900">{totalItems.toLocaleString('id-ID')}</span> hasil filter ({cleanDrugs.length.toLocaleString('id-ID')} obat terdaftar).
+              Menampilkan <span className="font-black text-[#0f766e] dark:text-teal-400">{totalItems === 0 ? 0 : `${(startIndex + 1).toLocaleString('id-ID')}–${endIndex.toLocaleString('id-ID')}`}</span> dari <span className="font-black text-slate-900 dark:text-white">{totalItems.toLocaleString('id-ID')}</span> hasil filter ({cleanDrugs.length.toLocaleString('id-ID')} obat terdaftar).
             </p>
             {isFiltered && (
-              <span className="text-[10px] bg-teal-50 text-teal-800 font-bold px-2 py-0.5 rounded-full border border-teal-200">
+              <span className="text-[10px] bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 font-bold px-2 py-0.5 rounded-full border border-teal-200 dark:border-teal-800">
                 Filter Aktif
               </span>
             )}
@@ -431,12 +437,12 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
 
           <div className="flex items-center gap-3 shrink-0">
             {/* Items Per Page */}
-            <div className="flex items-center gap-1.5 text-xs text-slate-600">
-              <span className="text-[11px] font-semibold text-slate-400">Tampilkan:</span>
+            <div className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
+              <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-400">Tampilkan:</span>
               <select
                 value={itemsPerPage}
                 onChange={(e) => setItemsPerPage(Number(e.target.value))}
-                className="bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg px-2 py-1 text-xs font-bold text-slate-800 cursor-pointer focus:outline-none"
+                className="bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-xs font-bold text-slate-800 dark:text-slate-200 cursor-pointer focus:outline-none"
               >
                 <option value={12}>12 / hal</option>
                 <option value={24}>24 / hal (Rekomendasi)</option>
@@ -447,7 +453,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
 
             {/* Current Page Pill */}
             {totalPages > 1 && (
-              <span className="font-mono text-[11px] bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-bold">
+              <span className="font-mono text-[11px] bg-slate-100 dark:bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-bold">
                 Hal {validCurrentPage} / {totalPages}
               </span>
             )}
@@ -556,7 +562,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
             return (
               <div
                 key={drug.id}
-                className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs hover:border-teal-400 hover:shadow-md transition-all flex flex-col justify-between group"
+                className="bg-white dark:bg-[#071d21] rounded-2xl border border-slate-200/90 dark:border-[#144951] p-5 shadow-xs hover:border-teal-400 dark:hover:border-teal-400 hover:shadow-md transition-all flex flex-col justify-between group"
               >
                 <div className="space-y-3">
                   
@@ -567,7 +573,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                     </span>
 
                     <div className="flex items-center gap-1.5">
-                      <span className="bg-teal-50 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded border border-teal-200">
+                      <span className="bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 text-[10px] font-bold px-2 py-0.5 rounded border border-teal-200 dark:border-teal-800">
                         ATC: {drug.atcCode}
                       </span>
                       {drug.pregnancyCategory && (
@@ -576,31 +582,31 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                         </span>
                       )}
                       {drug.offLabelIndication && (
-                        <span className="bg-purple-100 text-purple-900 text-[10px] font-extrabold px-2 py-0.5 rounded border border-purple-200" title="Memiliki data indikasi & dosis klinis off-label">
+                        <span className="bg-purple-100 dark:bg-purple-950/60 text-purple-900 dark:text-purple-300 text-[10px] font-extrabold px-2 py-0.5 rounded border border-purple-200 dark:border-purple-800" title="Memiliki data indikasi & dosis klinis off-label">
                           Off-Label
                         </span>
                       )}
                       {drug.blackBoxWarning && (
-                        <span className="bg-rose-100 text-rose-900 text-[10px] font-extrabold px-2 py-0.5 rounded border border-rose-300 flex items-center gap-0.5" title="Peringatan Khusus (Boxed Warning)">
+                        <span className="bg-rose-100 dark:bg-rose-950/60 text-rose-900 dark:text-rose-300 text-[10px] font-extrabold px-2 py-0.5 rounded border border-rose-300 dark:border-rose-800 flex items-center gap-0.5" title="Peringatan Khusus (Boxed Warning)">
                           <span>⚠️ Boxed Warning</span>
                         </span>
                       )}
                     </div>
                   </div>
 
-                  {/* Title & Generic */}
+                  {/* Title & Generic - High Contrast White in Dark Mode */}
                   <div>
-                    <h3 className="text-lg font-black text-[#082a24] group-hover:text-[#0f766e] transition-colors">
-                      {drug.name}
+                    <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-[#5fd0df] transition-colors font-outfit">
+                      {formatTitleCase(drug.name)}
                     </h3>
-                    <p className="text-xs text-slate-500 font-semibold">{drug.genericName}</p>
-                    <p className="text-[11px] font-bold text-[#0f766e] mt-0.5">{drug.category}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-300 font-semibold">{drug.genericName}</p>
+                    <p className="text-[11px] font-bold text-teal-600 dark:text-teal-400 mt-0.5">{drug.category}</p>
                   </div>
 
                   {/* Brand Names Tags */}
                   {drug.brandNames && drug.brandNames.length > 0 && (
                     <div className="space-y-1">
-                      <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">
+                      <span className="text-[10px] font-extrabold text-slate-400 dark:text-slate-400 uppercase tracking-wider block">
                         Merk Indonesia:
                       </span>
                       <div className="flex flex-wrap gap-1">
@@ -614,11 +620,11 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                               key={i}
                               className={`text-[10px] font-bold px-2 py-0.5 rounded transition-colors ${
                                 isBrandMatched
-                                  ? 'bg-amber-100 text-amber-950 border border-amber-300 shadow-2xs font-black'
-                                  : 'bg-slate-100 text-slate-700'
+                                  ? 'bg-amber-100 dark:bg-amber-950/80 text-amber-950 dark:text-amber-200 border border-amber-300 dark:border-amber-700 shadow-2xs font-black'
+                                  : 'bg-slate-100 dark:bg-[#0c2a30] text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-[#154c54]'
                               }`}
                             >
-                              {brand}
+                              {formatTitleCase(brand)}
                               {isBrandMatched && ' ✓'}
                             </span>
                           );
@@ -628,27 +634,27 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                   )}
 
                   {/* Indication Snippet */}
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed bg-slate-50 p-2.5 rounded-xl border border-slate-100 font-medium">
+                  <p className="text-xs text-slate-600 dark:text-slate-200 line-clamp-2 leading-relaxed bg-slate-50 dark:bg-[#051619] p-2.5 rounded-xl border border-slate-100 dark:border-[#103d44] font-medium">
                     {drug.indication}
                   </p>
 
                   {/* Waktu Terhadap Makanan */}
                   {drug.foodInteraction && (
-                    <div className="bg-amber-50/90 p-2.5 rounded-xl border border-amber-200 text-[11px] text-amber-950 space-y-0.5">
-                      <span className="font-bold text-amber-900 flex items-center gap-1">
+                    <div className="bg-amber-50/90 dark:bg-amber-950/40 p-2.5 rounded-xl border border-amber-200 dark:border-amber-800/60 text-[11px] text-amber-950 dark:text-amber-200 space-y-0.5">
+                      <span className="font-bold text-amber-900 dark:text-amber-300 flex items-center gap-1">
                         🍽️ Waktu Terhadap Makanan:
                       </span>
-                      <p className="line-clamp-2 leading-snug font-medium text-amber-900">{drug.foodInteraction}</p>
+                      <p className="line-clamp-2 leading-snug font-medium text-amber-900 dark:text-amber-200">{drug.foodInteraction}</p>
                     </div>
                   )}
 
                 </div>
 
                 {/* Card Actions */}
-                <div className="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between gap-1.5">
+                <div className="pt-4 mt-3 border-t border-slate-100 dark:border-[#144951] flex items-center justify-between gap-1.5">
                   <button
                     onClick={() => onSelectDrug(drug)}
-                    className="flex-1 bg-teal-50 hover:bg-teal-100 text-teal-800 font-bold text-xs py-2 px-2 rounded-xl border border-teal-200 transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                    className="flex-1 bg-teal-50 dark:bg-teal-950/50 hover:bg-teal-100 dark:hover:bg-teal-900/60 text-teal-800 dark:text-teal-200 font-bold text-xs py-2 px-2 rounded-xl border border-teal-200 dark:border-teal-800 transition-colors flex items-center justify-center gap-1 cursor-pointer font-outfit"
                     title="Lihat monografi lengkap"
                   >
                     <Info className="w-3.5 h-3.5" />
@@ -658,17 +664,17 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                   {onAddToPioCard && (
                     <button
                       onClick={() => onAddToPioCard(drug)}
-                      className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-xs py-2 px-2.5 rounded-xl border border-emerald-200 transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                      className="bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 font-bold text-xs py-2 px-2.5 rounded-xl border border-emerald-200 dark:border-emerald-800 transition-colors flex items-center justify-center gap-1 cursor-pointer font-outfit"
                       title="Kirim obat ini ke Kartu PIO WhatsApp"
                     >
-                      <Smartphone className="w-3.5 h-3.5 text-emerald-600" />
+                      <Smartphone className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                       <span>+ PIO</span>
                     </button>
                   )}
 
                   <button
                     onClick={() => onCheckInteractionWith(drug.name)}
-                    className="flex-1 bg-[#0f766e] hover:bg-[#115e59] text-white font-bold text-xs py-2 px-2 rounded-xl transition-all flex items-center justify-center gap-1 shadow-xs cursor-pointer hover:scale-[1.02]"
+                    className="flex-1 bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-500 hover:to-teal-400 text-white font-bold text-xs py-2 px-2 rounded-xl transition-all flex items-center justify-center gap-1 shadow-xs cursor-pointer hover:scale-[1.02] font-outfit"
                     title="Skrining interaksi obat"
                   >
                     <ShieldAlert className="w-3.5 h-3.5" />
@@ -683,9 +689,9 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
 
         {/* Pagination Controls Bottom */}
         {totalPages > 1 && (
-          <div className="bg-white rounded-2xl border border-slate-200/90 p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="text-xs text-slate-500 font-medium">
-              Halaman <span className="font-bold text-slate-900">{validCurrentPage}</span> dari <span className="font-bold text-slate-900">{totalPages}</span> (Menampilkan {paginatedDrugs.length} dari {totalItems.toLocaleString('id-ID')} obat)
+          <div className="bg-white dark:bg-[#071d21] rounded-2xl border border-slate-200/90 dark:border-[#144951] p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+              Halaman <span className="font-bold text-slate-900 dark:text-white">{validCurrentPage}</span> dari <span className="font-bold text-slate-900 dark:text-white">{totalPages}</span> (Menampilkan {paginatedDrugs.length} dari {totalItems.toLocaleString('id-ID')} obat)
             </div>
 
             <div className="flex items-center gap-1 flex-wrap justify-center">
@@ -694,7 +700,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                 type="button"
                 onClick={() => handlePageChange(1)}
                 disabled={validCurrentPage === 1}
-                className="p-2 rounded-xl text-slate-600 hover:text-teal-700 hover:bg-teal-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer border border-slate-200"
+                className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50 dark:hover:bg-[#0c2a30] disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer border border-slate-200 dark:border-[#144951]"
                 title="Halaman Pertama"
               >
                 <ChevronsLeft className="w-4 h-4" />
@@ -705,7 +711,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                 type="button"
                 onClick={() => handlePageChange(validCurrentPage - 1)}
                 disabled={validCurrentPage === 1}
-                className="px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-teal-700 hover:bg-teal-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer flex items-center gap-1 border border-slate-200"
+                className="px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50 dark:hover:bg-[#0c2a30] disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer flex items-center gap-1 border border-slate-200 dark:border-[#144951]"
                 title="Halaman Sebelumnya"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -734,7 +740,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                       className={`min-w-[36px] h-9 px-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
                         isActive
                           ? 'bg-[#0f766e] text-white shadow-xs scale-105'
-                          : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                          : 'bg-white dark:bg-[#071d21] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#0c2a30] border border-slate-200 dark:border-[#144951]'
                       }`}
                     >
                       {pageNumber}
@@ -748,7 +754,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                 type="button"
                 onClick={() => handlePageChange(validCurrentPage + 1)}
                 disabled={validCurrentPage === totalPages}
-                className="px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-teal-700 hover:bg-teal-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer flex items-center gap-1 border border-slate-200"
+                className="px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50 dark:hover:bg-[#0c2a30] disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer flex items-center gap-1 border border-slate-200 dark:border-[#144951]"
                 title="Halaman Berikutnya"
               >
                 <span className="hidden sm:inline">Berikutnya</span>
@@ -760,7 +766,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                 type="button"
                 onClick={() => handlePageChange(totalPages)}
                 disabled={validCurrentPage === totalPages}
-                className="p-2 rounded-xl text-slate-600 hover:text-teal-700 hover:bg-teal-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer border border-slate-200"
+                className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50 dark:hover:bg-[#0c2a30] disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer border border-slate-200 dark:border-[#144951]"
                 title="Halaman Terakhir"
               >
                 <ChevronsRight className="w-4 h-4" />
@@ -770,11 +776,11 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
         )}
         </div>
       ) : (
-        <div className="bg-white p-10 rounded-2xl border border-slate-200 text-center space-y-4 shadow-xs">
-          <Pill className="w-10 h-10 text-slate-300 mx-auto" />
+        <div className="bg-white dark:bg-[#071d21] p-10 rounded-2xl border border-slate-200 dark:border-[#144951] text-center space-y-4 shadow-xs">
+          <Pill className="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto" />
           <div className="space-y-1">
-            <h3 className="text-base font-extrabold text-[#082a24]">Obat Tidak Ditemukan di Hasil Filter</h3>
-            <p className="text-xs text-slate-500 max-w-md mx-auto font-medium">
+            <h3 className="text-base font-extrabold text-[#082a24] dark:text-white">Obat Tidak Ditemukan di Hasil Filter</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto font-medium">
               Tidak ada obat dalam tampilan cepat yang cocok dengan kriteria filter saat ini. Coba reset filter atau cari kata kunci lain.
             </p>
           </div>
@@ -783,7 +789,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
             {isFiltered && (
               <button
                 onClick={resetFilters}
-                className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs px-4 py-2.5 rounded-xl transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                className="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs px-4 py-2.5 rounded-xl transition-colors inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <RotateCcw className="w-4 h-4" />
                 <span>Reset Semua Filter</span>
