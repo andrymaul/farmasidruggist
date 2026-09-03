@@ -287,11 +287,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <div className="flex flex-col h-full bg-white dark:bg-[#0b0f19] text-slate-800 dark:text-slate-200 border-r border-slate-200 dark:border-slate-800/90 shadow-sm transition-all duration-300">
       
       {/* Sidebar Header / Logo */}
-      <div className={`p-4 flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 bg-slate-50/70 dark:bg-[#0e1320]/70 ${collapsed ? 'px-3 justify-center' : 'px-5'}`}>
+      {/* Sidebar Header / Logo */}
+      <div className={`p-3.5 sm:p-4 flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800/80 bg-white/95 dark:bg-[#090e1a] ${collapsed ? 'px-3 justify-center' : 'px-4 sm:px-5'}`}>
         {!collapsed && (
           <button 
             onClick={() => handleTabClick(currentUser ? 'dashboard' : 'landing')}
-            className="focus:outline-none flex items-center gap-2 group text-left cursor-pointer transition-transform hover:scale-[1.02]"
+            className="focus:outline-none flex items-center gap-2 group text-left cursor-pointer transition-transform hover:scale-[1.02] p-1 -ml-1 rounded-2xl hover:bg-slate-100/60 dark:hover:bg-slate-800/50"
           >
             <Logo size="sm" />
           </button>
@@ -299,7 +300,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {collapsed && (
           <button 
             onClick={() => handleTabClick(currentUser ? 'dashboard' : 'landing')}
-            className="p-1 rounded-xl focus:outline-none transition-transform hover:scale-110 cursor-pointer"
+            className="p-1 rounded-2xl focus:outline-none transition-transform hover:scale-110 cursor-pointer"
             title="FARMASIDRUGGIST"
           >
             <Logo size="sm" showText={false} />
