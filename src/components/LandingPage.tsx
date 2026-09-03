@@ -286,7 +286,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
       {/* =========================================================================
           HERO SECTION: Spatial Radiant Glow & Neo-Clinical Tech Architecture
           ========================================================================= */}
-      <section id="hero-section" className="relative overflow-hidden bg-gradient-to-b from-[#02090c] via-[#04151a] to-[#07242c] text-white pt-24 sm:pt-28 pb-20 sm:pb-24 border-b border-teal-500/20">
+      <section id="hero-section" className="relative overflow-hidden bg-gradient-to-b from-[#02090c] via-[#04151a] to-[#07242c] text-white pt-10 sm:pt-14 pb-20 sm:pb-24 border-b border-teal-500/20">
         {/* Floating Pills Background Particles */}
         <FloatingPillsBackground density="normal" accentColor="#2dd4bf" />
 

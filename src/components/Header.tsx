@@ -74,15 +74,15 @@ export const Header: React.FC<HeaderProps> = ({
 
   const isLanding = activeTab === 'landing';
 
-  // Landing Header Rendering - Neo-Clinical Floating Capsule Island
+  // Landing Header Rendering - Neo-Clinical Floating Capsule Island with Seamless Dark Background
   if (isLanding) {
     return (
-      <header className="sticky top-3 sm:top-5 z-50 w-full px-3 sm:px-6 pointer-events-none transition-all duration-300 -mb-16 sm:-mb-20">
+      <header className="sticky top-0 z-50 w-full bg-[#02090c] pt-2.5 pb-2.5 sm:pt-3.5 sm:pb-3.5 px-3 sm:px-6 transition-all duration-300 border-b border-teal-500/20 shadow-[0_4px_25px_rgba(0,0,0,0.6)]">
         <div className="max-w-6xl mx-auto">
-          <div className={`pointer-events-auto rounded-full transition-all duration-300 px-3.5 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between ${
+          <div className={`rounded-full transition-all duration-300 px-3.5 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between ${
             isScrolled 
-              ? 'bg-[#041418]/92 backdrop-blur-2xl border border-teal-500/35 shadow-[0_12px_40px_rgba(0,0,0,0.65)]' 
-              : 'bg-[#031114]/85 backdrop-blur-xl border border-teal-500/25 shadow-[0_8px_30px_rgba(0,0,0,0.45)]'
+              ? 'bg-[#041418]/95 backdrop-blur-2xl border border-teal-500/40 shadow-[0_8px_30px_rgba(0,0,0,0.6)]' 
+              : 'bg-[#031114]/90 backdrop-blur-xl border border-teal-500/30 shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
           }`}>
             
             {/* Brand Logo */}
