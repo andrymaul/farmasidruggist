@@ -17,13 +17,40 @@ export interface SystemAuditLog {
 export type AdminRoleType = 'Super Admin' | 'Apoteker Pengelola' | 'Editor Konten Obat' | 'Support Staff';
 
 export interface AdminPermissionSet {
+  // Panel Admin & Master Data (Sesuai Menu & Database di Aplikasi)
   canManageDrugs: boolean;
   canManageInteractions: boolean;
   canManageSubscriptions: boolean;
   canManagePricing: boolean;
   canManageFoodInteractions: boolean;
+  canManageTherapeuticDuplication?: boolean;
+  canManageFirebaseSync?: boolean;
   canViewAuditLogs: boolean;
   canManageTeamAdmins: boolean;
+
+  // Modul Skrining Klinis & Keamanan Resep
+  canAccessInteractions?: boolean;
+  canAccessPregnancy?: boolean;
+  canAccessDrugLab?: boolean;
+  canAccessHerbDrug?: boolean;
+  canAccessSideEffects?: boolean;
+  canAccessIvCompatibility?: boolean;
+
+  // Modul Kalkulator Medis & Racikan Farmasi
+  canAccessBud?: boolean;
+  canAccessPediatric?: boolean;
+  canAccessRenal?: boolean;
+
+  // Modul Polifarmasi & Edukasi Pasien
+  canAccessPolypharmacy?: boolean;
+  canAccessWhatsappPio?: boolean;
+  canAccessGuidelines?: boolean;
+
+  // Modul Pusat Belajar, SOP & Regulasi
+  canAccessCompetency?: boolean;
+  canAccessSop?: boolean;
+  canAccessRegulations?: boolean;
+  canAccessLiterature?: boolean;
 }
 
 export interface AdminUser {
