@@ -33,6 +33,7 @@ import {
   KeyRound,
   RefreshCw,
   Phone,
+  MessageSquare,
   FileText,
   Sliders,
   Trash2,
@@ -271,18 +272,45 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
     }, 2000);
   };
 
+  // Helper to determine whether a customer is currently online
+  const isCustomerOnline = (cust: UserProfile) => {
+    if (currentUser && currentUser.uid === cust.uid) return true;
+    if (cust.isOnline === false) return false;
+    if (cust.isOnline === true) {
+      if (!cust.lastActiveAt) return true;
+      const diffMinutes = (Date.now() - new Date(cust.lastActiveAt).getTime()) / (1000 * 60);
+      return diffMinutes <= 15;
+    }
+    if (cust.lastActiveAt) {
+      const diffMinutes = (Date.now() - new Date(cust.lastActiveAt).getTime()) / (1000 * 60);
+      return diffMinutes <= 10;
+    }
+    return false;
+  };
+
+  // WhatsApp Message Template State
+  const [waModalCustomer, setWaModalCustomer] = useState<UserProfile | null>(null);
+  const [waMessage, setWaMessage] = useState<string>('');
+
+  const handleOpenWaTemplate = (cust: UserProfile) => {
+    setWaModalCustomer(cust);
+    // Default template: Sambutan Pengguna Baru
+    setWaMessage(`Halo apt. ${cust.name}, selamat datang di platform Farmasi Druggist! Akun Anda telah siap digunakan untuk penapisan interaksi klinis obat dan evaluasi resep.`);
+  };
+
   // Calculate Statistics
   const stats = useMemo(() => {
     const total = customers.length;
     const proCount = customers.filter(c => (c.subscriptionPlan === 'Pro' || c.subscriptionPlan === 'Elite' || c.subscriptionPlan === 'Klinik') && c.subscriptionStatus === 'active').length;
     const freeCount = customers.filter(c => (c.subscriptionPlan === 'Pemula' || c.subscriptionPlan === 'Gratis') || c.subscriptionStatus === 'trial').length;
     const activeCount = customers.filter(c => c.subscriptionStatus === 'active').length;
+    const onlineCount = customers.filter(c => isCustomerOnline(c)).length;
     
     // Revenue estimation (Pro: Rp 199.000 / tahun)
     const annualRevenue = proCount * 199000;
 
-    return { total, proCount, activeCount, freeCount, annualRevenue };
-  }, [customers]);
+    return { total, proCount, activeCount, freeCount, annualRevenue, onlineCount };
+  }, [customers, currentUser]);
 
   // Filtered customers list
   const filteredCustomers = useMemo(() => {
@@ -594,7 +622,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
             <Users className="w-4 h-4 text-[#156d67]" />
           </div>
           <p className="text-2xl font-black text-[#12645e] dark:text-[#5fd0df] font-outfit">{stats.total}</p>
-          <p className="text-[11px] text-slate-500">{stats.activeCount} lisensi aktif</p>
+          <p className="text-[11px] text-slate-500">{stats.activeCount} lisensi aktif • <span className="text-emerald-600 dark:text-emerald-400 font-bold">{stats.onlineCount} online</span></p>
         </div>
 
         <div className="clean-card p-5 space-y-1">
@@ -683,17 +711,18 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
             <thead>
               <tr className="bg-slate-50 dark:bg-[#06191c] border-b border-slate-200 dark:border-[#184c53] text-[11px] font-extrabold uppercase tracking-wider text-slate-500 font-outfit">
                 <th className="py-4 px-4">Pelanggan / Instansi</th>
+                <th className="py-4 px-4">No. Telepon / WA</th>
                 <th className="py-4 px-4">Password Akses</th>
                 <th className="py-4 px-4">Paket Subskripsi</th>
                 <th className="py-4 px-4">Status Lisensi</th>
-                <th className="py-4 px-4">Masa Aktif</th>
+                <th className="py-4 px-4">Masa Aktif & Terdaftar</th>
                 <th className="py-4 px-4 text-right">Aksi Kelola</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-[#184c53] text-xs">
               {filteredCustomers.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-500">
+                  <td colSpan={7} className="py-12 text-center text-slate-500">
                     Tidak ada data pelanggan yang sesuai dengan kriteria pencarian/filter.
                   </td>
                 </tr>
@@ -703,18 +732,52 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
                   const isVisible = !!visiblePasswords[cust.uid];
                   const isCopied = copiedPasswordUid === cust.uid;
                   const currentPassword = cust.password || 'CustPass#' + cust.uid.slice(-4);
+                  const cleanWaNumber = cust.phone ? cust.phone.replace(/[^0-9]/g, '').replace(/^0/, '62') : '';
+                  const isOnline = isCustomerOnline(cust);
 
                   return (
                     <tr key={cust.uid} className="hover:bg-slate-50/80 dark:hover:bg-[#0d2c31]/50 transition-colors">
-                      {/* Name & Email & Institution */}
+                      {/* Name & Email & Institution & Online Indicator */}
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-[#12645e] to-[#3dbfd1] text-white font-black font-outfit flex items-center justify-center shrink-0 shadow-xs">
-                            {cust.name.charAt(0).toUpperCase()}
+                          <div className="relative shrink-0">
+                            <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-[#12645e] to-[#3dbfd1] text-white font-black font-outfit flex items-center justify-center shadow-xs">
+                              {cust.name.charAt(0).toUpperCase()}
+                            </div>
+                            {/* Online / Offline Dot Indicator */}
+                            {isOnline ? (
+                              <span className="absolute -bottom-0.5 -right-0.5 flex h-3 w-3" title="Pengguna sedang Online">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 ring-2 ring-white dark:ring-[#06191c]"></span>
+                              </span>
+                            ) : (
+                              <span className="absolute -bottom-0.5 -right-0.5 inline-flex rounded-full h-2.5 w-2.5 bg-slate-300 dark:bg-slate-600 ring-2 ring-white dark:ring-[#06191c]" title="Pengguna sedang Offline"></span>
+                            )}
                           </div>
                           <div>
-                            <p className="font-bold text-slate-900 dark:text-white font-outfit">{cust.name}</p>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400">{cust.email}</p>
+                            <div className="flex items-center gap-1.5">
+                              <p className="font-bold text-slate-900 dark:text-white font-outfit">{cust.name}</p>
+                              <span className={`inline-flex items-center gap-1 text-[9px] px-1.5 py-0.2 rounded-full font-extrabold ${
+                                isOnline 
+                                  ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800' 
+                                  : 'text-slate-400 font-medium'
+                              }`}>
+                                <span className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300 dark:bg-slate-600'}`}></span>
+                                <span>{isOnline ? 'Online' : 'Offline'}</span>
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <p className="text-[11px] text-slate-500 dark:text-slate-400">{cust.email}</p>
+                              {cust.isEmailVerified !== undefined && (
+                                <span className={`inline-flex items-center gap-0.5 text-[9.5px] px-1.5 py-0.2 rounded font-bold ${
+                                  cust.isEmailVerified 
+                                    ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800' 
+                                    : 'bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
+                                }`}>
+                                  {cust.isEmailVerified ? 'Verified' : 'Unverified'}
+                                </span>
+                              )}
+                            </div>
                             {cust.institution && (
                               <p className="text-[10px] text-[#156d67] dark:text-[#5fd0df] font-semibold mt-0.5 flex items-center gap-1">
                                 <Building2 className="w-3 h-3" />
@@ -723,6 +786,36 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
                             )}
                           </div>
                         </div>
+                      </td>
+
+                      {/* No. Telepon / WhatsApp */}
+                      <td className="py-4 px-4">
+                        {cust.phone ? (
+                          <div className="inline-flex items-center gap-1 bg-slate-50 dark:bg-[#06191c] px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-[#184c53]">
+                            <span className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-200">
+                              {cust.phone}
+                            </span>
+                            <a
+                              href={`https://wa.me/${cleanWaNumber}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title="Chat langsung via WhatsApp"
+                              className="p-1 rounded-lg text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 transition-colors inline-flex items-center cursor-pointer"
+                            >
+                              <Phone className="w-3.5 h-3.5" />
+                            </a>
+                            <button
+                              type="button"
+                              onClick={() => handleOpenWaTemplate(cust)}
+                              title="Pilih Template Pesan WhatsApp Cepat"
+                              className="p-1 rounded-lg text-teal-600 dark:text-[#5fd0df] hover:bg-teal-50 dark:hover:bg-[#156d67]/30 transition-colors inline-flex items-center cursor-pointer"
+                            >
+                              <MessageSquare className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ) : (
+                          <span className="text-slate-400 font-mono text-xs">-</span>
+                        )}
                       </td>
 
                       {/* Password Column with Eye Toggle & One-Click Copy */}
@@ -789,18 +882,26 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
                         )}
                       </td>
 
-                      {/* Expiry Date */}
+                      {/* Expiry Date & Registration Date */}
                       <td className="py-4 px-4 text-slate-600 dark:text-slate-300">
-                        {cust.expiresAt ? (
-                          <div className="flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                            <span className={isExpiringSoon ? 'text-amber-600 dark:text-amber-400 font-bold' : ''}>
-                              {new Date(cust.expiresAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' })}
-                            </span>
-                          </div>
-                        ) : (
-                          <span className="text-slate-400 font-mono">-</span>
-                        )}
+                        <div className="space-y-1">
+                          {cust.expiresAt ? (
+                            <div className="flex items-center gap-1.5 font-medium text-slate-800 dark:text-slate-200">
+                              <Calendar className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                              <span className={isExpiringSoon ? 'text-amber-600 dark:text-amber-400 font-bold' : ''}>
+                                s/d {new Date(cust.expiresAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' })}
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="text-slate-400 font-mono">-</span>
+                          )}
+                          {cust.createdAt && (
+                            <div className="text-[10.5px] text-slate-400 dark:text-slate-500 flex items-center gap-1" title="Tanggal registrasi akun">
+                              <Clock className="w-3 h-3 text-slate-400 shrink-0" />
+                              <span>Daftar: {new Date(cust.createdAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                            </div>
+                          )}
+                        </div>
                       </td>
 
                       {/* Actions */}
@@ -1525,6 +1626,134 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: WhatsApp Message Templates */}
+      {waModalCustomer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in">
+          <div className="relative w-full max-w-lg bg-white dark:bg-[#06191c] rounded-3xl shadow-2xl border border-slate-200 dark:border-[#184c53] p-6 sm:p-7 space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-[#184c53]">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-emerald-600">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-slate-900 dark:text-white font-outfit">
+                    Kirim Pesan WhatsApp Cepat
+                  </h3>
+                  <p className="text-xs text-slate-500 font-medium">
+                    Kepada: <span className="font-bold text-slate-800 dark:text-slate-200">{waModalCustomer.name}</span> ({waModalCustomer.phone || '-'})
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setWaModalCustomer(null)}
+                className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-[#0d2c31] transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Template Options */}
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-slate-700 dark:text-slate-300 font-outfit block">
+                Pilih Template Pesan:
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setWaMessage(`Halo apt. ${waModalCustomer.name}, selamat datang di platform Farmasi Druggist! Akun Anda telah siap digunakan untuk penapisan interaksi klinis obat dan evaluasi resep pasien.`)}
+                  className="p-2.5 text-left bg-slate-50 dark:bg-[#0d2c31]/60 hover:bg-teal-50 dark:hover:bg-[#156d67]/30 border border-slate-200 dark:border-[#184c53] rounded-xl text-xs transition-colors cursor-pointer"
+                >
+                  <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <span>🌿</span> Sambutan Pengguna Baru
+                  </div>
+                  <p className="text-[10.5px] text-slate-500 mt-0.5 truncate">Selamat datang di platform Farmasi Druggist...</p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const exp = waModalCustomer.expiresAt ? new Date(waModalCustomer.expiresAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-';
+                    setWaMessage(`Halo apt. ${waModalCustomer.name}, lisensi Paket Pro Farmasi Druggist Anda telah aktif sampai dengan ${exp}. Selamat bertugas dan menikmati seluruh fitur klinis tanpa batas!`);
+                  }}
+                  className="p-2.5 text-left bg-slate-50 dark:bg-[#0d2c31]/60 hover:bg-teal-50 dark:hover:bg-[#156d67]/30 border border-slate-200 dark:border-[#184c53] rounded-xl text-xs transition-colors cursor-pointer"
+                >
+                  <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <span>⚡</span> Konfirmasi Lisensi Pro
+                  </div>
+                  <p className="text-[10.5px] text-slate-500 mt-0.5 truncate">Lisensi Paket Pro telah aktif s/d...</p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const exp = waModalCustomer.expiresAt ? new Date(waModalCustomer.expiresAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-';
+                    setWaMessage(`Halo apt. ${waModalCustomer.name}, masa aktif lisensi Farmasi Druggist Anda akan segera berakhir pada ${exp}. Silakan konfirmasi untuk perpanjangan masa aktif akun Anda agar penapisan obat tetap berjalan lancar.`);
+                  }}
+                  className="p-2.5 text-left bg-slate-50 dark:bg-[#0d2c31]/60 hover:bg-teal-50 dark:hover:bg-[#156d67]/30 border border-slate-200 dark:border-[#184c53] rounded-xl text-xs transition-colors cursor-pointer"
+                >
+                  <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <span>⏳</span> Pengingat Perpanjangan
+                  </div>
+                  <p className="text-[10.5px] text-slate-500 mt-0.5 truncate">Masa aktif lisensi akan segera berakhir...</p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setWaMessage(`Halo apt. ${waModalCustomer.name}, apakah ada kendala atau pertanyaan terkait penggunaan fitur dan penapisan obat di Farmasi Druggist? Tim dukungan kami siap membantu.`)}
+                  className="p-2.5 text-left bg-slate-50 dark:bg-[#0d2c31]/60 hover:bg-teal-50 dark:hover:bg-[#156d67]/30 border border-slate-200 dark:border-[#184c53] rounded-xl text-xs transition-colors cursor-pointer"
+                >
+                  <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <span>💬</span> Bantuan & Dukungan
+                  </div>
+                  <p className="text-[10.5px] text-slate-500 mt-0.5 truncate">Apakah ada kendala atau pertanyaan...</p>
+                </button>
+              </div>
+            </div>
+
+            {/* Editable Message Textarea */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-700 dark:text-slate-300 font-outfit block">
+                Isi Pesan (Dapat Disesuaikan):
+              </label>
+              <textarea
+                rows={4}
+                value={waMessage}
+                onChange={(e) => setWaMessage(e.target.value)}
+                placeholder="Tulis pesan untuk dikirim via WhatsApp..."
+                className="w-full p-3 bg-slate-50 dark:bg-[#06191c] border border-slate-200 dark:border-[#184c53] rounded-xl text-xs text-slate-800 dark:text-slate-100 font-medium focus:outline-none focus:ring-2 focus:ring-[#3dbfd1]"
+              />
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-[#184c53]">
+              <button
+                type="button"
+                onClick={() => setWaModalCustomer(null)}
+                className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#0d2c31] rounded-xl cursor-pointer"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const cleanPhone = waModalCustomer.phone ? waModalCustomer.phone.replace(/[^0-9]/g, '').replace(/^0/, '62') : '';
+                  if (!cleanPhone) {
+                    alert('Pelanggan ini belum memiliki nomor telepon/WhatsApp.');
+                    return;
+                  }
+                  window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(waMessage)}`, '_blank');
+                  setWaModalCustomer(null);
+                }}
+                className="px-5 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl shadow-md cursor-pointer flex items-center gap-1.5 transition-all hover:scale-102"
+              >
+                <Phone className="w-4 h-4" />
+                <span>Buka WhatsApp & Kirim</span>
+              </button>
+            </div>
           </div>
         </div>
       )}

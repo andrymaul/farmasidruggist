@@ -338,10 +338,16 @@ export async function registerWithEmail(
   const cleanPass = (pass || '').trim();
 
   if (!cleanEmail || !cleanPass) {
-    throw new Error('Email or password is incorrect');
+    throw new Error('Email atau kata sandi tidak boleh kosong');
   }
   if (cleanPass.length < 6) {
-    throw new Error('Password should be at least 6 characters');
+    throw new Error('Kata sandi minimal 6 karakter');
+  }
+  if (!/[A-Z]/.test(cleanPass)) {
+    throw new Error('Kata sandi wajib mengandung setidaknya 1 huruf besar (A-Z)');
+  }
+  if (!/[0-9]/.test(cleanPass)) {
+    throw new Error('Kata sandi wajib mengandung setidaknya 1 angka (0-9)');
   }
 
   // Create User in Firebase Authentication

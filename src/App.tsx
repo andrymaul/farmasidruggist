@@ -641,7 +641,42 @@ export default function App() {
     localStorage.setItem('farmasi_active_tab', targetTab);
   };
 
+  // Heartbeat Presence: update lastActiveAt & isOnline for currentUser
+  useEffect(() => {
+    if (!currentUser?.uid) return;
+    const sendHeartbeat = () => {
+      const now = new Date().toISOString();
+      saveUserProfileToFirestore({
+        ...currentUser,
+        lastActiveAt: now,
+        isOnline: true
+      }).catch(() => {});
+    };
+
+    sendHeartbeat();
+    const interval = setInterval(sendHeartbeat, 60000);
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        sendHeartbeat();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [currentUser?.uid]);
+
   const handleLogout = async () => {
+    if (currentUser?.uid) {
+      saveUserProfileToFirestore({
+        ...currentUser,
+        isOnline: false,
+        lastActiveAt: new Date().toISOString()
+      }).catch(() => {});
+    }
     try {
       await logoutUser();
     } catch (err) {

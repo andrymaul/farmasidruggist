@@ -143,6 +143,8 @@ export interface UserProfile {
   expiresAt?: string;
   isEmailVerified?: boolean;
   createdAt?: string;
+  lastActiveAt?: string;
+  isOnline?: boolean;
 }
 
 export interface InteractionCheckRecord {
