@@ -73,30 +73,30 @@ export const Header: React.FC<HeaderProps> = ({
 
   const isLanding = activeTab === 'landing';
 
-  // Landing Header Rendering
+  // Landing Header Rendering - Seamless Dark Teal Glassmorphism
   if (isLanding) {
     return (
       <header className={`sticky top-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/95 dark:bg-[#0b0f19]/95 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 shadow-md' 
-          : 'bg-white/80 dark:bg-[#0b0f19]/80 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-800/60 shadow-xs'
+          ? 'bg-[#031114]/95 backdrop-blur-2xl border-b border-teal-500/25 shadow-xl' 
+          : 'bg-[#031114]/80 backdrop-blur-xl border-b border-teal-500/15 shadow-sm'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             
-            {/* Logo */}
+            {/* Logo with dark variant for crisp white/teal typography */}
             <button 
               onClick={() => setActiveTab('landing')}
               className="focus:outline-none flex items-center gap-2 group text-left cursor-pointer transition-transform hover:scale-[1.02]"
             >
-              <Logo size="md" variant={theme === 'dark' ? 'dark' : 'light'} />
+              <Logo size="md" variant="dark" />
             </button>
 
             {/* Nav Items on Landing */}
             <nav className="hidden md:flex items-center space-x-1 text-xs font-bold font-outfit">
               <button
                 onClick={() => setActiveTab('landing')}
-                className="text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800 px-3.5 py-1.5 rounded-full transition-all cursor-pointer shadow-2xs"
+                className="text-teal-300 bg-teal-500/20 border border-teal-400/40 px-3.5 py-1.5 rounded-full transition-all cursor-pointer shadow-xs"
               >
                 Beranda
               </button>
@@ -108,9 +108,9 @@ export const Header: React.FC<HeaderProps> = ({
                     setActiveTab('drugs');
                   }
                 }}
-                className="text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-300 px-3.5 py-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="text-teal-100/80 hover:text-teal-200 px-3.5 py-1.5 rounded-full hover:bg-teal-500/15 transition-all flex items-center gap-1.5 cursor-pointer"
               >
-                <Pill className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                <Pill className="w-3.5 h-3.5 text-teal-400" />
                 <span>Katalog Obat</span>
               </button>
               <button
@@ -121,9 +121,9 @@ export const Header: React.FC<HeaderProps> = ({
                     setActiveTab('interactions');
                   }
                 }}
-                className="text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-300 px-3.5 py-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="text-teal-100/80 hover:text-teal-200 px-3.5 py-1.5 rounded-full hover:bg-teal-500/15 transition-all flex items-center gap-1.5 cursor-pointer"
               >
-                <HeartPulse className="w-3.5 h-3.5 text-rose-500" />
+                <HeartPulse className="w-3.5 h-3.5 text-rose-400" />
                 <span>Cek Interaksi</span>
               </button>
               <button
@@ -134,9 +134,9 @@ export const Header: React.FC<HeaderProps> = ({
                     setActiveTab('polypharmacy');
                   }
                 }}
-                className="text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-300 px-3.5 py-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="text-teal-100/80 hover:text-teal-200 px-3.5 py-1.5 rounded-full hover:bg-teal-500/15 transition-all flex items-center gap-1.5 cursor-pointer"
               >
-                <Stethoscope className="w-3.5 h-3.5 text-indigo-500" />
+                <Stethoscope className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Evaluasi Polifarmasi</span>
               </button>
             </nav>
@@ -177,7 +177,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <button
                     onClick={onLogout}
                     title="Keluar"
-                    className="p-2 text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all cursor-pointer"
+                    className="p-2 text-slate-400 hover:text-rose-400 rounded-xl hover:bg-rose-950/30 transition-all cursor-pointer"
                   >
                     <LogOut className="w-4 h-4" />
                   </button>
@@ -189,7 +189,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="flex items-center space-x-2 md:hidden">
               <button
                 onClick={() => setLandingMobileMenuOpen(!landingMobileMenuOpen)}
-                className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                className="p-2 rounded-xl text-teal-200 hover:bg-teal-500/20 transition-all"
               >
                 {landingMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -200,33 +200,33 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Mobile Dropdown on Landing */}
         {landingMobileMenuOpen && (
-          <div className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-2">
+          <div className="md:hidden bg-[#041418]/95 backdrop-blur-2xl border-b border-teal-500/25 px-4 pt-2 pb-6 space-y-2">
             <button
               onClick={() => { setActiveTab('landing'); setLandingMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-bold text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40"
+              className="w-full text-left px-3 py-2 rounded-lg text-sm font-bold text-teal-300 bg-teal-500/20 border border-teal-500/30"
             >
               Beranda
             </button>
             <button
               onClick={() => { setActiveTab('drugs'); setLandingMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-teal-100 hover:bg-teal-500/15"
             >
               Katalog Obat
             </button>
             <button
               onClick={() => { setActiveTab('interactions'); setLandingMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-teal-100 hover:bg-teal-500/15"
             >
               Cek Interaksi
             </button>
             <button
               onClick={() => { setActiveTab('polypharmacy'); setLandingMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-teal-100 hover:bg-teal-500/15"
             >
               Evaluasi Polifarmasi
             </button>
             
-            <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
+            <div className="pt-3 border-t border-teal-500/20 flex flex-col gap-2">
               {!currentUser ? (
                 <>
                   <button

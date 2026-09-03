@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { PRICING_PLANS, PRICING_FAQS, INITIAL_INTERACTIONS } from '../data/ddinterData';
 import { Drug, DrugInteraction, UserProfile, PricingPlan } from '../types';
 import { 
@@ -40,9 +40,11 @@ import {
   Smartphone,
   Send,
   Brain,
-  RotateCcw
+  RotateCcw,
+  Layers
 } from 'lucide-react';
 import { resolveDrugFromDDInter, resolveInteractionPair } from '../utils/ddinterEngine';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 
 interface LandingPageProps {
   drugs: Drug[];
@@ -66,6 +68,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 }) => {
   const [heroSearch, setHeroSearch] = useState('');
   const [activePlaygroundTab, setActivePlaygroundTab] = useState<'ddi' | 'srq20'>('ddi');
+
+  // Animated rotating placeholder for hero search bar
+  const samplePlaceholders = useMemo(() => [
+    'Cari Warfarin, Simvastatin, Clopidogrel...',
+    'Cari Paxlovid, Ketoconazole, Amiodarone...',
+    'Cari Paracetamol, Amoxicillin, Cetirizine...',
+    'Cari Dosis Puyer Anak, Salbutamol, Dexamethasone...',
+    'Cari Interaksi Obat Bumil & Busui Trimester 1-3...'
+  ], []);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPlaceholderIndex((prev) => (prev + 1) % samplePlaceholders.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [samplePlaceholders.length]);
 
   // =========================================================================
   // 1. PLAYGROUND: DDI INTERACTIVE CHECKER STATE
@@ -236,78 +255,91 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
     <div className="space-y-16 pb-24 bg-[#f4f8f8] dark:bg-[#051418] text-slate-900 dark:text-slate-100 transition-colors duration-300">
       
       {/* =========================================================================
-          HERO SECTION: Deep Dark Teal Obsidian Clinical Atmosphere
+          HERO SECTION: Deep Dark Oceanic Teal with Aurora Glow & Floating Particles
           ========================================================================= */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#071c21] via-[#092931] to-[#0c3742] text-white pt-16 pb-20 border-b border-[#143d47]">
-        {/* Ambient Glows */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20"></div>
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#031114] via-[#062026] to-[#0a2f38] text-white pt-16 pb-20 border-b border-teal-500/20">
+        {/* Floating Pills Background Particles */}
+        <FloatingPillsBackground density="normal" accentColor="#2dd4bf" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Ambient Aurora Glow Mesh */}
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-teal-500/25 via-cyan-400/20 to-emerald-500/20 rounded-full blur-[110px] pointer-events-none" />
+        <div className="absolute top-1/3 -left-32 w-80 h-80 bg-teal-600/15 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-1/3 -right-32 w-80 h-80 bg-cyan-600/15 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto space-y-6">
             
-            {/* Clinical Live Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0e444f] border border-teal-400/40 text-teal-300 text-xs font-black shadow-lg">
+            {/* Clinical Live Badge with Animated Pulse Dot */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#062930]/90 border border-teal-400/50 text-teal-300 text-xs font-black shadow-lg shadow-teal-950/60 backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+              </span>
               <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
-              <span>Platform Integrasi Klinis Apoteker & Dokter No. 1 di Indonesia</span>
+              <span className="tracking-wide">Platform Integrasi Klinis Apoteker &amp; Dokter Terpercaya di Indonesia</span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight font-outfit">
-              Sistem Informasi Obat, <span className="text-teal-300 underline decoration-teal-500 decoration-4 underline-offset-8">Interaksi Klinis</span> &amp; Kalkulator Resep Terpadu
+            {/* Main Headline with Crystal Gradient Typography */}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.18] font-outfit">
+              Sistem Informasi Obat,{' '}
+              <span className="bg-gradient-to-r from-teal-200 via-cyan-100 to-emerald-200 bg-clip-text text-transparent drop-shadow-sm">
+                Interaksi Klinis
+              </span>{' '}
+              <br className="hidden sm:inline" />
+              &amp;{' '}
+              <span className="bg-gradient-to-r from-cyan-200 via-teal-100 to-emerald-200 bg-clip-text text-transparent underline decoration-teal-400/60 decoration-4 underline-offset-8">
+                Kalkulator Resep Terpadu
+              </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-sm sm:text-base text-teal-100/90 font-medium leading-relaxed max-w-2xl mx-auto">
-              <strong>FARMASIDRUGGIST</strong> mengintegrasikan <strong>18+ Modul Klinis Terpercaya</strong>: Skrining Interaksi DDInter, Keamanan Bumil &amp; Busui, Interaksi Lab, BUD Racikan USP &lt;795&gt;, Kartu PIO WhatsApp, hingga Pusat Belajar Farmasi.
+              <strong className="text-white">FARMASIDRUGGIST</strong> mengintegrasikan <strong className="text-teal-200">21 Modul Klinis Terpercaya</strong>: Skrining Interaksi DDInter, Keamanan Bumil &amp; Busui PLLR, Interaksi Lab, BUD Racikan USP &lt;795&gt;, Kartu PIO WhatsApp, hingga Pusat UKMPPAI.
             </p>
 
-            {/* Hero Quick Search Box */}
+            {/* Hero Quick Search Box with Glowing Neon Border Ring & Rotating Placeholder */}
             <form onSubmit={handleHeroSearchSubmit} className="pt-2 max-w-2xl mx-auto">
-              <div className="flex items-center bg-[#071a1e] rounded-2xl shadow-xl border-2 border-teal-500/60 p-2 focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-400/20 transition-all">
-                <Search className="w-5 h-5 text-teal-400 ml-2 shrink-0" />
-                <input
-                  type="text"
-                  value={heroSearch}
-                  onChange={(e) => setHeroSearch(e.target.value)}
-                  placeholder="Cari nama obat (contoh: Warfarin, Simvastatin, Clopidogrel, Paracetamol)..."
-                  className="w-full px-3 py-2 text-white placeholder-teal-300/60 font-semibold text-xs sm:text-sm focus:outline-none bg-transparent"
-                />
-                <button
-                  type="submit"
-                  className="px-5 sm:px-6 py-2.5 sm:py-3 bg-[#0f766e] hover:bg-[#115e59] text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all shrink-0 flex items-center gap-1.5 cursor-pointer border border-teal-400/30 hover:scale-[1.02]"
-                >
-                  <span>Cari Obat</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-500 via-cyan-400 to-emerald-500 rounded-3xl blur-md opacity-35 group-hover:opacity-75 group-focus-within:opacity-100 transition duration-500"></div>
+                <div className="relative flex items-center bg-[#05171c]/95 backdrop-blur-xl rounded-2xl p-2 border border-teal-500/40 shadow-2xl">
+                  <Search className="w-5 h-5 text-teal-400 ml-2.5 shrink-0" />
+                  <input
+                    type="text"
+                    value={heroSearch}
+                    onChange={(e) => setHeroSearch(e.target.value)}
+                    placeholder={samplePlaceholders[placeholderIndex]}
+                    className="w-full px-3 py-2 text-white placeholder-teal-300/50 font-semibold text-xs sm:text-sm focus:outline-none bg-transparent transition-all"
+                  />
+                  <div className="hidden sm:flex items-center mr-2 px-2 py-0.5 rounded-md bg-teal-950/80 border border-teal-500/30 text-[10px] text-teal-300 font-mono">
+                    ↵ Enter
+                  </div>
+                  <button
+                    type="submit"
+                    className="px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-black text-xs sm:text-sm rounded-xl shadow-lg transition-all shrink-0 flex items-center gap-1.5 cursor-pointer border border-teal-400/40 hover:scale-[1.02] active:scale-95"
+                  >
+                    <span>Cari Obat</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
-              {/* Popular drug sample tags */}
-              <div className="flex flex-wrap items-center justify-center gap-1.5 mt-3.5 text-xs text-teal-200/80">
-                <span className="font-bold text-teal-300">Pencarian Cepat:</span>
-                {['Warfarin', 'Aspirin', 'Simvastatin', 'Clopidogrel', 'Ciprofloxacin', 'Metformin'].map((sample, idx) => {
-                  const colors = [
-                    'bg-[#0a3840] text-teal-200 border-teal-600/60 hover:bg-[#0f4d58]',
-                    'bg-[#0a3840] text-cyan-200 border-cyan-600/60 hover:bg-[#0f4d58]',
-                    'bg-[#0a3840] text-emerald-200 border-emerald-600/60 hover:bg-[#0f4d58]',
-                    'bg-[#0a3840] text-amber-200 border-amber-600/60 hover:bg-[#0f4d58]',
-                    'bg-[#0a3840] text-rose-200 border-rose-600/60 hover:bg-[#0f4d58]',
-                    'bg-[#0a3840] text-indigo-200 border-indigo-600/60 hover:bg-[#0f4d58]'
-                  ];
-                  return (
-                    <button
-                      key={sample}
-                      type="button"
-                      onClick={() => {
-                        if (onSearchDrug) onSearchDrug(sample);
-                        onSelectTab('drugs');
-                      }}
-                      className={`${colors[idx % colors.length]} border px-2.5 py-1 rounded-lg font-bold transition-all cursor-pointer hover:scale-105 text-[11px]`}
-                    >
-                      {sample}
-                    </button>
-                  );
-                })}
+              {/* Popular drug sample tags styled as micro-pills */}
+              <div className="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs">
+                <span className="font-extrabold text-teal-300 font-outfit text-xs">Pencarian Cepat:</span>
+                {['Warfarin', 'Aspirin', 'Simvastatin', 'Clopidogrel', 'Ciprofloxacin', 'Metformin'].map((sample) => (
+                  <button
+                    key={sample}
+                    type="button"
+                    onClick={() => {
+                      if (onSearchDrug) onSearchDrug(sample);
+                      onSelectTab('drugs');
+                    }}
+                    className="px-3 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer bg-[#082a32]/80 hover:bg-[#0e4450] text-teal-200 hover:text-white border border-teal-500/30 hover:border-teal-400/70 hover:scale-105 shadow-2xs flex items-center gap-1 backdrop-blur-xs"
+                  >
+                    <Pill className="w-3 h-3 text-teal-400" />
+                    <span>{sample}</span>
+                  </button>
+                ))}
               </div>
             </form>
 
@@ -324,15 +356,13 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 <span>Coba Uji Klinis Langsung (Gratis)</span>
               </button>
 
-
               <button
                 onClick={onOpenAuthModal}
-                className="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/20 transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer"
+                className="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/20 transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02]"
               >
                 <ShieldCheck className="w-4 h-4 text-teal-300" />
                 <span>Masuk / Login Akun</span>
               </button>
-
 
               <button
                 onClick={onOpenPricingModal}
@@ -343,23 +373,46 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
               </button>
             </div>
 
-            {/* Stat Counters Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-10 border-t border-[#143d47]/80 text-left">
-              <div className="p-3.5 sm:p-4 bg-[#08262d] border border-[#144754] rounded-2xl shadow-md">
-                <p className="text-xl sm:text-2xl font-black text-teal-300 font-outfit">{drugs.length > 0 ? `${drugs.length}+` : '80+'}</p>
-                <p className="text-[11px] text-teal-100 font-extrabold mt-0.5">Monografi Obat Resmi BPOM</p>
+            {/* Stat Counters Row - Elevated Translucent Glassmorphism Cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-10 border-t border-teal-500/20 text-left">
+              <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-teal-500/30 hover:border-teal-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-xl sm:text-2xl font-black text-teal-300 font-outfit group-hover:text-teal-200 transition-colors">
+                    {drugs.length > 0 ? `${drugs.length}+` : '80+'}
+                  </p>
+                  <Pill className="w-4 h-4 text-teal-400/60 group-hover:text-teal-300 transition-colors" />
+                </div>
+                <p className="text-[11px] text-teal-100/90 font-bold leading-tight">Monografi Obat Resmi BPOM</p>
               </div>
-              <div className="p-3.5 sm:p-4 bg-[#08262d] border border-[#144754] rounded-2xl shadow-md">
-                <p className="text-xl sm:text-2xl font-black text-cyan-300 font-outfit">{INITIAL_INTERACTIONS.length > 0 ? `${INITIAL_INTERACTIONS.length}+` : '25+'}</p>
-                <p className="text-[11px] text-cyan-100 font-extrabold mt-0.5">Pasangan DDI DDInter</p>
+
+              <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-cyan-500/30 hover:border-cyan-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-xl sm:text-2xl font-black text-cyan-300 font-outfit group-hover:text-cyan-200 transition-colors">
+                    {INITIAL_INTERACTIONS.length > 0 ? `${INITIAL_INTERACTIONS.length}+` : '25+'}
+                  </p>
+                  <ShieldAlert className="w-4 h-4 text-cyan-400/60 group-hover:text-cyan-300 transition-colors" />
+                </div>
+                <p className="text-[11px] text-cyan-100/90 font-bold leading-tight">Pasangan DDI DDInter</p>
               </div>
-              <div className="p-3.5 sm:p-4 bg-[#08262d] border border-[#144754] rounded-2xl shadow-md">
-                <p className="text-xl sm:text-2xl font-black text-amber-300 font-outfit">18+ Modul</p>
-                <p className="text-[11px] text-amber-100 font-extrabold mt-0.5">Klinis, Dosis &amp; UKMPPAI</p>
+
+              <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-amber-500/30 hover:border-amber-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-xl sm:text-2xl font-black text-amber-300 font-outfit group-hover:text-amber-200 transition-colors">
+                    21 Modul
+                  </p>
+                  <Layers className="w-4 h-4 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
+                </div>
+                <p className="text-[11px] text-amber-100/90 font-bold leading-tight">Klinis, Dosis &amp; UKMPPAI</p>
               </div>
-              <div className="p-3.5 sm:p-4 bg-[#08262d] border border-[#144754] rounded-2xl shadow-md">
-                <p className="text-xl sm:text-2xl font-black text-indigo-300 font-outfit">100% EBM</p>
-                <p className="text-[11px] text-indigo-100 font-extrabold mt-0.5">PNPK &amp; Standar Kemenkes</p>
+
+              <div className="p-4 bg-[#06242c]/70 hover:bg-[#09323c]/90 border border-emerald-500/30 hover:border-emerald-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-xl sm:text-2xl font-black text-emerald-300 font-outfit group-hover:text-emerald-200 transition-colors">
+                    100% EBM
+                  </p>
+                  <ShieldCheck className="w-4 h-4 text-emerald-400/60 group-hover:text-emerald-300 transition-colors" />
+                </div>
+                <p className="text-[11px] text-emerald-100/90 font-bold leading-tight">PNPK &amp; Standar Kemenkes</p>
               </div>
             </div>
 
