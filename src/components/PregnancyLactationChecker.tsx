@@ -32,6 +32,8 @@ import {
   FdaPregnancyCategory,
   HalesLactationRating
 } from '../data/pregnancyLactationData';
+import { CuteMascot } from './CuteMascot';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 
 interface PregnancyLactationCheckerProps {
   onSelectTab?: (tabId: string) => void;
@@ -201,6 +203,7 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
     <div className="space-y-6">
       {/* HERO BANNER - BLUSH ROSE & DARK PLUM */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0e040c] via-[#1e0919] to-[#2e0e27] p-6 sm:p-8 text-white shadow-2xl border border-pink-500/25">
+        <FloatingPillsBackground density="low" accentColor="#f472b6" />
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-pink-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
           <Baby className="w-48 h-48 text-pink-300" />
@@ -244,7 +247,17 @@ export const PregnancyLactationChecker: React.FC<PregnancyLactationCheckerProps>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0 relative z-10">
+          <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 relative z-10">
+            {/* Si Kapsul Bumil & Busui */}
+            <div className="hidden sm:block">
+              <CuteMascot
+                mood="pregnant"
+                size="sm"
+                interactive={true}
+                speechBubble="Aman untuk janin & ASI ya Bunda 💕"
+              />
+            </div>
+
             <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-pink-950/60 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Total Obat Terverifikasi:</span>
               <span className="text-lg font-black text-pink-400">{PREGNANCY_LACTATION_DATABASE.length} Obat Bumil &amp; Busui</span>

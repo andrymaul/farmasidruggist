@@ -36,7 +36,6 @@ import { DRUG_DISEASE_INTERACTIONS_DATABASE, COMMON_CLINICAL_DISEASES } from '..
 import { CuteMascot, MascotMood } from './CuteMascot';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { CuteConfettiEffect } from './CuteConfettiEffect';
-import { CuteVisualPlaygroundModal } from './CuteVisualPlaygroundModal';
 import { playCutePop, playCuteChime, playCuteAlert } from '../utils/cuteSoundEffects';
 
 interface InteractionCheckerProps {
@@ -70,7 +69,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   const [isSaved, setIsSaved] = useState(false);
   const [showDatasetDetails, setShowDatasetDetails] = useState(false);
   const [limitWarning, setLimitWarning] = useState<string | null>(null);
-  const [showPlaygroundModal, setShowPlaygroundModal] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
   // Auto-select when navigating with preselected drug(s)
@@ -473,17 +471,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                 <span className="text-[11px] text-slate-400 block font-medium">Basis Data Terverifikasi:</span>
                 <span className="text-lg font-black text-rose-400">{drugs.length.toLocaleString('id-ID')} Obat &amp; {interactions.length.toLocaleString('id-ID')} Interaksi</span>
               </div>
-
-              <button
-                onClick={() => {
-                  setShowPlaygroundModal(true);
-                  playCutePop();
-                }}
-                className="px-4 py-2 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-400 hover:to-amber-400 text-white text-xs font-black shadow-lg shadow-rose-950/40 flex items-center justify-center gap-2 cursor-pointer active:scale-95 hover:scale-105 transition-all border border-pink-300/40"
-              >
-                <span className="text-sm">🧸</span>
-                <span>Coba Visual &amp; Maskot Lucu</span>
-              </button>
             </div>
           </div>
         </div>
@@ -1100,24 +1087,15 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
               <button
                 onClick={() => applyPreset(['Paracetamol', 'Cetirizine'])}
-                className="px-4 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900 text-emerald-800 dark:text-emerald-300 text-xs font-bold border border-emerald-300 dark:border-emerald-800 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95"
+                className="px-4 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900 text-emerald-800 dark:text-emerald-300 text-xs font-bold border border-emerald-300 dark:border-emerald-800 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-2xs"
               >
                 <span>🌟 Coba Resep Aman</span>
               </button>
               <button
                 onClick={() => applyPreset(['Paxlovid', 'Simvastatin'])}
-                className="px-4 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-100 dark:hover:bg-rose-900 text-rose-800 dark:text-rose-300 text-xs font-bold border border-rose-300 dark:border-rose-800 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95"
+                className="px-4 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-100 dark:hover:bg-rose-900 text-rose-800 dark:text-rose-300 text-xs font-bold border border-rose-300 dark:border-rose-800 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-2xs"
               >
                 <span>⚠️ Coba Interaksi Mayor</span>
-              </button>
-              <button
-                onClick={() => {
-                  setShowPlaygroundModal(true);
-                  playCutePop();
-                }}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-400 hover:to-rose-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
-              >
-                <span>🧸 Buka Taman Visual Lucu</span>
               </button>
             </div>
           </div>
@@ -1128,12 +1106,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       <CuteConfettiEffect
         active={showConfetti}
         onComplete={() => setShowConfetti(false)}
-      />
-
-      {/* Interactive Cute Visual Playground Modal */}
-      <CuteVisualPlaygroundModal
-        isOpen={showPlaygroundModal}
-        onClose={() => setShowPlaygroundModal(false)}
       />
 
     </div>

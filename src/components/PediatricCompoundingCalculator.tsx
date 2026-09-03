@@ -26,6 +26,8 @@ import {
   Layers,
   ShieldCheck
 } from 'lucide-react';
+import { CuteMascot } from './CuteMascot';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 
 export interface CompoundingItem {
   id: string;
@@ -443,6 +445,7 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
       {/* HERO BANNER - VIOLET ORCHID & DEEP MULBERRY */}
       {!hideHeader && (
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0d0414] via-[#1c0a2e] to-[#2c0f47] p-6 sm:p-8 text-white shadow-2xl border border-purple-500/25">
+          <FloatingPillsBackground density="low" accentColor="#c084fc" />
           <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
             <Baby className="w-48 h-48 text-purple-400" />
@@ -486,7 +489,17 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
               </div>
             </div>
 
-            <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 relative z-10">
+              {/* Si Kapsul Baby Edition */}
+              <div className="hidden sm:block">
+                <CuteMascot
+                  mood="baby"
+                  size="sm"
+                  interactive={true}
+                  speechBubble="Hitung dosis si kecil dengan presisi ya 🍼✨"
+                />
+              </div>
+
               <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-purple-950/60 text-right shadow-md">
                 <span className="text-[11px] text-slate-400 block font-medium">Total Obat Pediatrik:</span>
                 <span className="text-lg font-black text-purple-400">{PEDIATRIC_DRUGS_DATABASE.length} Formula Dosis Anak</span>

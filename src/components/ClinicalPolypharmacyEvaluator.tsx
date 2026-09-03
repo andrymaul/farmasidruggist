@@ -42,6 +42,8 @@ import {
   FileText,
   Layers
 } from 'lucide-react';
+import { CuteMascot } from './CuteMascot';
+import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { getDrugClinicalProfile, DrugClinicalProfile, CLINICAL_DRUG_PROFILES } from '../data/clinicalDrugDefaults';
 import { resolveInteractionPair, evaluateTherapeuticDuplications, evaluateFoodInteractions } from '../utils/ddinterEngine';
 import { getPregnancySafetyProfile } from '../utils/pregnancySyncHelper';
@@ -1348,6 +1350,7 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
         
         {/* HERO BANNER - DEEP AMETHYST & OBSIDIAN */}
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0a0514] via-[#170b2b] to-[#251244] p-6 sm:p-8 text-white shadow-2xl border border-violet-500/25">
+          <FloatingPillsBackground density="low" accentColor="#a78bfa" />
           <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-violet-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
             <Stethoscope className="w-64 h-64 text-violet-400 -rotate-12" />
@@ -1391,18 +1394,30 @@ export const ClinicalPolypharmacyEvaluator: React.FC<ClinicalPolypharmacyEvaluat
               </div>
             </div>
 
-            <div className="flex flex-col items-stretch sm:items-end gap-2.5 shrink-0 relative z-10">
-              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-violet-950/60 text-left sm:text-right shadow-md">
-                <span className="text-[11px] text-slate-400 block font-medium">Kriteria Geriatri &amp; Beers:</span>
-                <span className="text-base sm:text-lg font-black text-violet-300">60+ Obat Beers &amp; STOPP</span>
+            <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 relative z-10">
+              {/* Si Kapsul Evaluator */}
+              <div className="hidden sm:block">
+                <CuteMascot
+                  mood="thinking"
+                  size="sm"
+                  interactive={true}
+                  speechBubble="Cek duplikasi & kriteria Beers ya! 🧐💊"
+                />
               </div>
-              <button
-                onClick={handlePrintReport}
-                className="px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs shadow-lg transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95"
-              >
-                <Printer className="w-4 h-4" />
-                <span>Cetak Lembar Evaluasi (1 Halaman)</span>
-              </button>
+
+              <div className="flex flex-col items-stretch sm:items-end gap-2.5">
+                <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-violet-950/60 text-left sm:text-right shadow-md">
+                  <span className="text-[11px] text-slate-400 block font-medium">Kriteria Geriatri &amp; Beers:</span>
+                  <span className="text-base sm:text-lg font-black text-violet-300">60+ Obat Beers &amp; STOPP</span>
+                </div>
+                <button
+                  onClick={handlePrintReport}
+                  className="px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs shadow-lg transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                >
+                  <Printer className="w-4 h-4" />
+                  <span>Cetak Lembar Evaluasi (1 Halaman)</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
