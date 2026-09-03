@@ -729,6 +729,240 @@ export const HIGH_YIELD_TOPICS: HighYieldTopic[] = [
       'Margin Penjualan (%) = (Laba Kotor / Harga Jual) × 100%. Markup (%) = (Laba Kotor / Harga Beli/HPP) × 100%. Nilai Margin selalu LEBIH KECIL daripada nilai Markup.'
     ],
     referenceStandard: 'Standar Manajemen Pelayanan Kefarmasian Kemenkes RI & Modul Manajemen Farmasi AIPTLI'
+  },
+  // ==========================================
+  // MATERI LANJUTAN TERVERIFIKASI: KLINIS
+  // ==========================================
+  {
+    id: 'top-stroke-acute-mgmt',
+    domainId: 'klinis',
+    title: 'Tata Laksana Stroke Iskemik Akut (Window rtPA) vs Stroke Hemoragik (AHA/ASA & PNPK)',
+    category: 'Neurologi & Serebrovaskular',
+    tags: ['Stroke Iskemik', 'Stroke Hemoragik', 'Alteplase', 'rtPA', 'Nikardipin', 'DAPT', 'Manitol'],
+    summary: 'Penanganan darurat stroke ditentukan oleh CT-Scan kepala non-kontras untuk membedakan lesi iskemik vs hemoragik. Waktu emas (golden period) trombolisis alteplase/rtPA adalah < 4.5 jam sejak onset awitan gejala tanpa kontraindikasi perdarahan.',
+    keyPearls: [
+      'Golden Period Trombolisis Intravena: rtPA (Alteplase 0.9 mg/kgBB, maks 90 mg; 10% bolus 1 menit, 90% infus 1 jam) diberikan dalam kurun waktu < 4.5 jam dari onset gejala.',
+      'Kontrol Tekanan Darah Sebelum rtPA: TD WAJIB diturunkan hingga < 185/110 mmHg sebelum infus rtPA dimulai (pilihan: Nikardipin IV atau Labetalol IV). Selama dan setelah rtPA, pertahankan TD < 180/105 mmHg minimal selama 24 jam.',
+      'Jika Pasien TIDAK Memenuhi Syarat rtPA: Tekanan darah tinggi TIDAK BOLEH diturunkan agresif kecuali bila TD > 220/120 mmHg (permissive hypertension untuk menjaga perfusi serebral).',
+      'Dual Antiplatelet Therapy (DAPT) Sekunder: Pada stroke iskemik minor (NIHSS <= 3) atau TIA risiko tinggi (ABCD2 >= 4), kombinasi Aspirin 80-100 mg + Klopidogrel 75 mg dimulai dalam 24 jam pertama dan dilanjutkan selama 21 HARI, kemudian dialihkan ke monoterapi antiplatelet seumur hidup.',
+      'Stroke Hemoragik (Pendarahan Intraserebral / ICH): Target TD sistolik agresif 130-140 mmHg dengan Nikardipin IV. Jika terjadi peningkatan tekanan intrakranial (TIK), berikan Manitol 20% 0.5-1 g/kgBB IV bolus lambat dan posisikan kepala elevasi 30 derajat.'
+    ],
+    frequentExamPitfalls: [
+      'Jangan memberikan antikoagulan (Heparin/Warfarin/NOAC) atau antiplatelet (Aspirin/Klopidogrel) dalam kurun waktu 24 JAM PERTAMA setelah pemberian rtPA (risiko konversi perdarahan intraserebral fatal).',
+      'Hindari pemberian cairan hipotonik (seperti Dextrose 5% murni atau NaCl 0.45%) pada pasien stroke karena dapat memperberat edema sitotoksik serebral.'
+    ],
+    referenceStandard: 'AHA/ASA Guidelines for the Early Management of Acute Ischemic Stroke & PNPK Stroke Kemenkes RI'
+  },
+  {
+    id: 'top-ckd-kdigo-anemia-mbd',
+    domainId: 'klinis',
+    title: 'Tata Laksana CKD-MBD, Anemia Renal & Penanganan Darurat Hiperkalemia Ginjal (KDIGO & PERNEFRI)',
+    category: 'Nefrologi & Gangguan Ginjal',
+    tags: ['CKD', 'Hiperkalemia', 'Kalsium Glukonat', 'Kalsium Karbonat', 'Sevelamer', 'Eritropoietin', 'Fosfat Binder'],
+    summary: 'Penyakit Ginjal Kronik (CKD) tahap 3b-5 menyebabkan komplikasi retensi fosfat (CKD-MBD), defisiensi eritropoietin (Anemia Renal), dan penurunan ekskresi kalium (Hiperkalemia mengancam jiwa).',
+    keyPearls: [
+      'Tatalaksana CKD-MBD (Hiperfosfatemia): Fosfat binder diminum BERSAMAAN DENGAN MAKANAN (bukan saat perut kosong). Lini pertama: Kalsium Karbonat atau Kalsium Asetat (jika kadar kalsium serum normal/rendah). Jika kalsium serum tinggi (> 10.2 mg/dL), ganti ke Non-Calcium Binder seperti SEVELAMER Karbonat untuk mencegah kalsifikasi vaskular.',
+      'Tatalaksana Anemia Renal: Eritropoietin (ESA: Epoetin Alfa/Beta) diberikan jika Hb < 10 g/dL dengan target Hb 10 - 11.5 g/dL (JANGAN melebihi 11.5-12 g/dL karena memicu trombosis vaskular & stroke). Syarat sebelum ESA: Cadangan besi harus cukup (TSAT >= 20% dan Serum Feritin >= 100 ng/mL non-dialisis atau >= 200 ng/mL pada hemodialisis). Berikan suplementasi zat besi terlebih dahulu jika besi defisiensi.',
+      'KOREKSI DARURAT HIPERKALEMIA (K+ > 6.0 mEq/L atau terdapat perubahan EKG T-tall / QRS melebar):',
+      '1. Stabilisasi membran miokard (Cegah Fibrilasi Ventrikel): Kalsium Glukonat 10% 10 mL IV bolus lambat selama 2-5 menit (tidak menurunkan kalium serum, hanya melindungi jantung).',
+      '2. Redistribusi Kalium ke Intrasel: Insulin Reguler (Actrapid/Humulin R) 10 IU IV + Dextrose 40% 50 mL IV bolus, dan/atau Salbutamol Nebulizer 10-20 mg.',
+      '3. Eliminasi Kalium dari Tubuh: Furosemid IV (jika fungsi ginjal residual ada), Kation resin pengikat kalium (Kalium Polistiren Sulfonat / Kayexalate per oral/enema), atau CITO Hemodialisis.'
+    ],
+    frequentExamPitfalls: [
+      'Kalsium Glukonat TIDAK MENURUNKAN KADAR KALIUM dalam darah, melainkan menstabilkan membran sel otot jantung agar tidak terjadi henti jantung mendadak.',
+      'Target Hb pada anemia ginjal BUKAN angka normal pria/wanita sehat (12-14 g/dL), melainkan 10-11.5 g/dL. Menaikkan Hb > 12 g/dL terbukti meningkatkan mortalitas kardiovaskular.'
+    ],
+    referenceStandard: 'KDIGO 2024 Clinical Practice Guideline for CKD & Konsensus Manajemen Anemia & CKD-MBD PERNEFRI'
+  },
+  {
+    id: 'top-sepsis-surviving-campaign',
+    domainId: 'klinis',
+    title: 'Tata Laksana Sepsis & Syok Septik: Hour-1 Bundle, Resusitasi Cairan, & Vasopresor (SSC 2021 & PNPK)',
+    category: 'Infeksi Berat & Perawatan Kritis',
+    tags: ['Sepsis', 'Syok Septik', 'Norepinefrin', 'Kristaloid', 'Laktat', 'Surviving Sepsis'],
+    summary: 'Sepsis didefinisikan sebagai disfungsi organ yang mengancam jiwa akibat disregulasi respon imun pejamu terhadap infeksi (SOFA score >= 2). Syok septik ditandai dengan hipotensi persisten yang membutuhkan vasopresor untuk mempertahankan MAP >= 65 mmHg dan kadar laktat serum > 2 mmol/L meski resusitasi cairan telah adekuat.',
+    keyPearls: [
+      'Hour-1 Bundle (Wajib Dikerjakan dalam 1 Jam Pertama): 1) Periksa kadar Laktat serum (ukur ulang jika awal > 2 mmol/L), 2) Ambil kultur darah sebelum memulai antibiotik, 3) Berikan antibiotik spektrum luas intravena, 4) Mulai resusitasi cairan kristaloid cepat 30 mL/kgBB dalam 3 jam pertama jika hipotensi (MAP < 65 mmHg) atau laktat >= 4 mmol/L, 5) Berikan vasopresor jika hipotensi selama atau setelah resusitasi cairan.',
+      'Pilihan Cairan Resusitasi: Kristaloid Isotonis Seimbang (Balanced Crystalloid: Ringer Laktat atau Ringer Fundin) lebih direkomendasikan daripada Normal Saline 0.9% dalam jumlah masif (mencegah asidosis metabolik hiperkloremik dan cedera ginjal akut).',
+      'Vasopresor Lini Pertama: NOREPINEFRIN IV (dosis titrasi 0.02 - 1.0 mcg/kg/menit via vena sentral) dengan target Mean Arterial Pressure (MAP) >= 65 mmHg.',
+      'Vasopresor Lini Kedua: Tambahkan VASOPRESIN IV (dosis tetap 0.03 unit/menit) jika target MAP belum tercapai dengan norepinefrin dosis tinggi, untuk mengurangi kebutuhan dosis norepinefrin.',
+      'Kortikosteroid pada Syok Septik: Berikan Hidrokortison IV 200 mg/hari (50 mg tiap 6 jam atau infus kontinu) HANYA JIKA syok septik tetap refrakter (membutuhkan norepinefrin >= 0.25 mcg/kg/menit minimal selama 4 jam).'
+    ],
+    frequentExamPitfalls: [
+      'Jangan memberikan Dopamin sebagai vasopresor lini pertama syok septik karena berisiko tinggi memicu aritmia takikardia dan meningkatkan mortalitas dibanding Norepinefrin.',
+      'Kultur darah wajib diambil SEBELUM antibiotik intravena masuk, namun pemberian antibiotik TIDAK BOLEH ditunda lebih dari 1 jam bila pengambilan kultur sulit.'
+    ],
+    referenceStandard: 'Surviving Sepsis Campaign International Guidelines 2021 & PNPK Tata Laksana Sepsis Kemenkes RI'
+  },
+  {
+    id: 'top-pediatric-diarrhea-fever',
+    domainId: 'klinis',
+    title: 'Farmakoterapi Pediatrik: 5 Pilar Diare Akut, Zink 10 Hari, & Penanganan Kejang Demam (PPK IDAI)',
+    category: 'Pediatrik & Kesehatan Anak',
+    tags: ['Diare Anak', 'Zink', 'Oralit', 'Kejang Demam', 'Diazepam Rektal', 'Paracetamol', 'Ibuprofen'],
+    summary: 'Penanganan penyakit lazim pada anak memerlukan pemahaman farmakokinetika khusus (organ belum matang, volume distribusi cairan tinggi) serta pedoman resmi IDAI untuk mencegah overprescribing antibiotik dan mortalitas dehidrasi.',
+    keyPearls: [
+      '5 Pilar Penanganan Diare Akut Balita (Kemenkes & IDAI): 1) Berikan ORALIT formula osmolaritas rendah segera (mencegah dehidrasi), 2) Berikan Tablet ZINK ELEMENTAL: Usia < 6 bulan dosis 10 mg/hari, Usia >= 6 bulan dosis 20 mg/hari selama 10 HARI PENUH meski diare sudah berhenti, 3) Teruskan ASI dan makanan gizi seimbang, 4) Berikan antibiotik HANYA atas indikasi ketat (Disentri berdarah: Kotrimoksazol/Azitromisin/Sefiksim; atau Kolera: Eritromisin), 5) Edukasi orang tua mengenai tanda bahaya dehidrasi berat.',
+      'Mekanisme Zink pada Diare: Menstimulasi regenerasi mikrovili enterosit usus, memperbaiki integritas tight-junction mukosa usus, dan meningkatkan absorpsi air dan elektrolit serta imunitas mukosa usus.',
+      'Penanganan Kejang Demam di Rumah (Pre-Hospital): Baringkan anak miring, bebaskan jalan nafas, jangan memasukkan benda ke mulut. Berikan DIAZEPAM REKTAL (Suppositoria tube): BB < 12 kg (atau umur < 3 tahun) dosis 5 mg; BB >= 12 kg (atau umur >= 3 tahun) dosis 10 mg. Jika kejang belum berhenti dalam 5 menit, boleh diulang 1 KALI dosis yang sama. Jika masih kejang, bawa ke IGD.',
+      'Antipiretik Anak: PARACETAMOL 10-15 mg/kgBB/kali per oral tiap 4-6 jam (maks 60 mg/kg/hari) adalah lini pertama teraman. IBUPROFEN 5-10 mg/kgBB/kali tiap 6-8 jam HANYA boleh diberikan pada anak usia > 6 bulan dan dipastikan tidak mengalami dehidrasi/disfungsi ginjal.',
+      'KONTRAINDIKASI MUTLAK Anak: Aspirin (Asam Asetilsalisilat) DILARANG KERAS pada anak dengan demam infeksi virus (Varicella/Flu) karena memicu SINDROM REYE (ensefalopati hepatik akut fatal).'
+    ],
+    frequentExamPitfalls: [
+      'Tablet Zink WAJIB diminum selama 10 HARI PENUH, BUKAN dihentikan saat feses mulai padat. Hal ini bertujuan meregenerasi epitel mukosa usus secara tuntas dan mencegah diare berulang dalam 2-3 bulan ke depan.',
+      'Obat anti-motilitas (Loperamid) dan antiemetik (Metoklopramid) KONTRAINDIKASI pada bayi dan balita dengan diare akut karena risiko ileus paralitik fatal dan efek ekstrapiramidal.'
+    ],
+    referenceStandard: 'Buku Saku Pelayanan Kesehatan Anak di RS Kemenkes/WHO & Panduan Praktik Klinis IDAI'
+  },
+  // ==========================================
+  // MATERI LANJUTAN TERVERIFIKASI: MANAJEMEN & HUKUM
+  // ==========================================
+  {
+    id: 'top-uu-kesehatan-2023',
+    domainId: 'manajemen',
+    title: 'Regulasi Pelayanan Kefarmasian: UU No. 17/2023, STRA Seumur Hidup, SIPA 3 Tempat & PP 28/2024',
+    category: 'Regulasi & Hukum Farmasi',
+    tags: ['UU Kesehatan', 'STRA Seumur Hidup', 'SIPA 3 Tempat', 'SKP Plataran Sehat', 'PP 28/2024'],
+    summary: 'Undang-Undang No. 17 Tahun 2023 tentang Kesehatan dan Peraturan Pemerintah No. 28 Tahun 2024 mengubah lanskap perizinan tenaga kesehatan di Indonesia dengan sistem registrasi terintegrasi nasional SATUSEHAT.',
+    keyPearls: [
+      'Surat Tanda Registrasi Apoteker (STRA): Diterbitkan oleh Konsil Tenaga Kesehatan Indonesia (KTKI) atas nama Menteri Kesehatan dan berlaku SEUMUR HIDUP (tidak perlu perpanjangan setiap 5 tahun lagi).',
+      'Surat Izin Praktik Apoteker (SIPA): Diterbitkan oleh Pemerintah Daerah Kabupaten/Kota (Dinas Kesehatan / PTSP) dan berlaku selama 5 TAHUN. Seorang Apoteker dapat memiliki maksimal 3 (TIGA) SIPA pada fasilitas pelayanan kefarmasian yang berbeda (Apotek, Rumah Sakit, Klinik, Puskesmas, atau PBF/Industri).',
+      'Syarat Perpanjangan SIPA 5 Tahunan: Memerlukan bukti pemenuhan kecukupan Satuan Kredit Profesi (SKP) yang terintegrasi secara elektronik melalui platform Pembelajaran Kemenkes (Plataran Sehat / SI-SDMK).',
+      'Penyelenggaraan Telefarmasi: Pelayanan kefarmasian berbasis elektronik diperbolehkan dengan syarat terhubung dengan sistem rekam medis elektronik (RME) yang terstandarisasi SATUSEHAT dan wajib menjamin kerahasiaan data medis pasien.',
+      'Sanksi Pelayanan Obat Keras Ilegal: Setiap orang yang mengedarkan atau menyerahkan sediaan farmasi tanpa keahlian dan kewenangan (praktik kefarmasian tanpa izin) diancam dengan pidana penjara dan denda sesuai ketentuan UU Kesehatan No. 17 Tahun 2023.'
+    ],
+    frequentExamPitfalls: [
+      'Bedakan dengan teliti: STRA berlaku SEUMUR HIDUP, sedangkan SIPA tetap memiliki masa berlaku 5 TAHUN dan memerlukan kecukupan SKP untuk perpanjangannya.',
+      'Batas maksimal kepemilikan SIPA oleh seorang apoteker adalah 3 TEMPAT praktik, bukan 1 atau 2 tempat.'
+    ],
+    referenceStandard: 'Undang-Undang RI No. 17 Tahun 2023 tentang Kesehatan & PP RI No. 28 Tahun 2024'
+  },
+  {
+    id: 'top-destruction-recall-drugs',
+    domainId: 'manajemen',
+    title: 'Prosedur Pemusnahan Obat Rusak/Kedaluwarsa/Narkotika & Standar Penarikan Obat (Recall BPOM)',
+    category: 'Manajemen Logistik & Regulasi BPOM',
+    tags: ['Pemusnahan Obat', 'Berita Acara', 'Recall Obat', 'Narkotika', 'BPOM', 'Permenkes 73/2016'],
+    summary: 'Pengelolaan obat rusak, kedaluwarsa, dan penarikan obat (recall) dari peredaran diatur ketat oleh BPOM dan Kemenkes untuk mencegah kebocoran sediaan palsu/substandar ke masyarakat.',
+    keyPearls: [
+      'Prosedur Pemusnahan Obat Kedaluwarsa di Apotek/RS: 1) Inventarisasi dan buat daftar obat yang akan dimusnahkan, 2) Siapkan Berita Acara Pemusnahan (BAP), 3) Lakukan pemusnahan dengan metode yang tidak mencemari lingkungan dan merusak bentuk sediaan agar tidak bisa dimanfaatkan kembali, 4) Disaksikan oleh sekurang-kurangnya petugas Balai Besar POM setempat dan/atau Dinas Kesehatan Kabupaten/Kota.',
+      'Pemusnahan Sediaan Narkotika & Psikotropika: WAJIB DIBERITAHUKAN secara tertulis minimal 3 minggu sebelumnya kepada Dinas Kesehatan Kab/Kota dan BBPOM setempat. Pemusnahan WAJIB disaksikan oleh pejabat resmi Dinkes dan BBPOM yang menandatangani BAP rangkap 4 (Kemenkes, BBPOM, Dinkes, Arsip Apotek).',
+      'Klasifikasi Penarikan Obat (Drug Recall BPOM):',
+      '• Recall Kelas I: Cacat mutu kritis yang DAPAT MENYEBABKAN KEMATIAN atau ancaman serius bagi kesehatan (misal: kontaminasi etilen glikol toksik, salah isi label obat poten). Batas waktu penarikan: Maksimal 1 x 24 JAM dari edaran.',
+      '• Recall Kelas II: Cacat mutu yang dapat menyebabkan efek samping sementara/reversibel atau probabilitas kecil menyebabkan efek serius. Batas waktu penarikan: Maksimal 3 HARI KERJA.',
+      '• Recall Kelas III: Cacat mutu minor yang tidak menyebabkan efek samping signifikan bagi kesehatan tetapi melanggar regulasi izin edar/kemasan. Batas waktu penarikan: Maksimal 7 HARI KERJA.',
+      'Tindakan Apotek saat Menerima Surat Recall: SEGERA hentikan penjualan, pisahkan fisik obat dari rak display, simpan di area karantina gudang tertutup bertanda merah "OBAT DIKARANTINA / RECALL", dan kembalikan ke PBF penyalur disertai faktur retur.'
+    ],
+    frequentExamPitfalls: [
+      'Obat yang ditarik (recall) TIDAK BOLEH langsung dibuang atau dihancurkan sendiri oleh apotek, melainkan harus dikarantina dan dikembalikan ke PBF/produsen sesuai instruksi surat resmi recall.',
+      'Pemusnahan narkotika di apotek TANPA kehadiran saksi resmi dari Dinkes/BBPOM dianggap pelanggaran hukum berat tindak pidana peredaran gelap narkotika.'
+    ],
+    referenceStandard: 'Permenkes RI No. 73/2016 Standar Pelayanan Kefarmasian & PerBPOM No. 24 Tahun 2021'
+  },
+  // ==========================================
+  // MATERI LANJUTAN TERVERIFIKASI: TEKNOLOGI CPOB
+  // ==========================================
+  {
+    id: 'top-cpob-validation-maco',
+    domainId: 'teknologi',
+    title: 'Kualifikasi Mesin (DQ-IQ-OQ-PQ), Validasi Proses, & Validasi Pembersihan MACO (CPOB 2024 BPOM)',
+    category: 'Teknologi Farmasi & Pemastian Mutu Industri',
+    tags: ['CPOB', 'Kualifikasi Mesin', 'Validasi Proses', 'Validasi Pembersihan', 'MACO', 'Cross-Contamination'],
+    summary: 'CPOB mewajibkan seluruh fasilitas, sistem penunjang, dan peralatan industri farmasi terkualifikasi serta proses manufaktur tervalidasi guna menjamin mutu, keamanan, dan konsistensi bets produk obat.',
+    keyPearls: [
+      '4 Tahap Kualifikasi Mesin/Peralatan:',
+      '1. Design Qualification (DQ): Membuktikan bahwa desain peralatan dan tata letak ruangan sesuai dengan tujuan penggunaan dan persyaratan CPOB (Urusan spesifikasi rancangan pengguna / URS).',
+      '2. Installation Qualification (IQ): Memverifikasi bahwa peralatan dan pemipaan telah terpasang dengan benar sesuai cetak biru teknik, spesifikasi pabrikan, dan standar kelistrikan.',
+      '3. Operational Qualification (OQ): Menguji bahwa peralatan beroperasi sesuai parameter batas operasional yang ditentukan pada kondisi tanpa beban/simulasi (misal: pengujian putaran RPM, rentang suhu, sensor alarm).',
+      '4. Performance Qualification (PQ): Membuktikan peralatan beroperasi secara efektif dan reprodusibel saat dioperasikan pada kondisi produksi nyata menggunakan bahan baku atau plasebo (menghasilkan produk sesuai spesifikasi).',
+      'Validasi Proses Tradisional: Dilakukan pada minimal 3 BETS KOMERSIAL BERTURUT-TURUT pada skala produksi nyata yang memenuhi seluruh atribut mutu kritis (CQA) dan parameter proses kritis (CPP).',
+      'Validasi Pembersihan (Cleaning Validation) & Perhitungan MACO (Maximum Allowable Carryover): Batas residu zat aktif obat A yang diperbolehkan terbawa ke dalam produk obat berikutnya B dihitung berdasarkan nilai terkecil dari 3 kriteria: 1) Kriteria Dosis Terapeutik: MACO = (TDD_A / 1000) × (Batch_Size_B / Max_DD_B), 2) Kriteria Toksikologis: Maksimal 10 ppm residu zat A dalam produk B, 3) Kriteria Visual: Area permukaan kontak produk harus bersih secara visual (visually clean, threshold ~1-4 mcg/cm²).'
+    ],
+    frequentExamPitfalls: [
+      'Urutan tahapan kualifikasi TIDAK BOLEH terbalik: DQ -> IQ -> OQ -> PQ. OQ dilakukan tanpa bahan produksi nyata, sedangkan PQ dilakukan dengan bahan nyata/simulasi produksi penuh.',
+      'Kriteria penerimaan residu validasi pembersihan selalu mengambil NILAI PALING KETAT (terendah) antara perhitungan dosis terapeutik, batas toksisitas 10 ppm, dan batas visual.'
+    ],
+    referenceStandard: 'Pedoman CPOB 2024 BPOM RI (Aneks 8 Kualifikasi dan Validasi) & PIC/S Guidelines'
+  },
+  {
+    id: 'top-sterile-filtration-integrity',
+    domainId: 'teknologi',
+    title: 'Sediaan Steril: Filtrasi Membran 0.22 μm, Bubble Point Test, & Uji Sterilitas (FI VI & CPOB)',
+    category: 'Teknologi Sediaan Steril',
+    tags: ['Filtrasi Steril', 'Bubble Point Test', 'Membran 0.22 um', 'Uji Sterilitas', 'FTM', 'SCDM', 'FI VI'],
+    summary: 'Untuk sediaan injeksi dan tetes mata dengan zat aktif termolabil (rusak oleh panas autoklaf), sterilisasi dilakukan dengan filtrasi membran steril 0.22 mikron di ruang bersih Kelas A berlatar belakang Kelas B.',
+    keyPearls: [
+      'Porositas Membran Sterilisasi: Membran filter dengan ukuran pori nominal 0.22 MIKRON (μm) mampu menahan bakteri patogen standar uji Brevundimonas diminuta (ATCC 19146) dengan kerapatan tantangan minimal 10^7 CFU/cm² luas filter.',
+      'Uji Integritas Filter Membran (Wajib Sebelum dan Sesudah Proses Filtrasi):',
+      '• Bubble Point Test (Uji Titik Gelembung): Mengukur tekanan gas minimum yang dibutuhkan untuk menembus dan meniup cairan pembasah keluar dari pori-pori membran terbesar. Jika tekanan titik gelembung berada DI BAWAH batas spesifikasi pabrikan, filter dinyatakan CACAT/BOCOR dan bets produk dianggap TIDAK STERIL.',
+      '• Diffusion Flow Test (Uji Aliran Difusi) & Water Intrusion Test (WIT untuk filter hidrofobik ventilasi udara).',
+      'Uji Sterilitas Sediaan Farmakope Indonesia VI:',
+      '• Media Fluid Thioglycollate Medium (FTM): Digunakan untuk mendeteksi pertumbuhan BAKTERI ANAEROB dan AEROB, diinkubasi pada suhu 30°C - 35°C selama 14 HARI.',
+      '• Media Soybean-Casein Digest Medium (SCDM / TSB): Digunakan untuk mendeteksi JAMUR/KHAMIR (Fungi) dan BAKTERI AEROB, diinkubasi pada suhu 20°C - 25°C selama 14 HARI.',
+      'Kriteria Hasil: Wadah media harus jernih tanpa adanya kekeruhan atau pertumbuhan mikroba hingga akhir hari ke-14.'
+    ],
+    frequentExamPitfalls: [
+      'Jika uji integritas filter sesudah filtrasi (post-filtration integrity test) GAGAL / di bawah spesifikasi bubble point, seluruh larutan yang telah difiltrasi dinyatakan TIDAK STERIL dan harus difiltrasi ulang dengan membran filter baru.',
+      'Durasi inkubasi resmi uji sterilitas sediaan menurut FI VI adalah 14 HARI PENUH, bukan 3 atau 7 hari.'
+    ],
+    referenceStandard: 'Farmakope Indonesia Edisi VI (Lampiran <71> Uji Sterilitas) & Pedoman CPOB Pembuatan Produk Steril'
+  },
+  // ==========================================
+  // MATERI LANJUTAN TERVERIFIKASI: BAHAN ALAM
+  // ==========================================
+  {
+    id: 'top-fhi-standardization-parameters',
+    domainId: 'bahan_alam',
+    title: 'Standardisasi Mutu Ekstrak Bahan Alam: Parameter Spesifik vs Non-Spesifik (FHI Edisi II & BPOM)',
+    category: 'Farmakognosi & Standardisasi Ekstrak',
+    tags: ['Standardisasi Mutu', 'Parameter Spesifik', 'Parameter Non-Spesifik', 'FHI II', 'Abu Tidak Larut Asam', 'Karl Fischer'],
+    summary: 'Standardisasi bahan baku obat tradisional (simplisia dan ekstrak) bertujuan menjamin reprodusibilitas mutu, keamanan, dan khasiat klinis antar-bets produksi jamu, OHT, dan fitofarmaka.',
+    keyPearls: [
+      'PARAMETER SPESIFIK EKSTRAK (Karakteristik Khas Identitas Botani & Kimiawi):',
+      '1. Identitas: Nama latin tanaman (genus, spesies, varietas), bagian tanaman yang digunakan (folium, rhizoma, korteks), dan nama Indonesia.',
+      '2. Organoleptis: Pengamatan sensorik warna, bau, bentuk sediaan, dan rasa ekstrak.',
+      '3. Senyawa Terlarut dalam Pelarut Tertentu: Kadar senyawa larut air (%) dan kadar senyawa larut etanol (%).',
+      '4. Pola Kromatografi Sidik Jari (Chromatographic Fingerprint): Profil bercak KLT atau kromatogram HPLC khas.',
+      '5. Penetapan Kadar Senyawa Aktif Marker: Contoh: Kadar kurkuminoid total pada ekstrak Curcuma xanthorrhiza (Temulawak), kadar andrografolid pada Andrographis paniculata (Sambiloto).',
+      'PARAMETER NON-SPESIFIK EKSTRAK (Aspek Keamanan, Kemurnian, & Higienitas Lingkungan):',
+      '1. Susut Pengeringan (Loss on Drying): Mengukur seluruh zat yang menguap (air + minyak atsiri/senyawa volatil) dengan oven 105°C hingga bobot konstan.',
+      '2. Kadar Air (Water Content): Mengukur HANYA kandungan air spesifik menggunakan metode Titrasi Karl Fischer atau Destilasi Toluen (untuk tanaman yang kaya minyak atsiri). Syarat umum: Kadar air ekstrak kering <= 10%.',
+      '3. Kadar Abu Total: Mengukur sisa mineral anorganik internal dan eksternal setelah dipijarkan pada suhu 500-600°C.',
+      '4. Kadar Abu Tidak Larut Asam: Mengukur cemaran mineral logam silikat/tanah/pasir yang tidak larut dalam asam klorida encer. Kadar yang tinggi menandakan pencucian simplisia kurang bersih atau kontaminasi tanah.',
+      '5. Cemaran Logam Berat: Timbal (Pb <= 10 ppm), Kadmium (Cd <= 0.3 ppm), Arsen (As <= 5 ppm), Merkuri (Hg <= 0.5 ppm).',
+      '6. Cemaran Mikroba: Angka Lempeng Total (ALT), Angka Kapang Khamir (AKK), dan NEGATIF bakteri patogen Escherichia coli, Salmonella spp., Pseudomonas aeruginosa, dan Staphylococcus aureus.'
+    ],
+    frequentExamPitfalls: [
+      'Bedakan Susut Pengeringan vs Kadar Air: Susut pengeringan menguapkan air DAN minyak atsiri/senyawa organik volatil. Jika ekstrak mengandung minyak atsiri (seperti Jahe/Temulawak), penentuan kadar air WAJIB menggunakan metode Destilasi Toluen atau Titrasi Karl Fischer, bukan oven gravimetri biasa.',
+      'Kadar abu tidak larut asam adalah indikator cemaran fisik tanah/pasir, bukan cemaran zat kimia aktif tanaman.'
+    ],
+    referenceStandard: 'Farmakope Herbal Indonesia (FHI) Edisi II & Pedoman Standardisasi Ekstrak Bahan Alam BPOM RI'
+  },
+  {
+    id: 'top-extraction-technology-herbal',
+    domainId: 'bahan_alam',
+    title: 'Teknologi Ekstraksi Bahan Alam & Reaksi Reagen Skrining Fitokimia (Mayer, Dragendorff, Shinoda)',
+    category: 'Fitokimia & Metode Pemisahan',
+    tags: ['Ekstraksi', 'Maserasi', 'Soxhletasi', 'SFE', 'Skrining Fitokimia', 'Dragendorff', 'Shinoda'],
+    summary: 'Pemilihan metode ekstraksi disesuaikan dengan termostabilitas senyawa aktif tanaman. Skrining fitokimia kualitatif menggunakan reaksi warna dan pembentukan endapan spesifik untuk menentukan golongan metabolit sekunder.',
+    keyPearls: [
+      'Metode Ekstraksi Konvensional:',
+      '• Ekstraksi Dingin (Untuk senyawa termolabil): MASERASI (perendaman dengan pelarut disertai pengocokan periodik) dan PERKOLASI (aliran pelarut segar secara kontinu menembus simplisia dalam kolom perkolator).',
+      '• Ekstraksi Panas (Untuk senyawa tahan panas): REFLUKS (pemanasan pelarut berulang dengan kondensor pendingin balik), SOKHLETASI (ekstraksi berkesinambungan dengan volume pelarut relatif sedikit menggunakan alat Soxhlet), INFUSA (ekstraksi pelarut air pada bejana penangas 90°C selama 15 menit), dan DEKOKTA (ekstraksi pelarut air pada 90°C selama 30 menit).',
+      'Metode Green Extraction Modern:',
+      '• Ultrasound-Assisted Extraction (UAE): Memanfaatkan gelombang kavitasi akustik ultrasonik untuk memecah dinding sel tanaman sehingga senyawa aktif keluar lebih cepat.',
+      '• Supercritical Fluid Extraction (SFE): Menggunakan Karbondioksida (CO2) superkritis pada suhu dan tekanan di atas titik kritisnya. Bersifat non-polar, tidak beracun, bebas residu pelarut organik, dan ideal untuk senyawa termolabil.',
+      'REAKSI REAGEN SKRINING FITOKIMIA:',
+      '• ALKALOID: Reagen Dragendorff (Kalium bismut iodida) -> Endapan JINGGA / COKELAT KEMERAHAN. Reagen Mayer (Kalium raksa iodida) -> Endapan PUTIH / KEKUNINGAN. Reagen Wagner (Iodium dalam KI) -> Endapan COKELAT.',
+      '• FLAVONOID: Reaksi Wilstatter / Shinoda Test (Serbuk Logam Magnesium (Mg) + Asam Klorida (HCl) pekat) -> Menghasilkan warna MERAH, JINGGA, atau MERAH JINGGA.',
+      '• TANIN: Larutan Besi(III) Klorida (FeCl3 1%) -> Warna BIRU KEHITAMAN (menandakan Tanin Terhidrolisis) atau HIJAU KEHITAMAN (Tanin Terkondensasi/Katekol).',
+      '• SAPONIN: Uji Busa / Forth Test (Pengocokan kuat dalam tabung reaksi dengan air suling) -> Terbentuk BUSA SETINGGI >= 1 CM YANG STABIL MINIMAL 10 MENIT dan tidak hilang dengan penambahan 1 tetes HCl encer.'
+    ],
+    frequentExamPitfalls: [
+      'Senyawa antosianin dan minyak atsiri termolabil TIDAK BOLEH diekstraksi dengan metode refluks atau sokhletasi karena panas tinggi akan merusak struktur kimianya (terdegradasi).',
+      'Pada uji busa saponin, busa yang terbentuk harus terbukti STABIL minimal 10 menit setelah ditetesi HCl encer untuk menyingkirkan hasil positif palsu akibat protein.'
+    ],
+    referenceStandard: 'Metode Fitokimia Penuntun Cara Modern Menganalisis Tumbuhan (Harborne) & Farmakope Herbal Indonesia'
   }
 ];
 
@@ -2362,6 +2596,210 @@ export const EXAM_QUESTION_BANK: ExamQuestion[] = [
     explanation: 'Herba ST. JOHN’S WORT (Hypericum perforatum, mengandung zat aktif hiperforin) adalah INDUCER POTEN dari enzim pemetabolisme hati sitokrom CYP3A4 dan protein efluks P-glikoprotein (P-gp) di usus dan ginjal. Ketika dikonsumsi bersamaan dengan SIKLOSPORIN (yang merupakan substrat utama CYP3A4 dan P-gp), pembersihan (klirens) Siklosporin meningkat drastis dan bioavailabilitasnya anjlok hingga 50-70%. Akibatnya kadar darah Siklosporin menjadi sub-terapeutik yang berakibat fatal berupa REJEKSI AKUT ORGAN TRANSPLANTASI. Interaksi serupa juga terjadi pada kontrasepsi oral (kegagalan KB), warfarin, dan obat antiretroviral HIV.',
     clinicalReference: 'Stockley’s Drug Interactions & Natural Medicines Comprehensive Database: St. John’s Wort Interactions',
     difficulty: 'Sedang'
+  },
+  {
+    id: 'q-096',
+    domainId: 'klinis',
+    vignette: 'Seorang pasien laki-laki berusia 62 tahun tiba di IGD Rumah Sakit dengan keluhan kelemahan mendadak pada lengan dan tungkai kanan serta bicara pelo (pelo/afasia) sejak 2 jam yang lalu. Hasil CT-Scan kepala non-kontras menunjukkan tidak ada perdarahan intraserebral (stroke iskemik akut). Pemeriksaan tanda vital menunjukkan TD 195/115 mmHg, Nadi 88x/menit, dan GDS 140 mg/dL. Tim dokter berencana memberikan trombolisis Alteplase (rtPA) intravena.',
+    question: 'Tindakan farmakoterapi manakah yang WAJIB dilakukan terlebih dahulu oleh apoteker dan tim medis sebelum infus Alteplase dapat dimulai?',
+    options: [
+      { key: 'A', text: 'Langsung memulai infus Alteplase karena masih dalam golden period < 3 jam' },
+      { key: 'B', text: 'Menurunkan tekanan darah hingga < 185/110 mmHg menggunakan Nikardipin IV kontinu' },
+      { key: 'C', text: 'Memberikan loading dose Aspirin 320 mg dan Klopidogrel 300 mg per oral' },
+      { key: 'D', text: 'Memberikan bolus Heparin 5000 IU untuk mencegah perluasan trombus' },
+      { key: 'E', text: 'Menurunkan tekanan darah secara agresif hingga mencapai TD normal < 120/80 mmHg' }
+    ],
+    correctAnswer: 'B',
+    explanation: 'Berdasarkan pedoman AHA/ASA dan PNPK Stroke Kemenkes RI, syarat mutlak sebelum trombolisis rtPA (Alteplase) intravena dapat diberikan adalah Tekanan Darah Sistolik < 185 mmHg dan Diastolik < 110 mmHg. Jika TD >= 185/110 mmHg, risiko terjadinya transformasi perdarahan intraserebral fatal (intracranial hemorrhage) meningkat drastis. Obat pilihan utama untuk menurunkan TD secara cepat, terukur, dan titrasi halus adalah NIKARDIPIN IV (5 mg/jam titrasi naik tiap 5-15 menit) atau Labetalol IV. Antiplatelet (Aspirin/Klopidogrel) dan antikoagulan (Heparin) KONTRAINDIKASI MUTLAK diberikan dalam 24 jam pertama pasca-trombolisis.',
+    clinicalReference: 'AHA/ASA Guidelines for the Early Management of Patients With Acute Ischemic Stroke 2019/2021 Update & PNPK Neurologi Kemenkes RI',
+    difficulty: 'Tinggi'
+  },
+  {
+    id: 'q-097',
+    domainId: 'klinis',
+    vignette: 'Seorang pasien wanita berusia 68 tahun dirawat di ICU dengan diagnosis Syok Septik akibat pneumonia bakterial berat. Pasien telah menerima resusitasi cairan kristaloid Ringer Laktat sebanyak 30 mL/kgBB dalam 3 jam pertama. Namun, evaluasi hemodinamik pasca-resusitasi menunjukkan tekanan darah masih 78/48 mmHg (Mean Arterial Pressure / MAP 58 mmHg) dan kadar laktat serum 4,2 mmol/L.',
+    question: 'Obat vasoaktif lini pertama manakah yang paling tepat direkomendasikan apoteker untuk mencapai target MAP >= 65 mmHg sesuai pedoman Surviving Sepsis Campaign (SSC)?',
+    options: [
+      { key: 'A', text: 'Dopamin infus 10 mcg/kg/menit' },
+      { key: 'B', text: 'Dobutamin infus 5 mcg/kg/menit' },
+      { key: 'C', text: 'Norepinefrin infus titrasi' },
+      { key: 'D', text: 'Epinefrin infus titrasi' },
+      { key: 'E', text: 'Fenilefrin bolus intermiten' }
+    ],
+    correctAnswer: 'C',
+    explanation: 'Menurut pedoman Surviving Sepsis Campaign (SSC) 2021 dan PNPK Sepsis Kemenkes RI, vasopresor lini pertama pilihan utama pada syok septik yang refrakter cairan adalah NOREPINEFRIN. Norepinefrin merupakan agonis kuat reseptor alfa-1 adrenergik dengan efek beta-1 sedang, yang secara efektif meningkatkan tahanan vaskular sistemik (SVR) dan MAP tanpa memicu aritmia takikardia berlebihan seperti Dopamin. Dopamin tidak lagi direkomendasikan sebagai lini pertama karena terbukti meningkatkan kejadian aritmia dan angka mortalitas.',
+    clinicalReference: 'Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021',
+    difficulty: 'Sedang'
+  },
+  {
+    id: 'q-098',
+    domainId: 'klinis',
+    vignette: 'Seorang pasien laki-laki 58 tahun penderita Penyakit Ginjal Kronik (CKD) Stadium 5 datang ke IGD dengan keluhan lemas berat dan berdebar-debar. Hasil laboratorium menunjukkan kadar Kalium Serum 6,8 mEq/L (Hiperkalemia Berat) dan Kreatinin Serum 7,2 mg/dL. Pemeriksaan EKG menunjukkan adanya gelombang T tinggi meruncing (tall tented T-wave) dan pemanjangan interval PR.',
+    question: 'Obat intravena manakah yang WAJIB diberikan SEGERA sebagai langkah pertama untuk mencegah terjadinya aritmia ventrikel fatal atau henti jantung?',
+    options: [
+      { key: 'A', text: 'Furosemid 80 mg IV bolus' },
+      { key: 'B', text: 'Insulin Reguler 10 IU + Dextrose 40% 50 mL IV' },
+      { key: 'C', text: 'Kalsium Glukonat 10% 10 mL IV lambat' },
+      { key: 'D', text: 'Natrium Bikarbonat 8,4% 50 mEq IV' },
+      { key: 'E', text: 'Kalium Polistiren Sulfonat (Kayexalate) 30 g oral' }
+    ],
+    correctAnswer: 'C',
+    explanation: 'Pada kondisi hiperkalemia berat (K+ > 6.5 mEq/L) dengan perubahan gambaran EKG (T-tall, pelebaran QRS), langkah pertama paling krusial adalah STABILISASI MEMBRAN SEL MIOKARD menggunakan KALSIUM GLUKONAT 10% (10 mL IV selama 2-5 menit). Kalsium melawan efek depresif kalium pada konduksi neuromuskular kardiak dan mengembalikan potensial ambang membran jantung, mencegah terjadinya fibrilasi ventrikel atau asistol. Perlu dicatat: Kalsium Glukonat TIDAK menurunkan kadar kalium darah, sehingga harus segera diikuti pemberian Insulin + Glukosa atau Salbutamol untuk memasukkan kalium ke intraseluler.',
+    clinicalReference: 'KDIGO Clinical Practice Guideline for Acute & Chronic Kidney Disease & European Resuscitation Council (ERC) Guidelines: Hyperkalaemia Management',
+    difficulty: 'Sedang'
+  },
+  {
+    id: 'q-099',
+    domainId: 'klinis',
+    vignette: 'Seorang ibu membawa anaknya yang berusia 18 bulan ke apotek dengan keluhan buang air besar cair 5 kali sejak kemarin tanpa lendir dan tanpa darah. Anak masih tampak aktif, mau minum dengan lahap, dan air mata masih ada (dehidrasi ringan-sedang). Apoteker menyiapkan sachet Oralit hipoosmolar dan tablet dispersibel Zink.',
+    question: 'Bagaimanakah aturan konsumsi tablet Zink elemental yang benar dan terverifikasi sesuai pedoman 5 Pilar Diare Kemenkes RI / IDAI?',
+    options: [
+      { key: 'A', text: '10 mg 1x sehari, dihentikan segera setelah feses anak kembali padat' },
+      { key: 'B', text: '20 mg 1x sehari, diminum selama 10 HARI PENUH meski diare sudah berhenti' },
+      { key: 'C', text: '20 mg 3x sehari selama 3 hari pertama saja' },
+      { key: 'D', text: '10 mg 2x sehari bersamaan dengan antibiotik Kotrimoksazol sirup' },
+      { key: 'E', text: '5 mg 1x sehari selama 14 hari penuh' }
+    ],
+    correctAnswer: 'B',
+    explanation: 'Berdasarkan Pedoman 5 Pilar Tata Laksana Diare Kemenkes RI, WHO, dan IDAI, dosis Zink elemental untuk anak usia >= 6 bulan adalah 20 MG SEKALI SEHARI (untuk bayi < 6 bulan adalah 10 mg/hari) yang WAJIB DIMINUM SELAMA 10 HARI BERTURUT-TURUT secara penuh. Zink tidak boleh dihentikan saat diare mereda karena zink berfungsi memperbaiki struktur mukosa jonjot usus yang rusak, mempercepat regenerasi epitel, meningkatkan absorpsi air/elektrolit, dan memberikan proteksi imunitas usus terhadap risiko diare berulang dalam 2-3 bulan berikutnya.',
+    clinicalReference: 'Buku Pedoman Tata Laksana Diare Kemenkes RI & Panduan Praktik Klinis IDAI: Diare Akut pada Anak',
+    difficulty: 'Mudah'
+  },
+  {
+    id: 'q-100',
+    domainId: 'klinis',
+    vignette: 'Seorang balita laki-laki berusia 2 tahun (berat badan 11 kg) mengalami demam tinggi 39,5°C akibat infeksi virus dan mendadak mengalami kejang kelojotan di rumah selama 2 menit. Orang tua menghubungi apoteker di apotek terdekat untuk menanyakan penanganan darurat sediaan Diazepam rektal tube yang telah disediakan sebelumnya atas resep dokter spesialis anak.',
+    question: 'Dosis dan rute pemberian Diazepam rektal manakah yang paling tepat diinstruksikan oleh apoteker kepada orang tua pasien?',
+    options: [
+      { key: 'A', text: 'Diazepam tube rektal 5 mg, dimasukkan ke dalam dubur anak' },
+      { key: 'B', text: 'Diazepam tube rektal 10 mg, dimasukkan ke dalam dubur anak' },
+      { key: 'C', text: 'Diazepam tube 5 mg, diteteskan di bawah lidah anak' },
+      { key: 'D', text: 'Diazepam tablet 2 mg, digerus lalu dilarutkan ke dalam mulut anak' },
+      { key: 'E', text: 'Diazepam tube 10 mg, diulang tiap 2 menit hingga anak tertidur lelap' }
+    ],
+    correctAnswer: 'A',
+    explanation: 'Sesuai Panduan Praktik Klinis IDAI untuk Kejang Demam pada Anak, penanganan kejang demam di rumah menggunakan DIAZEPAM REKTAL (tube supositoria dengan aplikator lubrikasi). Dosis untuk anak dengan berat badan < 12 kg (atau usia < 3 tahun) adalah 5 MG REKTAL. Untuk anak dengan BB >= 12 kg (atau usia >= 3 tahun), dosisnya adalah 10 MG REKTAL. Jika kejang belum berhenti setelah 5 menit pemberian pertama, boleh diberikan 1 kali dosis yang sama. Jika kejang masih berlangsung > 5 menit setelah dosis kedua, anak harus segera dibawa ke IGD rumah sakit terdekat.',
+    clinicalReference: 'Rekomendasi Penatalaksanaan Kejang Demam Ikatan Dokter Anak Indonesia (IDAI) 2016/2022',
+    difficulty: 'Mudah'
+  },
+  {
+    id: 'q-101',
+    domainId: 'manajemen',
+    vignette: 'Seorang Apoteker baru lulus Program Profesi Apoteker (fresh graduate) mengajukan permohonan Surat Tanda Registrasi Apoteker (STRA) dan berencana melakukan praktik kefarmasian di beberapa fasilitas kesehatan di wilayah domisilinya sesuai peraturan perundang-undangan kesehatan terbaru.',
+    question: 'Berdasarkan ketentuan Undang-Undang Kesehatan No. 17 Tahun 2023 dan PP No. 28 Tahun 2024, bagaimanakah status masa berlaku STRA dan batas maksimal kepemilikan Surat Izin Praktik Apoteker (SIPA)?',
+    options: [
+      { key: 'A', text: 'STRA berlaku 5 tahun dan SIPA maksimal di 2 tempat fasilitas' },
+      { key: 'B', text: 'STRA berlaku SEUMUR HIDUP dan SIPA maksimal di 3 tempat fasilitas' },
+      { key: 'C', text: 'STRA berlaku seumur hidup dan SIPA hanya boleh di 1 tempat fasilitas utama' },
+      { key: 'D', text: 'STRA berlaku 5 tahun dan SIPA maksimal di 3 tempat fasilitas' },
+      { key: 'E', text: 'STRA dan SIPA keduanya berlaku seumur hidup tanpa batas tempat praktik' }
+    ],
+    correctAnswer: 'B',
+    explanation: 'Berdasarkan UU No. 17 Tahun 2023 tentang Kesehatan Pasal 260-264 dan Peraturan Pemerintah No. 28 Tahun 2024, Surat Tanda Registrasi (termasuk STRA) yang diterbitkan oleh Konsil Tenaga Kesehatan Indonesia (KTKI) atas nama Menteri Kesehatan kini berlaku SEUMUR HIDUP. Sementara itu, Surat Izin Praktik (SIPA) tetap memiliki masa berlaku 5 TAHUN (diterbitkan Pemda/Dinkes dengan syarat kecukupan SKP melalui Plataran Sehat) dan seorang apoteker diperbolehkan memiliki izin praktik (SIPA) di MAKSIMAL 3 (TIGA) TEMPAT fasilitas pelayanan kefarmasian.',
+    clinicalReference: 'Undang-Undang Republik Indonesia Nomor 17 Tahun 2023 tentang Kesehatan & Peraturan Pemerintah No. 28 Tahun 2024',
+    difficulty: 'Sedang'
+  },
+  {
+    id: 'q-102',
+    domainId: 'manajemen',
+    vignette: 'Apoteker Pengelola Apotek sedang menghitung perencanaan pengadaan sediaan Kapsul Amoksisilin 500 mg. Rata-rata pemakaian harian adalah 20 strip per hari. Waktu tunggu pengiriman (Lead Time) dari PBF rekanan adalah 3 hari kerja. Mengingat sering terjadi fluktuasi resep musiman, apoteker menetapkan waktu cadangan pengaman (Safety Factor) setara dengan lead time pengiriman.',
+    question: 'Berapakah jumlah Safety Stock (SS) dan titik pemesanan kembali (Reorder Point / ROP) yang harus ditetapkan oleh apoteker tersebut?',
+    options: [
+      { key: 'A', text: 'Safety Stock = 30 strip, ROP = 60 strip' },
+      { key: 'B', text: 'Safety Stock = 60 strip, ROP = 60 strip' },
+      { key: 'C', text: 'Safety Stock = 60 strip, ROP = 120 strip' },
+      { key: 'D', text: 'Safety Stock = 120 strip, ROP = 180 strip' },
+      { key: 'E', text: 'Safety Stock = 40 strip, ROP = 80 strip' }
+    ],
+    correctAnswer: 'C',
+    explanation: 'Perhitungan manajemen persediaan farmasi:\n1) Pemakaian Rata-Rata Harian (CA) = 20 strip/hari.\n2) Lead Time (LT) = 3 hari.\n3) Safety Stock (SS) = Lead Time × Pemakaian Rata-Rata = 3 hari × 20 strip/hari = 60 strip.\n4) Reorder Point (ROP) = (Lead Time × CA) + Safety Stock = (3 × 20) + 60 = 60 + 60 = 120 STRIP.\nArtinya, saat stok fisik Amoksisilin di apotek tersisa 120 strip, Surat Pesanan (SP) ke PBF harus segera diterbitkan hari itu juga untuk mencegah terjadinya kekosongan obat (stock-out).',
+    clinicalReference: 'Pedoman Pengelolaan Persediaan Farmasi di Rumah Sakit & Apotek, Ditjen Farmalkes Kemenkes RI',
+    difficulty: 'Sedang'
+  },
+  {
+    id: 'q-103',
+    domainId: 'manajemen',
+    vignette: 'Sebuah apotek memiliki persediaan Fentanyl Patch 25 mcg dan Morfin Tablet 10 mg yang telah melewati tanggal kedaluwarsa sebanyak masing-masing 5 kemasan. Apoteker Penanggung Jawab Apotek (APA) bermaksud melaksanakan pemusnahan sediaan narkotika tersebut secara legal.',
+    question: 'Manakah prosedur administratif dan kehadiran saksi yang WAJIB dipenuhi oleh apoteker sesuai regulasi Permenkes No. 73/2016 dan Peraturan BPOM No. 24 Tahun 2021?',
+    options: [
+      { key: 'A', text: 'Apoteker memusnahkan sendiri di hadapan staf apotek dan melaporkannya pada SIPNAP bulan berikutnya' },
+      { key: 'B', text: 'Membuat surat pemberitahuan tertulis dan pemusnahan WAJIB disaksikan oleh petugas Dinas Kesehatan Kab/Kota dan/atau BBPOM setempat' },
+      { key: 'C', text: 'Cukup disaksikan oleh perwakilan dari PBF Kimia Farma yang menyalurkan narkotika tersebut' },
+      { key: 'D', text: 'Obat narkotika kedaluwarsa dibuang ke tempat sampah medis B3 tanpa perlu Berita Acara Pemusnahan' },
+      { key: 'E', text: 'Pemusnahan hanya boleh dilaksanakan oleh pihak Kepolisian RI' }
+    ],
+    correctAnswer: 'B',
+    explanation: 'Sesuai dengan Permenkes No. 73/2016 dan Peraturan BPOM No. 24 Tahun 2021, pemusnahan sediaan Narkotika dan Psikotropika di fasilitas pelayanan kefarmasian memiliki regulasi ketat:\n1. Apoteker wajib menyampaikan surat pemberitahuan rencana pemusnahan secara tertulis kepada Dinas Kesehatan Kabupaten/Kota dan/atau Balai Besar POM setempat minimal beberapa pekan sebelumnya.\n2. Pemusnahan WAJIB disaksikan oleh saksi resmi dari Dinas Kesehatan Kab/Kota dan/atau petugas BBPOM setempat.\n3. Dibuat Berita Acara Pemusnahan (BAP) rangkap 4 yang ditandatangani oleh Apoteker Penanggung Jawab dan saksi resmi, lalu dilaporkan secara elektronik via aplikasi SIPNAP Kemenkes RI.',
+    clinicalReference: 'Peraturan BPOM No. 24 Tahun 2021 tentang Pengawasan Pengelolaan Obat, Narkotika, Psikotropika, dan Prekursor & Permenkes No. 73/2016',
+    difficulty: 'Sedang'
+  },
+  {
+    id: 'q-104',
+    domainId: 'teknologi',
+    vignette: 'Sebuah industri farmasi baru saja membeli mesin cetak tablet rotary berkecepatan tinggi (rotary tablet press) dari pabrikan Jerman. Mesin telah selesai dipasang di ruang cetak tablet Kelas E dan seluruh instalasi kabel serta pemipaan telah diverifikasi sesuai cetak biru teknik pabrikan. Tim pemastian mutu (QA/QC) kini mulai menguji apakah seluruh fungsi kendali motor, putaran RPM turret, sensor tekanan kompresi, dan sistem emergency stop beroperasi sesuai spesifikasi batas operasional PADA KONDISI TANPA BEBAN (tanpa serbuk granul).',
+    question: 'Berada pada tahapan kualifikasi CPOB manakah kegiatan pengujian yang sedang dilakukan oleh tim pemastian mutu tersebut?',
+    options: [
+      { key: 'A', text: 'Design Qualification (DQ)' },
+      { key: 'B', text: 'Installation Qualification (IQ)' },
+      { key: 'C', text: 'Operational Qualification (OQ)' },
+      { key: 'D', text: 'Performance Qualification (PQ)' },
+      { key: 'E', text: 'Process Validation (PV)' }
+    ],
+    correctAnswer: 'C',
+    explanation: 'Menurut CPOB 2024 Aneks 8 (Kualifikasi dan Validasi):\n• DQ (Design Qualification): Verifikasi rancangan/desain mesin terhadap spesifikasi kebutuhan pengguna (URS).\n• IQ (Installation Qualification): Verifikasi pemasangan fisik mesin, sambungan listrik, utilitas, dan instrumentasi.\n• OQ (Operational Qualification): Pengujian bahwa peralatan beroperasi sesuai parameter operasional yang diinginkan di seluruh rentang kerja yang diantisipasi PADA KONDISI TANPA BEBAN (uji sensor, kecepatan putar, alarm, interlocking).\n• PQ (Performance Qualification): Pengujian bahwa mesin beroperasi secara efektif dan reprodusibel menghasilkan produk tablet sesuai spesifikasi saat menggunakan bahan baku nyata/plasebo.',
+    clinicalReference: 'Petunjuk Operasional Penerapan Pedoman CPOB 2024 BPOM RI: Aneks 8 Kualifikasi dan Validasi',
+    difficulty: 'Sedang'
+  },
+  {
+    id: 'q-105',
+    domainId: 'teknologi',
+    vignette: 'Apoteker di bagian produksi sediaan steril sedang memproses sterilisasi larutan tetes mata Neomisin Sulfat (zat aktif termolabil) menggunakan membran filter steril selulosa asetat dengan ukuran pori 0,22 μm. Setelah proses filtrasi 100 Liter larutan selesai ke dalam tangki penampung aseptik Kelas A, apoteker melakukan pengujian integritas filter (post-filtration integrity test) dengan metode Uji Titik Gelembung (Bubble Point Test). Nilai tekanan titik gelembung terukur adalah 32 psi, sedangkan spesifikasi minimal pabrikan filter adalah 45 psi.',
+    question: 'Apakah kesimpulan teknis dan tindakan korektif yang WAJIB diambil oleh apoteker penanggung jawab pemastian mutu (QA)?',
+    options: [
+      { key: 'A', text: 'Filter dinyatakan lulus karena tekanan 32 psi sudah cukup menahan bakteri' },
+      { key: 'B', text: 'Filter dinyatakan bocor/cacat; bets larutan dianggap tidak steril dan wajib difiltrasi ulang dengan membran baru' },
+      { key: 'C', text: 'Larutan tetap boleh dibotolkan asalkan ditambahkan pengawet Benzalkonium Klorida 0,01%' },
+      { key: 'D', text: 'Cukup dilakukan autoklaf ulang tangki penampung pada suhu 100°C selama 15 menit' },
+      { key: 'E', text: 'Mengambil sampel 1 botol untuk uji sterilitas dan merilis produk jika tidak keruh' }
+    ],
+    correctAnswer: 'B',
+    explanation: 'Bubble Point Test (Uji Titik Gelembung) adalah metode pengujian integritas filter non-destruktif berbasis hukum kapiler. Tekanan terukur yang berada di bawah spesifikasi validasi pabrikan (32 psi < 45 psi) membuktikan bahwa membran filter MENGALAMI KERUSAKAN, KEBOCORAN, ATAU CACAT POROSITAS sehingga mikroba dapat lolos ke dalam filtrat. Sesuai CPOB Aneks 1 (Pembuatan Produk Steril), jika uji integritas pasca-filtrasi gagal, maka seluruh bets larutan tersebut DINYATAKAN TIDAK STERIL dan harus segera dilakukan investigasi deviasi serta proses filtrasi ulang menggunakan unit filter baru yang terkualifikasi.',
+    clinicalReference: 'Farmakope Indonesia Edisi VI & CPOB BPOM RI Aneks 1 Pembuatan Produk Steril: Sterilisasi Filtrasi',
+    difficulty: 'Tinggi'
+  },
+  {
+    id: 'q-106',
+    domainId: 'bahan_alam',
+    vignette: 'Departemen R&D sebuah industri obat tradisional sedang melakukan standardisasi ekstrak kental rimpang Jahe Merah (Zingiber officinale var. rubrum). Rimpang jahe merah diketahui kaya akan senyawa minyak atsiri (senyawa volatil aromatis) serta senyawa pedas non-volatil gingerol dan shogaol. Apoteker hendak menetapkan parameter non-spesifik KADAR AIR ekstrak secara akurat tanpa terganggu oleh keberadaan minyak atsiri.',
+    question: 'Metode pengujian kadar air manakah yang WAJIB dipilih oleh apoteker sesuai Farmakope Herbal Indonesia (FHI) Edisi II?',
+    options: [
+      { key: 'A', text: 'Metode Gravimetri Susut Pengeringan dengan oven pengering suhu 105°C' },
+      { key: 'B', text: 'Metode Destilasi Toluen (Destilasi Azeotropik) atau Titrasi Karl Fischer' },
+      { key: 'C', text: 'Metode Pemijaran Tanur Listrik pada suhu 600°C' },
+      { key: 'D', text: 'Metode Kromatografi Gas Detektor Ionisasi Nyala (GC-FID)' },
+      { key: 'E', text: 'Metode Refraktometri Indeks Bias' }
+    ],
+    correctAnswer: 'B',
+    explanation: 'Berdasarkan Farmakope Herbal Indonesia Edisi II, terdapat perbedaan mendasar antara SUSUT PENGERINGAN dan KADAR AIR. Metode Susut Pengeringan (oven 105°C) mengukur seluruh senyawa yang menguap pada 105°C, termasuk air dan MINYAK ATSIRI. Oleh karena rimpang Jahe Merah banyak mengandung minyak atsiri volatil, jika diuji dengan oven 105°C maka minyak atsiri akan ikut menguap dan menghasilkan nilai kadar air yang overestimasi (positif palsu tinggi). Untuk bahan alam yang mengandung minyak atsiri > 1%, penetapan KADAR AIR spesifik WAJIB menggunakan metode DESTILASI TOLUEN (destilasi azeotropik dengan pelarut toluen) atau TITRASI KARL FISCHER.',
+    clinicalReference: 'Farmakope Herbal Indonesia (FHI) Edisi II 2017: Penentuan Parameter Standar Umum Ekstrak Tumbuhan Obat',
+    difficulty: 'Sedang'
+  },
+  {
+    id: 'q-107',
+    domainId: 'bahan_alam',
+    vignette: 'Mahasiswa farmasi sedang melakukan skrining fitokimia ekstrak etanol daun Sambiloto (Andrographis paniculata). Ke dalam tabung reaksi berisi 2 mL filtrat ekstrak, mahasiswa menambahkan sedikit serbuk logam Magnesium (Mg) diikuti penetesan 5 tetes Asam Klorida (HCl) pekat 37%. Setelah beberapa detik, larutan berubah warna menjadi JINGGA KEMERAHAN cerah disertai gelembung gas.',
+    question: 'Reaksi Shinoda (Wilstatter Test) tersebut menunjukkan bahwa ekstrak daun sambiloto positif mengandung metabolit sekunder golongan apakah?',
+    options: [
+      { key: 'A', text: 'Alkaloid' },
+      { key: 'B', text: 'Flavonoid' },
+      { key: 'C', text: 'Tanin katekol' },
+      { key: 'D', text: 'Saponin steroid' },
+      { key: 'E', text: 'Antrakuinon' }
+    ],
+    correctAnswer: 'B',
+    explanation: 'Reaksi Shinoda (atau Wilstatter Test) adalah uji kualitatif spesifik untuk mengidentifikasi keberadaan senyawa golongan FLAVONOID (khususnya flavon, flavonol, dan flavanon). Prinsip reaksinya adalah reduksi inti benzopiron pada cincin C flavonoid oleh hidrogen nascent yang dihasilkan dari reaksi antara serbuk logam Magnesium (Mg) dengan Asam Klorida (HCl) pekat, membentuk garam flavilium yang berwarna merah intens, merah jingga, atau magenta. Sementara itu, Alkaloid dideteksi dengan reagen Dragendorff/Mayer, Tanin dengan FeCl3, dan Saponin dengan uji busa persisten.',
+    clinicalReference: 'Metode Fitokimia: Penuntun Cara Modern Menganalisis Tumbuhan (J.B. Harborne) & Materia Medika Indonesia',
+    difficulty: 'Mudah'
   }
 ];
 
@@ -3089,6 +3527,76 @@ export const FLASHCARD_DECK: FlashcardItem[] = [
     frontText: 'Daftar Obat Wajib Apotek (DOWA 2 & 3) untuk Masalah Asam Lambung',
     backText: '• Omeprazole (DOWA 2): Maksimal 7 TABLET (20 mg) per pasien.\n• Ranitidin 150 mg (DOWA 3): Maksimal 10 TABLET per pasien.\n• Sukralfat (DOWA 2): Maksimal 20 TABLET per pasien.\n\n• Syarat: Apoteker memberikan konseling dan memastikan pasien sudah pernah menggunakan obat tersebut sebelumnya.',
     hint: 'Kepmenkes No. 924/1993 dan No. 1176/1999'
+  },
+  {
+    id: 'fc-46',
+    category: 'Nilai Normal Lab',
+    frontText: 'Rentang Terapetik Digoksin & Waktu Pengambilan Sampel TDM',
+    backText: '0,8 - 2,0 ng/mL (optimal gagal jantung: 0,5 - 0,9 ng/mL).\n\n• Waktu Sampling TDM: Minimal 6 - 8 jam setelah dosis terakhir (atau tepat sebelum dosis berikutnya / trough) saat fase distribusi jaringan selesai.\n• Toksisitas: > 2,0 ng/mL memicu aritmia kardiak dan xanthopsia.',
+    hint: 'Glikosida inotropik indeks terapi sempit'
+  },
+  {
+    id: 'fc-47',
+    category: 'Nilai Normal Lab',
+    frontText: 'Rentang Terapetik Fenitoin (Phenytoin) & Kinetika Michaelis-Menten',
+    backText: '10 - 20 mcg/mL (kadar bebas / free phenytoin: 1 - 2 mcg/mL).\n\n• Kinetika Non-Linier: Eliminasi Fenitoin mengalami kejenuhan enzim hepar (kapasitas terbatas / Michaelis-Menten). Kenaikan dosis kecil dapat memicu lonjakan kadar plasma berlipat ganda secara eksponensial.\n• Pada Hipoalbuminemia: Koreksi kadar = Kadar Terukur / [(0,2 x Albumin) + 0,1].',
+    hint: 'Antiepilepsi lini pertama kejang fokal/umum tonik-klonik'
+  },
+  {
+    id: 'fc-48',
+    category: 'Nilai Normal Lab',
+    frontText: 'Target Trough Level Vankomisin (Vancomycin TDM) pada Infeksi Berat MRSA',
+    backText: '15 - 20 mcg/mL (Trough level diambil 30 menit sebelum infus dosis ke-4 dimasukkan saat mencapai steady state).\n\n• Infeksi berat: Sepsis, bakteremia, pneumonia nosokomial, meningitis, osteomielitis MRSA.\n• Target AUC24/MIC: 400 - 600 mg.h/L.\n• Toksisitas jika trough > 20 mcg/mL: Nefrotoksisitas akut dan Ototoksisitas permanen.',
+    hint: 'Antibiotik glikopeptida anti-MRSA'
+  },
+  {
+    id: 'fc-49',
+    category: 'Antidotum',
+    frontText: 'Antidotum Toksisitas & Neuropati Akibat Isoniazid (INH)',
+    backText: 'PIRIDOKSIN (Vitamin B6)\n\n• Mekanisme: INH mengikat piridoksal fosfat dan menghambat enzim piridoksin fosfokinase sehingga terjadi deplesi GABA SSP (memicu kejang refrakter). Piridoksin IV diberikan dengan dosis setara gram-per-gram jumlah INH yang tertelan.',
+    hint: 'Vitamin neurotropik penangkal neuritis perifer OAT'
+  },
+  {
+    id: 'fc-50',
+    category: 'Antidotum',
+    frontText: 'Antidotum Keracunan Logam Berat Timbal (Pb), Merkuri (Hg), & Arsenik (As)',
+    backText: 'DIMERCAPROL (BAL / British Anti-Lewisite) & SUCCIMER (DMSA / Dimercaptosuccinic acid)\n\n• Mekanisme: Gugus sulfhidril (-SH) bebas pada khelator mengikat ion logam berat membentuk cincin kelat heterosiklik stabil yang larut air dan diekskresikan lewat urin.',
+    hint: 'Agen khelasi logam berat dengan gugus tiol'
+  },
+  {
+    id: 'fc-51',
+    category: 'Antidotum',
+    frontText: 'Antidotum Pendarahan Mayor Akibat Overdosis Warfarin (INR > 10)',
+    backText: 'VITAMIN K1 (Fitomenadion) 5 - 10 mg IV lambat + 4-Factor Prothrombin Complex Concentrate (PCC) / FFP.\n\n• Mekanisme: Mengaktifkan kembali sintesis faktor pembekuan darah dependen vitamin K (Faktor II, VII, IX, X) di hepatosit hati.',
+    hint: 'Vitamin pembekuan darah antagonis kumarin'
+  },
+  {
+    id: 'fc-52',
+    category: 'Antidotum',
+    frontText: 'Antidotum Pendarahan Akibat Overdosis Heparin Tak Terfraksi (UFH)',
+    backText: 'PROTAMIN SULFAT IV (Protamine Sulfate)\n\n• Dosis: 1 mg Protamin Sulfat dapat menetralkan sekitar 100 Unit Heparin aktif.\n• Mekanisme: Peptida kationik basa kuat bermuatan positif yang berikatan kuat secara elektrostatik dengan Heparin anionik bermuatan negatif membentuk kompleks garam netral stabil tanpa aktivitas antikoagulan.',
+    hint: 'Garam polikationik dari sperma ikan salmon'
+  },
+  {
+    id: 'fc-53',
+    category: 'Mekanisme Obat (MoA)',
+    frontText: 'Reagen Spesifik Skrining Golongan ALKALOID Tanaman Obat',
+    backText: '1. Reagen Dragendorff (Kalium bismut iodida) -> Endapan JINGGA sampai COKELAT KEMERAHAN.\n2. Reagen Mayer (Kalium raksa iodida) -> Endapan PUTIH sampai KEKUNINGAN.\n3. Reagen Wagner (Iodium dalam KI) -> Endapan COKELAT.\n\n• Prinsip: Pembentukan garam kompleks iodida logam berat yang sukar larut.',
+    hint: 'Pereaksi Dragendorff, Mayer, dan Wagner'
+  },
+  {
+    id: 'fc-54',
+    category: 'Mekanisme Obat (MoA)',
+    frontText: 'Reagen Uji Shinoda (Wilstatter Test) untuk Golongan FLAVONOID',
+    backText: 'Serbuk Logam Magnesium (Mg) + Asam Klorida (HCl) Pekat.\n\n• Hasil Positif: Terbentuk warna MERAH, JINGGA KEMERAHAN, atau MAGENTA.\n• Mekanisme: Reduksi ikatan rangkap inti benzopiron flavonoid oleh hidrogen nascent menghasilkan garam flavilium berwarna intens.',
+    hint: 'Uji reduksi serbuk Mg dan asam pekat'
+  },
+  {
+    id: 'fc-55',
+    category: 'Regulasi & DOWA',
+    frontText: 'Batas Suhu Ruang Penyimpanan Obat Berdasarkan Farmakope Indonesia VI',
+    backText: '• Dingin (Lemari Es / Kulkas): 2°C - 8°C (contoh: Vaksin, Insulin, Oksitosin, Suppositoria).\n• Sejuk: 8°C - 15°C.\n• Suhu Kamar Terkendali (Controlled Room Temp): 20°C - 25°C (toleransi ekskursi 15°C - 30°C).\n• Hangat: 30°C - 40°C.\n• Panas Berlebih: > 40°C.\n• Beku (Freezer): -25°C s/d -10°C (contoh: Vaksin Polio OPV).',
+    hint: 'Monografi Ketentuan Umum Farmakope Indonesia VI Bab Suhu dan Penyimpanan'
   }
 ];
 
