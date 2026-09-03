@@ -22,7 +22,9 @@ import {
   Share2, 
   ShieldAlert, 
   Sparkles, 
-  Check 
+  Check,
+  Layers,
+  ShieldCheck
 } from 'lucide-react';
 
 export interface CompoundingItem {
@@ -438,34 +440,57 @@ export const PediatricCompoundingCalculator: React.FC<PediatricCompoundingCalcul
 
   return (
     <div className="space-y-6 pb-12">
-      {/* HEADER BANNER - Modern Deep Obsidian & Rose/Pink Palette */}
+      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
       {!hideHeader && (
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-[#181120] to-slate-900 p-6 sm:p-8 text-white border border-rose-500/20 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
-            <Baby className="w-64 h-64 text-rose-400 -rotate-12" />
-          </div>
-          <div className="relative z-10 max-w-3xl space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                <Sparkles className="w-3.5 h-3.5 text-rose-300" />
-                Modul Farmasi Klinis & Peracikan Resep
-              </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/10 text-slate-200 border border-white/10">
-                BPOM & Standar Farmakope
-              </span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
-              Kalkulator Dosis Pediatrik & <span className="text-rose-400">Konversi Racikan Puyer / Sirup</span>
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
-              Hitung dosis anak berbasis berat badan/BSA, konversi racikan tablet utuh ke puyer dengan penambahan zat pengisi (<em>Saccharum Lactis</em>), perhitungan takaran sirup/drops, dan skrining batas dosis toksik.
-            </p>
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
+          <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
+            <Baby className="w-48 h-48 text-teal-300" />
           </div>
 
-          <div className="flex items-center gap-3 shrink-0 relative z-10">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
-              <span className="text-[11px] text-slate-400 block font-medium">Total Obat Pediatrik:</span>
-              <span className="text-lg font-black text-rose-400">{PEDIATRIC_DRUGS_DATABASE.length} Formula Dosis Anak</span>
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Pedoman Dosis Pediatrik IDAI, Nelson &amp; Farmakope Indonesia</span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                  <Baby className="w-6 h-6" />
+                </div>
+                <div>
+                  <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
+                    Kalkulator Dosis Pediatrik &amp; Racikan Puyer
+                  </h1>
+                  <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                    Hitung dosis anak berbasis BB/BSA, konversi racikan tablet ke puyer dengan zat pengisi SL, dan takaran sirup/drops.
+                  </p>
+                </div>
+              </div>
+
+              {/* Quick Stat Badges */}
+              <div className="flex flex-wrap gap-2 pt-2">
+                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                  <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                  <span>Kalkulasi BB &amp; BSA Mosteller</span>
+                </div>
+                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Kompensasi Pengisi Saccharum Lactis</span>
+                </div>
+                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-pink-200">
+                  <AlertTriangle className="w-3.5 h-3.5 text-pink-300" />
+                  <span>Skrining Batas Dosis Maksimum</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 relative z-10">
+              <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+                <span className="text-[11px] text-slate-400 block font-medium">Total Obat Pediatrik:</span>
+                <span className="text-lg font-black text-teal-300">{PEDIATRIC_DRUGS_DATABASE.length} Formula Dosis Anak</span>
+              </div>
             </div>
           </div>
         </div>

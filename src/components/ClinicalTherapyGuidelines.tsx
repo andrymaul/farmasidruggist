@@ -26,7 +26,8 @@ import {
   BookmarkCheck,
   Download,
   Calculator,
-  GitBranch
+  GitBranch,
+  ShieldCheck
 } from 'lucide-react';
 import { 
   ClinicalGuideline, 
@@ -285,31 +286,52 @@ ${guideline.keyClinicalAlert || '-'}`;
   return (
     <div className="space-y-6">
       
-      {/* Header Banner - Modern Deep Obsidian & Clinical Blue/Teal Palette */}
-      <div className="bg-gradient-to-r from-slate-900 via-[#0e172a] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-slate-800 relative overflow-hidden space-y-5">
+      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 space-y-5">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
-          <HeartPulse className="w-64 h-64 text-teal-400 -rotate-12" />
+          <BookOpen className="w-64 h-64 text-teal-300 -rotate-12" />
         </div>
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-1/3 -mb-16 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-3 max-w-4xl">
-            <div className="inline-flex items-center gap-2 bg-blue-500/20 px-3.5 py-1 rounded-full text-xs font-bold text-blue-300 border border-blue-500/30">
-              <BookOpen className="w-4 h-4 text-blue-400" />
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+              <BookOpen className="w-3.5 h-3.5" />
               <span>Pedoman Nasional Pelayanan Kedokteran (PNPK) &amp; Konsensus Spesialis RI</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white font-outfit">
-              Panduan Terapi <span className="text-teal-300">Penyakit Klinis Indonesia</span>
-            </h1>
-            
-            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-              Database tatalaksana farmakoterapi resmi berbasis standar Kemenkes RI, PERKI, PERKENI, PAPDI, PDPI, IDAI, POGI, PERDOSSI, IRA, PERNEFRI, &amp; PGI-PEGI. Terintegrasi dengan ketersediaan Formularium Nasional (FORNAS) BPJS Kesehatan dan uji interaksi obat otomatis.
-            </p>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                <BookOpen className="w-6 h-6" />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
+                  Panduan Terapi Penyakit Klinis Indonesia
+                </h1>
+                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                  Database tatalaksana farmakoterapi resmi berbasis standar Kemenkes RI, PERKI, PERKENI, PAPDI, PDPI, IDAI, POGI, PERDOSSI, dan Formularium Nasional (FORNAS).
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Stat Badges */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                <span>Terintegrasi FORNAS BPJS</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Rekomendasi Lini 1 &amp; Lini 2</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-pink-200">
+                <AlertTriangle className="w-3.5 h-3.5 text-pink-300" />
+                <span>Peringatan Klinis Kritis</span>
+              </div>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
             <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Total PNPK &amp; Konsensus:</span>
               <span className="text-lg font-black text-teal-300">{CLINICAL_GUIDELINES_DATABASE.length} Pedoman Terapi</span>

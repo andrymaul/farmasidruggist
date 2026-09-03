@@ -43,6 +43,7 @@ import {
   ShieldCheck,
   Check,
   Building,
+  Layers,
   User,
   Download
 } from 'lucide-react';
@@ -414,46 +415,62 @@ export const SideEffectChecker: React.FC<SideEffectCheckerProps> = ({
   return (
     <div className="space-y-6 pb-16">
       
-      {/* 1. Header Banner & Intro - Deep Obsidian & Teal Palette */}
-      <div className="bg-gradient-to-r from-slate-900 via-[#0d1f27] to-slate-900 rounded-3xl p-6 sm:p-8 text-white border border-teal-500/20 shadow-xl relative overflow-hidden print:hidden">
-        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
-          <HeartPulse className="w-64 h-64 text-teal-400 -rotate-12" />
-        </div>
+      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 print:hidden">
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
+          <HeartPulse className="w-48 h-48 text-teal-300" />
+        </div>
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div className="space-y-3 max-w-3xl">
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-500/30 text-teal-300 text-xs font-bold uppercase tracking-wider">
-                <ShieldAlert className="w-3.5 h-3.5 text-teal-400" />
-                <span>Pusat Farmakovigilans & Monitoring Efek Samping Obat (MESO)</span>
-              </div>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-white/10 text-teal-200 border border-white/20">
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                Standar Naranjo, WHO-UMC & BPOM RI
-              </span>
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+              <ShieldAlert className="w-3.5 h-3.5" />
+              <span>Pusat Farmakovigilans &amp; Monitoring Efek Samping Obat (MESO)</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
-              Cek Efek Samping & <span className="text-teal-300">Evaluasi Kausalitas MESO</span>
-            </h1>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                <HeartPulse className="w-6 h-6" />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
+                  Cek Efek Samping &amp; Evaluasi Kausalitas MESO
+                </h1>
+                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                  Suite farmakovigilans: Toksisitas Organ, Pelacak Gejala KTD, Kausalitas Naranjo &amp; WHO-UMC, dan Form Kuning BPOM.
+                </p>
+              </div>
+            </div>
 
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-              Suite komprehensif farmakovigilans: Analisis Toksisitas Organ Kumulatif, Pelacak Gejala Pasien, Kalkulator Kausalitas Naranjo & WHO-UMC, Skala Keparahan Hartwig, Skala Ketercegahan Schumock, dan Generator Formulir Kuning BPOM RI.
-            </p>
+            {/* Quick Stat Badges */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                <span>Skala Naranjo &amp; WHO-UMC</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Formulir Kuning MESO BPOM RI</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-pink-200">
+                <AlertTriangle className="w-3.5 h-3.5 text-pink-300" />
+                <span>Keparahan Hartwig &amp; Schumock</span>
+              </div>
+            </div>
           </div>
 
-          <div className="flex flex-col items-stretch sm:items-end gap-2.5 self-start md:self-auto shrink-0">
-            <div className="bg-slate-950/80 px-4 py-2 rounded-2xl border border-slate-800 text-left sm:text-right shadow-md">
+          <div className="flex flex-col items-stretch sm:items-end gap-2.5 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Database Toksisitas &amp; MESO:</span>
-              <span className="text-base sm:text-lg font-black text-amber-400">{DRUG_TOXICITY_PROFILES.length}+ Profil &amp; Naranjo</span>
+              <span className="text-lg font-black text-teal-300">{DRUG_TOXICITY_PROFILES.length}+ Profil &amp; Naranjo</span>
             </div>
             <button
               onClick={handlePrint}
               className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95"
             >
               <Printer className="w-4 h-4" />
-              <span>Cetak / Ekspor PDF</span>
+              <span>Cetak Laporan MESO</span>
             </button>
           </div>
         </div>

@@ -20,7 +20,9 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
-  ChevronsRight
+  ChevronsRight,
+  Layers,
+  ShieldCheck
 } from 'lucide-react';
 import { DDINTER_CATEGORIES, resolveDrugFromDDInter, deduplicateDrugs } from '../utils/ddinterEngine';
 import { 
@@ -228,28 +230,56 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
   return (
     <div id="katalog-obat-container" className="space-y-6">
       
-      {/* Header Banner - Modern Deep Obsidian & Sapphire Palette */}
-      <div className="bg-gradient-to-r from-slate-900 via-[#0e1728] to-slate-900 p-6 sm:p-8 rounded-3xl text-white border border-blue-500/20 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
-          <Pill className="w-64 h-64 text-blue-400 -rotate-12" />
-        </div>
-        <div className="space-y-2 max-w-2xl relative z-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-500/30">
-            <Database className="w-3.5 h-3.5" />
-            <span>Direktori Farmakologi & Monografi Resmi</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
-            Katalog Informasi & <span className="text-blue-400">Monografi Obat</span>
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-300 font-medium">
-            Direktori komprehensif indikasi medis, dosis baku, kategori kehamilan FDA, dan identifikasi merk dagang Indonesia.
-          </p>
+      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
+          <Pill className="w-48 h-48 text-teal-300" />
         </div>
 
-        <div className="flex items-center gap-3 shrink-0 relative z-10">
-          <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
-            <span className="text-[11px] text-slate-400 block font-medium">Total Obat Terdaftar:</span>
-            <span className="text-lg font-black text-blue-400">{cleanDrugs.length.toLocaleString('id-ID')} Obat Unik</span>
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+              <Database className="w-3.5 h-3.5" />
+              <span>Direktori Farmakologi &amp; Monografi Resmi BPOM &amp; FDA</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                <Pill className="w-6 h-6" />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
+                  Katalog Informasi &amp; Monografi Obat
+                </h1>
+                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                  Direktori komprehensif indikasi medis, dosis baku, kategori kehamilan FDA, dan identifikasi merk dagang Indonesia.
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Stat Badges */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                <span>{DDINTER_CATEGORIES.length - 1} Kategori Terapi</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Klasifikasi BPOM RI &amp; FORNAS</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-pink-200">
+                <Baby className="w-3.5 h-3.5 text-pink-300" />
+                <span>Kategori FDA PLLR A-X</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Total Obat Terdaftar:</span>
+              <span className="text-lg font-black text-teal-300">{cleanDrugs.length.toLocaleString('id-ID')} Obat Unik</span>
+            </div>
           </div>
         </div>
       </div>

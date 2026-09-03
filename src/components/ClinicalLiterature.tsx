@@ -16,7 +16,8 @@ import {
   HeartHandshake,
   TableProperties,
   Stethoscope,
-  Info
+  Info,
+  BookOpen
 } from 'lucide-react';
 import { 
   CLINICAL_LITERATURE_DATABASE, 
@@ -90,38 +91,57 @@ export const ClinicalLiterature: React.FC<ClinicalLiteratureProps> = ({ onSelect
 
   return (
     <div className="space-y-8 pb-16">
-      {/* HERO SECTION */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-teal-950 to-slate-950 text-white p-6 sm:p-10 shadow-2xl border border-teal-500/20">
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/3 -mb-16 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+      {/* HERO SECTION - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
+          <BookOpen className="w-48 h-48 text-teal-300" />
+        </div>
 
         <div className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-teal-500/20 text-teal-300 border border-teal-500/30">
-                <ShieldCheck className="w-4 h-4 text-teal-400" />
-                Evidence-Based Medicine (EBM)
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-slate-300 backdrop-blur-sm">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                Basis Data Klinis Sinkron 2025/2026
-              </span>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Evidence-Based Medicine (EBM) &amp; Basis Ilmiah FarmasiDruggist</span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                  <BookOpen className="w-6 h-6" />
+                </div>
+                <div>
+                  <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
+                    Literatur &amp; Basis Ilmiah
+                  </h1>
+                  <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                    Kompilasi dan penyelarasan transparan dari PNPK Kemenkes RI, konsensus organisasi profesi spesialis, serta standar baku emas internasional.
+                  </p>
+                </div>
+              </div>
+
+              {/* Quick Stat Badges */}
+              <div className="flex flex-wrap gap-2 pt-2">
+                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                  <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                  <span>100% Metodologi Berbasis Bukti</span>
+                </div>
+                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Standar PNPK, ASHP &amp; KDIGO</span>
+                </div>
+                <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
+                  <Award className="w-3.5 h-3.5 text-cyan-300" />
+                  <span>Grade A &amp; B Level Evidens</span>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-slate-950/80 px-4 py-2 rounded-2xl border border-slate-800 text-right shadow-md shrink-0">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md shrink-0">
               <span className="text-[11px] text-slate-400 block font-medium">Total Literatur EBM:</span>
-              <span className="text-lg font-black text-teal-400">{CLINICAL_LITERATURE_DATABASE.length} Sumber Standar Emas</span>
+              <span className="text-lg font-black text-teal-300">{CLINICAL_LITERATURE_DATABASE.length} Sumber Baku Emas</span>
             </div>
           </div>
-
-          <h1 className="text-2xl sm:text-4xl font-extrabold font-outfit tracking-tight text-white mb-3">
-            Literatur &amp; Basis Ilmiah FarmasiDruggist
-          </h1>
-          <p className="text-slate-300 text-sm sm:text-base max-w-3xl leading-relaxed">
-            Seluruh data farmakoterapi, monograf obat, deteksi interaksi, dan kalkulator klinis di FarmasiDruggist 
-            dikompilasi dan diselaraskan secara transparan dari <strong>Pedoman Nasional Pelayanan Kedokteran (PNPK Kemenkes RI)</strong>, 
-            konsensus organisasi profesi spesialis, serta standar baku emas internasional (ASHP, DDInter, KDIGO).
-          </p>
 
           {/* Quick Metrics Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-white/10">

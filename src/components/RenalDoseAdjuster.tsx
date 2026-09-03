@@ -32,7 +32,8 @@ import {
   SlidersHorizontal,
   ChevronDown,
   ChevronUp,
-  Lightbulb
+  Lightbulb,
+  ShieldCheck
 } from 'lucide-react';
 import { PediatricCompoundingCalculator } from './PediatricCompoundingCalculator';
 import { ClinicalScoreCalculatorsModal, CalculatorType } from './ClinicalScoreCalculatorsModal';
@@ -751,30 +752,55 @@ export const RenalDoseAdjuster: React.FC<RenalDoseAdjusterProps> = ({
   return (
     <div className="space-y-6">
       
-      {/* HEADER BANNER - Modern Deep Obsidian & Violet/Sapphire Palette */}
-      <div className="bg-gradient-to-r from-slate-900 via-[#131127] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-violet-500/20 relative overflow-hidden space-y-6">
-        <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
-          <Calculator className="w-64 h-64 text-violet-400 -rotate-12" />
+      {/* HEADER BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 space-y-6">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
+          <Calculator className="w-48 h-48 text-teal-300" />
         </div>
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
-          <div className="space-y-2 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-bold border border-violet-500/30">
-              <Activity className="w-4 h-4 text-violet-400" />
-              <span>Kalkulator Farmakoterapi Klinis Terpadu</span>
+
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+              <Activity className="w-3.5 h-3.5" />
+              <span>Standar Cockcroft-Gault, CKD-EPI, Child-Pugh &amp; MELD</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
-              Kalkulator Medis &amp; <span className="text-violet-400">Penyesuaian Dosis</span>
-            </h1>
-            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-              Suite kalkulator farmako-klinis terpadu: Dosis Ginjal (CrCl/eGFR), Dosis Hepar (Child-Pugh &amp; MELD), Dosis Pediatrik &amp; Bayi, Racikan Puyer (SL &amp; DTD), Titrasi Syringe Pump &amp; Infus Drip, Konversi Opioid (CDC MME), IBW/BMI, Oksigen Medis, serta 14 Kalkulator Skor Klinis Terintegrasi.
-            </p>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                <Calculator className="w-6 h-6" />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
+                  Kalkulator Medis &amp; Penyesuaian Dosis
+                </h1>
+                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                  Suite kalkulator farmako-klinis: Dosis Ginjal (CrCl/eGFR), Dosis Hepar (Child-Pugh/MELD), Titrasi Pump, Konversi Opioid, dan 14 Skor Klinis.
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Stat Badges */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                <span>CrCl Cockcroft-Gault &amp; eGFR CKD-EPI</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Skor Child-Pugh &amp; MELD Hepar</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
+                <span>14+ Kalkulator Skor Medis</span>
+              </div>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
             <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
               <span className="text-[11px] text-slate-400 block font-medium">Total Formula Terintegrasi:</span>
-              <span className="text-lg font-black text-violet-400">12+ Formula &amp; Skor Medis</span>
+              <span className="text-lg font-black text-teal-300">14+ Formula Medis</span>
             </div>
           </div>
         </div>

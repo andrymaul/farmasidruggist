@@ -22,7 +22,9 @@ import {
   Activity,
   UserCheck,
   Printer,
-  RotateCcw
+  RotateCcw,
+  ShieldCheck,
+  Layers
 } from 'lucide-react';
 import { resolveDrugFromDDInter } from '../utils/ddinterEngine';
 import { CustomerSubscriptionManager } from './CustomerSubscriptionManager';
@@ -444,27 +446,64 @@ DDInter-PAIR-00105,"Tacrolimus","Fluconazole","Major","Fluconazole menghambat CY
   return (
     <div className="space-y-6">
 
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] rounded-2xl p-6 text-white shadow-xl border border-[#143d47] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="inline-flex items-center gap-1.5 bg-[#0a2f38] px-3 py-1 rounded-full text-[10px] font-black text-amber-300 uppercase tracking-wider mb-1.5 border border-teal-500/30">
-            <Settings className="w-3.5 h-3.5" />
-            <span>Panel Administrator</span>
-          </div>
-          <h1 className="text-2xl font-black tracking-tight text-white">Admin Management Dashboard</h1>
-          <p className="text-teal-100/80 text-xs sm:text-sm leading-relaxed font-medium">
-            Pengelolaan Database Obat, Aturan Interaksi, dan Cloud Firebase.
-          </p>
+      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
+          <Settings className="w-48 h-48 text-teal-300" />
         </div>
 
-        <div className="flex flex-wrap gap-2 shrink-0">
-          <button
-            onClick={onSeedFirebase}
-            className="bg-[#0a2f38] hover:bg-[#0e3c47] text-teal-300 border border-teal-600/50 px-4 py-2 rounded-xl flex items-center gap-1.5 text-xs font-bold transition-all shadow-xs cursor-pointer"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span>Sync Initial Data</span>
-          </button>
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+              <Settings className="w-3.5 h-3.5" />
+              <span>Pusat Kendali Administrasi &amp; Database Master Farmasi</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                <Settings className="w-6 h-6" />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
+                  Admin Management Dashboard
+                </h1>
+                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                  Pengelolaan Database Obat, Aturan Interaksi DDInter, Cloud Firebase Firestore, Paket Langganan, dan Tim Administrator.
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Stat Badges */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                <span>{drugs.length} Obat di Katalog</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>{interactions.length} Pasangan Interaksi DDInter</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
+                <Database className="w-3.5 h-3.5 text-cyan-300" />
+                <span>Cloud Firestore Terhubung</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-stretch sm:items-end gap-2.5 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Status Database Master:</span>
+              <span className="text-lg font-black text-teal-300">{drugs.length} Obat Master</span>
+            </div>
+            <button
+              onClick={onSeedFirebase}
+              className="bg-teal-600 hover:bg-teal-500 text-white px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 text-xs font-bold transition-all shadow-md cursor-pointer active:scale-95"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span>Sinkronisasi Data Awal</span>
+            </button>
+          </div>
         </div>
       </div>
 

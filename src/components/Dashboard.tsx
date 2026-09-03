@@ -26,7 +26,8 @@ import {
   HeartHandshake,
   FlaskConical,
   CalendarClock,
-  Leaf
+  Leaf,
+  Layers
 } from 'lucide-react';
 
 interface DashboardProps {
@@ -84,24 +85,47 @@ export const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div className="space-y-8">
       
-      {/* Welcome & User Status Banner - Modern Deep Sapphire Obsidian */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-[#0d1f2d] to-slate-900 p-6 sm:p-8 text-white shadow-xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      {/* Welcome & User Status Banner - Standardized Clinical Deep Teal Gradient */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-72 -bottom-10 opacity-10 pointer-events-none hidden lg:block">
-          <Stethoscope className="w-56 h-56 text-teal-400 -rotate-12" />
+          <Stethoscope className="w-56 h-56 text-teal-300 -rotate-12" />
         </div>
         <div className="space-y-3 max-w-2xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold border border-teal-500/30">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold font-outfit border border-teal-500/30">
             <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
-            <span>Ruang Kerja Klinis Apoteker & Dokter</span>
+            <span>Ruang Kerja Klinis Apoteker &amp; Dokter CDSS</span>
           </div>
-          
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-            Selamat Datang, <span className="text-teal-300">{currentUser ? currentUser.name : 'Apoteker / Dokter'}</span>
-          </h1>
-          
-          <p className="text-slate-300 text-xs sm:text-sm font-medium leading-relaxed">
-            Platform integrasi klinis informasi obat resmi BPOM & MIMS, penapisan polifarmasi resep, kalkulator dosis ginjal & pediatrik, serta pedoman terapi terpercaya.
-          </p>
+
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+              <Stethoscope className="w-6 h-6" />
+            </div>
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-outfit">
+                Selamat Datang, <span className="text-teal-300">{currentUser ? currentUser.name : 'Apoteker / Dokter'}</span>
+              </h1>
+              <p className="text-xs sm:text-sm text-teal-100/80 font-medium leading-relaxed">
+                Platform integrasi klinis informasi obat resmi BPOM &amp; MIMS, penapisan polifarmasi resep, kalkulator dosis ginjal &amp; pediatrik, serta pedoman terapi terpercaya.
+              </p>
+            </div>
+          </div>
+
+          {/* Quick Stat Badges */}
+          <div className="flex flex-wrap gap-2 pt-2">
+            <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+              <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+              <span>{drugs.length.toLocaleString('id-ID')} Obat &amp; {interactions.length.toLocaleString('id-ID')} Interaksi</span>
+            </div>
+            <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Standar FORNAS &amp; BPOM RI</span>
+            </div>
+            <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
+              <Activity className="w-3.5 h-3.5 text-cyan-300" />
+              <span>22+ Modul Klinis Siap Pakai</span>
+            </div>
+          </div>
         </div>
 
         {/* User Badge & Subscription Quick Status */}

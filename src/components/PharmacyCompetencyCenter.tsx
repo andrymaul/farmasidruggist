@@ -32,7 +32,8 @@ import {
   Info,
   TrendingUp,
   ClipboardList,
-  Baby
+  Baby,
+  ShieldCheck
 } from 'lucide-react';
 import {
   COMPETENCY_DOMAINS,
@@ -242,85 +243,55 @@ export const PharmacyCompetencyCenter: React.FC<PharmacyCompetencyCenterProps> =
 
   return (
     <div className="space-y-6 pb-16 animate-fade-in font-sans">
-      {/* Hero Header Section */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c242b] via-[#091b22] to-[#041014] p-6 sm:p-8 text-white border border-teal-500/30 shadow-2xl">
+      {/* Hero Header Section - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white border border-teal-500/20 shadow-2xl">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none hidden sm:block">
-          <GraduationCap className="w-64 h-64 text-emerald-400 -rotate-12" />
+          <GraduationCap className="w-64 h-64 text-teal-300 -rotate-12" />
         </div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-        <div className="absolute bottom-0 right-1/3 w-64 h-64 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-black tracking-wide border border-emerald-500/30 font-outfit">
-                <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
-                <span>MODUL RESMI PERSIAPAN UKMPPAI & UKTVF NASIONAL</span>
-              </div>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/10 text-emerald-200 border border-white/20">
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                Standar Blueprint KFN & IAI
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/10 text-cyan-200 border border-white/20">
-                <BookMarked className="w-3.5 h-3.5 text-cyan-300" />
-                4 Domain • {EXAM_QUESTION_BANK.length} Soal CBT • {OSCE_STATIONS.length} Stase OSCE • {FLASHCARD_DECK.length} Flashcards
-              </span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+              <GraduationCap className="w-3.5 h-3.5 text-teal-400" />
+              <span>Modul Resmi Persiapan UKMPPAI &amp; UKTVF Nasional</span>
             </div>
-            
-            <div className="flex items-start sm:items-center gap-3.5 pt-1">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center shadow-inner shrink-0">
-                <GraduationCap className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />
+
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                <GraduationCap className="w-6 h-6" />
               </div>
               <div>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black font-outfit text-white tracking-tight leading-tight">
-                  Pusat Belajar <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300">Uji Kompetensi Farmasi</span>
+                <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
+                  Pusat Belajar Uji Kompetensi Farmasi
                 </h1>
-                <p className="text-xs text-emerald-200/90 font-semibold font-outfit mt-0.5">
-                  Platform Akselerasi &amp; Simulasi Terpadu UKMPPAI (CBT &amp; OSCE) serta UKTVF
+                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                  Platform akselerasi kelulusan UKMPPAI (CBT &amp; OSCE) dan UKTVF: 4 Blueprint KFN, bank soal kasus, simulasi CBT, dan panduan OSCE.
                 </p>
               </div>
             </div>
-            
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-              Platform akselerasi kelulusan Uji Kompetensi Mahasiswa Program Profesi Apoteker Indonesia (UKMPPAI CBT &amp; OSCE) serta Uji Kompetensi Tenaga Vokasi Farmasi (UKTVF). Dilengkapi rangkuman 4 blueprint nasional, bank soal kasus vignette, simulasi CBT, rumus hitungan cepat, dan panduan stasi OSCE.
-            </p>
+
+            {/* Quick Stat Badges */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                <span>4 Domain Blueprint KFN &amp; IAI</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>{EXAM_QUESTION_BANK.length} Soal CBT &amp; {OSCE_STATIONS.length} Stase OSCE</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-cyan-200">
+                <BookMarked className="w-3.5 h-3.5 text-cyan-300" />
+                <span>{FLASHCARD_DECK.length} Flashcard &amp; Rumus Cepat</span>
+              </div>
+            </div>
           </div>
 
-          {/* Quick Stats Badges */}
-          <div className="flex flex-wrap md:flex-col gap-2.5 shrink-0">
-            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-left shadow-md">
-              <span className="text-[11px] text-slate-400 block font-medium">Total Bank Materi Ukom:</span>
-              <span className="text-sm font-black text-emerald-400">{EXAM_QUESTION_BANK.length} CBT • {OSCE_STATIONS.length} OSCE • {FLASHCARD_DECK.length} Flashcards</span>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 text-left hover:bg-white/10 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center font-black font-outfit">
-                <Layers className="w-5 h-5 text-emerald-400" />
-              </div>
-              <div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase font-outfit">4 Domain Utama</p>
-                <p className="text-xs font-black text-white">Sesuai Blueprint KFN/IAI</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 text-left hover:bg-white/10 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-300 border border-teal-500/30 flex items-center justify-center font-black font-outfit">
-                <CheckCircle2 className="w-5 h-5 text-teal-400" />
-              </div>
-              <div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase font-outfit">Terintegrasi PNPK &amp; FI VI</p>
-                <p className="text-xs font-black text-white">Pembahasan Rasional &amp; EBM</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 text-left hover:bg-white/10 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 flex items-center justify-center font-black font-outfit">
-                <Calculator className="w-5 h-5 text-cyan-400" />
-              </div>
-              <div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase font-outfit">9 Rumus & 6 OSCE</p>
-                <p className="text-xs font-black text-white">Simulasi Praktik Klinis</p>
-              </div>
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Bank Soal &amp; Kasus:</span>
+              <span className="text-lg font-black text-teal-300">{EXAM_QUESTION_BANK.length} Soal Uji CBT</span>
             </div>
           </div>
         </div>

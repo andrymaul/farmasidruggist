@@ -165,33 +165,56 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
   return (
     <div className="space-y-6 pb-12">
-      {/* HEADER BANNER - DARK TEAL PALETTE */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#071c21] via-[#0b353e] to-[#082228] p-6 sm:p-7 text-white border border-[#143d47] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
-          <Syringe className="w-64 h-64 text-white" />
-        </div>
-        <div className="relative z-10 max-w-3xl space-y-2">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-teal-500/20 text-teal-300 border border-teal-500/30">
-              <Sparkles className="w-3.5 h-3.5 text-teal-300" />
-              Modul Farmasi Klinis Rumah Sakit & ICU
-            </span>
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/15 text-teal-100 border border-white/20">
-              Trissel's 2024 & ASHP Standard
-            </span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-            Uji Kompatibilitas Injeksi IV, <span className="text-teal-300">Y-Site & Stabilitas Rekonstitusi</span>
-          </h1>
-          <p className="text-xs sm:text-sm text-teal-100/80 font-medium leading-relaxed">
-            Evaluasi kompatibilitas percabangan jalur infus bersama (<em>Y-Site Co-Infusion</em>), skrining presipitasi asam-basa, kompatibilitas pelarut infus (NS, D5W, RL), stabilitas <em>Beyond Use Date</em> (BUD), dan kalkulator titrasi syringe pump.
-          </p>
+      {/* HERO BANNER - STANDARDIZED CLINICAL DEEP TEAL GRADIENT */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2f35] via-[#10424a] to-[#18444a] p-6 sm:p-8 text-white shadow-xl border border-teal-500/20">
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
+          <Syringe className="w-48 h-48 text-teal-300" />
         </div>
 
-        <div className="flex items-center gap-3 shrink-0 relative z-10">
-          <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
-            <span className="text-[11px] text-slate-400 block font-medium">Total Obat Injeksi:</span>
-            <span className="text-lg font-black text-cyan-400">{IV_DRUGS_DATABASE.length} Sediaan IV &amp; ICU</span>
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold font-outfit">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Standar Trissel’s 2024 &amp; ASHP Injectable Drugs Handbook</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center shadow-lg shrink-0">
+                <Syringe className="w-6 h-6" />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
+                  Uji Kompatibilitas Injeksi IV &amp; Y-Site
+                </h1>
+                <p className="text-xs sm:text-sm text-teal-100/80 font-medium">
+                  Evaluasi kompatibilitas percabangan jalur infus bersama (Y-Site), skrining presipitasi asam-basa, kompatibilitas pelarut infus, dan titrasi syringe pump.
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Stat Badges */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                <Layers className="w-3.5 h-3.5 text-[#3dbfd1]" />
+                <span>Skrining Y-Site Percabangan Infus</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Pelarut NS, D5W, RL &amp; Stabilitas BUD</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-pink-200">
+                <AlertTriangle className="w-3.5 h-3.5 text-pink-300" />
+                <span>Pencegahan Presipitasi Kristal</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-slate-800 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Total Obat Injeksi:</span>
+              <span className="text-lg font-black text-teal-300">{IV_DRUGS_DATABASE.length} Sediaan IV &amp; ICU</span>
+            </div>
           </div>
         </div>
       </div>
