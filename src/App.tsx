@@ -54,7 +54,8 @@ import {
   getUserProfileFromFirestore,
   subscribeToCustomersFirestore,
   fetchCustomersFromFirestore,
-  isRegisteringAccount
+  isRegisteringAccount,
+  sendUserHeartbeatToFirestore
 } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { deduplicateDrugs, deduplicateInteractions, resolveInteractionPair } from './utils/ddinterEngine';
@@ -642,6 +643,16 @@ export default function App() {
 
         let profile = await getUserProfileFromFirestore(firebaseUser.uid);
         if (!profile) {
+          // Jika dokumen profil tidak ada di Firestore (misal akun telah dihapus oleh Admin),
+          // JANGAN membangkitkan/membuat ulang akun tersebut!
+          if (!isAdmin) {
+            try {
+              await logoutUser();
+            } catch (e) {}
+            setCurrentUser((prev) => (prev && prev.email.toLowerCase() === email ? null : prev));
+            return;
+          }
+
           const expiryDate = new Date();
           expiryDate.setFullYear(expiryDate.getFullYear() + 1);
 
@@ -649,8 +660,8 @@ export default function App() {
             uid: firebaseUser.uid,
             email: email,
             name: firebaseUser.displayName || email.split('@')[0] || 'User',
-            role: isAdmin ? 'admin' : 'free',
-            subscriptionPlan: isAdmin ? 'Pro' : 'Pemula',
+            role: 'admin',
+            subscriptionPlan: 'Pro',
             subscriptionStatus: 'active',
             isEmailVerified: true,
             createdAt: new Date().toISOString(),
@@ -757,13 +768,20 @@ export default function App() {
   // Heartbeat Presence: update lastActiveAt & isOnline for currentUser
   useEffect(() => {
     if (!currentUser?.uid) return;
-    const sendHeartbeat = () => {
-      const now = new Date().toISOString();
-      saveUserProfileToFirestore({
-        ...currentUser,
-        lastActiveAt: now,
-        isOnline: true
-      }).catch(() => {});
+    const sendHeartbeat = async () => {
+      // Gunakan updateDoc agar dokumen yang sudah dihapus oleh Admin TIDAK terbuat kembali
+      const updated = await sendUserHeartbeatToFirestore(currentUser.uid, true);
+      // Jika dokumen sudah tidak ada di Firestore (telah dihapus oleh admin), logout akun ini
+      if (!updated && currentUser.role !== 'admin' && currentUser.uid.length > 15) {
+        const fresh = await getUserProfileFromFirestore(currentUser.uid);
+        if (!fresh) {
+          try {
+            await logoutUser();
+          } catch (e) {}
+          setCurrentUser(null);
+          localStorage.removeItem('farmasi_current_user');
+        }
+      }
     };
 
     sendHeartbeat();
@@ -784,11 +802,7 @@ export default function App() {
 
   const handleLogout = async () => {
     if (currentUser?.uid) {
-      saveUserProfileToFirestore({
-        ...currentUser,
-        isOnline: false,
-        lastActiveAt: new Date().toISOString()
-      }).catch(() => {});
+      sendUserHeartbeatToFirestore(currentUser.uid, false).catch(() => {});
     }
     try {
       await logoutUser();

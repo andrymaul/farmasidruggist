@@ -167,6 +167,26 @@ export function subscribeToCustomersFirestore(callback: (customers: UserProfile[
 }
 
 /**
+ * Memperbarui status online & lastActiveAt secara aman menggunakan updateDoc.
+ * Jika dokumen pengguna sudah dihapus di Firestore, updateDoc akan gagal 
+ * dan TIDAK akan membangkitkan (resurrect) dokumen yang sudah dihapus!
+ */
+export async function sendUserHeartbeatToFirestore(uid: string, isOnline = true): Promise<boolean> {
+  if (!db || !uid) return false;
+  try {
+    const userDocRef = doc(db, 'users', uid);
+    await withTimeout(updateDoc(userDocRef, {
+      lastActiveAt: new Date().toISOString(),
+      isOnline: isOnline
+    }), 3500);
+    return true;
+  } catch (err: any) {
+    // Dokumen tidak ada (telah dihapus) atau permission error
+    return false;
+  }
+}
+
+/**
  * Menghapus dokumen customer dari Cloud Firestore secara menyeluruh (berdasarkan UID langsung, field UID, dan Email)
  */
 export async function deleteCustomerFromFirestore(uid: string, email?: string): Promise<{ success: boolean; deletedCount: number; error?: string }> {
@@ -179,28 +199,29 @@ export async function deleteCustomerFromFirestore(uid: string, email?: string): 
     if (uid) {
       try {
         const directDocRef = doc(db, 'users', uid);
-        const snap = await getDoc(directDocRef);
-        if (snap.exists()) {
-          await deleteDoc(directDocRef);
-          deletedDocIds.add(uid);
-          deletedCount++;
-        }
-      } catch (e) {}
+        await withTimeout(deleteDoc(directDocRef), 4000);
+        deletedDocIds.add(uid);
+        deletedCount++;
+      } catch (e) {
+        console.warn('Hapus direct doc gagal (handled):', e);
+      }
     }
 
     // 2. Query dokumen yang memiliki field 'uid' == uid (jika doc ID di Firestore berbeda)
     if (uid) {
       try {
         const qUid = query(collection(db, 'users'), where('uid', '==', uid));
-        const snapUid = await getDocs(qUid);
+        const snapUid = await withTimeout(getDocs(qUid), 4000);
         for (const docSnap of snapUid.docs) {
           if (!deletedDocIds.has(docSnap.id)) {
-            await deleteDoc(docSnap.ref);
+            await withTimeout(deleteDoc(docSnap.ref), 4000);
             deletedDocIds.add(docSnap.id);
             deletedCount++;
           }
         }
-      } catch (e) {}
+      } catch (e) {
+        console.warn('Hapus by field uid gagal (handled):', e);
+      }
     }
 
     // 3. Query dokumen yang memiliki field 'email' == email (jika email disediakan)
@@ -208,15 +229,17 @@ export async function deleteCustomerFromFirestore(uid: string, email?: string): 
       try {
         const cleanEmail = email.trim().toLowerCase();
         const qEmail = query(collection(db, 'users'), where('email', '==', cleanEmail));
-        const snapEmail = await getDocs(qEmail);
+        const snapEmail = await withTimeout(getDocs(qEmail), 4000);
         for (const docSnap of snapEmail.docs) {
           if (!deletedDocIds.has(docSnap.id)) {
-            await deleteDoc(docSnap.ref);
+            await withTimeout(deleteDoc(docSnap.ref), 4000);
             deletedDocIds.add(docSnap.id);
             deletedCount++;
           }
         }
-      } catch (e) {}
+      } catch (e) {
+        console.warn('Hapus by field email gagal (handled):', e);
+      }
     }
 
     return { success: true, deletedCount };
