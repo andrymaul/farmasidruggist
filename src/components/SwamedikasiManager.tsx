@@ -473,7 +473,7 @@ Semoga lekas pulih dan sehat selalu! 🙏
           <div className="relative w-full max-w-4xl max-h-[92vh] flex flex-col bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
             
             {/* Modal Top Banner */}
-            <div className="px-6 py-5 bg-gradient-to-r from-teal-800 to-emerald-900 text-white flex items-start justify-between gap-4 border-b border-teal-700/50">
+            <div className="flex-shrink-0 px-4 sm:px-6 py-4 sm:py-5 bg-gradient-to-r from-teal-800 to-emerald-900 text-white flex items-start justify-between gap-4 border-b border-teal-700/50">
               <div className="space-y-1.5">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 text-teal-100 border border-white/20">
@@ -495,8 +495,9 @@ Semoga lekas pulih dan sehat selalu! 🙏
 
               <div className="flex items-center gap-2 flex-shrink-0">
                 <button
+                  type="button"
                   onClick={handleCopyWhatsAppCounseling}
-                  className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors flex items-center gap-1.5 text-xs font-semibold"
+                  className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
                   title="Salin Teks Konseling Edukasi Pasien untuk WhatsApp"
                 >
                   {copiedNotification ? (
@@ -512,8 +513,9 @@ Semoga lekas pulih dan sehat selalu! 🙏
                   )}
                 </button>
                 <button
+                  type="button"
                   onClick={() => setActiveProtocol(null)}
-                  className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors"
+                  className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -521,7 +523,7 @@ Semoga lekas pulih dan sehat selalu! 🙏
             </div>
 
             {/* Red Flag Warning Callout Banner in Modal */}
-            <div className="px-6 py-3 bg-rose-50 dark:bg-rose-950/50 border-b border-rose-200 dark:border-rose-900/60 flex items-start gap-3">
+            <div className="flex-shrink-0 px-4 sm:px-6 py-3 bg-rose-50 dark:bg-rose-950/50 border-b border-rose-200 dark:border-rose-900/60 flex items-start gap-3">
               <AlertOctagon className="w-5 h-5 text-rose-600 dark:text-rose-400 flex-shrink-0 mt-0.5 animate-pulse" />
               <div className="text-xs text-rose-900 dark:text-rose-200 leading-relaxed">
                 <span className="font-bold">PERINGATAN TANDA BAHAYA (RED FLAGS): </span>
@@ -530,71 +532,78 @@ Semoga lekas pulih dan sehat selalu! 🙏
               </div>
             </div>
 
-            {/* Modal Navigation Tabs */}
-            <div className="px-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex items-center gap-2 overflow-x-auto">
-              <button
-                onClick={() => setActiveTabModal('drugs')}
-                className={`py-3 px-3.5 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 whitespace-nowrap transition-colors ${
-                  activeTabModal === 'drugs'
-                    ? 'border-teal-600 text-teal-700 dark:text-teal-400 dark:border-teal-400'
-                    : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-                }`}
-              >
-                <Pill className="w-4 h-4" />
-                <span>Pilihan Obat Bebas & OWA ({activeProtocol.recommendedDrugs.length})</span>
-              </button>
+            {/* Modal Navigation Tabs - Modern Pill Segmented Control */}
+            <div className="flex-shrink-0 px-4 sm:px-6 py-3 bg-slate-50 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-700">
+                <button
+                  type="button"
+                  onClick={() => setActiveTabModal('drugs')}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer ${
+                    activeTabModal === 'drugs'
+                      ? 'bg-teal-600 text-white shadow-sm shadow-teal-900/20 border border-teal-500 ring-2 ring-teal-400/20'
+                      : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700'
+                  }`}
+                >
+                  <Pill className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Pilihan Obat ({activeProtocol.recommendedDrugs.length})</span>
+                </button>
 
-              <button
-                onClick={() => setActiveTabModal('lifestyle')}
-                className={`py-3 px-3.5 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 whitespace-nowrap transition-colors ${
-                  activeTabModal === 'lifestyle'
-                    ? 'border-teal-600 text-teal-700 dark:text-teal-400 dark:border-teal-400'
-                    : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-                }`}
-              >
-                <HeartHandshake className="w-4 h-4" />
-                <span>Terapi Alami & Gaya Hidup</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTabModal('lifestyle')}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer ${
+                    activeTabModal === 'lifestyle'
+                      ? 'bg-teal-600 text-white shadow-sm shadow-teal-900/20 border border-teal-500 ring-2 ring-teal-400/20'
+                      : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700'
+                  }`}
+                >
+                  <HeartHandshake className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Terapi Alami & Gaya Hidup</span>
+                </button>
 
-              <button
-                onClick={() => setActiveTabModal('redflags')}
-                className={`py-3 px-3.5 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 whitespace-nowrap transition-colors ${
-                  activeTabModal === 'redflags'
-                    ? 'border-rose-600 text-rose-700 dark:text-rose-400 dark:border-rose-400'
-                    : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-                }`}
-              >
-                <AlertOctagon className="w-4 h-4" />
-                <span className="text-rose-600 dark:text-rose-400">Tanda Bahaya & Rujukan ({activeProtocol.redFlags.length})</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTabModal('redflags')}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer ${
+                    activeTabModal === 'redflags'
+                      ? 'bg-rose-600 text-white shadow-sm shadow-rose-900/30 border border-rose-500 ring-2 ring-rose-400/20'
+                      : 'bg-white dark:bg-slate-800 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50'
+                  }`}
+                >
+                  <AlertOctagon className="w-3.5 h-3.5 text-rose-500" />
+                  <span>Tanda Bahaya ({activeProtocol.redFlags.length})</span>
+                </button>
 
-              <button
-                onClick={() => setActiveTabModal('populations')}
-                className={`py-3 px-3.5 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 whitespace-nowrap transition-colors ${
-                  activeTabModal === 'populations'
-                    ? 'border-teal-600 text-teal-700 dark:text-teal-400 dark:border-teal-400'
-                    : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-                }`}
-              >
-                <Baby className="w-4 h-4" />
-                <span>Bumil, Anak & Lansia</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTabModal('populations')}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer ${
+                    activeTabModal === 'populations'
+                      ? 'bg-teal-600 text-white shadow-sm shadow-teal-900/20 border border-teal-500 ring-2 ring-teal-400/20'
+                      : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700'
+                  }`}
+                >
+                  <Baby className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Bumil, Anak & Lansia</span>
+                </button>
 
-              <button
-                onClick={() => setActiveTabModal('dagusibu')}
-                className={`py-3 px-3.5 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 whitespace-nowrap transition-colors ${
-                  activeTabModal === 'dagusibu'
-                    ? 'border-teal-600 text-teal-700 dark:text-teal-400 dark:border-teal-400'
-                    : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-                }`}
-              >
-                <ShieldCheck className="w-4 h-4" />
-                <span>Edukasi DAGUSIBU</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTabModal('dagusibu')}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer ${
+                    activeTabModal === 'dagusibu'
+                      ? 'bg-teal-600 text-white shadow-sm shadow-teal-900/20 border border-teal-500 ring-2 ring-teal-400/20'
+                      : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700'
+                  }`}
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Edukasi DAGUSIBU</span>
+                </button>
+              </div>
             </div>
 
-            {/* Modal Body Content */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-6 max-h-[60vh]">
+            {/* Modal Body Content - Natural Flex Scroll Container */}
+            <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-6">
               
               {/* TAB 1: DRUGS RECOMMENDATION */}
               {activeTabModal === 'drugs' && (
@@ -909,7 +918,7 @@ Semoga lekas pulih dan sehat selalu! 🙏
             </div>
 
             {/* Modal Bottom Action Bar */}
-            <div className="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex-shrink-0 px-4 sm:px-6 py-3.5 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
               <div className="text-xs text-slate-500 flex items-center gap-1.5">
                 <Info className="w-4 h-4 text-teal-500" />
                 <span>Edukasi resmi farmasis klinis Farmasi Druggist</span>
