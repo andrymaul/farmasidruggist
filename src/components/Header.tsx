@@ -481,6 +481,15 @@ export const Header: React.FC<HeaderProps> = ({
           headerBg: 'bg-gradient-to-r from-sky-50/90 via-blue-50/50 to-white/95 dark:from-[#031522]/95 dark:via-[#041f33]/90 dark:to-[#020c13]/95 border-b border-sky-200/60 dark:border-sky-500/25',
           glowAccent: 'from-sky-500/10 via-blue-500/5 to-transparent'
         };
+      case 'swamedikasi':
+        return {
+          title: 'Swamedikasi & Clinical Triage Keluhan',
+          desc: 'Panduan pemilihan obat bebas & OWA resmi Kemenkes RI, penapisan tanda bahaya ke dokter, dan terapi alami',
+          icon: Sparkles,
+          iconColor: 'text-amber-500 dark:text-amber-300 bg-amber-500/15 border-amber-400/40 shadow-xs',
+          headerBg: 'bg-gradient-to-r from-emerald-50/90 via-teal-50/50 to-white/95 dark:from-[#041d1a]/95 dark:via-[#052824]/90 dark:to-[#02110e]/95 border-b border-teal-200/60 dark:border-teal-500/25',
+          glowAccent: 'from-emerald-500/10 via-teal-500/5 to-transparent'
+        };
       case 'whatsapp-pio':
         return {
           title: 'Kartu PIO Pasien WhatsApp',

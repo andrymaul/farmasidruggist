@@ -149,6 +149,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         colorClass: 'text-indigo-600 dark:text-indigo-400',
         headerBg: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-800 dark:text-indigo-300',
         items: [
+          { id: 'swamedikasi', label: 'Swamedikasi & Triage', icon: Sparkles, badge: 'Baru', badgeColor: 'text-amber-500 dark:text-amber-400', iconColor: 'text-amber-500 dark:text-amber-400' },
           { id: 'polypharmacy', label: 'Evaluasi Polifarmasi Beers', icon: Stethoscope, badge: 'Beers', badgeColor: 'text-indigo-500 dark:text-indigo-400' },
           { id: 'whatsapp-pio', label: 'Kartu PIO WhatsApp Pasien', icon: MessageSquare, badge: 'Pasien', badgeColor: 'text-teal-500 dark:text-teal-400' },
           { id: 'guidelines', label: 'Panduan Terapi (PNPK)', icon: HeartPulse, badge: 'PNPK', badgeColor: 'text-blue-500 dark:text-blue-400' }

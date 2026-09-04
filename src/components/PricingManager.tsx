@@ -150,7 +150,8 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
       canAccessCompetency: plan.id !== 'free',
       canAccessSop: plan.id !== 'free',
       canAccessRegulations: plan.id !== 'free',
-      canAccessLiterature: plan.id !== 'free'
+      canAccessLiterature: plan.id !== 'free',
+      canAccessSwamedikasi: true
     };
   };
 

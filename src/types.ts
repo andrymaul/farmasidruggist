@@ -45,6 +45,7 @@ export interface AdminPermissionSet {
   canAccessPolypharmacy?: boolean;
   canAccessWhatsappPio?: boolean;
   canAccessGuidelines?: boolean;
+  canAccessSwamedikasi?: boolean;
 
   // Modul Pusat Belajar, SOP & Regulasi
   canAccessCompetency?: boolean;
@@ -180,6 +181,7 @@ export interface UserProfile {
   canAccessSop?: boolean;
   canAccessRegulations?: boolean;
   canAccessLiterature?: boolean;
+  canAccessSwamedikasi?: boolean;
   expiresAt?: string;
   isEmailVerified?: boolean;
   createdAt?: string;
@@ -246,6 +248,7 @@ export interface CustomerPlanPermissions {
   canAccessSop?: boolean;
   canAccessRegulations?: boolean;
   canAccessLiterature?: boolean;
+  canAccessSwamedikasi?: boolean;
 }
 
 export interface PricingPlan {
@@ -455,5 +458,57 @@ export interface ClinicalGuideline {
   updatedYear?: string;
   keyClinicalAlert?: string;
   indonesianKeywords?: string[];
+}
+
+// === SWAMEDIKASI & CLINICAL TRIAGE (SELF-MEDICATION) ===
+export type SwamedikasiCategoryKey =
+  | 'all'
+  | 'pain-fever'
+  | 'digestive'
+  | 'respiratory'
+  | 'skin-allergy'
+  | 'eye-ear'
+  | 'mouth-oral'
+  | 'pediatric'
+  | 'motion-fatigue';
+
+export type BpomClassificationType =
+  | 'Obat Bebas (Hijau)'
+  | 'Obat Bebas Terbatas (Biru)'
+  | 'Obat Bebas / Bebas Terbatas'
+  | 'Obat Wajib Apotek (OWA)'
+  | 'Suplemen Kesehatan (POM SD)';
+
+export interface SwamedikasiDrugOption {
+  genericName: string;
+  brandExamples: string[];
+  bpomClass: BpomClassificationType;
+  dosageGuideline: string;
+  timing: string; // misal: 'Diminum sesudah makan', '30-60 menit sebelum makan'
+  cautionNotes?: string;
+  targetDrugId?: string; // id obat di database master untuk cek interaksi
+}
+
+export interface SwamedikasiProtocol {
+  id: string;
+  title: string;
+  category: SwamedikasiCategoryKey;
+  categoryLabel: string;
+  iconName: string;
+  quickSummary: string;
+  laymanKeywords: string[]; // kata kunci awam, e.g. ['meriang', 'badan anget', 'panas', 'masuk angin']
+  typicalSymptoms: string[];
+  redFlags: string[]; // Gejala bahaya yang WAJIB segera dirujuk ke dokter / UGD
+  maxSelfMedDays: number; // Batas maksimal hari swamedikasi sebelum harus evaluasi dokter
+  recommendedDrugs: SwamedikasiDrugOption[];
+  nonPharmacolTherapy: string[]; // Terapi non-obat (kompres, hidrasi, istirahat, pola makan)
+  contraindicatedForSelfMed: string[]; // Hal atau obat yang TIDAK BOLEH digunakan sembarangan (e.g. Antibiotik oral)
+  specialPopulations: {
+    pregnancyWarning: string;
+    pediatricWarning: string;
+    geriatricWarning?: string;
+  };
+  whenToSeeDoctor: string[];
+  gemaCermatTips?: string[]; // Tips Dagusibu & Edukasi Cerdas Obat Kemenkes RI
 }
 

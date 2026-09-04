@@ -18,6 +18,7 @@ import { ClinicalTherapyGuidelines } from './components/ClinicalTherapyGuideline
 import { PediatricCompoundingCalculator } from './components/PediatricCompoundingCalculator';
 import { IvCompatibilityChecker } from './components/IvCompatibilityChecker';
 import { WhatsAppPatientCardManager } from './components/WhatsAppPatientCardManager';
+import { SwamedikasiManager } from './components/SwamedikasiManager';
 import { CustomerSubscriptionManager } from './components/CustomerSubscriptionManager';
 import { SideEffectChecker } from './components/SideEffectChecker';
 import { PharmacyCompetencyCenter } from './components/PharmacyCompetencyCenter';
@@ -570,8 +571,8 @@ export default function App() {
       return;
     }
 
-    // Enforce auth requirement for all internal clinical workspace tools when user is not logged in
-    if (!currentUser && tab !== 'landing') {
+    // Enforce auth requirement for internal clinical workspace tools when user is not logged in (allow public swamedikasi)
+    if (!currentUser && tab !== 'landing' && tab !== 'swamedikasi') {
       setShowAuthModal(true);
       return;
     }
@@ -1358,6 +1359,16 @@ export default function App() {
                     onSelectTab={handleSelectTab}
                   />
                 )
+              )}
+
+              {activeTab === 'swamedikasi' && (
+                <SwamedikasiManager
+                  drugs={drugs}
+                  clinicBranding={clinicBranding}
+                  onCheckInteractionWith={handleCheckInteractionWith}
+                  onAddToPioCard={handleAddToPioCard}
+                  onSelectTab={handleSelectTab}
+                />
               )}
 
               {activeTab === 'whatsapp-pio' && (
