@@ -6,15 +6,21 @@ import { DRUGSCOM_ADDITIONAL_FOOD_INTERACTIONS, DRUGSCOM_ADDITIONAL_THERAPEUTIC_
 export const INITIAL_DRUGS: Drug[] = EXTENDED_DRUGS_DATABASE;
 export const INITIAL_INTERACTIONS: DrugInteraction[] = EXTENDED_INTERACTIONS_DATABASE;
 
+export const DDINTER_OFFICIAL_URLS = {
+  ddi: 'https://ddinter2.scbdd.com/server/interaction/',
+  otherInteractions: 'https://ddinter2.scbdd.com/server/other_interaction/',
+  portal: 'https://ddinter2.scbdd.com/'
+};
+
 export const DDINTER_DATASET_INFO: DDInterDatasetInfo = {
-  version: 'DDInter 2.0 • Drugs.com • Medscape • Stockley’s • DrugBank • WebMD • RxList Multi-Consensus Engine',
+  version: 'DDInter 2.0 (Computational Biology & Drug Design Group, Nature Protocols 2022) Multi-Consensus Engine',
   totalDDI: 312450,
   totalApprovedDrugs: 2450,
   totalDFI: 960,
   totalDDSI: 8680,
   totalDuplications: 6280,
-  lastSyncDate: '2026-09-01',
-  sourceUrl: 'https://www.drugs.com/drug_interactions.html',
+  lastSyncDate: '2026-09-04',
+  sourceUrl: 'https://ddinter2.scbdd.com/server/interaction/',
   categories: [
     { code: 'ddinter_A', name: 'Kardiovaskular & Antikoagulan (DOAC/NOAC/Statin)', recordCount: 44100, description: 'Interaksi DOAC (Apixaban, Dabigatran, Rivaroxaban), Statin, Antiplatelet, Antihipertensi, dan Antiarrhythmia.' },
     { code: 'ddinter_B', name: 'Anti-infeksi & Antimikroba (Antivirus Paxlovid & Antijamur)', recordCount: 40950, description: 'Interaksi Paxlovid, Linezolid, Antifungal Triazole (Voriconazole, Ketoconazole), Kuinolon, dan Makrolida.' },

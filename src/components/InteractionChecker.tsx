@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Drug, DrugInteraction, UserProfile, SeverityLevel, PricingPlan, DrugDiseaseInteraction } from '../types';
+import { 
+  Drug, 
+  DrugInteraction, 
+  UserProfile, 
+  SeverityLevel, 
+  PricingPlan, 
+  DrugDiseaseInteraction,
+  DDInterSubTab,
+  DDInterMechanismCategory
+} from '../types';
 import { 
   ShieldAlert, 
   Plus, 
@@ -23,7 +32,11 @@ import {
   Flame,
   UserCheck,
   Layers,
-  Pill
+  Pill,
+  Filter,
+  ArrowRight,
+  ArrowUpRight,
+  BookOpen
 } from 'lucide-react';
 import { 
   resolveDrugFromDDInter, 
@@ -32,7 +45,12 @@ import {
   evaluateFoodInteractions,
   evaluateDrugDiseaseInteractions
 } from '../utils/ddinterEngine';
-import { SAMPLE_FOOD_INTERACTIONS, SAMPLE_THERAPEUTIC_DUPLICATIONS, DDINTER_DATASET_INFO } from '../data/ddinterData';
+import { 
+  SAMPLE_FOOD_INTERACTIONS, 
+  SAMPLE_THERAPEUTIC_DUPLICATIONS, 
+  DDINTER_DATASET_INFO,
+  DDINTER_OFFICIAL_URLS
+} from '../data/ddinterData';
 import { DRUG_DISEASE_INTERACTIONS_DATABASE, COMMON_CLINICAL_DISEASES } from '../data/drugDiseaseInteractionsData';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
 
@@ -67,6 +85,29 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   const [isSaved, setIsSaved] = useState(false);
   const [showDatasetDetails, setShowDatasetDetails] = useState(false);
   const [limitWarning, setLimitWarning] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<DDInterSubTab>('all');
+  const [severityFilter, setSeverityFilter] = useState<'all' | 'Major' | 'Moderate' | 'Minor'>('all');
+  const [mechanismFilter, setMechanismFilter] = useState<'all' | DDInterMechanismCategory>('all');
+  const [showAllPotentialDiseaseRisks, setShowAllPotentialDiseaseRisks] = useState(false);
+
+  const getMechanismBadge = (category?: string) => {
+    switch (category) {
+      case 'Metabolism':
+        return { label: 'Metabolisme (CYP450)', icon: '🔬', bg: 'bg-indigo-50 text-indigo-800 dark:bg-indigo-950/70 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800' };
+      case 'Absorption':
+        return { label: 'Absorpsi & Khelasi', icon: '🧪', bg: 'bg-cyan-50 text-cyan-800 dark:bg-cyan-950/70 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800' };
+      case 'Excretion':
+        return { label: 'Ekskresi & Klirens Ginjal', icon: '💧', bg: 'bg-sky-50 text-sky-800 dark:bg-sky-950/70 dark:text-sky-300 border-sky-200 dark:border-sky-800' };
+      case 'Distribution':
+        return { label: 'Distribusi & Ikatan Protein', icon: '🩸', bg: 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800' };
+      case 'Synergy':
+        return { label: 'Sinergi Farmakodinamik', icon: '⚡', bg: 'bg-amber-50 text-amber-800 dark:bg-amber-950/70 dark:text-amber-300 border-amber-200 dark:border-amber-800' };
+      case 'Antagonism':
+        return { label: 'Antagonisme Reseptor', icon: '⚖️', bg: 'bg-rose-50 text-rose-800 dark:bg-rose-950/70 dark:text-rose-300 border-rose-200 dark:border-rose-800' };
+      default:
+        return { label: 'Interaksi Farmakologi', icon: '💊', bg: 'bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-300 border-slate-200 dark:border-slate-700' };
+    }
+  };
 
   // Auto-select when navigating with preselected drug(s)
   useEffect(() => {
@@ -220,8 +261,16 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   const matchedDiseaseInteractions = evaluateDrugDiseaseInteractions(
     selectedDrugs,
     selectedDiseases,
-    DRUG_DISEASE_INTERACTIONS_DATABASE
+    DRUG_DISEASE_INTERACTIONS_DATABASE,
+    showAllPotentialDiseaseRisks
   );
+
+  // Filtered DDI interactions based on Severity and DDInter 2.0 Mechanism Category
+  const filteredInteractions = matchedInteractions.filter((item) => {
+    if (severityFilter !== 'all' && item.severity !== severityFilter) return false;
+    if (mechanismFilter !== 'all' && (item.mechanismCategory || 'Others') !== mechanismFilter) return false;
+    return true;
+  });
 
   // Determine highest severity
   let highestSeverity: SeverityLevel | 'None' = 'None';
@@ -560,6 +609,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
           <div className="relative flex items-center">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5" />
             <input
+              id="drug-search-input"
               type="text"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
@@ -568,6 +618,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             />
             {searchInput.trim().length > 0 && (
               <button
+                id="btn-add-custom-drug"
                 onClick={handleAddCustomDrug}
                 className="absolute right-2 bg-rose-600 hover:bg-rose-500 text-white text-[11px] font-bold font-outfit px-3.5 py-1.5 rounded-lg transition-colors shadow-xs cursor-pointer"
               >
@@ -583,6 +634,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                 searchResults.map((d) => (
                   <button
                     key={d.id}
+                    id={`drug-suggestion-${d.id}`}
                     onClick={() => handleAddDrug(d)}
                     className="w-full text-left px-3 py-2 hover:bg-rose-50/80 dark:hover:bg-rose-950/50 rounded-xl flex items-center justify-between transition cursor-pointer"
                   >
@@ -646,6 +698,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               return (
                 <button
                   key={dis.id}
+                  id={`disease-chip-${dis.id}`}
                   onClick={() => handleToggleDisease(dis.name)}
                   className={`text-xs font-bold font-outfit px-3 py-1.5 rounded-xl border transition-all flex items-center gap-1.5 cursor-pointer ${
                     isSelected
@@ -739,237 +792,902 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             </div>
           )}
 
-          {/* Drug-Disease Interactions (Contraindications) Section - Bold Amber/Rose Danger Styling */}
-          {matchedDiseaseInteractions.length > 0 && (
-            <div className="bg-gradient-to-r from-red-50/95 via-rose-50/95 to-amber-50/95 dark:from-rose-950/40 dark:via-red-950/40 dark:to-amber-950/40 border-2 border-rose-400 dark:border-rose-700 rounded-2xl p-5 space-y-4 shadow-sm">
-              <div className="flex items-center justify-between gap-2 flex-wrap border-b border-rose-200 dark:border-rose-800/80 pb-3">
-                <div className="flex items-center gap-2 text-rose-950 dark:text-rose-200 font-black text-sm">
-                  <span className="p-1.5 rounded-lg bg-rose-200 dark:bg-rose-900 text-rose-800 dark:text-rose-100">
-                    <HeartPulse className="w-4 h-4" />
-                  </span>
-                  <span>Peringatan Kontraindikasi Obat terhadap Penyakit (Drug-Disease Interactions)</span>
+          {/* DDINTER 2.0 SEGMENTED TABS */}
+          <div className="bg-slate-100/90 dark:bg-slate-900/90 p-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex items-center gap-1.5 overflow-x-auto shadow-inner">
+            <button
+              id="ddinter-tab-btn-all"
+              onClick={() => setActiveTab('all')}
+              className={`px-3.5 py-2.5 rounded-xl text-xs font-black font-outfit transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
+                activeTab === 'all'
+                  ? 'bg-white dark:bg-slate-800 text-teal-800 dark:text-teal-300 shadow-sm border border-teal-200/80 dark:border-teal-700/80 scale-[1.01]'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+              <span>Semua Analisis</span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-700 font-mono font-bold">
+                {matchedInteractions.length + matchedDiseaseInteractions.length + matchedDuplications.length + matchedFoodInteractions.length}
+              </span>
+            </button>
+
+            <button
+              id="ddinter-tab-btn-ddi"
+              onClick={() => setActiveTab('ddi')}
+              className={`px-3.5 py-2.5 rounded-xl text-xs font-black font-outfit transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
+                activeTab === 'ddi'
+                  ? 'bg-white dark:bg-slate-800 text-amber-800 dark:text-amber-300 shadow-sm border border-amber-300/80 dark:border-amber-700/80 scale-[1.01]'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Activity className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <span>Obat-Obat (DDI)</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
+                matchedInteractions.length > 0 ? 'bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-800' : 'bg-slate-200 dark:bg-slate-700'
+              }`}>
+                {matchedInteractions.length}
+              </span>
+            </button>
+
+            <button
+              id="ddinter-tab-btn-disease"
+              onClick={() => setActiveTab('disease')}
+              className={`px-3.5 py-2.5 rounded-xl text-xs font-black font-outfit transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
+                activeTab === 'disease'
+                  ? 'bg-white dark:bg-slate-800 text-rose-800 dark:text-rose-300 shadow-sm border border-rose-300/80 dark:border-rose-700/80 scale-[1.01]'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <HeartPulse className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+              <span>Kontraindikasi Penyakit (DDSI)</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
+                matchedDiseaseInteractions.length > 0 ? 'bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-200 border border-rose-300 dark:border-rose-800' : 'bg-slate-200 dark:bg-slate-700'
+              }`}>
+                {matchedDiseaseInteractions.length}
+              </span>
+            </button>
+
+            <button
+              id="ddinter-tab-btn-food"
+              onClick={() => setActiveTab('food')}
+              className={`px-3.5 py-2.5 rounded-xl text-xs font-black font-outfit transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
+                activeTab === 'food'
+                  ? 'bg-white dark:bg-slate-800 text-purple-800 dark:text-purple-300 shadow-sm border border-purple-300/80 dark:border-purple-700/80 scale-[1.01]'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Utensils className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+              <span>Interaksi Makanan (DFI)</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
+                matchedFoodInteractions.length > 0 ? 'bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-200 border border-purple-300 dark:border-purple-800' : 'bg-slate-200 dark:bg-slate-700'
+              }`}>
+                {matchedFoodInteractions.length}
+              </span>
+            </button>
+
+            <button
+              id="ddinter-tab-btn-duplication"
+              onClick={() => setActiveTab('duplication')}
+              className={`px-3.5 py-2.5 rounded-xl text-xs font-black font-outfit transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
+                activeTab === 'duplication'
+                  ? 'bg-white dark:bg-slate-800 text-pink-800 dark:text-pink-300 shadow-sm border border-pink-300/80 dark:border-pink-700/80 scale-[1.01]'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <CopyX className="w-3.5 h-3.5 text-pink-600 dark:text-pink-400" />
+              <span>Duplikasi Terapi</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
+                matchedDuplications.length > 0 ? 'bg-pink-100 dark:bg-pink-950 text-pink-800 dark:text-pink-200 border border-pink-300 dark:border-pink-800' : 'bg-slate-200 dark:bg-slate-700'
+              }`}>
+                {matchedDuplications.length}
+              </span>
+            </button>
+          </div>
+
+          {/* TAB 1: SEMUA ANALISIS (OVERVIEW) */}
+          {activeTab === 'all' && (
+            <div className="space-y-4">
+              {/* 4-BENTO KPI SUMMARY CARDS */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {/* DDI Card */}
+                <div 
+                  onClick={() => setActiveTab('ddi')}
+                  className="bg-white dark:bg-[#0c1322] p-4 rounded-2xl border border-amber-200/80 dark:border-amber-900/60 shadow-xs hover:shadow-md transition-all cursor-pointer group hover:scale-[1.02]"
+                >
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800/80">
+                    <span className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/70 text-amber-600 dark:text-amber-400 group-hover:bg-amber-600 group-hover:text-white transition-all">
+                      <Activity className="w-4 h-4" />
+                    </span>
+                    <span className="text-xs font-black font-mono text-amber-700 dark:text-amber-400 flex items-center gap-0.5">
+                      <span>Buka Tab</span>
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </div>
+                  <div className="pt-3">
+                    <span className="text-2xl font-black text-slate-900 dark:text-white font-outfit">
+                      {matchedInteractions.length}
+                    </span>
+                    <p className="text-xs font-bold text-slate-700 dark:text-slate-300 font-outfit">Interaksi Obat-Obat (DDI)</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug pt-0.5">
+                      {matchedInteractions.filter(i => i.severity === 'Major').length} risiko Major terdeteksi
+                    </p>
+                  </div>
                 </div>
-                <span className="text-[11px] font-black px-2.5 py-0.5 rounded-full bg-rose-600 text-white shadow-xs">
-                  {matchedDiseaseInteractions.length} Kontraindikasi Ditemukan
-                </span>
+
+                {/* DDSI Card */}
+                <div 
+                  onClick={() => setActiveTab('disease')}
+                  className="bg-white dark:bg-[#0c1322] p-4 rounded-2xl border border-rose-200/80 dark:border-rose-900/60 shadow-xs hover:shadow-md transition-all cursor-pointer group hover:scale-[1.02]"
+                >
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800/80">
+                    <span className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/70 text-rose-600 dark:text-rose-400 group-hover:bg-rose-600 group-hover:text-white transition-all">
+                      <HeartPulse className="w-4 h-4" />
+                    </span>
+                    <span className="text-xs font-black font-mono text-rose-700 dark:text-rose-400 flex items-center gap-0.5">
+                      <span>Buka Tab</span>
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </div>
+                  <div className="pt-3">
+                    <span className="text-2xl font-black text-slate-900 dark:text-white font-outfit">
+                      {matchedDiseaseInteractions.length}
+                    </span>
+                    <p className="text-xs font-bold text-slate-700 dark:text-slate-300 font-outfit">Kontraindikasi Penyakit (DDSI)</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug pt-0.5">
+                      Kesesuaian komorbiditas &amp; Beers Criteria
+                    </p>
+                  </div>
+                </div>
+
+                {/* DFI Card */}
+                <div 
+                  onClick={() => setActiveTab('food')}
+                  className="bg-white dark:bg-[#0c1322] p-4 rounded-2xl border border-purple-200/80 dark:border-purple-900/60 shadow-xs hover:shadow-md transition-all cursor-pointer group hover:scale-[1.02]"
+                >
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800/80">
+                    <span className="p-2 rounded-xl bg-purple-50 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 group-hover:bg-purple-600 group-hover:text-white transition-all">
+                      <Utensils className="w-4 h-4" />
+                    </span>
+                    <span className="text-xs font-black font-mono text-purple-700 dark:text-purple-400 flex items-center gap-0.5">
+                      <span>Buka Tab</span>
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </div>
+                  <div className="pt-3">
+                    <span className="text-2xl font-black text-slate-900 dark:text-white font-outfit">
+                      {matchedFoodInteractions.length}
+                    </span>
+                    <p className="text-xs font-bold text-slate-700 dark:text-slate-300 font-outfit">Interaksi Makanan (DFI)</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug pt-0.5">
+                      Susu, grapefruit, kalsium &amp; alkohol
+                    </p>
+                  </div>
+                </div>
+
+                {/* Duplication Card */}
+                <div 
+                  onClick={() => setActiveTab('duplication')}
+                  className="bg-white dark:bg-[#0c1322] p-4 rounded-2xl border border-pink-200/80 dark:border-pink-900/60 shadow-xs hover:shadow-md transition-all cursor-pointer group hover:scale-[1.02]"
+                >
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800/80">
+                    <span className="p-2 rounded-xl bg-pink-50 dark:bg-pink-950/70 text-pink-600 dark:text-pink-400 group-hover:bg-pink-600 group-hover:text-white transition-all">
+                      <CopyX className="w-4 h-4" />
+                    </span>
+                    <span className="text-xs font-black font-mono text-pink-700 dark:text-pink-400 flex items-center gap-0.5">
+                      <span>Buka Tab</span>
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </div>
+                  <div className="pt-3">
+                    <span className="text-2xl font-black text-slate-900 dark:text-white font-outfit">
+                      {matchedDuplications.length}
+                    </span>
+                    <p className="text-xs font-bold text-slate-700 dark:text-slate-300 font-outfit">Duplikasi Terapi</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug pt-0.5">
+                      Peresepan kelas farmakologi ganda
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              <div className="space-y-3">
-                {matchedDiseaseInteractions.map((item) => {
-                  const isAbsolute = item.contraindicationLevel.includes('Absolute');
-                  return (
-                    <div
-                      key={item.id}
-                      className="clinical-card-major rounded-xl p-4 sm:p-5 border shadow-xs space-y-3"
+              {/* OVERVIEW SECTIONS CONSOLIDATED */}
+              {matchedInteractions.length > 0 && (
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-1.5 font-outfit">
+                      <Activity className="w-4 h-4 text-amber-500" />
+                      <span>Interaksi Obat-Obat Terdeteksi ({matchedInteractions.length})</span>
+                    </h4>
+                    <button 
+                      onClick={() => setActiveTab('ddi')} 
+                      className="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1 cursor-pointer"
                     >
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-black/5 dark:border-white/10 pb-2">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-black text-slate-900 dark:text-white text-sm">💊 {item.drugName}</span>
-                          <span className="text-rose-600 font-black">❌ KONTRAINDIKASI DENGAN</span>
-                          <span className="bg-white/90 dark:bg-slate-800 text-rose-950 dark:text-rose-200 text-xs font-black px-2.5 py-0.5 rounded-lg border border-rose-300 dark:border-rose-700">
-                            🩺 {item.diseaseName}
+                      <span>Filter Berdasarkan 6 Mekanisme DDInter</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-3">
+                    {matchedInteractions.slice(0, 3).map((item) => {
+                      const badgeInfo = getMechanismBadge(item.mechanismCategory);
+                      const isMajor = item.severity === 'Major';
+                      return (
+                        <div
+                          key={item.id}
+                          className={`rounded-2xl p-4 sm:p-5 border shadow-2xs space-y-3 ${
+                            isMajor ? 'clinical-card-major' : 'clinical-card-moderate'
+                          }`}
+                        >
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-black/5 dark:border-white/10 pb-2">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="text-base font-black text-slate-900 dark:text-white">{item.drugAName}</span>
+                              <span className="text-amber-500 font-black">⚡</span>
+                              <span className="text-base font-black text-slate-900 dark:text-white">{item.drugBName}</span>
+                            </div>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-md border flex items-center gap-1 ${badgeInfo.bg}`}>
+                                <span>{badgeInfo.icon}</span>
+                                <span>{badgeInfo.label}</span>
+                              </span>
+                              <span className={isMajor ? 'clinical-badge-major' : 'clinical-badge-moderate'}>
+                                {item.severity}
+                              </span>
+                            </div>
+                          </div>
+                          <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                            {item.clinicalOutcome}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {matchedDiseaseInteractions.length > 0 && (
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-1.5 font-outfit">
+                      <HeartPulse className="w-4 h-4 text-rose-500" />
+                      <span>Kontraindikasi Penyakit Pasien ({matchedDiseaseInteractions.length})</span>
+                    </h4>
+                    <button 
+                      onClick={() => setActiveTab('disease')} 
+                      className="text-xs font-bold text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>Lihat Solusi Tindakan Klinis</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                  <div className="space-y-2">
+                    {matchedDiseaseInteractions.slice(0, 2).map((item) => (
+                      <div key={item.id} className="p-3.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/50 dark:bg-rose-950/20 text-xs space-y-1">
+                        <div className="flex items-center justify-between gap-2 flex-wrap font-bold">
+                          <span className="text-rose-900 dark:text-rose-200 font-black">💊 {item.drugName} ❌ 🩺 {item.diseaseName}</span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-md bg-rose-600 text-white font-bold">{item.contraindicationLevel}</span>
+                        </div>
+                        <p className="text-rose-950 dark:text-rose-300 font-medium">{item.clinicalRisk}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {matchedDuplications.length > 0 && (
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-1.5 font-outfit">
+                      <CopyX className="w-4 h-4 text-pink-500" />
+                      <span>Duplikasi Terapi ({matchedDuplications.length})</span>
+                    </h4>
+                    <button 
+                      onClick={() => setActiveTab('duplication')} 
+                      className="text-xs font-bold text-pink-600 dark:text-pink-400 hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>Lihat Rekomendasi Rasionalisasi</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                  <div className="space-y-2">
+                    {matchedDuplications.slice(0, 2).map((dup) => (
+                      <div key={dup.id} className="p-3.5 rounded-xl border border-pink-200 dark:border-pink-900/60 bg-pink-50/50 dark:bg-pink-950/20 text-xs space-y-1">
+                        <div className="flex items-center justify-between gap-2 flex-wrap font-bold">
+                          <span className="text-slate-900 dark:text-white font-black">💊 {dup.drugAName} &amp; {dup.drugBName}</span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-md bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 font-bold">{dup.therapeuticClass}</span>
+                        </div>
+                        <p className="text-slate-600 dark:text-slate-300 font-medium">{dup.riskDescription}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {matchedFoodInteractions.length > 0 && (
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-1.5 font-outfit">
+                      <Utensils className="w-4 h-4 text-purple-500" />
+                      <span>Interaksi Makanan &amp; Gaya Hidup ({matchedFoodInteractions.length})</span>
+                    </h4>
+                    <button 
+                      onClick={() => setActiveTab('food')} 
+                      className="text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>Lihat Aturan Konsumsi &amp; Diet</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {matchedFoodInteractions.slice(0, 2).map((dfi) => (
+                      <div key={dfi.id} className="p-3.5 rounded-xl border border-purple-200 dark:border-purple-900/60 bg-purple-50/50 dark:bg-purple-950/20 text-xs space-y-1">
+                        <div className="flex items-center justify-between gap-1 flex-wrap font-bold">
+                          <span className="text-purple-950 dark:text-purple-200 font-black">💊 {dfi.drugName} ⚡ 🥗 {dfi.foodName}</span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-md bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200">{dfi.foodCategory}</span>
+                        </div>
+                        <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{dfi.recommendation}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 2: INTERAKSI OBAT DENGAN OBAT (DDI) */}
+          {activeTab === 'ddi' && (
+            <div className="space-y-4 animate-fade-in">
+              {/* Official DDInter 2.0 DDI Server Header */}
+              <div className="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-300/70 dark:border-amber-700/60 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-500 text-white font-outfit uppercase tracking-wider">
+                      DDInter 2.0 DDI Server Standard
+                    </span>
+                    <span className="text-xs font-bold text-amber-900 dark:text-amber-300 font-outfit">
+                      Nature Protocols 2022 Verified
+                    </span>
+                  </div>
+                  <h4 className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-outfit">
+                    Penapisan Interaksi Obat-dengan-Obat (Drug-Drug Interaction)
+                  </h4>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 font-medium max-w-2xl leading-relaxed">
+                    Menganalisis profil farmakokinetik &amp; farmakodinamik antar-zat aktif dengan klasifikasi 3 derajat keparahan (Major, Moderate, Minor) dan 6 kategori mekanisme kinetik/dinamik baku.
+                  </p>
+                </div>
+                <a
+                  href={DDINTER_OFFICIAL_URLS.ddi}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold font-outfit shadow-xs transition-all hover:scale-105"
+                >
+                  <span>Buka Server DDInter DDI</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* FILTERS TOOLBAR */}
+              <div className="bg-slate-50 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+                {/* Severity Filters */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-outfit flex items-center gap-1">
+                    <Filter className="w-3.5 h-3.5" />
+                    <span>Keparahan:</span>
+                  </span>
+                  <button
+                    onClick={() => setSeverityFilter('all')}
+                    className={`px-3 py-1 rounded-xl text-xs font-bold font-outfit transition-all cursor-pointer ${
+                      severityFilter === 'all'
+                        ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs'
+                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
+                    }`}
+                  >
+                    Semua ({matchedInteractions.length})
+                  </button>
+                  <button
+                    onClick={() => setSeverityFilter('Major')}
+                    className={`px-3 py-1 rounded-xl text-xs font-bold font-outfit transition-all cursor-pointer ${
+                      severityFilter === 'Major'
+                        ? 'bg-rose-600 text-white shadow-xs'
+                        : 'bg-white dark:bg-slate-800 text-rose-700 dark:text-rose-400 hover:bg-rose-50'
+                    }`}
+                  >
+                    Major ({matchedInteractions.filter((i) => i.severity === 'Major').length})
+                  </button>
+                  <button
+                    onClick={() => setSeverityFilter('Moderate')}
+                    className={`px-3 py-1 rounded-xl text-xs font-bold font-outfit transition-all cursor-pointer ${
+                      severityFilter === 'Moderate'
+                        ? 'bg-amber-600 text-white shadow-xs'
+                        : 'bg-white dark:bg-slate-800 text-amber-700 dark:text-amber-400 hover:bg-amber-50'
+                    }`}
+                  >
+                    Moderate ({matchedInteractions.filter((i) => i.severity === 'Moderate').length})
+                  </button>
+                  <button
+                    onClick={() => setSeverityFilter('Minor')}
+                    className={`px-3 py-1 rounded-xl text-xs font-bold font-outfit transition-all cursor-pointer ${
+                      severityFilter === 'Minor'
+                        ? 'bg-sky-600 text-white shadow-xs'
+                        : 'bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-400 hover:bg-sky-50'
+                    }`}
+                  >
+                    Minor ({matchedInteractions.filter((i) => i.severity === 'Minor').length})
+                  </button>
+                </div>
+
+                {/* DDInter 2.0 6-Mechanism Filters */}
+                <div className="flex items-center gap-1.5 flex-wrap pt-1 border-t border-slate-200/60 dark:border-slate-800/80">
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-outfit">
+                    Mekanisme DDInter 2.0:
+                  </span>
+                  {[
+                    { id: 'all', label: 'Semua', icon: '✨' },
+                    { id: 'Metabolism', label: 'Metabolisme (CYP)', icon: '🔬' },
+                    { id: 'Absorption', label: 'Absorpsi & Khelasi', icon: '🧪' },
+                    { id: 'Excretion', label: 'Klirens Ginjal', icon: '💧' },
+                    { id: 'Distribution', label: 'Ikatan Protein', icon: '🩸' },
+                    { id: 'Synergy', label: 'Sinergi Aditif', icon: '⚡' },
+                    { id: 'Antagonism', label: 'Antagonisme', icon: '⚖️' }
+                  ].map((m) => (
+                    <button
+                      key={m.id}
+                      onClick={() => setMechanismFilter(m.id as any)}
+                      className={`text-[11px] font-bold font-outfit px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1 ${
+                        mechanismFilter === m.id
+                          ? 'bg-amber-600 text-white border-amber-700 shadow-xs'
+                          : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-amber-700'
+                      }`}
+                    >
+                      <span>{m.icon}</span>
+                      <span>{m.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* DDI LIST */}
+              {filteredInteractions.length > 0 ? (
+                <div className="space-y-4">
+                  {filteredInteractions.map((item) => {
+                    const isMajor = item.severity === 'Major';
+                    const isMod = item.severity === 'Moderate';
+                    const cardSeverityClass = isMajor 
+                      ? 'clinical-card-major' 
+                      : isMod 
+                      ? 'clinical-card-moderate' 
+                      : 'clinical-card-minor';
+                    const badgeSeverityClass = isMajor
+                      ? 'clinical-badge-major'
+                      : isMod
+                      ? 'clinical-badge-moderate'
+                      : 'clinical-badge-minor';
+                    const badgeInfo = getMechanismBadge(item.mechanismCategory);
+
+                    return (
+                      <div
+                        key={item.id}
+                        className={`rounded-2xl p-5 sm:p-6 border shadow-sm space-y-4 text-left transition-all ${cardSeverityClass}`}
+                      >
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-black/5 dark:border-white/10 pb-3">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">{item.drugAName}</span>
+                            <span className="text-amber-500 font-black">⚡</span>
+                            <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">{item.drugBName}</span>
+                          </div>
+
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className={`text-xs font-black px-3 py-1 rounded-lg border flex items-center gap-1.5 shadow-2xs ${badgeInfo.bg}`}>
+                              <span>{badgeInfo.icon}</span>
+                              <span>{badgeInfo.label}</span>
+                            </span>
+                            <span className={badgeSeverityClass}>
+                              {isMajor ? '⚠️ MAJOR / KONTRAINDIKASI' : isMod ? '⚡ MODERATE / MONITORING' : 'ℹ️ MINOR / WASPADA'}
+                            </span>
+                            <span className="bg-white/90 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-bold px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700">
+                              Bukti: {item.evidenceLevel}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                          <div className="bg-white/90 dark:bg-slate-900/70 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
+                            <p className="font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+                              <span>🔬 Mekanisme Farmakologi DDInter:</span>
+                            </p>
+                            <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.mechanism}</p>
+                          </div>
+
+                          <div className="bg-white/90 dark:bg-slate-900/70 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
+                            <p className="font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+                              <span>🩺 Dampak Klinis pada Pasien:</span>
+                            </p>
+                            <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.clinicalOutcome}</p>
+                          </div>
+                        </div>
+
+                        {/* Management Box */}
+                        <div className="bg-white/95 dark:bg-slate-900/85 p-4 rounded-xl border border-teal-300/60 dark:border-teal-800/80 space-y-1 shadow-2xs">
+                          <div className="flex items-center gap-1.5 text-teal-900 dark:text-teal-200 font-bold text-xs">
+                            <CheckCircle2 className="w-4 h-4 text-teal-700 dark:text-teal-400" />
+                            <span>Solusi Klinis &amp; Rekomendasi Apoteker:</span>
+                          </div>
+                          <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
+                            {item.management}
+                          </p>
+                        </div>
+
+                        {/* EBM Scientific Verification Strip */}
+                        <div className="pt-2 border-t border-black/5 dark:border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="inline-flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300">
+                              <ShieldCheck className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                              <span>Level Bukti: <strong>Tingkat {item.evidenceLevel}</strong></span>
+                            </span>
+                            <span className="text-slate-300 dark:text-slate-700">•</span>
+                            <span className="text-slate-600 dark:text-slate-400">
+                              Rujukan: <strong>DDInter 2.0 (Computational Biology &amp; Drug Design Group)</strong>
+                            </span>
+                          </div>
+
+                          <a
+                            href={DDINTER_OFFICIAL_URLS.ddi}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 font-mono text-[10px] text-slate-600 dark:text-slate-400 hover:text-amber-700 dark:hover:text-amber-400"
+                          >
+                            <span>ID DDInter:</span>
+                            <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shadow-2xs hover:border-amber-400">
+                              {item.ddinterPairId} ↗
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="clinical-card-safe p-8 rounded-2xl border text-center space-y-2.5 shadow-xs">
+                  <ShieldCheck className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto" />
+                  <div className="space-y-1">
+                    <h3 className="text-base font-black text-emerald-950 dark:text-emerald-200">
+                      Tidak Ditemukan Interaksi Antar-Obat yang Memenuhi Kriteria Filter
+                    </h3>
+                    <p className="text-xs text-emerald-900/80 dark:text-emerald-300/80 max-w-md mx-auto font-medium leading-relaxed">
+                      Coba ganti pilihan filter keparahan atau filter mekanisme DDInter di atas untuk meninjau hasil lainnya.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 3: KONTRAINDIKASI OBAT TERHADAP PENYAKIT (DDSI) */}
+          {activeTab === 'disease' && (
+            <div className="space-y-4 animate-fade-in">
+              {/* Official DDInter 2.0 DDSI Header */}
+              <div className="bg-gradient-to-r from-rose-500/10 via-rose-500/5 to-transparent border border-rose-300/70 dark:border-rose-700/60 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-outfit uppercase tracking-wider">
+                      DDInter 2.0 Other Interaction • DDSI
+                    </span>
+                    <span className="text-xs font-bold text-rose-900 dark:text-rose-300 font-outfit">
+                      Beers Criteria &amp; Clinical Guidelines Verified
+                    </span>
+                  </div>
+                  <h4 className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-outfit">
+                    Interaksi Obat dengan Penyakit &amp; Kontraindikasi Komorbiditas
+                  </h4>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 font-medium max-w-2xl leading-relaxed">
+                    Mengevaluasi kontraindikasi obat terhadap kondisi penyakit pasien (Drug-Disease Interactions / DDSI) untuk mencegah perburukan klinis, dekompensasi organ, dan reaksi toksik fatal.
+                  </p>
+                </div>
+                <a
+                  href={DDINTER_OFFICIAL_URLS.otherInteractions}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold font-outfit shadow-xs transition-all hover:scale-105"
+                >
+                  <span>Buka Server DDInter DDSI</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* Comorbidity Selector Box with All-Risks Toggle */}
+              <div className="bg-slate-50 dark:bg-slate-900/60 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                  <div>
+                    <h5 className="text-xs font-black text-slate-900 dark:text-white font-outfit flex items-center gap-1.5">
+                      <Stethoscope className="w-4 h-4 text-rose-500" />
+                      <span>Kondisi Komorbiditas Pasien yang Terpilih</span>
+                    </h5>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                      Pilih riwayat penyakit pasien untuk menyaring kontraindikasi spesifik pada resep ini.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <label className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-700 dark:text-rose-300 cursor-pointer">
+                      <input
+                        id="toggle-all-disease-risks"
+                        type="checkbox"
+                        checked={showAllPotentialDiseaseRisks}
+                        onChange={(e) => setShowAllPotentialDiseaseRisks(e.target.checked)}
+                        className="rounded text-rose-600 focus:ring-rose-500 w-3.5 h-3.5"
+                      />
+                      <span>Tampilkan Seluruh Penyakit Berisiko ({DRUG_DISEASE_INTERACTIONS_DATABASE.length})</span>
+                    </label>
+
+                    {selectedDiseases.length > 0 && (
+                      <button
+                        onClick={handleClearDiseases}
+                        className="text-[11px] font-bold text-slate-500 hover:text-rose-600 flex items-center gap-1 cursor-pointer"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                        <span>Reset ({selectedDiseases.length})</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Disease Chips */}
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {COMMON_CLINICAL_DISEASES.map((dis) => {
+                    const isSelected = selectedDiseases.includes(dis.name);
+                    return (
+                      <button
+                        key={dis.id}
+                        id={`tab-disease-chip-${dis.id}`}
+                        onClick={() => handleToggleDisease(dis.name)}
+                        className={`text-xs font-bold font-outfit px-3 py-1.5 rounded-xl border transition-all flex items-center gap-1.5 cursor-pointer ${
+                          isSelected
+                            ? 'bg-rose-600 text-white border-rose-700 shadow-xs scale-[1.02]'
+                            : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-rose-400 hover:text-rose-700'
+                        }`}
+                      >
+                        <span>{dis.icon}</span>
+                        <span>{dis.name}</span>
+                        {isSelected && <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">✓</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* DDSI LIST */}
+              {matchedDiseaseInteractions.length > 0 ? (
+                <div className="space-y-4">
+                  {matchedDiseaseInteractions.map((item) => {
+                    const isAbsolute = item.contraindicationLevel.includes('Absolute');
+                    return (
+                      <div
+                        key={item.id}
+                        className="clinical-card-major rounded-2xl p-5 sm:p-6 border shadow-xs space-y-4"
+                      >
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-black/5 dark:border-white/10 pb-3">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-black text-slate-900 dark:text-white text-base">💊 {item.drugName}</span>
+                            <span className="text-rose-600 font-black text-xs">❌ KONTRAINDIKASI PADA</span>
+                            <span className="bg-white/90 dark:bg-slate-800 text-rose-950 dark:text-rose-200 text-xs font-black px-2.5 py-1 rounded-lg border border-rose-300 dark:border-rose-700 shadow-2xs">
+                              🩺 {item.diseaseName}
+                            </span>
+                          </div>
+                          <span className={isAbsolute ? 'clinical-badge-major' : 'clinical-badge-moderate'}>
+                            {isAbsolute ? '⛔ MUTLAK / ABSOLUTE' : '⚠️ RELATIF / CAUTION'}
                           </span>
                         </div>
-                        <span className={isAbsolute ? 'clinical-badge-major' : 'clinical-badge-moderate'}>
-                          {isAbsolute ? '⛔ MUTLAK / ABSOLUTE' : '⚠️ RELATIF / CAUTION'}
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                          <div className="bg-slate-50 dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
+                            <p className="font-black text-slate-900 dark:text-white">Mekanisme Patologis:</p>
+                            <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.mechanism}</p>
+                          </div>
+
+                          <div className="bg-rose-50/60 dark:bg-rose-950/30 p-3.5 rounded-xl border border-rose-200/80 dark:border-rose-900/50 space-y-1">
+                            <p className="font-black text-rose-950 dark:text-rose-200">Bahaya &amp; Risiko Klinis:</p>
+                            <p className="text-rose-900 dark:text-rose-300 leading-relaxed font-bold">{item.clinicalRisk}</p>
+                          </div>
+                        </div>
+
+                        <div className="bg-teal-50/80 dark:bg-teal-950/40 p-4 rounded-xl border border-teal-200/80 dark:border-teal-900 text-xs space-y-1">
+                          <div className="flex items-center gap-1.5 text-teal-900 dark:text-teal-200 font-black">
+                            <CheckCircle2 className="w-4 h-4 text-teal-700 dark:text-teal-400" />
+                            <span>Rekomendasi Tindakan Klinis &amp; Alternatif:</span>
+                          </div>
+                          <p className="text-teal-950 dark:text-teal-100 font-medium leading-relaxed">
+                            {item.recommendation}
+                          </p>
+                        </div>
+
+                        {item.references && (
+                          <div className="pt-2 border-t border-black/5 dark:border-white/10 flex items-center justify-between gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+                            <span>Pedoman Rujukan: <strong>{item.references}</strong></span>
+                            <span className="font-mono text-[10px] text-slate-400">ID: {item.id}</span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="clinical-card-safe p-8 rounded-2xl border text-center space-y-2.5 shadow-xs">
+                  <ShieldCheck className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto" />
+                  <div className="space-y-1">
+                    <h3 className="text-base font-black text-emerald-950 dark:text-emerald-200">
+                      Tidak Ditemukan Kontraindikasi Penyakit
+                    </h3>
+                    <p className="text-xs text-emerald-900/80 dark:text-emerald-300/80 max-w-md mx-auto font-medium leading-relaxed">
+                      {selectedDiseases.length === 0
+                        ? 'Klik salah satu tombol kondisi penyakit pasien di atas untuk memeriksa kontraindikasi spesifik pada resep ini.'
+                        : 'Seluruh obat yang dipilih aman diberikan pada riwayat penyakit yang Anda tandai.'}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 4: INTERAKSI OBAT DENGAN MAKANAN (DFI) */}
+          {activeTab === 'food' && (
+            <div className="space-y-4 animate-fade-in">
+              {/* Official DDInter 2.0 DFI Header */}
+              <div className="bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-transparent border border-purple-300/70 dark:border-purple-700/60 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-purple-600 text-white font-outfit uppercase tracking-wider">
+                      DDInter 2.0 Other Interaction • DFI
+                    </span>
+                    <span className="text-xs font-bold text-purple-900 dark:text-purple-300 font-outfit">
+                      Food &amp; Nutrient Kinetic Standard
+                    </span>
+                  </div>
+                  <h4 className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-outfit">
+                    Interaksi Obat dengan Makanan, Minuman &amp; Suplemen (DFI)
+                  </h4>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 font-medium max-w-2xl leading-relaxed">
+                    Panduan jeda waktu makan, interaksi kelat khelasi dengan susu / kalsium, penghambatan enzim CYP3A4 oleh jus grapefruit, reaksi disulfiram dengan alkohol, dan stabilitas vitamin K.
+                  </p>
+                </div>
+                <a
+                  href={DDINTER_OFFICIAL_URLS.otherInteractions}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold font-outfit shadow-xs transition-all hover:scale-105"
+                >
+                  <span>Buka Server DDInter DFI</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* DFI LIST */}
+              {matchedFoodInteractions.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                  {matchedFoodInteractions.map((dfi) => (
+                    <div
+                      key={dfi.id}
+                      className="bg-white dark:bg-[#0c1322] p-5 rounded-2xl border border-purple-200 dark:border-purple-900/60 text-xs space-y-2.5 shadow-xs hover:border-purple-400 transition-all"
+                    >
+                      <div className="flex items-center justify-between gap-2 flex-wrap pb-2 border-b border-purple-100 dark:border-purple-950/60">
+                        <div className="flex items-center gap-1.5 flex-wrap font-black">
+                          <span className="text-slate-900 dark:text-white text-sm">💊 {dfi.drugName}</span>
+                          <span className="text-purple-600 dark:text-purple-400">⚡</span>
+                          <span className="text-purple-900 dark:text-purple-200 text-sm">🥗 {dfi.foodName}</span>
+                        </div>
+                        <span className="bg-purple-100 dark:bg-purple-900/80 text-purple-800 dark:text-purple-200 text-[10px] font-black px-2.5 py-0.5 rounded-md border border-purple-300 dark:border-purple-700 shadow-2xs">
+                          {dfi.foodCategory}
                         </span>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs">
-                        <div className="bg-slate-50 dark:bg-slate-900/60 p-3 rounded-lg border border-slate-200/80 dark:border-slate-800 space-y-0.5">
-                          <p className="font-black text-slate-900 dark:text-white">Mekanisme Patologis:</p>
-                          <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.mechanism}</p>
-                        </div>
-
-                        <div className="bg-rose-50/60 dark:bg-rose-950/30 p-3 rounded-lg border border-rose-200/80 dark:border-rose-900/50 space-y-0.5">
-                          <p className="font-black text-rose-950 dark:text-rose-200">Bahaya & Risiko Klinis:</p>
-                          <p className="text-rose-900 dark:text-rose-300 leading-relaxed font-bold">{item.clinicalRisk}</p>
-                        </div>
+                      <div className="space-y-1">
+                        <p className="font-bold text-slate-800 dark:text-slate-200">Mekanisme &amp; Dampak Klinis:</p>
+                        <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{dfi.clinicalOutcome}</p>
                       </div>
 
-                      <div className="bg-teal-50/80 dark:bg-teal-950/40 p-3.5 rounded-lg border border-teal-200/80 dark:border-teal-900 text-xs space-y-0.5">
-                        <div className="flex items-center gap-1.5 text-teal-900 dark:text-teal-200 font-black">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-teal-700 dark:text-teal-400" />
-                          <span>Rekomendasi Tindakan Klinis:</span>
-                        </div>
-                        <p className="text-teal-950 dark:text-teal-100 font-medium leading-relaxed">
-                          {item.recommendation}
+                      <div className="bg-purple-50 dark:bg-purple-950/50 p-3.5 rounded-xl border border-purple-200/80 dark:border-purple-900/60 space-y-1">
+                        <p className="font-black text-purple-950 dark:text-purple-200 flex items-center gap-1">
+                          <span>📌 Petunjuk Waktu Minum &amp; Aturan Diet:</span>
+                        </p>
+                        <p className="text-purple-900 dark:text-purple-300 font-medium leading-relaxed">
+                          {dfi.recommendation}
                         </p>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="clinical-card-safe p-8 rounded-2xl border text-center space-y-2.5 shadow-xs">
+                  <ShieldCheck className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto" />
+                  <div className="space-y-1">
+                    <h3 className="text-base font-black text-emerald-950 dark:text-emerald-200">
+                      Bebas Pantangan Makanan Mayor
+                    </h3>
+                    <p className="text-xs text-emerald-900/80 dark:text-emerald-300/80 max-w-md mx-auto font-medium leading-relaxed">
+                      Tidak ditemukan interaksi makanan atau minuman yang mengharuskan penyesuaian diet ketat pada obat yang dipilih.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
-          {/* Therapeutic Duplications Section - Cute Berry/Pink Styling */}
-          {matchedDuplications.length > 0 && (
-            <div className="bg-gradient-to-r from-pink-50/90 via-rose-50/90 to-pink-50/90 dark:from-pink-950/30 dark:via-rose-950/30 dark:to-pink-950/30 border border-pink-300 dark:border-pink-800/80 rounded-2xl p-5 space-y-3 shadow-xs">
-              <div className="flex items-center gap-2 text-pink-950 dark:text-pink-200 font-black text-sm">
-                <span className="p-1 rounded-lg bg-pink-100 dark:bg-pink-900/60 text-pink-700 dark:text-pink-300">
-                  <CopyX className="w-4 h-4" />
-                </span>
-                <span>Peringatan Duplikasi Terapetik (Therapeutic Duplications)</span>
-                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-pink-200 dark:bg-pink-900 text-pink-900 dark:text-pink-200">
-                  {matchedDuplications.length} Duplikasi
-                </span>
-              </div>
-              <div className="space-y-2">
-                {matchedDuplications.map((dup) => (
-                  <div key={dup.id} className="bg-white dark:bg-[#071c21] p-4 rounded-xl border border-pink-200 dark:border-pink-800/60 text-xs space-y-1.5 shadow-2xs hover:border-pink-400 transition-all">
-                    <p className="font-black text-slate-900 dark:text-white flex items-center gap-1.5 flex-wrap">
-                      <span>💊 {dup.drugAName} & {dup.drugBName}</span>
-                      <span className="bg-pink-100 dark:bg-pink-900/60 text-pink-800 dark:text-pink-300 text-[10px] font-extrabold px-2 py-0.5 rounded-md border border-pink-300 dark:border-pink-700">
-                        {dup.therapeuticClass}
-                      </span>
-                    </p>
-                    <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{dup.riskDescription}</p>
-                    <p className="text-pink-900 dark:text-pink-300 font-bold mt-1 bg-pink-50 dark:bg-pink-950/40 p-2 rounded-lg border border-pink-200/60 dark:border-pink-900/50">
-                      💡 Saran Apoteker: {dup.recommendation}
-                    </p>
+          {/* TAB 5: DUPLIKASI TERAPI (THERAPEUTIC DUPLICATION) */}
+          {activeTab === 'duplication' && (
+            <div className="space-y-4 animate-fade-in">
+              {/* Official DDInter 2.0 Duplication Header */}
+              <div className="bg-gradient-to-r from-pink-500/10 via-pink-500/5 to-transparent border border-pink-300/70 dark:border-pink-700/60 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-pink-600 text-white font-outfit uppercase tracking-wider">
+                      DDInter 2.0 Other Interaction • Duplication
+                    </span>
+                    <span className="text-xs font-bold text-pink-900 dark:text-pink-300 font-outfit">
+                      ATC &amp; Deprescribing Protocol
+                    </span>
                   </div>
-                ))}
+                  <h4 className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-outfit">
+                    Penapisan Duplikasi Terapi (Therapeutic Duplication Checker)
+                  </h4>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 font-medium max-w-2xl leading-relaxed">
+                    Mendeteksi peresepan ganda pada kelas farmakologi atau kode ATC yang sama (seperti 2 NSAID oral, 2 PPI, 2 Statin, Dual RAAS Blockade ACEi + ARB) yang melipatgandakan efek samping tanpa bukti peningkatan efikasi.
+                  </p>
+                </div>
+                <a
+                  href={DDINTER_OFFICIAL_URLS.otherInteractions}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold font-outfit shadow-xs transition-all hover:scale-105"
+                >
+                  <span>Buka Server DDInter Duplication</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
               </div>
-            </div>
-          )}
 
-          {/* Individual DDI Pairs (Drug-Drug Interactions) */}
-          {selectedDrugs.length >= 2 && matchedInteractions.length > 0 ? (
-            <div className="space-y-4">
-              <h3 className="text-base font-black text-[#082a24] dark:text-teal-200">
-                Detail Hasil Analisis Interaksi Antar Obat ({matchedInteractions.length})
-              </h3>
-
-              {matchedInteractions.map((item) => {
-                const isMajor = item.severity === 'Major';
-                const isMod = item.severity === 'Moderate';
-                const cardSeverityClass = isMajor 
-                  ? 'clinical-card-major' 
-                  : isMod 
-                  ? 'clinical-card-moderate' 
-                  : 'clinical-card-minor';
-                const badgeSeverityClass = isMajor
-                  ? 'clinical-badge-major'
-                  : isMod
-                  ? 'clinical-badge-moderate'
-                  : 'clinical-badge-minor';
-
-                return (
-                  <div
-                    key={item.id}
-                    className={`rounded-2xl p-5 sm:p-6 border shadow-sm space-y-4 text-left transition-all ${cardSeverityClass}`}
-                  >
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-black/5 dark:border-white/10 pb-3">
-                      <div className="flex items-center gap-2">
-                        <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">{item.drugAName}</span>
-                        <span className="text-amber-500 font-black">⚡</span>
-                        <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">{item.drugBName}</span>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <span className={badgeSeverityClass}>
-                          {isMajor ? '⚠️ MAJOR / KONTRAINDIKASI' : isMod ? '⚡ MODERATE / MONITORING' : 'ℹ️ MINOR / WASPADA'}
-                        </span>
-                        <span className="bg-white/90 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-bold px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700">
-                          Bukti: {item.evidenceLevel}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                      <div className="bg-white/90 dark:bg-slate-900/70 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
-                        <p className="font-black text-slate-900 dark:text-white">Mekanisme Interaksi:</p>
-                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.mechanism}</p>
-                      </div>
-
-                      <div className="bg-white/90 dark:bg-slate-900/70 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
-                        <p className="font-black text-slate-900 dark:text-white">Dampak Klinis Pasien:</p>
-                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{item.clinicalOutcome}</p>
-                      </div>
-                    </div>
-
-                    {/* Management Box */}
-                    <div className="bg-white/95 dark:bg-slate-900/85 p-4 rounded-xl border border-teal-300/60 dark:border-teal-800/80 space-y-1 shadow-2xs">
-                      <div className="flex items-center gap-1.5 text-teal-900 dark:text-teal-200 font-bold text-xs">
-                        <CheckCircle2 className="w-4 h-4 text-teal-700 dark:text-teal-400" />
-                        <span>Solusi &amp; Manajemen Praktik Klinis:</span>
-                      </div>
-                      <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
-                        {item.management}
-                      </p>
-                    </div>
-
-                    {/* EBM Scientific Verification Strip */}
-                    <div className="pt-2 border-t border-black/5 dark:border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 dark:text-slate-400">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="inline-flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300">
-                          <ShieldCheck className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
-                          <span>Level Bukti Ilmiah: <strong>Tingkat {item.evidenceLevel}</strong></span>
-                        </span>
-                        <span className="text-slate-300 dark:text-slate-700">•</span>
-                        <span className="text-slate-600 dark:text-slate-400">
-                          Rujukan: <strong>DDInter Nature Protocol &amp; Panduan Terapi</strong>
+              {/* DUPLICATION LIST */}
+              {matchedDuplications.length > 0 ? (
+                <div className="space-y-3">
+                  {matchedDuplications.map((dup) => (
+                    <div
+                      key={dup.id}
+                      className="bg-white dark:bg-[#0c1322] p-5 rounded-2xl border border-pink-200 dark:border-pink-900/60 text-xs space-y-3 shadow-xs hover:border-pink-400 transition-all"
+                    >
+                      <div className="flex items-center justify-between gap-2 flex-wrap pb-2 border-b border-pink-100 dark:border-pink-950/60">
+                        <div className="flex items-center gap-2 flex-wrap font-black">
+                          <span className="text-slate-900 dark:text-white text-base">💊 {dup.drugAName} &amp; {dup.drugBName}</span>
+                        </div>
+                        <span className="bg-pink-100 dark:bg-pink-950 text-pink-800 dark:text-pink-300 text-xs font-black px-2.5 py-1 rounded-md border border-pink-300 dark:border-pink-700">
+                          {dup.therapeuticClass}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-1.5 font-mono text-[10px] text-slate-400 dark:text-slate-500">
-                        <span>ID Verifikasi:</span>
-                        <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shadow-2xs">
-                          {item.ddinterPairId}
-                        </span>
+                      <div className="space-y-1">
+                        <p className="font-bold text-slate-800 dark:text-slate-200">Risiko Duplikasi Farmakologi:</p>
+                        <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{dup.riskDescription}</p>
+                      </div>
+
+                      <div className="bg-pink-50/80 dark:bg-pink-950/50 p-4 rounded-xl border border-pink-200/80 dark:border-pink-900/60 space-y-1">
+                        <p className="font-black text-pink-950 dark:text-pink-200 flex items-center gap-1.5">
+                          <Sparkles className="w-4 h-4 text-pink-600 dark:text-pink-400" />
+                          <span>Saran Rasionalisasi Resep (Deprescribing / Apoteker):</span>
+                        </p>
+                        <p className="text-pink-900 dark:text-pink-300 font-medium leading-relaxed">
+                          {dup.recommendation}
+                        </p>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : selectedDrugs.length >= 2 ? (
-            <div className="clinical-card-safe p-8 rounded-2xl border text-center space-y-2.5 shadow-xs">
-              <ShieldCheck className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto" />
-              <div className="space-y-1">
-                <h3 className="text-base font-black text-emerald-950 dark:text-emerald-200">
-                  Kompatibilitas Aman: Tidak Ditemukan Interaksi Signifikan
-                </h3>
-                <p className="text-xs text-emerald-900/80 dark:text-emerald-300/80 max-w-md mx-auto font-medium leading-relaxed">
-                  Kombinasi obat yang Anda pilih tidak menunjukkan efek interaksi obat-dengan-obat (DDI) yang membahayakan pada analisis standar konsensus klinis DDInter &amp; Drugs.com.
-                </p>
-              </div>
-            </div>
-          ) : null}
-
-          {/* Drug-Food & Lifestyle Interactions (DFI) Section - Sweet Lavender Styling */}
-          {matchedFoodInteractions.length > 0 && (
-            <div className="bg-gradient-to-r from-purple-50/90 via-fuchsia-50/90 to-purple-50/90 dark:from-purple-950/30 dark:via-fuchsia-950/30 dark:to-purple-950/30 border border-purple-300 dark:border-purple-800/80 rounded-2xl p-5 space-y-3 shadow-xs">
-              <div className="flex items-center gap-2 text-purple-950 dark:text-purple-200 font-black text-sm">
-                <span className="p-1 rounded-lg bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300">
-                  <Utensils className="w-4 h-4" />
-                </span>
-                <span>Interaksi Makanan, Minuman & Gaya Hidup (Food & Lifestyle / DFI)</span>
-                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-200 dark:bg-purple-900 text-purple-900 dark:text-purple-200">
-                  {matchedFoodInteractions.length} Interaksi
-                </span>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {matchedFoodInteractions.map((dfi) => (
-                  <div key={dfi.id} className="bg-white dark:bg-[#071c21] p-4 rounded-xl border border-purple-200 dark:border-purple-800/60 text-xs space-y-1.5 shadow-2xs hover:border-purple-400 transition-all">
-                    <div className="flex items-center justify-between gap-2 flex-wrap">
-                      <span className="font-black text-slate-900 dark:text-white flex items-center gap-1">
-                        <span>💊 {dfi.drugName}</span>
-                        <span className="text-purple-600 dark:text-purple-400">⚡</span>
-                        <span>🥗 {dfi.foodName}</span>
-                      </span>
-                      <span className="bg-purple-100 dark:bg-purple-900/80 text-purple-800 dark:text-purple-200 text-[10px] font-black px-2 py-0.5 rounded-md border border-purple-300 dark:border-purple-700 shadow-2xs">
-                        {dfi.foodCategory}
-                      </span>
-                    </div>
-                    <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{dfi.clinicalOutcome}</p>
-                    <p className="text-purple-950 dark:text-purple-200 font-bold bg-purple-50 dark:bg-purple-950/40 p-2 rounded-lg border border-purple-200/60 dark:border-purple-900/50">
-                      📌 Petunjuk Konsumsi: {dfi.recommendation}
+                  ))}
+                </div>
+              ) : (
+                <div className="clinical-card-safe p-8 rounded-2xl border text-center space-y-2.5 shadow-xs">
+                  <ShieldCheck className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto" />
+                  <div className="space-y-1">
+                    <h3 className="text-base font-black text-emerald-950 dark:text-emerald-200">
+                      Bebas Duplikasi Terapi
+                    </h3>
+                    <p className="text-xs text-emerald-900/80 dark:text-emerald-300/80 max-w-md mx-auto font-medium leading-relaxed">
+                      Resep ini rasional dan tidak mengandung dua obat yang berasal dari kelas terapeutik yang sama.
                     </p>
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
             </div>
           )}
 

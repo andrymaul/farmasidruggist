@@ -295,10 +295,23 @@ const BASE_DRUG_DISEASE_INTERACTIONS: DrugDiseaseInteraction[] = [
   }
 ];
 
-export const DRUG_DISEASE_INTERACTIONS_DATABASE: DrugDiseaseInteraction[] = [
+function deduplicateDrugDiseaseInteractions(list: DrugDiseaseInteraction[]): DrugDiseaseInteraction[] {
+  const seen = new Set<string>();
+  const result: DrugDiseaseInteraction[] = [];
+  list.forEach((item) => {
+    const key = (item.drugName.toLowerCase().trim() + '__' + item.diseaseName.toLowerCase().trim());
+    if (!seen.has(key)) {
+      seen.add(key);
+      result.push(item);
+    }
+  });
+  return result;
+}
+
+export const DRUG_DISEASE_INTERACTIONS_DATABASE: DrugDiseaseInteraction[] = deduplicateDrugDiseaseInteractions([
   ...BASE_DRUG_DISEASE_INTERACTIONS,
   ...DRUG_DISEASE_EXTENDED_DATABASE
-];
+]);
 
 export interface ComorbidityProfile {
   id: string;

@@ -136,6 +136,10 @@ export interface Drug {
   administrationGuideline?: string;
 }
 
+export type DDInterMechanismCategory = 'Absorption' | 'Distribution' | 'Metabolism' | 'Excretion' | 'Synergy' | 'Antagonism' | 'Others';
+
+export type DDInterSubTab = 'all' | 'ddi' | 'disease' | 'food' | 'duplication';
+
 export interface DrugInteraction {
   id: string;
   drugAId: string;
@@ -148,6 +152,7 @@ export interface DrugInteraction {
   management: string;
   evidenceLevel: 'High' | 'Moderate' | 'Low' | string;
   ddinterPairId: string;
+  mechanismCategory?: DDInterMechanismCategory;
 }
 
 export type UserRole = 'admin' | 'customer' | 'free';

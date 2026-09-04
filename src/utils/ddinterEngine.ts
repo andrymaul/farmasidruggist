@@ -1,4 +1,4 @@
-import { Drug, DrugInteraction, SeverityLevel, TherapeuticDuplication, DrugFoodInteraction, DrugDiseaseInteraction } from '../types';
+import { Drug, DrugInteraction, SeverityLevel, TherapeuticDuplication, DrugFoodInteraction, DrugDiseaseInteraction, DDInterMechanismCategory } from '../types';
 import { DRUGSCOM_DOSAGE_MAP } from '../data/drugsComDosageDatabase';
 
 function findDosageMonograph(drug: Drug) {
@@ -232,6 +232,116 @@ export function deduplicateDrugs(drugs: Drug[]): Drug[] {
 }
 
 /**
+ * Categorize interaction mechanism according to official DDInter 2.0 taxonomy
+ * (Absorption, Distribution, Metabolism, Excretion, Synergy, Antagonism, Others)
+ * Reference: https://ddinter2.scbdd.com/server/interaction/
+ */
+export function categorizeDDInterMechanism(
+  mechanismText: string = '',
+  clinicalOutcome: string = ''
+): DDInterMechanismCategory {
+  const text = (mechanismText + ' ' + clinicalOutcome).toLowerCase();
+
+  // 1. Metabolism (CYP enzymes, hepatic clearance, biotransformation, microsomal)
+  if (
+    text.includes('cyp') ||
+    text.includes('sitokrom') ||
+    text.includes('metabolisme') ||
+    text.includes('metabolit') ||
+    text.includes('inhibisi enzim') ||
+    text.includes('induksi enzim') ||
+    text.includes('cyp3a4') ||
+    text.includes('cyp2c9') ||
+    text.includes('cyp2d6') ||
+    text.includes('cyp1a2') ||
+    text.includes('cyp2c19') ||
+    text.includes('biotransformasi')
+  ) {
+    return 'Metabolism';
+  }
+
+  // 2. Absorption (Chelation, gastric pH, GI motility, bioavailability, intestinal transporter)
+  if (
+    text.includes('absorp') ||
+    text.includes('khelasi') ||
+    text.includes('kelat') ||
+    text.includes('penyerapan') ||
+    text.includes('bioavailabilitas') ||
+    text.includes('motilitas') ||
+    text.includes('ph lambung') ||
+    text.includes('asam lambung') ||
+    text.includes('kation') ||
+    text.includes('antacid') ||
+    text.includes('kalsium') ||
+    text.includes('sukralfat') ||
+    text.includes('pengosongan lambung')
+  ) {
+    return 'Absorption';
+  }
+
+  // 3. Excretion (Renal tubular secretion, renal clearance, GFR, OAT/OCT transporters)
+  if (
+    text.includes('ekskresi') ||
+    text.includes('klirens ginjal') ||
+    text.includes('tubulus') ||
+    text.includes('renal clearance') ||
+    text.includes('eliminasi renal') ||
+    text.includes('filtrasi glomerulus') ||
+    text.includes('sekresi ginjal') ||
+    text.includes('akumulasi renal')
+  ) {
+    return 'Excretion';
+  }
+
+  // 4. Distribution (Plasma protein binding displacement, volume of distribution, BBB permeability)
+  if (
+    text.includes('ikatan protein') ||
+    text.includes('protein plasma') ||
+    text.includes('mendesak ikatan') ||
+    text.includes('perpindahan ikatan') ||
+    text.includes('volume distribusi') ||
+    text.includes('sawar darah otak')
+  ) {
+    return 'Distribution';
+  }
+
+  // 5. Synergy (Additive/synergistic pharmacodynamics, QT prolongation, bleeding risk, CNS depression, sedation)
+  if (
+    text.includes('sinergi') ||
+    text.includes('aditif') ||
+    text.includes('melipatgandakan') ||
+    text.includes('peningkatan drastis risiko') ||
+    text.includes('depresi pernapasan') ||
+    text.includes('depresi sistem saraf pusat') ||
+    text.includes('depresi ssp') ||
+    text.includes('pemanjangan interval qt') ||
+    text.includes('perpanjangan qt') ||
+    text.includes('torsades') ||
+    text.includes('serotonin sindrom') ||
+    text.includes('sindrom serotonin') ||
+    text.includes('perdarahan mayor') ||
+    text.includes('hipotensi fatal')
+  ) {
+    return 'Synergy';
+  }
+
+  // 6. Antagonism (Opposing receptor actions, efficacy reduction, functional counteraction)
+  if (
+    text.includes('antagonis') ||
+    text.includes('menentang') ||
+    text.includes('berlawanan') ||
+    text.includes('menghambat efek') ||
+    text.includes('penurunan efektivitas') ||
+    text.includes('meniadakan') ||
+    text.includes('blunting')
+  ) {
+    return 'Antagonism';
+  }
+
+  return 'Others';
+}
+
+/**
  * Deduplicate array of DrugInteractions by pair key or ID
  */
 export function deduplicateInteractions(interactions: DrugInteraction[]): DrugInteraction[] {
@@ -249,7 +359,10 @@ export function deduplicateInteractions(interactions: DrugInteraction[]): DrugIn
       seenPairNames.add(pairNameKey);
       seenPairIds.add(pairIdKey);
       seenInterIds.add(interIdKey);
-      result.push(inter);
+      result.push({
+        ...inter,
+        mechanismCategory: inter.mechanismCategory || categorizeDDInterMechanism(inter.mechanism, inter.clinicalOutcome)
+      });
     }
   });
   return result;
@@ -910,7 +1023,12 @@ export function resolveInteractionPair(
       (i.drugAId === drugA.id && i.drugBId === drugB.id) ||
       (i.drugAId === drugB.id && i.drugBId === drugA.id)
   );
-  if (directMatch) return directMatch;
+  if (directMatch) {
+    return {
+      ...directMatch,
+      mechanismCategory: directMatch.mechanismCategory || categorizeDDInterMechanism(directMatch.mechanism, directMatch.clinicalOutcome)
+    };
+  }
 
   // 1b. Smart semantic/alias matching against database
   const keysA = getDrugMatchKeys(drugA);
@@ -928,7 +1046,12 @@ export function resolveInteractionPair(
     const bMatchesA = keysB.some((k) => interKeysA.includes(k));
     return aMatchesB && bMatchesA;
   });
-  if (aliasMatch) return aliasMatch;
+  if (aliasMatch) {
+    return {
+      ...aliasMatch,
+      mechanismCategory: aliasMatch.mechanismCategory || categorizeDDInterMechanism(aliasMatch.mechanism, aliasMatch.clinicalOutcome)
+    };
+  }
 
   // 2. Rule-based interaction inference for major drug classes
   const isStatin = (d: Drug) => d.category.toLowerCase().includes('statin') || d.name.toLowerCase().includes('statin');
@@ -1047,7 +1170,6 @@ export function evaluateTherapeuticDuplications(
   const results: TherapeuticDuplication[] = [];
   const seenPairKeys = new Set<string>();
 
-  // 1. Direct matches in static list
   for (let i = 0; i < selectedDrugs.length; i++) {
     for (let j = i + 1; j < selectedDrugs.length; j++) {
       const dA = selectedDrugs[i];
@@ -1057,35 +1179,84 @@ export function evaluateTherapeuticDuplications(
       const pairKey = [dA.id, dB.id].sort().join('__');
       if (seenPairKeys.has(pairKey)) continue;
 
-      const staticMatch = staticDuplications.find(
-        (dup) =>
-          (dup.drugAName.toLowerCase() === dA.name.toLowerCase() && dup.drugBName.toLowerCase() === dB.name.toLowerCase()) ||
-          (dup.drugAName.toLowerCase() === dB.name.toLowerCase() && dup.drugBName.toLowerCase() === dA.name.toLowerCase())
-      );
+      const nameALower = dA.name.toLowerCase().trim();
+      const nameBLower = dB.name.toLowerCase().trim();
+      const genALower = (dA.genericName || '').toLowerCase().trim();
+      const genBLower = (dB.genericName || '').toLowerCase().trim();
+
+      // 1. Static Duplication Match (with token parsing for combined names)
+      const staticMatch = staticDuplications.find((dup) => {
+        const aTokens = dup.drugAName.toLowerCase().split(/[/,&()]/).map((t) => t.trim()).filter(Boolean);
+        const bTokens = dup.drugBName.toLowerCase().split(/[/,&()]/).map((t) => t.trim()).filter(Boolean);
+
+        const aMatchesA = aTokens.some((t) => nameALower.includes(t) || genALower.includes(t) || t.includes(nameALower));
+        const bMatchesB = bTokens.some((t) => nameBLower.includes(t) || genBLower.includes(t) || t.includes(nameBLower));
+        if (aMatchesA && bMatchesB) return true;
+
+        const aMatchesB = aTokens.some((t) => nameBLower.includes(t) || genBLower.includes(t) || t.includes(nameBLower));
+        const bMatchesA = bTokens.some((t) => nameALower.includes(t) || genALower.includes(t) || t.includes(nameALower));
+        return aMatchesB && bMatchesA;
+      });
 
       if (staticMatch) {
         seenPairKeys.add(pairKey);
-        results.push({ ...staticMatch, id: `dup-${pairKey}` });
+        results.push({
+          ...staticMatch,
+          id: `dup-${pairKey}`,
+          drugAName: dA.name,
+          drugBName: dB.name
+        });
         continue;
       }
 
-      // Dynamic class duplication detection
+      // 2. Dynamic Therapeutic Class Duplication Detection (DDInter 2.0 Standard Classes)
       const catA = (dA.category || '').toLowerCase();
       const catB = (dB.category || '').toLowerCase();
+      const atcA = (dA.atcCode || '').substring(0, 4);
+      const atcB = (dB.atcCode || '').substring(0, 4);
 
-      // Same category (e.g. both statin, both NSAID, both PPI, both ACEi, both Beta Blocker)
-      if ((catA && catB && catA === catB) || (catA.includes('statin') && catB.includes('statin')) ||
-          (catA.includes('nsaid') && catB.includes('nsaid')) ||
-          (catA.includes('pompa proton') && catB.includes('pompa proton')) ||
-          (catA.includes('benzodiazepine') && catB.includes('benzodiazepine'))) {
+      const isSameAtcClass = atcA && atcB && atcA === atcB && atcA.length >= 3;
+      const isBothNsaid = (catA.includes('nsaid') || catA.includes('antiinflamasi non-steroid')) && 
+                          (catB.includes('nsaid') || catB.includes('antiinflamasi non-steroid'));
+      const isBothStatin = (catA.includes('statin') || nameALower.includes('statin')) && 
+                           (catB.includes('statin') || nameBLower.includes('statin'));
+      const isBothPpi = (catA.includes('pompa proton') || nameALower.includes('prazole')) && 
+                        (catB.includes('pompa proton') || nameBLower.includes('prazole'));
+      const isBothH2 = (catA.includes('antagonis h2') || nameALower.includes('tidine')) && 
+                       (catB.includes('antagonis h2') || nameBLower.includes('tidine'));
+      const isBothAcei = (catA.includes('ace inhibitor') || nameALower.includes('pril')) && 
+                         (catB.includes('ace inhibitor') || nameBLower.includes('pril'));
+      const isBothArb = (catA.includes('arb') || catA.includes('angiotensin') || nameALower.includes('sartan')) && 
+                        (catB.includes('arb') || catB.includes('angiotensin') || nameBLower.includes('sartan'));
+      const isBothBetaBlocker = (catA.includes('beta blocker') || nameALower.includes('lol')) && 
+                                (catB.includes('beta blocker') || nameBLower.includes('lol'));
+      const isBothCcb = (catA.includes('kalsium') || nameALower.includes('dipine')) && 
+                        (catB.includes('kalsium') || nameBLower.includes('dipine'));
+      const isBothBenzo = (catA.includes('benzodiazepin') || catA.includes('sedatif')) && 
+                          (catB.includes('benzodiazepin') || catB.includes('sedatif'));
+      const isBothSsri = (catA.includes('ssri') || catA.includes('serotonin')) && 
+                         (catB.includes('ssri') || catB.includes('serotonin'));
+      const isBothSulfonylurea = (catA.includes('sulfonilurea') || nameALower.includes('gli')) && 
+                                 (catB.includes('sulfonilurea') || nameBLower.includes('gli'));
+      const isBothSglt2 = (catA.includes('sglt2') || nameALower.includes('gliflozin')) && 
+                          (catB.includes('sglt2') || nameBLower.includes('gliflozin'));
+      const isBothSteroid = (catA.includes('kortikosteroid') || nameALower.includes('sone') || nameALower.includes('pred')) && 
+                            (catB.includes('kortikosteroid') || nameBLower.includes('sone') || nameBLower.includes('pred'));
+      const isBothOpioid = (catA.includes('opioid') || catA.includes('narkotika')) && 
+                           (catB.includes('opioid') || catB.includes('narkotika'));
+
+      if (isBothNsaid || isBothStatin || isBothPpi || isBothH2 || isBothAcei || isBothArb || 
+          isBothBetaBlocker || isBothCcb || isBothBenzo || isBothSsri || isBothSulfonylurea || 
+          isBothSglt2 || isBothSteroid || isBothOpioid || isSameAtcClass) {
         seenPairKeys.add(pairKey);
+        const className = dA.category || dB.category || 'Kelas Terapi Sejenis';
         results.push({
           id: `dup-${pairKey}`,
           drugAName: dA.name,
           drugBName: dB.name,
-          therapeuticClass: dA.category || 'Kelas Terapi Sejenis',
-          riskDescription: `Penggunaan dua obat dari kelas terapi yang sama (${dA.name} & ${dB.name}) dapat menyebabkan duplikasi efek farmakologi dan melipatgandakan risiko efek samping tanpa peningkatan manfaat klinis.`,
-          recommendation: `Tinjau kembali indikasi resep. Direkomendasikan untuk menggunakan hanya satu obat utama dalam kelas terapi ${dA.category || 'terkait'}.`
+          therapeuticClass: className,
+          riskDescription: `Penggunaan bersamaan dua agen dari kelas terapi yang sama (${dA.name} & ${dB.name}) tidak memberikan peningkatan efikasi terapeutik yang sebanding, namun melipatgandakan risiko toksisitas organ dan efek samping kumulatif.`,
+          recommendation: `Tinjau rasionalitas peresepan. Hentikan salah satu obat dan maksimalkan monoterapi pada dosis terukur, atau ganti dengan obat dari mekanisme kerja komplementer.`
         });
       }
     }
@@ -1099,24 +1270,32 @@ export function evaluateFoodInteractions(
   staticFoodInteractions: DrugFoodInteraction[] = []
 ): DrugFoodInteraction[] {
   const results: DrugFoodInteraction[] = [];
-  const seenIds = new Set<string>();
+  const seenKeys = new Set<string>();
 
   for (const drug of selectedDrugs) {
-    // 1. Check static matches
-    const staticMatches = staticFoodInteractions.filter(
-      (s) => s.drugName.toLowerCase() === drug.name.toLowerCase()
-    );
+    const drugNameLower = (drug.name || '').toLowerCase().trim();
+    const genericNameLower = (drug.genericName || '').toLowerCase().trim();
+
+    // 1. Check static matches with token resolution
+    const staticMatches = staticFoodInteractions.filter((s) => {
+      const sTokens = s.drugName.toLowerCase().split(/[/,&()]/).map((t) => t.trim()).filter(Boolean);
+      return sTokens.some((t) => drugNameLower.includes(t) || genericNameLower.includes(t) || t.includes(drugNameLower));
+    });
 
     if (staticMatches.length > 0) {
       for (const match of staticMatches) {
-        const uniqueId = `dfi-${match.id}-${drug.id}`;
-        if (!seenIds.has(uniqueId)) {
-          seenIds.add(uniqueId);
-          results.push({ ...match, id: uniqueId });
+        const uniqueKey = `${drug.id}__${match.foodName.toLowerCase().trim()}`;
+        if (!seenKeys.has(uniqueKey)) {
+          seenKeys.add(uniqueKey);
+          results.push({
+            ...match,
+            id: `dfi-${drug.id}-${match.id.replace(/[^a-z0-9]/gi, '')}`,
+            drugName: drug.name
+          });
         }
       }
     } else if (drug.foodInteraction && drug.foodInteraction.length > 5) {
-      // Create dynamic food interaction from drug monografi
+      // Dynamic fallback from drug monografi
       let foodCat: DrugFoodInteraction['foodCategory'] = 'Lainnya';
       const text = drug.foodInteraction.toLowerCase();
       if (text.includes('grapefruit') || text.includes('jeruk bali')) foodCat = 'Buah / Juice';
@@ -1124,12 +1303,14 @@ export function evaluateFoodInteractions(
       else if (text.includes('alkohol')) foodCat = 'Alkohol';
       else if (text.includes('vitamin k') || text.includes('bayam')) foodCat = 'Makanan Tinggi Vitamin K';
       else if (text.includes('kopi') || text.includes('kafein')) foodCat = 'Kafein / Kopi';
+      else if (text.includes('lemak')) foodCat = 'Makanan Tinggi Lemak';
+      else if (text.includes('kalium') || text.includes('mineral')) foodCat = 'Suplemen / Mineral';
 
-      const dynId = `dfi-dyn-${drug.id}`;
-      if (!seenIds.has(dynId)) {
-        seenIds.add(dynId);
+      const uniqueKey = `${drug.id}__dynamic_food`;
+      if (!seenKeys.has(uniqueKey)) {
+        seenKeys.add(uniqueKey);
         results.push({
-          id: dynId,
+          id: `dfi-dyn-${drug.id}`,
           drugName: drug.name,
           foodName: 'Rekomendasi Makanan / Minuman Monografi DDInter',
           foodCategory: foodCat,
@@ -1151,7 +1332,8 @@ function createDynamicInteraction(
   severity: SeverityLevel,
   mechanism: string,
   clinicalOutcome: string,
-  management: string
+  management: string,
+  mechanismCategory?: DDInterMechanismCategory
 ): DrugInteraction {
   return {
     id: `dyn-int-${drugA.id}-${drugB.id}`,
@@ -1164,17 +1346,20 @@ function createDynamicInteraction(
     clinicalOutcome,
     management,
     evidenceLevel: 'High',
-    ddinterPairId: 'DDInter-PAIR-' + Math.floor(1000 + Math.random() * 8999)
+    ddinterPairId: 'DDInter-PAIR-' + Math.floor(1000 + Math.random() * 8999),
+    mechanismCategory: mechanismCategory || categorizeDDInterMechanism(mechanism, clinicalOutcome)
   };
 }
 
 /**
  * Evaluates potential Drug-Disease Interactions (Contraindications) based on selected drugs and patient comorbidities
+ * Follows DDInter 2.0 and Beers Criteria 2023 guidelines
  */
 export function evaluateDrugDiseaseInteractions(
   selectedDrugs: Drug[],
-  selectedDiseaseNames: string[],
-  diseaseDatabase: DrugDiseaseInteraction[] = []
+  selectedDiseaseNames: string[] = [],
+  diseaseDatabase: DrugDiseaseInteraction[] = [],
+  matchAllDiseasesIfEmpty: boolean = false
 ): DrugDiseaseInteraction[] {
   const results: DrugDiseaseInteraction[] = [];
   const seenKeys = new Set<string>();
@@ -1188,20 +1373,29 @@ export function evaluateDrugDiseaseInteractions(
       const ruleDiseaseLower = rule.diseaseName.toLowerCase();
       const ruleDrugLower = rule.drugName.toLowerCase();
 
-      // Check if this disease is active in patient's selected list (or all if none filtered)
-      const isDiseaseSelected =
-        selectedDiseaseNames.length === 0
-          ? false
-          : selectedDiseaseNames.some((dis) => {
-              const dLower = dis.toLowerCase().trim();
-              return (
-                ruleDiseaseLower.includes(dLower) ||
-                dLower.includes(ruleDiseaseLower.split(' ')[0]) ||
-                rule.id.includes(dLower.replace(/[^a-z0-9]/g, ''))
-              );
-            });
+      // Check if this disease is active in patient's selected list (or all if matchAllDiseasesIfEmpty is true)
+      let isDiseaseSelected = false;
+      if (selectedDiseaseNames.length > 0) {
+        const DISEASE_STOP_WORDS = new Set(['penyakit', 'dan', 'atau', 'dengan', 'yang', 'pada', 'stadium', 'derajat', 'riwayat', 'berat', 'akut', 'kronis', 'gagal', 'ringan', 'sedang', 'aktif', 'gangguan']);
+        isDiseaseSelected = selectedDiseaseNames.some((dis) => {
+          const dLower = dis.toLowerCase().trim();
+          if (ruleDiseaseLower.includes(dLower) || dLower.includes(ruleDiseaseLower)) return true;
+          
+          const rawTokens = dLower.replace(/[()/,-]/g, ' ').split(/\s+/).filter(t => t.length >= 3);
+          const meaningfulTokens = rawTokens.filter(t => !DISEASE_STOP_WORDS.has(t));
+          const tokensToTest = meaningfulTokens.length > 0 ? meaningfulTokens : rawTokens;
+          
+          return tokensToTest.some((token) => 
+            ruleDiseaseLower.includes(token) || 
+            rule.id.toLowerCase().includes(token) ||
+            (rule.diseaseCategory && rule.diseaseCategory.toLowerCase().includes(token))
+          );
+        });
+      } else if (matchAllDiseasesIfEmpty) {
+        isDiseaseSelected = true;
+      }
 
-      if (!isDiseaseSelected && selectedDiseaseNames.length > 0) {
+      if (!isDiseaseSelected) {
         continue;
       }
 
