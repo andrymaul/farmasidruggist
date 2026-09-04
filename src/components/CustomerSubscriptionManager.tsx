@@ -133,9 +133,11 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
   const [syncingFirebase, setSyncingFirebase] = useState(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
 
-  const handleSyncFromFirebase = async () => {
-    setSyncingFirebase(true);
-    setSyncMessage(null);
+  const handleSyncFromFirebase = async (silent = false) => {
+    if (!silent) {
+      setSyncingFirebase(true);
+      setSyncMessage(null);
+    }
     try {
       const remoteUsers = await fetchCustomersFromFirestore();
       let deletedList: string[] = [];
@@ -153,27 +155,49 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       const map = new Map<string, UserProfile>();
       customers.forEach(c => {
         if (!deletedList.includes(c.uid)) {
-          if (c.uid) map.set(c.uid, c);
-          else if (c.email) map.set(c.email.toLowerCase(), c);
+          const key = c.email ? c.email.trim().toLowerCase() : c.uid;
+          map.set(key, c);
         }
       });
       cleanRemote.forEach(rc => {
         if (!deletedList.includes(rc.uid)) {
-          if (rc.uid) map.set(rc.uid, rc);
-          else if (rc.email) map.set(rc.email.toLowerCase(), rc);
+          const key = rc.email ? rc.email.trim().toLowerCase() : rc.uid;
+          const existing = map.get(key);
+          if (!existing) {
+            map.set(key, rc);
+          } else {
+            // Prioritaskan dokumen yang memiliki data profil lebih lengkap / lebih baru
+            map.set(key, {
+              ...existing,
+              ...rc,
+              name: (rc.name && !rc.name.includes('@')) ? rc.name : (existing.name || rc.name),
+              institution: rc.institution || existing.institution || '',
+              phone: rc.phone || existing.phone || '',
+              subscriptionPlan: rc.subscriptionPlan || existing.subscriptionPlan || 'Pemula'
+            });
+          }
         }
       });
       const merged = Array.from(map.values());
       setCustomers(merged);
-      setSyncMessage(`Berhasil menyinkronkan ${cleanRemote.length} akun pelanggan dari Cloud Firebase!`);
-      setTimeout(() => setSyncMessage(null), 4500);
+      if (!silent) {
+        setSyncMessage(`Berhasil menyinkronkan ${merged.length} akun pelanggan dari Cloud Firebase!`);
+        setTimeout(() => setSyncMessage(null), 4500);
+      }
     } catch (err) {
-      setSyncMessage('Gagal mengambil data dari Cloud Firebase.');
-      setTimeout(() => setSyncMessage(null), 4500);
+      if (!silent) {
+        setSyncMessage('Gagal mengambil data dari Cloud Firebase.');
+        setTimeout(() => setSyncMessage(null), 4500);
+      }
     } finally {
-      setSyncingFirebase(false);
+      if (!silent) setSyncingFirebase(false);
     }
   };
+
+  // Otomatis tarik data pelanggan terbaru dari Cloud Firestore saat halaman dibuka
+  useEffect(() => {
+    handleSyncFromFirebase(true);
+  }, []);
 
   // Password Visibility State (uid -> boolean)
   const [visiblePasswords, setVisiblePasswords] = useState<Record<string, boolean>>({});
@@ -1011,7 +1035,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
           </button>
 
           <button
-            onClick={handleSyncFromFirebase}
+            onClick={() => handleSyncFromFirebase(false)}
             disabled={syncingFirebase}
             className="px-4 py-2.5 bg-teal-600 hover:bg-teal-500 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all cursor-pointer hover:scale-102 disabled:opacity-50 font-outfit"
             title="Tarik & Sinkronkan data pelanggan terbaru dari Cloud Firebase"

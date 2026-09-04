@@ -250,8 +250,32 @@ export default function App() {
     return [];
   });
 
-  // Real-time Firestore Listener for Customer Subscriptions
+  // Initial fetch and Real-time Firestore Listener for Customer Subscriptions
   useEffect(() => {
+    // 1. Initial direct fetch from Cloud Firestore to ensure fresh data on load
+    fetchCustomersFromFirestore().then((remoteUsers) => {
+      if (!remoteUsers || remoteUsers.length === 0) return;
+      let deletedList: string[] = [];
+      try {
+        const savedDeleted = localStorage.getItem('farmasi_deleted_customer_uids');
+        if (savedDeleted) deletedList = JSON.parse(savedDeleted);
+      } catch (e) {}
+
+      const cleanList = remoteUsers.filter(c => 
+        c.role !== 'admin' && 
+        !(c.email && c.email.toLowerCase().includes('admin@farmasidruggist.com')) &&
+        c.uid && !deletedList.includes(c.uid)
+      );
+
+      if (cleanList.length > 0) {
+        setCustomerList(cleanList);
+        try {
+          localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(cleanList));
+        } catch (e) {}
+      }
+    }).catch(() => {});
+
+    // 2. Real-time snapshot listener
     const unsubscribe = subscribeToCustomersFirestore((firestoreCustomers) => {
       if (!firestoreCustomers) return;
 
