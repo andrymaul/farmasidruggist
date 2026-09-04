@@ -49,7 +49,9 @@ import {
   SAMPLE_FOOD_INTERACTIONS, 
   SAMPLE_THERAPEUTIC_DUPLICATIONS, 
   DDINTER_DATASET_INFO,
-  DDINTER_OFFICIAL_URLS
+  DDINTER_OFFICIAL_URLS,
+  INITIAL_DRUGS,
+  INITIAL_INTERACTIONS
 } from '../data/ddinterData';
 import { DRUG_DISEASE_INTERACTIONS_DATABASE, COMMON_CLINICAL_DISEASES } from '../data/drugDiseaseInteractionsData';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
@@ -79,7 +81,32 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
   preselectedDrugName = '',
   preselectedDrugNames = []
 }) => {
-  const [selectedDrugs, setSelectedDrugs] = useState<Drug[]>([]);
+  // Authoritative fallback: guarantees 100% full dataset availability even if props are not yet hydrated
+  const effectiveDrugs = drugs && drugs.length >= INITIAL_DRUGS.length ? drugs : INITIAL_DRUGS;
+  const effectiveInteractions = interactions && interactions.length >= INITIAL_INTERACTIONS.length ? interactions : INITIAL_INTERACTIONS;
+
+  const [selectedDrugs, setSelectedDrugs] = useState<Drug[]>(() => {
+    if (preselectedDrugNames && preselectedDrugNames.length > 0) {
+      const list: Drug[] = [];
+      const seen = new Set<string>();
+      preselectedDrugNames.forEach((name) => {
+        const resolved = resolveDrugFromDDInter(name, effectiveDrugs);
+        if (resolved && !seen.has(resolved.id)) {
+          seen.add(resolved.id);
+          list.push(resolved);
+        }
+      });
+      if (list.length > 0) return list;
+    }
+    if (preselectedDrugName) {
+      const found = resolveDrugFromDDInter(preselectedDrugName, effectiveDrugs);
+      if (found) return [found];
+    }
+    // Default initial demonstration so the clinician immediately sees active DDInter 2.0 analysis
+    const d1 = resolveDrugFromDDInter('Simvastatin', effectiveDrugs);
+    const d2 = resolveDrugFromDDInter('Ketoconazole', effectiveDrugs);
+    return [d1, d2].filter(Boolean) as Drug[];
+  });
   const [selectedDiseases, setSelectedDiseases] = useState<string[]>([]);
   const [searchInput, setSearchInput] = useState('');
   const [isSaved, setIsSaved] = useState(false);
@@ -115,7 +142,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       const list: Drug[] = [];
       const seen = new Set<string>();
       preselectedDrugNames.forEach((name) => {
-        const resolved = resolveDrugFromDDInter(name, drugs);
+        const resolved = resolveDrugFromDDInter(name, effectiveDrugs);
         if (resolved && !seen.has(resolved.id)) {
           seen.add(resolved.id);
           list.push(resolved);
@@ -126,7 +153,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
         setIsSaved(false);
       }
     } else if (preselectedDrugName) {
-      const found = resolveDrugFromDDInter(preselectedDrugName, drugs);
+      const found = resolveDrugFromDDInter(preselectedDrugName, effectiveDrugs);
       if (found) {
         setSelectedDrugs((prev) => {
           if (!prev.some((d) => d.id === found.id || d.name.toLowerCase() === found.name.toLowerCase())) {
@@ -136,7 +163,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
         });
       }
     }
-  }, [preselectedDrugName, preselectedDrugNames, drugs]);
+  }, [preselectedDrugName, preselectedDrugNames, effectiveDrugs]);
   const isFreePlan = !currentUser || currentUser.subscriptionPlan === 'Gratis' || currentUser.subscriptionPlan === 'Pemula';
   const isProPlan = Boolean(currentUser && (currentUser.subscriptionPlan === 'Pro' || currentUser.role === 'admin'));
 
@@ -199,7 +226,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       return;
     }
 
-    const resolved = resolveDrugFromDDInter(searchInput.trim(), drugs);
+    const resolved = resolveDrugFromDDInter(searchInput.trim(), effectiveDrugs);
     if (resolved) {
       if (!selectedDrugs.some((d) => d.id === resolved.id || d.name.toLowerCase() === resolved.name.toLowerCase())) {
         setSelectedDrugs([...selectedDrugs, resolved]);
@@ -217,7 +244,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
 
   // Filter dynamic dropdown
   const searchResults = searchInput.trim()
-    ? drugs.filter(
+    ? effectiveDrugs.filter(
         (d) =>
           d?.name?.toLowerCase().includes(searchInput.toLowerCase().trim()) ||
           d?.genericName?.toLowerCase().includes(searchInput.toLowerCase().trim()) ||
@@ -244,7 +271,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
     for (let j = i + 1; j < selectedDrugs.length; j++) {
       const drugA = selectedDrugs[i];
       const drugB = selectedDrugs[j];
-      const found = resolveInteractionPair(drugA, drugB, interactions);
+      const found = resolveInteractionPair(drugA, drugB, effectiveInteractions);
       if (found) {
         matchedInteractions.push(found);
       }
@@ -401,7 +428,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
     const list: Drug[] = [];
     const seenIds = new Set<string>();
     for (const name of drugNames) {
-      const resolved = resolveDrugFromDDInter(name, drugs);
+      const resolved = resolveDrugFromDDInter(name, effectiveDrugs);
       if (resolved && !seenIds.has(resolved.id)) {
         seenIds.add(resolved.id);
         list.push(resolved);
@@ -454,7 +481,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             </div>
 
             {/* Quick Stat Badges */}
-            {/* Quick Stat Badges */}
             <div className="flex flex-wrap gap-2 pt-2">
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-rose-200">
                 <Layers className="w-3.5 h-3.5 text-rose-400" />
@@ -492,13 +518,13 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                   <span className="text-slate-400 flex items-center gap-1">
                     <Pill className="w-3 h-3 text-cyan-400" /> Obat:
                   </span>
-                  <span className="font-black text-white">{drugs.length.toLocaleString('id-ID')}</span>
+                  <span className="font-black text-white">{effectiveDrugs.length.toLocaleString('id-ID')}</span>
                 </div>
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-slate-400 flex items-center gap-1">
                     <AlertTriangle className="w-3 h-3 text-rose-400" /> Obat-Obat:
                   </span>
-                  <span className="font-black text-rose-400">{interactions.length.toLocaleString('id-ID')} DDI</span>
+                  <span className="font-black text-rose-400">{effectiveInteractions.length.toLocaleString('id-ID')} DDI</span>
                 </div>
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-slate-400 flex items-center gap-1">
@@ -563,14 +589,32 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
 
       {/* Drug Selector Panel - Rose Crimson Thematic Suite */}
       <div className="bg-white dark:bg-[#14060b] p-6 rounded-3xl border border-rose-200/80 dark:border-rose-500/25 shadow-sm space-y-5">
-        <div className="flex items-center justify-between border-b border-rose-100 dark:border-rose-950/80 pb-3">
+        <div className="flex items-center justify-between border-b border-rose-100 dark:border-rose-950/80 pb-3 flex-wrap gap-2">
           <div>
             <h2 className="text-base sm:text-lg font-extrabold font-outfit text-slate-900 dark:text-white tracking-tight">Daftar Obat Resep Pasien</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans">Pilih obat dari katalog atau ketik nama obat apapun untuk ditambahkan ke penapisan.</p>
           </div>
-          <span className="bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 text-xs font-black font-outfit px-3.5 py-1 rounded-full border border-rose-200 dark:border-rose-800 shadow-2xs">
-            {selectedDrugs.length} Obat Dipilih
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 text-xs font-black font-outfit px-3.5 py-1 rounded-full border border-rose-200 dark:border-rose-800 shadow-2xs">
+              {selectedDrugs.length} Obat Dipilih
+            </span>
+            {selectedDrugs.length > 0 ? (
+              <button
+                onClick={() => setSelectedDrugs([])}
+                className="text-xs font-bold text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-rose-300 transition-colors cursor-pointer"
+                title="Hapus seluruh obat untuk memulai resep baru"
+              >
+                Kosongkan
+              </button>
+            ) : (
+              <button
+                onClick={() => applyPreset(['Simvastatin', 'Ketoconazole'])}
+                className="text-xs font-bold text-rose-600 dark:text-rose-400 hover:underline px-2 py-1 cursor-pointer"
+              >
+                + Muat Contoh
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Selected Drugs Chips */}

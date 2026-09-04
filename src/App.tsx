@@ -138,7 +138,7 @@ export default function App() {
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState<boolean>(false);
 
-  const APP_DB_VERSION = 'v2026_indonesian_monographs_v35';
+  const APP_DB_VERSION = 'v2026_ddinter_v37_release';
 
   // Atomic database version migration and cache invalidation
   try {
@@ -158,7 +158,12 @@ export default function App() {
   const [drugs, setDrugs] = useState<Drug[]>(() => {
     try {
       const saved = localStorage.getItem('farmasi_custom_drugs');
-      if (saved) return deduplicateDrugs(JSON.parse(saved));
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length >= INITIAL_DRUGS.length) {
+          return deduplicateDrugs(parsed);
+        }
+      }
     } catch (e) {}
     return deduplicateDrugs(INITIAL_DRUGS);
   });
@@ -166,7 +171,12 @@ export default function App() {
   const [interactions, setInteractions] = useState<DrugInteraction[]>(() => {
     try {
       const saved = localStorage.getItem('farmasi_custom_interactions');
-      if (saved) return deduplicateInteractions(JSON.parse(saved));
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length >= INITIAL_INTERACTIONS.length) {
+          return deduplicateInteractions(parsed);
+        }
+      }
     } catch (e) {}
     return deduplicateInteractions(INITIAL_INTERACTIONS);
   });
@@ -174,7 +184,12 @@ export default function App() {
   const [foodInteractions, setFoodInteractions] = useState<DrugFoodInteraction[]>(() => {
     try {
       const saved = localStorage.getItem('farmasi_food_interactions');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length >= SAMPLE_FOOD_INTERACTIONS.length) {
+          return parsed;
+        }
+      }
     } catch (e) {}
     return SAMPLE_FOOD_INTERACTIONS;
   });
@@ -182,7 +197,12 @@ export default function App() {
   const [duplicationRules, setDuplicationRules] = useState<TherapeuticDuplication[]>(() => {
     try {
       const saved = localStorage.getItem('farmasi_duplication_rules');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length >= SAMPLE_THERAPEUTIC_DUPLICATIONS.length) {
+          return parsed;
+        }
+      }
     } catch (e) {}
     return SAMPLE_THERAPEUTIC_DUPLICATIONS;
   });
