@@ -421,6 +421,16 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
       title: 'Incretin & Sulfonilurea (Hipoglikemia)',
       desc: 'Semaglutide + Glibenclamide',
       drugNames: ['Semaglutide', 'Glibenclamide']
+    },
+    {
+      title: 'Kuinolon & Kortikosteroid (Ruptur Tendon Achilles)',
+      desc: 'Levofloxacin + Prednisone',
+      drugNames: ['Levofloxacin', 'Prednisone']
+    },
+    {
+      title: 'Vitamin K1 & Warfarin (Pembalikan Antikoagulasi)',
+      desc: 'Phytomenadione + Warfarin',
+      drugNames: ['Phytomenadione', 'Warfarin']
     }
   ];
 
