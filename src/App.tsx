@@ -1513,7 +1513,7 @@ export default function App() {
                 'landing', 'dashboard', 'drugs', 'directory', 'pregnancy', 'drug-lab', 'bud', 'herb-drug',
                 'competency', 'guidelines', 'polypharmacy', 'interactions', 'side-effects', 'usage',
                 'sop', 'regulations', 'literature', 'whatsapp-pio', 'iv-compatibility', 'pediatric',
-                'renal-adjuster', 'history', 'subscriptions'
+                'renal-adjuster', 'history', 'subscriptions', 'swamedikasi'
               ].includes(activeTab) && !activeTab.startsWith('admin') && (
                 currentUser ? (
                   <Dashboard

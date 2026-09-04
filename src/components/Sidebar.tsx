@@ -263,6 +263,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         return 'bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-700 text-white shadow-md shadow-indigo-950/50 border border-indigo-500/40';
       case 'polypharmacy':
         return 'bg-gradient-to-r from-violet-950 via-violet-900 to-violet-700 text-white shadow-md shadow-violet-950/50 border border-violet-500/40';
+      case 'swamedikasi':
+        return 'bg-gradient-to-r from-emerald-950 via-teal-900 to-emerald-700 text-white shadow-md shadow-emerald-950/50 border border-emerald-500/40';
       case 'whatsapp-pio':
         return 'bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-700 text-white shadow-md shadow-emerald-950/50 border border-emerald-500/40';
       case 'guidelines':
