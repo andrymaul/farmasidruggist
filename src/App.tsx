@@ -28,6 +28,7 @@ import { HerbDrugInteractionChecker } from './components/HerbDrugInteractionChec
 import { ProFeatureGate } from './components/ProFeatureGate';
 import { AuthModal } from './components/AuthModal';
 import { PricingModal } from './components/PricingModal';
+import { CompleteProfileModal } from './components/CompleteProfileModal';
 import { DrugDetailModal } from './components/DrugDetailModal';
 import { InteractionReportModal } from './components/InteractionReportModal';
 import { AntigravityUpdateModal } from './components/AntigravityUpdateModal';
@@ -52,7 +53,8 @@ import {
   saveUserProfileToFirestore,
   getUserProfileFromFirestore,
   subscribeToCustomersFirestore,
-  fetchCustomersFromFirestore
+  fetchCustomersFromFirestore,
+  isRegisteringAccount
 } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { deduplicateDrugs, deduplicateInteractions, resolveInteractionPair } from './utils/ddinterEngine';
@@ -354,8 +356,17 @@ export default function App() {
   // Modals & Selections
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
   const [showPricingModal, setShowPricingModal] = useState<boolean>(false);
+  const [showProfileModal, setShowProfileModal] = useState<boolean>(false);
   const [showAntigravityUpdateModal, setShowAntigravityUpdateModal] = useState<boolean>(false);
   const [selectedDrugForDetail, setSelectedDrugForDetail] = useState<Drug | null>(null);
+
+  // Mandatory Profile Completion Guard:
+  // Non-admin users who haven't filled in institution or phone must complete their profile before accessing the workspace
+  const isProfileIncomplete = Boolean(
+    currentUser &&
+    currentUser.role !== 'admin' &&
+    (!currentUser.institution?.trim() || !currentUser.phone?.trim())
+  );
   const [preselectedDrugName, setPreselectedDrugName] = useState<string>('');
   const [preselectedDrugNames, setPreselectedDrugNames] = useState<string[]>([]);
   const [preselectedPioDrug, setPreselectedPioDrug] = useState<Drug | null>(null);
@@ -545,6 +556,11 @@ export default function App() {
   // Listen to Firebase Auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      // Jika proses pendaftaran akun baru sedang berjalan di registerWithEmail, jangan potong alurnya
+      if (isRegisteringAccount) {
+        return;
+      }
+
       if (firebaseUser && firebaseUser.email) {
         const email = firebaseUser.email.toLowerCase();
         const isAdmin = email === 'admin@farmasidruggist.com' || 
@@ -618,6 +634,32 @@ export default function App() {
     setActiveTab(targetTab);
     localStorage.setItem('farmasi_current_user', JSON.stringify(user));
     localStorage.setItem('farmasi_active_tab', targetTab);
+  };
+
+  const handleSaveUserProfile = async (updatedUser: UserProfile) => {
+    // 1. Simpan perubahan ke Cloud Firestore
+    await saveUserProfileToFirestore(updatedUser);
+
+    // 2. Perbarui state currentUser dan localStorage
+    setCurrentUser(updatedUser);
+    try {
+      localStorage.setItem('farmasi_current_user', JSON.stringify(updatedUser));
+    } catch (e) {}
+
+    // 3. Perbarui customerList agar langsung terlihat di Panel Subskripsi Customer Admin
+    setCustomerList((prev) => {
+      const updated = prev.map((c) =>
+        (c.uid === updatedUser.uid || (c.email && updatedUser.email && c.email.toLowerCase() === updatedUser.email.toLowerCase()))
+          ? { ...c, ...updatedUser }
+          : c
+      );
+      try {
+        localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
+
+    setShowProfileModal(false);
   };
 
   // Heartbeat Presence: update lastActiveAt & isOnline for currentUser
@@ -950,6 +992,7 @@ export default function App() {
           onToggleMobileSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
           theme={theme}
           onToggleTheme={handleToggleTheme}
+          onOpenProfileModal={() => setShowProfileModal(true)}
         />
 
         <main className={`flex-1 ${isLanding ? '' : 'p-4 sm:p-6 lg:p-8'} print:p-0 print:m-0 print:w-full print:bg-white`}>
@@ -1386,6 +1429,16 @@ export default function App() {
       </div>
 
       {/* MODALS */}
+      {currentUser && (isProfileIncomplete || showProfileModal) && (
+        <CompleteProfileModal
+          currentUser={currentUser}
+          isMandatory={isProfileIncomplete}
+          onSave={handleSaveUserProfile}
+          onClose={() => setShowProfileModal(false)}
+          onLogout={handleLogout}
+        />
+      )}
+
       {showAuthModal && (
         <AuthModal
           onClose={() => setShowAuthModal(false)}

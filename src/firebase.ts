@@ -49,6 +49,28 @@ export interface LoginResult {
   emailUnverified?: string;
 }
 
+// Helper to race promise with timeout to prevent indefinite hanging
+export function withTimeout<T>(promise: Promise<T>, ms = 4000): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(new Error('Operasi Firestore/Auth melebihi batas waktu (timeout)'));
+    }, ms);
+
+    promise
+      .then((res) => {
+        clearTimeout(timer);
+        resolve(res);
+      })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
+}
+
+// Global flag to indicate account registration is currently in-flight
+export let isRegisteringAccount = false;
+
 // === FIRESTORE CUSTOMER & USER PROFILE SYNC HELPERS ===
 
 /**
@@ -63,7 +85,7 @@ export async function saveUserProfileToFirestore(profile: UserProfile): Promise<
       if (val !== undefined) cleanData[key] = val;
     });
     cleanData.updatedAt = new Date().toISOString();
-    await setDoc(userDocRef, cleanData, { merge: true });
+    await withTimeout(setDoc(userDocRef, cleanData, { merge: true }), 4000);
   } catch (err) {
     console.warn('Firestore saveUserProfileToFirestore (handled gracefully):', err);
   }
@@ -439,6 +461,8 @@ export async function registerWithEmail(
     throw new Error('Kata sandi wajib mengandung setidaknya 1 angka (0-9)');
   }
 
+  isRegisteringAccount = true;
+
   // Create User in Firebase Authentication
   try {
     const userCred = await createUserWithEmailAndPassword(auth, cleanEmail, cleanPass);
@@ -468,33 +492,47 @@ export async function registerWithEmail(
       createdAt: new Date().toISOString()
     };
 
-    // Simpan langsung ke Cloud Firestore agar tampil di menu Subskripsi Customer Admin
-    await saveUserProfileToFirestore(userProfile);
-
-    if (userCred.user) {
+    // 1. Kirim email verifikasi terlebih dahulu selagi sesi otentikasi masih segar & aktif
+    if (fbUser) {
       try {
-        await sendEmailVerification(userCred.user);
+        await withTimeout(sendEmailVerification(fbUser), 5000);
       } catch (sendErr) {
-        console.warn('Failed to send email verification:', sendErr);
+        console.warn('Gagal mengirim email verifikasi (handled):', sendErr);
       }
     }
 
-    // Do not sign the user in automatically
-    await signOut(auth);
+    // 2. Simpan langsung ke Cloud Firestore agar tampil di menu Subskripsi Customer Admin
+    try {
+      await withTimeout(saveUserProfileToFirestore(userProfile), 4000);
+    } catch (fsErr) {
+      console.warn('Simpan profil Firestore timeout / ditangani:', fsErr);
+    }
+
+    // 3. Keluarkan pengguna baru agar tidak langsung masuk tanpa verifikasi email
+    try {
+      await signOut(auth);
+    } catch (signOutErr) {}
 
     return { emailSent: cleanEmail, userProfile };
   } catch (fbErr: any) {
     const errCode = fbErr?.code || '';
     if (errCode === 'auth/email-already-in-use') {
-      throw new Error('User already exists. Please sign in');
+      throw new Error('Email ini sudah terdaftar. Silakan masuk menggunakan kata sandi Anda.');
     }
     if (errCode === 'auth/weak-password') {
-      throw new Error('Password should be at least 6 characters');
+      throw new Error('Kata sandi terlalu lemah. Gunakan minimal 6 karakter.');
     }
     if (errCode === 'auth/invalid-email') {
-      throw new Error('Email or password is incorrect');
+      throw new Error('Format alamat email tidak valid.');
     }
-    throw new Error(fbErr?.message || 'Failed to sign up');
+    if (errCode === 'auth/network-request-failed') {
+      throw new Error('Gagal menghubungi server Firebase. Periksa koneksi internet Anda.');
+    }
+    throw new Error(fbErr?.message || 'Gagal mendaftar akun baru');
+  } finally {
+    setTimeout(() => {
+      isRegisteringAccount = false;
+    }, 1500);
   }
 }
 
@@ -526,25 +564,6 @@ export async function logoutUser(): Promise<void> {
   try {
     await signOut(auth);
   } catch (e) {}
-}
-
-// Helper to race promise with timeout
-function withTimeout<T>(promise: Promise<T>, ms = 2500): Promise<T> {
-  return new Promise((resolve, reject) => {
-    const timer = setTimeout(() => {
-      reject(new Error('Firestore operation timed out (offline/demo mode)'));
-    }, ms);
-
-    promise
-      .then((res) => {
-        clearTimeout(timer);
-        resolve(res);
-      })
-      .catch((err) => {
-        clearTimeout(timer);
-        reject(err);
-      });
-  });
 }
 
 // Helper to seed initial DDInter drugs into memory if empty

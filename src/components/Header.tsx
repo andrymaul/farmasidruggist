@@ -26,6 +26,7 @@ import {
   Scale,
   Database,
   UserCheck,
+  User,
   HeartHandshake,
   FlaskConical,
   CalendarClock,
@@ -46,6 +47,7 @@ interface HeaderProps {
   onToggleMobileSidebar?: () => void;
   theme?: 'light' | 'dark';
   onToggleTheme?: () => void;
+  onOpenProfileModal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -57,7 +59,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenPricingModal,
   onToggleMobileSidebar,
   theme = 'dark',
-  onToggleTheme
+  onToggleTheme,
+  onOpenProfileModal
 }) => {
   const [landingMobileMenuOpen, setLandingMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -192,6 +195,17 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
               ) : (
                 <div className="flex items-center space-x-1.5">
+                  {onOpenProfileModal && (
+                    <button
+                      type="button"
+                      onClick={onOpenProfileModal}
+                      title="Lihat & Edit Profil Akun"
+                      className="text-xs font-bold text-teal-200 hover:text-white bg-[#062026] hover:bg-[#09303a] border border-teal-500/30 px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <User className="w-3 h-3 text-teal-400" />
+                      <span className="max-w-[100px] truncate">{currentUser.name}</span>
+                    </button>
+                  )}
                   <button
                     onClick={() => setActiveTab('dashboard')}
                     className="text-xs font-bold text-slate-950 bg-teal-400 hover:bg-teal-300 px-3.5 py-1.5 rounded-full shadow-xs transition-all flex items-center gap-1 cursor-pointer"
@@ -639,14 +653,21 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              {/* Header profile chip on desktop */}
-              <div className="hidden sm:flex items-center gap-2 pl-3 py-1 pr-1.5 bg-slate-50 dark:bg-slate-900 rounded-full border border-slate-200 dark:border-slate-800 shadow-2xs">
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-200 font-outfit">{currentUser.name}</span>
+              {/* Header profile chip on desktop (clickable to edit profile) */}
+              <button
+                type="button"
+                onClick={onOpenProfileModal}
+                title="Lihat & Edit Profil Akun Anda"
+                className="hidden sm:flex items-center gap-2 pl-3 py-1 pr-1.5 bg-slate-50 dark:bg-slate-900 hover:bg-teal-50 dark:hover:bg-teal-950/40 rounded-full border border-slate-200 dark:border-slate-800 hover:border-teal-400 dark:hover:border-teal-700 shadow-2xs transition-all cursor-pointer group"
+              >
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-teal-700 dark:group-hover:text-teal-300 font-outfit max-w-[140px] truncate">
+                  {currentUser.name}
+                </span>
                 <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800 flex items-center gap-1 font-outfit">
                   <ShieldCheck className="w-3 h-3 text-teal-600 dark:text-teal-400" />
                   {currentUser.subscriptionPlan}
                 </span>
-              </div>
+              </button>
               <button
                 onClick={onLogout}
                 title="Keluar / Logout"

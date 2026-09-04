@@ -244,13 +244,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
           </div>
         )}
 
-        {/* Error Alert Banner */}
-        {error && (
-          <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold rounded-xl text-center shadow-2xs">
-            {error}
-          </div>
-        )}
-
         {/* Form Masuk / Daftar */}
         <form onSubmit={handleCustomLoginSubmit} className="space-y-3.5 text-xs">
           {isRegister && (
@@ -404,6 +397,25 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess, o
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>Kata sandi cocok</span>
                 </p>
+              )}
+            </div>
+          )}
+
+          {/* Error Alert Banner */}
+          {error && (
+            <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold rounded-xl text-center shadow-2xs space-y-1">
+              <p>{error}</p>
+              {error.includes('sudah terdaftar') && isRegister && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsRegister(false);
+                    setError(null);
+                  }}
+                  className="text-teal-700 underline font-black cursor-pointer hover:text-teal-900"
+                >
+                  Klik di sini untuk Masuk Akun →
+                </button>
               )}
             </div>
           )}
