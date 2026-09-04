@@ -38,7 +38,10 @@ import {
   HeartHandshake, 
   Info,
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  Stethoscope,
+  RotateCcw,
+  Layers
 } from 'lucide-react';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
 
@@ -212,111 +215,153 @@ Semoga lekas pulih dan sehat selalu! 🙏
   ];
 
   return (
-    <div className="space-y-6 relative pb-16">
-      {/* Background Floating Pills FX */}
-      <FloatingPillsBackground />
+    <div className="space-y-6 pb-16">
+      {/* HERO BANNER - DEEP OBSIDIAN & EMERALD FOREST (Matches other core menus) */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#030f0a] via-[#072418] to-[#0b3624] p-6 sm:p-8 text-white shadow-2xl border border-emerald-500/25">
+        <FloatingPillsBackground density="low" accentColor="#34d399" />
+        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-6 bottom-4 opacity-10 pointer-events-none">
+          <Stethoscope className="w-48 h-48 text-emerald-400" />
+        </div>
 
-      {/* Header / Hero Section */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-700 via-teal-800 to-slate-900 dark:from-emerald-900 dark:via-teal-950 dark:to-slate-950 p-6 sm:p-8 text-white shadow-xl border border-emerald-600/30">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl -translate-y-24 translate-x-24 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-teal-400/10 rounded-full blur-2xl translate-y-24 -translate-x-24 pointer-events-none" />
-
-        <div className="relative z-10 max-w-4xl space-y-4">
-          <div className="flex flex-wrap items-center gap-2.5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 backdrop-blur-sm">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              Kemenkes RI GEMA CERMAT
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-teal-500/20 text-teal-200 border border-teal-400/30 backdrop-blur-sm">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              Pedoman Obat Bebas & OWA
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/20 text-rose-200 border border-rose-400/30 backdrop-blur-sm">
-              <AlertOctagon className="w-3.5 h-3.5 text-rose-300" />
-              Ketat Bebas Antibiotik Oral
-            </span>
-          </div>
-
-          <div>
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
-              <Sparkles className="w-8 h-8 text-amber-400 animate-pulse" />
-              Swamedikasi & Clinical Triage Keluhan
-            </h1>
-            <p className="mt-2 text-slate-200 text-sm sm:text-base leading-relaxed max-w-3xl">
-              Panduan pemilihan obat mandiri untuk masyarakat awam dan nakes berbasis keluhan gejala harian. 
-              Dilengkapi penapisan <strong>Tanda Bahaya (Red Flags)</strong> ke dokter, obat bebas resmi BPOM & OWA, 
-              serta terapi non-farmakologi alami tanpa antibiotik berlebih.
-            </p>
-          </div>
-
-          {/* Search Box with Layman Input */}
-          <div className="pt-2">
-            <div className="relative max-w-2xl">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-teal-300 pointer-events-none" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Cari keluhan: meriang, flu batuk, sakit gigi, lambung perih, mencret, gatal alergi..."
-                className="w-full pl-12 pr-10 py-3.5 bg-white/10 hover:bg-white/15 focus:bg-white/20 backdrop-blur-md rounded-2xl border border-white/20 text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm sm:text-base shadow-inner transition-all"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white p-1 rounded-full"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold font-outfit">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Pedoman Swamedikasi Kemenkes RI GEMA CERMAT &amp; OWA BPOM</span>
             </div>
 
-            {/* Layman Keyword Quick Chips */}
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <span className="text-xs text-slate-300 font-medium mr-1">Keluhan Populer:</span>
-              {popularKeywords.map((kw) => (
-                <button
-                  key={kw.label}
-                  onClick={() => setSearchQuery(kw.query)}
-                  className="text-xs px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-teal-100 hover:text-white border border-white/15 transition-colors"
-                >
-                  {kw.label}
-                </button>
-              ))}
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-emerald-950/50 shrink-0">
+                <Stethoscope className="w-6 h-6" />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-black font-outfit tracking-tight">
+                  Swamedikasi &amp; Clinical Triage Keluhan
+                </h1>
+                <p className="text-xs sm:text-sm text-emerald-100/80 font-medium">
+                  Panduan pemilihan obat mandiri untuk masyarakat awam dan nakes berbasis keluhan gejala harian, penapisan tanda bahaya ke dokter, obat bebas resmi BPOM &amp; OWA, serta terapi non-farmakologi alami tanpa antibiotik berlebih.
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Stat Badges */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>GEMA CERMAT &amp; DAGUSIBU</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
+                <Layers className="w-3.5 h-3.5 text-teal-400" />
+                <span>Obat Bebas, Terbatas &amp; OWA</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-rose-200">
+                <AlertOctagon className="w-3.5 h-3.5 text-rose-300" />
+                <span>Skrining Tanda Bahaya (Red Flags)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0 relative z-10">
+            <div className="bg-slate-950/80 px-4 py-2.5 rounded-2xl border border-emerald-950/60 text-right shadow-md">
+              <span className="text-[11px] text-slate-400 block font-medium">Database Protokol Swamedikasi:</span>
+              <span className="text-lg font-black text-emerald-400">{SWAMEDIKASI_PROTOCOLS.length} Keluhan &amp; Triage</span>
             </div>
           </div>
         </div>
       </div>
 
+      {/* FILTER & SEARCH TOOLBAR (Consistent with DrugDirectory toolbar suite) */}
+      <div className="bg-white dark:bg-[#071c17] p-5 sm:p-6 rounded-3xl border border-emerald-200/80 dark:border-emerald-500/25 shadow-sm space-y-4">
+        {/* Top Search Input & Action */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="relative flex-1">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari keluhan: meriang, flu batuk, sakit gigi, lambung perih, mencret, gatal alergi..."
+              className="w-full pl-10 pr-10 py-2.5 text-xs font-bold font-outfit text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition-colors"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 cursor-pointer"
+                title="Hapus kata kunci"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {searchQuery && (
+            <button
+              onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
+              className="px-3 py-2 text-xs font-bold font-outfit text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center gap-1.5 transition-colors cursor-pointer shrink-0"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Reset Pencarian</span>
+            </button>
+          )}
+        </div>
+
+        {/* Layman Keyword Quick Chips */}
+        <div className="pt-3 border-t border-emerald-100 dark:border-emerald-950/80 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-extrabold font-outfit text-slate-500 dark:text-slate-400 mr-1 flex items-center gap-1">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+            Keluhan Populer:
+          </span>
+          {popularKeywords.map((kw) => {
+            const isActive = searchQuery.toLowerCase() === kw.query.toLowerCase();
+            return (
+              <button
+                key={kw.label}
+                onClick={() => setSearchQuery(isActive ? '' : kw.query)}
+                className={`text-xs px-3 py-1.5 rounded-xl font-bold font-outfit transition-all cursor-pointer border ${
+                  isActive
+                    ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-400/30 shadow-md shadow-emerald-950/40'
+                    : 'bg-slate-50 dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border-slate-200 dark:border-slate-800'
+                }`}
+              >
+                {kw.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Safety Notice Banner */}
-      <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
+      <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/90 dark:bg-amber-950/25 border border-amber-200 dark:border-amber-800/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
         <div className="flex items-start gap-3">
-          <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 mt-0.5 sm:mt-0">
+          <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 mt-0.5 sm:mt-0 shrink-0">
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-amber-900 dark:text-amber-200">
+            <h4 className="text-xs sm:text-sm font-black font-outfit text-amber-950 dark:text-amber-200 flex items-center gap-1.5">
               Prinsip Keselamatan Swamedikasi (Self-Care First Aid)
             </h4>
-            <p className="text-xs text-amber-800/90 dark:text-amber-300/90 mt-0.5 leading-relaxed">
+            <p className="text-xs text-amber-900/80 dark:text-amber-300/80 mt-0.5 leading-relaxed">
               Swamedikasi hanya diperuntukkan bagi keluhan ringan dengan batas aman konsumsi <strong>maksimal 2–3 hari</strong>. 
-              Bila gejala tidak membaik atau muncul tanda bahaya seperti sesak napas, nyeri dada, kejang, atau kaku leher, 
-              segera periksa ke Fasilitas Kesehatan / Dokter.
+              Bila gejala tidak membaik atau muncul tanda bahaya seperti sesak napas, nyeri dada hebat, muntah terus-menerus, kejang, atau kaku kuduk, 
+              <strong>segera periksa ke Fasilitas Kesehatan / Dokter</strong>.
             </p>
           </div>
         </div>
         <div className="flex-shrink-0 self-end sm:self-center">
-          <span className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-100 border border-amber-300 dark:border-amber-700">
+          <span className="inline-flex items-center gap-1.5 text-xs font-bold font-outfit px-3 py-1.5 rounded-xl bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-100 border border-amber-300 dark:border-amber-700">
+            <AlertOctagon className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
             Dilarang Beli Antibiotik Oral Bebas
           </span>
         </div>
       </div>
 
-      {/* Category Tabs */}
-      <div className="space-y-2">
+      {/* Category Filter Tabs */}
+      <div className="space-y-2.5">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-2">
+          <h3 className="text-xs font-extrabold font-outfit text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
             <span>Kategori Keluhan Pasien</span>
-            <span className="text-xs font-normal text-slate-500">({filteredProtocols.length} Protokol Ditemukan)</span>
+            <span className="text-[11px] font-bold text-teal-600 dark:text-teal-400">({filteredProtocols.length} Protokol Ditemukan)</span>
           </h3>
         </div>
 
@@ -327,16 +372,16 @@ Semoga lekas pulih dan sehat selalu! 🙏
               <button
                 key={cat.key}
                 onClick={() => setSelectedCategory(cat.key)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all shadow-sm ${
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl text-xs font-black font-outfit transition-all whitespace-nowrap cursor-pointer border ${
                   isSelected
-                    ? 'bg-teal-600 text-white shadow-teal-500/20 shadow-md font-semibold ring-2 ring-teal-400/50'
-                    : 'bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800'
+                    ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/40 border-emerald-400/30'
+                    : 'bg-white dark:bg-[#041a10] text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border-slate-200 dark:border-emerald-900/30'
                 }`}
               >
-                {getCategoryIcon(cat.icon, 'w-4 h-4')}
+                {getCategoryIcon(cat.icon, 'w-3.5 h-3.5')}
                 <span>{cat.label}</span>
                 {cat.key !== 'all' && (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
                     isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
                   }`}>
                     {cat.count}
