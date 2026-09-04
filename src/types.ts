@@ -221,9 +221,31 @@ export interface CustomerPlanPermissions {
   maxHistoryRecords: number;
   canAccessClinicBranding: boolean;
   canExportExcelCsv: boolean;
-  canAccessClinicalGuidelines?: boolean;
+
+  // Modul Skrining Klinis & Keamanan Resep
+  canAccessIvCompatibility?: boolean;
+  canAccessPregnancy?: boolean;
+  canAccessDrugLab?: boolean;
+  canAccessHerbDrug?: boolean;
+  canAccessSideEffects?: boolean;
+
+  // Modul Kalkulator Medis & Racikan Farmasi
+  canAccessBud?: boolean;
+  canAccessPediatric?: boolean;
+  canAccessRenal?: boolean;
   canAccessRenalCalculator?: boolean;
+
+  // Modul Polifarmasi & Edukasi Pasien
+  canAccessPolypharmacy?: boolean;
+  canAccessWhatsappPio?: boolean;
+  canAccessGuidelines?: boolean;
+  canAccessClinicalGuidelines?: boolean;
+
+  // Modul Pusat Belajar, SOP & Regulasi
+  canAccessCompetency?: boolean;
   canAccessSop?: boolean;
+  canAccessRegulations?: boolean;
+  canAccessLiterature?: boolean;
 }
 
 export interface PricingPlan {

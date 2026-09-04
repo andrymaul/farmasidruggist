@@ -456,7 +456,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     isPopular: false,
     ctaText: 'Mulai Gratis Sekarang',
     permissions: {
-      maxDrugsPerCheck: 99,
+      maxDrugsPerCheck: 20,
       canPrintPdfReport: false,
       canAccessFoodInteractions: false,
       canAccessTherapeuticDuplications: false,
@@ -464,9 +464,23 @@ export const PRICING_PLANS: PricingPlan[] = [
       maxHistoryRecords: 0,
       canAccessClinicBranding: false,
       canExportExcelCsv: false,
-      canAccessClinicalGuidelines: false,
+      canAccessIvCompatibility: false,
+      canAccessPregnancy: false,
+      canAccessDrugLab: false,
+      canAccessHerbDrug: false,
+      canAccessSideEffects: false,
+      canAccessBud: false,
+      canAccessPediatric: false,
+      canAccessRenal: false,
       canAccessRenalCalculator: false,
-      canAccessSop: false
+      canAccessPolypharmacy: false,
+      canAccessWhatsappPio: false,
+      canAccessGuidelines: false,
+      canAccessClinicalGuidelines: false,
+      canAccessCompetency: false,
+      canAccessSop: false,
+      canAccessRegulations: false,
+      canAccessLiterature: false
     }
   },
   {
@@ -507,9 +521,23 @@ export const PRICING_PLANS: PricingPlan[] = [
       maxHistoryRecords: 999,
       canAccessClinicBranding: true,
       canExportExcelCsv: true,
-      canAccessClinicalGuidelines: true,
+      canAccessIvCompatibility: true,
+      canAccessPregnancy: true,
+      canAccessDrugLab: true,
+      canAccessHerbDrug: true,
+      canAccessSideEffects: true,
+      canAccessBud: true,
+      canAccessPediatric: true,
+      canAccessRenal: true,
       canAccessRenalCalculator: true,
-      canAccessSop: true
+      canAccessPolypharmacy: true,
+      canAccessWhatsappPio: true,
+      canAccessGuidelines: true,
+      canAccessClinicalGuidelines: true,
+      canAccessCompetency: true,
+      canAccessSop: true,
+      canAccessRegulations: true,
+      canAccessLiterature: true
     }
   }
 ];

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PricingPlan, PaymentMethodSettings } from '../types';
+import { PricingPlan, PaymentMethodSettings, CustomerPlanPermissions } from '../types';
 import { DEFAULT_PAYMENT_SETTINGS } from '../data/defaultPaymentSettings';
 import { 
   CreditCard, 
@@ -22,7 +22,29 @@ import {
   Smartphone,
   Landmark,
   Image,
-  Copy
+  Copy,
+  Download,
+  FileText,
+  Syringe,
+  HeartHandshake,
+  FlaskConical,
+  Leaf,
+  Activity,
+  CalendarClock,
+  Baby,
+  Calculator,
+  Stethoscope,
+  MessageSquare,
+  HeartPulse,
+  GraduationCap,
+  ClipboardList,
+  Scale,
+  BookMarked,
+  Sliders,
+  Lock,
+  FileSpreadsheet,
+  Layers,
+  UtensilsCrossed
 } from 'lucide-react';
 
 interface PricingManagerProps {
@@ -102,6 +124,125 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
       return p;
     }));
     setMessage(`Berhasil mengaplikasikan diskon promo ${percent}% untuk paket Pro!`);
+  };
+
+  const getPlanPermissions = (plan: PricingPlan): CustomerPlanPermissions => {
+    return plan.permissions || {
+      maxDrugsPerCheck: plan.id === 'free' ? 20 : 99,
+      canPrintPdfReport: plan.id !== 'free',
+      canAccessFoodInteractions: plan.id !== 'free',
+      canAccessTherapeuticDuplications: plan.id !== 'free',
+      canSaveCloudHistory: plan.id !== 'free',
+      maxHistoryRecords: plan.id === 'free' ? 0 : 999,
+      canAccessClinicBranding: plan.id === 'pro',
+      canExportExcelCsv: plan.id !== 'free',
+      canAccessIvCompatibility: plan.id !== 'free',
+      canAccessPregnancy: plan.id !== 'free',
+      canAccessDrugLab: plan.id !== 'free',
+      canAccessHerbDrug: plan.id !== 'free',
+      canAccessSideEffects: plan.id !== 'free',
+      canAccessBud: plan.id !== 'free',
+      canAccessPediatric: plan.id !== 'free',
+      canAccessRenal: plan.id !== 'free',
+      canAccessPolypharmacy: plan.id !== 'free',
+      canAccessWhatsappPio: plan.id !== 'free',
+      canAccessGuidelines: plan.id !== 'free',
+      canAccessCompetency: plan.id !== 'free',
+      canAccessSop: plan.id !== 'free',
+      canAccessRegulations: plan.id !== 'free',
+      canAccessLiterature: plan.id !== 'free'
+    };
+  };
+
+  const togglePermission = (key: keyof CustomerPlanPermissions, customVal?: any) => {
+    setPlans(plans.map(p => {
+      if (p.id !== activePlanId) return p;
+      const currentPerms = getPlanPermissions(p);
+      const newVal = customVal !== undefined ? customVal : !Boolean((currentPerms as any)[key]);
+      return {
+        ...p,
+        permissions: {
+          ...currentPerms,
+          [key]: newVal
+        }
+      };
+    }));
+  };
+
+  const handleEnableAllPermissions = () => {
+    setPlans(plans.map(p => {
+      if (p.id !== activePlanId) return p;
+      return {
+        ...p,
+        permissions: {
+          maxDrugsPerCheck: 99,
+          canPrintPdfReport: true,
+          canAccessFoodInteractions: true,
+          canAccessTherapeuticDuplications: true,
+          canSaveCloudHistory: true,
+          maxHistoryRecords: 999,
+          canAccessClinicBranding: true,
+          canExportExcelCsv: true,
+          canAccessIvCompatibility: true,
+          canAccessPregnancy: true,
+          canAccessDrugLab: true,
+          canAccessHerbDrug: true,
+          canAccessSideEffects: true,
+          canAccessBud: true,
+          canAccessPediatric: true,
+          canAccessRenal: true,
+          canAccessRenalCalculator: true,
+          canAccessPolypharmacy: true,
+          canAccessWhatsappPio: true,
+          canAccessGuidelines: true,
+          canAccessClinicalGuidelines: true,
+          canAccessCompetency: true,
+          canAccessSop: true,
+          canAccessRegulations: true,
+          canAccessLiterature: true
+        }
+      };
+    }));
+    setMessage(`Seluruh hak akses fitur klinis & kalkulator untuk paket "${currentPlan.name}" telah diaktifkan!`);
+    setTimeout(() => setMessage(''), 3500);
+  };
+
+  const handleRestrictToBasic = () => {
+    setPlans(plans.map(p => {
+      if (p.id !== activePlanId) return p;
+      return {
+        ...p,
+        permissions: {
+          maxDrugsPerCheck: 20,
+          canPrintPdfReport: false,
+          canAccessFoodInteractions: false,
+          canAccessTherapeuticDuplications: false,
+          canSaveCloudHistory: false,
+          maxHistoryRecords: 0,
+          canAccessClinicBranding: false,
+          canExportExcelCsv: false,
+          canAccessIvCompatibility: false,
+          canAccessPregnancy: false,
+          canAccessDrugLab: false,
+          canAccessHerbDrug: false,
+          canAccessSideEffects: false,
+          canAccessBud: false,
+          canAccessPediatric: false,
+          canAccessRenal: false,
+          canAccessRenalCalculator: false,
+          canAccessPolypharmacy: false,
+          canAccessWhatsappPio: false,
+          canAccessGuidelines: false,
+          canAccessClinicalGuidelines: false,
+          canAccessCompetency: false,
+          canAccessSop: false,
+          canAccessRegulations: false,
+          canAccessLiterature: false
+        }
+      };
+    }));
+    setMessage(`Hak akses paket "${currentPlan.name}" telah dibatasi ke standar dasar.`);
+    setTimeout(() => setMessage(''), 3500);
   };
 
   const handleSaveAll = () => {
@@ -388,237 +529,563 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
         </div>
 
         {/* Checklist Pengaturan Hak Akses Fitur Customer */}
-        <div className="space-y-4 pt-5 border-t border-slate-200">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-teal-600" />
-              <span>Checklist Hak Akses Fitur Paket ({currentPlan.name})</span>
-            </h3>
-            <span className="text-[11px] font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
-              Kontrol Akses Admin
-            </span>
-          </div>
-
-          <p className="text-xs text-slate-500">
-            Centang fitur yang diizinkan untuk paket ini. Sistem akan secara otomatis membatasi atau mengaktifkan hak akses customer sesuai checklist di bawah ini.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
-            
-            {/* Checklist: Cek Multi-Obat & Batas Obat */}
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2.5 hover:border-teal-300 transition-colors">
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={currentPlan.permissions?.maxDrugsPerCheck ? currentPlan.permissions.maxDrugsPerCheck > 2 : currentPlan.id !== 'free'}
-                  onChange={() => {
-                    const isCurrentlyUnlimited = (currentPlan.permissions?.maxDrugsPerCheck ?? (currentPlan.id === 'free' ? 2 : 99)) > 2;
-                    const newLimit = isCurrentlyUnlimited ? 2 : 99;
-                    setPlans(plans.map(p => p.id === activePlanId ? {
-                      ...p,
-                      permissions: {
-                        maxDrugsPerCheck: newLimit,
-                        canPrintPdfReport: p.permissions?.canPrintPdfReport ?? (p.id !== 'free'),
-                        canAccessFoodInteractions: p.permissions?.canAccessFoodInteractions ?? (p.id !== 'free'),
-                        canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
-                        canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
-                        maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
-                        canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
-                      }
-                    } : p));
-                  }}
-                  className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4"
-                />
+        {(() => {
+          const perms = getPlanPermissions(currentPlan);
+          return (
+            <div className="space-y-6 pt-6 border-t border-slate-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <p className="text-xs font-extrabold text-slate-900">Analisis Multi-Obat Tanpa Batas ({">"}2 Obat)</p>
-                  <p className="text-[11px] text-slate-500">Izinkan pengguna mengecek lebih dari 2 obat sekaligus.</p>
+                  <h3 className="text-sm font-black text-slate-900 flex items-center gap-2 font-outfit">
+                    <ShieldCheck className="w-5 h-5 text-teal-600" />
+                    <span>Checklist Hak Akses Fitur Paket ({currentPlan.name})</span>
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Centang fitur yang diizinkan untuk paket ini. Konfigurasi ini secara otomatis mengatur batasan dan hak akses seluruh modul pelanggan di sistem.
+                  </p>
                 </div>
-              </label>
 
-              <div className="flex items-center gap-2 pt-2 border-t border-slate-200/80 pl-7">
-                <span className="text-[11px] font-bold text-slate-600">Batas Maksimal Obat per Cek:</span>
-                <input
-                  type="number"
-                  min={1}
-                  max={100}
-                  value={currentPlan.permissions?.maxDrugsPerCheck ?? (currentPlan.id === 'free' ? 2 : 99)}
-                  onChange={(e) => {
-                    const val = Math.max(1, Number(e.target.value));
-                    setPlans(plans.map(p => p.id === activePlanId ? {
-                      ...p,
-                      permissions: {
-                        maxDrugsPerCheck: val,
-                        canPrintPdfReport: p.permissions?.canPrintPdfReport ?? (p.id !== 'free'),
-                        canAccessFoodInteractions: p.permissions?.canAccessFoodInteractions ?? (p.id !== 'free'),
-                        canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
-                        canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
-                        maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
-                        canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
-                      }
-                    } : p));
-                  }}
-                  className="w-20 px-2.5 py-1 bg-white border border-slate-300 rounded-lg text-xs font-extrabold text-teal-700 text-center"
-                />
-                <span className="text-[11px] text-slate-500 font-medium">Obat</span>
+                <span className="self-start sm:self-auto text-[11px] font-black text-teal-700 bg-teal-50 px-3 py-1 rounded-xl border border-teal-200">
+                  Kontrol Akses Admin
+                </span>
+              </div>
+
+              {/* Quick Action Presets */}
+              <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-gradient-to-r from-teal-50/90 to-emerald-50/90 rounded-2xl border border-teal-200 shadow-2xs">
+                <div className="flex items-center gap-2 text-xs font-black text-teal-900 font-outfit">
+                  <Zap className="w-4 h-4 text-amber-500 fill-amber-400" />
+                  <span>Aksi Cepat Hak Akses Paket ({currentPlan.name}):</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleEnableAllPermissions}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-xs transition-all cursor-pointer hover:scale-102 font-outfit"
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Buka Semua Fitur (Standar Pro)</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRestrictToBasic}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200 shadow-xs transition-colors cursor-pointer font-outfit"
+                  >
+                    <Lock className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Batasi ke Fitur Dasar (Pemula)</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* KATEGORI 1: Kuota Pemeriksaan & Output Laporan */}
+              <div className="space-y-3 p-4 bg-slate-50/60 rounded-3xl border border-slate-200/90">
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-teal-800 font-outfit pb-2 border-b border-slate-200">
+                  <Sliders className="w-4 h-4 text-teal-600" />
+                  <span>1. Batas Kuota, Riwayat &amp; Laporan Resmi</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {/* Cek Multi-Obat & Batas Obat */}
+                  <div className="p-3.5 bg-white rounded-2xl border border-slate-200 space-y-2.5 hover:border-teal-300 transition-colors shadow-2xs">
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(perms.maxDrugsPerCheck && perms.maxDrugsPerCheck > 2)}
+                        onChange={() => {
+                          const isCurrentlyUnlimited = (perms.maxDrugsPerCheck ?? 2) > 2;
+                          togglePermission('maxDrugsPerCheck', isCurrentlyUnlimited ? 2 : 99);
+                        }}
+                        className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                      />
+                      <div className="space-y-0.5">
+                        <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                          <Sliders className="w-3.5 h-3.5 text-teal-600" />
+                          Analisis Multi-Obat Tanpa Batas ({">"}2 Obat)
+                        </p>
+                        <p className="text-[11px] text-slate-500 leading-snug">
+                          Izinkan pengguna mengecek lebih dari 2 obat sekaligus dalam satu formulir resep.
+                        </p>
+                      </div>
+                    </label>
+
+                    <div className="flex items-center gap-2 pt-2 border-t border-slate-100 pl-7">
+                      <span className="text-[11px] font-bold text-slate-600">Batas Maksimal Obat per Cek:</span>
+                      <input
+                        type="number"
+                        min={1}
+                        max={100}
+                        value={perms.maxDrugsPerCheck ?? (currentPlan.id === 'free' ? 20 : 99)}
+                        onChange={(e) => togglePermission('maxDrugsPerCheck', Math.max(1, Number(e.target.value)))}
+                        className="w-20 px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs font-black text-teal-700 text-center font-mono focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                      />
+                      <span className="text-[11px] text-slate-500 font-medium">Obat</span>
+                    </div>
+                  </div>
+
+                  {/* Cetak & Ekspor Laporan PDF */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 space-y-1 hover:border-teal-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canPrintPdfReport)}
+                      onChange={() => togglePermission('canPrintPdfReport')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <Download className="w-3.5 h-3.5 text-teal-600" />
+                        Cetak &amp; Ekspor Laporan PDF Evaluasi Klinis
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Pengguna dapat mengunduh &amp; mencetak lembar telaah klinis resmi berformat PDF lengkap dengan kop faskes.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Simpan & Riwayat Cloud */}
+                  <div className="p-3.5 bg-white rounded-2xl border border-slate-200 space-y-2.5 hover:border-teal-300 transition-colors shadow-2xs">
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(perms.canSaveCloudHistory)}
+                        onChange={() => togglePermission('canSaveCloudHistory')}
+                        className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                      />
+                      <div className="space-y-0.5">
+                        <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                          <RotateCcw className="w-3.5 h-3.5 text-teal-600" />
+                          Simpan &amp; Riwayat Pemeriksaan Cloud
+                        </p>
+                        <p className="text-[11px] text-slate-500 leading-snug">
+                          Pengguna dapat menyimpan catatan evaluasi resep ke riwayat akun cloud pribadi.
+                        </p>
+                      </div>
+                    </label>
+
+                    <div className="flex items-center gap-2 pt-2 border-t border-slate-100 pl-7">
+                      <span className="text-[11px] font-bold text-slate-600">Batas Riwayat Terbuka:</span>
+                      <input
+                        type="number"
+                        min={0}
+                        max={1000}
+                        value={perms.maxHistoryRecords ?? (currentPlan.id === 'free' ? 0 : 999)}
+                        onChange={(e) => togglePermission('maxHistoryRecords', Math.max(0, Number(e.target.value)))}
+                        className="w-20 px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs font-black text-teal-700 text-center font-mono focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                      />
+                      <span className="text-[11px] text-slate-500 font-medium">Catatan</span>
+                    </div>
+                  </div>
+
+                  {/* Kop Surat & Stempel Digital (Clinic Branding) */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 space-y-1 hover:border-teal-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessClinicBranding)}
+                      onChange={() => togglePermission('canAccessClinicBranding')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <Building2 className="w-3.5 h-3.5 text-teal-600" />
+                        Kop Surat &amp; Stempel Digital Faskes (Branding)
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Personalisasi kop surat, logo resmi, nama fasilitas kesehatan, dan stempel digital apoteker.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Ekspor Excel / CSV */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 space-y-1 hover:border-teal-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer md:col-span-2">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canExportExcelCsv)}
+                      onChange={() => togglePermission('canExportExcelCsv')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
+                        Ekspor Data Interaksi &amp; Rekap ke Excel / CSV
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Pengguna dapat mengunduh seluruh matriks interaksi obat atau rekap data riwayat ke format spreadsheet.
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* KATEGORI 2: Modul Skrining & Keamanan Resep Klinis */}
+              <div className="space-y-3 p-4 bg-slate-50/60 rounded-3xl border border-slate-200/90">
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-rose-800 font-outfit pb-2 border-b border-slate-200">
+                  <ShieldCheck className="w-4 h-4 text-rose-600" />
+                  <span>2. Modul Skrining &amp; Keamanan Resep Klinis</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {/* Kompatibilitas IV */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-sky-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessIvCompatibility)}
+                      onChange={() => togglePermission('canAccessIvCompatibility')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <Syringe className="w-3.5 h-3.5 text-sky-600" />
+                        Kompatibilitas Injeksi IV &amp; ICU (ASHP)
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Skrining percabangan Y-Site, presipitasi pelarut infus &amp; stabilitas rekonstitusi obat injeksi.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Bumil & Busui */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-pink-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessPregnancy)}
+                      onChange={() => togglePermission('canAccessPregnancy')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <HeartHandshake className="w-3.5 h-3.5 text-pink-600" />
+                        Keamanan Obat Ibu Hamil &amp; Menyusui
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Penapisan risiko teratogenik FDA PLLR per trimester &amp; profil ekskresi ASI (Hale's L1–L5).
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Uji Lab */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-cyan-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessDrugLab)}
+                      onChange={() => togglePermission('canAccessDrugLab')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <FlaskConical className="w-3.5 h-3.5 text-cyan-600" />
+                        Interaksi Obat &amp; Hasil Uji Laboratorium
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Deteksi positif/negatif palsu biomarker lab (Troponin, Kreatinin, TSH, Glukosa, Elektrolit).
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Herbal & Jamu */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-emerald-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessHerbDrug)}
+                      onChange={() => togglePermission('canAccessHerbDrug')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <Leaf className="w-3.5 h-3.5 text-emerald-600" />
+                        Interaksi Obat dengan Jamu &amp; Herbal Indonesia
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Evaluasi penapisan sediaan Jamu, OHT &amp; Fitofarmaka terhadap obat resep dokter.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Efek Samping & Naranjo */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-amber-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessSideEffects)}
+                      onChange={() => togglePermission('canAccessSideEffects')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <Activity className="w-3.5 h-3.5 text-amber-600" />
+                        Analisis Efek Samping Obat &amp; Skor Naranjo (MESO)
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Evaluasi toksisitas organ, algoritma kausalitas Naranjo, dan generator formulir pelaporan MESO BPOM.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Interaksi Obat-Makanan */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-orange-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessFoodInteractions)}
+                      onChange={() => togglePermission('canAccessFoodInteractions')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <UtensilsCrossed className="w-3.5 h-3.5 text-orange-600" />
+                        Evaluasi Interaksi Obat-Makanan (DFI)
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Menampilkan analisis interaksi obat dengan makanan, jus buah, susu, suplemen, atau alkohol berisiko.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Duplikasi Terapi Ganda */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-indigo-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer md:col-span-2">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessTherapeuticDuplications)}
+                      onChange={() => togglePermission('canAccessTherapeuticDuplications')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <Layers className="w-3.5 h-3.5 text-indigo-600" />
+                        Peringatan Duplikasi Terapi Ganda
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Mendeteksi dan memperingatkan penggunaan 2 obat dari kelas terapi yang sama (redudansi terapi).
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* KATEGORI 3: Modul Kalkulator Medis & Racikan Farmasi */}
+              <div className="space-y-3 p-4 bg-slate-50/60 rounded-3xl border border-slate-200/90">
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-emerald-800 font-outfit pb-2 border-b border-slate-200">
+                  <Calculator className="w-4 h-4 text-emerald-600" />
+                  <span>3. Modul Kalkulator Medis &amp; Racikan Farmasi</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {/* BUD Racikan */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-teal-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessBud)}
+                      onChange={() => togglePermission('canAccessBud')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <CalendarClock className="w-3.5 h-3.5 text-teal-600" />
+                        Stabilitas &amp; Beyond Use Date (BUD Racikan)
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Penetapan batas kadaluarsa sediaan racikan berstandar USP &lt;795&gt;, &lt;797&gt; &amp; FI VI.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Dosis Pediatrik */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-rose-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessPediatric)}
+                      onChange={() => togglePermission('canAccessPediatric')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <Baby className="w-3.5 h-3.5 text-rose-600" />
+                        Kalkulator Dosis Pediatrik &amp; Konversi Puyer
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Hitung dosis anak berbasis BB &amp; BSA serta peracikan puyer dengan penimbang SL otomatis.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Klirens Ginjal */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-violet-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessRenal ?? perms.canAccessRenalCalculator)}
+                      onChange={() => {
+                        const current = Boolean(perms.canAccessRenal ?? perms.canAccessRenalCalculator);
+                        togglePermission('canAccessRenal', !current);
+                        togglePermission('canAccessRenalCalculator', !current);
+                      }}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <Calculator className="w-3.5 h-3.5 text-violet-600" />
+                        Kalkulator Medis &amp; Klirens Ginjal (CrCl/eGFR)
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Kalkulasi eGFR/CrCl Cockcroft-Gault, penyesuaian dosis obat ginjal, dan skor Child-Pugh hepar.
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* KATEGORI 4: Modul Polifarmasi & Edukasi Pasien */}
+              <div className="space-y-3 p-4 bg-slate-50/60 rounded-3xl border border-slate-200/90">
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-indigo-800 font-outfit pb-2 border-b border-slate-200">
+                  <Stethoscope className="w-4 h-4 text-indigo-600" />
+                  <span>4. Modul Polifarmasi &amp; Edukasi Pasien</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {/* Polifarmasi Beers */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-indigo-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessPolypharmacy)}
+                      onChange={() => togglePermission('canAccessPolypharmacy')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <Stethoscope className="w-3.5 h-3.5 text-indigo-600" />
+                        Evaluasi Polifarmasi Geriatri (Beers 2023)
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Penapisan obat tidak tepat lansia (PIMs), analisis beban antikolinergik &amp; duplikasi terapi geriatri.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* PIO WhatsApp */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-teal-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessWhatsappPio)}
+                      onChange={() => togglePermission('canAccessWhatsappPio')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <MessageSquare className="w-3.5 h-3.5 text-teal-600" />
+                        Kartu Edukasi Obat (PIO) WhatsApp Pasien
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Pembuatan kartu aturan pakai digital dan kirim instan via WhatsApp ke nomor pasien.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Panduan Terapi PNPK */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessGuidelines ?? perms.canAccessClinicalGuidelines)}
+                      onChange={() => {
+                        const current = Boolean(perms.canAccessGuidelines ?? perms.canAccessClinicalGuidelines);
+                        togglePermission('canAccessGuidelines', !current);
+                        togglePermission('canAccessClinicalGuidelines', !current);
+                      }}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <HeartPulse className="w-3.5 h-3.5 text-blue-600" />
+                        Database Panduan Terapi PNPK Kemenkes RI
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Akses 23+ pedoman nasional pelayanan kedokteran &amp; algoritma terapi FORNAS resmi.
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* KATEGORI 5: Pusat Belajar, SOP & Regulasi Farmasi */}
+              <div className="space-y-3 p-4 bg-slate-50/60 rounded-3xl border border-slate-200/90">
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-cyan-900 font-outfit pb-2 border-b border-slate-200">
+                  <GraduationCap className="w-4 h-4 text-cyan-600" />
+                  <span>5. Pusat Belajar, SOP &amp; Regulasi Farmasi</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {/* Pusat Belajar CBT/OSCE */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-emerald-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessCompetency)}
+                      onChange={() => togglePermission('canAccessCompetency')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <GraduationCap className="w-3.5 h-3.5 text-emerald-600" />
+                        Pusat Belajar Farmasi (CBT &amp; OSCE UKMPPAI)
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Bank soal kasus vignette klinis, simulasi tryout berwaktu, dan panduan stasi OSCE.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* SOP Pelayanan Farmasi */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-slate-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessSop)}
+                      onChange={() => togglePermission('canAccessSop')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <ClipboardList className="w-3.5 h-3.5 text-slate-600" />
+                        SOP Pelayanan Farmasi Klinis
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Standar operasional prosedur resmi penapisan resep, dispensing, dan konseling farmasi.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Regulasi & UU Kesehatan */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-amber-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessRegulations)}
+                      onChange={() => togglePermission('canAccessRegulations')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <Scale className="w-3.5 h-3.5 text-amber-600" />
+                        Database Regulasi &amp; UU Kesehatan RI
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Kompilasi undang-undang, Permenkes, dan standar regulasi akreditasi fasilitas farmasi.
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Literatur Ilmiah EBM */}
+                  <label className="p-3.5 bg-white rounded-2xl border border-slate-200 hover:border-teal-300 transition-colors shadow-2xs flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(perms.canAccessLiterature)}
+                      onChange={() => togglePermission('canAccessLiterature')}
+                      className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4 cursor-pointer"
+                    />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-900 font-outfit flex items-center gap-1.5">
+                        <BookMarked className="w-3.5 h-3.5 text-teal-600" />
+                        Pusat Literatur Klinis &amp; Basis Ilmiah EBM
+                      </p>
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        Akses jurnal farmakologi terakreditasi, matriks pembuktian klinis &amp; Evidence-Based Medicine.
+                      </p>
+                    </div>
+                  </label>
+                </div>
               </div>
             </div>
-
-            {/* Checklist: Cetak Laporan PDF */}
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-teal-300 transition-colors">
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={currentPlan.permissions?.canPrintPdfReport ?? (currentPlan.id !== 'free')}
-                  onChange={() => {
-                    const current = currentPlan.permissions?.canPrintPdfReport ?? (currentPlan.id !== 'free');
-                    setPlans(plans.map(p => p.id === activePlanId ? {
-                      ...p,
-                      permissions: {
-                        maxDrugsPerCheck: p.permissions?.maxDrugsPerCheck ?? (p.id === 'free' ? 2 : 99),
-                        canPrintPdfReport: !current,
-                        canAccessFoodInteractions: p.permissions?.canAccessFoodInteractions ?? (p.id !== 'free'),
-                        canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
-                        canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
-                        maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
-                        canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
-                      }
-                    } : p));
-                  }}
-                  className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4"
-                />
-                <div>
-                  <p className="text-xs font-extrabold text-slate-900">Cetak & Ekspor Laporan PDF Evaluasi Klinis</p>
-                  <p className="text-[11px] text-slate-500">Pengguna dapat mengunduh & mencetak lembar laporan resmi hasil evaluasi resep.</p>
-                </div>
-              </label>
-            </div>
-
-            {/* Checklist: Interaksi Obat-Makanan (DFI) */}
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-teal-300 transition-colors">
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={currentPlan.permissions?.canAccessFoodInteractions ?? (currentPlan.id !== 'free')}
-                  onChange={() => {
-                    const current = currentPlan.permissions?.canAccessFoodInteractions ?? (currentPlan.id !== 'free');
-                    setPlans(plans.map(p => p.id === activePlanId ? {
-                      ...p,
-                      permissions: {
-                        maxDrugsPerCheck: p.permissions?.maxDrugsPerCheck ?? (p.id === 'free' ? 2 : 99),
-                        canPrintPdfReport: p.permissions?.canPrintPdfReport ?? (p.id !== 'free'),
-                        canAccessFoodInteractions: !current,
-                        canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
-                        canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
-                        maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
-                        canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
-                      }
-                    } : p));
-                  }}
-                  className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4"
-                />
-                <div>
-                  <p className="text-xs font-extrabold text-slate-900">Evaluasi Interaksi Obat-Makanan (DFI)</p>
-                  <p className="text-[11px] text-slate-500">Menampilkan analisis interaksi obat dengan makanan/minuman berisiko.</p>
-                </div>
-              </label>
-            </div>
-
-            {/* Checklist: Duplikasi Terapi Ganda */}
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-teal-300 transition-colors">
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={currentPlan.permissions?.canAccessTherapeuticDuplications ?? (currentPlan.id !== 'free')}
-                  onChange={() => {
-                    const current = currentPlan.permissions?.canAccessTherapeuticDuplications ?? (currentPlan.id !== 'free');
-                    setPlans(plans.map(p => p.id === activePlanId ? {
-                      ...p,
-                      permissions: {
-                        maxDrugsPerCheck: p.permissions?.maxDrugsPerCheck ?? (p.id === 'free' ? 2 : 99),
-                        canPrintPdfReport: p.permissions?.canPrintPdfReport ?? (p.id !== 'free'),
-                        canAccessFoodInteractions: p.permissions?.canAccessFoodInteractions ?? (p.id !== 'free'),
-                        canAccessTherapeuticDuplications: !current,
-                        canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
-                        maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
-                        canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
-                      }
-                    } : p));
-                  }}
-                  className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4"
-                />
-                <div>
-                  <p className="text-xs font-extrabold text-slate-900">Peringatan Duplikasi Terapi Ganda</p>
-                  <p className="text-[11px] text-slate-500">Mendeteksi dan memperingatkan penggunaan 2 obat dari kelas terapi yang sama.</p>
-                </div>
-              </label>
-            </div>
-
-            {/* Checklist: Simpan & Riwayat Cloud */}
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2.5 hover:border-teal-300 transition-colors">
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={currentPlan.permissions?.canSaveCloudHistory ?? true}
-                  onChange={() => {
-                    const current = currentPlan.permissions?.canSaveCloudHistory ?? true;
-                    setPlans(plans.map(p => p.id === activePlanId ? {
-                      ...p,
-                      permissions: {
-                        maxDrugsPerCheck: p.permissions?.maxDrugsPerCheck ?? (p.id === 'free' ? 2 : 99),
-                        canPrintPdfReport: p.permissions?.canPrintPdfReport ?? (p.id !== 'free'),
-                        canAccessFoodInteractions: p.permissions?.canAccessFoodInteractions ?? (p.id !== 'free'),
-                        canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
-                        canSaveCloudHistory: !current,
-                        maxHistoryRecords: p.permissions?.maxHistoryRecords ?? (p.id === 'free' ? 3 : 999),
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
-                        canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
-                      }
-                    } : p));
-                  }}
-                  className="mt-0.5 rounded text-teal-600 focus:ring-teal-500 w-4 h-4"
-                />
-                <div>
-                  <p className="text-xs font-extrabold text-slate-900">Simpan & Riwayat Pemeriksaan Cloud</p>
-                  <p className="text-[11px] text-slate-500">Pengguna dapat menyimpan catatan resep ke riwayat akun.</p>
-                </div>
-              </label>
-
-              <div className="flex items-center gap-2 pt-2 border-t border-slate-200/80 pl-7">
-                <span className="text-[11px] font-bold text-slate-600">Batas Riwayat Terbuka:</span>
-                <input
-                  type="number"
-                  min={1}
-                  max={1000}
-                  value={currentPlan.permissions?.maxHistoryRecords ?? (currentPlan.id === 'free' ? 3 : 999)}
-                  onChange={(e) => {
-                    const val = Math.max(1, Number(e.target.value));
-                    setPlans(plans.map(p => p.id === activePlanId ? {
-                      ...p,
-                      permissions: {
-                        maxDrugsPerCheck: p.permissions?.maxDrugsPerCheck ?? (p.id === 'free' ? 2 : 99),
-                        canPrintPdfReport: p.permissions?.canPrintPdfReport ?? (p.id !== 'free'),
-                        canAccessFoodInteractions: p.permissions?.canAccessFoodInteractions ?? (p.id !== 'free'),
-                        canAccessTherapeuticDuplications: p.permissions?.canAccessTherapeuticDuplications ?? (p.id !== 'free'),
-                        canSaveCloudHistory: p.permissions?.canSaveCloudHistory ?? true,
-                        maxHistoryRecords: val,
-                        canAccessClinicBranding: p.permissions?.canAccessClinicBranding ?? (p.id === 'pro'),
-                        canExportExcelCsv: p.permissions?.canExportExcelCsv ?? (p.id !== 'free')
-                      }
-                    } : p));
-                  }}
-                  className="w-20 px-2.5 py-1 bg-white border border-slate-300 rounded-lg text-xs font-extrabold text-teal-700 text-center"
-                />
-                <span className="text-[11px] text-slate-500 font-medium">Catatan</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
+          );
+        })()}
 
       </div>
 
