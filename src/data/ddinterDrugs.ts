@@ -231,7 +231,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "foodInteraction": "Dapat diminum sebelum atau sesudah makan.",
     "pregnancyCategory": "B",
     "ddinterId": "DDInter-D00011",
-    "offLabelIndication": "• Melasma Refrakter Wajah: 250 mg dua kali sehari per oral selama 2 - 3 bulan.\n• Perdarahan Pasca Ekstraksi Gigi pada Pasien Antikoagulan: Obat kumur larutan 5% 10 mL 4 kali sehari selama 2-7 hari tanpa menelan."
+    "offLabelIndication": "• Perdarahan Pasca Persalinan (Postpartum Hemorrhage / PPH) - Rekomendasi EBM WHO & WOMAN Trial: 1.000 mg (1 g) dilarutkan dalam 100 mL NaCl 0.9% diberikan secara IV infus lambat selama 10-20 menit dalam kurun waktu 3 jam pertama pasca persalinan. Dosis kedua 1.000 mg IV dapat diberikan setelah 30 menit jika perdarahan terus berlanjut atau berulang dalam 24 jam.\n• Perdarahan Uterus Abnormal / Menoragia Idiopatik (AUB / Heavy Menstrual Bleeding): 1.000 - 1.500 mg (2-3 tablet 500 mg) per oral 3 kali sehari (maksimal 4.000 mg/hari) hanya selama hari perdarahan haid deras (hari ke 1-4/5 siklus). Signifikan mereduksi volume darah haid 40-50% tanpa mempengaruhi ovulasi atau kadar hormon seks.\n• Melasma Refrakter Wajah: 250 mg dua kali sehari per oral selama 2 - 3 bulan.\n• Perdarahan Pasca Ekstraksi Gigi pada Pasien Antikoagulan: Obat kumur larutan 5% 10 mL 4 kali sehari selama 2-7 hari tanpa menelan."
   },
   {
     "id": "drug-phytomenadione",
@@ -674,7 +674,8 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Vasodilatasi arteriol perifer dan koroner yang poten.",
     "foodInteraction": "Telan utuh tablet lepas lambat, hindari jus grapefruit.",
     "pregnancyCategory": "C",
-    "ddinterId": "DDInter-D00032"
+    "ddinterId": "DDInter-D00032",
+    "offLabelIndication": "• Tokolitik Lini Pertama pada Ancaman Persalinan Prematur (Preterm Labor, Usia Gestasi 24 - 34 Minggu) - Rekomendasi POGI, ACOG & RCOG: Dosis awal / loading 20 - 30 mg per oral (atau 10 - 20 mg tiap 20-30 menit jika kontraksi menetap, maks 40 mg pada jam pertama). Dilanjutkan dosis rumatan 10 - 20 mg per oral tiap 4-6 jam (atau sediaan lepas lambat 30-60 mg tiap 8-12 jam) selama 48 jam untuk menunda persalinan agar memungkinkan pematangan paru janin dengan kortikosteroid dan transfer rujukan neonatal. Catatan EBM: Gunakan tablet oral yang ditelan utuh dengan air, DILARANG sublingual karena risiko hipotensi mendadak dan hipoperfusi plasenta.\n• Hipertensi Emergensi Akut pada Kehamilan / Preeklampsia Berat (PEB): 10 mg oral sediaan lepas cepat (immediate-release), dapat diulang 20 mg setelah 20-30 menit jika tekanan darah sistolik >= 160 mmHg atau diastolik >= 110 mmHg.\n• Fenomena Raynaud: 10 - 20 mg 3 kali sehari (atau sediaan sustained release 30-60 mg/hari)."
   },
   {
     "id": "drug-diltiazem",
@@ -921,7 +922,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "foodInteraction": "Makanan tinggi lemak memperlambat penyerapan.",
     "pregnancyCategory": "B",
     "ddinterId": "DDInter-D00044",
-    "offLabelIndication": "• Fenomena Raynaud Berat Resisten Terapi: 20 mg tiga kali sehari (dapat ditingkatkan hingga 50 mg 3x/hari).\n• Disfungsi Seksual Terinduksi Antidepresan SSRI: 25 - 100 mg 1 jam sebelum aktivitas seksual."
+    "offLabelIndication": "• Ketebalan Endometrium Kurang (Thin / Refractory Endometrium) pada Program Bayi Tabung (IVF / Frozen Embryo Transfer): 25 mg supositoria intravagina 4 kali sehari (tiap 6 jam) dimulai dari hari ke-3 hingga ke-13 siklus pra-transfer embrio. Meningkatkan vasodilatasi arteri uterina dan perfusi subendometrium untuk merangsang ketebalan trilaminar >= 7-8 mm.\n• Pertumbuhan Janin Terhambat (Intrauterine Growth Restriction / IUGR) Akibat Insufisiensi Uteroplasenta: 20 - 25 mg 3 kali sehari per oral untuk mendilatasi vaskular spiralis plasenta dan memperbaiki indeks resistensi Doppler arteri umbilikalis.\n• Fenomena Raynaud Berat Resisten Terapi: 20 mg tiga kali sehari (dapat ditingkatkan hingga 50 mg 3x/hari).\n• Disfungsi Seksual Terinduksi Antidepresan SSRI: 25 - 100 mg 1 jam sebelum aktivitas seksual."
   },
   {
     "id": "drug-tadalafil",
@@ -1806,7 +1807,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "foodInteraction": "HARUS diminum BERSAMA atau SEGERA SETELAH MAKAN untuk meminimalkan efek samping GI.",
     "pregnancyCategory": "B",
     "ddinterId": "DDInter-D00081",
-    "offLabelIndication": "• Sindrom Ovarium Polikistik (PCOS) / Oligomenorea: 500 - 1500 mg/hari oral terbagi 2-3 dosis bersama makan untuk induksi ovulasi dan sensitisasi insulin.\n• Pencegahan DM Tipe 2 pada Prediabetes Obesitas (BMI ≥ 35): 850 mg dua kali sehari.\n• Kenaikan Berat Badan Terinduksi Antipsikotik Atypical: 500 - 1000 mg 2 kali sehari."
+    "offLabelIndication": "• Sindrom Ovarium Polikistik (PCOS) & Infertilitas Anovulasi Terkait Resistensi Insulin: Awal 500 mg sekali sehari bersama makan malam, dititrasi bertahap tiap 1-2 minggu menjadi 500 mg 3 kali sehari atau 850 - 1.000 mg 2 kali sehari (1.500 - 2.000 mg/hari). Memperbaiki translokasi GLUT-4, menurunkan hiperinsulinemia dan hiperandrogenisme ovarium, memulihkan siklus ovulasi menstruasi spontan, serta menurunkan risiko Ovarian Hyperstimulation Syndrome (OHSS) saat stimulasi gonadotropin.\n• Pencegahan Diabetes Melitus Gestasional (GDM) & Abortus Dini pada Pasien PCOS: 1.000 - 1.500 mg/hari dilanjutkan hingga usia gestasi 12-16 minggu (atau sepanjang kehamilan pada resistensi insulin berat dengan toleransi glukosa terganggu).\n• Pencegahan DM Tipe 2 pada Prediabetes Obesitas (BMI ≥ 35): 850 mg dua kali sehari.\n• Kenaikan Berat Badan Terinduksi Antipsikotik Atypical: 500 - 1000 mg 2 kali sehari."
   },
   {
     "id": "drug-glimepiride",
@@ -2625,7 +2626,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "foodInteraction": "Diminum setelah makan.",
     "pregnancyCategory": "B",
     "ddinterId": "DDInter-D00117",
-    "offLabelIndication": "• Keracunan Akut Parasetamol (Toksisitas Hepatik): Protokol IV 21 jam (300 mg/kg total) atau Oral loading 140 mg/kg diikuti 70 mg/kg tiap 4 jam sebanyak 17 dosis.\n• Pencegahan Contrast-Induced Nephropathy (CIN): 600 - 1200 mg oral 2 kali sehari sehari sebelum dan hari tindakan radiologi kontras."
+    "offLabelIndication": "• Sindrom Ovarium Polikistik (PCOS) & Infertilitas Anovulasi (Clomiphene Resistance): 1.200 - 1.800 mg/hari per oral terbagi 2-3 dosis (600 mg 2-3 kali sehari) dimulai hari ke-2/3 siklus haid selama 5 hari bersama Clomiphene Citrate 100 mg/hari (atau Letrozole), atau diberikan kontinu 3-6 bulan untuk meningkatkan angka ovulasi, memperbaiki sensitivitas insulin, dan menurunkan stres oksidatif ovarium.\n• Terapi Konservatif Endometriosis & Dismenorea Kronis (Protokol Porpora): 600 mg per oral 3 kali sehari (1.800 mg/hari) selama 3 hari berturut-turut dalam seminggu (misal: Senin, Selasa, Rabu) selama 3 bulan. Menghambat angiogenesis lesi endometriotik, menurunkan produksi VEGF dan sitokin inflamasi, serta signifikan mereduksi ukuran kista endometrioma dan nyeri panggul tanpa supresi hormonal terhadap ovulasi.\n• Pencegahan Keguguran Berulang Tanpa Sebab Jelas (Unexplained Recurrent Pregnancy Loss / RPL): 600 mg per oral sekali sehari bersama Asam Folat 500 mcg/hari sejak trimester pertama (atau fase luteal hingga 12-16 minggu gestasi) untuk melindungi endotel vaskular trofoblas dari apoptosis terinduksi ROS dan meningkatkan perfusi mikrovaskular desidua.\n• Pengencer Lendir Serviks pada Infertilitas (Thick / Hostile Cervical Mucus): 600 mg per oral 1-2 kali sehari pada fase pra-ovulasi (hari ke-10 hingga ke-14 siklus) untuk melisiskan ikatan disulfida glikoprotein mukus serviks dan memfasilitasi penetrasi spermatozoa menuju kavum uteri.\n• Keracunan Akut Parasetamol (Toksisitas Hepatik): Protokol IV 21 jam (300 mg/kg total) atau Oral loading 140 mg/kg diikuti 70 mg/kg tiap 4 jam sebanyak 17 dosis.\n• Pencegahan Contrast-Induced Nephropathy (CIN): 600 - 1.200 mg oral 2 kali sehari sehari sebelum dan hari tindakan radiologi kontras."
   },
   {
     "id": "drug-methotrexate",
@@ -4761,7 +4762,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "clearance": "Metabolisme cepat via asam misoprostol di hepar, ekskresi renal (73%) dan feses (15%).",
     "pregnancyCategory": "X (Tukak lambung) / C (Induksi aterm)",
     "foodInteraction": "HARUS diminum bersama makanan atau sesudah makan dan sebelum tidur untuk mengurangi risiko diare dan kram perut. Hindari antasida yang mengandung magnesium.",
-    "offLabelIndication": "• Induksi Persalinan & Pematangan Serviks Aterm: 25 mcg intravagina tiap 3-6 jam (atau 25-50 mcg oral tiap 4 jam).\n• Penanganan Perdarahan Postpartum (PPH) / Atonia Uteri: 600-800 mcg sublingual atau rektal dosis tunggal.\n• Evakuasi Abortus Inkomplit / Missed Abortion: 600-800 mcg bukal/sublingual dosis tunggal.",
+    "offLabelIndication": "• Induksi Persalinan & Pematangan Serviks Aterm (Kala I Persalinan): 25 mcg intravagina tiap 3-6 jam (atau 25 mcg oral tiap 2 jam, maksimal 50 mcg oral). KONTRAINDIKASI MUTLAK pada riwayat bedah sesar (SC) atau parut miometrium karena risiko ruptur uteri.\n• Penanganan Perdarahan Postpartum (PPH) / Atonia Uteri: 600 - 800 mcg sublingual atau rektal dosis tunggal jika oksitosin tidak tersedia atau respons kontraksi uterus belum adekuat.\n• Tatalaksana Abortus Inkomplit & Missed Abortion (Usia Gestasi < 13 Minggu): 600 - 800 mcg per oral, sublingual, atau intravagina dosis tunggal (dapat diulang 1 kali setelah 3-7 hari bila masih terdapat sisa jaringan konsepsi non-infeksius).\n• Pematangan Serviks Pra-Tindakan Histeroskopi / Kuretase / Biopsi Endometrium / Pemasangan IUD Sulit: 400 mcg per oral atau sublingual/vagina 2-4 jam sebelum tindakan bedah ginekologi minor.",
     "ddinterId": "DDInter-D00216"
   },
   {
@@ -4927,7 +4928,8 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "clearance": "Metabolisme hepar via hidrolisis ikatan asilurea, ekskresi feses (60%) dan urin (22%).",
     "foodInteraction": "HARUS diminum bersama makanan atau sesudah makan untuk meminimalkan efek samping mual, pusing, dan hipotensi postural ortostatik.",
     "pregnancyCategory": "B",
-    "ddinterId": "DDInter-D00223"
+    "ddinterId": "DDInter-D00223",
+    "offLabelIndication": "• Pencegahan Sindrom Hiperstimulasi Ovarium (Ovarian Hyperstimulation Syndrome / OHSS) pada Program Bayi Tabung (IVF) - Rekomendasi ESHRE & ASRM: 0.5 mg per oral sekali sehari malam hari selama 8 hari berturut-turut dimulai pada hari pemberian hCG trigger (atau hari ovum pick-up). Bekerja spesifik memblokade fosforilasi reseptor VEGFR-2 sehingga mencegah kebocoran permeabilitas vaskular, asites, dan efusi tanpa mengganggu angka kehamilan.\n• Terapi Konservatif Kista Endometrioma & Nyeri Endometriosis: 0.5 mg per oral 1-2 kali seminggu untuk menekan neoangiogenesis lesi ektopik.\n• Infertilitas Pasien PCOS dengan Respon Buruk Terhadap Klomifen disertai Hiperprolaktinemia Ringan: 0.25 - 0.5 mg per minggu."
   }
 ,
   {
@@ -7580,6 +7582,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "monitoringParameters": "Kadar prolaktin serum serial berkala, MRI sella tursika (ukuran tumor hipofisis), tekanan darah posisi duduk dan berdiri, fungsi kardiovaskular.",
     "patientTips": "Selalu minum tablet ini bersama makanan atau segelas susu, terutama pada malam hari sebelum tidur, untuk mencegah rasa mual dan pusing melayang. Bangunlah secara perlahan-lahan dari posisi duduk atau berbaring agar tidak berkunang-kunang.",
     "lactationWarning": "KONTRAINDIKASI bagi ibu yang ingin menyusui bayinya karena bromokriptin menekan produksi ASI secara tuntas.",
+    "offLabelIndication": "• Infertilitas Anovulasi Normoprolaktinemik & Defek Fase Luteal (Luteal Phase Defect / LPD): 1.25 - 2.5 mg per oral sekali sehari pada malam hari bersama makanan dimulai pada fase pra-ovulasi atau fase luteal untuk mengoptimalkan sekresi progesteron korpus luteum.\n• Pencegahan Ovarian Hyperstimulation Syndrome (OHSS) pada Program Infertilitas (Alternatif Dopamin Agonis): 2.5 mg per oral sekali sehari selama 14 hari pasca ovum pick-up.\n• Terapi Tambahan Diabetes Melitus Tipe 2 (Formulasi Pelepasan Cepat / Cycloset): 1.6 - 4.8 mg per oral sekali sehari pada pagi hari dalam waktu 2 jam setelah bangun tidur untuk memodulasi ritme dopaminergik hipotalamus sirkadian.",
     "drugsComUrl": "https://www.drugs.com/monograph/bromocriptine-mesylate.html"
   },
   {
@@ -11493,6 +11496,101 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "patientTips": "Kocok botol terlebih dahulu sebelum diminum. Minum 1-2 sendok makan pada malam hari sebelum tidur agar Anda bisa buang air besar dengan lancar di pagi hari. Jangan gunakan obat ini lebih dari 1 minggu berturut-turut. Warna air kencing Anda mungkin berubah menjadi agak kemerahan, hal ini wajar dan tidak berbahaya.",
     "lactationWarning": "Fenolftalein dapat diekskresikan ke dalam ASI dalam jumlah kecil dan memicu diare pada bayi menyusui; gunakan laksatif alternatif (seperti Laktulosa) selama menyusui.",
     "drugsComUrl": "https://www.drugs.com/otc/laxadine.html"
+},
+{
+    "id": "drug-progesterone-micronized",
+    "name": "Progesterone (Micronized)",
+    "genericName": "Progesteron Mikronisasi (Kapsul Lunak / Supositoria Vagina 100 mg, 200 mg & 400 mg)",
+    "brandNames": [
+      "Utrogestan 100 mg / 200 mg",
+      "Microgest 100 mg / 200 mg",
+      "Cygest 200 mg / 400 mg Pessary",
+      "Crinone 8% Gel Vagina",
+      "Progeston"
+    ],
+    "atcCode": "G03DA04",
+    "category": "Hormon Progestogen Alami / Endokrinologi Reproduksi & Tokologi",
+    "bpomClassification": "Obat Keras",
+    "drugClassification": "💊 Obat Keras (Resep Dokter Sp.OG)",
+    "description": "Hormon steroid progestogen bioidentik alami yang dimikronisasi untuk meningkatkan bioavailabilitas oral dan absorbsi transmukosa vagina, bekerja menginduksi fase sekretorik endometrium, memelihara desidua, serta merelaksasikan miometrium uterus sepanjang kehamilan.",
+    "indication": "Pencegahan persalinan prematur pada wanita dengan leher rahim pendek atau riwayat prematur; pencegahan abortus berulang / iminens; dukungan fase luteal (LPS) pada program bayi tabung (IVF / ART); amenorea sekunder; terapi penggantian hormon (HRT) kombinasi estrogen.",
+    "contraindications": "Perdarahan vagina abnormal yang belum terdiagnosis, tromboflebitis aktif atau riwayat tromboemboli vena (DVT/PE), gangguan fungsi hepar berat, karsinoma payudara atau organ genital diketahui atau dicurigai, missed abortion dengan retensi hasil konsepsi terinfeksi.",
+    "sideEffects": "Mengantuk dan pusing (terutama pada rute oral), kelelahan, kembung, nyeri payudara, perdarahan bercak intermenstrual, iritasi / keputihan lokal (rute vagina).",
+    "dosage": "Vagina Preterm: 200 mg per malam sebelum tidur. Vagina Abortus Berulang: 400 mg 2 kali sehari. Luteal Phase Support IVF: 200 mg 3 kali sehari (atau 400 mg 2 kali sehari) intravagina. Oral HRT: 200 mg/hari selama 12 hari terakhir siklus.",
+    "pharmacology": "Mengikat reseptor progesteron intraseluler (PR-A dan PR-B), memicu transkripsi gen pendukung desidualisasi endometrium, menekan reseptor oksitosin dan ekspresi prostaglandin miometrium, serta menggeser profil imun maternal ke arah toleransi imunologis fetus (respon Th2 anti-inflamasi via PIBF).",
+    "foodInteraction": "Bila diminum oral: konsumsi bersama makanan meningkatkan bioavailabilitas; diminum malam sebelum tidur karena efek sedasi. Rute vagina tidak dipengaruhi makanan.",
+    "pregnancyCategory": "B (Aman digunakan pada kehamilan trimester I dan II untuk indikasi pencegahan abortus dan prematuritas)",
+    "halfLife": "Oral: 16 - 18 jam; Vagina: absorpsi lokal sustained-release dengan konsentrasi endometrium tinggi dan kadar plasma stabil.",
+    "clearance": "Metabolisme hepar via reduksi 5α-pregnanediol dan konjugasi glukuronid; ekskresi metabolit terutama via ginjal urin (95%).",
+    "ddinterId": "DDInter-D06801",
+    "offLabelIndication": "• Pencegahan Persalinan Prematur Berulang pada Wanita dengan Serviks Pendek (Panjang Serviks USG Trimester II < 25 mm) atau Riwayat Kelahiran Prematur Spontan - Rekomendasi POGI, SMFM & ACOG: 200 mg kapsul lunak intravagina setiap malam sebelum tidur dari usia gestasi 16-24 minggu hingga 36 minggu.\n• Pencegahan Abortus Berulang / Keguguran Spontan pada Kehamilan Trimester I dengan Riwayat Abortus Berulang (Uji Klinis Landmark PRISM Trial): 400 mg intravagina dua kali sehari (atau 200 mg 2-3 kali sehari) dimulai sejak timbul perdarahan bercak atau sejak konsepsi hingga usia kehamilan 16 minggu.\n• Dukungan Fase Luteal (Luteal Phase Support / LPS) pada Program Bayi Tabung (IVF / ICSI): 200 mg intravagina 3 kali sehari (atau 400 mg pessary vagina 2 kali sehari) dimulai dari hari pengambilan sel telur (OPU) hingga usia gestasi 10-12 minggu.",
+    "monitoringParameters": "Panjang serviks serial via USG transvaginal, denyut jantung janin (DJJ), evaluasi perdarahan vagina, fungsi hati pada terapi oral jangka panjang.",
+    "patientTips": "Jika menggunakan kapsul via vagina: masukkan obat jauh ke dalam liang vagina pada malam hari sebelum tidur agar obat tidak lumer dan keluar. Jika meminum kapsul lewat mulut: minumlah sebelum tidur karena obat ini dapat menyebabkan rasa kantuk dan pusing.",
+    "lactationWarning": "Diekskresikan dalam jumlah kecil ke dalam ASI; kompatibel pada dosis standar.",
+    "drugsComUrl": "https://www.drugs.com/monograph/progesterone.html"
+},
+{
+    "id": "drug-dydrogesterone",
+    "name": "Dydrogesterone",
+    "genericName": "Didrogesteron (Tablet Salut Selaput 10 mg)",
+    "brandNames": [
+      "Duphaston 10 mg",
+      "Femoston (Kombinasi)",
+      "Didrogesteron Generik"
+    ],
+    "atcCode": "G03DB01",
+    "category": "Progestogen Retro-Steroid Selektif / Endokrinologi Ginekologi",
+    "bpomClassification": "Obat Keras",
+    "drugClassification": "💊 Obat Keras (Resep Dokter Sp.OG)",
+    "description": "Progestogen retro-steroid stereoisomer alami yang sangat selektif terhadap reseptor progesteron tanpa aktivitas androgenik, estrogenik, glukokortikoid, atau mineralokortikoid, tidak menyebabkan virilisasi janin wanita, dan tidak menaikkan suhu basal tubuh.",
+    "indication": "Pengobatan dismenorea berat, endometriosis, amenorea sekunder, siklus menstruasi tidak teratur, perdarahan uterus disfungsional (AUB), sindrom pra-haid (PMS), serta terapi pengganti hormon kombinasi estrogen.",
+    "contraindications": "Perdarahan abnormal vagina tanpa penyebab pasti, riwayat karsinoma peka progestogen (kanker payudara atau endometrium), tumor hepar aktif atau disfungsi hati berat.",
+    "sideEffects": "Sakit kepala, migrain, mual, nyeri payudara, perdarahan sela / bercak (breakthrough bleeding), depresi mood ringan.",
+    "dosage": "Dismenorea: 10 mg 2 kali sehari dari hari ke-5 hingga ke-25 siklus. Endometriosis: 10 mg 2-3 kali sehari kontinu atau siklik hari ke-5 hingga ke-25. Abortus: Inisial 40 mg stat, lalu 10 mg tiap 8 jam.",
+    "pharmacology": "Berikatan dengan afinitas tinggi pada reseptor progesteron memicu maturasi sekretorik stroma dan kelenjar endometrium, memfasilitasi implantasi blastokista, dan merangsang sintesis Progesterone-Induced Blocking Factor (PIBF) yang memediasi imunotoleransi feto-maternal.",
+    "foodInteraction": "Dapat diminum bersama atau tanpa makanan dengan air putih.",
+    "pregnancyCategory": "B (Aman dan terbukti tidak teratogenik pada kehamilan)",
+    "halfLife": "Metabolit aktif utama 20α-dihidrodidrogesteron (DHD): 14 hingga 17 jam.",
+    "clearance": "Metabolisme hepar komplit menjadi 20α-DHD tanpa konversi ke metabolit androgenik; ekskresi via urin (63%).",
+    "ddinterId": "DDInter-D06802",
+    "offLabelIndication": "• Penanganan Abortus Iminens (Threatened Miscarriage) & Pencegahan Keguguran Berulang - Studi EBM Landmark LOTUS I & II: Dosis awal 40 mg per oral dosis tunggal (stat), dilanjutkan 10 mg per oral tiap 8 jam hingga perdarahan mereda, kemudian dosis rumatan 10 mg 2 kali sehari hingga usia gestasi 12-16 minggu. Terbukti efektifitasnya setara progesteron mikronisasi vagina dengan kenyamanan rute oral tanpa keluhan iritasi atau duh vagina.\n• Dukungan Fase Luteal (Luteal Phase Support / LPS) Oral pada Program Bayi Tabung (IVF / ART): 10 mg per oral 3 kali sehari (30 mg/hari) dimulai dari hari ovum pick-up (OPU) hingga usia kehamilan 12 minggu.\n• Penghentian Perdarahan Uterus Disfungsional Akut (Acute Heavy Menstrual Bleeding): 10 mg per oral 2 kali sehari bersama estrogen selama 5-7 hari untuk meredakan perdarahan anovulatorik.",
+    "monitoringParameters": "Gejala klinis nyeri dan perdarahan vagina, ultrasonografi (USG) kehamilan konfirmasi viabilitas kantung gestasi dan detak jantung janin (DJJ).",
+    "patientTips": "Telan tablet dengan bantuan air putih. Obat ini adalah hormon penguat kandungan yang aman bagi janin. Habiskan obat sesuai dosis dan instruksi dokter kandungan Anda tanpa menghentikan tiba-tiba.",
+    "lactationWarning": "Diekskresikan dalam konsentrasi minimal ke dalam ASI; gunakan hanya atas rekomendasi dokter.",
+    "drugsComUrl": "https://www.drugs.com/international/dydrogesterone.html"
+},
+{
+    "id": "drug-clomiphene-citrate",
+    "name": "Clomiphene Citrate",
+    "genericName": "Klomifen Sitrat (Tablet 50 mg)",
+    "brandNames": [
+      "Profertil 50 mg",
+      "Provula 50 mg",
+      "Fertin 50 mg",
+      "Ofertil",
+      "Genoclom",
+      "Klomifen Generik"
+    ],
+    "atcCode": "G03GB02",
+    "category": "Selective Estrogen Receptor Modulator (SERM) / Stimulan Ovulasi Infertilitas",
+    "bpomClassification": "Obat Keras",
+    "drugClassification": "💊 Obat Keras (Resep Dokter Sp.OG / Andrologi)",
+    "description": "Modulator selektif reseptor estrogen (SERM) non-steroid turunan trifeniletilen yang memblokade umpan balik negatif estrogen di hipotalamus, memicu lonjakan sekresi GnRH, LH, dan FSH hipofisis untuk merangsang folikulogenesis ovarium.",
+    "indication": "Infertilitas anovulasi pada wanita yang menginginkan kehamilan (khususnya disfungsi ovulasi normogonadotropik / PCOS WHO Kelas II); oligomenorea terkait anovulasi.",
+    "contraindications": "Kehamilan terkonfirmasi, penyakit hepar aktif atau riwayat disfungsi hepar, kista ovarium non-PCOS (pembesaran ovarium bukan karena PCOS), perdarahan abnormal uterus tanpa diagnosis pasti, karsinoma endometrium atau payudara hormon-dependen, gangguan penglihatan aktif.",
+    "sideEffects": "Rasa semburan panas (hot flashes), pembesaran ovarium kistik, rasa begah / nyeri panggul bawah, gangguan penglihatan (pandangan kabur, skotoma, berkunang-kunang), mual, sakit kepala, kehamilan kembar (multiple gestation 8-10%).",
+    "dosage": "Siklus Pertama: 50 mg per oral sekali sehari selama 5 hari berturut-turut dimulai dari hari ke-3 atau ke-5 siklus haid. Jika ovulasi tidak terjadi, dosis dapat ditingkatkan menjadi 100 mg/hari selama 5 hari pada siklus berikutnya. Maksimal 6 siklus terapi.",
+    "pharmacology": "Menempati reseptor estrogen di nukleus arkuatus hipotalamus dan hipofisis anterior, menghambat umpan balik negatif estrogen sirkulasi. Hipotalamus mempersepsikan defisiensi estrogen sehingga meningkatkan frekuensi sekresi pulsatil GnRH yang menstimulasi adenohipofisis mensekresikan FSH dan LH dalam jumlah besar untuk memicu pematangan folikel Graaf.",
+    "foodInteraction": "Dapat diminum bersama atau sesudah makan dengan segelas air, sebaiknya pada jam yang sama setiap hari.",
+    "pregnancyCategory": "X (KONTRAINDIKASI pada kehamilan; pastikan pasien tidak hamil sebelum memulai siklus terapi)",
+    "halfLife": "5 hingga 7 hari (ekskresi metabolit lambat karena sirkulasi enterohepatik dan ikatan jaringan).",
+    "clearance": "Metabolisme hepar ekstensif; eliminasi utama melalui feses via empedu (42%) dan urin (8%).",
+    "ddinterId": "DDInter-D06803",
+    "offLabelIndication": "• Infertilitas Pria Akibat Oligospermia Idiopatik / Hipogonadotropik Hipogonadisme Fungsional: 25 mg per oral sekali sehari (atau 50 mg setiap 2 hari sekali) selama 3 hingga 6 bulan. Bekerja memblokade umpan balik negatif androgen di hipotalamus, memicu peningkatan LH (menstimulasi sel Leydig memproduksi testosteron intratestikular) dan FSH (menstimulasi sel Sertoli mempercepat spermatogenesis), meningkatkan konsentrasi dan motilitas sperma secara signifikan.\n• Tes Tantangan Klomifen (Clomiphene Citrate Challenge Test / CCCT) untuk Penilaian Cadangan Ovarium (Ovarian Reserve): 100 mg per oral sehari pada hari ke-5 hingga ke-9 siklus menstruasi, disertai pemeriksaan kadar FSH basal pada hari ke-3 dan hari ke-10 untuk mendeteksi penuaan ovarium dini.",
+    "monitoringParameters": "Konfirmasi ovulasi (kadar progesteron serum fase luteal pertengahan hari ke-21 atau USG transvaginal folikulometri serial), USG evaluasi ketebalan endometrium (waspada efek anti-estrogenik klomifen terhadap endometrium tipis), pemeriksaan kehamilan sebelum setiap siklus baru.",
+    "patientTips": "Minum tablet pada waktu yang sama setiap hari selama 5 hari berturut-turut sesuai petunjuk dokter. Jangan menambah dosis sendiri. Jika Anda mengalami gangguan penglihatan seperti pandangan kabur atau melihat kilatan cahaya, segera hentikan obat dan hubungi dokter.",
+    "lactationWarning": "Dapat menekan produksi ASI; tidak diindikasikan pada masa menyusui.",
+    "drugsComUrl": "https://www.drugs.com/monograph/clomiphene-citrate.html"
 }
 ];;
 

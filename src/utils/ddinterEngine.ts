@@ -345,27 +345,38 @@ export function categorizeDDInterMechanism(
  * Deduplicate array of DrugInteractions by pair key or ID
  */
 export function deduplicateInteractions(interactions: DrugInteraction[]): DrugInteraction[] {
-  const seenPairNames = new Set<string>();
-  const seenPairIds = new Set<string>();
-  const seenInterIds = new Set<string>();
-  const result: DrugInteraction[] = [];
+  const mapByPair = new Map<string, DrugInteraction>();
+  const SEVERITY_WEIGHT: Record<SeverityLevel, number> = { Major: 3, Moderate: 2, Minor: 1 };
 
   interactions.forEach((inter) => {
     const pairNameKey = [inter.drugAName.toLowerCase().trim(), inter.drugBName.toLowerCase().trim()].sort().join('__');
-    const pairIdKey = [inter.drugAId.toLowerCase().trim(), inter.drugBId.toLowerCase().trim()].sort().join('__');
-    const interIdKey = inter.id.toLowerCase().trim();
+    const existing = mapByPair.get(pairNameKey);
 
-    if (!seenPairNames.has(pairNameKey) && !seenPairIds.has(pairIdKey) && !seenInterIds.has(interIdKey)) {
-      seenPairNames.add(pairNameKey);
-      seenPairIds.add(pairIdKey);
-      seenInterIds.add(interIdKey);
-      result.push({
-        ...inter,
-        mechanismCategory: inter.mechanismCategory || categorizeDDInterMechanism(inter.mechanism, inter.clinicalOutcome)
-      });
+    const preparedItem: DrugInteraction = {
+      ...inter,
+      mechanismCategory: inter.mechanismCategory || categorizeDDInterMechanism(inter.mechanism, inter.clinicalOutcome)
+    };
+
+    if (!existing) {
+      mapByPair.set(pairNameKey, preparedItem);
+    } else {
+      const existingWeight = SEVERITY_WEIGHT[existing.severity] || 1;
+      const newWeight = SEVERITY_WEIGHT[inter.severity] || 1;
+
+      if (newWeight > existingWeight) {
+        mapByPair.set(pairNameKey, preparedItem);
+      } else if (newWeight === existingWeight) {
+        // Prefer the one with longer clinical monograph details or official ddinter ID
+        const existingScore = (existing.mechanism?.length || 0) + (existing.clinicalOutcome?.length || 0) + (existing.ddinterPairId ? 50 : 0);
+        const newScore = (inter.mechanism?.length || 0) + (inter.clinicalOutcome?.length || 0) + (inter.ddinterPairId ? 50 : 0);
+        if (newScore > existingScore) {
+          mapByPair.set(pairNameKey, preparedItem);
+        }
+      }
     }
   });
-  return result;
+
+  return Array.from(mapByPair.values());
 }
 
 // Common Drug Knowledge Base mapping for dynamic generation of unlisted drugs
@@ -1265,12 +1276,59 @@ export function evaluateTherapeuticDuplications(
   return results;
 }
 
+/**
+ * Normalizes semantic variants of foods/nutrients to a canonical entity
+ * Prevents duplicates like "Jus Grapefruit (Jeruk Bali)" and "Jus Jeruk Bali / Grapefruit"
+ */
+export function normalizeFoodEntity(foodName: string): { canonicalKey: string; canonicalName: string } {
+  const lower = (foodName || '').toLowerCase().trim();
+
+  if (lower.includes('grapefruit') || lower.includes('jeruk bali')) {
+    return { canonicalKey: 'food_grapefruit', canonicalName: 'Jus Grapefruit / Jeruk Bali' };
+  }
+  if (lower.includes('alkohol') || lower.includes('alcohol') || lower.includes('minuman keras')) {
+    return { canonicalKey: 'food_alcohol', canonicalName: 'Minuman Beralkohol' };
+  }
+  if (lower.includes('susu') || lower.includes('kalsium') || lower.includes('yoghurt')) {
+    return { canonicalKey: 'food_calcium_dairy', canonicalName: 'Susu & Produk Olahan Kaya Kalsium' };
+  }
+  if (lower.includes('kopi') || lower.includes('kafein')) {
+    return { canonicalKey: 'food_caffeine', canonicalName: 'Kopi & Minuman Berkafein Tinggi' };
+  }
+  if (lower.includes('vitamin k') || (lower.includes('sayuran hijau') && !lower.includes('oksalat'))) {
+    return { canonicalKey: 'food_vitamin_k', canonicalName: 'Sayuran Hijau Kaya Vitamin K (Bayam, Kale, Brokoli)' };
+  }
+  if (lower.includes('tiramin') || lower.includes('tirosin') || lower.includes('keju tua')) {
+    return { canonicalKey: 'food_tyramine', canonicalName: 'Makanan Tinggi Tiramin (Keju Tua, Ikan Asin/Fermentasi)' };
+  }
+  if (lower.includes('pengganti garam') || lower.includes('salt substitute') || (lower.includes('kalium') && lower.includes('diet'))) {
+    return { canonicalKey: 'food_potassium_salt', canonicalName: 'Garam Pengganti Rendah Natrium (Kaya Kalium / KCl)' };
+  }
+  if (lower.includes('lemak') || lower.includes('makanan berat')) {
+    return { canonicalKey: 'food_high_fat', canonicalName: 'Makanan Tinggi Lemak (Gorengan, Santan, Daging Berlemak)' };
+  }
+  if (lower.includes('teh hijau') || lower.includes('green tea')) {
+    return { canonicalKey: 'food_green_tea', canonicalName: 'Teh Hijau Pekat (Kaya Tanin & Polifenol)' };
+  }
+  if (lower.includes('oksalat')) {
+    return { canonicalKey: 'food_oxalate', canonicalName: 'Bayam & Tumbuhan Tinggi Asam Oksalat' };
+  }
+  if (lower.includes('gandum') || lower.includes('bekatul') || lower.includes('serat')) {
+    return { canonicalKey: 'food_fiber', canonicalName: 'Bekatul, Gandum Utuh & Makanan Kaya Serat' };
+  }
+  if (lower.includes('rokok') || lower.includes('tembakau')) {
+    return { canonicalKey: 'food_tobacco', canonicalName: 'Rokok & Produk Tembakau (Nikotin/Polisiklik)' };
+  }
+
+  return { canonicalKey: `food_${lower.replace(/[^a-z0-9]/g, '_')}`, canonicalName: foodName };
+}
+
 export function evaluateFoodInteractions(
   selectedDrugs: Drug[],
   staticFoodInteractions: DrugFoodInteraction[] = []
 ): DrugFoodInteraction[] {
   const results: DrugFoodInteraction[] = [];
-  const seenKeys = new Set<string>();
+  const SEVERITY_WEIGHT: Record<string, number> = { Major: 3, Moderate: 2, Minor: 1 };
 
   for (const drug of selectedDrugs) {
     const drugNameLower = (drug.name || '').toLowerCase().trim();
@@ -1284,14 +1342,40 @@ export function evaluateFoodInteractions(
 
     if (staticMatches.length > 0) {
       for (const match of staticMatches) {
-        const uniqueKey = `${drug.id}__${match.foodName.toLowerCase().trim()}`;
-        if (!seenKeys.has(uniqueKey)) {
-          seenKeys.add(uniqueKey);
+        const { canonicalKey, canonicalName } = normalizeFoodEntity(match.foodName);
+        const itemKey = `dfi-${drug.id}-${canonicalKey}`;
+        const existingIdx = results.findIndex((r) => r.id === itemKey);
+
+        const newWeight = SEVERITY_WEIGHT[match.severity] || 1;
+
+        if (existingIdx === -1) {
           results.push({
             ...match,
-            id: `dfi-${drug.id}-${match.id.replace(/[^a-z0-9]/gi, '')}`,
+            id: itemKey,
+            foodName: canonicalName,
             drugName: drug.name
           });
+        } else {
+          const oldWeight = SEVERITY_WEIGHT[results[existingIdx].severity] || 1;
+          if (newWeight > oldWeight) {
+            results[existingIdx] = {
+              ...match,
+              id: itemKey,
+              foodName: canonicalName,
+              drugName: drug.name
+            };
+          } else if (newWeight === oldWeight) {
+            const oldLen = (results[existingIdx].mechanism?.length || 0) + (results[existingIdx].recommendation?.length || 0);
+            const newLen = (match.mechanism?.length || 0) + (match.recommendation?.length || 0);
+            if (newLen > oldLen) {
+              results[existingIdx] = {
+                ...match,
+                id: itemKey,
+                foodName: canonicalName,
+                drugName: drug.name
+              };
+            }
+          }
         }
       }
     } else if (drug.foodInteraction && drug.foodInteraction.length > 5) {
@@ -1306,13 +1390,15 @@ export function evaluateFoodInteractions(
       else if (text.includes('lemak')) foodCat = 'Makanan Tinggi Lemak';
       else if (text.includes('kalium') || text.includes('mineral')) foodCat = 'Suplemen / Mineral';
 
-      const uniqueKey = `${drug.id}__dynamic_food`;
-      if (!seenKeys.has(uniqueKey)) {
-        seenKeys.add(uniqueKey);
+      const { canonicalKey, canonicalName } = normalizeFoodEntity(foodCat);
+      const itemKey = `dfi-dyn-${drug.id}-${canonicalKey}`;
+      const existingIdx = results.findIndex((r) => r.id === itemKey);
+
+      if (existingIdx === -1) {
         results.push({
-          id: `dfi-dyn-${drug.id}`,
+          id: itemKey,
           drugName: drug.name,
-          foodName: 'Rekomendasi Makanan / Minuman Monografi DDInter',
+          foodName: canonicalName !== foodCat ? canonicalName : 'Rekomendasi Diet & Makanan Monografi',
           foodCategory: foodCat,
           severity: text.includes('hindari') ? 'Major' : 'Moderate',
           mechanism: `Interaksi absorbsi atau metabolisme organ antara ${drug.name} dan asupan nutrisi makanan.`,
@@ -1415,14 +1501,28 @@ export function evaluateDrugDiseaseInteractions(
       });
 
       if (isDrugMatch) {
-        const uniqueKey = `${drug.id}__${rule.id}`;
-        if (!seenKeys.has(uniqueKey)) {
-          seenKeys.add(uniqueKey);
+        // Intelligent deduplication by drug and canonical disease name, prioritizing highest severity
+        const normDiseaseKey = rule.diseaseName.toLowerCase().trim();
+        const uniqueKey = `${drug.id}__${normDiseaseKey}`;
+        const SEVERITY_WEIGHT: Record<string, number> = { Major: 3, Moderate: 2, Minor: 1 };
+        const newWeight = SEVERITY_WEIGHT[rule.severity] || 1;
+
+        const existingIdx = results.findIndex((r) => r.id === `ddsi-eval-${uniqueKey}`);
+        if (existingIdx === -1) {
           results.push({
             ...rule,
             id: `ddsi-eval-${uniqueKey}`,
             drugName: `${drug.name} (${drug.genericName || drug.name})`
           });
+        } else {
+          const oldWeight = SEVERITY_WEIGHT[results[existingIdx].severity] || 1;
+          if (newWeight > oldWeight) {
+            results[existingIdx] = {
+              ...rule,
+              id: `ddsi-eval-${uniqueKey}`,
+              drugName: `${drug.name} (${drug.genericName || drug.name})`
+            };
+          }
         }
       }
     }

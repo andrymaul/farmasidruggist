@@ -509,6 +509,7 @@ export const FORNAS_BATCH4_DRUGS: Drug[] = [
     "lactationWarning": "Diekskresikan dalam konsentrasi rendah ke dalam ASI; kompatibel pada dosis inhalasi.",
     "monitoringParameters": "Frekuensi pernapasan dan wheezing auskultasi paru, denyut nadi maternal dan denyut jantung janin (DJJ), kadar kalium darah dan glukosa darah.",
     "patientTips": "Obat pelega pernapasan asma. Efek samping yang paling sering muncul adalah tangan sedikit gemetar (tremor) dan jantung berdebar; hal ini lazim terjadi dan akan mereda setelah tubuh beradaptasi.",
+    "offLabelIndication": "• Tokolisis Darurat Akut pada Takisistol Uterus / Hiperstimulasi Miometrium Intrapartum (Uterine Tachysystole / Tetanic Contraction) & Gawat Janin Akut: 0.25 mg subkutan (SC) dosis tunggal darurat di ruang bersalin (atau 0.125 - 0.25 mg IV pelan) untuk merelaksasikan miometrium secara instan dan mengembalikan perfusi oksigen plasenta sebelum tindakan resusitasi intrauterin atau seksio sesarea darurat.\n• Relaksasi Miometrium pada Prosedur Versi Sefalik Luar (External Cephalic Version / ECV) pada Kehamilan Sungsang Aterm: 0.25 mg SC diberikan 15-30 menit sebelum manuver pemutaran janin dari letak sungsang ke letak kepala (meningkatkan angka keberhasilan tindakan hingga 50-70% menurut Cochrane Review).",
     "drugsComUrl": "https://www.drugs.com/monograph/terbutaline.html",
     "adultDosage": "Oral: 2.5 - 5 mg PO 3 kali sehari; Nebulisasi: 2.5 mg tiap 4-6 jam.",
     "pediatricDosage": "Anak: 0.05 mg/kgBB PO tiap 8 jam (maksimal 2.5 mg 3x sehari).",

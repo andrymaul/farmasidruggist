@@ -1,5 +1,6 @@
 import { DrugDiseaseInteraction } from '../types';
 import { DRUG_DISEASE_EXTENDED_DATABASE } from './drugDiseaseExtendedData';
+import { DDINTER_OFFICIAL_DISEASE_INTERACTIONS } from './ddinterDiseaseInteractionsData';
 
 const BASE_DRUG_DISEASE_INTERACTIONS: DrugDiseaseInteraction[] = [
   // =========================================================================
@@ -296,21 +297,29 @@ const BASE_DRUG_DISEASE_INTERACTIONS: DrugDiseaseInteraction[] = [
 ];
 
 function deduplicateDrugDiseaseInteractions(list: DrugDiseaseInteraction[]): DrugDiseaseInteraction[] {
-  const seen = new Set<string>();
-  const result: DrugDiseaseInteraction[] = [];
+  const map = new Map<string, DrugDiseaseInteraction>();
+  const SEVERITY_WEIGHT: Record<string, number> = { Major: 3, Moderate: 2, Minor: 1 };
+
   list.forEach((item) => {
     const key = (item.drugName.toLowerCase().trim() + '__' + item.diseaseName.toLowerCase().trim());
-    if (!seen.has(key)) {
-      seen.add(key);
-      result.push(item);
+    if (!map.has(key)) {
+      map.set(key, item);
+    } else {
+      const existing = map.get(key)!;
+      const existingWeight = SEVERITY_WEIGHT[existing.severity] || 1;
+      const newWeight = SEVERITY_WEIGHT[item.severity] || 1;
+      if (newWeight > existingWeight) {
+        map.set(key, item);
+      }
     }
   });
-  return result;
+  return Array.from(map.values());
 }
 
 export const DRUG_DISEASE_INTERACTIONS_DATABASE: DrugDiseaseInteraction[] = deduplicateDrugDiseaseInteractions([
   ...BASE_DRUG_DISEASE_INTERACTIONS,
-  ...DRUG_DISEASE_EXTENDED_DATABASE
+  ...DRUG_DISEASE_EXTENDED_DATABASE,
+  ...DDINTER_OFFICIAL_DISEASE_INTERACTIONS
 ]);
 
 export interface ComorbidityProfile {

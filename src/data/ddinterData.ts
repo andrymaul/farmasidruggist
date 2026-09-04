@@ -2,6 +2,9 @@ import { Drug, DrugInteraction, PricingPlan, DrugFoodInteraction, TherapeuticDup
 import { EXTENDED_DRUGS_DATABASE } from './ddinterDrugs';
 import { EXTENDED_INTERACTIONS_DATABASE } from './ddinterInteractions';
 import { DRUGSCOM_ADDITIONAL_FOOD_INTERACTIONS, DRUGSCOM_ADDITIONAL_THERAPEUTIC_DUPLICATIONS } from './drugsComData';
+import { DDINTER_OFFICIAL_FOOD_INTERACTIONS } from './ddinterFoodInteractionsData';
+import { DDINTER_OFFICIAL_DUPLICATIONS } from './ddinterDuplicationsData';
+import { normalizeFoodEntity } from '../utils/ddinterEngine';
 
 export const INITIAL_DRUGS: Drug[] = EXTENDED_DRUGS_DATABASE;
 export const INITIAL_INTERACTIONS: DrugInteraction[] = EXTENDED_INTERACTIONS_DATABASE;
@@ -291,18 +294,48 @@ const BASE_FOOD_INTERACTIONS: DrugFoodInteraction[] = [
 
 function deduplicateFoodInteractions(list: DrugFoodInteraction[]): DrugFoodInteraction[] {
   const map = new Map<string, DrugFoodInteraction>();
+  const SEVERITY_WEIGHT: Record<string, number> = { Major: 3, Moderate: 2, Minor: 1 };
+
   list.forEach((item) => {
-    const key = (item.drugName.toLowerCase().trim() + '__' + item.foodName.toLowerCase().trim());
-    if (!map.has(key)) {
-      map.set(key, item);
+    const { canonicalKey, canonicalName } = normalizeFoodEntity(item.foodName);
+    const drugKey = (item.drugName || '').toLowerCase().trim();
+    const compositeKey = `${drugKey}__${canonicalKey}`;
+
+    const existing = map.get(compositeKey);
+    const itemWeight = SEVERITY_WEIGHT[item.severity] || 1;
+
+    if (!existing) {
+      map.set(compositeKey, {
+        ...item,
+        foodName: canonicalName
+      });
+    } else {
+      const existingWeight = SEVERITY_WEIGHT[existing.severity] || 1;
+      if (itemWeight > existingWeight) {
+        map.set(compositeKey, {
+          ...item,
+          foodName: canonicalName
+        });
+      } else if (itemWeight === existingWeight) {
+        const existingLen = (existing.mechanism?.length || 0) + (existing.recommendation?.length || 0);
+        const itemLen = (item.mechanism?.length || 0) + (item.recommendation?.length || 0);
+        if (itemLen > existingLen) {
+          map.set(compositeKey, {
+            ...item,
+            foodName: canonicalName
+          });
+        }
+      }
     }
   });
+
   return Array.from(map.values());
 }
 
 export const SAMPLE_FOOD_INTERACTIONS: DrugFoodInteraction[] = deduplicateFoodInteractions([
   ...BASE_FOOD_INTERACTIONS,
-  ...DRUGSCOM_ADDITIONAL_FOOD_INTERACTIONS
+  ...DRUGSCOM_ADDITIONAL_FOOD_INTERACTIONS,
+  ...DDINTER_OFFICIAL_FOOD_INTERACTIONS
 ]);
 
 const BASE_THERAPEUTIC_DUPLICATIONS: TherapeuticDuplication[] = [
@@ -441,7 +474,8 @@ function deduplicateDuplications(list: TherapeuticDuplication[]): TherapeuticDup
 
 export const SAMPLE_THERAPEUTIC_DUPLICATIONS: TherapeuticDuplication[] = deduplicateDuplications([
   ...BASE_THERAPEUTIC_DUPLICATIONS,
-  ...DRUGSCOM_ADDITIONAL_THERAPEUTIC_DUPLICATIONS
+  ...DRUGSCOM_ADDITIONAL_THERAPEUTIC_DUPLICATIONS,
+  ...DDINTER_OFFICIAL_DUPLICATIONS
 ]);
 
 export const PRICING_PLANS: PricingPlan[] = [

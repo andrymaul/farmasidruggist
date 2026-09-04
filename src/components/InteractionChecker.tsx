@@ -35,7 +35,6 @@ import {
   Pill,
   Filter,
   ArrowRight,
-  ArrowUpRight,
   BookOpen
 } from 'lucide-react';
 import { 
@@ -49,7 +48,6 @@ import {
   SAMPLE_FOOD_INTERACTIONS, 
   SAMPLE_THERAPEUTIC_DUPLICATIONS, 
   DDINTER_DATASET_INFO,
-  DDINTER_OFFICIAL_URLS,
   INITIAL_DRUGS,
   INITIAL_INTERACTIONS
 } from '../data/ddinterData';
@@ -498,15 +496,15 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-amber-200">
                 <Utensils className="w-3.5 h-3.5 text-amber-400" />
-                <span>{SAMPLE_FOOD_INTERACTIONS.length} Interaksi Makanan (DFI)</span>
+                <span>{SAMPLE_FOOD_INTERACTIONS.length.toLocaleString('id-ID')} Interaksi Makanan (DFI)</span>
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-purple-200">
                 <CopyX className="w-3.5 h-3.5 text-purple-400" />
-                <span>{SAMPLE_THERAPEUTIC_DUPLICATIONS.length} Duplikasi Terapi</span>
+                <span>{SAMPLE_THERAPEUTIC_DUPLICATIONS.length.toLocaleString('id-ID')} Duplikasi Terapi</span>
               </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
                 <HeartPulse className="w-3.5 h-3.5 text-emerald-400" />
-                <span>{DRUG_DISEASE_INTERACTIONS_DATABASE.length} Kontraindikasi Penyakit</span>
+                <span>{DRUG_DISEASE_INTERACTIONS_DATABASE.length.toLocaleString('id-ID')} Kontraindikasi Penyakit</span>
               </div>
             </div>
           </div>
@@ -540,19 +538,19 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                   <span className="text-slate-400 flex items-center gap-1">
                     <Utensils className="w-3 h-3 text-amber-400" /> Makanan:
                   </span>
-                  <span className="font-black text-amber-300">{SAMPLE_FOOD_INTERACTIONS.length} DFI</span>
+                  <span className="font-black text-amber-300">{SAMPLE_FOOD_INTERACTIONS.length.toLocaleString('id-ID')} DFI</span>
                 </div>
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-slate-400 flex items-center gap-1">
                     <CopyX className="w-3 h-3 text-purple-400" /> Duplikasi:
                   </span>
-                  <span className="font-black text-purple-300">{SAMPLE_THERAPEUTIC_DUPLICATIONS.length} Golongan</span>
+                  <span className="font-black text-purple-300">{SAMPLE_THERAPEUTIC_DUPLICATIONS.length.toLocaleString('id-ID')} Golongan</span>
                 </div>
                 <div className="col-span-2 flex items-center justify-between gap-2 pt-1.5 mt-0.5 border-t border-white/5">
                   <span className="text-slate-400 flex items-center gap-1">
                     <HeartPulse className="w-3 h-3 text-emerald-400" /> Kontraindikasi Penyakit:
                   </span>
-                  <span className="font-black text-emerald-300">{DRUG_DISEASE_INTERACTIONS_DATABASE.length} ({COMMON_CLINICAL_DISEASES.length} Komorbiditas)</span>
+                  <span className="font-black text-emerald-300">{DRUG_DISEASE_INTERACTIONS_DATABASE.length.toLocaleString('id-ID')} ({COMMON_CLINICAL_DISEASES.length} Komorbiditas)</span>
                 </div>
               </div>
             </div>
@@ -1207,15 +1205,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                     Menganalisis profil farmakokinetik &amp; farmakodinamik antar-zat aktif dengan klasifikasi 3 derajat keparahan (Major, Moderate, Minor) dan 6 kategori mekanisme kinetik/dinamik baku.
                   </p>
                 </div>
-                <a
-                  href={DDINTER_OFFICIAL_URLS.ddi}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold font-outfit shadow-xs transition-all hover:scale-105"
-                >
-                  <span>Buka Server DDInter DDI</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
               </div>
 
               {/* FILTERS TOOLBAR */}
@@ -1382,17 +1371,12 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                             </span>
                           </div>
 
-                          <a
-                            href={DDINTER_OFFICIAL_URLS.ddi}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 font-mono text-[10px] text-slate-600 dark:text-slate-400 hover:text-amber-700 dark:hover:text-amber-400"
-                          >
+                          <div className="inline-flex items-center gap-1.5 font-mono text-[10px] text-slate-600 dark:text-slate-400">
                             <span>ID DDInter:</span>
-                            <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shadow-2xs hover:border-amber-400">
-                              {item.ddinterPairId} ↗
+                            <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shadow-2xs">
+                              {item.ddinterPairId}
                             </span>
-                          </a>
+                          </div>
                         </div>
                       </div>
                     );
@@ -1435,15 +1419,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                     Mengevaluasi kontraindikasi obat terhadap kondisi penyakit pasien (Drug-Disease Interactions / DDSI) untuk mencegah perburukan klinis, dekompensasi organ, dan reaksi toksik fatal.
                   </p>
                 </div>
-                <a
-                  href={DDINTER_OFFICIAL_URLS.otherInteractions}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold font-outfit shadow-xs transition-all hover:scale-105"
-                >
-                  <span>Buka Server DDInter DDSI</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
               </div>
 
               {/* Comorbidity Selector Box with All-Risks Toggle */}
@@ -1601,15 +1576,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                     Panduan jeda waktu makan, interaksi kelat khelasi dengan susu / kalsium, penghambatan enzim CYP3A4 oleh jus grapefruit, reaksi disulfiram dengan alkohol, dan stabilitas vitamin K.
                   </p>
                 </div>
-                <a
-                  href={DDINTER_OFFICIAL_URLS.otherInteractions}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold font-outfit shadow-xs transition-all hover:scale-105"
-                >
-                  <span>Buka Server DDInter DFI</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
               </div>
 
               {/* DFI LIST */}
@@ -1684,15 +1650,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                     Mendeteksi peresepan ganda pada kelas farmakologi atau kode ATC yang sama (seperti 2 NSAID oral, 2 PPI, 2 Statin, Dual RAAS Blockade ACEi + ARB) yang melipatgandakan efek samping tanpa bukti peningkatan efikasi.
                   </p>
                 </div>
-                <a
-                  href={DDINTER_OFFICIAL_URLS.otherInteractions}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold font-outfit shadow-xs transition-all hover:scale-105"
-                >
-                  <span>Buka Server DDInter Duplication</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
               </div>
 
               {/* DUPLICATION LIST */}
