@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PRICING_PLANS, PRICING_FAQS, INITIAL_INTERACTIONS } from '../data/ddinterData';
 import { Drug, DrugInteraction, UserProfile, PricingPlan } from '../types';
 import { 
@@ -52,7 +52,7 @@ import {
 } from 'lucide-react';
 import { resolveDrugFromDDInter, resolveInteractionPair } from '../utils/ddinterEngine';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
-import { SWAMEDIKASI_PROTOCOLS } from '../data/swamedikasiData';
+import { SWAMEDIKASI_PROTOCOLS, searchSwamedikasiProtocols } from '../data/swamedikasiData';
 import { SwamedikasiProtocol } from '../types';
 
 interface LandingPageProps {
@@ -79,18 +79,62 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const [activePlaygroundTab, setActivePlaygroundTab] = useState<'ddi' | 'swamedikasi' | 'srq20'>('ddi');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
-  // Playground Swamedikasi State: Dropdown Selector
+  // Playground Swamedikasi State: Searchable Dropdown
   const [selectedProtocolId, setSelectedProtocolId] = useState<string>(SWAMEDIKASI_PROTOCOLS[0]?.id || 'swam-demam-dewasa');
+  const [isSwamedikasiDropdownOpen, setIsSwamedikasiDropdownOpen] = useState(false);
+  const [swamedikasiSearchQuery, setSwamedikasiSearchQuery] = useState('');
+  const swamedikasiDropdownRef = useRef<HTMLDivElement>(null);
+  const swamedikasiSearchInputRef = useRef<HTMLInputElement>(null);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (swamedikasiDropdownRef.current && !swamedikasiDropdownRef.current.contains(event.target as Node)) {
+        setIsSwamedikasiDropdownOpen(false);
+      }
+    };
+    if (isSwamedikasiDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSwamedikasiDropdownOpen]);
+
+  // Focus search input when dropdown opens
+  useEffect(() => {
+    if (isSwamedikasiDropdownOpen) {
+      setTimeout(() => {
+        swamedikasiSearchInputRef.current?.focus();
+      }, 50);
+    }
+  }, [isSwamedikasiDropdownOpen]);
+
+  // Close dropdown on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isSwamedikasiDropdownOpen) {
+        setIsSwamedikasiDropdownOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isSwamedikasiDropdownOpen]);
+
+  const filteredSwamedikasiProtocols = useMemo(() => {
+    if (!swamedikasiSearchQuery.trim()) return SWAMEDIKASI_PROTOCOLS;
+    return searchSwamedikasiProtocols(swamedikasiSearchQuery);
+  }, [swamedikasiSearchQuery]);
 
   const groupedSwamedikasiProtocols = useMemo(() => {
     const groups: { [cat: string]: SwamedikasiProtocol[] } = {};
-    SWAMEDIKASI_PROTOCOLS.forEach((p) => {
+    filteredSwamedikasiProtocols.forEach((p) => {
       const cat = p.categoryLabel || 'Lainnya';
       if (!groups[cat]) groups[cat] = [];
       groups[cat].push(p);
     });
     return groups;
-  }, []);
+  }, [filteredSwamedikasiProtocols]);
 
   const activePlaygroundProtocol = useMemo(() => {
     return SWAMEDIKASI_PROTOCOLS.find(p => p.id === selectedProtocolId) || SWAMEDIKASI_PROTOCOLS[0];
@@ -1134,51 +1178,165 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
               </span>
             </div>
 
-            {/* Dropdown Selector Protokol Swamedikasi (Standar BPOM & OWA) */}
-            <div className="space-y-2.5">
-              <label
-                htmlFor="landing-swamedikasi-select"
-                className="text-xs font-black font-outfit text-slate-700 dark:text-teal-200 flex flex-wrap items-center justify-between gap-1"
-              >
-                <span className="flex items-center gap-1.5">
+            {/* Searchable Dropdown Selector Protokol Swamedikasi (Standar BPOM & OWA) */}
+            <div className="space-y-2.5 relative" ref={swamedikasiDropdownRef}>
+              <div className="flex flex-wrap items-center justify-between gap-1">
+                <label
+                  htmlFor="landing-swamedikasi-trigger"
+                  className="text-xs font-black font-outfit text-slate-700 dark:text-teal-200 flex items-center gap-1.5"
+                >
                   <Stethoscope className="w-4 h-4 text-emerald-500" />
                   <span>Pilih Keluhan Pasien / Protokol Swamedikasi:</span>
+                </label>
+                <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 font-mono bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-lg border border-emerald-200 dark:border-emerald-800/60 flex items-center gap-1">
+                  <Search className="w-3 h-3" />
+                  <span>Dropdown dengan Pencarian Cepat</span>
                 </span>
-                <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 font-mono bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-lg border border-emerald-200 dark:border-emerald-800/60">
-                  {SWAMEDIKASI_PROTOCOLS.length} Keluhan Tersedia
-                </span>
-              </label>
-
-              <div className="relative group">
-                <select
-                  id="landing-swamedikasi-select"
-                  value={selectedProtocolId}
-                  onChange={(e) => setSelectedProtocolId(e.target.value)}
-                  className="w-full appearance-none pl-4 pr-11 py-3 text-xs sm:text-sm font-bold font-outfit text-slate-900 dark:text-white bg-slate-50 dark:bg-[#020d11] rounded-2xl border-2 border-emerald-300 dark:border-teal-500/40 focus:outline-none focus:ring-4 focus:ring-emerald-500/20 focus:border-emerald-500 dark:focus:border-emerald-400 shadow-sm cursor-pointer transition-all"
-                >
-                  {Object.entries(groupedSwamedikasiProtocols).map(([catLabel, protocols]) => (
-                    <optgroup
-                      key={catLabel}
-                      label={`📂 Kategori: ${catLabel}`}
-                      className="font-black text-emerald-800 dark:text-emerald-400 bg-slate-100 dark:bg-[#062026]"
-                    >
-                      {protocols.map((protocol) => (
-                        <option
-                          key={protocol.id}
-                          value={protocol.id}
-                          className="py-1 text-slate-900 dark:text-white bg-white dark:bg-[#04151a] font-medium text-xs sm:text-sm"
-                        >
-                          {protocol.title} (Batas Mandiri: {protocol.maxSelfMedDays} hari)
-                        </option>
-                      ))}
-                    </optgroup>
-                  ))}
-                </select>
-
-                <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none flex items-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
-                  <ChevronDown className="w-4 h-4" />
-                </div>
               </div>
+
+              {/* Main Trigger Button */}
+              <button
+                id="landing-swamedikasi-trigger"
+                type="button"
+                onClick={() => setIsSwamedikasiDropdownOpen(prev => !prev)}
+                aria-expanded={isSwamedikasiDropdownOpen}
+                className={`w-full text-left pl-3.5 sm:pl-4 pr-4 py-3 bg-white dark:bg-[#020d11] rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between gap-2 shadow-xs group ${
+                  isSwamedikasiDropdownOpen
+                    ? 'border-emerald-500 dark:border-emerald-400 ring-4 ring-emerald-500/20 shadow-lg'
+                    : 'border-emerald-300 dark:border-teal-500/40 hover:border-emerald-400 dark:hover:border-teal-400'
+                }`}
+              >
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-200 dark:border-emerald-800/70 group-hover:scale-105 transition-transform">
+                    <Stethoscope className="w-4 h-4" />
+                  </div>
+                  <div className="truncate">
+                    <div className="text-xs sm:text-sm font-black font-outfit text-slate-900 dark:text-white truncate">
+                      {activePlaygroundProtocol.title}
+                    </div>
+                    <div className="text-[10px] sm:text-[11px] text-slate-500 dark:text-teal-100/70 flex items-center gap-1.5 font-medium">
+                      <span className="font-semibold text-emerald-700 dark:text-emerald-300">{activePlaygroundProtocol.categoryLabel}</span>
+                      <span>•</span>
+                      <span>Batas Mandiri: Maks. {activePlaygroundProtocol.maxSelfMedDays} Hari</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[10.5px] font-bold px-2.5 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60">
+                    <Search className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                    <span>Cari / Ganti</span>
+                  </span>
+                  <div className={`p-1.5 rounded-xl bg-slate-100 dark:bg-[#062026] text-emerald-600 dark:text-emerald-400 transition-transform duration-200 ${
+                    isSwamedikasiDropdownOpen ? 'rotate-180 bg-emerald-100 dark:bg-emerald-950' : ''
+                  }`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {/* Floating Searchable Dropdown Menu */}
+              {isSwamedikasiDropdownOpen && (
+                <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-white dark:bg-[#03151b] rounded-2xl border-2 border-emerald-400/90 dark:border-teal-500/60 shadow-2xl overflow-hidden backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150">
+                  {/* Sticky Search Bar */}
+                  <div className="p-3 border-b border-slate-200/80 dark:border-teal-500/25 bg-slate-50/90 dark:bg-[#020d11]/95">
+                    <div className="relative">
+                      <Search className="w-4 h-4 text-emerald-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <input
+                        ref={swamedikasiSearchInputRef}
+                        type="text"
+                        value={swamedikasiSearchQuery}
+                        onChange={(e) => setSwamedikasiSearchQuery(e.target.value)}
+                        placeholder="Ketik keluhan, gejala, atau obat (misal: maag, batuk, pusing, alergi, parasetamol)..."
+                        className="w-full pl-10 pr-9 py-2.5 text-xs sm:text-sm font-bold font-outfit text-slate-900 dark:text-white bg-white dark:bg-[#062026] rounded-xl border border-slate-200 dark:border-teal-500/40 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all placeholder:text-slate-400 dark:placeholder:text-teal-200/40"
+                      />
+                      {swamedikasiSearchQuery && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSwamedikasiSearchQuery('');
+                            swamedikasiSearchInputRef.current?.focus();
+                          }}
+                          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between mt-2 px-1 text-[10.5px] font-medium text-slate-500 dark:text-teal-100/70">
+                      <span>Ditemukan: <strong className="text-emerald-600 dark:text-emerald-400">{filteredSwamedikasiProtocols.length}</strong> keluhan</span>
+                      <span>Tekan <kbd className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-[9px] font-mono">Esc</kbd> untuk menutup</span>
+                    </div>
+                  </div>
+
+                  {/* Options List */}
+                  <div className="max-h-72 sm:max-h-80 overflow-y-auto p-2 space-y-3 divide-y divide-slate-100 dark:divide-teal-500/15">
+                    {filteredSwamedikasiProtocols.length === 0 ? (
+                      <div className="p-6 text-center space-y-2">
+                        <p className="text-xs text-slate-500 dark:text-slate-400">
+                          Keluhan tidak ditemukan untuk kata kunci <strong>"{swamedikasiSearchQuery}"</strong>.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setSwamedikasiSearchQuery('')}
+                          className="px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 dark:hover:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 font-bold text-xs border border-emerald-200 dark:border-emerald-800 transition cursor-pointer font-outfit"
+                        >
+                          Tampilkan Semua 20 Keluhan
+                        </button>
+                      </div>
+                    ) : (
+                      Object.entries(groupedSwamedikasiProtocols).map(([catLabel, protocols]) => (
+                        <div key={catLabel} className="pt-2 first:pt-0 space-y-1">
+                          <div className="px-2.5 py-1 text-[10.5px] font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-400 font-outfit flex items-center justify-between">
+                            <span>📂 {catLabel}</span>
+                            <span className="text-[9.5px] font-mono font-bold text-slate-400 dark:text-teal-200/50">
+                              {protocols.length} protokol
+                            </span>
+                          </div>
+                          <div className="space-y-1">
+                            {protocols.map((protocol) => {
+                              const isSelected = protocol.id === activePlaygroundProtocol.id;
+                              return (
+                                <button
+                                  key={protocol.id}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedProtocolId(protocol.id);
+                                    setIsSwamedikasiDropdownOpen(false);
+                                    setSwamedikasiSearchQuery('');
+                                  }}
+                                  className={`w-full text-left p-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-between gap-2 border ${
+                                    isSelected
+                                      ? 'bg-emerald-50 dark:bg-emerald-950/70 border-emerald-300 dark:border-emerald-700/80 text-emerald-950 dark:text-white shadow-xs'
+                                      : 'bg-transparent hover:bg-slate-50 dark:hover:bg-[#062026] border-transparent text-slate-700 dark:text-slate-200'
+                                  }`}
+                                >
+                                  <div className="min-w-0 flex-1">
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                      <span className="text-xs font-bold font-outfit text-slate-900 dark:text-white">
+                                        {protocol.title}
+                                      </span>
+                                      <span className="text-[9.5px] font-semibold px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                                        Maks. {protocol.maxSelfMedDays} Hari
+                                      </span>
+                                    </div>
+                                    <p className="text-[10px] text-slate-500 dark:text-teal-100/65 line-clamp-1 mt-0.5">
+                                      {protocol.quickSummary}
+                                    </p>
+                                  </div>
+                                  {isSelected && (
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                                  )}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Live Interactive Triage Display */}
