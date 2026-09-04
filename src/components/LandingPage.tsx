@@ -44,10 +44,16 @@ import {
   RotateCcw,
   Layers,
   Star,
-  Quote
+  Quote,
+  Clock,
+  AlertOctagon,
+  Utensils,
+  Flame
 } from 'lucide-react';
 import { resolveDrugFromDDInter, resolveInteractionPair } from '../utils/ddinterEngine';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
+import { SWAMEDIKASI_PROTOCOLS, searchSwamedikasiProtocols } from '../data/swamedikasiData';
+import { SwamedikasiProtocol } from '../types';
 
 interface LandingPageProps {
   drugs: Drug[];
@@ -70,8 +76,34 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onOpenAuthModal
 }) => {
   const [heroSearch, setHeroSearch] = useState('');
-  const [activePlaygroundTab, setActivePlaygroundTab] = useState<'ddi' | 'srq20'>('ddi');
+  const [activePlaygroundTab, setActivePlaygroundTab] = useState<'ddi' | 'swamedikasi' | 'srq20'>('ddi');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  // Playground Swamedikasi State
+  const [swamedikasiSearch, setSwamedikasiSearch] = useState('');
+  const [selectedProtocolId, setSelectedProtocolId] = useState<string>(SWAMEDIKASI_PROTOCOLS[0]?.id || 'swam-demam-dewasa');
+
+  const popularSwamedikasiChips = [
+    { label: 'Meriang / Demam', id: 'swam-demam-dewasa' },
+    { label: 'Sakit Maag / Gerd', id: 'swam-maag-gerd' },
+    { label: 'Diare Mencret', id: 'swam-diare-dewasa' },
+    { label: 'Flu & Hidung Mampet', id: 'swam-ispa-flu' },
+    { label: 'Batuk Berdahak', id: 'swam-batuk-dahak' },
+    { label: 'Sariawan Perih', id: 'swam-sariawan' },
+    { label: 'Biduran / Gatal Alergi', id: 'swam-urtikaria-gatal' },
+    { label: 'Mata Merah Iritasi', id: 'swam-mata-merah' }
+  ];
+
+  const playgroundFilteredProtocols = useMemo(() => {
+    if (!swamedikasiSearch.trim()) return SWAMEDIKASI_PROTOCOLS;
+    return searchSwamedikasiProtocols(swamedikasiSearch);
+  }, [swamedikasiSearch]);
+
+  const activePlaygroundProtocol = useMemo(() => {
+    const found = SWAMEDIKASI_PROTOCOLS.find(p => p.id === selectedProtocolId);
+    if (found) return found;
+    return playgroundFilteredProtocols[0] || SWAMEDIKASI_PROTOCOLS[0];
+  }, [selectedProtocolId, playgroundFilteredProtocols]);
 
   // Feedback Questionnaire to WhatsApp State
   const [feedbackName, setFeedbackName] = useState('');
@@ -101,6 +133,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   // Animated rotating placeholder for hero search bar
   const samplePlaceholders = useMemo(() => [
     'Cari Warfarin, Simvastatin, Clopidogrel...',
+    'Cari Keluhan: Meriang, Sakit Maag, Diare, Flu Batuk...',
     'Cari Paxlovid, Ketoconazole, Amiodarone...',
     'Cari Paracetamol, Amoxicillin, Cetirizine...',
     'Cari Dosis Puyer Anak, Salbutamol, Dexamethasone...',
@@ -187,6 +220,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const handleHeroSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (heroSearch.trim()) {
+      const q = heroSearch.toLowerCase().trim();
+      const swamedikasiKeywords = [
+        'meriang', 'demam', 'maag', 'lambung', 'gerd', 'diare', 'mencret', 
+        'flu', 'pilek', 'mampet', 'batuk', 'dahak', 'sariawan', 'biduran', 
+        'gatal', 'alergi', 'mabuk', 'wasir', 'sembelit', 'konstipasi', 
+        'mata merah', 'sakit gigi', 'panu', 'kadas', 'kurap'
+      ];
+      if (swamedikasiKeywords.some(k => q.includes(k))) {
+        onSelectTab('swamedikasi');
+        return;
+      }
       if (onSearchDrug) onSearchDrug(heroSearch);
       onSelectTab('drugs');
     }
@@ -314,7 +358,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
                 </span>
                 <span className="tracking-wider uppercase text-[10px] sm:text-[11px] font-extrabold text-teal-200">
-                  EKOSISTEM DIGITAL 21 MODUL KEFARMASIAN
+                  EKOSISTEM DIGITAL 22 MODUL KEFARMASIAN
                 </span>
               </div>
 
@@ -328,7 +372,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
 
               {/* Subtitle */}
               <p className="text-xs sm:text-sm text-teal-100/80 font-medium leading-relaxed max-w-xl">
-                <strong className="text-white font-bold">FARMASIDRUGGIST</strong> mengintegrasikan <strong className="text-teal-200 font-bold">21 Modul Klinis Terpadu</strong>: Skrining Interaksi multi-database global (DDInter, Stockley, Lexicomp), Keamanan Ibu Hamil &amp; Laktasi PLLR, Kalkulator BUD USP &lt;795&gt;, hingga Evaluasi Geriatri Beers 2023.
+                <strong className="text-white font-bold">FARMASIDRUGGIST</strong> mengintegrasikan <strong className="text-teal-200 font-bold">22 Modul Klinis Terpadu</strong>: Skrining Interaksi multi-database global (DDInter, Stockley, Lexicomp), Swamedikasi &amp; Clinical Triage BPOM, Keamanan Ibu Hamil &amp; Laktasi PLLR, Kalkulator BUD USP &lt;795&gt;, hingga Evaluasi Geriatri Beers 2023.
               </p>
 
               {/* Hero Quick Search Box with Glowing Neon Border Ring & Rotating Placeholder */}
@@ -357,13 +401,17 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 {/* Popular drug sample tags styled as micro-pills */}
                 <div className="flex flex-wrap items-center gap-1.5 mt-3 text-xs">
                   <span className="font-extrabold text-teal-300 font-outfit text-[11px]">Pencarian Cepat:</span>
-                  {['Warfarin', 'Aspirin', 'Simvastatin', 'Clopidogrel', 'Ciprofloxacin'].map((sample) => (
+                  {['Warfarin', 'Aspirin', 'Simvastatin', 'Sakit Maag', 'Diare'].map((sample) => (
                     <button
                       key={sample}
                       type="button"
                       onClick={() => {
-                        if (onSearchDrug) onSearchDrug(sample);
-                        onSelectTab('drugs');
+                        if (sample === 'Sakit Maag' || sample === 'Diare') {
+                          onSelectTab('swamedikasi');
+                        } else {
+                          if (onSearchDrug) onSearchDrug(sample);
+                          onSelectTab('drugs');
+                        }
                       }}
                       className="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold transition-all cursor-pointer bg-[#082a32]/80 hover:bg-[#0e4450] text-teal-200 hover:text-white border border-teal-500/30 hover:border-teal-400/70 hover:scale-105 shadow-2xs flex items-center gap-1 backdrop-blur-xs"
                     >
@@ -397,7 +445,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                   className="px-5 py-3.5 rounded-full bg-[#051c22]/80 hover:bg-[#082a32] text-teal-100 hover:text-white font-bold border border-teal-500/30 hover:border-teal-400/60 transition-all flex items-center gap-2 text-xs sm:text-sm cursor-pointer hover:scale-[1.02] active:scale-95 backdrop-blur-md"
                 >
                   <BookOpen className="w-4 h-4 text-teal-400" />
-                  <span>Eksplorasi 21 Modul Terpadu</span>
+                  <span>Eksplorasi 22 Modul Terpadu</span>
                 </button>
               </div>
 
@@ -597,7 +645,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             <div className="p-4 bg-[#051c22]/80 hover:bg-[#07262e] border border-amber-500/30 hover:border-amber-400/60 rounded-2xl shadow-lg backdrop-blur-md transition-all hover:scale-[1.02] group">
               <div className="flex items-center justify-between mb-1.5">
                 <p className="text-2xl sm:text-3xl font-black text-amber-300 font-outfit group-hover:text-amber-200 transition-colors">
-                  21 Modul
+                  22 Modul
                 </p>
                 <Layers className="w-4 h-4 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
               </div>
@@ -826,6 +874,18 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             >
               <ShieldAlert className="w-3.5 h-3.5" />
               <span>Interaksi Obat</span>
+            </button>
+
+            <button
+              onClick={() => setActivePlaygroundTab('swamedikasi')}
+              className={`px-4 py-2 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer font-outfit ${
+                activePlaygroundTab === 'swamedikasi'
+                  ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-300 text-slate-950 shadow-md'
+                  : 'text-slate-700 dark:text-teal-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-teal-500/15'
+              }`}
+            >
+              <Stethoscope className="w-3.5 h-3.5" />
+              <span>Swamedikasi &amp; Triage</span>
             </button>
 
             <button
@@ -1063,7 +1123,254 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
           </div>
         )}
 
-        {/* ==================== TAB 2: SRQ-20 MENTAL HEALTH DEMO ==================== */}
+        {/* ==================== TAB 2: SWAMEDIKASI & CLINICAL TRIAGE DEMO ==================== */}
+        {activePlaygroundTab === 'swamedikasi' && (
+          <div className="bg-white/95 dark:bg-[#04151a]/95 backdrop-blur-2xl rounded-3xl p-5 sm:p-7 border border-slate-200/90 dark:border-teal-500/30 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] space-y-6 transition-all">
+            {/* Header */}
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+              <div>
+                <h3 className="font-black text-[#082a24] dark:text-emerald-300 text-sm sm:text-base flex items-center gap-2 font-outfit">
+                  <Stethoscope className="w-4 h-4 text-emerald-500 animate-pulse" />
+                  <span>Simulasi Swamedikasi &amp; Clinical Triage Mandiri (Standar BPOM &amp; Kemenkes)</span>
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Pilih keluhan untuk melihat tanda bahaya (red flags), rekomendasi obat bebas BPOM &amp; OWA, serta terapi alami tanpa antibiotik.
+                </p>
+              </div>
+              <span className="text-[10px] font-black px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-emerald-600" />
+                20 Protokol Terstandar
+              </span>
+            </div>
+
+            {/* Quick Layman Complaint Chips & Search */}
+            <div className="space-y-3">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                <div className="relative flex-1">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={swamedikasiSearch}
+                    onChange={(e) => setSwamedikasiSearch(e.target.value)}
+                    placeholder="Ketik keluhan atau gejala: meriang, lambung perih, flu mampet, mencret..."
+                    className="w-full pl-10 pr-9 py-2 text-xs font-bold font-outfit text-slate-900 dark:text-white bg-slate-50 dark:bg-[#020d11] rounded-xl border border-slate-200 dark:border-teal-500/30 focus:outline-none focus:border-emerald-500"
+                  />
+                  {swamedikasiSearch && (
+                    <button
+                      onClick={() => setSwamedikasiSearch('')}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Layman Keyword Quick Chips */}
+              <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                <span className="text-[11px] font-extrabold text-slate-500 dark:text-slate-400 mr-1 flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-emerald-500" />
+                  Keluhan Populer:
+                </span>
+                {popularSwamedikasiChips.map((chip) => {
+                  const isSelected = activePlaygroundProtocol.id === chip.id;
+                  return (
+                    <button
+                      key={chip.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedProtocolId(chip.id);
+                        setSwamedikasiSearch('');
+                      }}
+                      className={`text-xs px-3 py-1.5 rounded-xl font-bold font-outfit transition-all cursor-pointer border ${
+                        isSelected
+                          ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-400/30 shadow-md shadow-emerald-950/40'
+                          : 'bg-slate-50 dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border-slate-200 dark:border-slate-800'
+                      }`}
+                    >
+                      {chip.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Live Interactive Triage Display */}
+            {activePlaygroundProtocol && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+                {/* Left Column: Complaint Details, Red Flags & Natural Therapies */}
+                <div className="lg:col-span-6 space-y-4">
+                  {/* Protocol Overview Card */}
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#020d11]/80 border border-slate-200 dark:border-teal-500/25 space-y-2.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800/60">
+                        <Stethoscope className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                        {activePlaygroundProtocol.categoryLabel}
+                      </span>
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/50">
+                        <Clock className="w-3.5 h-3.5 text-amber-500" />
+                        Batas Swamedikasi: Maks. {activePlaygroundProtocol.maxSelfMedDays} Hari
+                      </span>
+                    </div>
+
+                    <h4 className="text-base sm:text-lg font-black font-outfit text-slate-900 dark:text-white">
+                      {activePlaygroundProtocol.title}
+                    </h4>
+                    <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {activePlaygroundProtocol.quickSummary}
+                    </p>
+
+                    {/* Typical Symptoms list */}
+                    <div className="pt-1">
+                      <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1">
+                        Gejala Khas yang Cocok:
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {activePlaygroundProtocol.typicalSymptoms.map((sym, idx) => (
+                          <span
+                            key={idx}
+                            className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-md bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700"
+                          >
+                            <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                            <span>{sym}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Red Flags / Tanda Bahaya Alert Card */}
+                  <div className="p-4 rounded-2xl bg-rose-50/90 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 space-y-2 shadow-xs">
+                    <div className="flex items-center gap-2 text-rose-800 dark:text-rose-300">
+                      <AlertOctagon className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />
+                      <h5 className="text-xs font-black font-outfit uppercase tracking-wider">
+                        Tanda Bahaya (Red Flags) • Wajib Segera ke Dokter / IGD:
+                      </h5>
+                    </div>
+                    <ul className="space-y-1.5 pl-6 list-disc text-xs text-rose-900/90 dark:text-rose-200 font-medium">
+                      {activePlaygroundProtocol.redFlags.slice(0, 3).map((rf, idx) => (
+                        <li key={idx} className="leading-snug">
+                          {rf}
+                        </li>
+                      ))}
+                    </ul>
+                    {activePlaygroundProtocol.redFlags.length > 3 && (
+                      <p className="text-[10.5px] text-rose-600 dark:text-rose-400 font-semibold pl-6">
+                        +{activePlaygroundProtocol.redFlags.length - 3} tanda bahaya lainnya pada protokol lengkap
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Natural Lifestyle Therapies */}
+                  <div className="p-3.5 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/70 dark:border-emerald-900/40 space-y-1.5">
+                    <div className="flex items-center gap-2 text-emerald-900 dark:text-emerald-200">
+                      <Leaf className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <h5 className="text-xs font-bold font-outfit">
+                        Terapi Non-Farmakologi Alami (Pola Hidup):
+                      </h5>
+                    </div>
+                    <p className="text-xs text-emerald-900/80 dark:text-emerald-300/90 pl-6 leading-relaxed">
+                      {activePlaygroundProtocol.nonPharmacolTherapy[0] || 'Istirahat cukup, penuhi hidrasi cairan tubuh, dan hindari stres.'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Right Column: Recommended BPOM/OWA Drugs & Dosage */}
+                <div className="lg:col-span-6 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h5 className="text-xs font-black font-outfit text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                      <Pill className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                      <span>Rekomendasi Obat Bebas Resmi BPOM &amp; OWA</span>
+                    </h5>
+                    <span className="text-[10px] text-slate-500 font-bold">
+                      {activePlaygroundProtocol.recommendedDrugs.length} Opsi Obat
+                    </span>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {activePlaygroundProtocol.recommendedDrugs.map((drug, dIdx) => {
+                      const isBebas = drug.bpomClass.includes('Bebas (Hijau)');
+                      const isTerbatas = drug.bpomClass.includes('Terbatas');
+                      const isOwa = drug.bpomClass.includes('OWA');
+                      return (
+                        <div
+                          key={dIdx}
+                          className="p-3.5 rounded-2xl bg-white dark:bg-[#020d11] border border-slate-200 dark:border-teal-500/20 hover:border-emerald-400 transition-colors space-y-2 shadow-xs"
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <h6 className="text-xs font-black font-outfit text-slate-900 dark:text-white">
+                                  {drug.genericName}
+                                </h6>
+                                <span className={`text-[9.5px] font-black px-2 py-0.5 rounded-full border ${
+                                  isBebas 
+                                    ? 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950 dark:text-emerald-300' 
+                                    : isTerbatas 
+                                      ? 'bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-950 dark:text-blue-300' 
+                                      : 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950 dark:text-amber-300'
+                                }`}>
+                                  {isBebas ? '🟢 Obat Bebas' : isTerbatas ? '🔵 Bebas Terbatas' : isOwa ? '🧪 OWA' : '💊 Suplemen'}
+                                </span>
+                              </div>
+                              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                                Contoh Merk: {drug.brandExamples.join(', ')}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px] pt-1 border-t border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-300">
+                            <div>
+                              <strong className="text-slate-700 dark:text-slate-200">Dosis Baku:</strong> {drug.dosageGuideline}
+                            </div>
+                            <div>
+                              <strong className="text-slate-700 dark:text-slate-200">Aturan:</strong> {drug.timing}
+                            </div>
+                          </div>
+                          {drug.cautionNotes && (
+                            <p className="text-[10px] text-slate-500 dark:text-slate-400 italic">
+                              Perhatian: {drug.cautionNotes}
+                            </p>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Anti-Antibiotic Badge */}
+                  <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200/80 dark:border-amber-800/60 flex items-center justify-between gap-2 text-xs">
+                    <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200 font-bold">
+                      <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+                      <span>Dilarang Membeli Antibiotik Oral Secara Bebas!</span>
+                    </div>
+                    <span className="text-[10px] font-black text-amber-800 dark:text-amber-300 bg-amber-200/60 dark:bg-amber-900/60 px-2 py-0.5 rounded-md shrink-0">
+                      Standar Permenkes
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Bottom CTA Action Bar */}
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              <span className="text-xs text-slate-500 dark:text-teal-200/70 font-bold flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                <span>20 Protokol Lengkap • Pencarian Cepat Gejala • Edukasi WhatsApp</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => onSelectTab('swamedikasi')}
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-white font-black text-xs shadow-md hover:shadow-lg transition-all cursor-pointer hover:scale-[1.01] active:scale-95 flex items-center justify-center gap-2 font-outfit"
+              >
+                <Stethoscope className="w-4 h-4 text-white" />
+                <span>Buka Modul Swamedikasi Lengkap</span>
+                <ArrowRight className="w-3.5 h-3.5 text-white" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ==================== TAB 3: SRQ-20 MENTAL HEALTH DEMO ==================== */}
         {activePlaygroundTab === 'srq20' && (
           <div className="bg-white/95 dark:bg-[#04151a]/95 backdrop-blur-2xl rounded-3xl p-5 sm:p-7 border border-slate-200/90 dark:border-teal-500/30 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] space-y-6 transition-all">
             {/* Header */}
@@ -1238,7 +1545,7 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 dark:bg-teal-500/15 border border-teal-300 dark:border-teal-400/30 text-teal-800 dark:text-teal-300 text-xs font-black shadow-xs">
             <Layers className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
-            <span>Ekosistem Klinis Terpadu • 21 Modul Komprehensif</span>
+            <span>Ekosistem Klinis Terpadu • 22 Modul Komprehensif</span>
           </div>
 
           <h2 className="text-2xl sm:text-4xl font-black text-[#082a24] dark:text-white font-outfit tracking-tight">
@@ -1498,8 +1805,8 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             </div>
           </div>
 
-          {/* Card 6 (Span 6 Kolom): Evaluasi Polifarmasi Geriatri Beers 2023 */}
-          <div className="lg:col-span-6 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 sm:p-7 border-2 border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:border-indigo-500 dark:hover:border-indigo-400 hover:ring-4 hover:ring-indigo-500/25 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-indigo-500/25 dark:hover:shadow-[0_20px_50px_rgba(129,140,248,0.3)] hover:bg-gradient-to-b hover:from-indigo-50 hover:via-indigo-50/40 hover:to-white dark:hover:from-[#131936] dark:hover:via-[#071e26] dark:hover:to-[#04151a] transition-all duration-300 flex flex-col justify-between group relative overflow-hidden text-left">
+          {/* Card 6 (Span 4 Kolom): Evaluasi Polifarmasi Geriatri Beers 2023 */}
+          <div className="lg:col-span-4 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 sm:p-7 border-2 border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:border-indigo-500 dark:hover:border-indigo-400 hover:ring-4 hover:ring-indigo-500/25 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-indigo-500/25 dark:hover:shadow-[0_20px_50px_rgba(129,140,248,0.3)] hover:bg-gradient-to-b hover:from-indigo-50 hover:via-indigo-50/40 hover:to-white dark:hover:from-[#131936] dark:hover:via-[#071e26] dark:hover:to-[#04151a] transition-all duration-300 flex flex-col justify-between group relative overflow-hidden text-left">
             {/* Ambient Corner Glow */}
             <div className="absolute -top-20 -right-20 w-56 h-56 bg-indigo-500/0 group-hover:bg-indigo-500/20 dark:group-hover:bg-indigo-500/30 rounded-full blur-3xl pointer-events-none transition-all duration-500" />
 
@@ -1551,8 +1858,8 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
             </div>
           </div>
 
-          {/* Card 7 (Span 6 Kolom): Pusat Belajar UKMPPAI & OSCE Blueprint */}
-          <div className="lg:col-span-6 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 sm:p-7 border-2 border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:border-amber-500 dark:hover:border-amber-400 hover:ring-4 hover:ring-amber-500/25 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-amber-500/25 dark:hover:shadow-[0_20px_50px_rgba(251,191,36,0.3)] hover:bg-gradient-to-b hover:from-amber-50 hover:via-amber-50/40 hover:to-white dark:hover:from-[#261d06] dark:hover:via-[#09222a] dark:hover:to-[#04151a] transition-all duration-300 flex flex-col justify-between group relative overflow-hidden text-left">
+          {/* Card 7 (Span 4 Kolom): Pusat Belajar UKMPPAI & OSCE Blueprint */}
+          <div className="lg:col-span-4 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 sm:p-7 border-2 border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:border-amber-500 dark:hover:border-amber-400 hover:ring-4 hover:ring-amber-500/25 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-amber-500/25 dark:hover:shadow-[0_20px_50px_rgba(251,191,36,0.3)] hover:bg-gradient-to-b hover:from-amber-50 hover:via-amber-50/40 hover:to-white dark:hover:from-[#261d06] dark:hover:via-[#09222a] dark:hover:to-[#04151a] transition-all duration-300 flex flex-col justify-between group relative overflow-hidden text-left">
             {/* Ambient Corner Glow */}
             <div className="absolute -top-20 -right-20 w-56 h-56 bg-amber-500/0 group-hover:bg-amber-500/20 dark:group-hover:bg-amber-500/30 rounded-full blur-3xl pointer-events-none transition-all duration-500" />
 
@@ -1599,6 +1906,52 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 className="px-4 py-2 rounded-full bg-amber-50 hover:bg-amber-100 group-hover:bg-amber-500 group-hover:text-slate-950 dark:bg-amber-950/40 dark:hover:bg-amber-900/60 dark:group-hover:bg-amber-400 dark:group-hover:text-slate-950 text-amber-800 dark:text-amber-300 font-bold text-xs border border-amber-200 dark:border-amber-800 transition-all flex items-center gap-1 cursor-pointer font-outfit shadow-xs"
               >
                 <span>Mulai Tryout Soal</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Card 9 (Span 4 Kolom): Swamedikasi & Clinical Triage Keluhan */}
+          <div className="lg:col-span-4 bg-white dark:bg-[#04151a]/95 rounded-3xl p-6 border-2 border-slate-200/90 dark:border-teal-500/25 shadow-md dark:shadow-[0_12px_35px_rgba(0,0,0,0.4)] hover:border-emerald-500 dark:hover:border-emerald-400 hover:ring-4 hover:ring-emerald-500/25 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-emerald-500/25 dark:hover:shadow-[0_20px_50px_rgba(52,211,153,0.3)] hover:bg-gradient-to-b hover:from-emerald-50 hover:via-emerald-50/40 hover:to-white dark:hover:from-[#031d15] dark:hover:via-[#052820] dark:hover:to-[#04151a] transition-all duration-300 flex flex-col justify-between group relative overflow-hidden text-left">
+            {/* Ambient Corner Glow */}
+            <div className="absolute -top-16 -right-16 w-48 h-48 bg-emerald-500/0 group-hover:bg-emerald-500/20 dark:group-hover:bg-emerald-500/30 rounded-full blur-3xl pointer-events-none transition-all duration-500" />
+
+            <div className="space-y-3 relative z-10">
+              <div className="flex items-center justify-between">
+                <div className="p-2.5 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/50 group-hover:scale-110 transition-transform">
+                  <Stethoscope className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  GEMA CERMAT &amp; OWA
+                </span>
+              </div>
+
+              <h3 className="text-lg font-black text-[#082a24] dark:text-white font-outfit group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors">
+                Swamedikasi &amp; Clinical Triage
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-teal-100/75 leading-relaxed">
+                Panduan pemilihan obat bebas BPOM &amp; OWA berbasis keluhan harian, penapisan tanda bahaya ke dokter, dan terapi non-farmakologi tanpa antibiotik.
+              </p>
+
+              <div className="space-y-1.5 pt-1 text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#062026] border border-slate-100 dark:border-teal-500/20">
+                  <span className="dark:text-teal-100">20 Protokol Terstandar</span>
+                  <span className="text-emerald-500 font-mono text-[10.5px]">BPOM &amp; OWA 1-3</span>
+                </div>
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#062026] border border-slate-100 dark:border-teal-500/20">
+                  <span className="dark:text-teal-100">Penapisan Red Flags</span>
+                  <span className="text-rose-500 font-mono text-[10.5px]">Kapan ke Dokter</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-100 dark:border-teal-500/20 mt-4 relative z-10">
+              <button
+                type="button"
+                onClick={() => onSelectTab('swamedikasi')}
+                className="w-full py-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 group-hover:bg-emerald-500 group-hover:text-white dark:bg-emerald-950/40 dark:hover:bg-emerald-900/60 dark:group-hover:bg-emerald-500 dark:group-hover:text-slate-950 text-emerald-700 dark:text-emerald-300 font-bold text-xs border border-emerald-200 dark:border-emerald-800 transition-all flex items-center justify-center gap-1 cursor-pointer font-outfit shadow-xs"
+              >
+                <span>Buka Modul Swamedikasi</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </button>
             </div>
