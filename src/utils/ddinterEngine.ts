@@ -48,26 +48,83 @@ export function capitalizeFirstLetter(str: string): string {
  */
 export function deduplicateDrugs(drugs: Drug[]): Drug[] {
   const mapById = new Map<string, Drug>();
+  const mapByNormKey = new Map<string, Drug>();
   const mapByAtc = new Map<string, Drug>();
-  const mapByName = new Map<string, Drug>();
   const result: Drug[] = [];
 
+  // Alias dictionary for known duplicate IDs
+  const ID_ALIASES: Record<string, string> = {
+    'drug-amoxicillin---clavulanate': 'drug-co-amoxiclav',
+    'drug-fornas-sacubitril-valsartan': 'drug-sacubitril-valsartan',
+    'drug-fornas-zinc-sulfate': 'drug-zinc-sulfate',
+    'drug-fornas-salep-24': 'drug-salep-2-4',
+    'drug-paxlovid': 'drug-nirmatrelvir-ritonavir'
+  };
+
+  // Specific ATC codes that identify single unified preparations
+  const UNIFIED_ATC_CODES = new Set([
+    'J01CR02', // Amoxicillin and beta-lactamase inhibitor (Co-Amoxiclav)
+    'C09DX04', // Valsartan and sacubitril (ARNI)
+    'A12CB01', // Zinc sulfate oral
+    'D02AF'    // Salicylic acid + Sulfur (Salep 2-4)
+  ]);
+
+  function normalizeDrugKey(name: string): string {
+    if (!name) return '';
+    let s = name.toLowerCase().trim();
+    s = s.replace(/\(.*?\)/g, '');
+    s = s.replace(/[^a-z0-9]/g, '');
+    
+    if (s === 'paxlovid') return 'nirmatrelvirritonavir';
+    if (s === 'ointment24' || s === 'unguentum24') return 'salep24';
+    if (s === 'zinc' || s === 'zincsulfat') return 'zincsulfat';
+    if (s === 'coamoxiclav') return 'amoxicillinclavulanate';
+
+    return s;
+  }
+
   drugs.forEach((drug) => {
-    const normId = (drug.id || '').toLowerCase().trim();
-    const normAtc = (drug.atcCode || '').toLowerCase().trim();
-    const normName = (drug.name || '').toLowerCase().trim();
-    const normGeneric = (drug.genericName || '').toLowerCase().trim();
+    let normId = (drug.id || '').toLowerCase().trim();
+    if (ID_ALIASES[normId]) {
+      normId = ID_ALIASES[normId];
+    }
+    const normAtc = (drug.atcCode || '').toUpperCase().trim();
+    const normKey = normalizeDrugKey(drug.name);
+    const genericNormKey = normalizeDrugKey(drug.genericName || '');
 
     const existingById = normId ? mapById.get(normId) : null;
-    const existingByName = mapByName.get(normName) || mapByName.get(normGeneric);
-    const existing = existingById || existingByName;
+    const existingByKey = (normKey ? mapByNormKey.get(normKey) : null) || 
+                          (genericNormKey ? mapByNormKey.get(genericNormKey) : null);
+    const existingByAtc = (normAtc && UNIFIED_ATC_CODES.has(normAtc)) ? mapByAtc.get(normAtc) : null;
+
+    const existing = existingById || existingByKey || existingByAtc;
 
     if (!existing) {
       const copy = { 
         ...drug,
+        id: ID_ALIASES[drug.id] || drug.id,
         name: capitalizeFirstLetter(drug.name),
         brandNames: (drug.brandNames || []).map(b => capitalizeFirstLetter(b))
       };
+      
+      // Standardize preferred display names for verified unified monographs
+      if (normKey === 'amoxicillinclavulanate') {
+        copy.name = 'Amoxicillin / Clavulanate (Co-Amoxiclav)';
+        copy.id = 'drug-co-amoxiclav';
+      } else if (normKey === 'sacubitrilvalsartan') {
+        copy.name = 'Sacubitril / Valsartan';
+        copy.id = 'drug-sacubitril-valsartan';
+      } else if (normKey === 'nirmatrelvirritonavir') {
+        copy.name = 'Nirmatrelvir / Ritonavir (Paxlovid)';
+        copy.id = 'drug-nirmatrelvir-ritonavir';
+      } else if (normKey === 'zincsulfat') {
+        copy.name = 'Zinc Sulfat';
+        copy.id = 'drug-zinc-sulfate';
+      } else if (normKey === 'salep24') {
+        copy.name = 'Salep 2-4 (Salicylic Acid + Sulfur)';
+        copy.id = 'drug-salep-2-4';
+      }
+
       const dosageInfo = findDosageMonograph(copy);
       if (dosageInfo) {
         if (!copy.adultDosage && dosageInfo.adultDosage) copy.adultDosage = dosageInfo.adultDosage;
@@ -78,15 +135,48 @@ export function deduplicateDrugs(drugs: Drug[]): Drug[] {
         if (!copy.maxDoseLimit && dosageInfo.maxDoseLimit) copy.maxDoseLimit = dosageInfo.maxDoseLimit;
         if (!copy.administrationGuideline && dosageInfo.administrationGuideline) copy.administrationGuideline = dosageInfo.administrationGuideline;
       }
+      
       if (normId) mapById.set(normId, copy);
+      if (copy.id) mapById.set(copy.id.toLowerCase().trim(), copy);
       if (normAtc) mapByAtc.set(normAtc, copy);
-      if (normName) mapByName.set(normName, copy);
-      if (normGeneric) mapByName.set(normGeneric, copy);
+      if (normKey) mapByNormKey.set(normKey, copy);
+      if (genericNormKey) mapByNormKey.set(genericNormKey, copy);
       result.push(copy);
     } else {
-      existing.name = capitalizeFirstLetter(existing.name);
-      const mergedBrands = Array.from(new Set([...(existing.brandNames || []), ...(drug.brandNames || [])])).map(b => capitalizeFirstLetter(b));
+      // Prefer richer canonical display names
+      if (normKey === 'amoxicillinclavulanate') {
+        existing.name = 'Amoxicillin / Clavulanate (Co-Amoxiclav)';
+        existing.id = 'drug-co-amoxiclav';
+      } else if (normKey === 'sacubitrilvalsartan') {
+        existing.name = 'Sacubitril / Valsartan';
+        existing.id = 'drug-sacubitril-valsartan';
+      } else if (normKey === 'nirmatrelvirritonavir') {
+        existing.name = 'Nirmatrelvir / Ritonavir (Paxlovid)';
+        existing.id = 'drug-nirmatrelvir-ritonavir';
+      } else if (normKey === 'zincsulfat') {
+        existing.name = 'Zinc Sulfat';
+        existing.id = 'drug-zinc-sulfate';
+      } else if (normKey === 'salep24') {
+        existing.name = 'Salep 2-4 (Salicylic Acid + Sulfur)';
+        existing.id = 'drug-salep-2-4';
+      } else {
+        existing.name = capitalizeFirstLetter(existing.name);
+      }
+
+      // Add original drug name to brandNames if different from canonical name
+      const additionalBrands: string[] = [];
+      if (drug.name && drug.name.toLowerCase() !== existing.name.toLowerCase()) {
+        additionalBrands.push(drug.name);
+      }
+
+      const mergedBrands = Array.from(new Set([
+        ...(existing.brandNames || []), 
+        ...(drug.brandNames || []),
+        ...additionalBrands
+      ])).map(b => capitalizeFirstLetter(b));
       existing.brandNames = Array.from(new Set(mergedBrands));
+
+      // Merge clinical monograph details
       if (drug.pregnancyCategory && !existing.pregnancyCategory) {
         existing.pregnancyCategory = drug.pregnancyCategory;
       }
@@ -111,10 +201,10 @@ export function deduplicateDrugs(drugs: Drug[]): Drug[] {
       if (drug.offLabelIndication && !existing.offLabelIndication) {
         existing.offLabelIndication = drug.offLabelIndication;
       }
-      if (drug.commonSideEffects && !existing.commonSideEffects) {
+      if (drug.commonSideEffects && (!existing.commonSideEffects || existing.commonSideEffects.length === 0)) {
         existing.commonSideEffects = drug.commonSideEffects;
       }
-      if (drug.seriousSideEffects && !existing.seriousSideEffects) {
+      if (drug.seriousSideEffects && (!existing.seriousSideEffects || existing.seriousSideEffects.length === 0)) {
         existing.seriousSideEffects = drug.seriousSideEffects;
       }
       if (drug.adultDosage && !existing.adultDosage) existing.adultDosage = drug.adultDosage;

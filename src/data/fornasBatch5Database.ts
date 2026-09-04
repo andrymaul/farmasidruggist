@@ -740,38 +740,6 @@ export const FORNAS_BATCH5_DRUGS: Drug[] = [
     "hepaticDoseAdjustment": "Bilirubin 2.1 - 3.0 mg/dL: Turunkan dosis 50%; Bilirubin > 3.0 mg/dL: Turunkan dosis 67%."
   },
   {
-    "id": "drug-fornas-zinc-sulfate",
-    "name": "Zinc",
-    "genericName": "Zinc Sulfat 20 mg Tablet Dispersible (Zink Elemental Terapi Diare Anak)",
-    "brandNames": [
-      "Zinc Sulfat 20 mg Dispersible Generik Kemenkes RI",
-      "Zinkid 20 mg",
-      "L-Zinc Sirup",
-      "Zincpro Dispersible Tablet"
-    ],
-    "atcCode": "A12CB01",
-    "category": "Mineral Esensial / Program Wajib Nasional Tata Laksana Diare Balita Kemenkes RI & WHO",
-    "bpomClassification": "Obat Bebas Terbatas",
-    "drugClassification": "🔵 Obat Bebas Terbatas (Program Wajib Diare Kemenkes RI / Faskes Tk 1, 2 & 3)",
-    "description": "Suplemen mineral mikro seng elemental (setara 54.9 mg zinc sulfat monohidrat) dalam bentuk tablet terdispersi cepat (dispersible) yang larut dalam air dalam waktu < 30 detik, merupakan pilar wajib Program Nasional Tata Laksana Diare Kemenkes RI dan WHO yang diberikan selama 10 hari penuh untuk regenerasi vili usus dan pencegahan kekambuhan diare balita.",
-    "indication": "Komponen wajib tata laksana diare akut dan diare persisten pada bayi dan anak balita (diberikan bersama Oralit dan ASI); Pengobatan dan pencegahan defisiensi zink; Terapi tambahan penyakit Wilson (penghambat absorpsi tembaga).",
-    "dosage": "Program Tata Laksana Diare Anak Kemenkes RI (WAJIB DIBERIKAN SELAMA 10 HARI BERTURUT-TURUT WALAUPUN DIARE SUDAH BERHENTI): Bayi Usia < 6 Bulan: 10 mg (1/2 tablet dispersible) sekali sehari selama 10 hari; Bayi & Anak Usia >= 6 Bulan hingga 5 Tahun: 20 mg (1 tablet dispersible utuh) sekali sehari selama 10 hari berturut-turut. Larutkan tablet dalam 1 sendok makan air matang atau ASI.",
-    "contraindications": "Hipersensitivitas terhadap garam zink.",
-    "sideEffects": "Rasa logam di lidah, mual atau muntah ringan bila diminum saat perut kosong (bila anak muntah dalam 30 menit, berikan dosis ulang setelah perut tenang), rasa tidak nyaman lambung transien.",
-    "pharmacology": "Kofaktor esensial bagi > 300 enzim seluler termasuk DNA polimerase dan alkali fosfatase, menstimulasi proliferasi enterosit dan regenerasi mikrovili mukosa usus halus yang rusak akibat toksin diare, memulihkan integritas tight junction sawar usus, dan meningkatkan reabsorpsi air dan elektrolit melalui modulasi transport enterosit.",
-    "foodInteraction": "LARUTKAN TABLET DALAM 1 SENDOK MAKAN AIR MATANG, ASI, ATAU ORALIT. Berikan setelah makan bila timbul mual. Hindari pemberian bersamaan dengan suplemen besi dosis tinggi pada jam yang sama (beri jeda minimal 2 jam).",
-    "pregnancyCategory": "A pada dosis kebutuhan gizi harian; Kategori C pada dosis farmakologis tinggi.",
-    "halfLife": "Disimpan intraseluler di otot rangka, tulang, dan jaringan tubuh.",
-    "clearance": "Ekskresi utama melalui saluran cerna feses empedu (90%) dan keringat; ekskresi ginjal urin minimal.",
-    "ddinterId": "DDInter-D06273",
-    "monitoringParameters": "Kepatuhan pemberian penuh selama 10 hari berturut-turut pada buku KIA/KMS, penurunan frekuensi BAB dan konsistensi tinja diare padat.",
-    "patientTips": "Obat zink tablet yang mudah larut dalam 1 sendok air atau ASI. SANGAT PENTING: Obat ini WAJIB DIMINUMKAN SETIAP HARI SELAMA 10 HARI BERTURUT-TURUT SAMPAI HABIS, meskipun anak sudah sembuh dan tidak mencret lagi. Zink berfungsi memperbaiki dinding usus yang rusak dan mencegah anak terkena diare berulang dalam 2-3 bulan ke depan.",
-    "adultDosage": "Defisiensi zink dewasa: 20 - 50 mg zink elemental PO sekali sehari.",
-    "pediatricDosage": "Diare < 6 bulan: 10 mg/hari x 10 hari; Diare >= 6 bulan: 20 mg/hari x 10 hari.",
-    "renalDoseAdjustment": "Tidak ada penyesuaian khusus.",
-    "hepaticDoseAdjustment": "Tidak ada penyesuaian khusus."
-  },
-  {
     "id": "drug-fornas-zonisamide",
     "name": "Zonisamide",
     "genericName": "Zonisamide (Kapsul 25 mg, 50 mg, 100 mg)",

@@ -1041,15 +1041,14 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "ddinterId": "DDInter-D00048"
   },
   {
-    "id": "drug-amoxicillin---clavulanate",
-    "name": "Amoxicillin / Clavulanate",
+    "id": "drug-co-amoxiclav",
+    "name": "Amoxicillin / Clavulanate (Co-Amoxiclav)",
     "genericName": "Amoxicillin + Potassium Clavulanate",
     "brandNames": [
       "Augmentin",
       "Claneksi",
       "Clavamox",
       "Amiclav",
-      "Amoxicillin / Clavulanate (Co-Amoxiclav)",
       "Co-Amoxiclav",
       "Amoxsan Clav"
     ],
@@ -2906,18 +2905,32 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
   {
     "id": "drug-sacubitril-valsartan",
     "name": "Sacubitril / Valsartan",
-    "genericName": "Sacubitril / Valsartan Sodium",
+    "genericName": "Sacubitril / Valsartan Sodium (Kompleks Natrium ARNI)",
     "brandNames": [
-      "Entresto"
+      "Entresto",
+      "Vymada",
+      "Entresto 50 mg / 100 mg / 200 mg",
+      "Sacubitril Valsartan Generik"
     ],
     "atcCode": "C09DX04",
     "category": "Angiotensin Receptor-Neprilysin Inhibitor / ARNI (Kardiovaskular)",
-    "indication": "Gagal jantung kronik simptomatik dengan penurunan fraksi ejeksi (HFrEF) untuk menurunkan risiko kematian kardiovaskular dan hospitalisasi.",
-    "contraindications": "Riwayat angioedema terkait ACEI/ARB, penggunaan bersamaan dengan ACEI (harus jeda washout minimal 36 jam), kehamilan.",
-    "sideEffects": "Hipotensi simtomatik, hiperkalemia, disfungsi ginjal (peningkatan kreatinin serum), batuk, pusing.",
-    "dosage": "Inisiasi 24/26 mg atau 49/51 mg dua kali sehari, dititrasi tiap 2-4 minggu hingga dosis target 97/103 mg dua kali sehari.",
+    "bpomClassification": "Obat Keras",
+    "drugClassification": "💊 Obat Keras (FORNAS Kardiovaskular Faskes Tk 2 & 3)",
+    "description": "Kompleks garam kristalin supramolekular 1:1 dari prodrug inhibitor neprilisin (sacubitril) dan penyekat reseptor angiotensin II (valsartan), pilar utama lini pertama terapi gagal jantung dengan fraksi ejeksi berkurang (HFrEF) yang menurunkan mortalitas kardiovaskular secara signifikan.",
+    "indication": "Gagal jantung kronik simptomatik dengan penurunan fraksi ejeksi (HFrEF NYHA II-IV, EF <= 40%) untuk menurunkan risiko kematian kardiovaskular dan hospitalisasi; gagal jantung pediatrik usia >= 1 tahun.",
+    "contraindications": "Riwayat angioedema terkait ACEI/ARB, penggunaan bersamaan dengan ACEI (WAJIB JEDA WASHOUT MINIMAL 36 JAM), kehamilan (teratogenik renal fetus), penggunaan bersama aliskiren pada diabetes.",
+    "sideEffects": "Hipotensi simtomatik, hiperkalemia, disfungsi ginjal (peningkatan kreatinin serum transien), batuk kering ringan, pusing, angioedema.",
+    "dosage": "Inisiasi 24/26 mg atau 49/51 mg dua kali sehari, dititrasi tiap 2-4 minggu hingga dosis target pemeliharaan 97/103 mg (setara 200 mg) dua kali sehari.",
+    "adultDosage": "Mulai 100 mg (49/51 mg) PO dua kali sehari, titrasi tiap 2-4 minggu ke target 200 mg (97/103 mg) PO dua kali sehari.",
+    "pediatricDosage": "Anak >= 1 tahun gagal jantung: Dosis titrasi suspensi mg/kgBB sesuai anjuran spesialis jantung anak.",
+    "renalDoseAdjustment": "eGFR < 30 mL/menit: Mulai dengan dosis rendah 50 mg (24/26 mg) PO dua kali sehari.",
+    "hepaticDoseAdjustment": "Child-Pugh B (sedang): Mulai 50 mg dua kali sehari; Child-Pugh C (berat): KONTRAINDIKASI MUTLAK.",
     "pharmacology": "Kombinasi Sacubitril (prodrug inhibitor neprilysin yang meningkatkan peptide natriuretik ANP/BNP) dan Valsartan (penghambat reseptor AT1 angiotensin II).",
     "foodInteraction": "Dapat diminum dengan atau tanpa makanan. Hindari suplemen kalium / pengganti garam tinggi kalium.",
+    "blackBoxWarning": "TOKSISITAS FETAL EMBRIONIK & PERIODE WASHOUT 36 JAM ACE-INHIBITOR: Hentikan segera bila hamil. WAJIB menghentikan ACE inhibitor minimal 36 jam sebelum dosis pertama Entresto dimulai untuk mencegah angioedema saluran napas fatal.",
+    "lactationWarning": "KONTRAINDIKASI saat menyusui.",
+    "monitoringParameters": "Tekanan darah duduk, kalium serum, kreatinin serum / eGFR baseline dan 1-2 minggu pasca inisiasi atau kenaikan dosis.",
+    "patientTips": "Minum 1 tablet pagi dan 1 tablet malam teratur. PENTING: Jika sebelumnya minum obat darah tinggi berakhiran '-pril' (captopril, ramipril), pastikan sudah berhenti minimal 36 jam (1.5 hari) sebelum mulai Entresto.",
     "pregnancyCategory": "D",
     "ddinterId": "DDInter-D00132"
   },

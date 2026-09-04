@@ -7,11 +7,11 @@ import { Drug, DrugInteraction, DrugFoodInteraction, TherapeuticDuplication } fr
 
 export const DRUGSCOM_ADDITIONAL_DRUGS: Drug[] = [
   {
-    id: "drug-paxlovid",
-    name: "Paxlovid",
+    id: "drug-nirmatrelvir-ritonavir",
+    name: "Nirmatrelvir / Ritonavir (Paxlovid)",
     genericName: "Nirmatrelvir + Ritonavir",
-    brandNames: ["Paxlovid", "Nirmatrelvir/Ritonavir"],
-    atcCode: "J05AP01",
+    brandNames: ["Paxlovid", "Nirmatrelvir / Ritonavir", "Nirmatrelvir/Ritonavir"],
+    atcCode: "J05AE30",
     category: "Antivirus COVID-19 / Inhibitor Protease SARS-CoV-2",
     bpomClassification: "Obat Keras",
     drugClassification: "💊 Obat Keras (EUA / Resep Dokter)",
@@ -1912,9 +1912,9 @@ export const DRUGSCOM_ADDITIONAL_INTERACTIONS: DrugInteraction[] = [
   },
   {
     id: "ddi-paxlovid-simvastatin",
-    drugAId: "drug-paxlovid",
+    drugAId: "drug-nirmatrelvir-ritonavir",
     drugBId: "drug-simvastatin",
-    drugAName: "Paxlovid",
+    drugAName: "Nirmatrelvir / Ritonavir (Paxlovid)",
     drugBName: "Simvastatin",
     severity: "Major",
     mechanism: "Ritonavir dalam Paxlovid adalah inhibitor poten CYP3A4 yang menghentikan metabolisme first-pass dan eliminasi hepatik Simvastatin.",
@@ -1925,9 +1925,9 @@ export const DRUGSCOM_ADDITIONAL_INTERACTIONS: DrugInteraction[] = [
   },
   {
     id: "ddi-paxlovid-apixaban",
-    drugAId: "drug-paxlovid",
+    drugAId: "drug-nirmatrelvir-ritonavir",
     drugBId: "drug-apixaban",
-    drugAName: "Paxlovid",
+    drugAName: "Nirmatrelvir / Ritonavir (Paxlovid)",
     drugBName: "Apixaban",
     severity: "Major",
     mechanism: "Ritonavir menghambat eliminasi Apixaban yang dimediasi oleh CYP3A4 dan efflux transporter P-glikoprotein (P-gp).",
@@ -1938,9 +1938,9 @@ export const DRUGSCOM_ADDITIONAL_INTERACTIONS: DrugInteraction[] = [
   },
   {
     id: "ddi-paxlovid-amiodarone",
-    drugAId: "drug-paxlovid",
+    drugAId: "drug-nirmatrelvir-ritonavir",
     drugBId: "drug-amiodarone",
-    drugAName: "Paxlovid",
+    drugAName: "Nirmatrelvir / Ritonavir (Paxlovid)",
     drugBName: "Amiodarone",
     severity: "Major",
     mechanism: "Ritonavir menghambat enzim CYP3A4 dan CYP2D6 yang memetabolisme Amiodarone.",

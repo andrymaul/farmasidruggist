@@ -12,9 +12,9 @@ import { DrugInteraction } from '../types';
 export const FORNAS_EXTENDED_INTERACTIONS: DrugInteraction[] = [
   {
     "id": "ddi-sacubitril-valsartan-captopril",
-    "drugAId": "drug-fornas-sacubitril-valsartan",
+    "drugAId": "drug-sacubitril-valsartan",
     "drugBId": "drug-captopril",
-    "drugAName": "Sacubitril Valsartan",
+    "drugAName": "Sacubitril / Valsartan",
     "drugBName": "Captopril",
     "severity": "Major",
     "mechanism": "Inhibisi simultan enzim neprilisin oleh sakubitril dan enzim pengkonversi angiotensin (ACE) oleh kaptopril menyebabkan akumulasi bradikinin plasma dalam jumlah masif.",
@@ -25,9 +25,9 @@ export const FORNAS_EXTENDED_INTERACTIONS: DrugInteraction[] = [
   },
   {
     "id": "ddi-sacubitril-valsartan-ramipril",
-    "drugAId": "drug-fornas-sacubitril-valsartan",
+    "drugAId": "drug-sacubitril-valsartan",
     "drugBId": "drug-ramipril",
-    "drugAName": "Sacubitril Valsartan",
+    "drugAName": "Sacubitril / Valsartan",
     "drugBName": "Ramipril",
     "severity": "Major",
     "mechanism": "Sinergisme farmakodinamik blokade degradasi peptida vasoaktif bradikinin via degradasi neprilisin dan ACE.",
@@ -38,9 +38,9 @@ export const FORNAS_EXTENDED_INTERACTIONS: DrugInteraction[] = [
   },
   {
     "id": "ddi-sacubitril-valsartan-spironolactone",
-    "drugAId": "drug-fornas-sacubitril-valsartan",
+    "drugAId": "drug-sacubitril-valsartan",
     "drugBId": "drug-spironolactone",
-    "drugAName": "Sacubitril Valsartan",
+    "drugAName": "Sacubitril / Valsartan",
     "drugBName": "Spironolactone",
     "severity": "Major",
     "mechanism": "Kombinasi antagonis reseptor angiotensin II (valsartan) dengan antagonis aldosteron hemat kalium (spironolakton) menekan ekskresi kalium di tubulus distal ginjal secara aditif.",
@@ -51,9 +51,9 @@ export const FORNAS_EXTENDED_INTERACTIONS: DrugInteraction[] = [
   },
   {
     "id": "ddi-sacubitril-valsartan-kcl",
-    "drugAId": "drug-fornas-sacubitril-valsartan",
+    "drugAId": "drug-sacubitril-valsartan",
     "drugBId": "drug-potassium-chloride",
-    "drugAName": "Sacubitril Valsartan",
+    "drugAName": "Sacubitril / Valsartan",
     "drugBName": "Potassium Chloride",
     "severity": "Major",
     "mechanism": "Suplementasi kalium eksogen bersamaan dengan penurunan ekskresi aldosteron akibat blokade AT1 oleh valsartan memicu penumpukan kalium cepat di ruang ekstraseluler.",

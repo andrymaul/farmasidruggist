@@ -2115,9 +2115,9 @@ const BASE_EXTENDED_INTERACTIONS: DrugInteraction[] = [
   },
   {
     "id": "ddi-pair-0165",
-    "drugAId": "drug-paxlovid",
+    "drugAId": "drug-nirmatrelvir-ritonavir",
     "drugBId": "drug-simvastatin",
-    "drugAName": "Paxlovid (Nirmatrelvir/Ritonavir)",
+    "drugAName": "Nirmatrelvir / Ritonavir (Paxlovid)",
     "drugBName": "Simvastatin",
     "severity": "Major",
     "mechanism": "Ritonavir dalam Paxlovid adalah inhibitor enzim CYP3A4 paling poten yang dikenal di dunia medis.",
