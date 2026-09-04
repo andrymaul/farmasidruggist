@@ -183,6 +183,7 @@ export interface UserProfile {
   expiresAt?: string;
   isEmailVerified?: boolean;
   createdAt?: string;
+  updatedAt?: string;
   lastActiveAt?: string;
   isOnline?: boolean;
   paymentHistory?: CustomerPaymentRecord[];

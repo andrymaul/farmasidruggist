@@ -603,7 +603,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
     setShowAddModal(false);
   };
 
-  const handleSaveEditCustomer = (e: React.FormEvent) => {
+  const handleSaveEditCustomer = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingCustomer) return;
 
@@ -644,10 +644,15 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
       canAccessSop: formState.canAccessSop,
       canAccessRegulations: formState.canAccessRegulations,
       canAccessLiterature: formState.canAccessLiterature,
-      notes: formState.notes
+      notes: formState.notes,
+      updatedAt: new Date().toISOString()
     };
 
-    saveUserProfileToFirestore(updatedCustomer).catch(() => {});
+    try {
+      await saveUserProfileToFirestore(updatedCustomer);
+    } catch (err) {
+      console.warn('Firestore sync (handled):', err);
+    }
 
     setCustomers(customers.map(c => {
       if (c.uid === editingCustomer.uid) {
@@ -1780,7 +1785,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Instansi / Klinik / RS</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Instansi / Institusi</label>
                   <input
                     type="text"
                     value={formState.institution}
@@ -2019,7 +2024,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Instansi / Fasilitas Kesehatan</label>
+                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">Instansi / Institusi</label>
                       <input
                         type="text"
                         value={formState.institution}
@@ -2813,7 +2818,7 @@ export const CustomerSubscriptionManager: React.FC<CustomerSubscriptionManagerPr
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 font-outfit">
-                    Instansi / Keterangan (Opsional)
+                    Instansi / Institusi (Opsional)
                   </label>
                   <input
                     type="text"

@@ -60,7 +60,7 @@ export const CompleteProfileModal: React.FC<CompleteProfileModalProps> = ({
     }
 
     if (!cleanInstitution || cleanInstitution.length < 2) {
-      setError('Mohon masukkan nama instansi atau fasilitas kesehatan Anda.');
+      setError('Mohon masukkan nama instansi atau institusi Anda.');
       return;
     }
 
@@ -146,7 +146,7 @@ export const CompleteProfileModal: React.FC<CompleteProfileModalProps> = ({
               <div className="space-y-1 text-[11px] leading-relaxed">
                 <p className="font-extrabold font-outfit">Satu Langkah Terakhir Sebelum Memulai!</p>
                 <p className="text-amber-800/90 dark:text-amber-300/80">
-                  Data <strong>Instansi</strong> dan <strong>Nomor WhatsApp</strong> digunakan untuk mencetak kop laporan telaah klinis, integrasi kartu edukasi obat (PIO), serta verifikasi keamanan akses akun Anda.
+                  Data <strong>Instansi / Institusi</strong> dan <strong>No. WhatsApp / HP</strong> digunakan untuk mencetak kop laporan telaah klinis, integrasi kartu edukasi obat (PIO), serta verifikasi keamanan akses akun Anda.
                 </p>
               </div>
             </div>
@@ -172,7 +172,7 @@ export const CompleteProfileModal: React.FC<CompleteProfileModalProps> = ({
             {/* Email (Readonly) */}
             <div>
               <label className="block text-slate-600 dark:text-slate-300 font-bold mb-1 font-outfit">
-                Email Terdaftar
+                Email Akun
               </label>
               <div className="relative flex items-center">
                 <Mail className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
@@ -188,7 +188,7 @@ export const CompleteProfileModal: React.FC<CompleteProfileModalProps> = ({
             {/* Nama Lengkap */}
             <div>
               <label className="block text-slate-700 dark:text-slate-200 font-bold mb-1 font-outfit flex items-center justify-between">
-                <span>Nama Lengkap Customer / Apoteker *</span>
+                <span>Nama Lengkap Customer</span>
                 <span className="text-[10px] text-teal-600 dark:text-teal-400 font-normal">Sertakan gelar jika ada</span>
               </label>
               <div className="relative flex items-center">
@@ -204,10 +204,10 @@ export const CompleteProfileModal: React.FC<CompleteProfileModalProps> = ({
               </div>
             </div>
 
-            {/* Instansi / Fasilitas Kesehatan */}
+            {/* Instansi / Institusi */}
             <div>
               <label className="block text-slate-700 dark:text-slate-200 font-bold mb-1 font-outfit">
-                Instansi / Fasilitas Kesehatan *
+                Instansi / Institusi
               </label>
               <div className="relative flex items-center">
                 <Building2 className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
@@ -225,10 +225,10 @@ export const CompleteProfileModal: React.FC<CompleteProfileModalProps> = ({
               </p>
             </div>
 
-            {/* Nomor WhatsApp / HP */}
+            {/* No. WhatsApp / HP */}
             <div>
               <label className="block text-slate-700 dark:text-slate-200 font-bold mb-1 font-outfit flex items-center justify-between">
-                <span>Nomor WhatsApp / HP Aktif *</span>
+                <span>No. WhatsApp / HP</span>
                 <span className="text-[10px] text-teal-600 dark:text-teal-400 font-mono">08xx / +62</span>
               </label>
               <div className="relative flex items-center">

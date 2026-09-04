@@ -367,6 +367,46 @@ export default function App() {
     try {
       localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(updated));
     } catch (e) {}
+
+    // Sinkronisasi dengan currentUser jika akun yang sedang login ikut diperbarui
+    if (currentUser) {
+      const match = updated.find(
+        (c) => c.uid === currentUser.uid || (c.email && currentUser.email && c.email.toLowerCase() === currentUser.email.toLowerCase())
+      );
+      if (match) {
+        const syncedCurrentUser: UserProfile = { ...currentUser, ...match };
+        setCurrentUser(syncedCurrentUser);
+        try {
+          localStorage.setItem('farmasi_current_user', JSON.stringify(syncedCurrentUser));
+        } catch (e) {}
+      }
+    }
+
+    // Sinkronisasi dengan adminUsers jika ada staf administrator yang diperbarui
+    setAdminUsers((prev) => {
+      let changed = false;
+      const nextAdmins = prev.map((admin) => {
+        const match = updated.find(
+          (c) => c.uid === admin.id || (c.email && admin.email && c.email.toLowerCase() === admin.email.toLowerCase())
+        );
+        if (match && (admin.name !== match.name || admin.phone !== match.phone)) {
+          changed = true;
+          return {
+            ...admin,
+            name: match.name,
+            phone: match.phone || admin.phone
+          };
+        }
+        return admin;
+      });
+      if (changed) {
+        try {
+          localStorage.setItem('farmasi_admin_users', JSON.stringify(nextAdmins));
+        } catch (e) {}
+        return nextAdmins;
+      }
+      return prev;
+    });
   };
 
   const [historyRecords, setHistoryRecords] = useState<InteractionCheckRecord[]>(() => {
@@ -672,15 +712,43 @@ export default function App() {
 
     // 3. Perbarui customerList agar langsung terlihat di Panel Subskripsi Customer Admin
     setCustomerList((prev) => {
-      const updated = prev.map((c) =>
-        (c.uid === updatedUser.uid || (c.email && updatedUser.email && c.email.toLowerCase() === updatedUser.email.toLowerCase()))
-          ? { ...c, ...updatedUser }
-          : c
+      const exists = prev.some(
+        (c) => c.uid === updatedUser.uid || (c.email && updatedUser.email && c.email.toLowerCase() === updatedUser.email.toLowerCase())
       );
+      let updated: UserProfile[];
+      if (exists) {
+        updated = prev.map((c) =>
+          (c.uid === updatedUser.uid || (c.email && updatedUser.email && c.email.toLowerCase() === updatedUser.email.toLowerCase()))
+            ? { ...c, ...updatedUser }
+            : c
+        );
+      } else {
+        updated = [updatedUser, ...prev];
+      }
       try {
         localStorage.setItem('farmasi_customer_subscriptions', JSON.stringify(updated));
       } catch (e) {}
       return updated;
+    });
+
+    // 4. Perbarui adminUsers jika akun ini adalah admin atau terdaftar di adminUsers
+    setAdminUsers((prev) => {
+      const matchIndex = prev.findIndex(
+        (a) => (a.id === updatedUser.uid) || (a.email && updatedUser.email && a.email.toLowerCase() === updatedUser.email.toLowerCase())
+      );
+      if (matchIndex >= 0) {
+        const updatedAdminUsers = [...prev];
+        updatedAdminUsers[matchIndex] = {
+          ...updatedAdminUsers[matchIndex],
+          name: updatedUser.name,
+          phone: updatedUser.phone || updatedAdminUsers[matchIndex].phone
+        };
+        try {
+          localStorage.setItem('farmasi_admin_users', JSON.stringify(updatedAdminUsers));
+        } catch (e) {}
+        return updatedAdminUsers;
+      }
+      return prev;
     });
 
     setShowProfileModal(false);
