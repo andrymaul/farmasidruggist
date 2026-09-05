@@ -29,6 +29,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
+import { EvidenceSourceBadge } from './EvidenceSourceBadge';
 
 interface IvCompatibilityCheckerProps {
   onSelectTab?: (tab: string) => void;
@@ -196,15 +197,13 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
             </div>
 
             {/* Quick Stat Badges */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap items-center gap-2 pt-2">
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-blue-200">
                 <Layers className="w-3.5 h-3.5 text-blue-400" />
                 <span>Skrining Y-Site Percabangan Infus</span>
               </div>
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Pelarut NS, D5W, RL &amp; Stabilitas BUD</span>
-              </div>
+              <EvidenceSourceBadge preset="ashp-iv" size="sm" />
+              <EvidenceSourceBadge preset="usp-795" size="sm" />
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-sky-200">
                 <AlertTriangle className="w-3.5 h-3.5 text-sky-300" />
                 <span>Pencegahan Presipitasi Kristal</span>
@@ -503,9 +502,10 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2.5 flex-wrap">
                     {renderStatusBadge(pair.result.status)}
-                    <span className="text-xs font-bold text-slate-600 dark:text-slate-400 font-mono">
+                    <EvidenceSourceBadge preset="ashp-iv" size="sm" />
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 font-mono">
                       Ref: {pair.result.evidence}
                     </span>
                   </div>
@@ -580,10 +580,14 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                 <option value="Semua">Semua Kategori</option>
                 <option value="Vasoaktif / Inotropik">Vasoaktif / Inotropik</option>
                 <option value="Antibiotik / Antijamur">Antibiotik / Antijamur</option>
+                <option value="Nutrisi Parenteral & Cairan Khusus">Nutrisi Parenteral & Cairan Khusus</option>
+                <option value="Kemoterapi Onkologi & Imunologi">Kemoterapi Onkologi & Imunologi</option>
                 <option value="Sedasi & Anestesi">Sedasi & Anestesi</option>
+                <option value="Analgesik & Antiinflamasi">Analgesik & Antiinflamasi</option>
                 <option value="Antikoagulan & Kardiovaskular">Antikoagulan & Kardiovaskular</option>
                 <option value="Gastrointestinal">Gastrointestinal</option>
                 <option value="Elektrolit & Koreksi">Elektrolit & Koreksi</option>
+                <option value="Lainnya">Lainnya</option>
               </select>
             </div>
           </div>

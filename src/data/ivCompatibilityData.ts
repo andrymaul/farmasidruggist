@@ -15,7 +15,17 @@ export interface IvDrugProfile {
   name: string;
   genericName: string;
   brandNames: string[];
-  category: 'Vasoaktif / Inotropik' | 'Antibiotik / Antijamur' | 'Sedasi & Anestesi' | 'Analgesik & Antiinflamasi' | 'Gastrointestinal' | 'Elektrolit & Koreksi' | 'Antikoagulan & Kardiovaskular' | 'Lainnya';
+  category: 
+    | 'Vasoaktif / Inotropik' 
+    | 'Antibiotik / Antijamur' 
+    | 'Sedasi & Anestesi' 
+    | 'Analgesik & Antiinflamasi' 
+    | 'Gastrointestinal' 
+    | 'Elektrolit & Koreksi' 
+    | 'Antikoagulan & Kardiovaskular' 
+    | 'Nutrisi Parenteral & Cairan Khusus' 
+    | 'Kemoterapi Onkologi & Imunologi' 
+    | 'Lainnya';
   phRange: string;
   reconstitution: {
     recommendedDiluent: string;
@@ -3674,7 +3684,7 @@ const BASE_IV_DRUGS: IvDrugProfile[] = [
       "Folinate OGB",
       "Leucovorin DBL"
     ],
-    category: "Lainnya",
+    category: "Kemoterapi Onkologi & Imunologi",
     phRange: "6.5 - 8.5",
     reconstitution: {
       recommendedDiluent: "Normal Saline (NS 0.9%) atau D5W",
@@ -3755,6 +3765,303 @@ const BASE_IV_DRUGS: IvDrugProfile[] = [
     blackBoxIncompatibilities: [
       "Alkaline Solutions",
       "Thiopental Sodium"
+    ]
+  },
+  {
+    id: "iv-lipid-emulsion",
+    name: "Intravenous Lipid Emulsion 20% (Smoflipid / Lipofundin)",
+    genericName: "Purified Soybean / Olive / Fish Oil / MCT-LCT Triglycerides 20% Emulsion",
+    brandNames: [
+      "Smoflipid 20%",
+      "Lipofundin MCT/LCT 20%",
+      "Intralipid 20%",
+      "ClinOleic 20%"
+    ],
+    category: "Nutrisi Parenteral & Cairan Khusus",
+    phRange: "6.0 - 8.5",
+    reconstitution: {
+      recommendedDiluent: "Diberikan langsung (undiluted) atau dicampur dalam kantong TPN All-in-One (3-in-1)",
+      volumeToReconstitute: "Botol/kantong infus 100 mL, 250 mL, 500 mL siap pakai",
+      resultantConcentration: "200 mg/mL (20% emulsi)",
+      instructions: "Wajib dihabiskan dalam waktu maksimal 12 - 24 jam setelah botol ditusuk untuk mencegah kontaminasi bakteri/jamur ekstrem. JANGAN dikocok berlebihan."
+    },
+    diluents: {
+      ns: false,
+      d5w: false,
+      rl: false,
+      wfi: false,
+      notes: "Diberikan mandiri (piggyback) atau dicampur dalam kantong 3-in-1 TPN di bawah Laminar Air Flow (LAF) terakreditasi."
+    },
+    stability: {
+      roomTemp25C: "12 - 24 Jam setelah kemasan dibuka",
+      refrigerated2to8C: "Simpan botol utuh pada 2 - 25°C. JANGAN DIBEKUKAN (pembekuan merusak stabilitas emulsi/fase terdispersi)",
+      lightProtectionRequired: true,
+      filterRequired: true,
+      filterType: "Wajib gunakan filter 1.2 mikron khusus emulsi lipid (KONTRAINDIKASI filter 0.22 mikron karena globul lipid akan tersumbat/rusak)."
+    },
+    administration: {
+      maxPeripheralConcentration: "200 mg/mL (dapat perifer atau sentral)",
+      maxCentralConcentration: "200 mg/mL",
+      standardInfusionRate: "Kecepatan awal 0.5 mL/menit selama 15-30 menit pertama; Kecepatan infus maksimal tidak boleh melebihi 0.15 g lemak/kgBB/jam (setara 0.75 mL/kg/jam)",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "CRACKING EMULSI: Adanya pemisahan lapisan minyak berwarna kuning di permukaan larutan menandakan destabilisasi emulsi yang BERBAHAYA (risiko fatal emboli lemak sistemik). Buang segera jika terdapat droplet minyak atau lapisan memisah.",
+        "Inkompatibel fatal dengan kation divalen konsentrasi tinggi (Kalsium & Magnesium) yang merusak muatan potensial zeta emulsi.",
+        "KONTRAINDIKASI penggunaan set infus PVC standar yang mengandung DEHP (di-2-ethylhexyl phthalate) karena emulsi lipid melarutkan dan mengekstrak zat toksik DEHP dari plastik selang. Gunakan selang bebas DEHP / Polietilen."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Calcium Gluconate pekat (Cracking Emulsi)",
+      "Magnesium Sulfate",
+      "Norepinephrine",
+      "Midazolam",
+      "Phenytoin",
+      "Amphotericin B Deoxycholate",
+      "Ciprofloxacin"
+    ]
+  },
+  {
+    id: "iv-amino-acids",
+    name: "Asam Amino Parenteral 10% (Aminoleban / Kalbamin)",
+    genericName: "Essential and Non-Essential Amino Acids 10% Injection",
+    brandNames: [
+      "Aminoleban",
+      "Comfusil",
+      "Kalbamin 10%",
+      "Kidmin",
+      "Aminovel-600",
+      "Aminofusin L-600"
+    ],
+    category: "Nutrisi Parenteral & Cairan Khusus",
+    phRange: "5.0 - 7.0",
+    reconstitution: {
+      recommendedDiluent: "Diberikan sebagai komponen TPN 2-in-1 / 3-in-1 atau infus kontinu lambat",
+      volumeToReconstitute: "Kantong/botol infus 250 - 500 mL siap pakai",
+      resultantConcentration: "100 mg/mL (10%)",
+      instructions: "Osmolaritas tinggi (~900 - 1050 mOsm/L); larutan dengan osmolaritas >900 mOsm/L WAJIB diberikan melalui VENA SENTRAL (CVC) untuk mencegah flebitis kimia dan trombosis vena perifer."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      notes: "Biasa dicampur bersama Dextrose 10-50% dan elektrolit dalam kantong TPN."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah kantong diaktivasi/dicampur",
+      refrigerated2to8C: "2-8°C stabil 48 Jam",
+      lightProtectionRequired: true,
+      filterRequired: true,
+      filterType: "Filter 0.22 mikron (jika tanpa lipid) atau filter 1.2 mikron (jika dicampur emulsi lipid)"
+    },
+    administration: {
+      maxPeripheralConcentration: "Hanya sediaan perifer khusus ≤500 mOsm/L; sediaan 10% wajib CVC",
+      maxCentralConcentration: "100 mg/mL (via CVC)",
+      standardInfusionRate: "Kecepatan infus asam amino tidak boleh melebihi 0.1 g/kgBB/jam untuk mencegah hiperamonemia dan uremia",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "PRESIPITASI KALSIUM-FOSFAT: Pencampuran Kalsium dan Fosfat ke dalam larutan asam amino harus mengikuti urutan yang benar (Fosfat dimasukkan terlebih dahulu, lalu diencerkan, dan Kalsium dimasukkan paling akhir). Asam amino berfungsi sebagai penyangga (buffer) yang menghambat presipitasi kalsium-fosfat.",
+        "Wajib pantau kadar ureum, kreatinin, elektrolit serum, dan fungsi hati berkala."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Sodium Bicarbonate",
+      "Ampicillin",
+      "Diazepam",
+      "Phenytoin",
+      "Furosemide"
+    ]
+  },
+  {
+    id: "iv-polymyxin-b",
+    name: "Polymyxin B Sulfate (Poly-B 500.000 IU)",
+    genericName: "Polymyxin B Sulfate for Injection",
+    brandNames: [
+      "Poly-B IV",
+      "Polymyxin B Sulfate OGB",
+      "Aerosporin"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "5.0 - 7.5",
+    reconstitution: {
+      recommendedDiluent: "Dextrose 5% in Water (D5W) atau Normal Saline (NS 0.9%)",
+      volumeToReconstitute: "Larutkan vial 500.000 Unit (~50 mg) dengan 2 mL WFI atau NS (Konsentrasi: 250.000 Unit/mL), lalu encerkan ke dalam 300 - 500 mL D5W untuk infus",
+      resultantConcentration: "1.000 - 1.667 Unit/mL (infus kontinu)",
+      instructions: "Polimiksin B aktif secara langsung (bukan prodrug seperti Kolistin/CMS). Wajib diinfuskan perlahan selama 60-120 menit untuk meminimalkan risiko blokade neuromuskular dan nefrotoksisitas."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: true,
+      notes: "D5W adalah pelarut pilihan utama. Kompatibel juga dengan NS 0.9%."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah rekonstitusi pada suhu ruang",
+      refrigerated2to8C: "72 Jam (2-8°C)",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "1.667 Unit/mL",
+      maxCentralConcentration: "2.500 Unit/mL",
+      standardInfusionRate: "Loading dose: 20.000 - 25.000 Unit/kgBB infus selama 60-120 menit; Maintenance: 12.500 - 15.000 Unit/kgBB tiap 12 jam (maksimal 30.000 Unit/kg/hari)",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "NEFROTOKSISITAS & NEUROTOKSISITAS: Monitor klirens kreatinin, elektrolit darah, dan gejala kebas/parestesia perioral serta kelemahan otot pernapasan.",
+        "KONTRAINDIKASI SEJALUR DENGAN HEPARIN: Heparin (polianion bermuatan negatif tinggi) bereaksi langsung mengikat molekul polimiksin B (polikationik bermuatan positif) membentuk endapan kompleks inaktif."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Heparin (Presipitasi Muatan Ionik)",
+      "Sodium Bicarbonate",
+      "Cephalothin",
+      "Chloramphenicol",
+      "Penicillin G Sodium"
+    ]
+  },
+  {
+    id: "iv-ceftazidime-avibactam",
+    name: "Ceftazidime / Avibactam (Zavicefta 2.5 g)",
+    genericName: "Ceftazidime Pentahydrate 2000 mg + Avibactam Sodium 500 mg",
+    brandNames: [
+      "Zavicefta IV",
+      "Avycaz IV"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "5.5 - 7.0",
+    reconstitution: {
+      recommendedDiluent: "Water for Injection (WFI), Normal Saline (NS 0.9%), atau D5W",
+      volumeToReconstitute: "Larutkan vial 2.5 g dengan 10 mL WFI/NS (kocok perlahan, pelepasan gas CO2 ringan adalah normal), lalu encerkan ke dalam 100 mL NS atau D5W",
+      resultantConcentration: "20 - 25 mg/mL",
+      instructions: "Wajib diinfuskan selama 2 jam (120 menit) untuk memaksimalkan efek farmakodinamik T>MIC terhadap kuman resisten karbapenem (CRE, KPC, OXA-48)."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: true,
+      wfi: true,
+      d5ns: true,
+      notes: "Kompatibel dengan NS, D5W, RL, dan WFI."
+    },
+    stability: {
+      roomTemp25C: "Stabil 12 Jam pada suhu kamar (25°C)",
+      refrigerated2to8C: "24 Jam (2-8°C)",
+      lightProtectionRequired: false,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "25 mg/mL",
+      maxCentralConcentration: "25 mg/mL",
+      standardInfusionRate: "2.5 g diberikan secara IV infus selama 120 menit (2 Jam) tiap 8 jam",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "PENYESUAIAN GINJAL KETAT: Dosis wajib diturunkan pada CrCl <50 mL/menit (CrCl 31-50 mL/min: 1.25 g q8h; CrCl 16-30 mL/min: 0.9375 g q12h; CrCl 6-15 mL/min: 0.9375 g q24h).",
+        "Inkompatibel Y-Site dengan larutan asam/basa ekstrim dan beberapa antijamur."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Midazolam",
+      "Propofol",
+      "Amphotericin B Deoxycholate",
+      "Furosemide"
+    ]
+  },
+  {
+    id: "iv-amphotericin-b-liposomal",
+    name: "Amphotericin B Liposomal (AmBisome 50 mg)",
+    genericName: "Liposomal Amphotericin B for Injection",
+    brandNames: [
+      "AmBisome IV",
+      "AmBisome Liposomal"
+    ],
+    category: "Antibiotik / Antijamur",
+    phRange: "5.0 - 6.0",
+    reconstitution: {
+      recommendedDiluent: "HANYA DEXTROSE 5% (D5W) - DILARANG NORMAL SALINE!",
+      volumeToReconstitute: "Larutkan vial 50 mg dengan 12 mL Water for Injection (WFI), kocok kuat selama minimal 30 detik hingga terbentuk suspensi kuning tembus pandang, lalu saring dengan filter 5 mikron bawaan dan encerkan ke dalam D5W (Konsentrasi akhir: 1 - 2 mg/mL)",
+      resultantConcentration: "1 - 2 mg/mL (dalam D5W)",
+      instructions: "KONTRAINDIKASI MUTLAK DILARUTKAN DENGAN SALINE (NaCl) ATAU RINGER: Ion elektrolit merusak struktur liposom dan memicu presipitasi koloid. Selang infus wajib dibilas tuntas dengan D5W sebelum dan sesudah pemberian jika menggunakan jalur yang sama."
+    },
+    diluents: {
+      ns: false,
+      d5w: true,
+      rl: false,
+      wfi: true,
+      d5ns: false,
+      notes: "HANYA D5W yang diizinkan sebagai cairan infus pengencer. Seluruh larutan saline/elektrolit adalah kontraindikasi mutlak."
+    },
+    stability: {
+      roomTemp25C: "6 Jam setelah diencerkan dalam D5W pada suhu ruang",
+      refrigerated2to8C: "24 Jam (2-8°C)",
+      lightProtectionRequired: true,
+      filterRequired: true,
+      filterType: "Gunakan filter 5 mikron bawaan pabrik saat aspirasi dari vial ke spuit; jangan gunakan inline filter <1 mikron saat infus."
+    },
+    administration: {
+      maxPeripheralConcentration: "2 mg/mL",
+      maxCentralConcentration: "2 mg/mL",
+      standardInfusionRate: "Infus IV diberikan selama 120 menit (2 jam); jika toleransi baik dapat dipercepat menjadi 60 menit",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "NEFROTOKSISITAS LEBIH RENDAH DIBANDING DEOKSIKOLAT: Formulasi liposom menurunkan toksisitas tubular ginjal secara bermakna, namun pemantauan kalium, magnesium, dan serum kreatinin tetap wajib dilakukan berkala.",
+        "JANGAN PERNAH mencampur dengan obat lain atau cairan elektrolit di jalur infus yang sama."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Normal Saline 0.9% (Presipitasi Koloid Fatal)",
+      "Ringer Lactate",
+      "Semua larutan mengandung natrium klorida",
+      "Heparin",
+      "Caspofungin"
+    ]
+  },
+  {
+    id: "iv-trace-elements",
+    name: "Multi-Trace Elements (Tracutil / Addaven)",
+    genericName: "Trace Elements Solution (Zinc, Copper, Manganese, Chromium, Selenium, Molybdenum, Iron, Fluoride, Iodine)",
+    brandNames: [
+      "Tracutil IV",
+      "Addaven",
+      "Peditrace"
+    ],
+    category: "Nutrisi Parenteral & Cairan Khusus",
+    phRange: "1.8 - 2.6 (Sangat Asam)",
+    reconstitution: {
+      recommendedDiluent: "Dilarutkan ke dalam larutan asam amino atau larutan dekstrosa infus TPN (TIDAK BOLEH DIBERIKAN UNDILUTED/MURNI)",
+      volumeToReconstitute: "1 ampul (10 mL) ditambahkan ke dalam minimal 250 - 500 mL cairan infus TPN",
+      resultantConcentration: "10 mL dalam ≥250 mL cairan pembawa",
+      instructions: "KONTRAINDIKASI MUTLAK BOLUS LANGSUNG: Larutan trace element sangat asam dan pekat, dapat memicu iritasi vena hebat dan flebitis jika tidak diencerkan dalam cairan nutrisi parenteral."
+    },
+    diluents: {
+      ns: true,
+      d5w: true,
+      rl: false,
+      wfi: false,
+      d5ns: true,
+      notes: "Wajib diencerkan dalam minimal 250 mL larutan kristaloid/TPN."
+    },
+    stability: {
+      roomTemp25C: "24 Jam setelah dicampur dalam cairan TPN",
+      refrigerated2to8C: "24 Jam",
+      lightProtectionRequired: true,
+      filterRequired: false
+    },
+    administration: {
+      maxPeripheralConcentration: "10 mL per 500 mL pelarut",
+      maxCentralConcentration: "10 mL per 250 mL pelarut",
+      standardInfusionRate: "Infus lambat kontinu selama 8 - 24 jam bersama nutrisi parenteral",
+      infusionRoute: "IV Drip / Infus Kontinu",
+      specialPrecautions: [
+        "HINDARI pencampuran langsung konsentrasi pekat dengan kalsium glukonat atau natrium bikarbonat tanpa pengenceran awal.",
+        "Pada pasien dengan kolestasis hepatik berat, monitor ekskresi mangan dan tembaga untuk mencegah akumulasi toksik."
+      ]
+    },
+    blackBoxIncompatibilities: [
+      "Sodium Bicarbonate murni",
+      "Ceftriaxone",
+      "Dobutamine"
     ]
   }
 ];
@@ -4976,6 +5283,282 @@ export const Y_SITE_COMPATIBILITY_MATRIX: YSiteCompatibilityPair[] = [
     mechanism: "Kompatibel pada pelarut NS/D5W.",
     clinicalEffect: "Larutan jernih.",
     recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
+  },
+
+  // =========================================================================
+  // TPN & LIPID EMULSION COMPATIBILITY PAIRS (ASHP / TRISSEL'S 2024)
+  // =========================================================================
+  {
+    drugAId: "iv-lipid-emulsion",
+    drugBId: "iv-calcium-gluconate",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kation divalen kalsium konsentrasi tinggi menurunkan potensial zeta globul lipid, memicu agregasi dan pemisahan fase minyak (cracking emulsi).",
+    clinicalEffect: "Risiko fatal emboli lemak paru dan penyumbatan mikrosirkulasi kapiler.",
+    recommendation: "KONTRAINDIKASI MUTLAK SEJALUR. Gunakan lumen CVC terpisah atau jalur IV berbeda."
+  },
+  {
+    drugAId: "iv-lipid-emulsion",
+    drugBId: "iv-magnesium-sulfate",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kation divalen magnesium memicu destabilisasi emulsi dan koalesensi droplet minyak.",
+    clinicalEffect: "Pemisahan lapisan minyak bebas (cracking emulsi).",
+    recommendation: "KONTRAINDIKASI MUTLAK SEJALUR."
+  },
+  {
+    drugAId: "iv-lipid-emulsion",
+    drugBId: "iv-norepinephrine",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "pH asam norepinefrin (pH 3.0-4.5) mengganggu stabilitas emulsi; emulsi memicu inaktivasi oksidatif katekolamin.",
+    clinicalEffect: "Ketidakstabilan emulsi dan fluktuasi hemodinamik.",
+    recommendation: "Gunakan jalur infus terpisah atau lumen CVC khusus obat vasoaktif."
+  },
+  {
+    drugAId: "iv-lipid-emulsion",
+    drugBId: "iv-ciprofloxacin",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Presipitasi langsung dan pemecahan emulsi seketika pada pertemuan Y-site.",
+    clinicalEffect: "Gumpalan partikulat putih dan pemisahan fase.",
+    recommendation: "KONTRAINDIKASI SEJALUR."
+  },
+  {
+    drugAId: "iv-lipid-emulsion",
+    drugBId: "iv-phenytoin",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "pH alkali ekstrim fenitoin (pH 12) merusak mantel fosfolipid emulsi lipid seketika.",
+    clinicalEffect: "Presipitasi kristal fenitoin bebas dan destruksi emulsi.",
+    recommendation: "KONTRAINDIKASI MUTLAK SEJALUR."
+  },
+  {
+    drugAId: "iv-lipid-emulsion",
+    drugBId: "iv-propofol",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Keduanya merupakan sediaan emulsi lipid berbasis trigliserida yang saling bercampur homogen.",
+    clinicalEffect: "Emulsi putih homogen stabil.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-Site."
+  },
+  {
+    drugAId: "iv-lipid-emulsion",
+    drugBId: "iv-fentanyl",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kompatibel pada konsentrasi standar infus ICU.",
+    clinicalEffect: "Emulsi stabil tanpa perubahan ukuran partikel globul lipid.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
+  },
+  {
+    drugAId: "iv-lipid-emulsion",
+    drugBId: "iv-morphine",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kompatibel pada rasio pencampuran Y-site standar.",
+    clinicalEffect: "Emulsi stabil.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
+  },
+  {
+    drugAId: "iv-lipid-emulsion",
+    drugBId: "iv-amino-acids",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Formula standar nutrisi parenteral total All-in-One (3-in-1).",
+    clinicalEffect: "Campuran homogen stabil jika disiapkan di bawah kondisi aseptik LAF.",
+    recommendation: "KOMPATIBEL: Dapat dicampur dalam kantong TPN steril atau co-infus Y-site."
+  },
+
+  // =========================================================================
+  // AMINO ACIDS COMPATIBILITY PAIRS
+  // =========================================================================
+  {
+    drugAId: "iv-amino-acids",
+    drugBId: "iv-potassium-phosphate",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Asam amino bertindak sebagai penyangga (buffer) yang menstabilkan ion fosfat.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL: Dalam kantong TPN, masukkan fosfat terlebih dahulu sebelum kalsium."
+  },
+  {
+    drugAId: "iv-amino-acids",
+    drugBId: "iv-calcium-gluconate",
+    status: "conditional",
+    evidence: "Trissel's 2024",
+    mechanism: "Risiko presipitasi kalsium-fosfat jika konsentrasi kalsium dan fosfat melebihi kurva kelarutan jenuh.",
+    clinicalEffect: "Mikroendapan kristal kalsium fosfat yang dapat menyumbat mikrosirkulasi.",
+    recommendation: "BERSYARAT: Pastikan perkalian konsentrasi Ca x P aman (<200-300 mmol/L2) dan gunakan filter inline 1.2 mikron."
+  },
+  {
+    drugAId: "iv-amino-acids",
+    drugBId: "iv-furosemide",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Perbedaan pH dan presipitasi garam.",
+    clinicalEffect: "Kekeruhan larutan.",
+    recommendation: "KONTRAINDIKASI SEJALUR."
+  },
+  {
+    drugAId: "iv-amino-acids",
+    drugBId: "iv-ampicillin-sulbactam",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Inaktivasi molekuler cincin beta-laktam dan perubahan warna larutan.",
+    clinicalEffect: "Penurunan potensi antibiotik.",
+    recommendation: "KONTRAINDIKASI SEJALUR."
+  },
+
+  // =========================================================================
+  // POLYMYXIN B COMPATIBILITY PAIRS (WHO RESERVE ANTIBIOTIC)
+  // =========================================================================
+  {
+    drugAId: "iv-polymyxin-b",
+    drugBId: "iv-heparin",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kompleksasi muatan ionik antara polikationik polimiksin B dan polianionik heparin memicu endapan kristal mikro seketika.",
+    clinicalEffect: "Hilangnya efek antikoagulan dan antimikroba serta risiko oklusi lumen kateter.",
+    recommendation: "KONTRAINDIKASI MUTLAK SEJALUR. Bilas kateter dengan minimal 20 mL NS sebelum & sesudah pemberian."
+  },
+  {
+    drugAId: "iv-polymyxin-b",
+    drugBId: "iv-sodium-bicarbonate",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Larutan alkali menginaktivasi polimiksin B dan memicu hidrolisis basa.",
+    clinicalEffect: "Penurunan potensi bakterisidal.",
+    recommendation: "KONTRAINDIKASI SEJALUR."
+  },
+  {
+    drugAId: "iv-polymyxin-b",
+    drugBId: "iv-meropenem",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kompatibel pada pelarut infus D5W dan NS 0.9%. Kombinasi standar infeksi bakteri MDR/XDR gram negatif.",
+    clinicalEffect: "Larutan jernih stabil.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
+  },
+  {
+    drugAId: "iv-polymyxin-b",
+    drugBId: "iv-vancomycin",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kompatibel pada konsentrasi infus standar dalam NS dan D5W.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL: Pantau fungsi ginjal ketat (potensiasi nefrotoksisitas sinergis)."
+  },
+
+  // =========================================================================
+  // CEFTAZIDIME-AVIBACTAM COMPATIBILITY PAIRS (ZAVICEFTA)
+  // =========================================================================
+  {
+    drugAId: "iv-ceftazidime-avibactam",
+    drugBId: "iv-vancomycin",
+    status: "conditional",
+    evidence: "Trissel's 2024",
+    mechanism: "Kompatibel pada konsentrasi standar dalam D5W/NS; presipitasi dapat terjadi pada konsentrasi pekat.",
+    clinicalEffect: "Kekeruhan larutan pada konsentrasi tinggi.",
+    recommendation: "BERSYARAT: Berikan jarak waktu infus atau bilas kateter dengan 15 mL NS sebelum & sesudah."
+  },
+  {
+    drugAId: "iv-ceftazidime-avibactam",
+    drugBId: "iv-propofol",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Destabilisasi emulsi propofol oleh seftazidim-avibaktam.",
+    clinicalEffect: "Pemisahan fase emulsi.",
+    recommendation: "KONTRAINDIKASI SEJALUR."
+  },
+  {
+    drugAId: "iv-ceftazidime-avibactam",
+    drugBId: "iv-midazolam",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Presipitasi fisik kekeruhan partikulat seketika akibat interaksi pH.",
+    clinicalEffect: "Endapan partikulat putih.",
+    recommendation: "KONTRAINDIKASI SEJALUR."
+  },
+  {
+    drugAId: "iv-ceftazidime-avibactam",
+    drugBId: "iv-norepinephrine",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kompatibel pada pelarut D5W dan NS.",
+    clinicalEffect: "Larutan jernih stabil.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site."
+  },
+  {
+    drugAId: "iv-ceftazidime-avibactam",
+    drugBId: "iv-amikacin",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kompatibel pada pemberian Y-site intermiten.",
+    clinicalEffect: "Larutan jernih.",
+    recommendation: "KOMPATIBEL via Y-site (tidak boleh dicampur dalam satu kantong infus yang sama)."
+  },
+
+  // =========================================================================
+  // AMPHOTERICIN B LIPOSOMAL (AMBISOME) COMPATIBILITY PAIRS
+  // =========================================================================
+  {
+    drugAId: "iv-amphotericin-b-liposomal",
+    drugBId: "iv-potassium-chloride",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Ion elektrolit kalium klorida mengganggu mantel liposom dan memicu presipitasi agregat lipid.",
+    clinicalEffect: "Destabilisasi liposom dan agregasi keruh.",
+    recommendation: "KONTRAINDIKASI MUTLAK SEJALUR. Bilas selang dengan D5W murni."
+  },
+  {
+    drugAId: "iv-amphotericin-b-liposomal",
+    drugBId: "iv-furosemide",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Perbedaan pH ekstrim memicu pecahnya struktur vesikel liposom.",
+    clinicalEffect: "Presipitasi partikulat keruh.",
+    recommendation: "KONTRAINDIKASI SEJALUR."
+  },
+  {
+    drugAId: "iv-amphotericin-b-liposomal",
+    drugBId: "iv-fluconazole",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Kompatibel dalam pelarut D5W murni.",
+    clinicalEffect: "Larutan jernih stabil.",
+    recommendation: "KOMPATIBEL: Aman co-infus via Y-site dalam pelarut D5W."
+  },
+  {
+    drugAId: "iv-amphotericin-b-liposomal",
+    drugBId: "iv-caspofungin",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Presipitasi partikulat subvisual dan kekeruhan larutan seketika.",
+    clinicalEffect: "Inkompatibilitas fisik antijamur.",
+    recommendation: "KONTRAINDIKASI SEJALUR."
+  },
+
+  // =========================================================================
+  // TRACE ELEMENTS COMPATIBILITY PAIRS
+  // =========================================================================
+  {
+    drugAId: "iv-trace-elements",
+    drugBId: "iv-sodium-bicarbonate",
+    status: "incompatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Mineral mikro trace element (besi, tembaga, seng) membentuk endapan garam karbonat tidak larut dalam larutan alkali bikarbonat.",
+    clinicalEffect: "Presipitasi endapan kecokelatan / keruh.",
+    recommendation: "KONTRAINDIKASI SEJALUR."
+  },
+  {
+    drugAId: "iv-trace-elements",
+    drugBId: "iv-amino-acids",
+    status: "compatible",
+    evidence: "Trissel's 2024",
+    mechanism: "Komponen standar nutrisi parenteral total terlarut homogen.",
+    clinicalEffect: "Larutan jernih stabil.",
+    recommendation: "KOMPATIBEL: Aman dicampur dalam kantong TPN atau co-infus Y-site."
   }
 ];
 

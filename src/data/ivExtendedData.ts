@@ -16,7 +16,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Cisplatin Kalbe",
       "Cisplatin Sanbe"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "3.5 - 5.5",
     "reconstitution": {
       "recommendedDiluent": "Normal Saline 0.9% (WAJIB mengandung NaCl minimal 0.2% - 0.9% untuk mencegah degradasi kompleks platinum)",
@@ -63,7 +63,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Paraplatin",
       "Carboplatin DBL"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "5.0 - 7.0",
     "reconstitution": {
       "recommendedDiluent": "D5W atau Normal Saline 0.9%",
@@ -108,7 +108,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Eloxatin",
       "Oxaliplatin Kalbe"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "4.0 - 6.0",
     "reconstitution": {
       "recommendedDiluent": "Dextrose 5% (D5W) MURNI (KONTRAINDIKASI MUTLAK NORMAL SALINE / NaCl)",
@@ -155,7 +155,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Paclitaxel DBL",
       "Ebetaxel"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "4.4 - 4.8",
     "reconstitution": {
       "recommendedDiluent": "Normal Saline 0.9% atau Dextrose 5% (D5W)",
@@ -202,7 +202,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Brexel",
       "Docetaxel Sanbe"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "3.0 - 4.0",
     "reconstitution": {
       "recommendedDiluent": "Normal Saline 0.9% atau D5W",
@@ -247,7 +247,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Doxorubicin Kalbe",
       "Doxorubicin DBL"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "2.5 - 3.5 (Merah menyala)",
     "reconstitution": {
       "recommendedDiluent": "Normal Saline 0.9% atau D5W",
@@ -293,7 +293,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Endoxan",
       "Cyclophosphamide Kalbe"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "4.0 - 6.0",
     "reconstitution": {
       "recommendedDiluent": "Normal Saline 0.9% atau Water for Injection (WFI)",
@@ -338,7 +338,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Adrucil",
       "Fluorouracil Ebewe"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "8.6 - 9.4 (Alkali)",
     "reconstitution": {
       "recommendedDiluent": "Dextrose 5% (D5W) atau Normal Saline 0.9%",
@@ -383,7 +383,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Methotrexate Ebewe",
       "Emthexate"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "7.5 - 9.0",
     "reconstitution": {
       "recommendedDiluent": "D5W atau Normal Saline 0.9%",
@@ -429,7 +429,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Gemcitabine Kalbe",
       "Fonogem"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "2.7 - 3.3",
     "reconstitution": {
       "recommendedDiluent": "Normal Saline 0.9% MURNI",
@@ -473,7 +473,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Eposin",
       "Etoposide DBL"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "3.0 - 4.0",
     "reconstitution": {
       "recommendedDiluent": "Normal Saline 0.9% atau D5W",
@@ -520,7 +520,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Vincristine Kalbe",
       "Vincristine DBL"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "3.5 - 5.5",
     "reconstitution": {
       "recommendedDiluent": "Normal Saline 0.9% atau D5W",
@@ -565,7 +565,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Uromitexan",
       "Mesna Kalbe"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "6.5 - 8.5",
     "reconstitution": {
       "recommendedDiluent": "D5W atau Normal Saline 0.9%",
@@ -610,7 +610,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Kanjinti",
       "Herzuma"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "6.0",
     "reconstitution": {
       "recommendedDiluent": "Bacteriostatic Water for Injection (BWFI) atau WFI steril 20 mL",
@@ -655,7 +655,7 @@ export const IV_EXTENDED_DRUGS: IvDrugProfile[] = [
       "Ruxience",
       "Truxima"
     ],
-    "category": "Lainnya",
+    "category": "Kemoterapi Onkologi & Imunologi",
     "phRange": "6.5",
     "reconstitution": {
       "recommendedDiluent": "Normal Saline 0.9% atau Dextrose 5% (D5W)",
