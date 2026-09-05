@@ -711,61 +711,6 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
             </div>
           )}
         </div>
-
-        {/* Comorbidity / Patient Disease Conditions Selector */}
-        <div className="bg-slate-50 dark:bg-[#0c0407] p-4 sm:p-5 rounded-2xl border border-rose-100 dark:border-rose-950/60 space-y-3">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <span className="p-1.5 rounded-lg bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300">
-                <Stethoscope className="w-4 h-4" />
-              </span>
-              <div>
-                <h4 className="text-xs font-black font-outfit text-slate-900 dark:text-white flex items-center gap-1.5">
-                  <span>Riwayat Komorbiditas & Penyakit Pasien</span>
-                  <span className="text-[10px] text-rose-700 dark:text-rose-300 font-bold font-outfit bg-rose-50 dark:bg-rose-950 px-2 py-0.5 rounded-md border border-rose-200 dark:border-rose-800">
-                    Opsional / Skrining Kontraindikasi
-                  </span>
-                </h4>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
-                  Klik kondisi pasien untuk mendeteksi kontraindikasi obat terhadap penyakit (Drug-Disease Interactions & Beers Criteria).
-                </p>
-              </div>
-            </div>
-
-            {selectedDiseases.length > 0 && (
-              <button
-                onClick={handleClearDiseases}
-                className="text-[11px] font-bold font-outfit text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5" />
-                <span>Reset ({selectedDiseases.length})</span>
-              </button>
-            )}
-          </div>
-
-          {/* Quick Disease Chips */}
-          <div className="flex flex-wrap gap-1.5 pt-1">
-            {COMMON_CLINICAL_DISEASES.map((dis) => {
-              const isSelected = selectedDiseases.includes(dis.name);
-              return (
-                <button
-                  key={dis.id}
-                  id={`disease-chip-${dis.id}`}
-                  onClick={() => handleToggleDisease(dis.name)}
-                  className={`text-xs font-bold font-outfit px-3 py-1.5 rounded-xl border transition-all flex items-center gap-1.5 cursor-pointer ${
-                    isSelected
-                      ? 'bg-rose-600 text-white border-rose-700 shadow-xs scale-[1.02]'
-                      : 'bg-white dark:bg-[#14060b] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-rose-400 hover:text-rose-700'
-                  }`}
-                >
-                  <span>{dis.icon}</span>
-                  <span>{dis.name}</span>
-                  {isSelected && <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">✓</span>}
-                </button>
-              );
-            })}
-          </div>
-        </div>
       </div>
 
       {/* Analysis Output */}
