@@ -54,7 +54,7 @@ import { resolveDrugFromDDInter, resolveInteractionPair } from '../utils/ddinter
 import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { SWAMEDIKASI_PROTOCOLS, searchSwamedikasiProtocols } from '../data/swamedikasiData';
 import { SwamedikasiProtocol } from '../types';
-import { EvidenceSourceBadge } from './EvidenceSourceBadge';
+import { EvidenceSourceBadge, DualEvidenceBadge } from './EvidenceSourceBadge';
 
 interface LandingPageProps {
   drugs: Drug[];
@@ -487,20 +487,22 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                 </button>
               </div>
 
-              {/* Institutional Provenance & EBM Evidence Badges Bar */}
-              <div className="pt-3 flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-[10.5px] font-bold text-teal-300/80 uppercase tracking-wider">
-                  <ShieldCheck className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                  <span>Transparansi Sitasi &amp; Standar Bukti Ilmiah (Klik untuk verifikasi):</span>
+              {/* Institutional Provenance & Dual-Evidence Badges Bar */}
+              <div className="pt-4 flex flex-col gap-2.5">
+                <div className="flex items-center justify-between gap-2 flex-wrap text-[11px] font-bold text-teal-300 uppercase tracking-wider">
+                  <span className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span>Transparansi Sitasi Ganda (Nasional 🇮🇩 + Global EBM 🌐):</span>
+                  </span>
+                  <span className="text-[10px] lowercase text-teal-200/70 font-normal">
+                    klik lencana untuk verifikasi dasar hukum &amp; DOI
+                  </span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <EvidenceSourceBadge preset="pnpk" size="sm" />
-                  <EvidenceSourceBadge preset="fornas" size="sm" />
-                  <EvidenceSourceBadge preset="bpom" size="sm" />
-                  <EvidenceSourceBadge preset="ddinter" size="sm" />
-                  <EvidenceSourceBadge preset="kdigo-renal" size="sm" />
-                  <EvidenceSourceBadge preset="beers-2023" size="sm" />
-                  <EvidenceSourceBadge preset="ashp-iv" size="sm" />
+                  <DualEvidenceBadge nationalPreset="fornas" internationalPreset="ddinter" size="sm" />
+                  <DualEvidenceBadge nationalPreset="bpom" internationalPreset="fda-pllr" size="sm" />
+                  <DualEvidenceBadge nationalPreset="pnpk-papdi" internationalPreset="kdigo-renal" size="sm" />
+                  <DualEvidenceBadge nationalPreset="kemenkes-iv" internationalPreset="ashp-iv" size="sm" />
                 </div>
               </div>
 

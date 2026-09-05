@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import { getBpomBadge } from '../utils/bpomHelper';
 import { getPregnancySafetyProfile, getFdaCategoryBadgeStyle, getHaleBadgeStyle } from '../utils/pregnancySyncHelper';
-import { EvidenceSourceBadge } from './EvidenceSourceBadge';
+import { EvidenceSourceBadge, DualEvidenceBadge } from './EvidenceSourceBadge';
 
 interface DrugDetailModalProps {
   drug: Drug | null;
@@ -48,30 +48,34 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
 
   const bpomBadge = getBpomBadge(drug);
   const pregProfile = getPregnancySafetyProfile(drug);
-  const fdaStyle = getFdaCategoryBadgeStyle(pregProfile?.fdaCategory || drug.pregnancyCategory);
-  const haleStyle = pregProfile ? getHaleBadgeStyle(pregProfile.halesLactationRating) : null;
+  const fdaStyle = getFdaCategoryBadgeStyle(pregProfile?.fdaCategory);
+  const haleStyle = pregProfile?.halesLactationRating
+    ? getHaleBadgeStyle(pregProfile.halesLactationRating)
+    : null;
 
-  const relatedInteractions = allInteractions.filter(
-    (i) => i.drugAId === drug.id || i.drugBId === drug.id || 
-           i.drugAName.toLowerCase() === drug.name.toLowerCase() || 
-           i.drugBName.toLowerCase() === drug.name.toLowerCase()
+  const relatedInteractions = (allInteractions || []).filter(
+    (i) =>
+      i.drugAName.toLowerCase() === drug.name.toLowerCase() ||
+      i.drugBName.toLowerCase() === drug.name.toLowerCase()
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto">
-      <div className="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden my-6 max-h-[92vh] flex flex-col transition-all">
-        
-        {/* Dark Teal / Navy Header */}
-        <div className="bg-linear-to-r from-[#071c21] via-[#0b2b33] to-[#082026] p-6 text-white relative flex-shrink-0 border-b border-[#143d47]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs animate-in fade-in duration-200">
+      <div 
+        className="bg-white dark:bg-[#051a1e] border-2 border-teal-500/40 rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden relative text-left"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Modal Header */}
+        <div className="bg-gradient-to-r from-teal-800 via-teal-900 to-slate-900 p-6 text-white border-b border-teal-700/60 relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full hover:bg-[#0c2f37] transition-colors cursor-pointer"
+            className="absolute top-5 right-5 p-2 rounded-xl bg-white/10 hover:bg-white/20 text-teal-100 hover:text-white transition-colors cursor-pointer"
             aria-label="Tutup Modal"
           >
             <X className="w-5 h-5" />
           </button>
 
-          <div className="flex flex-wrap items-center gap-1.5 mb-2">
+          <div className="flex flex-wrap items-center gap-2 mb-2 pr-10">
             <span className={`text-[10px] px-2.5 py-0.5 rounded-full border ${bpomBadge.style}`}>
               {bpomBadge.label}
             </span>
@@ -84,8 +88,9 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
                 <span>Kehamilan: Kat. {drug.pregnancyCategory}</span>
               </span>
             )}
-            <EvidenceSourceBadge 
-              preset={drug.id.includes('fornas') ? 'fornas' : drug.offLabelIndication ? 'ebm-offlabel' : 'ddinter'} 
+            <DualEvidenceBadge 
+              nationalPreset={drug.id.includes('fornas') ? 'fornas' : 'bpom'} 
+              internationalPreset={drug.offLabelIndication ? 'ebm-offlabel' : 'ddinter'}
               size="sm" 
             />
           </div>
@@ -105,9 +110,11 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
                   <AlertTriangle className="w-4 h-4 text-rose-400 animate-pulse shrink-0" />
                   <span>Peringatan Khusus Fatal (FDA Boxed Warning)</span>
                 </div>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-rose-900/90 text-rose-200 border border-rose-600 shadow-2xs">
-                  US FDA Black Box
-                </span>
+                <DualEvidenceBadge 
+                  nationalPreset="bpom" 
+                  internationalPreset="fda-pllr" 
+                  size="sm" 
+                />
               </div>
               <p className="text-rose-100 font-medium leading-relaxed whitespace-pre-line text-xs pl-6">
                 {drug.blackBoxWarning}
@@ -202,7 +209,11 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
                       <FileText className="w-3.5 h-3.5 text-sky-600" />
                       <span>Penyesuaian Dosis Gangguan Ginjal (Renal Adjustment):</span>
                     </div>
-                    <EvidenceSourceBadge preset="kdigo-renal" size="sm" />
+                    <DualEvidenceBadge 
+                      nationalPreset="pnpk-papdi" 
+                      internationalPreset="kdigo-renal" 
+                      size="sm" 
+                    />
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 text-xs leading-relaxed whitespace-pre-line">
                     {drug.renalDoseAdjustment}
@@ -249,10 +260,11 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
                   <span>Penggunaan Klinis Off-Label &amp; Dosis (Evidence-Based Off-Label Uses)</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-200 dark:bg-purple-900 text-purple-900 dark:text-purple-200 border border-purple-300 dark:border-purple-700">
-                    Off-Label EBM
-                  </span>
-                  <EvidenceSourceBadge preset="ebm-offlabel" size="sm" />
+                  <DualEvidenceBadge 
+                    nationalPreset="pnpk" 
+                    internationalPreset="ebm-offlabel" 
+                    size="sm" 
+                  />
                 </div>
               </div>
               <p className="text-purple-950 dark:text-purple-200 leading-relaxed font-medium text-xs whitespace-pre-line">

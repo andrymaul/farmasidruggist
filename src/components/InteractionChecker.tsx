@@ -53,7 +53,7 @@ import {
 } from '../data/ddinterData';
 import { DRUG_DISEASE_INTERACTIONS_DATABASE, COMMON_CLINICAL_DISEASES } from '../data/drugDiseaseInteractionsData';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
-import { EvidenceSourceBadge } from './EvidenceSourceBadge';
+import { EvidenceSourceBadge, DualEvidenceBadge } from './EvidenceSourceBadge';
 
 interface InteractionCheckerProps {
   drugs: Drug[];
@@ -1324,7 +1324,7 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                                 {item.ddinterPairId}
                               </span>
                             </div>
-                            <EvidenceSourceBadge preset="ddinter" size="sm" />
+                            <DualEvidenceBadge nationalPreset="bpom" internationalPreset="ddinter" size="sm" />
                           </div>
                         </div>
                       </div>
@@ -1476,12 +1476,17 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                           </p>
                         </div>
 
-                        {item.references && (
-                          <div className="pt-2 border-t border-black/5 dark:border-white/10 flex items-center justify-between gap-2 text-[11px] text-slate-500 dark:text-slate-400">
-                            <span>Pedoman Rujukan: <strong>{item.references}</strong></span>
-                            <span className="font-mono text-[10px] text-slate-400">ID: {item.id}</span>
+                        <div className="pt-3 border-t border-black/5 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <DualEvidenceBadge nationalPreset="pnpk-papdi" internationalPreset="beers-2023" size="sm" />
+                            {item.references && (
+                              <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                                Rujukan: <strong>{item.references}</strong>
+                              </span>
+                            )}
                           </div>
-                        )}
+                          <span className="font-mono text-[10px] text-slate-400">ID: {item.id}</span>
+                        </div>
                       </div>
                     );
                   })}

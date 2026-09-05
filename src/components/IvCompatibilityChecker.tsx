@@ -29,7 +29,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
-import { EvidenceSourceBadge } from './EvidenceSourceBadge';
+import { EvidenceSourceBadge, DualEvidenceBadge } from './EvidenceSourceBadge';
 
 interface IvCompatibilityCheckerProps {
   onSelectTab?: (tab: string) => void;
@@ -504,7 +504,7 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
                   <div className="flex items-center gap-2.5 flex-wrap">
                     {renderStatusBadge(pair.result.status)}
-                    <EvidenceSourceBadge preset="ashp-iv" size="sm" />
+                    <DualEvidenceBadge nationalPreset="kemenkes-iv" internationalPreset="ashp-iv" size="sm" />
                     <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 font-mono">
                       Ref: {pair.result.evidence}
                     </span>
@@ -699,6 +699,9 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                         <div className="text-slate-700 dark:text-slate-300 text-[11px] font-outfit font-medium">
                           <p>Suhu Kamar: {drug.stability.roomTemp25C}</p>
                           <p>Kulkas: {drug.stability.refrigerated2to8C}</p>
+                        </div>
+                        <div className="pt-2 border-t border-blue-200/60 dark:border-blue-900/60">
+                          <DualEvidenceBadge nationalPreset="kemenkes-iv" internationalPreset="usp-795" size="sm" />
                         </div>
                       </div>
                     </div>
