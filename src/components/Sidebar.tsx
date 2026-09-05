@@ -183,6 +183,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         headerBg: 'bg-amber-500/10 border-amber-500/20 text-amber-800 dark:text-amber-300',
         items: [
           { id: 'admin-firebase', label: 'Sinkronisasi Firebase', icon: RefreshCw, iconColor: 'text-orange-500 dark:text-orange-400' },
+          { id: 'admin-branding', label: 'Branding & Kop Surat', icon: Building2, iconColor: 'text-pink-500 dark:text-pink-400' },
           { id: 'admin-pricing', label: 'Tarif & Hak Akses', icon: Tag, iconColor: 'text-teal-500 dark:text-teal-400' },
           { id: 'admin-users', label: 'Kelola Tim Admin', icon: Users, iconColor: 'text-blue-500 dark:text-blue-400' },
           { id: 'admin-subscriptions', label: 'Subskripsi Customer', icon: UserCheck, iconColor: 'text-emerald-500 dark:text-emerald-400' }

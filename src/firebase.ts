@@ -21,9 +21,10 @@ import {
   deleteDoc, 
   onSnapshot,
   query,
-  where
+  where,
+  writeBatch
 } from 'firebase/firestore';
-import { Drug, DrugInteraction, UserProfile, InteractionCheckRecord, AdminUser } from './types';
+import { Drug, DrugInteraction, UserProfile, InteractionCheckRecord, AdminUser, ClinicBrandingSettings, PaymentMethodSettings } from './types';
 import { INITIAL_DRUGS, INITIAL_INTERACTIONS } from './data/ddinterData';
 import { INITIAL_ADMIN_USERS } from './data/mockAdminUsers';
 import { INITIAL_CUSTOMERS } from './data/mockCustomers';
@@ -619,14 +620,251 @@ export async function saveInteractionToFirestore(interaction: DrugInteraction): 
   return;
 }
 
-// Save History record for subscriber
+// === FIRESTORE INTERACTION CHECK HISTORY ===
+
+/**
+ * Menyimpan riwayat telaah interaksi resep ke Cloud Firestore (koleksi 'history')
+ */
 export async function saveInteractionCheckHistory(record: Omit<InteractionCheckRecord, 'id'>): Promise<string> {
-  return 'local-' + Date.now();
+  const fallbackId = 'hist-' + Date.now();
+  if (!db || !record.userId) return fallbackId;
+  
+  try {
+    const historyCol = collection(db, 'history');
+    const newDocRef = doc(historyCol);
+    const cleanRecord: Record<string, any> = {
+      id: newDocRef.id,
+      userId: record.userId,
+      userEmail: record.userEmail || '',
+      patientName: record.patientName || '',
+      drugs: record.drugs || [],
+      timestamp: record.timestamp || new Date().toISOString(),
+      interactionCount: Number(record.interactionCount || 0),
+      highestSeverity: record.highestSeverity || 'None',
+      createdAt: new Date().toISOString()
+    };
+    if (record.notes !== undefined) {
+      cleanRecord.notes = record.notes;
+    }
+
+    await withTimeout(setDoc(newDocRef, cleanRecord), 4500);
+    return newDocRef.id;
+  } catch (err) {
+    console.warn('Firestore saveInteractionCheckHistory fallback:', err);
+    return fallbackId;
+  }
 }
 
-// Fetch History records for user
+/**
+ * Mengambil seluruh riwayat telaah interaksi resep milik pengguna dari Cloud Firestore
+ */
 export async function fetchUserHistory(userId: string): Promise<InteractionCheckRecord[]> {
-  return [];
+  if (!db || !userId) return [];
+  try {
+    const historyCol = collection(db, 'history');
+    const q = query(historyCol, where('userId', '==', userId));
+    const snap = await withTimeout(getDocs(q), 4500);
+    const records: InteractionCheckRecord[] = [];
+    snap.forEach((docSnap) => {
+      const data = docSnap.data() as any;
+      if (data) {
+        records.push({
+          id: docSnap.id,
+          userId: data.userId || userId,
+          userEmail: data.userEmail || '',
+          patientName: data.patientName || '',
+          drugs: Array.isArray(data.drugs) ? data.drugs : [],
+          timestamp: data.timestamp || data.createdAt || new Date().toISOString(),
+          interactionCount: Number(data.interactionCount || 0),
+          highestSeverity: data.highestSeverity || 'None',
+          notes: data.notes || ''
+        });
+      }
+    });
+
+    // Urutkan dari yang terbaru ke terlama
+    records.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    return records;
+  } catch (err) {
+    console.warn('Firestore fetchUserHistory fallback:', err);
+    return [];
+  }
+}
+
+/**
+ * Memperbarui catatan klinis pada riwayat pemeriksaan interaksi di Cloud Firestore
+ */
+export async function updateUserHistoryNotes(recordId: string, notes: string): Promise<void> {
+  if (!db || !recordId) return;
+  try {
+    const docRef = doc(db, 'history', recordId);
+    await withTimeout(updateDoc(docRef, { 
+      notes,
+      updatedAt: new Date().toISOString()
+    }), 4000);
+  } catch (err) {
+    console.warn('Firestore updateUserHistoryNotes fallback:', err);
+  }
+}
+
+/**
+ * Menghapus satu rekor riwayat telaah interaksi dari Cloud Firestore
+ */
+export async function deleteUserHistoryRecord(recordId: string): Promise<void> {
+  if (!db || !recordId) return;
+  try {
+    const docRef = doc(db, 'history', recordId);
+    await withTimeout(deleteDoc(docRef), 4000);
+  } catch (err) {
+    console.warn('Firestore deleteUserHistoryRecord fallback:', err);
+  }
+}
+
+/**
+ * Menghapus seluruh riwayat telaah interaksi milik user dari Cloud Firestore
+ */
+export async function clearAllUserHistory(userId: string): Promise<void> {
+  if (!db || !userId) return;
+  try {
+    const historyCol = collection(db, 'history');
+    const q = query(historyCol, where('userId', '==', userId));
+    const snap = await withTimeout(getDocs(q), 5000);
+    const deletePromises = snap.docs.map(d => deleteDoc(d.ref));
+    await Promise.all(deletePromises);
+  } catch (err) {
+    console.warn('Firestore clearAllUserHistory fallback:', err);
+  }
+}
+
+// === FIRESTORE CLINIC BRANDING SETTINGS ===
+
+/**
+ * Menyimpan konfigurasi Kop Surat & Branding Instansi ke Cloud Firestore (settings/clinicBranding)
+ */
+export async function saveClinicBrandingToFirestore(branding: ClinicBrandingSettings): Promise<void> {
+  if (!db) return;
+  try {
+    const docRef = doc(db, 'settings', 'clinicBranding');
+    const cleanData: Record<string, any> = {};
+    Object.entries(branding).forEach(([key, val]) => {
+      if (val !== undefined) cleanData[key] = val;
+    });
+    cleanData.updatedAt = new Date().toISOString();
+    await withTimeout(setDoc(docRef, cleanData, { merge: true }), 4000);
+  } catch (err) {
+    console.warn('Firestore saveClinicBrandingToFirestore fallback:', err);
+  }
+}
+
+/**
+ * Mengambil konfigurasi Kop Surat & Branding Instansi dari Cloud Firestore
+ */
+export async function fetchClinicBrandingFromFirestore(): Promise<ClinicBrandingSettings | null> {
+  if (!db) return null;
+  try {
+    const docRef = doc(db, 'settings', 'clinicBranding');
+    const snap = await withTimeout(getDoc(docRef), 4000);
+    if (snap.exists()) {
+      return snap.data() as ClinicBrandingSettings;
+    }
+  } catch (err) {
+    console.warn('Firestore fetchClinicBrandingFromFirestore fallback:', err);
+  }
+  return null;
+}
+
+// === FIRESTORE PAYMENT METHOD SETTINGS ===
+
+/**
+ * Menyimpan konfigurasi metode pembayaran (QRIS, Bank, E-Wallet) ke Cloud Firestore (settings/paymentSettings)
+ */
+export async function savePaymentSettingsToFirestore(settings: PaymentMethodSettings): Promise<void> {
+  if (!db) return;
+  try {
+    const docRef = doc(db, 'settings', 'paymentSettings');
+    const cleanData: Record<string, any> = {
+      ...settings,
+      updatedAt: new Date().toISOString()
+    };
+    await withTimeout(setDoc(docRef, cleanData, { merge: true }), 4000);
+  } catch (err) {
+    console.warn('Firestore savePaymentSettingsToFirestore fallback:', err);
+  }
+}
+
+/**
+ * Mengambil konfigurasi metode pembayaran dari Cloud Firestore
+ */
+export async function fetchPaymentSettingsFromFirestore(): Promise<PaymentMethodSettings | null> {
+  if (!db) return null;
+  try {
+    const docRef = doc(db, 'settings', 'paymentSettings');
+    const snap = await withTimeout(getDoc(docRef), 4000);
+    if (snap.exists()) {
+      return snap.data() as PaymentMethodSettings;
+    }
+  } catch (err) {
+    console.warn('Firestore fetchPaymentSettingsFromFirestore fallback:', err);
+  }
+  return null;
+}
+
+// === FIRESTORE ADMIN TEAM MANAGEMENT ===
+
+/**
+ * Menyimpan atau memperbarui staf administrator di Cloud Firestore (koleksi 'adminTeam')
+ */
+export async function saveAdminUserToFirestore(admin: AdminUser): Promise<void> {
+  if (!db || !admin.id) return;
+  try {
+    const docRef = doc(db, 'adminTeam', admin.id);
+    const cleanData: Record<string, any> = {};
+    Object.entries(admin).forEach(([key, val]) => {
+      if (val !== undefined) cleanData[key] = val;
+    });
+    cleanData.updatedAt = new Date().toISOString();
+    await withTimeout(setDoc(docRef, cleanData, { merge: true }), 4000);
+  } catch (err) {
+    console.warn('Firestore saveAdminUserToFirestore fallback:', err);
+  }
+}
+
+/**
+ * Menghapus akun staf administrator dari Cloud Firestore
+ */
+export async function deleteAdminUserFromFirestore(adminId: string): Promise<void> {
+  if (!db || !adminId) return;
+  try {
+    const docRef = doc(db, 'adminTeam', adminId);
+    await withTimeout(deleteDoc(docRef), 4000);
+  } catch (err) {
+    console.warn('Firestore deleteAdminUserFromFirestore fallback:', err);
+  }
+}
+
+/**
+ * Mengambil daftar staf administrator dari Cloud Firestore
+ */
+export async function fetchAdminTeamFromFirestore(): Promise<AdminUser[]> {
+  if (!db) return [];
+  try {
+    const adminCol = collection(db, 'adminTeam');
+    const snap = await withTimeout(getDocs(adminCol), 4000);
+    const admins: AdminUser[] = [];
+    snap.forEach((docSnap) => {
+      const data = docSnap.data() as AdminUser;
+      if (data && (data.id || docSnap.id)) {
+        admins.push({
+          ...data,
+          id: data.id || docSnap.id
+        });
+      }
+    });
+    return admins;
+  } catch (err) {
+    console.warn('Firestore fetchAdminTeamFromFirestore fallback:', err);
+    return [];
+  }
 }
 
 

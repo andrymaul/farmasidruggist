@@ -7,32 +7,36 @@ import { Dashboard } from './components/Dashboard';
 import { DrugDirectory } from './components/DrugDirectory';
 import { InteractionChecker } from './components/InteractionChecker';
 import { HistoryList } from './components/HistoryList';
-import { AdminPanel } from './components/AdminPanel';
-import { MedicationUsageGuide } from './components/MedicationUsageGuide';
-import { PharmacySopManager } from './components/PharmacySopManager';
-import { PharmacyRegulationsManager } from './components/PharmacyRegulationsManager';
-import { ClinicalLiterature } from './components/ClinicalLiterature';
-import { RenalDoseAdjuster } from './components/RenalDoseAdjuster';
-import { ClinicalPolypharmacyEvaluator } from './components/ClinicalPolypharmacyEvaluator';
-import { ClinicalTherapyGuidelines } from './components/ClinicalTherapyGuidelines';
-import { PediatricCompoundingCalculator } from './components/PediatricCompoundingCalculator';
-import { IvCompatibilityChecker } from './components/IvCompatibilityChecker';
-import { WhatsAppPatientCardManager } from './components/WhatsAppPatientCardManager';
-import { SwamedikasiManager } from './components/SwamedikasiManager';
-import { CustomerSubscriptionManager } from './components/CustomerSubscriptionManager';
-import { SideEffectChecker } from './components/SideEffectChecker';
-import { PharmacyCompetencyCenter } from './components/PharmacyCompetencyCenter';
-import { PregnancyLactationChecker } from './components/PregnancyLactationChecker';
-import { DrugLabInteractionChecker } from './components/DrugLabInteractionChecker';
-import { BeyondUseDateCalculator } from './components/BeyondUseDateCalculator';
-import { HerbDrugInteractionChecker } from './components/HerbDrugInteractionChecker';
 import { ProFeatureGate } from './components/ProFeatureGate';
 import { AuthModal } from './components/AuthModal';
-import { PricingModal } from './components/PricingModal';
-import { CompleteProfileModal } from './components/CompleteProfileModal';
-import { DrugDetailModal } from './components/DrugDetailModal';
-import { InteractionReportModal } from './components/InteractionReportModal';
-import { AntigravityUpdateModal } from './components/AntigravityUpdateModal';
+import { ClinicalTabSkeleton } from './components/ClinicalTabSkeleton';
+
+// === DYNAMIC LAZY LOADED CLINICAL MODULES & MODALS ===
+const AdminPanel = React.lazy(() => import('./components/AdminPanel').then(m => ({ default: m.AdminPanel })));
+const MedicationUsageGuide = React.lazy(() => import('./components/MedicationUsageGuide').then(m => ({ default: m.MedicationUsageGuide })));
+const PharmacySopManager = React.lazy(() => import('./components/PharmacySopManager').then(m => ({ default: m.PharmacySopManager })));
+const PharmacyRegulationsManager = React.lazy(() => import('./components/PharmacyRegulationsManager').then(m => ({ default: m.PharmacyRegulationsManager })));
+const ClinicalLiterature = React.lazy(() => import('./components/ClinicalLiterature').then(m => ({ default: m.ClinicalLiterature })));
+const RenalDoseAdjuster = React.lazy(() => import('./components/RenalDoseAdjuster').then(m => ({ default: m.RenalDoseAdjuster })));
+const ClinicalPolypharmacyEvaluator = React.lazy(() => import('./components/ClinicalPolypharmacyEvaluator').then(m => ({ default: m.ClinicalPolypharmacyEvaluator })));
+const ClinicalTherapyGuidelines = React.lazy(() => import('./components/ClinicalTherapyGuidelines').then(m => ({ default: m.ClinicalTherapyGuidelines })));
+const PediatricCompoundingCalculator = React.lazy(() => import('./components/PediatricCompoundingCalculator').then(m => ({ default: m.PediatricCompoundingCalculator })));
+const IvCompatibilityChecker = React.lazy(() => import('./components/IvCompatibilityChecker').then(m => ({ default: m.IvCompatibilityChecker })));
+const WhatsAppPatientCardManager = React.lazy(() => import('./components/WhatsAppPatientCardManager').then(m => ({ default: m.WhatsAppPatientCardManager })));
+const SwamedikasiManager = React.lazy(() => import('./components/SwamedikasiManager').then(m => ({ default: m.SwamedikasiManager })));
+const CustomerSubscriptionManager = React.lazy(() => import('./components/CustomerSubscriptionManager').then(m => ({ default: m.CustomerSubscriptionManager })));
+const SideEffectChecker = React.lazy(() => import('./components/SideEffectChecker').then(m => ({ default: m.SideEffectChecker })));
+const PharmacyCompetencyCenter = React.lazy(() => import('./components/PharmacyCompetencyCenter').then(m => ({ default: m.PharmacyCompetencyCenter })));
+const PregnancyLactationChecker = React.lazy(() => import('./components/PregnancyLactationChecker').then(m => ({ default: m.PregnancyLactationChecker })));
+const DrugLabInteractionChecker = React.lazy(() => import('./components/DrugLabInteractionChecker').then(m => ({ default: m.DrugLabInteractionChecker })));
+const BeyondUseDateCalculator = React.lazy(() => import('./components/BeyondUseDateCalculator').then(m => ({ default: m.BeyondUseDateCalculator })));
+const HerbDrugInteractionChecker = React.lazy(() => import('./components/HerbDrugInteractionChecker').then(m => ({ default: m.HerbDrugInteractionChecker })));
+const PricingModal = React.lazy(() => import('./components/PricingModal').then(m => ({ default: m.PricingModal })));
+const CompleteProfileModal = React.lazy(() => import('./components/CompleteProfileModal').then(m => ({ default: m.CompleteProfileModal })));
+const DrugDetailModal = React.lazy(() => import('./components/DrugDetailModal').then(m => ({ default: m.DrugDetailModal })));
+const InteractionReportModal = React.lazy(() => import('./components/InteractionReportModal').then(m => ({ default: m.InteractionReportModal })));
+const AntigravityUpdateModal = React.lazy(() => import('./components/AntigravityUpdateModal').then(m => ({ default: m.AntigravityUpdateModal })));
+
 import { Drug, DrugInteraction, UserProfile, InteractionCheckRecord, SeverityLevel, PricingPlan, DrugFoodInteraction, TherapeuticDuplication, SystemAuditLog, AuditActionType, AdminUser, ClinicBrandingSettings, PaymentMethodSettings } from './types';
 import { INITIAL_DRUGS, INITIAL_INTERACTIONS, PRICING_PLANS, SAMPLE_FOOD_INTERACTIONS, SAMPLE_THERAPEUTIC_DUPLICATIONS } from './data/ddinterData';
 import { INITIAL_AUDIT_LOGS } from './data/mockAuditLogs';
@@ -50,6 +54,16 @@ import {
   saveInteractionToFirestore,
   saveInteractionCheckHistory,
   fetchUserHistory,
+  updateUserHistoryNotes,
+  deleteUserHistoryRecord,
+  clearAllUserHistory,
+  saveClinicBrandingToFirestore,
+  fetchClinicBrandingFromFirestore,
+  savePaymentSettingsToFirestore,
+  fetchPaymentSettingsFromFirestore,
+  saveAdminUserToFirestore,
+  deleteAdminUserFromFirestore,
+  fetchAdminTeamFromFirestore,
   seedFirestoreIfEmpty,
   saveUserProfileToFirestore,
   getUserProfileFromFirestore,
@@ -543,6 +557,33 @@ export default function App() {
         if (firestoreInteractions.length > 0) {
           setInteractions(firestoreInteractions);
         }
+
+        // Load Clinic Branding from Firestore
+        const remoteBranding = await fetchClinicBrandingFromFirestore();
+        if (remoteBranding && remoteBranding.clinicName) {
+          setClinicBranding(remoteBranding);
+          try {
+            localStorage.setItem('farmasi_clinic_branding', JSON.stringify(remoteBranding));
+          } catch (e) {}
+        }
+
+        // Load Payment Settings from Firestore
+        const remotePayments = await fetchPaymentSettingsFromFirestore();
+        if (remotePayments) {
+          setPaymentSettings(remotePayments);
+          try {
+            localStorage.setItem('farmasi_payment_settings', JSON.stringify(remotePayments));
+          } catch (e) {}
+        }
+
+        // Load Admin Team from Firestore
+        const remoteAdmins = await fetchAdminTeamFromFirestore();
+        if (remoteAdmins && remoteAdmins.length > 0) {
+          setAdminUsers(remoteAdmins);
+          try {
+            localStorage.setItem('farmasi_admin_users', JSON.stringify(remoteAdmins));
+          } catch (e) {}
+        }
       } catch (err) {
         console.warn('Initializing with default datasets:', err);
       }
@@ -554,7 +595,29 @@ export default function App() {
   useEffect(() => {
     if (currentUser?.uid) {
       fetchUserHistory(currentUser.uid).then((records) => {
-        setHistoryRecords(records);
+        if (records && records.length > 0) {
+          setHistoryRecords(records);
+          try {
+            localStorage.setItem('farmasi_history_records', JSON.stringify(records));
+          } catch (e) {}
+        } else {
+          // Fallback ke localStorage jika Firestore belum memiliki riwayat, dan migrasikan ke cloud
+          try {
+            const saved = localStorage.getItem('farmasi_history_records');
+            if (saved) {
+              const localParsed: InteractionCheckRecord[] = JSON.parse(saved);
+              const userLocal = localParsed.filter(r => r.userId === currentUser.uid);
+              if (userLocal.length > 0) {
+                setHistoryRecords(userLocal);
+                userLocal.forEach(r => {
+                  saveInteractionCheckHistory(r).catch(() => {});
+                });
+                return;
+              }
+            }
+          } catch (e) {}
+          setHistoryRecords([]);
+        }
       });
     } else {
       setHistoryRecords([]);
@@ -923,7 +986,7 @@ export default function App() {
     handleSelectTab('whatsapp');
   };
 
-  const handleUpdateHistoryNotes = (recordId: string, notes: string) => {
+  const handleUpdateHistoryNotes = async (recordId: string, notes: string) => {
     setHistoryRecords((prev) => {
       const updated = prev.map((r) => (r.id === recordId ? { ...r, notes } : r));
       try {
@@ -931,9 +994,10 @@ export default function App() {
       } catch (e) {}
       return updated;
     });
+    await updateUserHistoryNotes(recordId, notes);
   };
 
-  const handleDeleteHistoryRecord = (recordId: string) => {
+  const handleDeleteHistoryRecord = async (recordId: string) => {
     setHistoryRecords((prev) => {
       const updated = prev.filter((r) => r.id !== recordId);
       try {
@@ -941,13 +1005,18 @@ export default function App() {
       } catch (e) {}
       return updated;
     });
+    await deleteUserHistoryRecord(recordId);
   };
 
-  const handleClearAllHistoryRecords = () => {
+  const handleClearAllHistoryRecords = async () => {
+    const uid = currentUser?.uid;
     setHistoryRecords([]);
     try {
       localStorage.removeItem('farmasi_history_records');
     } catch (e) {}
+    if (uid) {
+      await clearAllUserHistory(uid);
+    }
   };
 
   const logAdminAction = (
@@ -1050,7 +1119,7 @@ export default function App() {
     logAdminAction('DELETE', 'Duplikasi Terapi', `Menghapus aturan duplikasi "${target?.therapeuticClass || id}".`, { id });
   };
 
-  const handleSaveAdminUser = (admin: AdminUser) => {
+  const handleSaveAdminUser = async (admin: AdminUser) => {
     setAdminUsers((prev) => {
       const idx = prev.findIndex(u => u.id === admin.id);
       if (idx >= 0) {
@@ -1060,23 +1129,32 @@ export default function App() {
       }
       return [admin, ...prev];
     });
+    await saveAdminUserToFirestore(admin);
     logAdminAction('UPDATE', 'Sistem', `Menyimpan data staf administrator "${admin.name}" (Peran: ${admin.roleType}).`, admin);
   };
 
-  const handleDeleteAdminUser = (adminId: string) => {
+  const handleDeleteAdminUser = async (adminId: string) => {
     const target = adminUsers.find(u => u.id === adminId);
     setAdminUsers((prev) => prev.filter(u => u.id !== adminId));
+    await deleteAdminUserFromFirestore(adminId);
     logAdminAction('DELETE', 'Sistem', `Menghapus akun staf administrator "${target?.name || adminId}".`, { adminId });
   };
 
-  const handleSaveBranding = (updated: ClinicBrandingSettings) => {
+  const handleSaveBranding = async (updated: ClinicBrandingSettings) => {
     setClinicBranding(updated);
+    try {
+      localStorage.setItem('farmasi_clinic_branding', JSON.stringify(updated));
+    } catch (e) {}
+    await saveClinicBrandingToFirestore(updated);
     logAdminAction('UPDATE', 'Sistem', `Memperbarui konfigurasi Kop Surat & Branding Instansi (${updated.clinicName}).`, updated);
   };
 
-  const handleSavePaymentSettings = (updated: PaymentMethodSettings) => {
+  const handleSavePaymentSettings = async (updated: PaymentMethodSettings) => {
     setPaymentSettings(updated);
-    localStorage.setItem('farmasi_payment_settings', JSON.stringify(updated));
+    try {
+      localStorage.setItem('farmasi_payment_settings', JSON.stringify(updated));
+    } catch (e) {}
+    await savePaymentSettingsToFirestore(updated);
     logAdminAction('UPDATE', 'Tarif & Fitur', `Memperbarui detail metode pembayaran QRIS, Rekening Bank, dan E-Wallet.`, updated);
   };
 
@@ -1133,7 +1211,7 @@ export default function App() {
               onOpenAuthModal={() => setShowAuthModal(true)}
             />
           ) : (
-            <>
+            <React.Suspense fallback={<ClinicalTabSkeleton />}>
               {activeTab === 'dashboard' && (
                 <Dashboard
                   drugs={drugs}
@@ -1495,10 +1573,13 @@ export default function App() {
                   auditLogs={auditLogs}
                   adminUsers={adminUsers}
                   customers={customerList}
+                  clinicBranding={clinicBranding}
+                  onSaveBranding={handleSaveBranding}
                   onUpdateCustomers={handleUpdateCustomers}
                   initialSubTab={
                     activeTab === 'admin-interactions' ? 'interactions' :
                     activeTab === 'admin-firebase' ? 'firebase-sync' :
+                    activeTab === 'admin-branding' ? 'branding' :
                     activeTab === 'admin-editor' ? 'advanced-editor' :
                     activeTab === 'admin-pricing' ? 'pricing-settings' :
                     activeTab === 'admin-users' ? 'team-admin' :
@@ -1557,7 +1638,7 @@ export default function App() {
                   />
                 )
               )}
-            </>
+            </React.Suspense>
           )}
         </main>
 
@@ -1565,59 +1646,61 @@ export default function App() {
         {isLanding && <Footer onSelectTab={handleSelectTab} />}
       </div>
 
-      {/* MODALS */}
-      {currentUser && (isProfileIncomplete || showProfileModal) && (
-        <CompleteProfileModal
-          currentUser={currentUser}
-          isMandatory={isProfileIncomplete}
-          onSave={handleSaveUserProfile}
-          onClose={() => setShowProfileModal(false)}
-          onLogout={handleLogout}
-        />
-      )}
+      {/* MODALS WITH SUSPENSE */}
+      <React.Suspense fallback={null}>
+        {currentUser && (isProfileIncomplete || showProfileModal) && (
+          <CompleteProfileModal
+            currentUser={currentUser}
+            isMandatory={isProfileIncomplete}
+            onSave={handleSaveUserProfile}
+            onClose={() => setShowProfileModal(false)}
+            onLogout={handleLogout}
+          />
+        )}
 
-      {showAuthModal && (
-        <AuthModal
-          onClose={() => setShowAuthModal(false)}
-          onLoginSuccess={handleLoginSuccess}
-          onNewAccountCreated={handleRegisterOrSyncCustomer}
-        />
-      )}
+        {showAuthModal && (
+          <AuthModal
+            onClose={() => setShowAuthModal(false)}
+            onLoginSuccess={handleLoginSuccess}
+            onNewAccountCreated={handleRegisterOrSyncCustomer}
+          />
+        )}
 
-      {showPricingModal && (
-        <PricingModal
-          onClose={() => setShowPricingModal(false)}
-          currentUser={currentUser}
-          pricingPlans={pricingPlans}
-          paymentSettings={paymentSettings}
-          onSubscribeSuccess={handleSubscribeSuccess}
-          onOpenAuthModal={() => setShowAuthModal(true)}
-        />
-      )}
+        {showPricingModal && (
+          <PricingModal
+            onClose={() => setShowPricingModal(false)}
+            currentUser={currentUser}
+            pricingPlans={pricingPlans}
+            paymentSettings={paymentSettings}
+            onSubscribeSuccess={handleSubscribeSuccess}
+            onOpenAuthModal={() => setShowAuthModal(true)}
+          />
+        )}
 
-      {selectedDrugForDetail && (
-        <DrugDetailModal
-          drug={selectedDrugForDetail}
-          allInteractions={interactions}
-          allDrugs={drugs}
-          onClose={() => setSelectedDrugForDetail(null)}
-          onCheckInteractionWith={handleCheckInteractionWith}
-          onAddToPioCard={handleAddToPioCard}
-          onOpenPregnancyChecker={(drugName) => {
-            setSelectedDrugForDetail(null);
-            handleSelectTab('pregnancy');
-          }}
-        />
-      )}
+        {selectedDrugForDetail && (
+          <DrugDetailModal
+            drug={selectedDrugForDetail}
+            allInteractions={interactions}
+            allDrugs={drugs}
+            onClose={() => setSelectedDrugForDetail(null)}
+            onCheckInteractionWith={handleCheckInteractionWith}
+            onAddToPioCard={handleAddToPioCard}
+            onOpenPregnancyChecker={(drugName) => {
+              setSelectedDrugForDetail(null);
+              handleSelectTab('pregnancy');
+            }}
+          />
+        )}
 
-      {reportModalData && (
-        <InteractionReportModal
-          selectedDrugs={reportModalData.selectedDrugs}
-          interactions={reportModalData.interactions}
-          clinicBranding={clinicBranding}
-          onClose={() => setReportModalData(null)}
-        />
-      )}
+        {reportModalData && (
+          <InteractionReportModal
+            selectedDrugs={reportModalData.selectedDrugs}
+            interactions={reportModalData.interactions}
+            clinicBranding={clinicBranding}
+            onClose={() => setReportModalData(null)}
+          />
+        )}
+      </React.Suspense>
 
     </div>
   );

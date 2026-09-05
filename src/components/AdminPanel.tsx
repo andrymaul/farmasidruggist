@@ -34,8 +34,10 @@ import { AdvancedDataEditor } from './AdvancedDataEditor';
 import { AuditLogManager } from './AuditLogManager';
 import { AdminTeamManager } from './AdminTeamManager';
 import { FirebaseSyncManager } from './FirebaseSyncManager';
+import { ClinicBrandingManager } from './ClinicBrandingManager';
+import { DEFAULT_CLINIC_BRANDING } from '../data/defaultBranding';
 
-type AdminSubTab = 'drugs' | 'interactions' | 'customers' | 'pricing-settings' | 'advanced-editor' | 'audit-log' | 'team-admin' | 'firebase-sync' | 'status';
+type AdminSubTab = 'drugs' | 'interactions' | 'customers' | 'pricing-settings' | 'advanced-editor' | 'audit-log' | 'team-admin' | 'firebase-sync' | 'status' | 'branding';
 
 interface AdminPanelProps {
   drugs: Drug[];
@@ -43,6 +45,8 @@ interface AdminPanelProps {
   currentUser: UserProfile | null;
   pricingPlans: PricingPlan[];
   paymentSettings?: PaymentMethodSettings;
+  clinicBranding?: ClinicBrandingSettings;
+  onSaveBranding?: (updated: ClinicBrandingSettings) => void;
   foodInteractions: DrugFoodInteraction[];
   duplicationRules: TherapeuticDuplication[];
   auditLogs: SystemAuditLog[];
@@ -70,6 +74,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   currentUser,
   pricingPlans,
   paymentSettings,
+  clinicBranding,
+  onSaveBranding,
   foodInteractions,
   duplicationRules,
   auditLogs,
@@ -526,6 +532,14 @@ DDInter-PAIR-00105,"Tacrolimus","Fluconazole","Major","Fluconazole menghambat CY
           onSeedFirebase={onSeedFirebase}
           onSaveDrug={onSaveDrug}
           onSaveInteraction={onSaveInteraction}
+        />
+      )}
+
+      {/* TAB BRANDING & KOP SURAT */}
+      {activeSubTab === 'branding' && (
+        <ClinicBrandingManager
+          branding={clinicBranding || DEFAULT_CLINIC_BRANDING}
+          onSaveBranding={onSaveBranding || (() => {})}
         />
       )}
 
