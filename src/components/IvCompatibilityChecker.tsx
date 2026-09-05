@@ -26,17 +26,26 @@ import {
   Activity, 
   HelpCircle,
   BookOpen,
-  ShieldCheck
+  ShieldCheck,
+  ShieldAlert,
+  Zap,
+  Flame,
+  Thermometer,
+  Baby,
+  ArrowRight,
+  FileCheck
 } from 'lucide-react';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { EvidenceSourceBadge, DualEvidenceBadge } from './EvidenceSourceBadge';
+import { PediatricDisplacementCalculator } from './PediatricDisplacementCalculator';
 
 interface IvCompatibilityCheckerProps {
   onSelectTab?: (tab: string) => void;
 }
 
 export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () => {
-  const [activeSubTab, setActiveSubTab] = useState<'ysite' | 'directory' | 'calculator'>('ysite');
+  const [activeSubTab, setActiveSubTab] = useState<'ysite' | 'directory' | 'calculator' | 'displacement'>('ysite');
+  const [selectedDisplacementPresetFromCard, setSelectedDisplacementPresetFromCard] = useState<string>('disp-ceftriaxone-1g');
 
   // Y-Site multi-drug selection (initial preset: Norepinephrine + Dobutamine + Furosemide)
   const [selectedYSiteDrugIds, setSelectedYSiteDrugIds] = useState<string[]>([
@@ -45,10 +54,16 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
     'iv-furosemide'
   ]);
 
-  // Directory Search State (Tab 2)
+  // Directory Search & Filter State (Tab 2 - Alistair Gray 2021)
   const [directorySearchQuery, setDirectorySearchQuery] = useState<string>('');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('Semua');
+  const [selectedNpsaFilter, setSelectedNpsaFilter] = useState<string>('Semua');
   const [expandedDrugId, setExpandedDrugId] = useState<string | null>('iv-norepinephrine');
+  const [checkedPreChecks, setCheckedPreChecks] = useState<Record<string, boolean>>({});
+
+  const togglePreCheck = (key: string) => {
+    setCheckedPreChecks(prev => ({ ...prev, [key]: !prev[key] }));
+  };
 
   // Syringe Pump Calculator State (Tab 3)
   const [calcDrugPreset, setCalcDrugPreset] = useState<string>('iv-norepinephrine');
@@ -103,7 +118,7 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
     setSelectedYSiteDrugIds(selectedYSiteDrugIds.filter(id => id !== drugId));
   };
 
-  // Filtered Directory drugs
+  // Filtered Directory drugs (Alistair Gray 2021)
   const filteredDirectoryDrugs = useMemo(() => {
     return IV_DRUGS_DATABASE.filter(drug => {
       const matchQuery = 
@@ -112,9 +127,10 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
         drug.brandNames.some(b => b.toLowerCase().includes(directorySearchQuery.toLowerCase()));
 
       const matchCat = selectedCategoryFilter === 'Semua' || drug.category === selectedCategoryFilter;
-      return matchQuery && matchCat;
+      const matchNpsa = selectedNpsaFilter === 'Semua' || drug.grayIdg?.npsaRiskRating === selectedNpsaFilter;
+      return matchQuery && matchCat && matchNpsa;
     });
-  }, [directorySearchQuery, selectedCategoryFilter]);
+  }, [directorySearchQuery, selectedCategoryFilter, selectedNpsaFilter]);
 
   // Calculated Syringe Pump values
   const syringePumpCalculations = useMemo(() => {
@@ -203,10 +219,13 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                 <span>Skrining Y-Site Percabangan Infus</span>
               </div>
               <EvidenceSourceBadge preset="ashp-iv" size="sm" />
-              <EvidenceSourceBadge preset="usp-795" size="sm" />
+              <div className="px-3 py-1.5 rounded-xl bg-purple-500/20 backdrop-blur-sm border border-purple-400/30 text-xs flex items-center gap-1.5 font-bold text-purple-200">
+                <ShieldAlert className="w-3.5 h-3.5 text-purple-300" />
+                <span>Alistair Gray IDG &amp; NPSA Alert 20</span>
+              </div>
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-sky-200">
                 <AlertTriangle className="w-3.5 h-3.5 text-sky-300" />
-                <span>Pencegahan Presipitasi Kristal</span>
+                <span>Pencegahan Presipitasi &amp; Ekstravasasi</span>
               </div>
             </div>
           </div>
@@ -218,7 +237,9 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
             </div>
           </div>
         </div>
-      </div>      {/* SUB-TABS NAVIGATION - SKY & NAVY CLINICAL ICU */}
+      </div>
+
+      {/* SUB-TABS NAVIGATION - SKY & NAVY CLINICAL ICU */}
       <div className="flex flex-wrap gap-2 p-1.5 bg-slate-50 dark:bg-[#061422] border border-sky-200/70 dark:border-sky-500/25 rounded-2xl shadow-2xs">
         <button
           onClick={() => setActiveSubTab('ysite')}
@@ -244,7 +265,10 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
           }`}
         >
           <FlaskConical className="w-4 h-4" />
-          <span>Monografi Pelarut & Stabilitas Rekonstitusi (BUD)</span>
+          <span>Direktori &amp; Monografi Gray (2021)</span>
+          <span className={`ml-1 px-2 py-0.5 text-[10px] font-bold font-outfit rounded-full ${activeSubTab === 'directory' ? 'bg-sky-950/60 text-sky-200 border border-sky-400/30' : 'bg-purple-100 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800'}`}>
+            NPSA &amp; Ekstravasasi
+          </span>
         </button>
 
         <button
@@ -256,7 +280,22 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
           }`}
         >
           <Calculator className="w-4 h-4" />
-          <span>Kalkulator Titrasi Syringe Pump & Drip</span>
+          <span>Kalkulator Syringe Pump &amp; Drip</span>
+        </button>
+
+        <button
+          onClick={() => setActiveSubTab('displacement')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold font-outfit transition cursor-pointer ${
+            activeSubTab === 'displacement'
+              ? 'bg-gradient-to-r from-indigo-600 to-sky-600 text-white shadow-md shadow-indigo-950/40 border border-indigo-400/30'
+              : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-indigo-50/80 dark:hover:bg-indigo-950/40'
+          }`}
+        >
+          <Baby className="w-4 h-4 text-indigo-400" />
+          <span>Kalkulator Displacement Serbuk</span>
+          <span className={`ml-1 px-2 py-0.5 text-[10px] font-bold font-outfit rounded-full ${activeSubTab === 'displacement' ? 'bg-indigo-950/60 text-indigo-200 border border-indigo-400/30' : 'bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800'}`}>
+            Pediatrik
+          </span>
         </button>
       </div>
 
@@ -570,7 +609,7 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
               />
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs font-bold font-outfit text-slate-600 dark:text-slate-400">Kategori:</span>
               <select
                 value={selectedCategoryFilter}
@@ -589,126 +628,403 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                 <option value="Elektrolit & Koreksi">Elektrolit & Koreksi</option>
                 <option value="Lainnya">Lainnya</option>
               </select>
+
+              <span className="text-xs font-bold font-outfit text-slate-600 dark:text-slate-400 ml-1">Risiko NPSA:</span>
+              <select
+                value={selectedNpsaFilter}
+                onChange={(e) => setSelectedNpsaFilter(e.target.value)}
+                className="bg-slate-50 dark:bg-slate-950 border border-purple-200 dark:border-purple-800/80 rounded-xl px-3 py-2 text-xs font-bold font-outfit text-purple-900 dark:text-purple-300 focus:outline-none focus:border-purple-500 cursor-pointer"
+              >
+                <option value="Semua">Semua Risiko NPSA</option>
+                <option value="High Risk">🔴 High Risk (Tinggi)</option>
+                <option value="Moderate Risk">🟡 Moderate Risk (Sedang)</option>
+                <option value="Low Risk">🟢 Low Risk (Rendah)</option>
+              </select>
             </div>
           </div>
 
           {/* Directory Drug Cards */}
           <div className="space-y-4">
-            {filteredDirectoryDrugs.map(drug => (
-              <div
-                key={drug.id}
-                className="bg-white dark:bg-[#071726] border border-sky-200/80 dark:border-sky-500/25 rounded-3xl p-5 sm:p-6 shadow-sm hover:border-sky-400 dark:hover:border-sky-400/60 transition"
-              >
+            {filteredDirectoryDrugs.map(drug => {
+              const idg = drug.grayIdg;
+              return (
                 <div
-                  className="flex flex-wrap items-center justify-between gap-3 cursor-pointer"
-                  onClick={() => setExpandedDrugId(expandedDrugId === drug.id ? null : drug.id)}
+                  key={drug.id}
+                  className="bg-white dark:bg-[#071726] border border-sky-200/80 dark:border-sky-500/25 rounded-3xl p-5 sm:p-6 shadow-sm hover:border-sky-400 dark:hover:border-sky-400/60 transition space-y-4"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-2xl bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-400/30 flex items-center justify-center font-bold shadow-2xs">
-                      <FlaskConical className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-extrabold font-outfit text-slate-900 dark:text-white flex items-center gap-2">
-                        {drug.name}
-                        <span className="text-xs font-semibold text-slate-500 font-mono">({drug.genericName})</span>
-                      </h3>
-                      <div className="flex flex-wrap items-center gap-2 mt-1">
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-black font-outfit bg-sky-50 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
-                          {drug.category}
-                        </span>
-                        <span className="text-xs text-slate-600 dark:text-slate-400 font-mono">
-                          pH: <strong className="text-slate-900 dark:text-slate-200 font-black">{drug.phRange}</strong>
-                        </span>
-                        <span className="text-xs text-slate-600 dark:text-slate-400">
-                          Merk: <em className="text-slate-800 dark:text-slate-200 font-bold">{drug.brandNames.join(', ')}</em>
-                        </span>
+                  <div
+                    className="flex flex-wrap items-center justify-between gap-3 cursor-pointer"
+                    onClick={() => setExpandedDrugId(expandedDrugId === drug.id ? null : drug.id)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-2xl bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-400/30 flex items-center justify-center font-bold shadow-2xs">
+                        <FlaskConical className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-extrabold font-outfit text-slate-900 dark:text-white flex items-center gap-2 flex-wrap">
+                          {drug.name}
+                          <span className="text-xs font-semibold text-slate-500 font-mono">({drug.genericName})</span>
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-2 mt-1">
+                          <span className="px-2 py-0.5 rounded-md text-[10px] font-black font-outfit bg-sky-50 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+                            {drug.category}
+                          </span>
+                          <span className="text-xs text-slate-600 dark:text-slate-400 font-mono">
+                            pH: <strong className="text-slate-900 dark:text-slate-200 font-black">{drug.phRange}</strong>
+                          </span>
+                          <span className="text-xs text-slate-600 dark:text-slate-400">
+                            Merk: <em className="text-slate-800 dark:text-slate-200 font-bold">{drug.brandNames.join(', ')}</em>
+                          </span>
+                        </div>
                       </div>
                     </div>
+
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {/* NPSA Risk Badge */}
+                      {idg && (
+                        <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black font-outfit border shadow-2xs ${
+                          idg.npsaRiskRating === 'High Risk'
+                            ? 'bg-rose-50 text-rose-800 dark:bg-rose-950/70 dark:text-rose-200 border-rose-300 dark:border-rose-700'
+                            : idg.npsaRiskRating === 'Moderate Risk'
+                            ? 'bg-amber-50 text-amber-800 dark:bg-amber-950/70 dark:text-amber-200 border-amber-300 dark:border-amber-700'
+                            : 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-200 border-emerald-300 dark:border-emerald-700'
+                        }`}>
+                          {idg.npsaRiskRating === 'High Risk' ? <ShieldAlert className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" /> : <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />}
+                          NPSA: {idg.npsaRiskRating.toUpperCase()}
+                        </span>
+                      )}
+
+                      {/* Vascular Access Badge */}
+                      {idg && (
+                        <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black font-outfit border ${
+                          idg.vascularAccess.preferredRoute.includes('Wajib')
+                            ? 'bg-purple-100 text-purple-900 dark:bg-purple-950/70 dark:text-purple-200 border-purple-300 dark:border-purple-700'
+                            : idg.vascularAccess.preferredRoute.includes('Dianjurkan')
+                            ? 'bg-indigo-50 text-indigo-900 dark:bg-indigo-950/70 dark:text-indigo-200 border-indigo-300 dark:border-indigo-700'
+                            : 'bg-teal-50 text-teal-900 dark:bg-teal-950/70 dark:text-teal-200 border-teal-300 dark:border-teal-700'
+                        }`}>
+                          <Zap className="w-3 h-3 text-purple-600 dark:text-purple-400" />
+                          {idg.vascularAccess.preferredRoute.includes('Wajib') ? 'CVC Wajib' : idg.vascularAccess.preferredRoute.includes('Dianjurkan') ? 'CVC Dianjurkan' : 'Perifer OK'}
+                        </span>
+                      )}
+
+                      {/* Extravasation Badge */}
+                      {idg && idg.extravasation.classification !== 'Non-vesicant' && (
+                        <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black font-outfit border shadow-2xs ${
+                          idg.extravasation.classification === 'Vesicant'
+                            ? 'bg-red-600 text-white border-red-700'
+                            : 'bg-amber-600 text-white border-amber-700'
+                        }`}>
+                          <Flame className="w-3 h-3" />
+                          {idg.extravasation.classification.toUpperCase()}
+                        </span>
+                      )}
+
+                      {drug.stability.lightProtectionRequired && (
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-black font-outfit bg-amber-100 text-amber-900 border border-amber-300" title="Wajib Flabot Gelap / Aluminium Foil">
+                          <SunMedium className="w-3 h-3" />
+                          Pelindung Cahaya
+                        </span>
+                      )}
+                      {drug.stability.filterRequired && (
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-black font-outfit bg-purple-100 text-purple-900 border border-purple-300" title="Wajib In-line Filter">
+                          <Filter className="w-3 h-3" />
+                          In-line Filter
+                        </span>
+                      )}
+                      <span className="text-xs text-sky-600 dark:text-sky-400 font-bold font-outfit underline ml-1">
+                        {expandedDrugId === drug.id ? 'Tutup Rincian' : 'Lihat Monografi Lengkap'}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    {drug.stability.lightProtectionRequired && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black font-outfit bg-amber-100 text-amber-900 border border-amber-300" title="Wajib Flabot Gelap / Aluminium Foil">
-                        <SunMedium className="w-3 h-3" />
-                        Pelindung Cahaya
-                      </span>
-                    )}
-                    {drug.stability.filterRequired && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black font-outfit bg-purple-100 text-purple-900 border border-purple-300" title="Wajib In-line Filter">
-                        <Filter className="w-3 h-3" />
-                        In-line Filter
-                      </span>
-                    )}
-                    <span className="text-xs text-sky-600 dark:text-sky-400 font-bold font-outfit underline ml-1">
-                      {expandedDrugId === drug.id ? 'Tutup Rincian' : 'Lihat Rekonstitusi & BUD'}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Expanded Details */}
-                {expandedDrugId === drug.id && (
-                  <div className="mt-5 pt-4 border-t border-sky-100 dark:border-sky-950/80 space-y-4 text-xs">
-                    {/* Diluent Compatibility Grid */}
-                    <div className="bg-slate-50 dark:bg-[#040f1a] rounded-2xl p-4 border border-sky-200/60 dark:border-sky-900/40">
-                      <span className="text-xs font-black font-outfit text-slate-800 dark:text-slate-200 block mb-2">
-                        Kompatibilitas Cairan Pembawa / Infus:
-                      </span>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        {Object.entries(drug.diluents).filter(([k]) => k !== 'notes').map(([key, val], idx) => (
-                          <div
-                            key={idx}
-                            className={`p-2.5 rounded-xl border flex items-center justify-between ${
-                              val
-                                ? 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800/80 text-emerald-900 dark:text-emerald-300'
-                                : 'bg-rose-50 dark:bg-rose-950/30 border-rose-300 dark:border-rose-800/80 text-rose-900 dark:text-rose-300'
-                            }`}
-                          >
-                            <span className="font-bold font-outfit">{key.toUpperCase()}</span>
-                            <span className="font-black font-outfit text-xs">
-                              {val ? '✓ Ya' : '✕ Tidak'}
+                  {/* Expanded Alistair Gray (2021) Details */}
+                  {expandedDrugId === drug.id && (
+                    <div className="mt-5 pt-4 border-t border-sky-100 dark:border-sky-950/80 space-y-4 text-xs">
+                      {/* SECTION 1: NPSA RISK & CLINICAL PRE-CHECKS (ALISTAIR GRAY 2021) */}
+                      {idg && (
+                        <div className="bg-gradient-to-r from-purple-50/70 via-slate-50 to-sky-50/70 dark:from-purple-950/20 dark:via-slate-900/40 dark:to-sky-950/20 rounded-2xl p-4 sm:p-5 border border-purple-200/80 dark:border-purple-800/60 space-y-3 shadow-2xs">
+                          <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-purple-200/60 dark:border-purple-800/40">
+                            <span className="text-xs font-black font-outfit uppercase tracking-wider text-purple-900 dark:text-purple-200 flex items-center gap-1.5">
+                              <ShieldAlert className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                              Standar Keselamatan NPSA Alert 20 &amp; Alistair Gray (2021)
+                            </span>
+                            <span className="text-[11px] font-mono text-purple-700 dark:text-purple-300 font-bold">
+                              Tingkat Risiko: <strong>{idg.npsaRiskRating}</strong>
                             </span>
                           </div>
-                        ))}
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {/* Risk Rationale & Monitoring */}
+                            <div className="space-y-2">
+                              <span className="font-bold text-slate-800 dark:text-slate-200 block">Faktor Risiko Klinis:</span>
+                              <ul className="space-y-1 text-slate-700 dark:text-slate-300 list-disc list-inside">
+                                {idg.npsaRiskRationale.map((r, i) => (
+                                  <li key={i} className="leading-relaxed">{r}</li>
+                                ))}
+                              </ul>
+
+                              <span className="font-bold text-slate-800 dark:text-slate-200 block pt-1">Pemantauan Bedside Saat Infus:</span>
+                              <ul className="space-y-1 text-slate-700 dark:text-slate-300 list-disc list-inside">
+                                {idg.bedsideMonitoring.map((m, i) => (
+                                  <li key={i} className="leading-relaxed text-sky-900 dark:text-sky-300 font-medium">{m}</li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            {/* Bedside Interactive Pre-checks */}
+                            <div className="bg-white/80 dark:bg-slate-950/80 rounded-xl p-3.5 border border-purple-200/60 dark:border-purple-800/60 space-y-2">
+                              <span className="font-black text-purple-900 dark:text-purple-200 flex items-center gap-1.5 text-xs">
+                                <FileCheck className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                                Checklist Pra-Pemberian (Verifikasi Perawat/Farmasis):
+                              </span>
+                              <div className="space-y-1.5 pt-1">
+                                {idg.preAdministrationChecks.map((chk, i) => {
+                                  const key = `${drug.id}-chk-${i}`;
+                                  const isChecked = !!checkedPreChecks[key];
+                                  return (
+                                    <label
+                                      key={i}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        togglePreCheck(key);
+                                      }}
+                                      className={`flex items-start gap-2 p-2 rounded-lg border text-[11px] cursor-pointer transition ${
+                                        isChecked
+                                          ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200'
+                                          : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-purple-300'
+                                      }`}
+                                    >
+                                      <div className={`w-4 h-4 rounded mt-0.5 flex items-center justify-center shrink-0 border ${isChecked ? 'bg-emerald-600 border-emerald-600 text-white' : 'border-slate-300 dark:border-slate-700'}`}>
+                                        {isChecked && <Check className="w-3 h-3" />}
+                                      </div>
+                                      <span className="leading-tight select-none">{chk}</span>
+                                    </label>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* SECTION 2: DILUENT COMPATIBILITY, RECONSTITUTION & DISPLACEMENT */}
+                      <div className="space-y-3">
+                        {/* Diluent Compatibility Grid */}
+                        <div className="bg-slate-50 dark:bg-[#040f1a] rounded-2xl p-4 border border-sky-200/60 dark:border-sky-900/40">
+                          <span className="text-xs font-black font-outfit text-slate-800 dark:text-slate-200 block mb-2">
+                            Kompatibilitas Pelarut Pembawa / Cairan Infus:
+                          </span>
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            {Object.entries(drug.diluents).filter(([k]) => k !== 'notes').map(([key, val], idx) => (
+                              <div
+                                key={idx}
+                                className={`p-2.5 rounded-xl border flex items-center justify-between ${
+                                  val
+                                    ? 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800/80 text-emerald-900 dark:text-emerald-300'
+                                    : 'bg-rose-50 dark:bg-rose-950/30 border-rose-300 dark:border-rose-800/80 text-rose-900 dark:text-rose-300'
+                                }`}
+                              >
+                                <span className="font-bold font-outfit">{key.toUpperCase()}</span>
+                                <span className="font-black font-outfit text-xs">
+                                  {val ? '✓ Ya' : '✕ Tidak'}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                          {drug.diluents.notes && (
+                            <p className="text-xs text-amber-900 dark:text-amber-300 mt-2 font-bold font-outfit">
+                              *Catatan: {drug.diluents.notes}
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Reconstitution & BUD Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="p-4 bg-sky-50/60 dark:bg-sky-950/30 rounded-2xl border border-sky-200/80 dark:border-sky-800/60 space-y-2">
+                            <span className="font-black font-outfit text-sky-900 dark:text-sky-300 block flex items-center gap-1.5">
+                              <FlaskConical className="w-4 h-4 text-sky-600" />
+                              Panduan Rekonstitusi:
+                            </span>
+                            <p className="text-slate-700 dark:text-slate-300 font-medium font-outfit">{drug.reconstitution.instructions}</p>
+                            <div className="text-[11px] text-slate-600 dark:text-slate-400 font-mono pt-1 border-t border-sky-200/60 dark:border-sky-900/60 space-y-0.5">
+                              <p>Pelarut: <strong>{drug.reconstitution.recommendedDiluent}</strong></p>
+                              <p>Volume Rekonstitusi: <strong>{drug.reconstitution.volumeToReconstitute}</strong></p>
+                              <p>Konsentrasi Akhir: <strong>{drug.reconstitution.resultantConcentration}</strong></p>
+                            </div>
+                          </div>
+
+                          <div className="p-4 bg-blue-50/60 dark:bg-blue-950/30 rounded-2xl border border-blue-200/80 dark:border-blue-800/60 space-y-2">
+                            <span className="font-black font-outfit text-blue-900 dark:text-blue-300 block flex items-center gap-1.5">
+                              <Clock className="w-4 h-4 text-blue-600" />
+                              Stabilitas &amp; Beyond Use Date (BUD):
+                            </span>
+                            <div className="text-slate-700 dark:text-slate-300 text-[11px] font-outfit font-medium space-y-0.5">
+                              <p>Suhu Kamar (20–25°C): <strong>{drug.stability.roomTemp25C}</strong></p>
+                              <p>Lemari Pendingin (2–8°C): <strong>{drug.stability.refrigerated2to8C}</strong></p>
+                            </div>
+                            <div className="pt-2 border-t border-blue-200/60 dark:border-blue-900/60 flex items-center justify-between">
+                              <DualEvidenceBadge nationalPreset="kemenkes-iv" internationalPreset="usp-795" size="sm" />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Special Displacement Value Card (Gray 2021) */}
+                        {idg?.displacementData && (
+                          <div className="p-4 bg-indigo-50/80 dark:bg-indigo-950/40 rounded-2xl border-2 border-indigo-300 dark:border-indigo-800/80 space-y-3">
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <div className="flex items-center gap-2">
+                                <Baby className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                                <span className="font-black font-outfit text-indigo-950 dark:text-indigo-200 text-xs sm:text-sm">
+                                  Faktor Pemindahan Volume Serbuk (Displacement Value - Gray 2021)
+                                </span>
+                              </div>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  if (drug.id === 'iv-ceftriaxone') setSelectedDisplacementPresetFromCard('disp-ceftriaxone-1g');
+                                  else if (drug.id === 'iv-meropenem') setSelectedDisplacementPresetFromCard('disp-meropenem-1g');
+                                  else if (drug.id === 'iv-vancomycin') setSelectedDisplacementPresetFromCard('disp-vancomycin-500mg');
+                                  else setSelectedDisplacementPresetFromCard('disp-ceftriaxone-1g');
+                                  setActiveSubTab('displacement');
+                                }}
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-black font-outfit shadow-sm transition cursor-pointer"
+                              >
+                                <span>Hitung Dosis Pediatrik</span>
+                                <ArrowRight className="w-3 h-3" />
+                              </button>
+                            </div>
+
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                              <div className="p-2.5 bg-white/80 dark:bg-slate-900/80 rounded-xl border border-indigo-200 dark:border-indigo-900/60">
+                                <span className="text-[10px] font-bold text-slate-500 block">Bobot Serbuk Vial:</span>
+                                <span className="text-xs font-black font-mono text-indigo-950 dark:text-indigo-200">{idg.displacementData.powderWeightMg} mg</span>
+                              </div>
+                              <div className="p-2.5 bg-white/80 dark:bg-slate-900/80 rounded-xl border border-indigo-200 dark:border-indigo-900/60">
+                                <span className="text-[10px] font-bold text-slate-500 block">Displacement ($V_d$):</span>
+                                <span className="text-xs font-black font-mono text-indigo-600 dark:text-indigo-400">{idg.displacementData.displacementVolumeMl} mL</span>
+                              </div>
+                              <div className="p-2.5 bg-white/80 dark:bg-slate-900/80 rounded-xl border border-indigo-200 dark:border-indigo-900/60">
+                                <span className="text-[10px] font-bold text-slate-500 block">Pelarut Ditambahkan:</span>
+                                <span className="text-xs font-black font-mono text-slate-900 dark:text-white">{idg.displacementData.standardDiluentVolumeMl} mL WFI</span>
+                              </div>
+                              <div className="p-2.5 bg-white/80 dark:bg-slate-900/80 rounded-xl border border-indigo-200 dark:border-indigo-900/60">
+                                <span className="text-[10px] font-bold text-slate-500 block">Konsentrasi Sebenarnya:</span>
+                                <span className="text-xs font-black font-mono text-emerald-600 dark:text-emerald-400">{idg.displacementData.reconstitutedConcentrationMgMl} mg/mL</span>
+                              </div>
+                            </div>
+                            <p className="text-[11px] text-indigo-900 dark:text-indigo-300 font-medium leading-relaxed">
+                              {idg.displacementData.notes}
+                            </p>
+                          </div>
+                        )}
                       </div>
-                      {drug.diluents.notes && (
-                        <p className="text-xs text-amber-900 dark:text-amber-300 mt-2 font-bold font-outfit">
-                          *Catatan: {drug.diluents.notes}
-                        </p>
+
+                      {/* SECTION 3 & 4: VASCULAR ACCESS, FLUSHING & EXTRAVASATION PROTOCOL */}
+                      {idg && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {/* Vascular Access & Flush */}
+                          <div className="p-4 bg-slate-50 dark:bg-slate-900/60 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-3">
+                            <div className="flex items-center gap-2 pb-1 border-b border-slate-200 dark:border-slate-800">
+                              <Zap className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                              <span className="font-black font-outfit text-slate-900 dark:text-white text-xs">
+                                Jalur Akses Vena &amp; Protokol Pembilasan (Line Flush)
+                              </span>
+                            </div>
+
+                            <div className="space-y-2 text-xs">
+                              <div>
+                                <span className="text-[11px] font-bold text-slate-500 block">Rekomendasi Jalur:</span>
+                                <p className="font-black text-purple-900 dark:text-purple-300">{idg.vascularAccess.preferredRoute}</p>
+                                <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5 leading-tight">{idg.vascularAccess.recommendations}</p>
+                              </div>
+
+                              <div className="pt-2 border-t border-slate-200 dark:border-slate-800">
+                                <span className="text-[11px] font-bold text-slate-500 block">Cairan Pembilas (Line Flush):</span>
+                                <p className="font-bold text-slate-800 dark:text-slate-200">
+                                  {idg.flushing.preferredFlushSolution} (Minimal: {idg.flushing.minFlushVolumeMl} mL)
+                                </p>
+                                {idg.flushing.flushIncompatibilityWarning && (
+                                  <p className="text-[11px] text-rose-600 dark:text-rose-400 font-bold mt-1">
+                                    ⚠️ {idg.flushing.flushIncompatibilityWarning}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Extravasation Emergency Protocol */}
+                          <div className={`p-4 rounded-2xl border-2 space-y-3 ${
+                            idg.extravasation.classification === 'Vesicant'
+                              ? 'bg-rose-50/90 dark:bg-rose-950/30 border-rose-400 dark:border-rose-800/80 text-rose-950 dark:text-rose-100'
+                              : idg.extravasation.classification === 'Irritant'
+                              ? 'bg-amber-50/90 dark:bg-amber-950/30 border-amber-400 dark:border-amber-800/80 text-amber-950 dark:text-amber-100'
+                              : 'bg-slate-50 dark:bg-slate-900/60 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200'
+                          }`}>
+                            <div className="flex items-center justify-between gap-2 pb-1 border-b border-current/20">
+                              <span className="font-black font-outfit text-xs flex items-center gap-1.5">
+                                <Flame className="w-4 h-4 text-rose-600 dark:text-rose-400" />
+                                Kedaruratan Ekstravasasi: {idg.extravasation.classification.toUpperCase()}
+                              </span>
+                              <span className="text-[10px] font-black px-2 py-0.5 rounded-md bg-white/70 dark:bg-slate-950/60 border border-current/30">
+                                {idg.extravasation.thermalIntervention}
+                              </span>
+                            </div>
+
+                            <p className="text-[11px] leading-relaxed font-medium">
+                              <strong>Toksisitas Jaringan:</strong> {idg.extravasation.tissueToxicity}
+                            </p>
+
+                            {idg.extravasation.antidoteName && (
+                              <div className="p-2.5 rounded-xl bg-white/80 dark:bg-slate-950/70 border border-current/30 text-[11px] space-y-1">
+                                <span className="font-black block text-rose-700 dark:text-rose-300">
+                                  Antidotum Spesifik: {idg.extravasation.antidoteName}
+                                </span>
+                                {idg.extravasation.antidoteDoseAndRoute && (
+                                  <p className="font-mono text-[10px] font-bold">{idg.extravasation.antidoteDoseAndRoute}</p>
+                                )}
+                                {idg.extravasation.antidoteInstructions && (
+                                  <p className="text-[10px] text-slate-600 dark:text-slate-400 leading-tight">{idg.extravasation.antidoteInstructions}</p>
+                                )}
+                              </div>
+                            )}
+
+                            <div>
+                              <span className="font-bold text-[11px] block mb-1">Langkah Tanggap Darurat Bedside:</span>
+                              <ol className="space-y-1 text-[10px] list-decimal list-inside font-medium leading-tight">
+                                {idg.extravasation.emergencySteps.map((step, idx) => (
+                                  <li key={idx}>{step}</li>
+                                ))}
+                              </ol>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* SECTION 5: EQUIPMENT & NON-PVC / FILTER GUIDANCE */}
+                      {idg && (
+                        <div className="p-3.5 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+                          <div className="flex items-center gap-2">
+                            <Filter className="w-4 h-4 text-purple-600" />
+                            <span className="font-bold text-slate-700 dark:text-slate-300">In-line Filter:</span>
+                            <span className="font-black text-slate-900 dark:text-white font-mono">{idg.equipment.inlineFilter}</span>
+                            {idg.equipment.inlineFilterReason && (
+                              <span className="text-[11px] text-slate-500">({idg.equipment.inlineFilterReason})</span>
+                            )}
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <ShieldCheck className="w-4 h-4 text-sky-600" />
+                            <span className="font-bold text-slate-700 dark:text-slate-300">Material Wadah:</span>
+                            <span className="font-black text-slate-900 dark:text-white">{idg.equipment.containerMaterial}</span>
+                          </div>
+                        </div>
                       )}
                     </div>
-
-                    {/* Reconstitution & Stability Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="p-4 bg-sky-50/60 dark:bg-sky-950/30 rounded-2xl border border-sky-200/80 dark:border-sky-800/60 space-y-2">
-                        <span className="font-black font-outfit text-sky-900 dark:text-sky-300 block flex items-center gap-1.5">
-                          <FlaskConical className="w-4 h-4 text-sky-600" />
-                          Panduan Rekonstitusi:
-                        </span>
-                        <p className="text-slate-700 dark:text-slate-300 font-medium font-outfit">{drug.reconstitution.instructions}</p>
-                        <div className="text-[11px] text-slate-600 dark:text-slate-400 font-mono pt-1 border-t border-sky-200/60 dark:border-sky-900/60">
-                          <p>Pelarut: {drug.reconstitution.recommendedDiluent}</p>
-                          <p>Volume: {drug.reconstitution.volumeToReconstitute}</p>
-                        </div>
-                      </div>
-
-                      <div className="p-4 bg-blue-50/60 dark:bg-blue-950/30 rounded-2xl border border-blue-200/80 dark:border-blue-800/60 space-y-2">
-                        <span className="font-black font-outfit text-blue-900 dark:text-blue-300 block flex items-center gap-1.5">
-                          <Clock className="w-4 h-4 text-blue-600" />
-                          Stabilitas & Beyond Use Date (BUD):
-                        </span>
-                        <div className="text-slate-700 dark:text-slate-300 text-[11px] font-outfit font-medium">
-                          <p>Suhu Kamar: {drug.stability.roomTemp25C}</p>
-                          <p>Kulkas: {drug.stability.refrigerated2to8C}</p>
-                        </div>
-                        <div className="pt-2 border-t border-blue-200/60 dark:border-blue-900/60">
-                          <DualEvidenceBadge nationalPreset="kemenkes-iv" internationalPreset="usp-795" size="sm" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -861,15 +1177,22 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
         </div>
       )}
 
+      {/* ========================================================================= */}
+      {/* TAB 4: KALKULATOR DISPLACEMENT SERBUK PEDIATRIK (ALISTAIR GRAY 2021)      */}
+      {/* ========================================================================= */}
+      {activeSubTab === 'displacement' && (
+        <PediatricDisplacementCalculator initialPresetId={selectedDisplacementPresetFromCard} />
+      )}
+
       {/* VERIFIED CLINICAL REFERENCES FOOTER */}
       <div className="p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm space-y-3">
         <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
           <BookOpen className="w-4 h-4 text-sky-600 dark:text-sky-400" />
           <h4 className="text-xs font-black font-outfit uppercase tracking-wider text-slate-800 dark:text-slate-200">
-            Sumber Referensi Resmi & Literatur Terverifikasi:
+            Sumber Referensi Resmi &amp; Literatur Terverifikasi:
           </h4>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
           <div className="p-3.5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
             <span className="font-black text-[#0f766e] dark:text-teal-300 block flex items-center gap-1">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
@@ -893,7 +1216,7 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
           <div className="p-3.5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
             <span className="font-black text-[#0f766e] dark:text-teal-300 block flex items-center gap-1">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-              3. Pedoman Pencampuran Obat Suntik
+              3. Pedoman Obat Suntik Kemenkes RI
             </span>
             <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
               Direktorat Bina Farmasi Komunitas dan Klinik, Ditjen Binfar dan Alkes, Kementerian Kesehatan Republik Indonesia. Standar teknik aseptis dispensing sediaan steril.
@@ -903,10 +1226,20 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
           <div className="p-3.5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
             <span className="font-black text-[#0f766e] dark:text-teal-300 block flex items-center gap-1">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-              4. FDA & King Guide to Admixtures
+              4. FDA &amp; King Guide to Admixtures
             </span>
             <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
               Black Box Warnings FDA (seperti kontraindikasi fatal Seftriakson + Kalsium) dan data kompatibilitas cairan infus parenteral multi-komponen.
+            </p>
+          </div>
+
+          <div className="p-3.5 bg-purple-50 dark:bg-purple-950/40 rounded-xl border border-purple-200 dark:border-purple-800/80 space-y-1">
+            <span className="font-black text-purple-900 dark:text-purple-300 block flex items-center gap-1">
+              <ShieldAlert className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+              5. Injectable Drugs Guide (Gray 2021)
+            </span>
+            <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+              Alistair Gray, Jane Wright, Vincent Goodey. Pharmaceutical Press / RPS &amp; NPSA Alert 20. Standar penilaian risiko NPSA, displacement values serbuk pediatrik, tata laksana ekstravasasi, dan CVC.
             </p>
           </div>
         </div>

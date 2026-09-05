@@ -1679,10 +1679,20 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 pt-1">
+              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-purple-200/80 dark:border-purple-800/80 space-y-1 shadow-2xs">
+                <span className="text-xs font-black text-purple-950 dark:text-purple-200 block">📚 Stockley's Interactions</span>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug">Baku emas global: mekanisme enzim CYP450, P-gp, dan panduan tindakan (Avoid / Monitor).</p>
+              </div>
+
               <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200/70 dark:border-slate-800/80 space-y-1">
                 <span className="text-xs font-black text-slate-900 dark:text-white block">🔬 DDInter Nature Protocol</span>
                 <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug">Kurasi mekanisme kinetik &amp; dinamik multi-agen dengan ID relasi unik.</p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-blue-200/70 dark:border-blue-800/80 space-y-1">
+                <span className="text-xs font-black text-slate-900 dark:text-white block">🌐 Drugs.com &amp; FDA MedWatch</span>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug">Stratifikasi keparahan (Major/Moderate), Black Box Warnings, dan interaksi makanan.</p>
               </div>
 
               <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200/70 dark:border-slate-800/80 space-y-1">

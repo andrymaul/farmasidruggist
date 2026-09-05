@@ -15,6 +15,8 @@ import {
 
 export type EvidencePreset = 
   | 'ddinter'
+  | 'stockley'
+  | 'drugs-com'
   | 'fornas'
   | 'bpom'
   | 'ashp-iv'
@@ -44,6 +46,34 @@ export interface EvidenceSourceInfo {
 }
 
 export const PRESET_SOURCES: Record<EvidencePreset, EvidenceSourceInfo> = {
+  stockley: {
+    title: "Stockley's Drug Interactions (13th Edition)",
+    institution: 'Pharmaceutical Press / Royal Pharmaceutical Society of Great Britain',
+    documentCode: 'Stockley Clinical Compendium / Claire L. Preston (Ed.)',
+    releaseYear: '2023 - 2025',
+    jurisdiction: 'international',
+    evidenceLevel: 'Level 1A (Meta-Analisis / Multi-Center RCT)',
+    evidenceGrade: 'Grade A (Rekomendasi Kuat)',
+    summary: 'Rujukan baku emas internasional paling komprehensif dan terpercaya untuk interaksi obat, makanan, dan herbal. Memuat telaah kritis mekanisme farmakokinetik enzim CYP450 dan transporter P-gp, serta rekomendasi tindakan klinis definitif (Avoid, Monitor, Adjust, No Action).',
+    citation: "Preston, C. L. (Ed.). Stockley's Drug Interactions: A Source Book of Interactions, Their Mechanisms, Clinical Importance and Management (13th ed.). London: Pharmaceutical Press.",
+    officialUrl: 'https://www.medicinescomplete.com/#/browse/stockley',
+    officialUrlLabel: 'MedicinesComplete - Pharmaceutical Press',
+    badgeText: "Stockley's Drug Interactions"
+  },
+  'drugs-com': {
+    title: 'Drugs.com Multi-Source Interaction Engine & US FDA MedWatch',
+    institution: 'Cerner Multum, Micromedex, Wolters Kluwer & US FDA',
+    documentCode: 'FDA Boxed Warnings & Clinical Adverse Event Reporting System',
+    releaseYear: '2024 - 2026',
+    jurisdiction: 'international',
+    evidenceLevel: 'Level 1A (Meta-Analisis / Multi-Center RCT)',
+    evidenceGrade: 'Grade A (Rekomendasi Kuat)',
+    summary: 'Sistem penapisan keparahan interaksi global berbasis data komprehensif FDA Labeling, Black Box Warnings, serta interaksi zat aktif dengan makanan, alkohol, dan jus grapefruit.',
+    citation: 'Drugs.com Interaction Engine. Comprehensive Clinical Database sourced from Cerner Multum, Micromedex, and FDA Labeling. 2024.',
+    officialUrl: 'https://www.drugs.com/drug_interactions.html',
+    officialUrlLabel: 'Drugs.com Drug Interaction Center',
+    badgeText: 'Drugs.com & FDA Warning'
+  },
   ddinter: {
     title: 'DDInter 2.0 Multi-Consensus Clinical Drug-Drug Interaction Database',
     institution: 'Nature Protocols & Konsensus Regulatori Global (US FDA, EMA, PMDA)',

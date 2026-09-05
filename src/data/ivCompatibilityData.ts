@@ -50,6 +50,7 @@ export interface IvDrugProfile {
     specialPrecautions: string[];
   };
   blackBoxIncompatibilities?: string[];
+  grayIdg?: GrayIdgClinicalDetails;
 }
 
 export interface YSiteCompatibilityPair {
@@ -63,6 +64,7 @@ export interface YSiteCompatibilityPair {
 }
 
 import { IV_EXTENDED_DRUGS } from './ivExtendedData';
+import { GrayIdgClinicalDetails, getGrayIdgClinicalDetails } from './injectableDrugsGuideData';
 
 const BASE_IV_DRUGS: IvDrugProfile[] = [
   {
@@ -4069,7 +4071,10 @@ const BASE_IV_DRUGS: IvDrugProfile[] = [
 export const IV_DRUGS_DATABASE: IvDrugProfile[] = [
   ...BASE_IV_DRUGS,
   ...IV_EXTENDED_DRUGS
-];
+].map(drug => ({
+  ...drug,
+  grayIdg: getGrayIdgClinicalDetails(drug)
+}));
 
 export const Y_SITE_COMPATIBILITY_MATRIX: YSiteCompatibilityPair[] = [
   // Ceftriaxone Incompatibilities

@@ -451,7 +451,7 @@ ${notes || 'Diminum secara teratur sesuai aturan dosis dokter. Segera hubungi ap
         <div className="pt-1 border-t border-slate-300 flex items-end justify-between text-[8px] text-slate-600 leading-tight">
           <div>
             <p className="font-bold text-slate-800">FARMASIDRUGGIST CDSS • Standar EBM Terverifikasi</p>
-            <p className="text-[6.5px] text-slate-500">Rujukan: DDInter Nature Protocols • Farmakope Indonesia VI • Kemenkes RI No. 73/2016</p>
+            <p className="text-[6.5px] text-slate-500">Rujukan: Stockley's Drug Interactions • DDInter Nature Protocols • Drugs.com &amp; FDA Warning • Farmakope Indonesia VI • Kemenkes RI No. 73/2016</p>
             <p className="text-[6px] text-slate-400 italic">Instrumen pendukung keputusan klinis farmasi resmi.</p>
           </div>
 
