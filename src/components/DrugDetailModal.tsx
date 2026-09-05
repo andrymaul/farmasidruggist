@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { getBpomBadge } from '../utils/bpomHelper';
 import { getPregnancySafetyProfile, getFdaCategoryBadgeStyle, getHaleBadgeStyle } from '../utils/pregnancySyncHelper';
+import { EvidenceSourceBadge } from './EvidenceSourceBadge';
 
 interface DrugDetailModalProps {
   drug: Drug | null;
@@ -83,10 +84,10 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
                 <span>Kehamilan: Kat. {drug.pregnancyCategory}</span>
               </span>
             )}
-            <span className="bg-sky-950/80 text-sky-200 text-[10px] px-2 py-0.5 rounded font-bold border border-sky-700/50 flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3 text-sky-400" />
-              <span>Monografi Terverifikasi</span>
-            </span>
+            <EvidenceSourceBadge 
+              preset={drug.id.includes('fornas') ? 'fornas' : drug.offLabelIndication ? 'ebm-offlabel' : 'ddinter'} 
+              size="sm" 
+            />
           </div>
 
           <h2 className="text-2xl font-black text-white tracking-tight">{drug.name}</h2>
@@ -98,10 +99,15 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
           
           {/* FDA Black Box Warning (Peringatan Kotak Hitam Khusus) */}
           {drug.blackBoxWarning && (
-            <div className="p-4 rounded-xl bg-linear-to-br from-rose-950 to-rose-900 text-rose-100 border-2 border-rose-500/80 shadow-lg space-y-2">
-              <div className="flex items-center gap-2 text-rose-300 font-black tracking-wide uppercase text-[11px]">
-                <AlertTriangle className="w-4 h-4 text-rose-400 animate-pulse flex-shrink-0" />
-                <span>⚠️ Peringatan Kotak Hitam (Boxed Warning)</span>
+            <div className="p-4 rounded-xl bg-gradient-to-br from-rose-950 via-rose-900 to-red-950 text-rose-100 border-2 border-rose-500/80 shadow-lg space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 text-rose-300 font-black tracking-wide uppercase text-[11px]">
+                  <AlertTriangle className="w-4 h-4 text-rose-400 animate-pulse shrink-0" />
+                  <span>Peringatan Khusus Fatal (FDA Boxed Warning)</span>
+                </div>
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-rose-900/90 text-rose-200 border border-rose-600 shadow-2xs">
+                  US FDA Black Box
+                </span>
               </div>
               <p className="text-rose-100 font-medium leading-relaxed whitespace-pre-line text-xs pl-6">
                 {drug.blackBoxWarning}
@@ -191,9 +197,12 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
 
               {drug.renalDoseAdjustment && (
                 <div className="bg-white dark:bg-slate-900/90 p-3 rounded-xl border border-sky-200 dark:border-sky-900/50 space-y-1 shadow-2xs">
-                  <div className="flex items-center gap-1.5 text-sky-800 dark:text-sky-300 font-bold text-[11px]">
-                    <FileText className="w-3.5 h-3.5 text-sky-600" />
-                    <span>Penyesuaian Dosis Gangguan Ginjal (Renal Adjustment):</span>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5 text-sky-800 dark:text-sky-300 font-bold text-[11px]">
+                      <FileText className="w-3.5 h-3.5 text-sky-600" />
+                      <span>Penyesuaian Dosis Gangguan Ginjal (Renal Adjustment):</span>
+                    </div>
+                    <EvidenceSourceBadge preset="kdigo-renal" size="sm" />
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 text-xs leading-relaxed whitespace-pre-line">
                     {drug.renalDoseAdjustment}
@@ -234,14 +243,17 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
           {/* Indikasi Off-Label (Jika Ada) */}
           {drug.offLabelIndication && (
             <div className="bg-purple-50 dark:bg-purple-950/30 p-4 rounded-xl border border-purple-200 dark:border-purple-900/50 space-y-2 shadow-2xs">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-1.5 text-purple-900 dark:text-purple-300 font-extrabold text-xs">
                   <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                  <span>Penggunaan Klinis Off-Label & Dosis (Evidence-Based Off-Label Uses)</span>
+                  <span>Penggunaan Klinis Off-Label &amp; Dosis (Evidence-Based Off-Label Uses)</span>
                 </div>
-                <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-purple-200 dark:bg-purple-900 text-purple-900 dark:text-purple-200 border border-purple-300 dark:border-purple-700">
-                  Off-Label
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-200 dark:bg-purple-900 text-purple-900 dark:text-purple-200 border border-purple-300 dark:border-purple-700">
+                    Off-Label EBM
+                  </span>
+                  <EvidenceSourceBadge preset="ebm-offlabel" size="sm" />
+                </div>
               </div>
               <p className="text-purple-950 dark:text-purple-200 leading-relaxed font-medium text-xs whitespace-pre-line">
                 {drug.offLabelIndication}
@@ -377,7 +389,8 @@ export const DrugDetailModal: React.FC<DrugDetailModalProps> = ({
               {/* Lactation / ASI Summary */}
               <div className="bg-white/80 dark:bg-slate-900/80 p-3 rounded-xl border border-purple-200/70 dark:border-purple-800/50 space-y-1 text-xs">
                 <p className="font-bold text-purple-900 dark:text-purple-300 flex items-center gap-1.5">
-                  <span>🍼 Evaluasi Keamanan Menyusui & ASI:</span>
+                  <HeartHandshake className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                  <span>Evaluasi Keamanan Menyusui &amp; ASI (Hale's Lactation Rating):</span>
                 </p>
                 <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                   {pregProfile?.breastfeedingSummary || drug.lactationWarning || 'Diskusikan rasio manfaat vs risiko laktasi dengan dokter spesialis atau apoteker.'}

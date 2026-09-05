@@ -54,6 +54,7 @@ import { resolveDrugFromDDInter, resolveInteractionPair } from '../utils/ddinter
 import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { SWAMEDIKASI_PROTOCOLS, searchSwamedikasiProtocols } from '../data/swamedikasiData';
 import { SwamedikasiProtocol } from '../types';
+import { EvidenceSourceBadge } from './EvidenceSourceBadge';
 
 interface LandingPageProps {
   drugs: Drug[];
@@ -142,10 +143,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
   // Feedback Questionnaire to WhatsApp State
   const [feedbackName, setFeedbackName] = useState('');
-  const [feedbackRole, setFeedbackRole] = useState('');
+  const [feedbackProfession, setFeedbackProfession] = useState('');
+  const [feedbackInstitution, setFeedbackInstitution] = useState('');
   const [feedbackCity, setFeedbackCity] = useState('');
   const [feedbackRating, setFeedbackRating] = useState(5);
-  const [feedbackModule, setFeedbackModule] = useState('Multi-Consensus DDI (Interaksi Obat)');
+  const [feedbackModule, setFeedbackModule] = useState('Cek Interaksi Obat (DDInter Multi-Consensus)');
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
   const handleSendFeedbackWhatsApp = (e: React.FormEvent) => {
@@ -154,10 +156,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     const message = `Halo Admin FarmasiDruggist, saya ingin menyampaikan testimoni / saran pengguna:
 
 👤 *Nama:* ${feedbackName.trim() || 'Rekan Sejawat'}
-🏥 *Profesi/Faskes:* ${feedbackRole.trim() || '-'}
-📍 *Kota:* ${feedbackCity.trim() || '-'}
+🩺 *Profesi:* ${feedbackProfession.trim() || '-'}
+🏥 *Instansi / Institusi:* ${feedbackInstitution.trim() || '-'}
+📍 *Kota / Daerah:* ${feedbackCity.trim() || '-'}
 ⭐ *Rating Kepuasan:* ${stars} (${feedbackRating}/5)
-🔬 *Modul Favorit:* ${feedbackModule}
+🔬 *Modul yang Dinilai:* ${feedbackModule}
 💬 *Ulasan, Masukan & Saran:*
 "${feedbackMessage.trim() || 'Aplikasi FarmasiDruggist sangat membantu praktik kefarmasian klinis.'}"`;
 
@@ -482,6 +485,23 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                   <BookOpen className="w-4 h-4 text-teal-400" />
                   <span>Eksplorasi 22 Modul Terpadu</span>
                 </button>
+              </div>
+
+              {/* Institutional Provenance & EBM Evidence Badges Bar */}
+              <div className="pt-3 flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-[10.5px] font-bold text-teal-300/80 uppercase tracking-wider">
+                  <ShieldCheck className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+                  <span>Transparansi Sitasi &amp; Standar Bukti Ilmiah (Klik untuk verifikasi):</span>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <EvidenceSourceBadge preset="pnpk" size="sm" />
+                  <EvidenceSourceBadge preset="fornas" size="sm" />
+                  <EvidenceSourceBadge preset="bpom" size="sm" />
+                  <EvidenceSourceBadge preset="ddinter" size="sm" />
+                  <EvidenceSourceBadge preset="kdigo-renal" size="sm" />
+                  <EvidenceSourceBadge preset="beers-2023" size="sm" />
+                  <EvidenceSourceBadge preset="ashp-iv" size="sm" />
+                </div>
               </div>
 
             </div>
@@ -2221,21 +2241,35 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
 
                   <div className="space-y-1">
                     <label className="text-xs font-black text-slate-700 dark:text-slate-300 font-outfit">
-                      Profesi / Tempat Tugas <span className="text-rose-500">*</span>
+                      Profesi <span className="text-rose-500">*</span>
                     </label>
                     <input
                       type="text"
                       required
-                      value={feedbackRole}
-                      onChange={(e) => setFeedbackRole(e.target.value)}
-                      placeholder="misal: Apoteker RSUD / Apotek / Tenaga Kesehatan"
+                      value={feedbackProfession}
+                      onChange={(e) => setFeedbackProfession(e.target.value)}
+                      placeholder="misal: Apoteker / Dokter / TTK / Mahasiswa Farmasi"
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
                     />
                   </div>
                 </div>
 
-                {/* Grid Inputs: Kota & Modul Favorit */}
+                {/* Grid Inputs: Instansi & Kota */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="space-y-1">
+                    <label className="text-xs font-black text-slate-700 dark:text-slate-300 font-outfit">
+                      Instansi / Institusi <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={feedbackInstitution}
+                      onChange={(e) => setFeedbackInstitution(e.target.value)}
+                      placeholder="misal: RSUD dr. Soetomo / Apotek Kimia Farma / Puskesmas / Kampus"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
+                    />
+                  </div>
+
                   <div className="space-y-1">
                     <label className="text-xs font-black text-slate-700 dark:text-slate-300 font-outfit">
                       Kota / Daerah
@@ -2248,26 +2282,62 @@ Diskrining via FarmasiDruggist (https://farmasidruggist.com)`;
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium"
                     />
                   </div>
+                </div>
 
-                  <div className="space-y-1">
-                    <label className="text-xs font-black text-slate-700 dark:text-slate-300 font-outfit">
-                      Modul yang Dinilai
-                    </label>
-                    <select
-                      value={feedbackModule}
-                      onChange={(e) => setFeedbackModule(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium cursor-pointer"
-                    >
-                      <option value="Multi-Consensus DDI (Interaksi Obat)">Multi-Consensus DDI (Interaksi Obat)</option>
-                      <option value="Kalkulator BUD Racikan USP <795>">Kalkulator BUD Racikan USP &lt;795&gt;</option>
-                      <option value="Kompatibilitas Injeksi IV ICU (ASHP)">Kompatibilitas Injeksi IV ICU (ASHP)</option>
+                {/* Input: Modul yang Dinilai */}
+                <div className="space-y-1">
+                  <label className="text-xs font-black text-slate-700 dark:text-slate-300 font-outfit">
+                    Modul yang Dinilai
+                  </label>
+                  <select
+                    value={feedbackModule}
+                    onChange={(e) => setFeedbackModule(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-teal-500/25 bg-slate-50 dark:bg-[#062026] text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all font-medium cursor-pointer"
+                  >
+                    <optgroup label="🌟 Seluruh Platform">
+                      <option value="Seluruh Platform FarmasiDruggist (Umum)">Seluruh Platform FarmasiDruggist (Umum)</option>
+                    </optgroup>
+
+                    <optgroup label="💊 Utama & Monografi">
+                      <option value="Katalog & Monografi Obat (Fornas & Off-Label EBM)">Katalog &amp; Monografi Obat (Fornas &amp; Off-Label EBM)</option>
+                      <option value="Panduan Cara Pakai Obat (Inhaler, Insulin, dll.)">Panduan Cara Pakai Obat (Inhaler, Insulin, dll.)</option>
+                      <option value="Riwayat Cek Resep & Skrining Pasien">Riwayat Cek Resep &amp; Skrining Pasien</option>
+                    </optgroup>
+
+                    <optgroup label="🛡️ Skrining & Keamanan Resep">
+                      <option value="Cek Interaksi Obat (DDInter Multi-Consensus)">Cek Interaksi Obat (DDInter Multi-Consensus)</option>
                       <option value="Keamanan Bumil & Busui (FDA PLLR & Hale)">Keamanan Bumil &amp; Busui (FDA PLLR &amp; Hale)</option>
-                      <option value="Evaluasi Geriatri Beers 2023">Evaluasi Geriatri Beers 2023</option>
-                      <option value="Generator Kartu PIO WhatsApp">Generator Kartu PIO WhatsApp</option>
-                      <option value="Pusat Belajar UKMPPAI & OSCE">Pusat Belajar UKMPPAI &amp; OSCE</option>
-                      <option value="Lainnya / Usulan Modul Baru">Lainnya / Usulan Modul Baru</option>
-                    </select>
-                  </div>
+                      <option value="Interaksi Obat & Uji Lab Klinis">Interaksi Obat &amp; Uji Lab Klinis</option>
+                      <option value="Interaksi Herbal & Obat (Jamu / Fitofarmaka)">Interaksi Herbal &amp; Obat (Jamu / Fitofarmaka)</option>
+                      <option value="Cek Efek Samping Obat & Algoritma Naranjo (ADR)">Cek Efek Samping Obat &amp; Algoritma Naranjo (ADR)</option>
+                      <option value="Kompatibilitas Injeksi IV ICU (ASHP Y-Site)">Kompatibilitas Injeksi IV ICU (ASHP Y-Site)</option>
+                    </optgroup>
+
+                    <optgroup label="🧮 Kalkulator Medis & Racikan">
+                      <option value="Stabilitas & BUD Racikan (USP <795> & <797>)">Stabilitas &amp; BUD Racikan (USP &lt;795&gt; &amp; &lt;797&gt;)</option>
+                      <option value="Dosis Pediatrik & Peracikan Puyer Anak">Dosis Pediatrik &amp; Peracikan Puyer Anak</option>
+                      <option value="Kalkulator Medis & Klirens Ginjal (Cockcroft-Gault/CKD-EPI)">Kalkulator Medis &amp; Klirens Ginjal (Cockcroft-Gault/CKD-EPI)</option>
+                    </optgroup>
+
+                    <optgroup label="🩺 Polifarmasi & Edukasi Pasien">
+                      <option value="Swamedikasi & Triage Klinis Apotek (Standar BPOM)">Swamedikasi &amp; Triage Klinis Apotek (Standar BPOM)</option>
+                      <option value="Evaluasi Polifarmasi & Kriteria Beers 2023 (STOPP/START)">Evaluasi Polifarmasi &amp; Kriteria Beers 2023 (STOPP/START)</option>
+                      <option value="Generator Kartu Informasi Obat (PIO) WhatsApp Pasien">Generator Kartu Informasi Obat (PIO) WhatsApp Pasien</option>
+                      <option value="Panduan Terapi Klinis & Clinical Pathways (PNPK Kemenkes)">Panduan Terapi Klinis &amp; Clinical Pathways (PNPK Kemenkes)</option>
+                    </optgroup>
+
+                    <optgroup label="🎓 Belajar, SOP & Regulasi">
+                      <option value="Pusat Belajar Farmasi (Tryout UKMPPAI & OSCE Klinis)">Pusat Belajar Farmasi (Tryout UKMPPAI &amp; OSCE Klinis)</option>
+                      <option value="SOP Standar Pelayanan Kefarmasian Resmi">SOP Standar Pelayanan Kefarmasian Resmi</option>
+                      <option value="Database Regulasi Farmasi & UU Kesehatan">Database Regulasi Farmasi &amp; UU Kesehatan</option>
+                      <option value="Literatur Ilmiah EBM & Jurnal Farmasi Terpercaya">Literatur Ilmiah EBM &amp; Jurnal Farmasi Terpercaya</option>
+                      <option value="Kalkulator Skor Risiko Klinis (CHA2DS2-VASc, HAS-BLED, dll.)">Kalkulator Skor Risiko Klinis (CHA2DS2-VASc, HAS-BLED, dll.)</option>
+                    </optgroup>
+
+                    <optgroup label="💡 Lainnya">
+                      <option value="Usulan Modul Baru / Fitur Lainnya">Usulan Modul Baru / Fitur Lainnya</option>
+                    </optgroup>
+                  </select>
                 </div>
 
                 {/* Rating Bintang Interaktif */}

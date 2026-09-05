@@ -22,9 +22,12 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Layers,
-  ShieldCheck
+  ShieldCheck,
+  AlertTriangle,
+  Utensils
 } from 'lucide-react';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
+import { EvidenceSourceBadge } from './EvidenceSourceBadge';
 import { DDINTER_CATEGORIES, resolveDrugFromDDInter, deduplicateDrugs } from '../utils/ddinterEngine';
 import { 
   BpomClassKey, 
@@ -45,7 +48,7 @@ interface DrugDirectoryProps {
   initialSearchQuery?: string;
 }
 
-type SortOption = 'name-asc' | 'name-desc' | 'interactions-desc' | 'atc-asc' | 'ddinter-asc' | 'pregnancy-asc';
+type SortOption = 'name-asc' | 'name-desc' | 'interactions-desc' | 'atc-asc' | 'ddinter-asc' | 'pregnancy-asc' | 'off-label-first';
 
 export const formatTitleCase = (str: string): string => {
   if (!str) return '';
@@ -69,6 +72,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
   const [selectedPregnancyCat, setSelectedPregnancyCat] = useState<string>('Semua');
   const [bpomClassFilter, setBpomClassFilter] = useState<'all' | 'bebas' | 'bebas-terbatas' | 'obat-keras' | 'oot' | 'prekursor' | 'psikotropika' | 'narkotika'>('all');
   const [interactionFilter, setInteractionFilter] = useState<'all' | 'has-interactions' | 'no-interactions'>('all');
+  const [offLabelFilter, setOffLabelFilter] = useState<'all' | 'off-label' | 'on-label'>('all');
   const [sortBy, setSortBy] = useState<SortOption>('name-asc');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(24);
@@ -95,6 +99,11 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
 
   // Deduplicate drugs array for clean directory view
   const cleanDrugs = useMemo(() => deduplicateDrugs(drugs), [drugs]);
+
+  // Count how many drugs have documented off-label indications
+  const offLabelCount = useMemo(() => {
+    return cleanDrugs.filter((d) => Boolean(d.offLabelIndication && d.offLabelIndication.trim() !== '')).length;
+  }, [cleanDrugs]);
 
   // Dynamic filter & sort
   const filteredAndSortedDrugs = useMemo(() => {
@@ -130,7 +139,12 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
         bpomClassFilter === 'all' ||
         getBpomClassificationKey(drug) === bpomClassFilter;
 
-      return matchesSearch && matchesCategory && matchesPregnancy && matchesInteraction && matchesBpom;
+      const matchesOffLabel =
+        offLabelFilter === 'all' ||
+        (offLabelFilter === 'off-label' && Boolean(drug.offLabelIndication && drug.offLabelIndication.trim() !== '')) ||
+        (offLabelFilter === 'on-label' && (!drug.offLabelIndication || drug.offLabelIndication.trim() === ''));
+
+      return matchesSearch && matchesCategory && matchesPregnancy && matchesInteraction && matchesBpom && matchesOffLabel;
     });
 
     return result.sort((a, b) => {
@@ -138,6 +152,12 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
       if (sortBy === 'name-desc') return (b.name || '').localeCompare(a.name || '');
       if (sortBy === 'atc-asc') return (a.atcCode || '').localeCompare(b.atcCode || '');
       if (sortBy === 'ddinter-asc') return (a.ddinterId || a.id || '').localeCompare(b.ddinterId || b.id || '');
+      if (sortBy === 'off-label-first') {
+        const hasA = Boolean(a.offLabelIndication && a.offLabelIndication.trim() !== '') ? 1 : 0;
+        const hasB = Boolean(b.offLabelIndication && b.offLabelIndication.trim() !== '') ? 1 : 0;
+        if (hasB !== hasA) return hasB - hasA;
+        return (a.name || '').localeCompare(b.name || '');
+      }
       if (sortBy === 'interactions-desc') {
         const countA = interactionCountMap.get((a.name || '').toLowerCase()) || 0;
         const countB = interactionCountMap.get((b.name || '').toLowerCase()) || 0;
@@ -151,12 +171,12 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
       }
       return 0;
     });
-  }, [cleanDrugs, debouncedSearch, selectedCategory, selectedPregnancyCat, bpomClassFilter, interactionFilter, sortBy, interactionCountMap]);
+  }, [cleanDrugs, debouncedSearch, selectedCategory, selectedPregnancyCat, bpomClassFilter, interactionFilter, offLabelFilter, sortBy, interactionCountMap]);
 
   // Reset to page 1 whenever any filter criteria change
   useEffect(() => {
     setCurrentPage(1);
-  }, [debouncedSearch, selectedCategory, selectedPregnancyCat, bpomClassFilter, interactionFilter, sortBy, itemsPerPage]);
+  }, [debouncedSearch, selectedCategory, selectedPregnancyCat, bpomClassFilter, interactionFilter, offLabelFilter, sortBy, itemsPerPage]);
 
   // Pagination slicing & calculations
   const totalItems = filteredAndSortedDrugs.length;
@@ -205,6 +225,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
     setSelectedPregnancyCat('Semua');
     setBpomClassFilter('all');
     setInteractionFilter('all');
+    setOffLabelFilter('all');
     setSortBy('name-asc');
   };
 
@@ -213,7 +234,8 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
     selectedCategory !== 'Semua Kategori' ||
     selectedPregnancyCat !== 'Semua' ||
     bpomClassFilter !== 'all' ||
-    interactionFilter !== 'all';
+    interactionFilter !== 'all' ||
+    offLabelFilter !== 'all';
 
   const getPregnancyBadgeStyle = (category?: string) => {
     switch (category) {
@@ -267,18 +289,18 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
             </div>
 
             {/* Quick Stat Badges */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap items-center gap-2 pt-2">
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-teal-200">
                 <Layers className="w-3.5 h-3.5 text-teal-400" />
                 <span>{DDINTER_CATEGORIES.length - 1} Kategori Terapi</span>
               </div>
-              <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-emerald-200">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Klasifikasi BPOM RI &amp; FORNAS</span>
-              </div>
+              <EvidenceSourceBadge preset="bpom" size="sm" />
+              <EvidenceSourceBadge preset="fornas" size="sm" />
+              <EvidenceSourceBadge preset="ddinter" size="sm" />
+              <EvidenceSourceBadge preset="ebm-offlabel" size="sm" />
               <div className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-xs flex items-center gap-1.5 font-bold text-pink-200">
                 <Baby className="w-3.5 h-3.5 text-pink-300" />
-                <span>Kategori FDA PLLR A-X</span>
+                <span>FDA PLLR</span>
               </div>
             </div>
           </div>
@@ -319,8 +341,8 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
           )}
         </div>
 
-        {/* Filter Controls Grid (5 Columns) */}
-        <div className="pt-3 border-t border-teal-100 dark:border-teal-950/80 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        {/* Filter Controls Grid (6 Columns) */}
+        <div className="pt-3 border-t border-teal-100 dark:border-teal-950/80 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           
           {/* Filter 1: Kategori Terapi Obat */}
           <div className="space-y-1">
@@ -363,7 +385,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
             </select>
           </div>
           
-          {/* Filter: Kategori Kehamilan */}
+          {/* Filter 3: Kategori Kehamilan */}
           <div className="space-y-1">
             <label className="text-[11px] font-extrabold font-outfit text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
               <Baby className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
@@ -383,7 +405,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
             </select>
           </div>
 
-          {/* Filter: Status Interaksi Obat */}
+          {/* Filter 4: Status Interaksi Obat */}
           <div className="space-y-1">
             <label className="text-[11px] font-extrabold font-outfit text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
               <ShieldAlert className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
@@ -400,7 +422,29 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
             </select>
           </div>
 
-          {/* Sort: Urutkan Berdasarkan */}
+          {/* Filter 5: Indikasi Off-Label (EBM) */}
+          <div className="space-y-1">
+            <label className="text-[11px] font-extrabold font-outfit text-purple-700 dark:text-purple-300 uppercase tracking-wider flex items-center gap-1">
+              <Sparkles className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+              <span>Status Off-Label</span>
+            </label>
+            <select
+              id="filter-off-label"
+              value={offLabelFilter}
+              onChange={(e) => setOffLabelFilter(e.target.value as any)}
+              className={`w-full p-2.5 text-xs font-bold font-outfit rounded-xl border focus:outline-none focus:border-purple-500 cursor-pointer transition-colors ${
+                offLabelFilter === 'off-label'
+                  ? 'bg-purple-100 dark:bg-purple-950 text-purple-950 dark:text-purple-200 border-purple-400 dark:border-purple-600 shadow-xs'
+                  : 'bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-800'
+              }`}
+            >
+              <option value="all">Semua Obat (On/Off-Label)</option>
+              <option value="off-label">💜 Hanya Obat Off-Label ({offLabelCount})</option>
+              <option value="on-label">Indikasi On-Label Standar</option>
+            </select>
+          </div>
+
+          {/* Filter 6: Urutkan Berdasarkan */}
           <div className="space-y-1">
             <label className="text-[11px] font-extrabold font-outfit text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
               <ArrowUpDown className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
@@ -413,6 +457,7 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
             >
               <option value="name-asc">Nama Obat (A - Z)</option>
               <option value="name-desc">Nama Obat (Z - A)</option>
+              <option value="off-label-first">💜 Prioritas Obat Off-Label</option>
               <option value="interactions-desc">Interaksi Terbanyak</option>
               <option value="atc-asc">Kode ATC (A - Z)</option>
               <option value="ddinter-asc">Urutan Default</option>
@@ -432,6 +477,29 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
               <span className="text-[10px] bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 font-bold px-2 py-0.5 rounded-full border border-teal-200 dark:border-teal-800">
                 Filter Aktif
               </span>
+            )}
+            {/* Quick Off-Label Badge Toggle */}
+            <button
+              id="quick-toggle-off-label"
+              onClick={() => setOffLabelFilter((prev) => (prev === 'off-label' ? 'all' : 'off-label'))}
+              className={`text-[11px] font-extrabold px-2.5 py-1 rounded-lg border transition-all flex items-center gap-1.5 cursor-pointer ${
+                offLabelFilter === 'off-label'
+                  ? 'bg-purple-600 text-white border-purple-700 shadow-xs'
+                  : 'bg-purple-50 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/60'
+              }`}
+              title="Klik untuk menyaring hanya obat dengan monografi off-label terverifikasi EBM"
+            >
+              <Sparkles className="w-3 h-3 text-purple-600 dark:text-purple-400" />
+              <span>Obat Off-Label ({offLabelCount})</span>
+              {offLabelFilter === 'off-label' && <span className="text-[10px] bg-white/20 px-1 rounded-full">✓</span>}
+            </button>
+            {isFiltered && (
+              <button
+                onClick={resetFilters}
+                className="text-[11px] font-bold text-rose-600 hover:underline cursor-pointer"
+              >
+                Reset Filter
+              </button>
             )}
           </div>
 
@@ -502,6 +570,16 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
               >
                 <span>Interaksi: {interactionFilter === 'has-interactions' ? 'Ada Interaksi' : 'Tanpa Interaksi'}</span>
                 <X className="w-3 h-3 text-amber-600" />
+              </button>
+            )}
+
+            {offLabelFilter !== 'all' && (
+              <button
+                onClick={() => setOffLabelFilter('all')}
+                className="bg-purple-50 hover:bg-purple-100 text-purple-900 text-xs font-bold px-2.5 py-1 rounded-lg border border-purple-200 flex items-center gap-1 transition-colors cursor-pointer"
+              >
+                <span>Status: {offLabelFilter === 'off-label' ? 'Obat Off-Label' : 'On-Label Standar'}</span>
+                <X className="w-3 h-3 text-purple-600" />
               </button>
             )}
 
@@ -587,8 +665,9 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                         </span>
                       )}
                       {drug.blackBoxWarning && (
-                        <span className="bg-rose-100 dark:bg-rose-950/60 text-rose-900 dark:text-rose-300 text-[10px] font-extrabold px-2 py-0.5 rounded border border-rose-300 dark:border-rose-800 flex items-center gap-0.5" title="Peringatan Khusus (Boxed Warning)">
-                          <span>⚠️ Boxed Warning</span>
+                        <span className="bg-rose-100 dark:bg-rose-950/60 text-rose-900 dark:text-rose-300 text-[10px] font-extrabold px-2 py-0.5 rounded border border-rose-300 dark:border-rose-800 flex items-center gap-1" title="Peringatan Khusus (Boxed Warning)">
+                          <AlertTriangle className="w-3 h-3 text-rose-600 dark:text-rose-400 shrink-0" />
+                          <span>Boxed Warning</span>
                         </span>
                       )}
                     </div>
@@ -641,8 +720,9 @@ export const DrugDirectory: React.FC<DrugDirectoryProps> = ({
                   {/* Waktu Terhadap Makanan */}
                   {drug.foodInteraction && (
                     <div className="bg-amber-50/90 dark:bg-amber-950/40 p-2.5 rounded-xl border border-amber-200 dark:border-amber-800/60 text-[11px] text-amber-950 dark:text-amber-200 space-y-0.5">
-                      <span className="font-bold text-amber-900 dark:text-amber-300 flex items-center gap-1">
-                        🍽️ Waktu Terhadap Makanan:
+                      <span className="font-bold text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
+                        <Utensils className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />
+                        <span>Waktu Terhadap Makanan:</span>
                       </span>
                       <p className="line-clamp-2 leading-snug font-medium text-amber-900 dark:text-amber-200">{drug.foodInteraction}</p>
                     </div>

@@ -53,6 +53,7 @@ import {
 } from '../data/ddinterData';
 import { DRUG_DISEASE_INTERACTIONS_DATABASE, COMMON_CLINICAL_DISEASES } from '../data/drugDiseaseInteractionsData';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
+import { EvidenceSourceBadge } from './EvidenceSourceBadge';
 
 interface InteractionCheckerProps {
   drugs: Drug[];
@@ -1268,9 +1269,9 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                               <span>{badgeInfo.label}</span>
                             </span>
                             <span className={badgeSeverityClass}>
-                              {isMajor ? '⚠️ MAJOR / KONTRAINDIKASI' : isMod ? '⚡ MODERATE / MONITORING' : 'ℹ️ MINOR / WASPADA'}
+                              {isMajor ? 'MAJOR (KONTRAINDIKASI)' : isMod ? 'MODERATE (MONITORING)' : 'MINOR (SIGNIFIKANSI RINGAN)'}
                             </span>
-                            <span className="bg-white/90 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-bold px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700">
+                            <span className="bg-white/90 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-mono font-bold px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700">
                               Bukti: {item.evidenceLevel}
                             </span>
                           </div>
@@ -1316,11 +1317,14 @@ export const InteractionChecker: React.FC<InteractionCheckerProps> = ({
                             </span>
                           </div>
 
-                          <div className="inline-flex items-center gap-1.5 font-mono text-[10px] text-slate-600 dark:text-slate-400">
-                            <span>ID DDInter:</span>
-                            <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shadow-2xs">
-                              {item.ddinterPairId}
-                            </span>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <div className="inline-flex items-center gap-1.5 font-mono text-[10px] text-slate-600 dark:text-slate-400">
+                              <span>ID DDInter:</span>
+                              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shadow-2xs">
+                                {item.ddinterPairId}
+                              </span>
+                            </div>
+                            <EvidenceSourceBadge preset="ddinter" size="sm" />
                           </div>
                         </div>
                       </div>

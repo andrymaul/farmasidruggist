@@ -172,6 +172,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Mengikat antitrombin III dan mempercepat inaktivasi faktor pembekuan IIa dan Xa.",
     "foodInteraction": "Pemberian parenteral (IV/SC).",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Sindrom Antifosfolipid Refrakter Selama Kehamilan (Obstetric APS): 5.000 - 10.000 unit SC tiap 12 jam bersama Aspirin dosis rendah bila LMWH tidak tersedia.\n• Koagulopati Intravaskular Diseminata (DIC) Berat Fenotipe Trombofilik: Infus kontinu dosis rendah 5 - 10 unit/kg/jam untuk menghentikan mikrotrombosis organ vital.",
     "ddinterId": "DDInter-D00008"
   },
   {
@@ -191,6 +192,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Inhibisi selektif Faktor Xa dengan aktivitas anti-IIa yang lebih rendah.",
     "foodInteraction": "Injeksi subkutan pada dinding perut.",
     "pregnancyCategory": "B",
+    "offLabelIndication": "• Sindrom Antifosfolipid (Obstetric APS) & Pencegahan Keguguran Berulang (Pedoman EULAR, RCOG & POGI): 40 mg (4.000 IU) subkutan (SC) sekali sehari dikombinasikan dengan Aspirin dosis rendah 75 - 100 mg/hari sejak konfirmasi kehamilan hingga usia gestasi 34-36 minggu. Menghambat aktivasi komplemen plasenta dan menurunkan risiko abortus atau kematian janin hingga >75%.\n• Pencegahan Trombosis Akses Vaskular pada Hemodialisis: 0.5 - 1 mg/kg bolus pada sirkuit darah sebelum dialisis.",
     "ddinterId": "DDInter-D00009"
   },
   {
@@ -294,6 +296,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Inhibitor kompetitif HMG-CoA reduktase dengan waktu paruh panjang.",
     "foodInteraction": "Hindari konsumsi jus grapefruit dalam jumlah banyak.",
     "pregnancyCategory": "X",
+    "offLabelIndication": "• Pencegahan Contrast-Induced Nephropathy (CIN) pada Pasien PCI Berisiko Tinggi (Pedoman ESC & Trial PRATO-ACS): Loading dose 80 mg per oral 2 - 12 jam sebelum kateterisasi/angiografi koroner, dilanjutkan 40 mg/hari selama 3 hari pasca tindakan. Menurunkan insidensi nefropati kontras hingga 56% via efek pleiotropik antiinflamasi dan antioksidan endotel akut.\n• Penyakit Paru Obstruktif Kronis (PPOK) Eksaserbasi Rekuren: 20 - 40 mg/hari untuk reduksi biomarker inflamasi sistemik (hs-CRP).",
     "ddinterId": "DDInter-D00014"
   },
   {
@@ -315,6 +318,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Inhibitor selektif dan poten HMG-CoA reduktase.",
     "foodInteraction": "Dapat diminum kapan saja tanpa pengaruh makanan.",
     "pregnancyCategory": "X",
+    "offLabelIndication": "• Pencegahan Cedera Ginjal Akut Akibat Zat Kontras (CIN) pada Sindrom Koroner Akut (Studi TRACK-D / ESC): Dosis tunggal 20 - 40 mg sebelum paparan zat kontras radiologis, dilanjutkan 20 mg/hari selama 72 jam.\n• Stabilisasi Plak Aterosklerotik Vulnerable pada Penyakit Arteri Karotis: 20 - 40 mg/hari untuk mempertebal fibrous cap dan mencegah stroke tromboemboli.",
     "ddinterId": "DDInter-D00015"
   },
   {
@@ -396,6 +400,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Menghambat protein transporter NPC1L1 pada brush border usus halus.",
     "foodInteraction": "Dapat diminum dengan atau tanpa makanan.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Penyakit Perlemakan Hati Non-Alkoholik (NAFLD / NASH) - Bukti EBM: 10 mg per oral sekali sehari (dikombinasikan dengan perubahan gaya hidup atau terapi statin). Mengurangi akumulasi kolesterol dan lipid intrahepatik serta menurunkan enzim transaminase hepar (ALT/AST).\n• Kolestasis Akibat Nutrisi Parenteral Total Jangka Panjang (PNAC): 1 mg/kg/hari pada pasien anak.",
     "ddinterId": "DDInter-D00019"
   },
   {
@@ -419,6 +424,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Menghambat enzim ACE mencegah sintesis angiotensin II dan degradasi bradikinin.",
     "foodInteraction": "HARUS diminum 1 jam SEBELUM makan (perut kosong).",
     "pregnancyCategory": "D",
+    "offLabelIndication": "• Krisis Ginjal Skleroderma (Scleroderma Renal Crisis / SRC) - Penyelamat Jiwa Lini Pertama (Pedoman ACR & EULAR): Inisiasi segera 6.25 - 12.5 mg per oral tiap 8 jam, dititrasi cepat tiap 24 jam hingga 25 - 50 mg tiap 8 jam (maksimal 150 mg/hari). Mengatasi vasokonstriksi arteriol ginjal akut terinduksi renin-angiotensin dan menurunkan angka mortalitas SRC dari 76% menjadi <15%.\n• Nefropati Diabetik Normotensif (Renoproteksi): 25 mg 3 kali sehari untuk mereduksi mikroalbuminuria dan laju penurunan GFR.",
     "ddinterId": "DDInter-D00020"
   },
   {
@@ -461,6 +467,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Inhibitor kompetitif ACE hidrofilik tidak dimetabolisme hati.",
     "foodInteraction": "Dapat diminum sebelum atau sesudah makan.",
     "pregnancyCategory": "D",
+    "offLabelIndication": "• Profilaksis Migrain Kronis (Pedoman AAN Level B): 10 - 20 mg per oral sekali sehari pada pasien migrain dengan hipertensi komorbid.\n• Retinopati Diabetik Non-Proliferatif Normotensif: 10 - 20 mg sekali sehari untuk memperlambat progresivitas lesi mikrovaskular retina (EUCLID Trial).",
     "ddinterId": "DDInter-D00022"
   },
   {
@@ -483,6 +490,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Prodrug lipofilik dihidrolisis menjadi ramiprilat aktif.",
     "foodInteraction": "Dapat diminum sebelum/sesudah makan.",
     "pregnancyCategory": "D",
+    "offLabelIndication": "• Renoproteksi Penyakit Ginjal Kronis Non-Diabetik Proteinurik (Pedoman KDIGO): 2.5 - 5 mg sekali sehari untuk mereduksi proteinuria >30-50% dan menunda onset gagal ginjal stadium akhir (ESRD).\n• Claudicatio Intermittens pada Penyakit Arteri Perifer Simtomatik (Substudi HOPE): 10 mg sekali sehari meningkatkan jarak berjalan kaki bebas nyeri.",
     "ddinterId": "DDInter-D00023"
   },
   {
@@ -527,6 +535,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Blokade selektif reseptor Angiotensin II subtipe AT1.",
     "foodInteraction": "Dapat diminum dengan atau tanpa makanan.",
     "pregnancyCategory": "D",
+    "offLabelIndication": "• Hipertensi dengan Hiperurisemia / Gout Komorbid (Pedoman ACR & KDIGO): 50 - 100 mg per oral sekali sehari. Memiliki efek farmakologis unik menghambat transporter reabsorpsi asam urat URAT1 di tubulus proksimal ginjal, memicu urikosuria dan menurunkan asam urat serum rata-rata 1 - 2 mg/dL secara signifikan tanpa menambah beban obat urikostatik.\n• Sindrom Marfan (Pencegahan Dilatasi Akar Aorta): 0.6 - 1.4 mg/kg/hari (maksimal 50 - 100 mg/hari).",
     "ddinterId": "DDInter-D00025"
   },
   {
@@ -570,6 +579,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Ikatan kuat dan disosiasi lambat dari reseptor AT1.",
     "foodInteraction": "Dapat diminum sebelum atau sesudah makan.",
     "pregnancyCategory": "D",
+    "offLabelIndication": "• Profilaksis Migrain Kronis & Episodik Sering (Pedoman AAN & EFNS Level A): Inisiasi 8 mg per oral sekali sehari, dapat ditingkatkan menjadi 16 mg/hari. Terbukti secara klinis setara dengan Propranolol dalam mengurangi frekuensi hari migrain bulanan dengan profil tolerabilitas yang jauh lebih baik (jarang menimbulkan sedasi atau rasa lelah berlebih).\n• Sindrom Marfan (Pencegahan Pelebaran Aorta Progresif - Rekomendasi AHA & ESC): 8 - 16 mg per oral sekali sehari untuk menghambat pensinyalan patologis TGF-beta pada tunika media vaskular aorta ascendens.",
     "ddinterId": "DDInter-D00027"
   },
   {
@@ -633,6 +643,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Menghambat influks kalsium transmembran pada otot polos vaskular.",
     "foodInteraction": "Dapat diminum sebelum atau sesudah makan.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Fenomena Raynaud Sekunder / Terkait Penyakit Jaringan Ikat (Pedoman EULAR): 5 - 10 mg per oral sekali sehari untuk mereduksi frekuensi dan keparahan serangan vasospasme arteri digitalis jari tangan terinduksi paparan dingin.\n• Angina Varian Prinzmetal (Vasospastik): 5 - 10 mg sekali sehari malam hari mencegah spasme arteri koroner transmural.",
     "ddinterId": "DDInter-D00030"
   },
   {
@@ -653,6 +664,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Vasodilatasi arteriol selektif dengan efek minimal pada inotropik miokardium.",
     "foodInteraction": "Pemberian infus intravena.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Vasospasme Serebral Akut pasca Perdarahan Subaraknoid Aneurisma (aSAH) di Neuro-ICU: Infus IV kontinu 2.5 - 15 mg/jam dititrasi untuk mengoptimalkan Cerebral Perfusion Pressure (CPP) dan mencegah delayed cerebral ischemia (DCI).\n• Krisis Hipertensi Akut pada Kasus Bedah Saraf / Stroke: Titrasi 5 mg/jam dinaikkan bertahap tiap 5-15 menit (maks 15 mg/jam) dengan kontrol tekanan darah yang sangat presisi dan titratabel.",
     "ddinterId": "DDInter-D00031"
   },
   {
@@ -716,6 +728,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Inotropik dan kronotropik negatif kuat melalui kanal kalsium L miokard.",
     "foodInteraction": "Diminum bersama makanan. Hindari jus grapefruit.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Sakit Kepala Kluster (Cluster Headache) Profilaksis Lini Pertama (Pedoman IHS & EFNS): Inisiasi 240 mg/hari terbagi 3 dosis (80 mg tiap 8 jam), dititrasi bertahap tiap 2 minggu hingga 360 - 480 mg/hari (kasus refrakter hingga 720 mg/hari). Wajib EKG serial berkala untuk memantau interval PR dan mencegah blok AV derajat tinggi.\n• Kardiomiopati Hipertrofik Obstruktif (HOCM): 240 - 480 mg/hari terbagi 3-4 dosis untuk memperbaiki pengisian diastolik ventrikel kiri.",
     "ddinterId": "DDInter-D00034"
   },
   {
@@ -737,6 +750,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Blokade kompetitif kardioselektif reseptor adrenergik beta-1.",
     "foodInteraction": "Dapat diminum dengan atau tanpa makanan.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Tremor Esensial & Ansietas Somatik Situasional (Palpitasi & Gejala Otonom Stres): 2.5 - 5 mg sekali sehari pagi hari untuk mereduksi tremor perifer tanpa memicu bronkospasme berat (relatif kardioselektif beta-1).\n• Pencegahan Fibrilasi Atrium Pasca Bedah Jantung Terbuka: 2.5 - 5 mg sekali sehari dimulai 2-3 hari pre-operatif.",
     "ddinterId": "DDInter-D00035"
   },
   {
@@ -758,6 +772,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Blokade non-selektif beta-1/beta-2 dan vasodilatasi alpha-1.",
     "foodInteraction": "HARUS diminum bersama makanan untuk mencegah hipotensi ortostatis.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Hipertensi Portal & Pencegahan Perdarahan Varises Esofagus (Konsensus Baveno VII & AASLD Guidelines): Inisiasi 6.25 mg per oral sekali sehari, dititrasi setelah 3-7 hari menjadi 6.25 mg dua kali sehari (maksimal 12.5 mg 2x/hari bila tekanan darah sistolik >= 90 mmHg). Memiliki efek blokade alfa-1 adrenergik intrinsik yang menurunkan resistensi vaskular intrahepatik, terbukti lebih superior dibanding Propranolol dalam menurunkan Hepatic Venous Pressure Gradient (HVPG).\n• Takikardia Ventrikel Katekolaminergik Polimorfik (CPVT): 0.5 - 1 mg/kg/hari.",
     "ddinterId": "DDInter-D00036"
   },
   {
@@ -799,6 +814,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Inhibisi kotransporter Na+/K+/2Cl- pada ansa Henle asenden tebal.",
     "foodInteraction": "Sebaiknya diminum saat perut kosong pada pagi hari.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Hiperkalsemia Berat Simtomatik (Krisis Hiperkalsemik): 20 - 40 mg IV tiap 2 - 4 jam setelah hidrasi cairan kristaloid NaCl 0.9% adekuat tercapai (urin minimal 100-200 mL/jam). Menghambat reabsorpsi kalsium di ansa Henle tebal dan memicu ekskresi kalsium melalui urin (calciuresis).\n• Tes Furosemide Stress Test (FST) untuk Prediksi Progresivitas Acute Kidney Injury (AKI KDIGO): 1.0 - 1.5 mg/kg IV bolus tunggal; produksi urin < 200 mL dalam 2 jam memprediksi kebutuhan terapi pengganti ginjal (RRT) dengan sensitivitas dan spesifisitas tinggi.",
     "ddinterId": "DDInter-D00038"
   },
   {
@@ -859,6 +875,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Inhibisi Na+/K+-ATPase miokardium meningkatkan kalsium intraseluler.",
     "foodInteraction": "Makanan kaya serat tinggi dapat menurunkan penyerapan digoxin.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Takikardia Supraventrikular Janin (Fetal SVT) & Fetal Atrial Flutter Intrauterin: Diberikan secara maternal transplasenta dengan dosis loading 0.25 - 0.5 mg oral/IV dilanjutkan dosis rumatan 0.25 - 0.75 mg/hari dengan pemantauan ketat kadar digoxin serum ibu (1.0 - 2.0 ng/mL) dan USG Doppler jantung janin.",
     "ddinterId": "DDInter-D00041"
   },
   {
@@ -1145,6 +1162,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Penetrasi dinding sel bakteri luar biasa dan stabilitas tinggi terhadap beta-laktamase/ESBL.",
     "foodInteraction": "Pemberian infus intravena.",
     "pregnancyCategory": "B",
+    "offLabelIndication": "• Optimalisasi Farmakodinamik Extended-Infusion (Infus 3 - 4 Jam) atau Continuous-Infusion pada Sepsis Kritis ICU (Pedoman Surviving Sepsis Campaign & IDSA): 1.000 - 2.000 mg IV diinfuskan selama 3-4 jam tiap 8 jam (atau 3.000 - 6.000 mg/24 jam infus kontinu) untuk patogen Gram-negatif MDR (Pseudomonas aeruginosa, Acinetobacter) dengan MIC tinggi guna memaksimalkan target %fT > MIC hingga 100%.",
     "ddinterId": "DDInter-D00053"
   },
   {
@@ -2142,6 +2160,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Antagonis reseptor dopamin D2 dan agonis 5-HT4 yang merangsang motilitas lambung.",
     "foodInteraction": "Diminum 30 menit SEBELUM makan dan sebelum tidur.",
     "pregnancyCategory": "B",
+    "offLabelIndication": "• Stimulasi Laktasi / Galaktagogue pada Ibu Menyusui dengan Hipogalaktia (Protokol Academy of Breastfeeding Medicine #9 & WHO): 10 mg per oral 3 kali sehari selama 7 - 14 hari, kemudian diturunkan bertahap (tapering off) selama 3-5 hari. Bekerja sebagai antagonis dopamin sentral yang memicu sekresi hormon prolaktin hipofisis anterior. Pantau risiko depresi pasca salin dan gejala ekstrapiramidal.\n• Terapi Nyeri Akut Serangan Migrain di IGD: 10 mg IV pelan (memberikan analgesia ajuvan sinergis dan mengatasi stasis lambung migrain).",
     "ddinterId": "DDInter-D00097"
   },
   {
@@ -2312,6 +2331,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Blokade kuat reseptor dopamin D2 pada jalur mesolimbik.",
     "foodInteraction": "Diminum bersama makanan atau segelas air.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Delirium Agitasi / Hiperaktif Akut di Ruang Perawatan Intensif (ICU) - Pedoman SCCM PADIS: 0.5 - 2 mg IV lambat atau IM tiap 4 - 6 jam PRN (titrasi sesuai respon agitasi, maksimal 10 mg/hari). Wajib pemantauan EKG kontinu terhadap interval QTc.\n• Cegukan Intraktabel / Singultus Kronis Refrakter: 2 - 5 mg oral atau IM terbagi 2-3 dosis per hari.\n• Mual Muntah Pasca Operasi / Perawatan Paliatif Kanker Refrakter: 0.5 - 1 mg oral/subkutan tiap 8-12 jam.",
     "ddinterId": "DDInter-D00104"
   },
   {
@@ -2398,6 +2418,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Mengikat secara spesifik protein vesikel sinaps SV2A menghambat pelepasan neurotransmiter presinaptik.",
     "foodInteraction": "Dapat diminum sebelum atau sesudah makan.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Profilaksis Kejang Pasca Trauma Cedera Kepala Berat (Severe Traumatic Brain Injury / TBI) - Pedoman Brain Trauma Foundation (BTF): 500 - 1.000 mg IV/oral tiap 12 jam selama 7 hari pertama pasca cedera kepala. Menunjukkan efikasi setara Fenitoin dalam mencegah kejang post-trauma dini (PTS) dengan profil keamanan yang jauh lebih superior (tanpa pemantauan kadar terapeutik rutin dan tanpa interaksi hepatik berat).\n• Profilaksis Kejang Pasca Kraniotomi / Perdarahan Intraserebral Spontan (ICH): 500 mg tiap 12 jam.",
     "ddinterId": "DDInter-D00108"
   },
   {
@@ -2485,6 +2506,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Stimulasi selektif reseptor beta-2 adrenergik pada otot polos bronkus memicu relaksasi via cAMP.",
     "foodInteraction": "Dapat digunakan tanpa pengaruh makanan.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Hiperkalemia Akut Mengancam Jiwa (Kadar Kalium Serum > 6.0 mEq/L dengan Perubahan EKG) - Protokol Emergensi AHA / ERC / KDIGO: 10 - 20 mg nebulisasi kontinu dalam 4 mL salin (atau 4 inhaler MDI 100 mcg tiap 10 menit total 10-20 hisapan). Menstimulasi reseptor beta-2 adrenergik yang mengaktifkan pompa Na+/K+-ATPase seluler, memindahkan kalium dari ekstraseluler ke intraseluler, menurunkan kalium serum 0.5 - 1.5 mEq/L dalam tempo 15-30 menit (durasi 2-4 jam). Digunakan bersama Kalsium Glukonat dan Insulin-Dextrose.\n• Tokolisis Darurat Uterine Tachysystole / Hiperkontraksi: Nebulisasi 5 mg atau 100-200 mcg IV pelan.",
     "ddinterId": "DDInter-D00112"
   },
   {
@@ -3085,6 +3107,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Antagonis reseptor serotonin 5-HT2A dan dopamin D2, dengan afinitas tinggi pada reseptor histamin H1 dan alfa-1 adrenergik.",
     "foodInteraction": "Seroquel XR HARUS diminum tanpa makanan berat (saat perut kosong atau makanan ringan). Hindari jus grapefruit.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Generalized Anxiety Disorder (GAD / Gangguan Cemas Menyeluruh) Refrakter: 50 - 150 mg sekali sehari formulasi XR pada malam hari sebagai terapi tambahan.\n• Insomnia Kronis Resisten Terapi pada Gangguan Afektif / PTSD: 25 - 50 mg 1 jam sebelum tidur (gunakan jangka pendek dengan pertimbangan risiko metabolik).",
     "ddinterId": "DDInter-D00140"
   },
   {
@@ -3105,6 +3128,7 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "pharmacology": "Antagonis antagonis multi-reseptor terhadap 5-HT2A/2C, D1-D4, H1, dan alfa-1 adrenergik.",
     "foodInteraction": "Dapat diminum bersama atau tanpa makanan.",
     "pregnancyCategory": "C",
+    "offLabelIndication": "• Profilaksis & Terapi Terobosan Mual Muntah Terinduksi Kemoterapi Emetogenik Tinggi (HEC) - Pedoman NCCN, ASCO & MASCC: 5 - 10 mg per oral sekali sehari pada malam hari pada hari ke-1 hingga ke-4 siklus kemoterapi (diberikan bersama Ondansetron/Palonosetron, Deksametason, dan Aprepitant). Meningkatkan angka Complete Response mual fase lambat dari 55% menjadi 75-80%.\n• Anoreksia Nervosa Refrakter: 2.5 - 7.5 mg sekali sehari malam hari untuk mereduksi distorsi kognitif citra tubuh dan meningkatkan asupan kalori.\n• Agitasi Akut Pasien Paliatif Stadium Akhir: 2.5 - 5 mg sublingual/oral.",
     "ddinterId": "DDInter-D00141"
   },
   {
@@ -5089,7 +5113,8 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "clearance": "Metabolisme hepar via glukuronidasi (90%); ekskresi ginjal.",
       "foodInteraction": "Dapat diminum dengan atau tanpa makanan.",
       "pregnancyCategory": "C",
-      "ddinterId": "DDInter-D00230"
+      "offLabelIndication": "• Alopesia Androgenik / Kebotakan Pola Pria & Wanita (Low-Dose Oral Minoxidil / LDOM) - Konsensus Dermatologi Modern Internasional: Wanita: 0.25 - 1.25 mg per oral sekali sehari. Pria: 2.5 - 5 mg per oral sekali sehari. Memberikan kepatuhan dan efikasi penumbuhan rambut terminal yang lebih tinggi dibanding larutan topikal tanpa memicu hipotensi ortostatik signifikan pada dosis mikro ini.",
+    "ddinterId": "DDInter-D00230"
   },
   {
       "id": "drug-doxazosin",
@@ -5259,7 +5284,8 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "clearance": "Metabolisme hepar ekstensif via glukuronidasi (50%) dan beta-oksidasi mitokondria (40%); ekskresi ginjal.",
       "foodInteraction": "Diminum bersama makanan untuk mengurangi iritasi lambung. Telan utuh sediaan lepas lambat, jangan dikunyah.",
       "pregnancyCategory": "X",
-      "ddinterId": "DDInter-D00237"
+      "offLabelIndication": "• Profilaksis Migrain Kronis & Episodik (Pedoman AAN & AHS Level A): Inisiasi 250 mg dua kali sehari per oral, dapat ditingkatkan hingga 500 - 1.000 mg/hari terbagi 2 dosis (atau formulasi lepas lambat sekali sehari). Signifikan mereduksi frekuensi serangan migrain bulanan >50%.\n• Gangguan Ledakan Kemarahan Intermiten (Intermittent Explosive Disorder / IED) & Agresi Impulsif: 500 - 1.500 mg/hari. Catatan Kritis: KONTRAINDIKASI MUTLAK pada wanita usia subur tanpa kontrasepsi sangat efektif karena risiko teratogenik berat (defek tuba neuralis).",
+    "ddinterId": "DDInter-D00237"
   },
   {
       "id": "drug-erythromycin",
@@ -5526,7 +5552,8 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "clearance": "Metabolisme hepar via glukuronidasi langsung (UGT1A4) dan oksidasi CYP1A2 (dipacu oleh asap rokok); ekskresi urin (57%) dan feses (30%).",
       "foodInteraction": "Dapat diminum bersama atau tanpa makanan, sebaiknya malam hari sebelum tidur.",
       "pregnancyCategory": "C",
-      "ddinterId": "DDInter-D00248"
+      "offLabelIndication": "• Profilaksis & Terapi Terobosan Mual Muntah Terinduksi Kemoterapi Emetogenik Tinggi (HEC) - Pedoman NCCN, ASCO & MASCC: 5 - 10 mg per oral sekali sehari pada malam hari pada hari ke-1 hingga ke-4 siklus kemoterapi (diberikan bersama Ondansetron/Palonosetron, Deksametason, dan Aprepitant). Meningkatkan angka Complete Response mual fase lambat dari 55% menjadi 75-80%.\n• Anoreksia Nervosa Refrakter: 2.5 - 7.5 mg sekali sehari malam hari untuk mereduksi distorsi kognitif citra tubuh dan meningkatkan asupan kalori.\n• Agitasi Akut Pasien Paliatif Stadium Akhir: 2.5 - 5 mg sublingual/oral.",
+    "ddinterId": "DDInter-D00248"
   },
   {
       "id": "drug-quetiapine",
@@ -5551,7 +5578,8 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "clearance": "Metabolisme hepar ekstensif via CYP3A4 (90%); ekskresi urin (73%) dan feses (20%).",
       "foodInteraction": "Formulasi XR sebaiknya diminum tanpa makanan atau dengan makanan ringan rendah lemak di malam hari.",
       "pregnancyCategory": "C",
-      "ddinterId": "DDInter-D00249"
+      "offLabelIndication": "• Generalized Anxiety Disorder (GAD / Gangguan Cemas Menyeluruh) Refrakter: 50 - 150 mg sekali sehari formulasi XR pada malam hari sebagai terapi tambahan.\n• Insomnia Kronis Resisten Terapi pada Gangguan Afektif / PTSD: 25 - 50 mg 1 jam sebelum tidur (gunakan jangka pendek dengan pertimbangan risiko metabolik).",
+    "ddinterId": "DDInter-D00249"
   },
   {
       "id": "drug-pregabalin",
@@ -5647,7 +5675,8 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
       "clearance": "Ekskresi ginjal dalam bentuk utuh (70%) dan metabolisme hepar (30%).",
       "foodInteraction": "Dapat diminum bersama atau tanpa makanan. Anjurkan pasien minum banyak air putih untuk mencegah nefrolitiasis.",
       "pregnancyCategory": "D",
-      "ddinterId": "DDInter-D00253"
+      "offLabelIndication": "• Gangguan Makan Berlebih (Binge-Eating Disorder) & Bulimia Nervosa: 50 - 200 mg/hari per oral terbagi 2 dosis. Menurunkan frekuensi episode binge-eating dan dorongan kompulsif makan secara signifikan.\n• Adjuvan Penurunan Berat Badan pada Pasien Obesitas dengan Sindrom Metabolik: 50 - 100 mg/hari malam hari (menekan nafsu makan via modulasi GABAergik dan inhibisi karbonik anhidrase).\n• Ketergantungan Alkohol (Reduksi Craving & Konsumsi Alkohol Berat): 100 - 300 mg/hari.",
+    "ddinterId": "DDInter-D00253"
   },
   {
       "id": "drug-zolpidem",
@@ -11591,9 +11620,51 @@ const BASE_EXTENDED_DRUGS: Drug[] = [
     "patientTips": "Minum tablet pada waktu yang sama setiap hari selama 5 hari berturut-turut sesuai petunjuk dokter. Jangan menambah dosis sendiri. Jika Anda mengalami gangguan penglihatan seperti pandangan kabur atau melihat kilatan cahaya, segera hentikan obat dan hubungi dokter.",
     "lactationWarning": "Dapat menekan produksi ASI; tidak diindikasikan pada masa menyusui.",
     "drugsComUrl": "https://www.drugs.com/monograph/clomiphene-citrate.html"
+},
+{
+  "id": "drug-baclofen",
+  "name": "Baclofen",
+  "genericName": "Baclofen",
+  "brandNames": [
+    "Lioresal",
+    "Baclosan"
+  ],
+  "atcCode": "M03BX01",
+  "category": "Relaksan Otot Skelet Sentral (Agonis Reseptor GABAB)",
+  "drugClassification": "💊 Obat Keras (Resep Dokter)",
+  "indication": "Spastisitas otot akibat multipel sklerosis, cedera medula spinalis, atau kelainan serebral.",
+  "contraindications": "Hipersensitivitas, ulkus peptikum aktif, porfiria.",
+  "sideEffects": "Sedasi, pusing, kelemahan otot, mual, hipotensi, kebingungan, halusinasi/kejang pada penghentian mendadak.",
+  "dosage": "Awal 5 mg 3 kali sehari, dititrasi tiap 3 hari sebesar 5 mg/dosis hingga 10 - 20 mg 3 kali sehari (maksimal 80 mg/hari).",
+  "pharmacology": "Agonis spesifik reseptor GABAB presinaptik dan postsinaptik di kornu dorsalis medula spinalis, menghambat refleks monosinaptik dan polisinaptik.",
+  "foodInteraction": "Diminum bersama makanan atau susu untuk mengurangi iritasi lambung.",
+  "pregnancyCategory": "C",
+  "ddinterId": "DDInter-D00252",
+  "offLabelIndication": "• Ketergantungan Alkohol Kronis (Craving Reduction & Pemeliharaan Abstinensia): Inisiasi 15 mg/hari (5 mg 3x/hari), dititrasi bertahap tiap 3 hari hingga 30 - 80 mg/hari terbagi 3 dosis. Bekerja sebagai agonis reseptor GABAB yang menekan transmisi dopaminergik jalur reward mesolimbik dan aman digunakan pada pasien sirosis alkoholik.\n• Gastroesophageal Reflux Disease (GERD) Refrakter: 10 - 20 mg 3 kali sehari (menghambat Transient Lower Esophageal Sphincter Relaxations / TLESR).\n• Singultus / Cegukan Kronis Intraktabel: 10 - 20 mg 2-3 kali sehari selama 3-5 hari."
+},
+{
+  "id": "drug-octreotide",
+  "name": "Octreotide",
+  "genericName": "Octreotide Acetate",
+  "brandNames": [
+    "Sandostatin",
+    "Sandostatin LAR",
+    "Octride"
+  ],
+  "atcCode": "H01CB02",
+  "category": "Analog Somatostatin Sintetis / Penghambat Sekresi Hormonal",
+  "drugClassification": "💊 Obat Keras (Resep Dokter)",
+  "indication": "Akromegali, kontrol gejala tumor neuroendokrin gastroenteropankreatik (karsinoid, VIPoma).",
+  "contraindications": "Hipersensitivitas terhadap octreotide atau somatostatin.",
+  "sideEffects": "Nyeri tempat suntikan, kram perut, diare, mual, kolelitiasis / batu empedu (penggunaan jangka panjang), hiper/hipoglikemia, bradikardia.",
+  "dosage": "Akromegali: 50 - 100 mcg SC/IV tiap 8 jam. Tumor karsinoid: 100 - 600 mcg/hari terbagi 2-4 dosis.",
+  "pharmacology": "Analog somatostatin sintetik beraksi panjang yang menghambat sekresi Growth Hormone (GH), IGF-1, insulin, glukagon, gastrin, dan serotonin.",
+  "foodInteraction": "Diberikan di antara waktu makan untuk meminimalkan efek samping gastrointestinal.",
+  "pregnancyCategory": "B",
+  "ddinterId": "DDInter-D00253",
+  "offLabelIndication": "• Hipoglikemia Berat Refrakter Terinduksi Obat Sulfonilurea (Glibenclamide, Glimepiride) di IGD / ICU: 50 - 100 mcg subkutan (SC) atau IV tiap 8 - 12 jam (menghambat influks kalsium pada sel beta pankreas dan menekan pelepasan insulin endogen yang dipicu sulfonilurea, mencegah rebound hipoglikemia yang persisten setelah infus dextrose).\n• Perdarahan Akut Varises Gastroesofagus: Bolus IV 50 mcg dilanjutkan infus kontinu 50 mcg/jam selama 2 - 5 hari untuk menurunkan aliran darah splanknikus dan tekanan vena porta."
 }
-];;
-
+];
 export const EXTENDED_DRUGS_DATABASE: Drug[] = deduplicateDrugs([
   ...BASE_EXTENDED_DRUGS,
   ...DRUGSCOM_ADDITIONAL_DRUGS,
