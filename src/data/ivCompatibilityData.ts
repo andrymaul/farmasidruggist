@@ -65,6 +65,8 @@ export interface YSiteCompatibilityPair {
 
 import { IV_EXTENDED_DRUGS } from './ivExtendedData';
 import { GrayIdgClinicalDetails, getGrayIdgClinicalDetails } from './injectableDrugsGuideData';
+import { Y_SITE_EXTENDED_MATRIX } from './ivYSiteExtendedMatrix';
+export * from './ivSyringeAdmixtureData';
 
 const BASE_IV_DRUGS: IvDrugProfile[] = [
   {
@@ -4076,7 +4078,7 @@ export const IV_DRUGS_DATABASE: IvDrugProfile[] = [
   grayIdg: getGrayIdgClinicalDetails(drug)
 }));
 
-export const Y_SITE_COMPATIBILITY_MATRIX: YSiteCompatibilityPair[] = [
+const BASE_Y_SITE_MATRIX: YSiteCompatibilityPair[] = [
   // Ceftriaxone Incompatibilities
   {
     drugAId: 'iv-ceftriaxone',
@@ -5565,6 +5567,11 @@ export const Y_SITE_COMPATIBILITY_MATRIX: YSiteCompatibilityPair[] = [
     clinicalEffect: "Larutan jernih stabil.",
     recommendation: "KOMPATIBEL: Aman dicampur dalam kantong TPN atau co-infus Y-site."
   }
+];
+
+export const Y_SITE_COMPATIBILITY_MATRIX: YSiteCompatibilityPair[] = [
+  ...BASE_Y_SITE_MATRIX,
+  ...Y_SITE_EXTENDED_MATRIX
 ];
 
 /**

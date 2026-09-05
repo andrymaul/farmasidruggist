@@ -6,7 +6,10 @@ import {
   checkYSiteCompatibility, 
   calculateSyringePumpRate, 
   calculateGravityDripRate,
-  CompatibilityStatus 
+  CompatibilityStatus,
+  checkSyringeAdmixture,
+  SYRINGE_ADMIXTURE_DATABASE,
+  SyringeAdmixturePair 
 } from '../data/ivCompatibilityData';
 import { 
   Syringe, 
@@ -33,7 +36,8 @@ import {
   Thermometer,
   Baby,
   ArrowRight,
-  FileCheck
+  FileCheck,
+  ArrowLeftRight
 } from 'lucide-react';
 import { FloatingPillsBackground } from './FloatingPillsBackground';
 import { EvidenceSourceBadge, DualEvidenceBadge } from './EvidenceSourceBadge';
@@ -44,7 +48,7 @@ interface IvCompatibilityCheckerProps {
 }
 
 export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () => {
-  const [activeSubTab, setActiveSubTab] = useState<'ysite' | 'directory' | 'calculator' | 'displacement'>('ysite');
+  const [activeSubTab, setActiveSubTab] = useState<'ysite' | 'admixture' | 'directory' | 'calculator' | 'displacement'>('ysite');
   const [selectedDisplacementPresetFromCard, setSelectedDisplacementPresetFromCard] = useState<string>('disp-ceftriaxone-1g');
 
   // Y-Site multi-drug selection (initial preset: Norepinephrine + Dobutamine + Furosemide)
@@ -117,6 +121,49 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
   const handleRemoveYSiteDrug = (drugId: string) => {
     setSelectedYSiteDrugIds(selectedYSiteDrugIds.filter(id => id !== drugId));
   };
+
+  // Y-Site Filter state
+  const [ySiteFilter, setYSiteFilter] = useState<'all' | 'incompatible' | 'conditional' | 'compatible'>('all');
+
+  // Y-Site Counts
+  const ySiteCounts = useMemo(() => {
+    return {
+      all: ySitePairwiseResults.length,
+      incompatible: ySitePairwiseResults.filter(p => p.result.status === 'incompatible').length,
+      conditional: ySitePairwiseResults.filter(p => p.result.status === 'conditional').length,
+      compatible: ySitePairwiseResults.filter(p => p.result.status === 'compatible').length,
+    };
+  }, [ySitePairwiseResults]);
+
+  // Filtered Y-Site results
+  const filteredYSitePairwiseResults = useMemo(() => {
+    if (ySiteFilter === 'all') return ySitePairwiseResults;
+    return ySitePairwiseResults.filter(p => p.result.status === ySiteFilter);
+  }, [ySitePairwiseResults, ySiteFilter]);
+
+  // Syringe-Driver Admixture State (Single-Syringe Mixing / PCA / Palliative CSCI)
+  const [admixtureDrugAId, setAdmixtureDrugAId] = useState<string>('iv-morphine');
+  const [admixtureDrugBId, setAdmixtureDrugBId] = useState<string>('iv-midazolam');
+  const [admixtureSearchQuery, setAdmixtureSearchQuery] = useState<string>('');
+  const [admixtureStatusFilter, setAdmixtureStatusFilter] = useState<string>('all');
+
+  // Computed Admixture Evaluation
+  const currentAdmixtureResult = useMemo(() => {
+    if (!admixtureDrugAId || !admixtureDrugBId || admixtureDrugAId === admixtureDrugBId) return null;
+    return checkSyringeAdmixture(admixtureDrugAId, admixtureDrugBId);
+  }, [admixtureDrugAId, admixtureDrugBId]);
+
+  // Filtered Admixture Table
+  const filteredAdmixtureDatabase = useMemo(() => {
+    return SYRINGE_ADMIXTURE_DATABASE.filter(pair => {
+      const drugA = IV_DRUGS_DATABASE.find(d => d.id === pair.drugAId);
+      const drugB = IV_DRUGS_DATABASE.find(d => d.id === pair.drugBId);
+      const searchStr = `${drugA?.name || ''} ${drugB?.name || ''} ${pair.clinicalContext} ${pair.clinicalNotes} ${pair.diluent}`.toLowerCase();
+      const matchesQuery = searchStr.includes(admixtureSearchQuery.toLowerCase());
+      const matchesStatus = admixtureStatusFilter === 'all' || pair.status === admixtureStatusFilter;
+      return matchesQuery && matchesStatus;
+    });
+  }, [admixtureSearchQuery, admixtureStatusFilter]);
 
   // Filtered Directory drugs (Alistair Gray 2021)
   const filteredDirectoryDrugs = useMemo(() => {
@@ -253,6 +300,21 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
           <span>Uji Kompatibilitas Percabangan Y-Site</span>
           <span className={`ml-1 px-2 py-0.5 text-[10px] font-bold font-outfit rounded-full ${activeSubTab === 'ysite' ? 'bg-sky-950/60 text-sky-200 border border-sky-400/30' : 'bg-sky-100 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-800'}`}>
             Multi-Drug
+          </span>
+        </button>
+
+        <button
+          onClick={() => setActiveSubTab('admixture')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold font-outfit transition cursor-pointer ${
+            activeSubTab === 'admixture'
+              ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md shadow-teal-950/40 border border-teal-400/30'
+              : 'text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-300 hover:bg-teal-50/80 dark:hover:bg-teal-950/40'
+          }`}
+        >
+          <Syringe className="w-4 h-4 text-teal-400" />
+          <span>Pencampuran 1 Spuit (Syringe Admixture)</span>
+          <span className={`ml-1 px-2 py-0.5 text-[10px] font-bold font-outfit rounded-full ${activeSubTab === 'admixture' ? 'bg-teal-950/60 text-teal-200 border border-teal-400/30' : 'bg-teal-100 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-800'}`}>
+            PCA &amp; Paliatif
           </span>
         </button>
 
@@ -422,6 +484,24 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
               >
                 🤰 Kebidanan & PPH (Oxytocin + Asam Traneksamat + MgSO4)
               </button>
+              <button
+                onClick={() => setSelectedYSiteDrugIds(['iv-piperacillin-tazobactam', 'iv-gentamicin', 'iv-fentanyl'])}
+                className="px-2.5 py-1 rounded-lg bg-red-50 dark:bg-red-950/40 text-red-900 dark:text-red-200 border border-red-200 dark:border-red-800/60 hover:bg-red-100 dark:hover:bg-red-900/60 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                🦠 Sepsis Berat (Piptazobactam + Gentamisin + Fentanil)
+              </button>
+              <button
+                onClick={() => setSelectedYSiteDrugIds(['iv-dexmedetomidine', 'iv-fentanyl', 'iv-midazolam'])}
+                className="px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                💉 Sedasi ICU (Dexmedetomidine + Fentanil + Midazolam)
+              </button>
+              <button
+                onClick={() => setSelectedYSiteDrugIds(['iv-pantoprazole', 'iv-amiodarone', 'iv-ceftriaxone'])}
+                className="px-2.5 py-1 rounded-lg bg-purple-50 dark:bg-purple-950/40 text-purple-900 dark:text-purple-200 border border-purple-200 dark:border-purple-800/60 hover:bg-purple-100 dark:hover:bg-purple-900/60 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                🔬 Inkompatibilitas PPI (Pantoprazole + Amiodarone + Ceftriaxone)
+              </button>
             </div>
           </div>
 
@@ -506,12 +586,75 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
 
           {/* Detailed Pairwise Cards */}
           <div className="space-y-4">
-            <h4 className="text-sm sm:text-base font-extrabold font-outfit text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
-              <Activity className="w-4 h-4 text-sky-500" />
-              Rincian Klinis Kompatibilitas Antar Pasangan ({ySitePairwiseResults.length} Pasangan)
-            </h4>
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <h4 className="text-sm sm:text-base font-extrabold font-outfit text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
+                <Activity className="w-4 h-4 text-sky-500" />
+                Rincian Klinis Kompatibilitas Antar Pasangan ({filteredYSitePairwiseResults.length} / {ySitePairwiseResults.length} Pasangan)
+              </h4>
 
-            {ySitePairwiseResults.map((pair, idx) => (
+              {/* Status Filter Buttons */}
+              <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-900/80 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+                <button
+                  onClick={() => setYSiteFilter('all')}
+                  className={`px-3 py-1.5 rounded-lg font-bold font-outfit transition cursor-pointer ${
+                    ySiteFilter === 'all'
+                      ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  Semua ({ySiteCounts.all})
+                </button>
+                <button
+                  onClick={() => setYSiteFilter('incompatible')}
+                  className={`px-3 py-1.5 rounded-lg font-bold font-outfit transition cursor-pointer flex items-center gap-1.5 ${
+                    ySiteFilter === 'incompatible'
+                      ? 'bg-rose-600 text-white shadow-2xs'
+                      : 'text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40'
+                  }`}
+                >
+                  <AlertTriangle className="w-3.5 h-3.5" />
+                  Inkompatibel ({ySiteCounts.incompatible})
+                </button>
+                <button
+                  onClick={() => setYSiteFilter('conditional')}
+                  className={`px-3 py-1.5 rounded-lg font-bold font-outfit transition cursor-pointer flex items-center gap-1.5 ${
+                    ySiteFilter === 'conditional'
+                      ? 'bg-amber-600 text-white shadow-2xs'
+                      : 'text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40'
+                  }`}
+                >
+                  <Info className="w-3.5 h-3.5" />
+                  Bersyarat ({ySiteCounts.conditional})
+                </button>
+                <button
+                  onClick={() => setYSiteFilter('compatible')}
+                  className={`px-3 py-1.5 rounded-lg font-bold font-outfit transition cursor-pointer flex items-center gap-1.5 ${
+                    ySiteFilter === 'compatible'
+                      ? 'bg-emerald-600 text-white shadow-2xs'
+                      : 'text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40'
+                  }`}
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  Kompatibel ({ySiteCounts.compatible})
+                </button>
+              </div>
+            </div>
+
+            {filteredYSitePairwiseResults.length === 0 ? (
+              <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 text-center space-y-2">
+                <Info className="w-8 h-8 text-slate-400 mx-auto" />
+                <p className="text-sm font-bold text-slate-700 dark:text-slate-300 font-outfit">
+                  Tidak ada pasangan dengan status ini pada kombinasi obat terpilih.
+                </p>
+                <button
+                  onClick={() => setYSiteFilter('all')}
+                  className="text-xs text-sky-600 dark:text-sky-400 underline font-bold"
+                >
+                  Tampilkan Semua ({ySiteCounts.all})
+                </button>
+              </div>
+            ) : (
+              filteredYSitePairwiseResults.map((pair, idx) => (
               <div
                 key={idx}
                 className={`rounded-3xl p-5 sm:p-6 shadow-sm transition space-y-4 border ${
@@ -586,7 +729,453 @@ export const IvCompatibilityChecker: React.FC<IvCompatibilityCheckerProps> = () 
                   </div>
                 </div>
               </div>
-            ))}
+            )))}
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* TAB: PENCAMPURAN 1 SPUIT (SYRINGE-DRIVER ADMIXTURE & PCA) */}
+      {/* Standar: Dickman Palliative Care 5th Ed, ASHP 2024, Trissel's 2024, PCF8 */}
+      {/* ========================================================================= */}
+      {activeSubTab === 'admixture' && (
+        <div className="space-y-6">
+          {/* Clinical Educational Alert: Y-Site vs Syringe Driver */}
+          <div className="bg-gradient-to-r from-teal-950/70 via-slate-900/80 to-emerald-950/70 border border-teal-500/30 rounded-3xl p-5 sm:p-6 backdrop-blur-sm space-y-3 shadow-lg">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-teal-500/20 text-teal-400 border border-teal-400/30 flex items-center justify-center font-bold shadow-2xs">
+                <Syringe className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-black font-outfit text-white tracking-tight flex items-center gap-2">
+                  <span>Pencampuran 1 Spuit (Syringe-Driver Admixture)</span>
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-teal-500/20 text-teal-300 border border-teal-400/40">
+                    PCA, Paliatif CSCI &amp; ICU
+                  </span>
+                </h3>
+                <p className="text-xs text-teal-200/80 font-medium">
+                  Pengujian stabilitas fisiko-kimiawi campuran obat pekat dalam satu spuit (pompa spuit / continuous infusion) selama 12–24 jam.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-xs">
+              <div className="bg-slate-950/60 rounded-2xl p-3.5 border border-sky-500/20 space-y-1">
+                <span className="font-bold text-sky-300 flex items-center gap-1.5 font-outfit">
+                  <Layers className="w-3.5 h-3.5 text-sky-400" />
+                  Percabangan Y-Site (Kontak Singkat)
+                </span>
+                <p className="text-slate-300 leading-relaxed">
+                  Obat hanya berkontak <strong className="text-white">1–2 menit</strong> di konektor Y sebelum masuk ke aliran darah vena dan terencerkan masif.
+                </p>
+              </div>
+              <div className="bg-slate-950/60 rounded-2xl p-3.5 border border-teal-500/20 space-y-1">
+                <span className="font-bold text-teal-300 flex items-center gap-1.5 font-outfit">
+                  <Syringe className="w-3.5 h-3.5 text-teal-400" />
+                  Syringe Admixture (Kontak Lama 24 Jam)
+                </span>
+                <p className="text-slate-300 leading-relaxed">
+                  Obat berada dalam konsentrasi tinggi bersama-sama selama <strong className="text-white">12 hingga 24 jam</strong>. Menuntut stabilitas kimia ketat tanpa presipitasi mikroskopik.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Tester Card */}
+          <div className="bg-white dark:bg-[#071726] border border-teal-200/80 dark:border-teal-500/25 rounded-3xl p-5 sm:p-6 shadow-sm space-y-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-teal-100 dark:border-teal-950/80">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-teal-500/15 text-teal-600 dark:text-teal-400 border border-teal-400/30 flex items-center justify-center font-bold">
+                  <FlaskConical className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-base sm:text-lg font-extrabold font-outfit text-slate-900 dark:text-white tracking-tight">
+                    Uji Pasangan Obat dalam 1 Spuit
+                  </h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    Pilih 2 sediaan injeksi untuk memeriksa kompatibilitas dan durasi stabilitas spuit
+                  </p>
+                </div>
+              </div>
+
+              {/* Status Pill in Header */}
+              {currentAdmixtureResult && (
+                <div>
+                  {currentAdmixtureResult.status === 'compatible' && (
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black font-outfit bg-emerald-600 text-white shadow-md shadow-emerald-900/20">
+                      <CheckCircle2 className="w-4 h-4" />
+                      KOMPATIBEL ({currentAdmixtureResult.stabilityHours} JAM)
+                    </span>
+                  )}
+                  {currentAdmixtureResult.status === 'incompatible' && (
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black font-outfit bg-rose-600 text-white shadow-md shadow-rose-900/20">
+                      <AlertTriangle className="w-4 h-4" />
+                      INKOMPATIBEL MUTLAK
+                    </span>
+                  )}
+                  {currentAdmixtureResult.status === 'conditional' && (
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black font-outfit bg-amber-500 text-slate-950 shadow-md shadow-amber-950/20">
+                      <Info className="w-4 h-4" />
+                      BERSYARAT ({currentAdmixtureResult.stabilityHours} JAM)
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Drug Selection Row */}
+            <div className="grid grid-cols-1 md:grid-cols-11 gap-3 items-center">
+              {/* Drug A */}
+              <div className="md:col-span-5 space-y-1.5">
+                <label className="text-xs font-extrabold font-outfit text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-teal-500" />
+                  Obat Injeksi A
+                </label>
+                <select
+                  value={admixtureDrugAId}
+                  onChange={(e) => setAdmixtureDrugAId(e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-900/90 text-slate-900 dark:text-white border border-teal-200 dark:border-teal-800/80 rounded-2xl px-4 py-3 text-xs sm:text-sm font-bold font-outfit focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer"
+                >
+                  {IV_DRUGS_DATABASE.map(drug => (
+                    <option key={drug.id} value={drug.id}>
+                      {drug.name} ({drug.category})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Swap Button */}
+              <div className="md:col-span-1 flex justify-center pt-4 md:pt-6">
+                <button
+                  onClick={() => {
+                    const temp = admixtureDrugAId;
+                    setAdmixtureDrugAId(admixtureDrugBId);
+                    setAdmixtureDrugBId(temp);
+                  }}
+                  className="w-10 h-10 rounded-2xl bg-teal-50 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800 text-teal-600 dark:text-teal-300 flex items-center justify-center hover:bg-teal-100 dark:hover:bg-teal-900/60 transition cursor-pointer shadow-2xs"
+                  title="Tukar Posisi Obat"
+                >
+                  <ArrowLeftRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Drug B */}
+              <div className="md:col-span-5 space-y-1.5">
+                <label className="text-xs font-extrabold font-outfit text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  Obat Injeksi B
+                </label>
+                <select
+                  value={admixtureDrugBId}
+                  onChange={(e) => setAdmixtureDrugBId(e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-900/90 text-slate-900 dark:text-white border border-teal-200 dark:border-teal-800/80 rounded-2xl px-4 py-3 text-xs sm:text-sm font-bold font-outfit focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer"
+                >
+                  {IV_DRUGS_DATABASE.map(drug => (
+                    <option key={drug.id} value={drug.id}>
+                      {drug.name} ({drug.category})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Quick Clinical Admixture Presets */}
+            <div className="pt-3 border-t border-teal-100 dark:border-teal-950/80 flex flex-wrap items-center gap-2 text-xs">
+              <span className="text-slate-500 dark:text-slate-400 font-extrabold font-outfit flex items-center gap-1.5 text-xs">
+                <Sparkles className="w-3.5 h-3.5 text-teal-500" />
+                <span>Kasus Lazim 1 Spuit:</span>
+              </span>
+              <button
+                onClick={() => { setAdmixtureDrugAId('iv-morphine'); setAdmixtureDrugBId('iv-midazolam'); }}
+                className="px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/40 text-teal-900 dark:text-teal-200 border border-teal-200 dark:border-teal-800/60 hover:bg-teal-100 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                🕊️ Paliatif Nyeri + Agitasi (Morfin + Midazolam)
+              </button>
+              <button
+                onClick={() => { setAdmixtureDrugAId('iv-morphine'); setAdmixtureDrugBId('iv-ketorolac'); }}
+                className="px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                ⚡ PCA Post-Op (Morfin + Ketorolac)
+              </button>
+              <button
+                onClick={() => { setAdmixtureDrugAId('iv-propofol'); setAdmixtureDrugBId('iv-lidocaine'); }}
+                className="px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200 border border-amber-200 dark:border-amber-800/60 hover:bg-amber-100 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                ⚠️ Induksi Anestesi (Propofol + Lidokain - 30 Mnt)
+              </button>
+              <button
+                onClick={() => { setAdmixtureDrugAId('iv-ondansetron'); setAdmixtureDrugBId('iv-dexamethasone'); }}
+                className="px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-900 dark:text-blue-200 border border-blue-200 dark:border-blue-800/60 hover:bg-blue-100 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                🤢 Antiemetik CINV (Ondansetron + Deksametason)
+              </button>
+              <button
+                onClick={() => { setAdmixtureDrugAId('iv-morphine'); setAdmixtureDrugBId('iv-furosemide'); }}
+                className="px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-900 dark:text-rose-200 border border-rose-200 dark:border-rose-800/60 hover:bg-rose-100 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                🛑 Fatal Presipitasi (Morfin + Furosemid)
+              </button>
+              <button
+                onClick={() => { setAdmixtureDrugAId('iv-pantoprazole'); setAdmixtureDrugBId('iv-morphine'); }}
+                className="px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-900 dark:text-rose-200 border border-rose-200 dark:border-rose-800/60 hover:bg-rose-100 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                🛑 Rusak Asam-Basa (Pantoprazole + Morfin)
+              </button>
+              <button
+                onClick={() => { setAdmixtureDrugAId('iv-dexmedetomidine'); setAdmixtureDrugBId('iv-ketamine'); }}
+                className="px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200 border border-indigo-200 dark:border-indigo-800/60 hover:bg-indigo-100 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                🌟 Ketodex ICU (Dexmedetomidine + Ketamin)
+              </button>
+              <button
+                onClick={() => { setAdmixtureDrugAId('iv-dobutamine'); setAdmixtureDrugBId('iv-dopamine'); }}
+                className="px-2.5 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/40 text-sky-900 dark:text-sky-200 border border-sky-200 dark:border-sky-800/60 hover:bg-sky-100 font-bold font-outfit cursor-pointer transition-colors"
+              >
+                💓 Inotropik Syok (Dobutamin + Dopamin)
+              </button>
+            </div>
+
+            {/* Evaluation Result Detail Box */}
+            {currentAdmixtureResult ? (
+              <div
+                className={`rounded-3xl p-5 sm:p-6 transition space-y-4 border ${
+                  currentAdmixtureResult.status === 'incompatible'
+                    ? 'bg-rose-50/90 dark:bg-rose-950/30 border-2 border-rose-400 dark:border-rose-700/80'
+                    : currentAdmixtureResult.status === 'conditional'
+                    ? 'bg-amber-50/90 dark:bg-amber-950/30 border-2 border-amber-400 dark:border-amber-700/80'
+                    : 'bg-emerald-50/70 dark:bg-emerald-950/20 border-2 border-emerald-400 dark:border-emerald-700/80'
+                }`}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200/80 dark:border-slate-800">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-base sm:text-lg font-black font-outfit text-slate-900 dark:text-white">
+                      {IV_DRUGS_DATABASE.find(d => d.id === currentAdmixtureResult.drugAId)?.name}
+                    </span>
+                    <span className="text-sm font-black text-slate-400">+</span>
+                    <span className="text-base sm:text-lg font-black font-outfit text-slate-900 dark:text-white">
+                      {IV_DRUGS_DATABASE.find(d => d.id === currentAdmixtureResult.drugBId)?.name}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 font-mono bg-white dark:bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800">
+                      Sumber: {currentAdmixtureResult.evidence}
+                    </span>
+                  </div>
+                </div>
+
+                {/* 4 Feature Parameter Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                  <div className="bg-white dark:bg-slate-900/90 rounded-2xl p-3.5 border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+                    <span className="text-slate-500 dark:text-slate-400 font-bold font-outfit block flex items-center gap-1.5 mb-1">
+                      <Clock className="w-3.5 h-3.5 text-teal-500" />
+                      Stabilitas Campuran Spuit
+                    </span>
+                    <span className="text-sm font-black font-outfit text-slate-900 dark:text-white">
+                      {currentAdmixtureResult.stabilityHours > 0 ? `${currentAdmixtureResult.stabilityHours} Jam` : '0 Jam (Langsung Rusak)'}
+                    </span>
+                  </div>
+
+                  <div className="bg-white dark:bg-slate-900/90 rounded-2xl p-3.5 border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+                    <span className="text-slate-500 dark:text-slate-400 font-bold font-outfit block flex items-center gap-1.5 mb-1">
+                      <FlaskConical className="w-3.5 h-3.5 text-sky-500" />
+                      Pelarut Pengencer
+                    </span>
+                    <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                      {currentAdmixtureResult.diluent}
+                    </span>
+                  </div>
+
+                  <div className="bg-white dark:bg-slate-900/90 rounded-2xl p-3.5 border border-slate-200/80 dark:border-slate-800 shadow-2xs sm:col-span-2">
+                    <span className="text-slate-500 dark:text-slate-400 font-bold font-outfit block flex items-center gap-1.5 mb-1">
+                      <Activity className="w-3.5 h-3.5 text-indigo-500" />
+                      Konteks Penggunaan Klinis
+                    </span>
+                    <span className="text-xs font-bold text-indigo-900 dark:text-indigo-200">
+                      {currentAdmixtureResult.clinicalContext}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Physical Observations */}
+                <div className="bg-white dark:bg-slate-900/90 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-2xs text-xs space-y-1">
+                  <span className="text-slate-700 dark:text-slate-300 font-bold font-outfit block">
+                    Pengamatan Fisik Larutan (Kejernihan &amp; Partikel):
+                  </span>
+                  <p className="text-slate-800 dark:text-slate-200 leading-relaxed font-medium">
+                    {currentAdmixtureResult.physicalObservations}
+                  </p>
+                </div>
+
+                {/* Clinical Notes & Pharmacy Recommendation */}
+                <div className={`p-4 rounded-2xl text-xs space-y-1.5 border ${
+                  currentAdmixtureResult.status === 'incompatible'
+                    ? 'bg-rose-100/90 dark:bg-rose-950/60 border-rose-300 dark:border-rose-800 text-rose-950 dark:text-rose-100'
+                    : currentAdmixtureResult.status === 'conditional'
+                    ? 'bg-amber-100/90 dark:bg-amber-950/60 border-amber-300 dark:border-amber-800 text-amber-950 dark:text-amber-100'
+                    : 'bg-emerald-100/90 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-800 text-emerald-950 dark:text-emerald-100'
+                }`}>
+                  <span className="font-black font-outfit block">
+                    Rekomendasi Farmasis Klinis &amp; Prosedur Pemberian:
+                  </span>
+                  <p className="leading-relaxed font-medium">
+                    {currentAdmixtureResult.clinicalNotes}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center space-y-2">
+                <HelpCircle className="w-8 h-8 text-slate-400 mx-auto" />
+                <h5 className="text-sm font-bold font-outfit text-slate-800 dark:text-slate-200">
+                  Data Pengujian 1 Spuit Belum Tersedia
+                </h5>
+                <p className="text-xs text-slate-500 dark:text-slate-400 max-w-lg mx-auto font-medium">
+                  Kombinasi kedua obat ini belum tercatat dalam pengujian stabilitas continuous subcutaneous / syringe driver (Dickman 5th Ed &amp; ASHP). Direkomendasikan memberikan melalui spuit dan jalur terpisah.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Searchable Admixture Directory Table */}
+          <div className="bg-white dark:bg-[#071726] border border-teal-200/80 dark:border-teal-500/25 rounded-3xl p-5 sm:p-6 shadow-sm space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h4 className="text-sm sm:text-base font-extrabold font-outfit text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
+                  <BookOpen className="w-4 h-4 text-teal-500" />
+                  Direktori Basis Data Admixture 1 Spuit ({filteredAdmixtureDatabase.length} Pasangan Terverifikasi)
+                </h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  Kompilasi lengkap pengujian stabilitas spuit berdasarkan Dickman Palliative Care &amp; ASHP Injectable Drugs
+                </p>
+              </div>
+
+              {/* Search input */}
+              <div className="relative min-w-[240px]">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <input
+                  type="text"
+                  value={admixtureSearchQuery}
+                  onChange={(e) => setAdmixtureSearchQuery(e.target.value)}
+                  placeholder="Cari nama obat / indikasi..."
+                  className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-900 border border-teal-200 dark:border-teal-800 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+              </div>
+            </div>
+
+            {/* Filter Pills */}
+            <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-900/80 rounded-xl border border-slate-200 dark:border-slate-800 text-xs w-fit">
+              <button
+                onClick={() => setAdmixtureStatusFilter('all')}
+                className={`px-3 py-1 rounded-lg font-bold font-outfit transition cursor-pointer ${
+                  admixtureStatusFilter === 'all'
+                    ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs'
+                    : 'text-slate-600 dark:text-slate-400'
+                }`}
+              >
+                Semua ({SYRINGE_ADMIXTURE_DATABASE.length})
+              </button>
+              <button
+                onClick={() => setAdmixtureStatusFilter('compatible')}
+                className={`px-3 py-1 rounded-lg font-bold font-outfit transition cursor-pointer ${
+                  admixtureStatusFilter === 'compatible'
+                    ? 'bg-emerald-600 text-white shadow-2xs'
+                    : 'text-emerald-600 dark:text-emerald-400'
+                }`}
+              >
+                Kompatibel
+              </button>
+              <button
+                onClick={() => setAdmixtureStatusFilter('conditional')}
+                className={`px-3 py-1 rounded-lg font-bold font-outfit transition cursor-pointer ${
+                  admixtureStatusFilter === 'conditional'
+                    ? 'bg-amber-600 text-white shadow-2xs'
+                    : 'text-amber-600 dark:text-amber-400'
+                }`}
+              >
+                Bersyarat
+              </button>
+              <button
+                onClick={() => setAdmixtureStatusFilter('incompatible')}
+                className={`px-3 py-1 rounded-lg font-bold font-outfit transition cursor-pointer ${
+                  admixtureStatusFilter === 'incompatible'
+                    ? 'bg-rose-600 text-white shadow-2xs'
+                    : 'text-rose-600 dark:text-rose-400'
+                }`}
+              >
+                Inkompatibel
+              </button>
+            </div>
+
+            {/* Table */}
+            <div className="overflow-x-auto rounded-2xl border border-teal-100 dark:border-teal-950">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead className="bg-slate-50 dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 font-extrabold font-outfit border-b border-teal-100 dark:border-teal-950">
+                  <tr>
+                    <th className="p-3">Obat A</th>
+                    <th className="p-3">Obat B</th>
+                    <th className="p-3">Status</th>
+                    <th className="p-3">Stabilitas</th>
+                    <th className="p-3">Pelarut</th>
+                    <th className="p-3">Konteks Klinis</th>
+                    <th className="p-3 text-right">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-teal-100/60 dark:divide-teal-950/60 font-medium">
+                  {filteredAdmixtureDatabase.map((item) => {
+                    const drugA = IV_DRUGS_DATABASE.find(d => d.id === item.drugAId);
+                    const drugB = IV_DRUGS_DATABASE.find(d => d.id === item.drugBId);
+                    return (
+                      <tr key={item.id} className="hover:bg-teal-50/50 dark:hover:bg-teal-950/30 transition-colors">
+                        <td className="p-3 font-bold font-outfit text-slate-900 dark:text-white">
+                          {drugA?.name || item.drugAId}
+                        </td>
+                        <td className="p-3 font-bold font-outfit text-slate-900 dark:text-white">
+                          {drugB?.name || item.drugBId}
+                        </td>
+                        <td className="p-3">
+                          {item.status === 'compatible' && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-black bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                              <CheckCircle2 className="w-3 h-3" /> Kompatibel
+                            </span>
+                          )}
+                          {item.status === 'incompatible' && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-black bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300">
+                              <AlertTriangle className="w-3 h-3" /> Inkompatibel
+                            </span>
+                          )}
+                          {item.status === 'conditional' && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-black bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300">
+                              <Info className="w-3 h-3" /> Bersyarat
+                            </span>
+                          )}
+                        </td>
+                        <td className="p-3 font-bold text-slate-800 dark:text-slate-200">
+                          {item.stabilityHours > 0 ? `${item.stabilityHours} Jam` : '0 Jam'}
+                        </td>
+                        <td className="p-3 text-slate-600 dark:text-slate-400">
+                          {item.diluent}
+                        </td>
+                        <td className="p-3 text-slate-700 dark:text-slate-300">
+                          {item.clinicalContext}
+                        </td>
+                        <td className="p-3 text-right">
+                          <button
+                            onClick={() => {
+                              setAdmixtureDrugAId(item.drugAId);
+                              setAdmixtureDrugBId(item.drugBId);
+                              window.scrollTo({ top: 300, behavior: 'smooth' });
+                            }}
+                            className="px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/80 text-teal-800 dark:text-teal-300 hover:bg-teal-100 dark:hover:bg-teal-900 border border-teal-200 dark:border-teal-800 text-[11px] font-bold font-outfit cursor-pointer transition-colors"
+                          >
+                            Uji Pasangan Ini
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
